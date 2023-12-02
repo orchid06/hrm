@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\MenuVisibilty;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MenuRequest;
@@ -76,9 +77,9 @@ class MenuController extends Controller
     public function store(MenuRequest $request) :RedirectResponse{
 
         $menu  = new Menu();
-        $menu->serial_id  =  $request->input("serial_id");
-        $menu->name       =  $request->input("name");
-        $menu->url        =  $request->input("url");
+        $menu->serial_id              =  $request->input("serial_id");
+        $menu->name                   =  $request->input("name");
+        $menu->url                    =  $request->input("url");
         $menu->save();
         return  back()->with(response_status('Menu created successfully'));
     }
@@ -94,10 +95,11 @@ class MenuController extends Controller
     public function update(MenuRequest $request) :RedirectResponse{
 
 
-        $menu             =  Menu::findOrFail($request->input('id'));
-        $menu->serial_id  =  $request->input("serial_id");
-        $menu->name       =  $request->input("name");
-        $menu->url        =  $request->input("url");
+        $menu                         =  Menu::findOrFail($request->input('id'));
+        $menu->serial_id              =  $request->input("serial_id");
+        $menu->name                   =  $request->input("name");
+        $menu->url                    =  $request->input("url");
+        $menu->menu_visibility        =  $request->input("menu_visibility") ?? MenuVisibilty::value("Both") ;
         $menu->save();
    
         return  back()->with(response_status('Menu updated successfully'));

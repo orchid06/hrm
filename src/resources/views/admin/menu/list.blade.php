@@ -87,13 +87,7 @@
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-                            <th scope="col">
-                                {{translate('Header Presence')}}
-                            </th>
-
-                            <th scope="col">
-                                {{translate('Footer Presence')}}
-                            </th>
+                       
 
                             <th scope="col">
                                 {{translate('Options')}}
@@ -134,33 +128,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Header Presence")}}">
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_menu') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="show_in_header"
-                                                data-route="{{ route('admin.menu.update.status') }}"
-
-                                                data-status="{{ $menu->show_in_header == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$menu->uid}}" {{$menu->show_in_header ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-header-{{$menu->id}}" >
-                                            <label class="form-check-label" for="status-switch-header-{{$menu->id}}"></label>
-                                        </div>
-                                    </td>
-                                    <td data-label="{{translate("Footer Presence")}}">
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_menu') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="show_in_footer"
-                                                data-route="{{ route('admin.menu.update.status') }}"
-
-                                                data-status="{{ $menu->show_in_footer == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$menu->uid}}" {{$menu->show_in_footer ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-footer-{{$menu->id}}" >
-                                            <label class="form-check-label" for="status-switch-footer-{{$menu->id}}"></label>
-                                        </div>
-                                    </td>
-
-
-
+                             
                                     <td data-label="{{translate("Action")}}">
                                         <div class="table-action">
 

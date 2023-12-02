@@ -7,6 +7,7 @@ use App\Enums\SubscriptionStatus;
 use App\Enums\TicketStatus;
 use App\Enums\WithdrawStatus;
 use App\Models\Admin\Currency;
+use App\Models\Admin\Frontend;
 use App\Models\Admin\Template;
 use App\Models\Core\Language;
 use Illuminate\Support\Facades\Artisan;
@@ -892,6 +893,21 @@ use App\Traits\Fileable;
          
 		}
    }
+
+
+
+   
+   if (!function_exists('get_content')){
+      function get_content(string $key, bool $first  = true ) : mixed{
+
+         $method = $first  ? "first" : "get";
+         return Frontend::with(['file'])->where("key",$key)->{$method}();
+       
+      }
+   }
+
+
+
 
 
 

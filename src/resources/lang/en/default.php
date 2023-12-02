@@ -26,5 +26,14 @@ return [
     "updated_successfully" => "Updated Successfully.",
     "general_settings" => "General Settings",
     "cron_setup" => "Setup Cron Jobs",
+    "back_to_top" => "Back to top",
+
+
+    /** site  title  */
+
+    "home"  => 'Home',
+
+
+
 
 ];

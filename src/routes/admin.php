@@ -32,7 +32,16 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\TryCatch;
 
-Route::middleware(['sanitizer','https',"dos.security",'throttle:refresh'])->prefix('admin')->name('admin.')->group(function () {
+
+
+$hitLimit = 500;
+try {
+    $hitLimit = site_settings('web_route_rate_limit');
+} catch (\Throwable $th) {
+
+}
+
+Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () {
 
      #guest admin route start here
 	Route::middleware(['guest:admin'])->group(function () {
@@ -428,7 +437,7 @@ Route::middleware(['sanitizer','https',"dos.security",'throttle:refresh'])->pref
 
 
 
-          #Package section refactored start
+          #Package section refactored 
           Route::controller(PackageController::class)->prefix("/subscription-package")->name('subscription.package.')->group(function(){
 
                Route::get('/list','list')->name('list');
@@ -485,8 +494,6 @@ Route::middleware(['sanitizer','https',"dos.security",'throttle:refresh'])->pref
                     Route::post('/update','updateDeposit')->name('update');
                });
 
-
-
                #withdraw reports
                Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function(){
                     Route::get('/','withdrawReport')->name('list');
@@ -499,7 +506,6 @@ Route::middleware(['sanitizer','https',"dos.security",'throttle:refresh'])->pref
                     Route::get('/','affiliateReport')->name('list');
                });
                
-
           });
 
 

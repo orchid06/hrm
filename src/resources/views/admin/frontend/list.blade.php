@@ -42,7 +42,7 @@
                         </button>
                     </div>
 
-                    <form action="{{route('admin.appearance.update')}}"  method="post" enctype="multipart/form-data">
+                    <form class="builder-form" action="{{route('admin.appearance.update')}}"  method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -52,7 +52,8 @@
                                 <input type="hidden" name="key" value="{{request()->route("key")}}">
 
                                 @foreach($appearance->element as $k => $content)
-                                    @if($k != 'modal')
+                                    
+                                   @if($k != 'modal')
                                         @if($k == 'images')
                                             @foreach($content as $imK => $imV)
                                         
@@ -62,7 +63,7 @@
                                                             {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>
                                                         </label> 
 
-                                                        <input   data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class=" preview" >
+                                                        <input   data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class=" preview">
                 
                                                         <div class="mt-2 image-preview-section modal-file-{{$loop->index}}">
 
@@ -111,8 +112,9 @@
                                                     
                                                             <textarea  placeholder="{{translate(k2t($k))}}"   @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10"></textarea>
                                                     @else
+                              
 
-                                                            <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
+                                                            <input value="" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
                                                     
                                                     @endif
                                                 </div>
@@ -164,7 +166,7 @@
              $(document).on('click','.create',function(e){
 
                 var modal = $('#sectionSave');
-                var form = modal.find('form');
+                var form = modal.find('.builder-form');
                 modal.find('input[name="id"]').attr('disabled',true);
                 form[0].reset();
                 $('.image-preview-section').html('')
@@ -175,10 +177,11 @@
              $(document).on('click','.update',function(e){
 
                   var modal        = $('#sectionSave');
-                  var form = modal.find('form');
+                  var form = modal.find('.builder-form');
                   form[0].reset();
                   var files        = JSON.parse($(this).attr('data-files'));
-                  var appearances  =  JSON.parse($(this).attr('data-appearance'));
+                  var appearances  = JSON.parse($(this).attr('data-appearance'));
+
 
                   modal.find('input[name="id"]').attr('disabled',false);
                   modal.find('input[name=id]').val($(this).attr('data-id'));

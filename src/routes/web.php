@@ -82,7 +82,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/logout', 'logout')->name('logout');
             });
 
-          #home & profile route
+           #home & profile route
             Route::controller(HomeController::class)->group(function(){
                 Route::any('dashboard','home')->name('home');
                 Route::prefix('profile')->name('profile.')->group(function () {
@@ -168,6 +168,12 @@ use Illuminate\Support\Facades\Route;
         Route::controller(FrontendController::class)->group(function (){
 
             /** base url  */
+
+
+                Route::get('/', 'home')->name('home');
+
+
+
          
 
         });
@@ -195,11 +201,6 @@ use Illuminate\Support\Facades\Route;
         });
 
        
-
-
-        
-     
-
     });
 
     Route::get('/error/{message?}', function (?string $message = null) {

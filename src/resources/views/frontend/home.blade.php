@@ -1,8 +1,15 @@
 @extends('layouts.master')
 @section('content')
 
+@php
+   $bannerContent = get_content("content_banner");  
 
-hello
+   @dd( $bannerContent);
+@endphp
+
+
+
+
 
 
 @endsection

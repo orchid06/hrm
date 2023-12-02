@@ -20,22 +20,22 @@ class Verification
     public function handle(Request $request, Closure $next): Response
     {
 
-         try {
-            if(auth_user('web')){
-                if(auth_user('web')->status == StatusEnum::false->status()){
-                   return  (new LoginController())->logout()->with(response_status('Your Account is Banned!!','error'));
-                }
-                if(site_settings('email_verification') ==  StatusEnum::true->status() &&  !auth_user('web')->email_verified_at){
-                    session()->put("registration_verify_email",auth_user('web')->email);
-                    (new LoginController())->logout();
-                    return (new RegisterController())->resend();
-                }
-            }
+        //  try {
+        //     if(auth_user('web')){
+        //         if(auth_user('web')->status == StatusEnum::false->status()){
+        //            return  (new LoginController())->logout()->with(response_status('Your Account is Banned!!','error'));
+        //         }
+        //         if(site_settings('email_verification') ==  StatusEnum::true->status() &&  !auth_user('web')->email_verified_at){
+        //             session()->put("registration_verify_email",auth_user('web')->email);
+        //             (new LoginController())->logout();
+        //             return (new RegisterController())->resend();
+        //         }
+        //     }
 
            
-         } catch (\Throwable $th) {
+        //  } catch (\Throwable $th) {
        
-         }
+        //  }
 
     
         return $next($request);

@@ -10,7 +10,7 @@
             @if($k == 'images')
                 @foreach($content as $imK => $imV)
             
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-inner">
                             <label for="{{$imK}}">
                                 {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>
@@ -75,7 +75,7 @@
                                 <textarea placeholder="{{translate(k2t($k))}}" required @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10">@php echo @$appearance_content->value->$k @endphp</textarea>
                         @else
 
-                                <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="iconPicker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
+                                <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
                         
                         @endif
                     </div>

@@ -53,16 +53,12 @@ class FrontendSectionRequest extends FormRequest
         }
 
         if(isset($appearances[request()->input('key')][request()->input('type')]['images'])){
-
+          
            foreach($appearances[request()->input('key')][request()->input('type')]['images'] as $k => $v){
-              $rules["image_input.".$k] = [ Rule::requiredIf(function ()  {
-                return !request()->has('id');
-              }),'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))];
+              $rules["image_input.".$k] = ['image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))];
            }
         }
-    
-        
-      
+
         return $rules;
     }
 }
