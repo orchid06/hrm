@@ -1,0 +1,180 @@
+{
+ 
+    "client": {
+        "builder": true,
+        "name": "our_clients",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "190x65"
+                }
+           
+            },
+            "modal": true
+        }
+    },
+    "about": {
+        "builder": true,
+        "name": "about_us",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "750x550"
+                }
+             
+            },
+            "heading": "text",
+            "sub_heading": "text",
+            "button_name": "text",
+            "button_link": "text",
+            "description": "textarea-editor"
+       
+
+        }
+    },
+    "feature": {
+        "builder": true,
+        "name": "feature_section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "715x710"
+                }
+                
+            },
+            "heading": "text",
+            "subheading": "text",
+            "content": "textarea-editor"
+        },
+        "element": {
+            "icon": "icon",
+            "title": "text",
+            "details": "textarea-editor",
+            "modal": true
+        }
+    },
+    "plan": {
+        "builder": true,
+        "name": "plan_section",
+        "content": {
+            "subheading": "text",
+            "heading": "text"
+        }
+    },
+    "faq": {
+        "builder": true,
+        "name": "FAQ_section",
+        "content": {
+            "heading": "text",
+            "subheading": "text",
+            "description": "text"
+        },
+        "element": {
+            "question": "text",
+            "answer"  : "textarea",
+            "modal": true
+        }
+    },
+    "testimonial": {
+        "builder": true,
+        "name": "testimonial_section",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "440x440"
+                }
+            },
+            "author": "text",
+            "designation": "text",
+            "quote": "textarea",
+            "rating" : "number",
+            "modal": true
+        }
+    },
+  
+    "blog": {
+        "builder": true,
+        "name": "blog_section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+    
+    "breadcrumb": {
+        "builder": true,
+        "no_selection": true,
+        "name": "breadcrumb",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1900x375"
+                }
+     
+            }
+        }
+    },
+    "counter": {
+        "builder": true,
+        "name": "counter_section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1920x350"
+                }
+            }
+        },
+        "element": {
+            "title": "text",
+            "counter_digit": "text",
+            "modal": true
+        }
+    },
+    "social_icon": {
+        "builder": true,
+        "no_selection": true,
+        "name": "social_icons",
+        "element": {
+            "social_icon": "icon",
+            "title": "text",
+            "url": "text",
+            "modal": true
+        }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "footer_section",
+        "content": {
+            "title": "text",
+            "content": "text",
+            "subscription_heading": "text",
+            "subscription_subheading": "text"
+        }
+    },
+    "cta": {
+        "builder": true,
+        "no_selection": true,
+        "name": "CTA_section ",
+        "content": {
+            "heading": "text",
+            "subheading": "text",
+            "button_name": "text",
+            "button_link": "text"
+        }
+    },
+   
+    "login": {
+        "builder": true,
+        "no_selection": true,
+        "name": "authentication_section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "800x1100"
+                }
+            },
+            "heading": "text"
+        }
+    }
+}

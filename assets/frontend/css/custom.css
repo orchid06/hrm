@@ -1,0 +1,283 @@
+.trash-bin img {
+  max-width: 150px !important;
+  margin: 0 auto !important;
+}
+
+#map {
+  max-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.sticky-side-div {
+  position: sticky;
+  top: calc(7.5rem + 2rem);
+}
+
+.i-checkbox {
+  display: inline-flex;
+  margin-right: 1rem;
+
+  align-items: center;
+  gap: 5px;
+}
+
+/* ==============Dropdown Notification Start============== */
+.dropdown-notification {
+  width: 300px;
+  padding-top: 10px;
+}
+.dropdown-notification > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 325px;
+  overflow-y: auto;
+  height: 100%;
+}
+.noti-item {
+  padding: 10px 20px;
+  transition: var(--transition-3);
+  width: 100%;
+}
+.noti-item:hover {
+  background-color: var(--color-primary-light);
+}
+.noti-item-link > h6 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.noti-item-link > P {
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.noti-item-link > span {
+  color: var(--text-secondary);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+}
+.seeall-noti-item {
+  display: block;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 0;
+  text-decoration: underline;
+}
+
+.noitfy-list .list-group {
+  gap: 1.5rem;
+}
+.noitfy-list .user-title {
+  font-size: 1.6rem;
+}
+.noitfy-list .list-group-item {
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+.modal-dialog-scrollable .modal-content > form {
+  overflow-y: auto !important;
+}
+
+
+
+
+/* ===========Ticket Details=========== */
+.ticket-detail > h6 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.ticket-dtable > table tr:first-child td {
+  padding-top: 0;
+}
+.ticket-dtable > table tr td:first-child {
+  font-weight: 600;
+  color: var(--color-dark);
+  padding-left: 0;
+}
+.ticket-dtable > table tr td:last-child {
+  font-size: 14px;
+  padding-right: 0;
+  text-align: left;
+}
+
+/* ===========Ticket Messages=========== */
+.ticket-conversation {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border);
+}
+.ticket-conversation > h5 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.ticket-conversation > h6 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.comment {
+  height: auto;
+  max-height: 335px;
+  overflow-y: auto;
+  box-shadow: none;
+}
+.comment::-webkit-scrollbar {
+  width: 4px;
+}
+.comment::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.comment::-webkit-scrollbar-thumb {
+  background: #777;
+}
+.comment::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.comment img {
+  width: 4rem;
+  aspect-ratio: 1/1;
+}
+
+.comment-replay {
+  margin-left: 40px;
+  padding: 20px 0 20px 10px;
+}
+
+.comment-replay img {
+  width: 4rem;
+  aspect-ratio: 1/1;
+}
+.add-replay {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.add-replay > textarea {
+  width: 100%;
+  padding: 15px;
+  resize: none;
+  border: none;
+}
+.add-replay-action {
+  background-color: var(--border);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.file-attach {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.attach-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+.file-info > h5 {
+  font-size: 16px;
+}
+.file-info > small {
+  font-size: 14px;
+}
+
+/* ==========Download Button========== */
+.download-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-primary-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 0.3s;
+}
+.download-btn .svgIcon {
+  fill: var(--color-primary);
+  width: 8px;
+}
+.download-btn .icon2 {
+  width: 14px;
+  height: 5px;
+  border-bottom: 2px solid var(--color-primary);
+  border-left: 2px solid var(--color-primary);
+  border-right: 2px solid var(--color-primary);
+}
+.download-btn .tooltip {
+  position: absolute;
+  top: -100%;
+  opacity: 0;
+  background-color: rgb(12, 12, 12);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.2s;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+.download-btn .tooltip::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: rgb(12, 12, 12);
+  background-size: 1000%;
+  background-position: center;
+  transform: rotate(-45deg) translateX(-50%) !important;
+  left: 50%;
+  bottom: 0;
+  transition-duration: 0.3s;
+}
+.download-btn:hover .tooltip {
+  opacity: 1;
+  transition-duration: 0.3s;
+}
+.download-btn:hover {
+  background-color: rgb(150, 94, 255);
+  transition-duration: 0.3s;
+}
+.download-btn:hover .icon2 {
+  border-bottom: 2px solid rgb(235, 235, 235);
+  border-left: 2px solid rgb(235, 235, 235);
+  border-right: 2px solid rgb(235, 235, 235);
+}
+
+.download-btn:hover .svgIcon {
+  fill: rgb(255, 255, 255);
+  animation: slide-in-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.avatar-xs {
+  width: 3rem;
+  aspect-ratio: 1/1;
+}
