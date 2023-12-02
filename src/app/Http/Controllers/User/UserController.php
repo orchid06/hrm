@@ -44,12 +44,12 @@ class UserController extends Controller
             'meta_data'=> $this->metaData(["title" => translate("Pricing Plan")]),
             'packages' => Package::active()->get(),
             "payment_methods" => PaymentMethod::with(['image'])
-            ->active()
-            ->orderBy('serial_id','asc')
-            ->get(),
+                                ->active()
+                                ->orderBy('serial_id','asc')
+                                ->get(),
             "subscription" => Subscription::where('user_id',auth_user('web')->id)
-            ->where('status', StatusEnum::true->status())
-            ->first()
+                ->where('status', StatusEnum::true->status())
+                ->first()
         ]);
     }
 

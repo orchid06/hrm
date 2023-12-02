@@ -27,10 +27,10 @@ class FrontendController extends Controller
      *
      * @return View
      */
-    public function frontend() :View{
-        
+    public function home() :View{
+    
         return view('frontend.home',[
-            'meta_data'=> $this->metaData([],"home")
+            'meta_data'=> $this->metaData()
         ]);
     }
 

@@ -24,7 +24,8 @@ class LogoSettingRequest extends FormRequest
         return [
             'site_settings.site_logo'       =>  [ 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ],
             'site_settings.user_site_logo'  =>  [ 'image' ,new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
-            'site_settings.site_favicon'    =>  [ 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))]
+            'site_settings.site_favicon'    =>  [ 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
+            'site_settings.meta_image'      =>  [ 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
         ];
     }
 }

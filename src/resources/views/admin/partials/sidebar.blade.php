@@ -338,7 +338,7 @@
                 </small>
             </a>
 
-            <div class="side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*",'admin.subscription.report.*','admin.payment.report.*','admin.transaction.report.*',"admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*"],'drop_down')}} " id="report">
+            <div class="side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*",'admin.subscription.report.*','admin.payment.report.*','admin.transaction.report.*',"admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*" ,"admin.affiliate.report.*"],'drop_down')}} " id="report">
               <ul class="sub-menu">
 
 
@@ -405,6 +405,15 @@
 
                   </li>
 
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{sidebar_awake("admin.affiliate.report.*")}}"  href="{{route("admin.affiliate.report.list")}}">
+                        <span></span>
+                        <p>
+                          {{translate('Affiliate Reports')}}
+                        </p>
+                    </a>
+                  </li>
+  
                   <li class="sub-menu-item">
                       <a class="sidebar-menu-link {{sidebar_awake("admin.transaction.report.*")}}"  href="{{route("admin.transaction.report.list")}}">
                         <span></span>
@@ -478,15 +487,6 @@
                       @endif
                   @endforeach
 
-
-                  <li class="sub-menu-item">
-                      <a class="sidebar-menu-link {{sidebar_awake("admin.appearance.visitor")}}"  href="">
-                        <span></span>
-                          <p>
-                            {{translate('Visitors')}}
-                          </p>
-                      </a>
-                  </li>
 
                 @endif
 
@@ -799,44 +799,44 @@
         @endif
 
         @if(check_permission('view_template'))
-        <li class="sidebar-menu-item">
+            <li class="sidebar-menu-item">
 
-          <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#templates" role="button"
-            aria-expanded="false" aria-controls="templates">
-            <span><i class="las la-bell"></i></span>
-              <p>
-                {{translate('Notification Templates')}}
-              </p>
-              <small >
-                <i class="las la-angle-down"></i>
-              </small>
-          </a>
+              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#templates" role="button"
+                aria-expanded="false" aria-controls="templates">
+                <span><i class="las la-bell"></i></span>
+                  <p>
+                    {{translate('Notification Templates')}}
+                  </p>
+                  <small >
+                    <i class="las la-angle-down"></i>
+                  </small>
+              </a>
 
-          <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="templates">
-            <ul class="sub-menu">
+              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="templates">
+                <ul class="sub-menu">
 
-                <li class="sub-menu-item">
-                    <a class="sidebar-menu-link {{sidebar_awake(['admin.template.list',"admin.template.edit"])}}" href="{{route('admin.template.list')}}">
-                      <span></span>
-                        <p>
-                            {{translate('Notification Template')}}
-                        </p>
-                    </a>
-                </li>
+                    <li class="sub-menu-item">
+                        <a class="sidebar-menu-link {{sidebar_awake(['admin.template.list',"admin.template.edit"])}}" href="{{route('admin.template.list')}}">
+                          <span></span>
+                            <p>
+                                {{translate('Notification Template')}}
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="sub-menu-item">
-                    <a class="sidebar-menu-link {{sidebar_awake('admin.template.global')}}" href="{{route('admin.template.global')}}">
-                      <span></span>
-                        <p>
-                            {{translate('Global Template')}}
-                        </p>
-                    </a>
-                </li>
+                    <li class="sub-menu-item">
+                        <a class="sidebar-menu-link {{sidebar_awake('admin.template.global')}}" href="{{route('admin.template.global')}}">
+                          <span></span>
+                            <p>
+                                {{translate('Global Template')}}
+                            </p>
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
 
-          </div>
-        </li>
+              </div>
+            </li>
         @endif
 
         @if(check_permission('view_gateway'))

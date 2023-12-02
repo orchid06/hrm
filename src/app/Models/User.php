@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\StatusEnum;
 use App\Models\Admin;
@@ -245,6 +244,19 @@ class User extends Authenticatable
     public function creditLogs(): HasMany
     {
         return $this->hasMany(CreditLog::class, 'user_id');
+    }
+
+
+
+    
+    /**
+     * Get all of credit logs
+     *
+     * @return HasMany
+     */
+    public function affiliates(): HasMany
+    {
+        return $this->hasMany(AffiliateLog::class, 'user_id');
     }
 
 

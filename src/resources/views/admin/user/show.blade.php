@@ -131,6 +131,22 @@
                             )}} @endif</span>
 
                     </li>
+                    @if($user->affiliates->count() > 0)
+                        <li class="list-group-item">{{ translate('Affiliate Earnings') }} :   
+
+                            @php
+                               $earnings =  $user->affiliates->sum("commission_amount");
+                            @endphp
+                            <span class="i-badge-solid info"> {{num_format($earnings,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
+                                {{num_format(
+                                    number :$earnings,
+                                    calC   : true
+                                )}} @endif
+                            </span>
+
+                        </li>
+                    @endif
+                    
                     <li class="list-group-item">{{ translate('Name') }} : {{ $user->name }}</li>
                     <li class="list-group-item">{{ translate('Username') }} : {{ $user->user_name }}</li>
                     <li class="list-group-item">{{ translate('Phone') }} : {{ $user->phone }}</li>

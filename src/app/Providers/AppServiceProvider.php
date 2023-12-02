@@ -59,18 +59,6 @@ class AppServiceProvider extends ServiceProvider
 
    
 
-            view()->composer('frontend.sections.counter', function ($view)  {
-                $counter = array();
-
-                $counter ['total_visitor']  = Visitor::count();
-                $counter ['total_users']    = User::count();
-                $counter ['total_article']  = Article::count();
-
-                $view->with([
-                    "counter"=> $counter,
-                ]);
-            });
-
             view()->share([
                 'languages'       => Language::where('status',(StatusEnum::true)->status())->get(),
             ]);

@@ -50,9 +50,7 @@
                                             
                                             <input type="text" name="name" id="name" placeholder="{{translate("Enter name")}}"
                                                 value="{{$menu->name}}" required>        
-                                                <small class="text-danger">
-                                                    {{translate("Must be unique")}}
-                                                </small>                                                          
+                                                                                                     
                                         </div>                                                                         
                                 </div>
                                 <div class="col-lg-6">
@@ -64,9 +62,7 @@
                                             
                                             <input type="text" name="url" id="url" placeholder="{{translate("Enter url")}}"
                                                 value="{{$menu->url}}" required>        
-                                                <small class="text-danger">
-                                                    {{translate("Must be unique")}}
-                                                </small>                                                          
+                                                                                                       
                                         </div>                                                                         
                                 </div>
 
@@ -78,6 +74,24 @@
                                         <input type="number" name="serial_id" value="{{$menu->serial_id}}" >
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                              
+                                    <div class="form-inner ">
+                                        <label class="me-2">
+                                            {{translate("Visible In")}}
+                                        </label>
+
+                                        @foreach (App\Enums\MenuVisibilty::toArray() as $k => $v )
+                                            <input id="{{ $k }}" @if($menu->menu_visibility == $v ) checked  @endif value="{{ $v }}" class="form-check-input" name="menu_visibility" type="radio">
+                                            <label for="{{ $k }}" class="form-check-label me-2">
+                                                {{translate($k)}}
+                                            </label>
+                                        @endforeach
+      
+                                    </div>
+                                </div>
+    
 
                             
                                     <ul class="dropable-section mt-4">

@@ -22,6 +22,7 @@ use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Models\Admin\Template;
 use App\Models\Admin\Withdraw;
+use App\Models\AffiliateLog;
 use App\Models\AiTemplate;
 use App\Models\CreditLog;
 use App\Models\Package;
@@ -480,6 +481,36 @@ class ActivityHistoryController extends Controller
 
         return back()->with($response);
     }
+
+
+
+    /**
+     * deposit report
+     *
+     * @return View
+     */
+    public function affiliateReport() :View{
+
+
+        return view('admin.report.affiliate_report',[
+
+            'breadcrumbs'     =>  ['Home'=>'admin.home','Affiliate Reports'=> null],
+            'title'           => 'Affiliate Reports',
+            "reports"         =>  AffiliateLog::with(['user','subscription','subscription.package','referral'])
+                                    ->search(['trx_code'])
+                                    ->filter(["user:username",])
+                                    ->date()               
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all()),
+
+         
+        ]);
+
+    
+    }
+
+
   
   
   

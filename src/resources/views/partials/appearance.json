@@ -1,87 +1,267 @@
 {
- 
-    "client": {
+
+
+    "banner": {
         "builder": true,
-        "name": "our_clients",
-        "element": {
+        "name": "banner",
+        "content": {
+
             "images": {
                 "image": {
-                    "size": "190x65"
+                    "size": "1800X1200"
                 }
            
             },
+            "title": "text",
+            "description": "textarea",
+            "btn_left_name": "text",
+            "button_left_url": "text",
+            "btn_right_name": "text",
+            "button_right_url": "text"
+     
+    
+        },
+        "element": {
+            "split_text": "text",
             "modal": true
         }
     },
+ 
+   
     "about": {
         "builder": true,
         "name": "about_us",
         "content": {
-            "images": {
-                "image": {
-                    "size": "750x550"
-                }
-             
-            },
-            "heading": "text",
-            "sub_heading": "text",
-            "button_name": "text",
-            "button_link": "text",
-            "description": "textarea-editor"
-       
 
-        }
-    },
-    "feature": {
-        "builder": true,
-        "name": "feature_section",
-        "content": {
             "images": {
                 "image": {
-                    "size": "715x710"
+                    "size": "1800X1200"
                 }
-                
+           
             },
-            "heading": "text",
-            "subheading": "text",
-            "content": "textarea-editor"
+            "title": "text",
+            "sub_title": "text",
+            "button_name": "text",
+            "button_url": "text",
+            "description": "textarea"
+    
         },
         "element": {
             "icon": "icon",
-            "title": "text",
-            "details": "textarea-editor",
+            "name": "text",
             "modal": true
         }
     },
-    "plan": {
+
+    "platform": {
         "builder": true,
-        "name": "plan_section",
+        "name": "platform",
         "content": {
-            "subheading": "text",
-            "heading": "text"
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+    
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "1920x1080"
+                }
+           
+            },
+            "icon": "icon",
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea-editor",
+            "modal": true
         }
     },
+
+
+    
+    "integrations": {
+        "builder": true,
+        "name": "integration_section",
+        "content": {
+
+            "images": {
+                "image": {
+                    "size": "1650x2750"
+                }
+           
+            },
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+    
+        }
+      
+    },
+
+
+    "feature": {
+        "builder": true,
+        "name": "feature",
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+    
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "1920x1080"
+                }
+           
+            },
+            "icon": "icon",
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea-editor",
+            "modal": true
+        }
+    },
+
+
+    "content": {
+        "builder": true,
+        "name": "content_section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1920x1080"
+                }
+           
+            },
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+    
+        }
+    
+    },
+
+
+    "cookie": {
+        "builder": true,
+        "name": "cookie",
+        "no_selection": true,
+        "content": {
+            "images": {
+                "cookie_image": {
+                    "size": "100x100"
+                }
+            },
+            "description": "textarea"
+    
+        }
+    
+    },
+
+
+
+    "template": {
+        "builder": true,
+        "name": "template_section",
+        "content": {
+
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+            
+    
+        }
+    
+    },
+    
+    "analytics": {
+        "builder": true,
+        "name": "analytics_section",
+        "content": {
+
+            "title": "text",
+            "sub_title": "text",
+            "button_name": "text",
+            "button_url": "text",
+            "description": "textarea",
+            "images": {
+                "image": {
+                    "size": "1920x1080"
+                }
+           
+            }
+    
+        }
+    
+    },
+
+
+    "why_us": {
+        "builder": true,
+        "name": "why_choose_us",
+        "content": {
+
+            "title": "text",
+            "sub_title": "text",
+            "button_name": "text",
+            "button_url": "text",
+            "description": "textarea"
+        },
+        "element": {
+           
+            "icon": "icon",
+            "title": "text",
+            "description": "textarea-editor",
+            "modal": true
+        }
+    
+    },
+
     "faq": {
         "builder": true,
         "name": "FAQ_section",
         "content": {
-            "heading": "text",
-            "subheading": "text",
-            "description": "text"
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
         },
         "element": {
+            "icon": "icon",
             "question": "text",
             "answer"  : "textarea",
             "modal": true
         }
     },
+
+ 
+    "plan": {
+        "builder": true,
+        "name": "plan_section",
+        "content": {
+          
+            "title": "text",
+            "sub_title": "text",
+            "button_name": "text",
+            "button_url": "text",
+            "description": "textarea"
+        }
+    },
+ 
+
     "testimonial": {
         "builder": true,
         "name": "testimonial_section",
+
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+        },
         "element": {
             "images": {
                 "image": {
-                    "size": "440x440"
+                    "size": "200x200"
                 }
             },
             "author": "text",
@@ -96,40 +276,15 @@
         "builder": true,
         "name": "blog_section",
         "content": {
-            "heading": "text",
-            "subheading": "text"
+            "title": "text",
+            "sub_title": "text",
+            "button_name": "text",
+            "button_url": "text",
+            "description": "textarea"
         }
     },
     
-    "breadcrumb": {
-        "builder": true,
-        "no_selection": true,
-        "name": "breadcrumb",
-        "content": {
-            "images": {
-                "image": {
-                    "size": "1900x375"
-                }
-     
-            }
-        }
-    },
-    "counter": {
-        "builder": true,
-        "name": "counter_section",
-        "content": {
-            "images": {
-                "image": {
-                    "size": "1920x350"
-                }
-            }
-        },
-        "element": {
-            "title": "text",
-            "counter_digit": "text",
-            "modal": true
-        }
-    },
+   
     "social_icon": {
         "builder": true,
         "no_selection": true,
@@ -146,35 +301,58 @@
         "no_selection": true,
         "name": "footer_section",
         "content": {
-            "title": "text",
-            "content": "text",
-            "subscription_heading": "text",
-            "subscription_subheading": "text"
+            "images": {
+                "payment_image": {
+                    "size": "580x80"
+                }
+            }
         }
     },
+
     "cta": {
         "builder": true,
         "no_selection": true,
         "name": "CTA_section ",
         "content": {
-            "heading": "text",
-            "subheading": "text",
+            "title": "text",
+            "description": "textarea"
+        },
+        "element": {
+           
             "button_name": "text",
-            "button_link": "text"
+            "url": "text",
+            "modal": true
+        
+        }
+    },
+
+    "newslatter": {
+        "builder": true,
+        "no_selection": true,
+        "name": "newslatter_section ",
+        "content": {
+            "title": "text",
+            "description": "textarea"
         }
     },
    
-    "login": {
+    "authentication_section": {
         "builder": true,
         "no_selection": true,
         "name": "authentication_section",
         "content": {
+           
+            "description": "textarea"
+        },
+        "element": {
             "images": {
                 "image": {
-                    "size": "800x1100"
+                    "size": "1920x1080"
                 }
             },
-            "heading": "text"
+            "title": "text",
+            "description": "textarea",
+            "modal": true
         }
     }
 }

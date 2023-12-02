@@ -199,11 +199,12 @@ class UserController extends Controller
         try {
            
             DB::transaction(function() use ($id) {
-                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs'])
+                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates'])
                                 ->where('uid',$id)
                                 ->firstOrfail();
 
                 $user->subscriptions()->delete();
+                $user->affiliates()->delete();
                 $user->otp()->delete();
                 $user->transactions()->delete();
                 $user->notifications()->delete();
@@ -276,8 +277,9 @@ class UserController extends Controller
      */
     public function show(string $uid) :View{
 
-        $user  = User::with(['file','kycLogs','templates','paymentLogs','transactions','subscriptions','tickets','withdraws'])
-                      ->where('uid',$uid)->firstOrFail();
+        $user  = User::with(['file','kycLogs','templates','paymentLogs','transactions','subscriptions','tickets','withdraws','affiliates'])
+                    ->where('uid',$uid)
+                    ->firstOrFail();
 
         return view('admin.user.show',[
 
