@@ -136,7 +136,7 @@
 
                                 <td data-label="{{translate("Name")}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-md"  src="{{imageUrl($user->file,"profile,user",true) }}" alt="{{@$user->file->name}}">
+                                        <img class="rounded-circle avatar-sm"  src="{{imageUrl($user->file,"profile,user",true) }}" alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->subscriptions->count() > 0)
                                        

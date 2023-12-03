@@ -30,22 +30,27 @@
       align-items: center;
       .btn-icon {
         position: relative;
-        background-color: $site-bg;
+        background-color: $color-primary-light;
         @include square(40px, 50%);
-        font-size: 24px;
+        font-size: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: $text-primary;
+        color: $color-primary;
+        // border: 1px solid $color-primary-light;
         cursor: pointer;
         @include transition-5;
-
         @include sm-down-device{
           @include square(22px, 50%);
           background-color: unset;
         }
+
+        &.btn--text{
+          font-size: 14px;
+          font-weight: 500;
+        }
         a {
-          color: $text-primary;
+          color: $color-primary;
           @include transition-5;
           line-height: 1;
         }
@@ -252,7 +257,7 @@
                     .notify-icon {
                       width: 30px;
                       img {
-                        width: 30px;
+                        min-width: 30px;
                         height: 30px;
                         border-radius: 50%;
                         object-fit: cover;
@@ -265,13 +270,13 @@
                         align-items: flex-end;
                         gap: 10px;
                         small {
-                          font-size: 10px;
+                          font-size: 12px;
                           color: $text-secondary;
                         }
                       }
                       p {
                         margin-top: 5px;
-                        font-size: 12px;
+                        font-size: 13px;
                         line-height: 1.2;
                         color: $text-secondary;
                         overflow: hidden;
@@ -327,7 +332,8 @@
         }
         .btn-icon {
           &:hover {
-            background-color: transparent;
+            background-color: $color-primary;
+            color: $color-white;
           }
           .flag-img {
             max-width: 40px;

@@ -106,7 +106,7 @@
                                         <td data-label="{{translate("Name")}}">
                                             <div class="user-meta-info d-flex align-items-center gap-2">
                                            
-                                                <img class="rounded-circle avatar-md" src="{{imageUrl(@$method->file,"payment_method",true)}}" alt="{{@$method->file->name}}">
+                                                <img class="rounded-circle avatar-sm" src="{{imageUrl(@$method->file,"payment_method",true)}}" alt="{{@$method->file->name}}">
 
                                                 <p>	 {{$method->name}}</p>
     
