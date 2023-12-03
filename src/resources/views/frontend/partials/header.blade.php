@@ -4,8 +4,6 @@
         <div class="header-logo">
           <a href="index.html">
             <img src="http://localhost/engageHub/assets/images/backend/site_logo/654227a04376b1698834336.jpg" alt="">
-
-
           </a>
         </div>
 

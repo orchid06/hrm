@@ -43,8 +43,22 @@
     @endif
 
     @include('partials.theme')
-    @stack('style-include')
+
+
+    @php
+        $intregrationsContent  = get_content("content_integration")->first();  
+        $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
+    @endphp
+
+   <style>
+      .integration .scrolling-presets{
+          background-image: url({{imageUrl(@$intregrationsImg,"frontend",true,@get_appearance()->integration->content->images->image->size)}});
+      }
+   </style>
+
     @stack('styles')
+    @stack('style-include')
+        
 
   </head>
 
@@ -52,6 +66,7 @@
 
 
     @include('frontend.partials.header')
+
     <main class="main" id="main">
          @yield('content')
     </main>
@@ -74,7 +89,7 @@
       <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
-      <script src="{{asset('assets/frontend/js/Sanimation-init.js')}}"></script>
+      <script src="{{asset('assets/frontend/js/animation-init.js')}}"></script>
   @endif
       
     <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>

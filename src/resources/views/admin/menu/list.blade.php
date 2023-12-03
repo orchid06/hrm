@@ -117,8 +117,9 @@
                                     
 
                                     <td data-label="{{translate("Status")}}">
+
                                         <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_menu') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            <input {{!check_permission('update_menu') || $menu->is_default == App\Enums\StatusEnum::true->status() ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
                                                 data-route="{{ route('admin.menu.update.status') }}"
                                                 data-status="{{ $menu->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -126,6 +127,8 @@
                                             id="status-switch-{{$menu->id}}" >
                                             <label class="form-check-label" for="status-switch-{{$menu->id}}"></label>
                                         </div>
+                                        
+
                                     </td>
 
                              
@@ -138,7 +141,7 @@
                                                     <a  href="{{route('admin.menu.edit',$menu->uid)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                                 @endif
 
-                                                @if(check_permission('delete_menu'))
+                                                @if(check_permission('delete_menu') && $menu->is_default == App\Enums\StatusEnum::false->status())
                                                     <a href="javascript:void(0);"    data-href="{{route('admin.menu.destroy',$menu->id)}}" class=" pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>

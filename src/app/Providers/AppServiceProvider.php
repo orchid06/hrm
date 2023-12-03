@@ -11,6 +11,7 @@ use App\Models\Article;
 use App\Models\Core\Language;
 
 use App\Models\KycLog;
+use App\Models\MediaPlatform;
 use App\Models\PaymentLog;
 use App\Models\Ticket;
 use App\Models\User;
@@ -57,7 +58,10 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             });
 
-   
+  
+
+           
+
 
             view()->share([
                 'languages'       => Language::where('status',(StatusEnum::true)->status())->get(),

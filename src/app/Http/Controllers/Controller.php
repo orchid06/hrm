@@ -23,12 +23,12 @@ class Controller extends BaseController
     public function metaData( array $customData = [], ) :array {
 
 
-        [$width, $height] = explode('x', Arr::get($customData, "img_size", config("settings")['file_path']['user_site_logo']['size']));
+        [$width, $height] = explode('x', Arr::get($customData, "img_size", config("settings")['file_path']['meta_image']['size']));
         return  [
 
             'title'            => Arr::get($customData,"title", trans("default.home")),
             'og_type'          => Arr::get($customData,"og_type", 'website'),
-            'og_image'         => Arr::get($customData,"og_image",imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)),
+            'og_image'         => Arr::get($customData,"og_image",imageUrl(@site_logo('meta_image')->file,"meta_image",true)),
             'og_image_type'    => "image/png",
             'og_image_width'   => $width,
             'og_image_height'  => $height,
