@@ -112,6 +112,30 @@
       @endif
 
 
+       <!-- currency switcher -->
+       <div class="header-icon">
+          <div class="lang-dropdown">
+            <div class="btn-icon btn--text dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{session()->get('currency')?->code}}
+            </div>
+            @if(site_currencies() && !site_currencies()->isEmpty())
+              <div class="dropdown-menu dropdown-menu-end">
+                <ul>
+                    @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+                      <li>
+                        <a href="{{route('currency.change',$currency->code)}}">
+                          {{$currency->code}}
+                        </a>
+                      </li>
+                    @endforeach
+                </ul>
+              </div>
+            @endif
+            
+          </div>
+      </div>
       
       <!-- language switcher -->
 
@@ -147,31 +171,6 @@
         </div>
       </div>
 
-
-       <!-- currency switcher -->
-      <div class="header-icon">
-          <div class="lang-dropdown">
-            <div class="btn-icon dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              {{session()->get('currency')?->code}}
-            </div>
-            @if(site_currencies() && !site_currencies()->isEmpty())
-              <div class="dropdown-menu dropdown-menu-end">
-                <ul>
-                    @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-                      <li>
-                        <a href="{{route('currency.change',$currency->code)}}">
-                          {{$currency->code}}
-                        </a>
-                      </li>
-                    @endforeach
-                </ul>
-              </div>
-            @endif
-            
-          </div>
-      </div>
 
      <!-- profile -->
       <div class="header-icon">

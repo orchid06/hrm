@@ -6,7 +6,7 @@
   right: unset;
   top: 0;
   transition: all 0.35s;
-  background-color: #091b50;
+  background-color: #1c2538;
   z-index: 110;
   .sidebar-logo {
     height: 70px;
@@ -19,8 +19,8 @@
   }
 
   .sidebar-logo img{
-    max-width: 180px;
-    height: 60px;
+    max-width: 130px;
+    height: auto;
   }
   .sidebar-menu-container {
     max-height: calc(100vh - 70px);
@@ -34,11 +34,12 @@
         .sidebar-menu-title {
           color: #7a7d8e;
           padding: 13px 25px 0px;
-          font-size: 10px;
-          font-weight: 400;
+          font-size: 11px;
+          font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0px;
           line-height: 1;
+          letter-spacing: 1px;
         }
         .sidebar-menu-item {
           .sidebar-menu-link {
@@ -46,16 +47,20 @@
             align-items: center;
             width: 100%;
             gap: 8px;
-            padding: 8px 22px 8px 22px;
-            color: $color-white;
+            padding: 8px 20px 8px 20px;
+            color: #aeb7ca;
             font-size: 14px;
             line-height: 1;
             transition: 0.4s ease-in-out;
-            opacity: 0.9;
             &.active {
-              // background-color: var(--color-primary);
-              background-color: rgba(255, 255, 255, 0.15);
+              background-color: rgba(255, 255, 255, 0.075);
               opacity: 1;
+              span{
+                color: $color-white;
+              }
+              p{
+                color: $color-white;
+              }
             }
             &[data-bs-toggle="collapse"][aria-expanded="true"] {
               > small i {
@@ -63,9 +68,14 @@
               }
             }
             &:hover {
-              // background-color: var(--color-primary);
-              background-color: rgba(255, 255, 255, 0.15);
+              background-color: rgba(255, 255, 255, 0.075);
               opacity: 1;
+              span{
+                color: $color-white;
+              }
+              p{
+                color: $color-white;
+              }
             }
             > span {
               @include square(22px, 50%);
@@ -76,7 +86,7 @@
               justify-content: center;
             }
             > p {
-              color: $color-white;
+              color: #aeb7ca;
               display: flex;
               align-items: center;
               gap: 5px;
@@ -108,7 +118,7 @@
                 .sidebar-menu-link {
                   padding: 9px 20px 9px 15px;
                   &.active {
-                    background-color: rgba(255, 255, 255, 0.15);
+                    background-color: rgba(255, 255, 255, 0.075);
                     opacity: 1;
                   }
                   span {
@@ -162,10 +172,10 @@
     }
     .sidebar-menu-title {
       color: $text-light;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0px;
       padding: 18px 20px 3px;
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1;
       text-transform: uppercase;
       margin-top: 5px;
@@ -198,7 +208,7 @@
         }
       }
       &:hover {
-        background-color: rgba(255, 255, 255, 0.12);
+        background-color: rgba(255, 255, 255, 0.09);
         p {
           color: $color-white;
         }

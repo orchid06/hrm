@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500&display=swap');
 :root {
-  --font-primary: "Roboto", sans-serif;
+  --font-primary: 'Work Sans', sans-serif;
   --color-primary: rgb(100, 75, 255);
   --color-primary-light: rgba(90, 15, 245, 0.3);
   --color-primary-text: #ffffff;
@@ -9,7 +8,7 @@
   --text-primary: #15192c;
   --text-secondary: #777;
   --text-light: #acacac;
-  --color-border: #eeeeee;
+  --color-border: #e4e4e4;
   --color-border-two: #e3e3e3;
   --color-white: #fff;
   --color-gray-1: #eff2f7;
@@ -296,7 +295,7 @@ button,
   border-radius: 3px;
   display: inline-block;
   padding: 5px 5px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1;
   text-align: center;

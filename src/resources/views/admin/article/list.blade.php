@@ -158,7 +158,7 @@
 
                                     <td data-label="{{translate("Title")}}">
                                         <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-md" src="{{imageUrl(@$article->file,"article",true)}}" alt="{{@$article->file->name}}">
+                                            <img class="rounded-circle avatar-sm" src="{{imageUrl(@$article->file,"article",true)}}" alt="{{@$article->file->name}}">
 
                                             <p>	 {{$article->title}}</p>
                                         </div>

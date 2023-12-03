@@ -85,7 +85,7 @@
                                     </td>
                                     <td data-label="{{translate("name")}}">
                                         <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-md" src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{@$platform->file->name}}">
+                                            <img class="rounded-circle avatar-sm" src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{@$platform->file->name}}">
 
                                             <p>	 {{$platform->name}}</p>
                                         </div>

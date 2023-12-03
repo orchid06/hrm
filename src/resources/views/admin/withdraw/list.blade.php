@@ -104,7 +104,7 @@
 
                                     <div class="user-meta-info d-flex align-items-center gap-2">
 
-                                        <img class="rounded-circle avatar-md" src="{{imageUrl(@$withdraw->file,"withdraw_method",true)}}" alt="{{@$withdraw->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src="{{imageUrl(@$withdraw->file,"withdraw_method",true)}}" alt="{{@$withdraw->file->name}}">
 
                                         <p>	 {{$withdraw->name}}</p>
                                     </div>

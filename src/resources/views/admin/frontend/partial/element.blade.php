@@ -103,7 +103,7 @@
                                             @endphp
                 
                                             <div class="avatar-group-item">
-                                                <img title="{{$imK}}" class="rounded-circle avatar-md" src="{{imageUrl(@$file,"frontend",true,$imType->size)}}" alt="{{@$file->name}}">
+                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src="{{imageUrl(@$file,"frontend",true,$imType->size)}}" alt="{{@$file->name}}">
                                             </div>
                                         @endforeach
                                 </div>
