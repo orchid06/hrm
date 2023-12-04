@@ -112,8 +112,14 @@ class MenuController extends Controller
      * @return string
      */
     public function updateStatus(Request $request) :string{
+
         $request->validate([
-            'id'      => 'required|exists:menus,uid',
+            'id'      => ['required','exists:menus,uid',function ($attribute, $value, $fail) use ($request) {
+                                $defaultMenu = Menu::default()->where('uid',$request->input('id'))->first();
+
+                                if($defaultMenu){
+                                    $fail("Default menu cannot be updated !!");
+                                }}],
             'status'  => ['required',Rule::in(StatusEnum::toArray())],
             'column'  => ['required',Rule::in(['status','show_in_footer','show_in_header'])],
         ]);
@@ -128,7 +134,8 @@ class MenuController extends Controller
    
     public function destroy(string $id) :RedirectResponse{
 
-        Menu::where('id',$id)->delete();
+        Menu::where('id',$id)->where("is_default",StatusEnum::false->status())->delete();
+
         return  back()->with(response_status('Menu deleted!!'));
     }
    

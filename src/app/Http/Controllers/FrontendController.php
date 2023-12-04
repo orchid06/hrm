@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\StatusEnum;
 use App\Http\Services\FrontendService;
-
+use App\Models\Admin\Menu;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
@@ -30,7 +30,8 @@ class FrontendController extends Controller
     public function home() :View{
     
         return view('frontend.home',[
-            'meta_data'=> $this->metaData()
+            'meta_data' => $this->metaData(),
+            'menu'      => Menu::default()->first()
         ]);
     }
 

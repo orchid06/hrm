@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\LazyCollection;
 
 use App\Traits\Fileable;
+use Illuminate\Database\Eloquent\Collection;
 
    class HelperClass {
       use Fileable;
@@ -898,10 +899,17 @@ use App\Traits\Fileable;
 
    
    if (!function_exists('get_content')){
-      function get_content(string $key, bool $first  = true ) : mixed{
+      function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
+         // Cache::forget('frontend_content');
 
-         $method = $first  ? "first" : "get";
-         return Frontend::with(['file'])->where("key",$key)->{$method}();
+         $frontends = Cache::remember('frontend_content',24 * 60, function ()   {
+            return Frontend::with('file')->active()->get();
+         });
+
+
+
+         return ($frontends->where("key", $key));
+
        
       }
    }

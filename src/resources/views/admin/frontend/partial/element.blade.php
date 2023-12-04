@@ -1,6 +1,7 @@
 <div class="search-action-area">
     <div class="row g-4">
 
+
         <form hidden id="bulkActionForm" action="{{route("admin.appearance.bulk")}}" method="post">
             @csrf
             <input type="hidden" name="bulk_id" id="bulkid">
@@ -28,9 +29,20 @@
                     
                 </div>
 
-                <a href="javascript:void(0)"  class="i-btn btn--sm success me-2  create">
-                    <i class="las la-plus me-1"></i>  {{translate('Add New')}}
-                </a>
+                @php
+
+                   $addOption = 1;
+                   if(@$appearance->name == 'banner' && 6 <  @$appearance_elements->count()){
+                         $addOption = 0;
+                   }
+                @endphp
+
+                @if($addOption == 1 )
+                    <a href="javascript:void(0)"  class="i-btn btn--sm success me-2  create">
+                        <i class="las la-plus me-1"></i>  {{translate('Add New')}}
+                    </a>
+                @endif
+                
 
             </div>
         @endif

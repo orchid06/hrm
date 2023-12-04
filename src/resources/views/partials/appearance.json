@@ -1,28 +1,32 @@
 {
 
-
     "banner": {
         "builder": true,
         "name": "banner",
+        "no_selection": true,
         "content": {
 
             "images": {
                 "image": {
                     "size": "1800X1200"
                 }
-           
             },
             "title": "text",
+            "motion_text": "text",
             "description": "textarea",
-            "btn_left_name": "text",
+            "button_left_name": "text",
             "button_left_url": "text",
-            "btn_right_name": "text",
+            "button_right_name": "text",
             "button_right_url": "text"
-     
     
         },
         "element": {
-            "split_text": "text",
+            "images": {
+                "image": {
+                    "size": "200x200"
+                }
+           
+            },
             "modal": true
         }
     },
@@ -79,7 +83,7 @@
 
 
     
-    "integrations": {
+    "integration": {
         "builder": true,
         "name": "integration_section",
         "content": {
@@ -212,7 +216,7 @@
            
             "icon": "icon",
             "title": "text",
-            "description": "textarea-editor",
+            "description": "textarea",
             "modal": true
         }
     

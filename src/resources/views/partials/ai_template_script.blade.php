@@ -90,13 +90,9 @@
             }
             
             $(document).on('click', '.custom-key', function (e) {
-
                 var key = $(this).attr("data-name");
-    
                 var custom_prompt = $('textarea[name="custom_prompt"]').val();
-    
                 $('textarea[name="custom_prompt"]').val(custom_prompt + key);
-
             });
 
 	})(jQuery);

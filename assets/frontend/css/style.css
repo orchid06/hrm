@@ -1809,8 +1809,8 @@
   width: 55%;
 }
 .about-wrapper .about-image > img {
-  -webkit-mask-image: url(../images/mask.png);
-  mask-image: url(../images/mask.png);
+  -webkit-mask-image: url(../../images/mask.png);
+  mask-image: url(../../images/mask.png);
   -webkit-mask-position: top left;
   mask-position: top left;
   -webkit-mask-repeat: no-repeat;
@@ -2061,7 +2061,6 @@
 }
 
 .integration .scrolling-presets {
-  background-image: url(../images/presets.png);
   background-size: 100% auto;
   background-repeat: repeat-y;
   -webkit-animation: scrolling-presets 60s linear infinite;

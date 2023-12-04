@@ -42,13 +42,14 @@ class Menu extends Model
     public function scopeActive(Builder $q) :Builder{
         return $q->where("status",StatusEnum::true->status());
     }
-    public function scopeFooter(Builder $q) :Builder{
-        return $q->where("show_in_footer",StatusEnum::true->status());
-    }
 
-    public function scopeHeader(Builder $q) :Builder{
-        return $q->where("show_in_header",StatusEnum::true->status());
+
+
+    public function scopeDefault(Builder $q) :Builder{
+        return $q->where("is_default",StatusEnum::true->status());
     }
+   
+   
 
     public function createdBy() :BelongsTo {
         return $this->belongsTo(Admin::class,'created_by','id')->withDefault([
@@ -56,6 +57,7 @@ class Menu extends Model
             'name' => 'N/A'
         ]);
     }
+
     public function updatedBy() :BelongsTo {
         return $this->belongsTo(Admin::class,'updated_by','id')->withDefault([
             'username' => 'N/A',
