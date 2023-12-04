@@ -15,7 +15,7 @@ table thead tr {
   color: $color-primary;
 }
 table tbody tr {
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px dashed $color-border;
   @include transition-3;
 
   &:hover{
@@ -141,6 +141,7 @@ table td:last-child {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      flex-wrap: wrap !important;
       gap: 10px;
       @include md-down-device {
         flex-wrap: wrap;

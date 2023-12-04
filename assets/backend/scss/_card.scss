@@ -1,11 +1,20 @@
 .i-card-sm {
     position: relative;
     background-color: $card-bg;
-    padding: 20px;
+    padding: 25px;
     border-radius: 4px;
     @include shadow-1;
+    @include lg-device{
+        padding: 20px;
+    }
+    @include xl-device{
+        padding: 20px;
+    }
+    @include xxl-device{
+        padding: 20px;
+    }
     .title {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         font-size: 16px;
         font-weight: 400;
     }
@@ -59,7 +68,7 @@
             }
         }
         .icon {
-            @include square(50px, 50%);
+            @include square(45px, 50%);
             font-size: 32px;
             color: $text-primary;
             background-color: rgba(255,255,255,0.2);
@@ -83,12 +92,9 @@
     }
 
     &.warning {
-        border-bottom: 3px solid $color-warning;
-        background-color: $color-warning;
+        background: linear-gradient(318deg,$color-warning, $color-warning-light-2,$color-warning);
         color: $color-warning;
-        box-shadow: 5px 20px 30px -15px ($color-warning-light);
-
-        background-blend-mode: multiply;
+        box-shadow: 5px 10px 20px -10px ($color-warning-light);
         p {
             color: $color-white;
         }
@@ -98,9 +104,8 @@
         }
     }
     &.success {
-        border-bottom: 3px solid $color-success;
-        background-color: $color-success;
-        box-shadow: 5px 20px 30px -15px ($color-success-light);
+        background: linear-gradient(318deg,$color-success, $color-success-light-2,$color-success);
+        box-shadow: 5px 10px 20px -10px ($color-success-light);
         p {
             color: $color-white;
         }
@@ -109,9 +114,8 @@
         }
     }
     &.danger {
-        background-color: $color-danger;
-        box-shadow: 5px 20px 30px -15px ($color-danger-light);
-        border-bottom: 3px solid $color-danger;
+        background: linear-gradient(318deg,$color-danger, $color-danger-light-2,$color-danger);
+        box-shadow: 5px 10px 20px -10px ($color-danger-light);
         p {
             color: $color-white;
         }
@@ -120,9 +124,8 @@
         }
     }
     &.info {
-        border-bottom: 3px solid $color-info;
-        background-color: $color-info;
-        box-shadow: 5px 20px 30px -15px ($color-info-light);
+        background: linear-gradient(318deg,$color-info, $color-info-light-2,$color-info);
+        box-shadow: 5px 10px 20px -10px ($color-info-light);
         p {
             color: $color-white;
         }
@@ -131,9 +134,8 @@
         }
     }
     &.primary {
-        border-bottom: 3px solid $color-primary;
-        background-color: $color-primary;
-        box-shadow: 5px 20px 30px -15px ($color-primary-light);
+        background: linear-gradient(318deg,$color-primary, $color-primary-light-2,$color-primary);
+        box-shadow: 5px 10px 20px -10px ($color-primary-light-2);
         p {
             color: $color-white;
         }

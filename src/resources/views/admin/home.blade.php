@@ -19,7 +19,7 @@
   <!-- card -->
 
   <div class="row g-3 mb-4">
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
       <div class="i-card-sm style-2 success">
         <div class="icon">
           <i class="las la-user-friends"></i>
@@ -37,7 +37,7 @@
 
    
    
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 success">
             <div class="icon">
               <i class="las la-cube"></i>
@@ -54,7 +54,7 @@
     </div>
 
 
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 info">
             <div class="icon">
               <i class="las la-users"></i>
@@ -71,7 +71,7 @@
     </div>
 
 
-   <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+   <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
       <div class="i-card-sm style-2 success">
           <div class="icon">
             <i class="lar la-newspaper"></i>
@@ -87,7 +87,7 @@
       </div>
   </div>
 
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 info">
             <div class="icon">
               <i class="las la-dollar-sign"></i>
@@ -104,7 +104,7 @@
     </div>
 
 
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
       <div class="i-card-sm style-2 danger">
         <div class="icon">
          <i class="las la-exchange-alt"></i>
@@ -116,7 +116,7 @@
       </div>
     </div>
 
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
       <div class="i-card-sm style-2 primary">
           <div class="icon">
             <i class="las la-hand-holding-usd"></i>
@@ -132,7 +132,7 @@
       </div>
   </div>
 
-  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+  <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
     <div class="i-card-sm style-2 warning">
         <div class="icon">
           <i class="lar las la-money-bill"></i>
