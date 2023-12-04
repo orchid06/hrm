@@ -241,9 +241,24 @@
                 align-items: flex-start;
                 gap: 5px;
                 margin-top: 5px;
+                padding: 0 10px;
                 li {
                   display: block;
                   width: 100%;
+                  background-color: $color-white;
+                  border-radius: 10px;
+                  @include transition-4;
+                  border: 1px solid transparent;
+
+                  &:hover {
+                    background-color: $color-primary-light;
+                    border: 1px solid $color-primary-light;
+                    .notification-item-content {
+                      h5 {
+                        color: $color-primary;
+                      }
+                    }
+                  }
                   a {
                     display: flex;
                     align-items: center;
@@ -251,9 +266,6 @@
                     padding: 10px 15px;
                     @include transition-3;
                     position: relative;
-                    &:hover {
-                      background-color: $color-gray-1;
-                    }
                     .notify-icon {
                       width: 30px;
                       img {
@@ -342,9 +354,9 @@
             border-radius: 50%;
             object-fit: cover;
             @include sm-down-device{
-              max-width: 30px;
-              min-width: 30px;
-              height: 30px;
+              max-width: 25px;
+              min-width: 25px;
+              height: 25px;
             }
           }
         }
@@ -377,9 +389,9 @@
             object-fit: cover;
             overflow: hidden;
             @include sm-down-device{
-              max-width: 30px;
-              min-width: 30px;
-              height: 30px;
+              max-width: 25px;
+              min-width: 25px;
+              height: 25px;
             }
           }
         }

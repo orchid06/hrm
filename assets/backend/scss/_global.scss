@@ -3,10 +3,11 @@
   --font-primary: 'Work Sans', sans-serif;
   --color-primary: rgb(100, 75, 255);
   --color-primary-light: rgba(90, 15, 245, 0.3);
+  --color-primary-light-2: rgba(90, 15, 245, 0.8);
   --color-primary-text: #ffffff;
 
   --text-primary: #15192c;
-  --text-secondary: #777;
+  --text-secondary: ##898989;
   --text-light: #acacac;
   --color-border: #e4e4e4;
   --color-border-two: #e3e3e3;
@@ -18,20 +19,25 @@
   --topbar-bg: #fff;
   --sidebar-bg: #fff;
 
-  --color-success: rgb(10, 179, 156);
-  --color-success-light: rgba(10, 179, 156, 0.15);
-  --color-danger: rgb(240, 101, 72);
-  --color-danger-light: rgba(240, 101, 72, 0.15);
-  --color-warning: rgb(259, 165, 81);
-  --color-warning-light: rgba(247, 184, 75, 0.15);
-  --color-info: rgb(45, 140, 210);
-  --color-info-light: rgba(45, 140, 210, 0.15);
+  --color-success: rgb(2, 151, 104);
+  --color-success-light: rgba(2, 151, 104, 0.1);
+  --color-success-light-2: rgba(2, 151, 104, 0.75);
+  --color-danger: rgb(244, 76, 43);
+  --color-danger-light: rgba(244, 76, 43, 0.1);
+  --color-danger-light-2: rgba(244, 76, 43, 0.75);
+  --color-warning: rgb(247, 167, 27);
+  --color-warning-light: rgba(247, 167, 27, 0.1);
+  --color-warning-light-2: rgba(247, 167, 27, 0.75);
+  --color-info: rgb(0, 138, 237);
+  --color-info-light: rgba(0, 138, 237, 0.1);
+  --color-info-light-2: rgba(0, 138, 237, 0.75);
 }
 
 // SASS ROOT VARIABLES
 $font-primary: var(--font-primary);
 $color-primary: var(--color-primary);
 $color-primary-light: var(--color-primary-light);
+$color-primary-light-2: var(--color-primary-light-2);
 $color-primary-text: var(--color-primary-text);
 $text-primary: var(--text-primary);
 $text-secondary: var(--text-secondary);
@@ -48,12 +54,16 @@ $sidebar-bg: var(--sidebar-bg);
 
 $color-success: var(--color-success);
 $color-success-light: var(--color-success-light);
+$color-success-light-2: var(--color-success-light-2);
 $color-danger: var(--color-danger);
 $color-danger-light: var(--color-danger-light);
+$color-danger-light-2: var(--color-danger-light-2);
 $color-warning: var(--color-warning);
 $color-warning-light: var(--color-warning-light);
+$color-warning-light-2: var(--color-warning-light-2);
 $color-info: var(--color-info);
 $color-info-light: var(--color-info-light);
+$color-info-light-2: var(--color-info-light-2);
 
 * {
   margin: 0;

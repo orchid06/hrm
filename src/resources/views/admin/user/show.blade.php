@@ -5,7 +5,7 @@
   
 
     <div class="col">
-      <div class="i-card-sm style-2 success">
+      <div class="i-card-sm style-2 primary">
             <div class="icon">
                 <i class="las la-subscript"></i>
             </div>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="col">
-        <div class="i-card-sm style-2 primary">
+        <div class="i-card-sm style-2 info">
             <div class="icon">
                 <i class="las la-sms"></i>
             </div>
@@ -60,7 +60,7 @@
 
 
     <div class="col">
-        <div class="i-card-sm style-2 success">
+        <div class="i-card-sm style-2 warning">
           <div class="icon">
               <i class="las la-hryvnia"></i>
           </div>
@@ -79,7 +79,7 @@
 
 
     <div class="col">
-        <div class="i-card-sm style-2 primary">
+        <div class="i-card-sm style-2 danger">
         <div class="icon">
             <i class="las la-bars"></i>
         </div>

@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div class="row g-3 mb-4">
+<div class="row row-cols-xl-4 row-cols-lg-2 row-cols-md-2 row-cols-sm-2 row-cols-1 g-3 mb-4">
     <div class="col">
         <div class="i-card-sm style-2 warning">
           <div class="icon">
@@ -13,7 +13,7 @@
           </div>
           <div class="card-info">
             <h5 class="title">
-               {{translate("Pending Ticket")}}
+               {{translate("Pending Ticket")}}  
             </h5>
 
             <h3>
@@ -106,7 +106,6 @@
                 <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
                     <div class="search-area">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
-
 
                             <div class="form-inner">
                                 <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
