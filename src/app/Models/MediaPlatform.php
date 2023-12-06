@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 use App\Traits\ModelAction;
 use App\Traits\Filterable;
+use Illuminate\Support\Facades\Cache;
 class MediaPlatform extends Model
 {
     use HasFactory ,ModelAction ,Filterable;
@@ -41,6 +42,10 @@ class MediaPlatform extends Model
                 $model->slug       = make_slug(request()->input('name'));
             }
     
+        });
+        static::saved(function (Model $model) {
+            Cache::forget('media_platform');
+
         });
         
     }

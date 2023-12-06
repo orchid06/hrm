@@ -118,7 +118,7 @@ class AiService
                 $customPrompt = str_replace("{".$key."}",Arr::get($request->input("custom"),$key,"",),$customPrompt);
             }
         }
-        $getBadWords   = site_settings('ai_bad_words');
+        $getBadWords     = site_settings('ai_bad_words');
         $processBadWords = $getBadWords ? explode(",",$getBadWords) :[];
         
         if(is_array($processBadWords)){
@@ -126,6 +126,7 @@ class AiService
         }
 
          $model          =  site_settings("open_ai_model");
+         
          $temperature    = (float)  ($request->input("ai_creativity") ?  $request->input("ai_creativity") : site_settings("ai_default_creativity"));
          $aiParams = [
             'model'             => $model,
@@ -137,13 +138,14 @@ class AiService
         $aiTone = $request->input("content_tone") ?  $request->input("content_tone") : site_settings("ai_default_tone");
 
         $tokens = (int) ($request->input("max_result") ?  $request->input("max_result") : site_settings("default_max_result",-1));
+
+        $customPrompt .= 'Write in ' . $request->input("language") . ' language.'  . ' The tone of voice should be ' . $aiTone . ' Do not write translations.';  
+
         if ($tokens != PlanDuration::UNLIMITED->value) {
             $aiParams['max_tokens'] = $tokens;
             $customPrompt .= 'Write in ' . $request->input("language") . ' language.'  . ' The tone of voice should be ' . $aiTone . ' and the output must be completed in ' . $tokens . ' words. Do not write translations.';
         } 
-        else{
-            $customPrompt .= 'Write in ' . $request->input("language") . ' language.'  . ' The tone of voice should be ' . $aiTone . ' Do not write translations.';    
-        }
+       
     
         $aiParams['messages'] = [[
             "role"     => "user",

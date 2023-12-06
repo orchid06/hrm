@@ -12,6 +12,6 @@ class FrontendSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
     }
 }

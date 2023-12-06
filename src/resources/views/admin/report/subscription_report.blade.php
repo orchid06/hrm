@@ -381,8 +381,10 @@
 
             $('#content').html(remark)
             var lists = "";
+            var val = ""
             for(var i in infos ){
-                lists +=`<li class="list-group-item">${i.charAt(0).toUpperCase() + i.slice(1).replace('_', ' ')} : ${infos[i]}</li>`
+                val = infos[i] == -1 ? "Unlimited" :infos[i];
+                lists +=`<li class="list-group-item">${i.charAt(0).toUpperCase() + i.slice(1).replace('_', ' ')} :${val}</li>`
             }
             $("#additionalInfo").html(lists);
 

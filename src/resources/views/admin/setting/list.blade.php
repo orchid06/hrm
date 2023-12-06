@@ -291,17 +291,6 @@
                                     </div>
 
 
-                                    <div class="col-xl-12">
-                                        <div class="form-inner">
-                                            <label for="cookie_text" class="form-label">
-                                                {{translate('Cookie Text')}} <small class="text-danger" >*</small>
-                                            </label>
-
-                                            <textarea name="site_settings[cookie_text]" placeholder="{{translate("Enter Cookie Text")}}" id="cookie_text" cols="30" rows="4">{{site_settings('cookie_text')}}</textarea>
-
-
-                                        </div>
-                                    </div>
 
 
 
@@ -1248,7 +1237,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-inner">
                                                 <label for="{{$logoKey}}">
-                                                    {{translate(k2t($logoKey))}} <small class="text-danger" >* ({{config("settings")['file_path'][$logoKey]['size']}})</small>
+                                                    {{(k2t($logoKey))}} <small class="text-danger" >* ({{config("settings")['file_path'][$logoKey]['size']}})</small>
                                                 </label>
                                                 <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class=" preview" data-size = {{config("settings")['file_path'][$logoKey]['size']}}>
                                                 <div class="mt-2 image-preview-section">

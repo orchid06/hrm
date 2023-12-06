@@ -28,10 +28,16 @@ return [
     "cron_setup" => "Setup Cron Jobs",
     "back_to_top" => "Back to top",
 
+    "something_went_wrong" => "Something went wrong",
+    "explore_all" => "Explore All",
+
 
     /** site  title  */
 
-    "home"  => 'Home',
+    "home"      => 'Home',
+    "blogs"     => 'Blogs',
+    "feedback"  => 'Feedback',
+    "contact"  =>  'Contacts',
 
 
 

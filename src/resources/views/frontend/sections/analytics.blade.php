@@ -1,6 +1,6 @@
 @php
    $analyticsContent  = get_content("content_analytics")->first();  
-   $file              =  $analyticsContent->file->where("type",'image')->first();;  
+   $file              = $analyticsContent->file->where("type",'image')->first();
 
 @endphp
 

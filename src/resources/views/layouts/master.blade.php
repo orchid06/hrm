@@ -176,6 +176,46 @@
 
 
 
+      // cookie configuration
+      $(document).on('click','.cookie-control',function(e){
+        
+          var route = $(this).attr('data-route')
+
+          $.ajax({
+                method:'get',
+                url: route,
+                dataType: 'json',
+
+                success: function(response){
+                  console.log(response)
+                },
+                error: function (error){
+                    if(error && error.responseJSON){
+                        if(error.responseJSON.errors){
+                            for (let i in error.responseJSON.errors) {
+                                toastr(error.responseJSON.errors[i][0],'danger')
+                            }
+                        }
+                        else{
+                            if((error.responseJSON.message)){
+                                toastr(error.responseJSON.message,'danger')
+                            }
+                            else{
+                                toastr( error.responseJSON.error,'danger')
+                            }
+                        }
+                    }
+                    else{
+                        toastr(error.message,'danger')
+                    }
+                }
+            })
+       
+      })
+
+
+
+
 
 
     </script>
