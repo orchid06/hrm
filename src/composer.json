@@ -27,7 +27,6 @@
         "sendgrid/sendgrid": "~7",
         "sentry/sentry-laravel": "^3.5",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-cookie-consent": "^3.2",
         "textmagic/sdk": "dev-master",
         "twilio/sdk": "^6.37"
     },

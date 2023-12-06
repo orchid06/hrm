@@ -107,6 +107,14 @@ use Illuminate\Support\Facades\Route;
 
             #basic user route
             Route::controller(UserController::class)->group(function(){
+
+                /** NEW ROUTE START */
+
+                  Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
+
+
+                /** END */
+
                 
                 Route::any('/free/package/{id}','purchase')->name('free.package');
                 Route::any('/pricing-plan','plan')->name('plan');
@@ -171,6 +179,10 @@ use Illuminate\Support\Facades\Route;
 
 
                 Route::get('/', 'home')->name('home');
+                Route::get('/plans', 'plan')->name('plan');
+
+                Route::get('/blogs', 'blogs')->name('blogs');
+                Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
 
 
 
@@ -180,7 +192,11 @@ use Illuminate\Support\Facades\Route;
 
         #Coummunication route
         Route::controller(CommunicationsController::class)->group(function (){
-          
+
+            Route::any('/subscribe', 'subscribe')->name('subscribe');
+            Route::get('/contacts', 'contacts')->name('contact');
+            Route::post('/contacts', 'store')->name('contact.store');
+
         });
 
 
@@ -198,6 +214,15 @@ use Illuminate\Support\Facades\Route;
             
             Route::get('/security-captcha',"security")->name('dos.security');
             Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
+
+            /** cookie settings */
+
+            Route::get('/set-cookie',  'setCookie');
+            Route::get('/accept-cookie',  'acceptCookie')->name("accept.cookie");
+            Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");;
+            
+            Route::get('/download-cookie-data',  'downloadCookieData');
+
         });
 
        

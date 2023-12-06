@@ -4,8 +4,6 @@
    $platformImg      = $platformContent->file->where("type",'image')->first();
 @endphp
 
-
-
 <section class="platform pt-110 pb-110">
     <div class="container-fluid section-fluid">
       <div class="row align-items-center g-lg-5 gx-4 gy-5">

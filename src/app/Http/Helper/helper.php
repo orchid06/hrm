@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\DepositStatus;
+use App\Enums\PlanDuration;
 use App\Enums\PriorityStatus;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
@@ -13,6 +14,8 @@ use App\Models\Core\Language;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Core\Setting;
 use App\Models\Core\Translation;
+use App\Models\MediaPlatform;
+use App\Models\Package;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
@@ -468,13 +471,17 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('show_ratings')) {
       function show_ratings(int $ratings) :string
       {
-         $str = "";
+
+         $str       = "";
+         $ratings   = $ratings > 5 ? 5 : $ratings;
+
            for($i = 0 ; $i<5 ; $i++){
+            
                if( $i < $ratings){
-                  $str .= "<li><i class=\"fa-solid fa-star\"></i></li>";
+                  $str .= "<li><i class=\"bi bi-star-fill\"></i></li>";
                }
                else{
-                  $str .= "<li><i class=\"fa-light fa-star\"></i></li>";
+                  $str .= "<li><i class=\"bi bi-star\"></i></li>";
                }
            }
 
@@ -895,22 +902,94 @@ use Illuminate\Database\Eloquent\Collection;
 		}
    }
 
+   if (!function_exists('plan_duration')){
+		function plan_duration(mixed  $status) :string
+		{
+
+         $badges  = [
+            
+            PlanDuration::UNLIMITED->value      => "info",
+            PlanDuration::YEARLY->value         => "success",
+            PlanDuration::MONTHLY->value        => "warning",
+      
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(PlanDuration::toArray()) ,$status , 'Pending')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
 
 
    
    if (!function_exists('get_content')){
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
-         // Cache::forget('frontend_content');
-
+        
          $frontends = Cache::remember('frontend_content',24 * 60, function ()   {
             return Frontend::with('file')->active()->get();
          });
 
-
-
          return ($frontends->where("key", $key));
+      }
+   }
 
-       
+
+
+
+   if (!function_exists('get_platform')){
+      function get_platform(array $ids) : MediaPlatform | Collection | null{
+        
+     
+         $platforms = Cache::remember('media_platform',24 * 60, function ()   {
+            return  MediaPlatform::get();
+         });
+
+         return $platforms->whereIn('id',$ids);
+      }
+   }
+
+
+   if (!function_exists('plan_configuration')){
+
+      function plan_configuration(Package $plan ) : array {
+
+
+         $accessedPlatforms =    implode(",",get_platform($plan->social_access->platform_access)
+                                 ->pluck('name')
+                                 ->toArray());
+        
+         $config          =  [];
+
+         $profile         = $plan->social_access->profile; 
+         $post            = $plan->social_access->post; 
+         $wordToken       = $plan->ai_configuration->word_limit; 
+         $templates       = count((array)@$plan->ai_configuration->template_access); 
+
+         $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
+         $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
+
+         $config['platform_access']    =  $accessedPlatforms;
+         
+         if(@($plan->social_access->schedule_post) ==  StatusEnum::true->status()){
+            $config['schedule_posting']   = true;
+         }
+         if(@($plan->social_access->webhook_access) ==  StatusEnum::true->status()){
+            $config['webhook_access']     = true;
+         }
+
+         if(@($plan->ai_configuration->open_ai_model)){
+            $config['open_ai_model']         = $plan->ai_configuration->open_ai_model;
+         }
+
+         $config['word_token']               = $wordToken != -1 ? $wordToken : PlanDuration::keyVal($wordToken);
+         if(0 < $templates){
+            $config['prebuilt_ai_templates'] = count((array)@$plan->ai_configuration->template_access);
+         }
+
+
+         return $config  ;
+
       }
    }
 

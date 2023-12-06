@@ -24,6 +24,9 @@ use Illuminate\Contracts\View\View;
 use Closure;
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
+
 class CoreController extends Controller
 {
 
@@ -38,15 +41,17 @@ class CoreController extends Controller
      */
      public function languageChange(string $code ) :RedirectResponse
      {
-       $response['status'] = "success";
-       $response['message'] = translate('Language Switched Successfully');
+        $response['status'] = "success";
+        $response['message'] = translate('Language Switched Successfully');
 
-       if(!Language::where('code', $code)->exists()){
-           $code = 'en';
-       }
-       optimize_clear();
-       session()->put('locale', $code);
-       app()->setLocale($code);
+        if(!Language::where('code', $code)->exists()){
+            $code = 'en';
+        }
+        
+        optimize_clear();
+        session()->put('locale', $code);
+        app()->setLocale($code);
+
        return back()->with("success",translate('Language Switched Successfully'));
      }
 
@@ -248,6 +253,70 @@ class CoreController extends Controller
         session()->forget('security_captcha');
         session()->put('dos_captcha',$request->input("captcha"));
         return redirect()->route('admin.home');
+    }
+
+
+    
+    public function acceptCookie(Request $request) :\Illuminate\Http\Response
+    {
+
+        $response = response('Cookie accepted')->cookie('cookie_consent', 'accepted')->cookie('accepted_at', now());
+        $this->saveCookieData($request->cookie());
+        return $response;
+    }
+
+    public function rejectCookie(Request $request) :\Illuminate\Http\Response
+    {
+        $response = response('Cookie rejected')->cookie(Cookie::forget('cookie_consent'))->cookie(Cookie::forget('accepted_at'));
+        $this->saveCookieData($request->cookie());
+        return $response;
+    }
+
+    public function downloadCookieData() :\Illuminate\Http\Response
+    {
+
+        $cookieData = $this->getSavedCookieData();
+
+        $csv = implode(',', array_keys($cookieData)) . PHP_EOL;
+        $csv .= implode(',', $cookieData) . PHP_EOL;
+
+        return response($csv)
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename="cookie_data.csv"');
+    }
+
+    private function saveCookieData(array $data) :void
+    {
+
+        @dd($data , get_ip_info());
+        $folderPath = storage_path('app');
+        $filePath = $folderPath . '/cookie_data.json';
+
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0755, true);
+        }
+
+        $existingData = [];
+
+        if (!file_exists($filePath)) {
+            file_put_contents($filePath, json_encode([]));
+        } else {
+            $existingData = json_decode(file_get_contents($filePath), true);
+        }
+
+        $combinedData = array_merge($existingData, $data);
+        file_put_contents($filePath, json_encode($combinedData));
+    }
+
+    private function getSavedCookieData() :array
+    {
+        $path = storage_path('app/cookie_data.json');
+
+        if (file_exists($path)) {
+            return json_decode(file_get_contents($path), true);
+        }
+
+        return [];
     }
 
 

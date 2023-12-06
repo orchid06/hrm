@@ -431,6 +431,7 @@ Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->
                Route::get('/subscribers','subscriber')->name('subscriber.list');
                Route::post('subscriber/bulk/action','bulkSubscriber')->name('subscriber.bulk');
                Route::get('/subscriber/destroy/{uid}','destroySubscriber')->name('subscriber.destroy');
+               
                Route::post('/send-email','sendMail')->name('send.mail');
    
           });

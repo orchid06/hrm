@@ -1,31 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Enums\StatusEnum;
-use App\Http\Requests\Admin\ClientRequest;
 use App\Http\Requests\ContactRequest;
-
 use App\Http\Utility\SendNotification;
-use App\Models\Client;
+use App\Models\Admin;
+use App\Models\Admin\Frontend;
 use App\Models\Contact;
 use App\Models\Core\File;
 use App\Models\Subscriber;
+use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use App\Traits\Notifyable;
+use App\Traits\Fileable;
+use App\Jobs\SendMailJob;
+use App\Jobs\SendSmsJob;
 class CommunicationsController extends Controller
 {
+
+     use Notifyable , Fileable;
    /**
      * contact view
      *
      * @return View
      */
-    public function contact() :View{
+    public function contacts() :View{
+
         return view('frontend.contacts',[
-            'meta_data'=> $this->metaData([],'contacts'),
-            'breadcrumbs' =>  ["title" => "Contact",'Home' =>'home',"Contact"=>null],
+            'meta_data' => $this->metaData([
+                "title" => trans('default.contact')
+            ]),
+
         ]);
     }
 
@@ -37,22 +45,65 @@ class CommunicationsController extends Controller
      */
     public function store(ContactRequest $request) :RedirectResponse{
 
-        $contact = new Contact();
-        $contact->name = $request->get("name");
-        $contact->email = $request->get("email");
-        $contact->address = $request->get("address");
-        $contact->message = $request->get("message");
+        $contact           = new Contact();
+        $contact->name     = $request->input("name");
+        $contact->email    = $request->input("email");
+        $contact->address  = $request->input("address");
+        $contact->message  = $request->input("message");
         $contact->save();
 
-        if(site_settings('database_notifications') == StatusEnum::true->status()){
-            $code = [
-                "message" => $contact->name." Just contacted you.",
-                "url" => route('admin.contact.list')
-            ];
-            SendNotification::database_notifications($code);
-        }
 
-        return  back()->with(response_status('Contacted Successfully'));
+        $route             =  route("admin.contact.list");
+        $code =  [
+            'type'         => "user contacts",
+            'details'      => "email:".$contact->email,
+        ];
+
+        $this->send_notification($route,$code);
+
+        return  back()->with(response_status('Contacted successfully'));
+    }
+
+
+    public function send_notification(string $route , array $code){
+
+
+        $admin             =  Admin::where('super_admin',StatusEnum::true->status())->first();
+
+        $notifications = [
+            'database_notifications' => [
+                'action' => [SendNotification::class, 'database_notifications'],
+                'params' => [
+                    [ $admin, 'USER_ACTION', $code, $route ],
+                ],
+            ],
+            'slack_notifications' => [
+                'action' => [SendNotification::class, 'slack_notifications'],
+                'params' => [
+                    [
+                        $admin, 'USER_ACTION', $code, $route
+                    ]
+                ],
+            ],
+            'email_notifications' => [
+                'action' => [SendMailJob::class, 'dispatch'],
+                'params' => [
+                    [$admin,'USER_ACTION',$code],
+    
+                ],
+            ],
+            'sms_notifications' => [
+                'action' => [SendSmsJob::class, 'dispatch'],
+                'params' => [
+                    [$admin,'USER_ACTION',$code],
+                ],
+            ],
+        ];
+
+
+        $this->notify($notifications);
+
+
     }
 
 
@@ -60,7 +111,7 @@ class CommunicationsController extends Controller
     /**
      * Subscribes
      *
-     * @return View
+     * @return RedirectResponse
      */
     public function subscribe(Request $request) :RedirectResponse{
 
@@ -70,19 +121,22 @@ class CommunicationsController extends Controller
             "email.unique" => translate("Already Subscribed !!")
         ]);
         
-        $subscriber = new Subscriber();
-        $subscriber->email = $request->get("email");
+        $subscriber         = new Subscriber();
+        $subscriber->email  = $request->input("email");
         $subscriber->save();
 
-        if(site_settings('database_notifications') == StatusEnum::true->status()){
-            $code = [
-                "message" => $subscriber->email." Just Subscribed",
-                "url" => route('admin.subscriber.list')
-            ];
-            SendNotification::database_notifications($code);
-        }
 
-        return  back()->with(response_status('Subscribed Successfully'));
+        $route             =  route("admin.subscriber.list");
+
+        $code =  [
+            'type'         => "user newsletter subscription",
+            'details'      => "email:".$subscriber->email,
+        ];
+
+
+        $this->send_notification($route,$code);
+
+        return  back()->with(response_status('Subscribed successfully'));
     }
 
 
@@ -92,9 +146,13 @@ class CommunicationsController extends Controller
      * @return View
      */
     public function feedback() :View{
+        
         return view('frontend.feedback',[
-            'meta_data'=> $this->metaData([],'feedback'),
-            'breadcrumbs' =>  ["title" => "Feedback",'Home' =>'home',"Feedback"=>null],
+            
+            'meta_data' => $this->metaData([
+                "title" => trans('default.feedback')
+            ]),
+         
         ]);
     }
 
@@ -104,9 +162,54 @@ class CommunicationsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function feedbackStore(ClientRequest $request) :RedirectResponse{
+    public function feedbackStore(Request $request) :RedirectResponse{
 
-      
+
+        $request->validate([
+            "author"      => ['required',"max:155"],
+            "quote"       => ['required',"max:255"],
+            "rating"      => ['integer',"max:5","min:1"],
+            "designation" => ['required',"max:155"],
+            "image"       => ["required",'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))]
+        ]);
+
+        $requestData = $request->except(['_token','image']);
+        $frontend         = new Frontend();
+        $frontend->key    = "element_testimonial";
+        $frontend->value  = $requestData;
+        $frontend->save(); 
+
+        $files = [];
+        if($request->has("image")){
+            $response = $this->storeFile(
+                file        : $request->file("image"), 
+                location    : config("settings")['file_path']['frontend']['path'],
+            );
+            if(isset($response['status'])){
+
+                $files [] = new File([
+                    'name'      => Arr::get($response, 'name', '#'),
+                    'disk'      => Arr::get($response, 'disk', 'local'),
+                    'type'      => "image",
+                    'size'      => Arr::get($response, 'size', ''),
+                    'extension' => Arr::get($response, 'extension', ''),
+                ]);
+                
+            }
+        }
+
+        if (!empty($files)) {
+            $frontend->file()->saveMany($files);
+        }
+
+        $route             =  route("admin.appearance.list","testimonial");
+
+        $code =  [
+            'type'         => "User feedback",
+            'details'      => "Author:".$request->input("author"),
+        ];
+
+        $this->send_notification($route,$code);
 
         return  back()->with(response_status('Thank you for your feedback! It is under review.'));
   

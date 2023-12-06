@@ -98,7 +98,7 @@
                             </th>
 
                             <th scope="col">
-                                {{translate('Discount Price')}}
+                                {{translate('Duration')}}
                             </th>
 
                             <th scope="col">
@@ -149,12 +149,20 @@
 
 
                                 <td data-label="{{translate("Price")}}">
-                                      {{num_format($package->price,base_currency())}}
+                                    @if($package->discount_price > 0)
+                                        <del>
+                                            {{num_format($package->price,base_currency())}}
+                                        </del>/
+                                        {{num_format($package->discount_price,base_currency())}}  
+                                    @else
+                                        {{num_format($package->price,base_currency())}}
+                                    @endif
                                 </td>
 
 
-                                <td data-label="{{translate("Discount Price")}}">
-                                      {{num_format($package->discount_price,base_currency())}}  
+                                <td data-label="{{translate("Duration")}}">
+                                
+                                     @php  echo plan_duration($package->duration)  @endphp
                                 </td>
 
                                 <td data-label="{{translate("Affiliate Commission")}}">
@@ -162,14 +170,12 @@
                                 </td>
 
                                 <td data-label="{{translate("Subscriptions - Earnings")}}">
-                    
-                                
+
                                     <span class="i-badge capsuled success">
                                         <a href="{{route("admin.subscription.report.list",['package' => $package->slug])}}">
-                                           Total Subscription {{$package->subscriptions_count}}
+                                          {{translate("Total Subscription")}} {{$package->subscriptions_count}}
                                         </a>
                                     </span>
-                                
                                       -
                                       {{@num_format(
                                         number : $package->total_subscription_income??0,

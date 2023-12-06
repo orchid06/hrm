@@ -164,17 +164,39 @@
     },
 
 
+    "contact_us": {
+
+        "builder": true,
+        "name": "contact_us",
+        "no_selection": true,
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1000x1000"
+                }
+            },
+            "banner_title" :"text",
+            "banner_description": "text",
+            "support_title": "text",
+            "support_description": "text",
+            "button_name" :"text",
+            "button_url" :"text",
+            "section_title" :"text",
+            "section_heading" :"text",
+            "section_description" :"textarea"
+        }
+    
+    },
+
+
 
     "template": {
         "builder": true,
         "name": "template_section",
         "content": {
-
             "title": "text",
             "sub_title": "text",
             "description": "textarea"
-            
-    
         }
     
     },
@@ -243,7 +265,6 @@
         "builder": true,
         "name": "plan_section",
         "content": {
-          
             "title": "text",
             "sub_title": "text",
             "button_name": "text",
@@ -282,9 +303,12 @@
         "content": {
             "title": "text",
             "sub_title": "text",
+            "banner_title": "text",
+            "banner_description": "text",
             "button_name": "text",
             "button_url": "text",
             "description": "textarea"
+
         }
     },
     
@@ -318,6 +342,11 @@
         "no_selection": true,
         "name": "CTA_section ",
         "content": {
+            "images": {
+                "image": {
+                    "size": "2800x1200"
+                }
+            },
             "title": "text",
             "description": "textarea"
         },

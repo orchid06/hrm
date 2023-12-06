@@ -1,6 +1,10 @@
 
 @php
-   $content             = get_content("content_plan")->first();  
+   $content  = get_content("content_plan")->first();  
+   $plans    = App\Models\Package::active()
+                                  ->feature()
+                                  ->get();
+                       
 @endphp
 
 
@@ -28,832 +32,133 @@
         </div>
 
         <div class="col-xl-7 col-lg-8">
-          <div
-            class="d-flex align-items-center justify-content-between flex-wrap gap-4 mb-4"
-          >
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 mb-4">
             <div class="nav plan-tab" role="tablist">
-              <button
-                class="nav-link active"
-                id="monthly-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#monthly"
-                type="button"
-                role="tab"
-                aria-controls="monthly"
-                aria-selected="true"
-              >
-                Monthly
-              </button>
 
-              <button
-                class="nav-link"
-                id="yearly-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#yearly"
-                type="button"
-                role="tab"
-                aria-controls="yearly"
-                aria-selected="false"
-              >
-                Yearly
-              </button>
+              @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
+
+                <button class="nav-link {{$loop->index  == 0 ? "active" :""}}" id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}" type="button"role="tab"aria-controls="{{$key}}"
+                  aria-selected="true">
+                    {{
+                      ucfirst(strtolower($key))
+                    }}
+                </button>
+                  
+              @endforeach
+
             </div>
 
-            <a href="#" class="learn-more">
-              <span class="circle" aria-hidden="true">
-                <span class="icon arrow"> </span>
+            <a href="{{route("plan")}}" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                  <span class="icon arrow"> </span>
+                </span>
+              <span class="button-text">
+                {{trans("default.explore_all")}}
               </span>
-              <span class="button-text">Explore All</span>
             </a>
+
           </div>
 
           <div class="tab-content" id="tab-plans">
-            <div
-              class="tab-pane fade show active"
-              id="monthly"
-              role="tabpanel"
-              aria-labelledby="monthly-tab"
-              tabindex="0"
-            >
-              <div class="row g-4">
-                <div class="col-md-7 order-md-0 order-1">
-                  <div class="tab-content" id="price-tabContent">
-                    <div
-                      class="tab-pane fade show active"
-                      id="plan-month-intro"
-                      role="tabpanel"
-                      aria-labelledby="plan-month-intro-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>5 social profiles</p>
-                          </li>
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
+            @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
+                  <div class="tab-pane fade {{$loop->index == 0 ? "show active" : ""}}  " id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
+                     @php
+                        $purchasePlans = $plans->where('duration',$value);
+                     @endphp
+                      <div class="row g-4">
+                          <div class="col-md-7 order-md-0 order-1">
+                              <div class="tab-content" id="price-tabContent">
+                                  
+                                    @forelse ($purchasePlans as  $plan)
+                                      <div class="tab-pane fade {{$loop->index == 0 ? "show active" :""}}  " id="{{$key}}-{{$plan->slug}}" role="tabpanel" aria-labelledby="{{$key}}-{{$plan->slug}}-tab" >
+                                        <div class="plan-card-detail">
+                                          <p>
+                                             {{ $plan->description}}
+                                          </p>
+                                          <ul>
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
+                                            @php
+                                               
+                                              $planConfigs =  plan_configuration( $plan);
+                 
+                                            @endphp
+                                            
+                                           
+                                            @foreach (plan_configuration( $plan) as $configKey => $configVal )
+                                              <li>
+                                                <span>
+                                                  <i class="bi bi-patch-check"></i>
+                                                </span>
+                                                <p>
+                                                   {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
+                                                </p>
+                                              </li>
+                                            @endforeach
 
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
+                                         
+                                          </ul>
+                                          <div>
+                                            <a href="{{route("user.plan.purchase",$plan->slug)}}"
+                                              class="i-btn btn--secondary btn--lg capsuled">
+                                                {{translate("Subscribe")}}
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    @empty
+
+                                      @include("frontend.partials.not_found")
+
+                                    @endforelse
+
+                              </div>
+                          </div>
+
+                          <div class="col-md-5 order-md-1 order-0">
+                            <div class="nav plan-card-list" role="tablist" aria-orientation="vertical">
+
+                        
+                                @forelse ($purchasePlans as  $plan)
+                                   
+                                  <a class="nav-link plan-card-item {{$loop->index == 0 ? "active" :""}}" id="{{$key}}-{{$plan->slug}}-tab" data-bs-toggle="pill" href="#{{$key}}-{{$plan->slug}}" role="tab"aria-controls="{{$key}}-{{$plan->slug}}"aria-selected="true">
+                                    <div class="plan-card-left">
+                                      <span>
+                                        {{$plan->title}}
+                                      </span>
+                                      @php
+                                           
+                                      @endphp
+
+                                      <h4>  @if($plan->discount_price > 0) <del>
+                                        {{num_format( number : $plan->price,
+                                                     calC:true)}}</del> {{num_format( number : $plan->discount_price,
+                                                     calC:true)}} @else {{num_format( number : $plan->price,
+                                                     calC:true)}}@endif<span>/{{ucfirst(strtolower($key))}}</span>  </h4>
+
+                                    </div>
+
+                                    <div class="plan-card-right">
+                                      <span> </span>
+                                    </div>
+                                  </a>
+
+                                @empty
+                                  
+                                     @include("frontend.partials.not_found")
+
+                                @endforelse
+
+                            </div>
+                          </div>
                       </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="paln-month-base"
-                      role="tabpanel"
-                      aria-labelledby="paln-month-base-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>8 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="paln-month-popular"
-                      role="tabpanel"
-                      aria-labelledby="paln-month-popular-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>10 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="plan-month-enterprise"
-                      role="tabpanel"
-                      aria-labelledby="plan-month-enterprise-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>12 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                </div>
+            @endforeach
 
-                <div class="col-md-5 order-md-1 order-0">
-                  <div
-                    class="nav plan-card-list"
-                    role="tablist"
-                    aria-orientation="vertical"
-                  >
-                    <a
-                      class="nav-link plan-card-item active"
-                      id="plan-month-intro-tab"
-                      data-bs-toggle="pill"
-                      href="#plan-month-intro"
-                      role="tab"
-                      aria-controls="plan-month-intro"
-                      aria-selected="true"
-                    >
-                      <div class="plan-card-left">
-                        <span>Intro</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="paln-month-base-tab"
-                      data-bs-toggle="pill"
-                      href="#paln-month-base"
-                      role="tab"
-                      aria-controls="paln-month-base"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Base</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="paln-month-popular-tab"
-                      data-bs-toggle="pill"
-                      href="#paln-month-popular"
-                      role="tab"
-                      aria-controls="paln-month-popular"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Popular</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="plan-month-enterprise-tab"
-                      data-bs-toggle="pill"
-                      href="#plan-month-enterprise"
-                      role="tab"
-                      aria-controls="plan-month-enterprise"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Enterprise</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="yearly"
-              role="tabpanel"
-              aria-labelledby="yearly-tab"
-              tabindex="0"
-            >
-              <div class="row g-4">
-                <div class="col-md-7 order-md-0 order-1">
-                  <div class="tab-content" id="price-tabContent-two">
-                    <div
-                      class="tab-pane fade show active"
-                      id="plan-yearly-intro"
-                      role="tabpanel"
-                      aria-labelledby="plan-yearly-intro-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>5 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="paln-yearly-base"
-                      role="tabpanel"
-                      aria-labelledby="paln-yearly-base-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>8 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="paln-yearly-popular"
-                      role="tabpanel"
-                      aria-labelledby="paln-yearly-popular-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>10 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      class="tab-pane fade"
-                      id="plan-yearly-enterprise"
-                      role="tabpanel"
-                      aria-labelledby="plan-yearly-enterprise-tab"
-                    >
-                      <div class="plan-card-detail">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur
-                          adipisicing elit. Neque, eos hic commodi nisi
-                          minima sit.
-                        </p>
-
-                        <ul>
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>12 social profiles</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Publish, schedule, draft and queue posts</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Social content calendar</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>Suggestions by AI Assist</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-
-                          <li>
-                            <span>
-                              <i class="bi bi-patch-check"></i>
-                            </span>
-                            <p>All-in-one social inbox</p>
-                          </li>
-                        </ul>
-                        <div>
-                          <a
-                            href="#"
-                            class="i-btn btn--secondary btn--lg capsuled"
-                          >
-                            Start your free trial
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-5 order-md-1 order-0">
-                  <div
-                    class="nav plan-card-list"
-                    role="tablist"
-                    aria-orientation="vertical"
-                  >
-                    <a
-                      class="nav-link plan-card-item active"
-                      id="plan-yearly-intro-tab"
-                      data-bs-toggle="pill"
-                      href="#plan-yearly-intro"
-                      role="tab"
-                      aria-controls="plan-yearly-intro"
-                      aria-selected="true"
-                    >
-                      <div class="plan-card-left">
-                        <span>Intro</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="paln-yearly-base-tab"
-                      data-bs-toggle="pill"
-                      href="#paln-yearly-base"
-                      role="tab"
-                      aria-controls="paln-yearly-base"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Base</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="paln-yearly-popular-tab"
-                      data-bs-toggle="pill"
-                      href="#paln-yearly-popular"
-                      role="tab"
-                      aria-controls="paln-yearly-popular"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Popular</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-
-                    <a
-                      class="nav-link plan-card-item"
-                      id="plan-yearly-enterprise-tab"
-                      data-bs-toggle="pill"
-                      href="#plan-yearly-enterprise"
-                      role="tab"
-                      aria-controls="plan-yearly-enterprise"
-                      aria-selected="false"
-                      tabindex="-1"
-                    >
-                      <div class="plan-card-left">
-                        <span>Enterprise</span>
-                        <h4><del>$30</del> $19 <span>/Month</span></h4>
-                      </div>
-
-                      <div class="plan-card-right">
-                        <span> </span>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

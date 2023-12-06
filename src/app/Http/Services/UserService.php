@@ -221,7 +221,7 @@ class UserService
      * @param Package $package
      * @return array
      */
-    public function createSubscription(User $user , Package $package ,string | null $remarks =  null) :array{
+    public function createSubscription(User $user , Package $package ,string | null $remarks =  null) :array {
 
 
         try {
