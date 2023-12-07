@@ -1,9 +1,15 @@
 <header class="header">
+
+  @php
+      $lang = $languages->where('code',session()->get('locale'));
+      $code = count($lang)!=0 ? $lang->first()->code:"en";
+      $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
+  @endphp
     <div class="container-fluid px-0">
       <div class="header-container">
         <div class="header-logo">
-          <a href="index.html">
-            <img src="http://localhost/engageHub/assets/images/backend/site_logo/654227a04376b1698834336.jpg" alt="">
+          <a href="{{route('home')}}">
+              <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
           </a>
         </div>
 
@@ -11,9 +17,9 @@
           <div class="sidebar-body">
             <div class="mobile-logo-area d-lg-none mb-5">
               <div class="mobile-logo-wrap">
-                <a href="index.html">
+                <a href="{{route('home')}}">
                   
-                  <img src="http://localhost/engageHub/assets/images/backend/site_logo/654227a04376b1698834336.jpg" alt="">
+                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
         
                 </a>
               </div>
@@ -43,6 +49,7 @@
 
             <nav>
               <ul class="menu-list">
+
                 <li class="menu-item">
                   <a href="javascript:void(0)" class="menu-link"
                     >Platform
@@ -235,195 +242,187 @@
                         </div>
 
                         <div class="col-lg-9">
-                          <div class="mega-menu-right">
-                            <div class="row g-0 h-100">
-                              <div class="col-lg-8">
-                                <div class="social-integra">
-                                  <h5>Top Integrations</h5>
-                                  <div class="mega-menu-integra">
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/facebook.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>Facebook</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/instagram.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>Instagram</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                            <div class="mega-menu-right">
+                              <div class="row g-0 h-100">
+                                <div class="col-lg-8">
+                                  <div class="social-integra">
+                                    <h5>Top Integrations</h5>
+                                    <div class="mega-menu-integra">
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/facebook.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>Facebook</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/twitter.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>Twitter</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/instagram.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>Instagram</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/linkedin.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>Linkedin</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/twitter.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>Twitter</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/tik-tok.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>TikTok</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/linkedin.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>Linkedin</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/youtube.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>youtube</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/tik-tok.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>TikTok</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
 
-                                    <a href="#" class="menu-social-item">
-                                      <div class="social-item-img">
-                                        <img
-                                          src="./assets/images/social-logo/vk.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div>
-                                        <h6>VK</h6>
-                                        <p>Profile,Pages & Groups</p>
-                                      </div>
-                                    </a>
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/youtube.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>youtube</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
+
+                                      <a href="#" class="menu-social-item">
+                                        <div class="social-item-img">
+                                          <img
+                                            src="./assets/images/social-logo/vk.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div>
+                                          <h6>VK</h6>
+                                          <p>Profile,Pages & Groups</p>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                  <div class="mega-menu-banner">
+                                    <img
+                                      src="./assets/images/menu-banner.jpg"
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
                               </div>
-
-                              <div class="col-lg-4">
-                                <div class="mega-menu-banner">
-                                  <img
-                                    src="./assets/images/menu-banner.jpg"
-                                    alt=""
-                                  />
-                                </div>
-                              </div>
                             </div>
-                          </div>
+
                         </div>
                       </div>
                     </div>
                   </div>
                 </li>
 
-                <li class="menu-item">
-                  <a href="./plan.html" class="menu-link">Pricing</a>
-                </li>
-
-                <li class="menu-item">
-                  <a href="./blog.html" class="menu-link">Blog</a>
-                </li>
-
-                <li class="menu-item">
-                  <a href="./contact.html" class="menu-link">Contact</a>
-                </li>
+                @foreach ($menus as  $menu)
+                    <li class="menu-item">
+                        <a href="{{url($menu->url)}}" class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
+                          {{$menu->name}}
+                        </a>
+                    </li>
+                @endforeach
+                @php
+                       $lastSegment = collect(request()->segments())->last();
+                @endphp
+                @foreach ($pages as  $page)
+                    <li class="menu-item">
+                        <a href="{{route('pages',$page->slug)}}" class="menu-link @if($lastSegment == $page->slug) active @endif ">
+                          {{$page->title}}
+                        </a>
+                    </li>
+                @endforeach
+        
               </ul>
             </nav>
 
             <div class="sidebar-action d-lg-none">
               <div
-                class="d-flex align-items-center justify-content-between gap-3"
-              >
-                <a
-                  href="#"
-                  class="i-btn btn--primary-outline btn--lg capsuled"
-                  >Get Support</a
-                >
+                class="d-flex align-items-center justify-content-between gap-3">
+                <a href="{{route("plan")}}"class="i-btn btn--primary-outline btn--lg capsuled">
+                  {{translate("Get Started")}}
+                </a>
 
-                <a
-                  href="./login.html"
-                  class="i-btn btn--secondary btn--lg capsuled"
-                >
-                  Login
+                <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
+                    {{translate('Login')}}
                 </a>
               </div>
             </div>
 
             <div class="sidebar-bottom d-lg-none">
+    
               <div class="lang">
                 <div class="dropdown">
                   <button
                     class="lang-btn dropdown-toggle"
                     type="button"
                     data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                    aria-expanded="false">
                     <span class="flag">
-                      <img src="./assets/images/bar.jpg" alt="" />
+                      <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
                     </span>
                   </button>
 
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <button class="dropdown-item" type="button">
-                        <span class="flag">
-                          <img src="./assets/images/canda.png" alt="" />
-                        </span>
-                        Action
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item" type="button">
-                        <span class="flag">
-                          <img src="./assets/images/canda.png" alt="" />
-                        </span>
-                        Another action
-                      </button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item" type="button">
-                        <span class="flag">
-                          <img src="./assets/images/bar.jpg" alt="" />
-                        </span>
-                        Something else here
-                      </button>
-                    </li>
-                  </ul>
+                  @if(!$languages->isEmpty())
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      @foreach($languages as $language)
+                        <li>
+                          <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                              <span class="flag">
+                                    <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                               
+                              </span>
+                              {{$language->name}}
+                          </a>
+                        </li>
+                      @endforeach
+                    </ul>
+                  @endif
                 </div>
               </div>
 
@@ -435,25 +434,21 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    USD
+                  {{session()->get('currency')?->code}}
                   </button>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >EUR</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >YEN</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0)"
-                        >KWD</a
-                      >
-                    </li>
-                  </ul>
+
+                  @if(site_currencies() && !site_currencies()->isEmpty())
+                      <ul class="dropdown-menu dropdown-menu-end">
+
+                        @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+
+                            <li>
+                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                            </li>
+                        @endforeach
+                
+                      </ul>
+                  @endif
                 </div>
               </div>
             </div>
@@ -463,65 +458,47 @@
         </div>
 
         <div
-          class="nav-right d-flex jsutify-content-end align-items-center gap-3"
-        >
+          class="nav-right d-flex jsutify-content-end align-items-center gap-3">
           <div class="d-lg-block d-none lang">
             <div class="dropdown">
               <button
                 class="lang-btn dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 <span class="flag">
-                  <img src="./assets/images/bar.jpg" alt="" />
+                  <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
                 </span>
               </button>
 
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <button class="dropdown-item" type="button">
-                    <span class="flag">
-                      <img src="./assets/images/canda.png" alt="" />
-                    </span>
-                    Action
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item" type="button">
-                    <span class="flag">
-                      <img src="./assets/images/canda.png" alt="" />
-                    </span>
-                    Another action
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item" type="button">
-                    <span class="flag">
-                      <img src="./assets/images/bar.jpg" alt="" />
-                    </span>
-                    Something else here
-                  </button>
-                </li>
-              </ul>
+
+              @if(!$languages->isEmpty())
+                <ul class="dropdown-menu dropdown-menu-end">
+                  @foreach($languages as $language)
+                    <li>
+                      <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                          <span class="flag">
+                                <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                          </span>
+                          {{$language->name}}
+                      </a>
+                    </li>
+                  @endforeach
+                </ul>
+               @endif
             </div>
           </div>
 
           <div class="d-lg-block d-none">
-            <a
-              href="./auth/login.html"
-              class="i-btn btn--primary-outline btn--lg capsuled"
-            >
-              Get Started
+            <a href="{{route("plan")}}"
+              class="i-btn btn--primary-outline btn--lg capsuled" >
+                {{translate("Get Started")}}
             </a>
           </div>
 
           <div class="d-lg-block d-none">
-            <a
-              href="./login.html"
-              class="i-btn btn--secondary btn--lg capsuled"
-            >
-              Login
+            <a  href="{{route("auth.login")}}"  class="i-btn btn--secondary btn--lg capsuled">
+                 {{translate("Login")}}
             </a>
           </div>
 

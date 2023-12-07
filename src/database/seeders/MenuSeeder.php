@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Enums\StatusEnum;
+use App\Models\Admin\Menu;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class MenuSeeder extends Seeder
 {
@@ -12,6 +15,54 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
+
+        $sections = [];
+
+        foreach(get_appearance(true) as $key => $appearance ){
+            if (isset($appearance['builder']) && $appearance['builder'] && !@$appearance['no_selection']){
+                $sections[] =  $key;  
+            }
+        }
+
+        $menus = [
+
+            "/" => [
+                'name'     => "Home",
+                'section'  =>  $sections ,
+                'default'  =>  StatusEnum::true->status(),
+            ],
+
+            "contact" => [
+                'name'     => "Contact",
+
+            ],
+
+            "blogs" => [
+                'name'     => "Blog",
+      
+            ],
+
+            "plan" => [
+                'name'     => "Plans",
+
+            ],
+
+        ];
+        $keys = Menu::pluck('url')->toArray();
+
+        foreach($menus as $key => $section){
+            if(!in_array($key ,$keys )){
+
+                Menu::create([
+                    "url"          => $key,
+                    "name"         => Arr::get($section,"name",'home'),
+                    "section"      => Arr::get($section,"section",[]),
+                    "is_default"   => Arr::get($section,"default",StatusEnum::false->status()),
+                ]);
+              
+            }
+        }
+
     }
 }

@@ -45,7 +45,7 @@ class MenuController extends Controller
             'breadcrumbs' =>  ['Home'=>'admin.home','Menus'=> null],
             'title'       => 'Manage Menu',
             'menus'       =>  Menu::search(['name'])->with(['createdBy'])
-                             ->latest()
+                             ->orderBy('serial_id')
                             ->paginate(paginateNumber()),
             "serialId"    =>  $serialId,
         ]);

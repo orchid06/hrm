@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Core\Setting;
 use Database\Seeders\Admin\AdminSeeder;
-use Database\Seeders\Admin\FrontendSeeder;
 use Database\Seeders\Admin\MailSeeder;
 use Database\Seeders\Admin\PaymentMethodSeeder;
 use Database\Seeders\Admin\RoleSeeder;
@@ -15,6 +14,7 @@ use Database\Seeders\Admin\SmsSeeder;
 use Database\Seeders\Admin\TemplateSeeder;
 use Database\Seeders\Core\LangSeeder;
 use Database\Seeders\Core\SettingsSeeder;
+use Database\Seeders\FrontendSeeder as SeedersFrontendSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,12 +34,17 @@ class DatabaseSeeder extends Seeder
             // SmsSeeder::class,
             // MailSeeder::class,
 
-
             /** new  tested seeder */
             // CountrySeeder::class
-
             //  PlatformSeeder::class,
-            PackageSeeder::class
+            // PackageSeeder::class
+
+            SeedersFrontendSeeder::class,
+            MenuSeeder::class,
+            PageSeeder::class,
+
+
+            
         ]);
     }
 }

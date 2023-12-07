@@ -41,7 +41,7 @@ try {
 
 }
 
-Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
 
      #guest admin route start here
 	Route::middleware(['guest:admin'])->group(function () {
@@ -63,12 +63,6 @@ Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->
 
      });
 
-     $hitLimit = 500;
-      try {
-          $hitLimit = site_settings('web_route_rate_limit');
-      } catch (\Throwable $th) {
-          //throw $th;
-      }
 
 	Route::middleware(['auth:admin','demo','admin.verified',"throttle:$hitLimit,1"])->group(function () {
 

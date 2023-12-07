@@ -30,12 +30,12 @@ class Currency extends Model
 
         static::creating(function (Model $model) {
             $model->uid        = Str::uuid();
-            $model->created_by = auth_user()->id;
+            $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
         });
 
         static::updating(function(Model $model) {
-            $model->updated_by = auth_user()->id;
+            $model->updated_by = auth_user()?->id;
         });
 
         static::updated(function(Model $model) {

@@ -985,8 +985,8 @@
                                                         </label>
 
                                                         <div class="input-group">
-                                                            <input id="callbackUrl" readonly value="{{route('social.login.callback',str_replace("_oauth","",$medium))}}" type="text" class="form-control" >
-                                                            <span class="input-group-text pointer copy-text pointer"  data-text ="{{route('social.login.callback',str_replace("_oauth","",$medium))}}" ><i class="las la-copy"></i></span>
+                                                            <input id="callbackUrl" readonly value="{{route('auth.social.login.callback',str_replace("_oauth","",$medium))}}" type="text" class="form-control" >
+                                                            <span class="input-group-text pointer copy-text pointer"  data-text ="{{route('auth.social.login.callback',str_replace("_oauth","",$medium))}}" ><i class="las la-copy"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>

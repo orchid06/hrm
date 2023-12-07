@@ -74,7 +74,7 @@
 
     @include('frontend.partials.footer')
 
-    @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status())
+    @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
        @include('frontend.partials.cookie')
     @endif
 
@@ -181,13 +181,17 @@
         
           var route = $(this).attr('data-route')
 
+          console.log(route)
+
           $.ajax({
                 method:'get',
                 url: route,
                 dataType: 'json',
 
                 success: function(response){
-                  console.log(response)
+
+                     toastr(response.message,'success')
+
                 },
                 error: function (error){
                     if(error && error.responseJSON){

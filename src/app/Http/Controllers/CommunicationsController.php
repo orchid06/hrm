@@ -27,9 +27,11 @@ class CommunicationsController extends Controller
      *
      * @return View
      */
-    public function contacts() :View{
+    public function contact() :View{
 
-        return view('frontend.contacts',[
+   
+        return view('frontend.contact',[
+
             'meta_data' => $this->metaData([
                 "title" => trans('default.contact')
             ]),
