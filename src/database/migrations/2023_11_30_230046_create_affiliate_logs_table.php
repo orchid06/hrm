@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('referred_to')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
-            $table->double('commission_amount',25,5)->default(0);
+            $table->double('commission_amount',25,5)->default(0.00000);
             $table->integer('commission_rate')->default(0);
             $table->string('trx_code',200);
             $table->string('note',255)->nullable();

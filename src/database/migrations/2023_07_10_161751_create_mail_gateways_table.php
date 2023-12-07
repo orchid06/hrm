@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('code',100)->nullable();
             $table->string('name',100)->nullable();
             $table->longText('credential')->nullable();
-            $table->enum('default',[0,1])->nullable()->comment('Yes : 1,No : 0'); 
+            $table->enum('default',[0,1])->nullable()->comment('Yes: 1, No: 0'); 
             $table->timestamps();
         });
     }

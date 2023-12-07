@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->string("ip_address")->nullable();
-            $table->text("agent_info")->nullable();
-            $table->enum('is_blocked',[0,1])->default(0)->comment('Yes : 1,No : 0');
+            $table->longText("agent_info")->nullable();
+            $table->enum('is_blocked',[0,1])->default(0)->comment('Yes: 1, No: 0');
             $table->timestamps();
         });
     }

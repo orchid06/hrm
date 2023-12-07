@@ -255,425 +255,586 @@ return [
     "payment_methods" => [
 
         "bkash" => [
-            "code" => "bkash",
-            "serial_id" => "1",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "api_key" => "#",
-                     "username" => "#",
-                     "password" => "#",
-                     "api_secret" => "#",
-                     "sandbox" => StatusEnum::true->status()
-                ],
-            "extra_parameters" =>
-                [
-                    "callback"=>"ipn"
-                ]
-            ,
+            "code"             => "bkash",
+            "serial_id"        => "1",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key"    => "#",
+                "username"   => "#",
+                "password"   => "#",
+                "api_secret" => "#",
+                "sandbox"    => StatusEnum::true->status()
+            ],
+            "extra_parameters" =>[
+                "callback"=>"ipn"
+            ],
         ],
 
         "nagad" => [
-            "code" => "nagad",
-            "serial_id" => "1",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "pub_key" => "#",
-                     "pri_key" => "#",
-                     "marchent_number" => "#",
-                     "marchent_id" => "#",
-                     "sandbox" => StatusEnum::true->status()
-                ],
-            "extra_parameters" =>
-                [
-                    "callback"=>"ipn"
-                ],
+            "code"             => "nagad",
+            "serial_id"        => "2",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "pub_key"         => "#",
+                "pri_key"         => "#",
+                "marchent_number" => "#",
+                "marchent_id"     => "#",
+                "sandbox"         => StatusEnum::true->status()
+            ],
+            "extra_parameters" => [
+                "callback" => "ipn"
+            ],
         ],
 
         "paypal" => [
-            "code" => "paypal",
-            "serial_id" => "3",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "cleint_id" => "#",
-                     "secret" => "#",
-
-                ],
-            "extra_parameters" =>
-                [],
+            "code"             => "paypal",
+            "serial_id"        => "3",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "cleint_id" => "#",
+                "secret"    => "#",
+            ],
+            "extra_parameters" => [],
         ],
 
         "stripe" => [
-            "code" => "stripe",
-            "serial_id" => "4",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "secret_key" => "#",
-                     "publishable_key" => "#",
-
-                ],
-            "extra_parameters" =>
-                [],
-        ],
-
-        "paytm" => [
-            "code" => "paytm",
-            "serial_id" => "5",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "MID" => "#",
-                     "merchant_key" => "#",
-                     "WEBSITE" => "#",
-                     "INDUSTRY_TYPE_ID" => "#",
-                     "CHANNEL_ID" => "#",
-                     "transaction_url" => "#",
-                     "transaction_status_url" => "#"
-                ],
-            "extra_parameters" =>
-                [],
+            "code"             => "stripe",
+            "serial_id"        => "4",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "secret_key"      => "#",
+                "publishable_key" => "#",
+            ],
+            "extra_parameters" => [],
         ],
 
         "payeer" => [
-            "code" => "payeer",
-            "serial_id" => "6",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "merchant_id" => "#",
-                     "secret_key" => "#",
-
-                ],
-            "extra_parameters" =>
-                [
-                    "status"=>"ipn"
-                ],
+            "code"             => "payeer",
+            "serial_id"        => "5",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "merchant_id" => "#",
+                "secret_key"  => "#",
+            ],
+            "extra_parameters" => [
+                "status" => "ipn"
+            ],
         ],
 
         "paystack" => [
-            "code" => "paystack",
-            "serial_id" => "7",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "public_key" => "#",
-                     "secret_key" => "#",
-
-                ],
-            "extra_parameters" =>
-                [
-                    "callback"=>"ipn",
-                    "webhook"=>"ipn"
-                ]
-            ,
-        ],
-
-
-        "voguepay" => [
-            "code" => "voguepay",
-            "serial_id" => "8",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "merchant_id" => "#",
-
-                ],
-            "extra_parameters" =>
-                [
-
-                ],
+            "code"             => "paystack",
+            "serial_id"        => "6",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "public_key" => "#",
+                "secret_key" => "#",
+            ],
+            "extra_parameters" => [
+                "callback" => "ipn",
+                "webhook"  => "ipn"
+            ],
         ],
 
         "flutterwave" => [
-            "code" => "flutterwave",
-            "serial_id" => "9",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "public_key" => "#",
-                     "secret_key" => "#",
-                     "encryption_key" => "#"
-
-                ],
-            "extra_parameters" =>
-                [
-
-                ],
+            "code"             => "flutterwave",
+            "serial_id"        => "7",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "public_key"     => "#",
+                "secret_key"     => "#",
+                "encryption_key" => "#"
+            ],
+            "extra_parameters" => [],
         ],
 
         "razorpay" => [
-            "code" => "razorpay",
-            "serial_id" => "10",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "key_id" => "#",
-                     "key_secret" => "#"
-
-                ]
-           ,
-            "extra_parameters" =>
-                [
-
-                ],
+            "code"             => "razorpay",
+            "serial_id"        => "8",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "key_id"     => "#",
+                "key_secret" => "#"
+            ],
+            "extra_parameters" => [],
         ],
 
         "instamojo" => [
-            "code" => "instamojo",
-            "serial_id" => "11",
-            "currency_id" => "1",
+            "code"             => "instamojo",
+            "serial_id"        => "9",
+            "currency_id"      => "1",
 
-            "parameters" =>
-                [
-                     "api_key" => "#",
-                     "auth_token" => "#",
-                     "salt" => "#"
-
-                ],
-            "extra_parameters" =>
-                [
-
-                ]
-            ,
+            "parameters"       => [
+                "api_key"    => "#",
+                "auth_token" => "#",
+                "salt"       => "#"
+            ],
+            "extra_parameters" => [],
         ],
 
         "mollie" => [
-            "code" => "mollie",
-            "serial_id" => "12",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "api_key" => "#",
-
-
-                ],
-            "extra_parameters" =>
-                [
-
-                ],
-        ],
-
-        "authorize.net" => [
-            "code" => "authorizenet",
-            "serial_id" => "13",
-            "currency_id" => "1",
-            "parameters" =>
-                [
-                     "login_id" => "#",
-                     "current_transaction_key" => "#"
-
-                ],
-            "extra_parameters" =>
-                [
-
-                ],
-        ],
-
-        "securionpay" => [
-            "code" => "securionpay",
-            "serial_id" => "14",
-            "currency_id" => "1",
-
-            "parameters" =>
-                [
-                     "public_key" => "#",
-                     "secret_key" => "#"
-                ],
-            "extra_parameters" =>
-                [
-
-                ],
+            "code"             => "mollie",
+            "serial_id"        => "10",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key" => "#",
+            ],
+            "extra_parameters" => [],
         ],
 
         "payumoney" => [
-            "code" => "payumoney",
-            "serial_id" => "15",
-            "currency_id" => "1",
-
-            "parameters" => (
-                [
-                     "merchant_key" => "#",
-                     "salt" => "#"
-                ]
-            ),
-            "extra_parameters" => (
-                [
-
-                ]
-            ),
+            "code"             => "payumoney",
+            "serial_id"        => "11",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "merchant_key" => "#",
+                "salt"         => "#"
+            ],
+            
+            "extra_parameters" => [],
+            
         ],
 
         "mercadopago" => [
-            "code" => "mercadopago",
-            "serial_id" => "16",
-            "currency_id" => "1",
-            "parameters" => (
-                [
-                     "access_token" => "#",
-
-                ]
-            ),
-            "extra_parameters" => (
-                [
-
-                ]
-            ),
+            "code"             => "mercadopago",
+            "serial_id"        => "12",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "access_token" => "#",
+            ],
+            "extra_parameters" =>  [],
         ],
 
         "cashmaal" => [
-            "code" => "cashmaal",
-            "serial_id" => "17",
-            "currency_id" => "1",
-
-            "parameters" => (
-                [
-                     "web_id" => "#",
-                     "ipn_key" => "#"
-                ]
-            ),
-            "extra_parameters" => (
-                [
-                  "ipn_url" => "ipn"
-                ]
-            ),
+            "code"             => "cashmaal",
+            "serial_id"        => "13",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "web_id"  => "#",
+                "ipn_key" => "#"
+            ],
+            "extra_parameters" => [
+                "ipn_url" => "ipn"
+            ],
         ],
 
-        "block.io" => [
-            "code" => "blockio",
-            "serial_id" => "18",
-            "currency_id" => "1",
+        "paytm" => [
+            "code"             => "paytm",
+            "serial_id"        => "14",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "MID"                    => "#",
+                "merchant_key"           => "#",
+                "WEBSITE"                => "#",
+                "INDUSTRY_TYPE_ID"       => "#",
+                "CHANNEL_ID"             => "#",
+                "transaction_url"        => "#",
+                "transaction_status_url" => "#"
+            ],
+            "extra_parameters" => [],
+        ],
 
-            "parameters" => (
-                [
-                     "api_pin" => "#",
-                     "api_key" => "#",
+        "voguepay" => [
+            "code"             => "voguepay",
+            "serial_id"        => "15",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "merchant_id" => "#",
+            ],
+            "extra_parameters" => [],
+        ],
+        
+        "authorize.net" => [
+            "code"             => "authorizenet",
+            "serial_id"        => "16",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "login_id"                => "#",
+                "current_transaction_key" => "#"
+            ],
+            "extra_parameters" => [],
+        ],
 
-                ]
-            ),
-            "extra_parameters" => json_encode(
-                [
-                  "cron" => "ipn"
-                ]
-            ),
-        ]
+        "NMI" => [
+
+            "code"             => "nmi",
+            "serial_id"        => "17",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key" => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "BTCPay" => [
+
+            "code"             => "btcpay",
+            "serial_id"        => "18",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "store_id"    => '#',
+                "api_key"     => '#',
+                "server_name" => '#',
+                "secret_code" => '#',
+            ],
+            "extra_parameters" => [
+                "callback" => 'ipn',
+            ],
+        ],
+
+        "Perfect Money" => [
+
+            "code"             => "PerfectMoney",
+            "serial_id"        => "19",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "passphrase" => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "Blockchain" => [
+            
+            "code"             => "blockchain",
+            "serial_id"        => "20",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key" => '#',
+                "xpub_code" => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "Checkout" => [
+
+            "code"             => "checkout",
+            "serial_id"        => "21",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "secret_key" => '#',
+                "public_key" => '#',
+                "channel"    => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "Coingate" => [
+
+            "code"             => "coingate",
+            "serial_id"        => "22",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key" => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "Skrill" => [
+
+            "code"             => "skrill",
+            "serial_id"        => "23",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "secret_key"   => '#',
+                "skrill_email" => '#',
+            ],
+            "extra_parameters" => [],
+        ],
+
+        "Coinbase Commerce" => [
+
+            "code"             => "Coinbase",
+            "serial_id"        => "24",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "api_key"        => '#',
+                "webhook_secret" => '#',
+            ],
+            "extra_parameters" => [
+                "webhook" => "ipn"
+            ],
+        ],
+
+        "test2w" => [
+            "code"             => "test2w",
+            "serial_id"        => "25",
+            "currency_id"      => "1",
+            "parameters"       => [
+                "ds3_0" => [
+                    "field_name"  => "#",
+                    "field_label" => "#",
+                    "type"        => "#",
+                    "validation"  => "#",
+                ],
+                "we23_1" => [
+                    "field_name"  => "#",
+                    "field_label" => "#",
+                    "type"        => "#",
+                    "validation"  => "#",
+                ],
+            ],
+            "extra_parameters" => [],
+        ],
 
     ] ,
 
     "notification_template" => [
 
         "PASSWORD_RESET" => [
-            "name" => "Password Reset",
-            "subject" => "Password Reset",
-            "body" => "We have received a request to reset the password for your account on {{code}} and Request time {{time}}",
-            "sms_body" => "",
+            "name"      => "Password Reset",
+            "subject"   => "Password Reset",
+            "body"      => "We have received a request to reset the password for your account on {{code}} and Request time {{time}}",
+            "sms_body"  => "We have received a request to reset the password for your account on {{code}} and Request time {{time}}",
             "sort_code" => [
                 'code' => "Password Reset Code",
                 'time' => "Password Reset Time",
             ]
         ],
 
-        "PASSWORD_RESET_CONFIRM" => [
-            "name" => "Password Reset Confirm",
-            "subject" => "Password Reset Confirm",
-            "body" => "<p>We have received a request to reset the password for your account on {{code}} and Request time {{time}}</p>",
-            "sms_body" => "",
-            "sort_code" => ([
-                'code' => "Password Reset Code",
-                'time' => "Password Reset Time",
-            ])
-        ],
-
         "REGISTRATION_VERIFY" => [
-            "name" => "Registration Verify",
-            "subject" => "Registration Verify",
-            "body" => "<p> We have received a request to create an account, you need to verify email first, your    verification code is {{code}} and request time {{time}}</p>",
-            "sms_body" => "",
+            "name"      => "Registration Verify",
+            "subject"   => "Registration Verify",
+            "body"      => "<p> We have received a request to create an account, you need to verify email first, your verification code is {{code}} and request time {{time}}</p>",
+            "sms_body"  => "",
             "sort_code" => ([
                 'code' => "Verification Code",
                 'time' => "Time",
             ])
         ],
 
-
-        "OTP_VERIFY" => [
-            "name" => "OTP Verificaton",
-            "subject" => "OTP Verificaton",
-            "body" => "",
-            "sms_body" => "Your Otp {{otp}} and request time {{time}}",
+        "SUPPORT_TICKET_REPLY" => [
+            "name"      => "Support Ticket",
+            "subject"   => "Support Ticket",
+            "body"      => "<p>Hello Dear ! To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket &nbsp;<a style=\"background-color:#13C56B;border-radius:4px;color:#fff;display:inline-flex;font-weight:400;line-height:1;padding:5px 10px;text-align:center:font-size:14px;text-decoration:none;\" href=\"{{link}}\">Link</a></p>",
+            "sms_body"  => "Hello Dear ! To get a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket. {{link}}",
             "sort_code" => ([
-                'otp' => "otp",
-                'time' => "Time",
+                'ticket_number' => "Support Ticket Number",
+                'link'          => "Ticket URL For relpy",
             ])
         ],
 
+        "TEST_MAIL" => [
+            "name"      => "Mail Configuration Test",
+            "subject"   => "Test Mail",
+            "body"      => "<h5>This is testing mail for mail configuration.</h5><h5>Request time<span style=\"background-color: rgb(255, 255, 0);\"> {{time}}</span></h5>",
+            "sms_body"  => "",
+            "sort_code" => ([
+                'time' => "Time",
+            ])
+        ],  
+
+        "TICKET_REPLY" => [
+            "name"      => "Ticket Replay",
+            "subject"   => "Support Ticket Reply",
+            "body"      => "{{name}}!! Just Replied To A Ticket..  To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
+            "sms_body"  => "{{name}}!! Just Replied To A Ticket..  To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
+            "sort_code" => ([
+                
+                'name'          => "Admin/Agent/User Name",
+                'ticket_number' => "Support Ticket Number",
+                'link'          => "Ticket URL For relpy"
+            ])
+        ],
+
+        "CONTACT_REPLY" => [
+            "name"      => "Contact Message",
+            "subject"   => "Contact Message reply",
+            "body"      => "Hello Dear! {{email}} {{message}}",
+            "sms_body"  => "",
+            "sort_code" => ([
+                'email'   => "email",
+                'message' => "message"
+            ])
+        ],
+
+        "OTP_VERIFY" => [
+            "name"      => "OTP Verificaton",
+            "subject"   => "OTP Verificaton",
+            "body"      => "",
+            "sms_body"  => "Your Otp {{otp}} and request time {{time}}, expired time {{expired_time}}",
+            "sort_code" => ([
+                'otp'  => "otp",
+                'time' => "Time",
+                'expired_time' => "OTP Expired Time"
+            ])
+        ],
 
         "SUBSCRIPTION_EXPIRED" => [
-            "name" => "Subscription Expired",
-            "subject" => "Subscription Expired",
-            "body" => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
-            "sms_body" => "",
+            "name"      => "Subscription Expired",
+            "subject"   => "Subscription Expired",
+            "body"      => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
+            "sms_body"  => "",
             "sort_code" => ([
                 'time' => "Time",
                 'name' => "Package Name",
             ])
         ],
 
+        "WITHDRAWAL_REQUEST_ACCEPTED" => [
+            "name"      => "Withdrawal Request Accepted",
+            "subject"   => "Withdrawal Request Accepted",
+            "body"      => "We are pleased to inform you that your withdrawal request has been accepted. Here are the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Time of Approval: {{time}} The funds will be processed accordingly.",
+            "sms_body"  => "We are pleased to inform you that your withdrawal request has been accepted. Here are the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Time of Approval: {{time}} The funds will be processed accordingly.",
+            "sort_code" => ([
+                'time'     => "Time",
+                'trx_code' => "Transaction id",
+                'amount'   => "Withdraw amount",
+                'method'   => "Withdraw method",
+            ])
+        ],
+        
+        "WITHDRAWAL_REQUEST_SUBMIT" => [
+            "name"      => "New Withdrawal Request Submitted",
+            "subject"   => "New Withdrawal Request Submitted",
+            "body"      => "A new withdrawal request has been submitted. Here are the details: User: {{name}} Transaction ID: {{trx_code}} Amount: {{amount}} Withdrawal Method: {{method}} Requested On: {{time}}",
+            "sms_body"  => "A new withdrawal request has been submitted. Here are the details: User: {{name}} Transaction ID: {{trx_code}} Amount: {{amount}} Withdrawal Method: {{method}} Requested On: {{time}}",
+            "sort_code" => ([
+                'name'     => "User name",
+                'trx_code' => "Transaction id",
+                'amount'   => "Withdraw amount",
+                'method'   => "Withdraw method",
+            ])
+        ],
 
-        "SUPPORT_TICKET_REPLY" => [
-            "name" => "Support Ticket",
-            "subject" => "Support Ticket Reply",
-            "body" => "<p>Hello Dear ! To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket &nbsp;<a style=\"background-color:#13C56B;border-radius:4px;color:#fff;display:inline-flex;font-weight:400;line-height:1;padding:5px 10px;text-align:center:font-size:14px;text-decoration:none;\" href=\"{{link}}\">Link</a></p>",
-            "sms_body" => "Hello Dear ! To get a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
+        "DEPOSIT_REQUEST" => [
+            "name"      => "New Deposit Request",
+            "subject"   => "New Deposit Request",
+            "body"      => "We have received your deposit request for an amount of {{amount}} via {{payment_method}} at {{time}} Your transaction code is {{trx_code}}. Please wait for our confirmation",
+            "sms_body"  => "We have received your deposit request for an amount of {{amount}} via {{payment_method}} at {{time}} Your transaction code is {{trx_code}}. Please wait for our confirmation",
+            "sort_code" => ([
+                'time'           => "Time",
+                'trx_code'       => "Transaction id",
+                'amount'         => "Deposited amount",
+                'payment_method' => "Payment method",
+            ])
+        ],
+
+        "DEPOSIT_REQUEST_ACCEPTED" => [
+            "name"      => "Deposit Request Accepted",
+            "subject"   => "Deposit Request Accepted",
+            "body"      => "We are pleased to inform you that your deposit request has been accepted. Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
+            "sms_body"  => "We are pleased to inform you that your deposit request has been accepted. Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
+            
+            "sort_code" => ([
+                'trx_code'       => "Transaction id",
+                'amount'         => "Deposited amount",
+                'payment_method' => "Payment method",
+            ])
+        ],
+
+        "NEW_DEPOSIT" => [
+            "name"      => "Newly Deposited Amount",
+            "subject"   => "Newly Deposited Amount",
+            "body"      => "A new deposit has been made by {{name}}. Here are the details: - User: {{name}} - Transaction Code: {{trx_code}} - Amount: {{amount}} - Payment Method: {{payment_method}} - Time of Deposit: {{time}} Please review and take the necessary actions.",
+            "sms_body"  => "A new deposit has been made by {{name}}. Here are the details: - User: {{name}} - Transaction Code: {{trx_code}} - Amount: {{amount}} - Payment Method: {{payment_method}} - Time of Deposit: {{time}} Please review and take the necessary actions.",
+            "sort_code" => ([
+                'time'           => "Time",
+                'trx_code'       => "Transaction id",
+                'amount'         => "Deposited amount",
+                'payment_method' => "Payment method",
+                'name'           => "User name"
+            ])
+        ],
+
+        "WITHDRAWAL_REQUEST_REJECTED" => [
+            "name"      => "Withdrawal Request Rejected",
+            "subject"   => "Withdrawal Request Rejected",
+            "body"      => "We regret to inform you that your withdrawal request has been rejected. Please review the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Reason for Rejection: {{reason}} - Time of Rejection: {{time}}",
+            "sms_body"  => "We regret to inform you that your withdrawal request has been rejected. Please review the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Reason for Rejection: {{reason}} - Time of Rejection: {{time}}",
+            "sort_code" => ([
+                'time'     => "Time",
+                'trx_code' => "Transaction id",
+                'amount'   => "Withdraw amount",
+                'method'   => "Withdraw method",
+                'reason'   => "Rejection reason"
+            ])
+        ],
+
+        "WITHDRAWAL_REQUEST_RECEIVED" => [
+            "name"      => "Withdrawal Request Received",
+            "subject"   => "Withdrawal Request Received",
+            "body"      => "We have received your withdrawal request. Here are the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Time : {{time}} Your request is currently being processed. We will notify you once the status is updated.",
+            "sms_body"      => "We have received your withdrawal request. Here are the details: - Transaction Code: {{trx_code}} - Amount: {{amount}} - Method: {{method}} - Time : {{time}} Your request is currently being processed. We will notify you once the status is updated.",
+            "sort_code" => ([
+                'time'     => "Time",
+                'trx_code' => "Transaction id",
+                'amount'   => "Withdraw amount",
+                'method'   => "Withdraw method"
+            ])
+        ],
+
+        "SUBSCRIPTION_CREATED" => [
+            "name"      => "New Subscription Created",
+            "subject"   => "New Subscription Created",
+            "body"      => "A new subscription has been created. Subscription Details: - User: {{name}} - Subscription Plan: {{package_name}} - Start Date: {{start_date}} - End Date: {{end_date}}",
+            "sms_body"  => "A new subscription has been created. Subscription Details: - User: {{name}} - Subscription Plan: {{package_name}} - Start Date: {{start_date}} - End Date: {{end_date}}",
+            "sort_code" => ([
+                'name'         => "User name",
+                'start_date'   => "Start Date",
+                'end_date'     => "End Date",
+                'package_name' => "Package name"
+            ])
+        ],
+
+        "NEW_TICKET" => [
+            "name"      => "New Ticket",
+            "subject"   => "New Ticket",
+            "body"      => "A new ticket has been created with the following details: Ticket ID: {{ticket_number}} Created by: {{name}} Date and Time: {{time}} Priority: {{priority}}",
+            "sms_body"  => "A new ticket has been created with the following details: Ticket ID: {{ticket_number}} Created by: {{name}} Date and Time: {{time}} Priority: {{priority}}",
             "sort_code" => ([
                 'ticket_number' => "Support Ticket Number",
-                'link' => "Ticket URL For relpy",
+                'name'          => "User name",
+                'time'          => "Created Date and time",
+                'priority'      => "Ticket Priority"
             ])
         ],
 
-        "TEST_MAIL" => [
-            "name" => "Mail Configuration Test",
-            "subject" => "Test Mail",
-            "body" => "<h5>This is testing mail for mail configuration.</h5><h5>Request time<span style=\"background-color: rgb(255, 255, 0);\"> {{time}}</span></h5>",
-            "sms_body" => "",
+        "SUBSCRIPTION_STATUS" => [
+            "name"      => "Subscription Status Updated",
+            "subject"   => "Subscription Status Updated",
+            "body"      => "We wanted to inform you that the status of your subscription has been updated. Subscription Details: - Plan: {{plan_name}} - Status: {{status}} - Time :{{time}}",
+            "sms_body"  => "We wanted to inform you that the status of your subscription has been updated. Subscription Details: - Plan: {{plan_name}} - Status: {{status}} - Time :{{time}}",
             "sort_code" => ([
-                'time' => "Time",
+                'plan_name' => "Support Ticket Number",
+                'time'      => "Time",
+                'status'    => "Status"
             ])
         ],
 
-        "TICKET_REPLY" => [
-            "name" => "Ticket Replay",
-            "subject" => "Support Ticket Reply",
-            "body" => "<p>Hello Dear! ({{role}}) {{name}}!! Just Replied To A Ticket..  To provide a response to Ticket ID {{ticket_number}},&nbsp;<br>kindly click the link provided below in order to reply to the ticket. <a style=\"background-color:#13C56B;border-radius:4px;color:#fff;display:inline-flex;font-weight:400;line-height:1;padding:5px 10px;text-align:center:font-size:14px;text-decoration:none;\" href=\"{{link}}\">Link</a></p>",
-            "sms_body" => "Hello Dear! ({{role}}) {{name}}!! Just Replied To A Ticket..
-            To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
-
+        "SUBSCRIPTION_FAILED" => [
+            "name"      => "Auto Subscription Renewal Failed",
+            "subject"   => "Auto Subscription Renewal Failed",
+            "body"      => "We regret to inform you that the automatic renewal of your subscription has failed. Subscription Details: - Plan: {{name}} - Reason: {{reason}} - Time :{{time}}",
+            "sms_body"  => "We regret to inform you that the automatic renewal of your subscription has failed. Subscription Details: - Plan: {{name}} - Reason: {{reason}} - Time :{{time}}",
             "sort_code" => ([
-                'role' => "Admin Role",
-                'name' => "Admin/Agent/User Name",
-                'ticket_number' => "Support Ticket Number",
-                'link' => "Ticket URL For relpy"
+                'name'   => "Package Name",
+                'time'   => "Time",
+                'reason' => "Failed Reason"
             ])
         ],
 
-        "CONTACT_REPLY" => [
-            "name" => "Contact Message",
-            "subject" => "Contact Message reply",
-            "body" => "Hello Dear! {{email}} {{message}}",
-            "sms_body" => "",
+        "DEPOSIT_REQUEST_REJECTED" => [
+            "name"      => "Deposit Request Rejected",
+            "subject"   => "Deposit Request Rejected",
+            "body"      => "We regret to inform you that your deposit request has been rejected. reason : {{reason}} Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
+            "sms_body"  => "We regret to inform you that your deposit request has been rejected. reason : {{reason}} Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
             "sort_code" => ([
-                'email' => "email",
-                'message' => "message"
+                'trx_code'       => "Transaction id",
+                'amount'         => "Deposited amount",
+                'payment_method' => "Payment method",
+                'reason'         => "Rejection reason"
             ])
-        ]
+        ],
 
+        "USER_ACTION" => [
+            "name"      => "New User Action",
+            "subject"   => "New User Action",
+            "body"      => "A new {{type}}  has occurred. Here are the details: {{details}} Please respond promptly.",
+            "sms_body"  => "A new {{type}}  has occurred. Here are the details: {{details}} Please respond promptly.",
+            "sort_code" => ([
+                'type'       => "Action type",
+                'details'    => "Action Details"
+            ])
+        ],
     ] ,
 
 
@@ -848,6 +1009,7 @@ return [
         "twitter"
     ],
 
+    
 
 
 

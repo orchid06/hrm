@@ -22,7 +22,7 @@ return new class extends Migration
             $table->longText("body")->nullable();
             $table->longText("sms_body")->nullable();
             $table->longText("sort_code")->nullable();
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');   
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');   
             $table->timestamps();
         });
     }

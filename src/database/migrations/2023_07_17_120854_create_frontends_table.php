@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable(); 
             $table->string("key",255)->nullable();
             $table->longText("value")->nullable();
-            $table->enum('status',[0,1])->default(0)->comment('Active : 1,Inactive : 0');
+            $table->enum('status',[0,1])->default(0)->comment('Active: 1, Inactive: 0');
             $table->timestamps();
         });
     }

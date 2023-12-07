@@ -20,9 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('name',255)->unique();
             $table->string('code',100)->nullable();
-            $table->enum('is_default',[0,1])->default(1)->comment('Yes : 1,No : 0');
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');
-            $table->enum('ltr',[0,1])->default(1)->comment('Yes : 1,No : 0');
+            $table->enum('is_default',[0,1])->default(1)->comment('Yes: 1, No: 0');
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
+            $table->enum('ltr',[0,1])->default(1)->comment('Yes: 1, No: 0');
             $table->timestamps();
         });
     }
