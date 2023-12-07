@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\MenuVisibilty;
 use App\Enums\StatusEnum;
 
 use App\Models\Admin\Category;
@@ -58,9 +59,32 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             });
 
-  
 
-           
+            view()->composer('frontend.partials.header', function ($view)  {
+                
+                $view->with([
+                    'menus'      => Menu::active()
+                                              ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Header->value ])
+                                              ->get(),
+
+                    'pages'      => Page::active()
+                                          ->header()
+                                          ->get(),
+                ]);
+            });
+            view()->composer('frontend.partials.footer', function ($view)  {
+                
+                $view->with([
+                    'menus'      => Menu::active()
+                                        ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Footer->value ])
+                                        ->get(),
+
+                    'pages'      => Page::active()
+                                        ->footer()
+                                        ->get(),
+                ]);
+            });
+
 
 
             view()->share([

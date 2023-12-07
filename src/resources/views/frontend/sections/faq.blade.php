@@ -27,7 +27,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header" id="headng-{{$loop->index}}">
                 <button
-                  class="accordion-button"
+                  class="accordion-button  {{$loop->index != 0  ? "collapsed" :""}}"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapse-{{$loop->index}}"
@@ -38,7 +38,7 @@
                   {{$element->value->question}}
                 </button>
               </h2>
-              <div id="collapse-{{$loop->index}}" class="accordion-collapse  {{$loop->index == 0  ? "collapse show" : ""}}  " aria-labelledby="headng-{{$loop->index}}" data-bs-parent="#faqAccordion">
+              <div id="collapse-{{$loop->index}}" class="accordion-collapse  collapse {{$loop->index == 0  ? "show" :""}}  " aria-labelledby="headng-{{$loop->index}}" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
                   <p>
                     {{$element->value->answer}}

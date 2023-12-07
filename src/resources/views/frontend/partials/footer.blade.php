@@ -121,11 +121,13 @@
                     <div class="footer-menu">
                       <h6> {{translate("Important Links")}}</h6>
                       <ul>
-                        <li><a href="#">Manage Profile</a></li>
-                        <li><a href="#">Create Caption</a></li>
-                        <li><a href="#">Schedule Post</a></li>
-                        <li><a href="#">Engagement</a></li>
-                        <li><a href="#">Analytics & Reports</a></li>
+                    
+                        @foreach ($menus as  $menu)
+
+                            <li><a href="{{url($menu->url)}}">  {{$menu->name}}</a></li>
+
+                        @endforeach
+
                       </ul>
                     </div>
                   </div>
@@ -136,11 +138,9 @@
                         {{translate("Quick Link")}}
                       </h6>
                       <ul>
-                        <li><a href="#">Manage Profile</a></li>
-                        <li><a href="#">Create Caption</a></li>
-                        <li><a href="#">Schedule Post</a></li>
-                        <li><a href="#">Engagement</a></li>
-                        <li><a href="#">Analytics & Reports</a></li>
+                          @foreach ($pages as  $page)
+                              <li><a href="{{route('pages',$page->slug)}}"> {{$page->title}}</a></li> 
+                          @endforeach
                       </ul>
                     </div>
                   </div>

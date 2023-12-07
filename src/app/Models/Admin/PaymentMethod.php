@@ -38,7 +38,7 @@ class PaymentMethod extends Model
             $model->uid        = Str::uuid();
             $model->name       = (request()->get("name"));
             $model->code       = t2k(request()->get("name"));
-            $model->created_by = auth_user()->id;
+            $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
             $model->type       = StatusEnum::false->status();
             $model->setParameters();
@@ -47,7 +47,7 @@ class PaymentMethod extends Model
         });
 
         static::updating(function(Model $model) {
-            $model->updated_by = auth_user()->id;
+            $model->updated_by = auth_user()?->id;
 
         });
 

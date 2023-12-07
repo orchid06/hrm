@@ -111,5 +111,4 @@
     @include('frontend.sections.'.$section)
 @endforeach
 
-
 @endsection

@@ -20,7 +20,7 @@ class MailGateway extends Model
     ];
     protected static function booted(){
         static::updating(function(Model $model) {
-            $model->updated_by = auth_user()->id;
+            $model->updated_by = auth_user()?->id;
         });
     }
 

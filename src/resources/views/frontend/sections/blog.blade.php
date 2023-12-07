@@ -32,6 +32,7 @@
             </div>
           </div>
 
+       
           <div class="col-xl-9 col-12">
             @if(0 <    $blogs->count())
                 <div class="blog-slider-wrapper">

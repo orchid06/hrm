@@ -42,7 +42,7 @@ class Category extends Model
 
         static::creating(function (Model $model) {
             $model->uid        = Str::uuid();
-            $model->created_by = auth_user()->id;
+            $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
         });
 
@@ -54,7 +54,7 @@ class Category extends Model
         });
 
         static::updating(function(Model $model) {
-            $model->updated_by = auth_user()->id;
+            $model->updated_by = auth_user()?->id;
         });
         static::deleting(function(Model $model) {
             $model->translations()->delete();

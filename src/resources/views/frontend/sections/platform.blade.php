@@ -13,7 +13,7 @@
             class="d-flex flex-column align-items-center justify-content-center">
             <div  class="tab-content platform-tab-content" id="platform-tabContent">
                 @foreach ($platformElements as  $element)
-                    <div  class="tab-pane fade {{$loop->index == 0 ? "active show" :""}}" id="{{$loop->index}}-element" role="tabpanel" aria-labelledby="{{$loop->index}}-platform-element-tab">
+                    <div  class="tab-pane fade   {{$loop->index == 0 ? " active show" :""}}" id="{{$loop->index}}-platform-element" role="tabpanel" aria-labelledby="{{$loop->index}}-platform-element-tab">
                       <div class="platform-content-wrapper">
 
                         
@@ -73,7 +73,7 @@
               aria-controls="{{$loop->index}}-platform-element"
               aria-selected="true">
                   <span>
-                    <i class="bi bi-person-gear"></i>
+                    <i class="@php echo $element->value->icon @endphp"></i>
                   </span>
                   <div>
                     <h4>

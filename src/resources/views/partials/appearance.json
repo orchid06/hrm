@@ -5,10 +5,10 @@
         "name": "banner",
         "no_selection": true,
         "content": {
-
+            
             "images": {
                 "image": {
-                    "size": "1800X1200"
+                    "size": "1800x1200"
                 }
             },
             "title": "text",
@@ -39,7 +39,7 @@
 
             "images": {
                 "image": {
-                    "size": "1800X1200"
+                    "size": "1800x1200"
                 }
            
             },
@@ -162,7 +162,6 @@
         }
     
     },
-
 
     "contact_us": {
 
@@ -360,6 +359,7 @@
     },
 
     "newslatter": {
+
         "builder": true,
         "no_selection": true,
         "name": "newslatter_section ",
@@ -374,7 +374,6 @@
         "no_selection": true,
         "name": "authentication_section",
         "content": {
-           
             "description": "textarea"
         },
         "element": {

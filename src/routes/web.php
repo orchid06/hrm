@@ -36,14 +36,11 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['sanitizer','user.verified',"throttle:$hitLimit,1"])->group(function (){
 
         #guest user route
-        Route::middleware(['guest:web'])->group(function () {
+        Route::middleware(['guest:web'])->name('auth.')->group(function () {
 
             #Login route
             Route::controller(LoginController::class)->group(function () {
-                Route::get('/login', 'showLoginForm')->name('login');
-                Route::get('/login/verification', 'verify')->name('login.verify');
-                Route::post('/login/verify', 'verifyOtp')->name('login.verify.otp');
-                Route::get('/login/verification/code/resend', 'resend')->name('login.otp.resend');
+                Route::get('/login', 'login')->name('login');
                 Route::post('/authenticate', 'authenticate')->name('authenticate');
             });
 
@@ -51,13 +48,12 @@ use Illuminate\Support\Facades\Route;
             Route::controller(RegisterController::class)->group(function () {
                 Route::get('/register', 'create')->name('register');
                 Route::post('/register/store', 'store')->name('register.store');
-                Route::get('/registration/verification', 'verifyCode')->name('register.verification');
-                Route::get('/registration/verification/code/resend', 'resend')->name('verification.code.resend');
-                Route::post('/register/verify', 'verify')->name('register.verify');
+            
             });
 
             #password route
             Route::controller(NewPasswordController::class)->name('password.')->group(function () {
+
                 Route::get('forgot-password', 'create')->name('request');
                 Route::post('password/email','store')->name('email');
                 Route::get('password/verify','verify')->name('verify');
@@ -72,6 +68,8 @@ use Illuminate\Support\Facades\Route;
                 Route::get('login/{medium}', 'redirectToOauth')->name('login');
                 Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
             });
+
+
         });
 
         #user route
@@ -111,17 +109,10 @@ use Illuminate\Support\Facades\Route;
                 /** NEW ROUTE START */
 
                   Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
-
-
+                  
                 /** END */
 
-                
-                Route::any('/free/package/{id}','purchase')->name('free.package');
-                Route::any('/pricing-plan','plan')->name('plan');
-                Route::any('/subscription','subscription')->name('subscription');
-                Route::any('/transaction','transaction')->name('transaction');
-                Route::any('/payment-log','paymentLog')->name('payment.log');
-                Route::get('/payment-log/{id}','paymentShow')->name('payment.log.show');
+
 
             });
         
@@ -179,14 +170,12 @@ use Illuminate\Support\Facades\Route;
 
 
                 Route::get('/', 'home')->name('home');
-                Route::get('/plans', 'plan')->name('plan');
 
+                Route::get('/pricing-plan', 'plan')->name('plan');
                 Route::get('/blogs', 'blogs')->name('blogs');
                 Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
 
-
-
-         
+                Route::get('/pages/{slug}', 'pages')->name('pages');
 
         });
 
@@ -194,7 +183,7 @@ use Illuminate\Support\Facades\Route;
         Route::controller(CommunicationsController::class)->group(function (){
 
             Route::any('/subscribe', 'subscribe')->name('subscribe');
-            Route::get('/contacts', 'contacts')->name('contact');
+            Route::get('/contact', 'contact')->name('contact');
             Route::post('/contacts', 'store')->name('contact.store');
 
         });
@@ -220,7 +209,6 @@ use Illuminate\Support\Facades\Route;
             Route::get('/set-cookie',  'setCookie');
             Route::get('/accept-cookie',  'acceptCookie')->name("accept.cookie");
             Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");;
-            
             Route::get('/download-cookie-data',  'downloadCookieData');
 
         });

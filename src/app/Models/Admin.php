@@ -68,7 +68,7 @@ class Admin extends Authenticatable
     protected static function booted(){
         static::creating(function (Model $model) {
             $model->uid = Str::uuid();
-            $model->created_by = auth_user()->id;
+            $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
         });
 

@@ -260,14 +260,16 @@ class CoreController extends Controller
     public function acceptCookie(Request $request) :\Illuminate\Http\Response
     {
 
-        $response = response('Cookie accepted')->cookie('cookie_consent', 'accepted')->cookie('accepted_at', now());
+        $response = response(["message" => 'Cookie accepted'])->cookie('cookie_consent', 'accepted')->cookie('accepted_at', now());
         $this->saveCookieData($request->cookie());
         return $response;
     }
 
     public function rejectCookie(Request $request) :\Illuminate\Http\Response
     {
-        $response = response('Cookie rejected')->cookie(Cookie::forget('cookie_consent'))->cookie(Cookie::forget('accepted_at'));
+        $response = response([
+            "message" => 'Cookie rejected',
+        ])->cookie(Cookie::forget('cookie_consent'))->cookie(Cookie::forget('accepted_at'));
         $this->saveCookieData($request->cookie());
         return $response;
     }
@@ -288,7 +290,9 @@ class CoreController extends Controller
     private function saveCookieData(array $data) :void
     {
 
-        @dd($data , get_ip_info());
+        session()->put("cookie_consent",true);
+
+        $data = array_merge($data  ,get_ip_info());
         $folderPath = storage_path('app');
         $filePath = $folderPath . '/cookie_data.json';
 
@@ -301,7 +305,7 @@ class CoreController extends Controller
         if (!file_exists($filePath)) {
             file_put_contents($filePath, json_encode([]));
         } else {
-            $existingData = json_decode(file_get_contents($filePath), true);
+            $existingData = (array)json_decode(file_get_contents($filePath), true);
         }
 
         $combinedData = array_merge($existingData, $data);

@@ -37,6 +37,7 @@ class FrontendController extends Controller
     }
 
 
+  
     /**
      * get all blogs 
      *
