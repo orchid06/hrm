@@ -64,10 +64,15 @@ class SendSMS{
 		$status          = true;
         $responseMessage = translate("Sms Send Successfully");
 		try {
-			$basic    = new \Vonage\Client\Credentials\Basic($credential->api_key, $credential->api_secret);
-			$client   = new \Vonage\Client($basic);
+
+			$basic    =  new \Nexmo\Client\Credentials\Basic($credential->api_key, $credential->api_secret);
+			$client   = new \Nexmo\Client($basic);
 			$response = $client->sms()->send(
-		    	new \Vonage\SMS\Message\SMS($to, $credential->sender_id, $message)
+				[
+					'to' => $to,
+					'from' => $credential->sender_id,
+					'text' => $message
+				]
 			);
 			$message = $response->current();
 			if($message->getStatus() != 0){

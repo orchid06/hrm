@@ -3,13 +3,13 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminVerification;
+use App\Http\Middleware\AuthorizationMiddleware;
 use App\Http\Middleware\CurrencySwitcher;
 use App\Http\Middleware\DemoMode;
 use App\Http\Middleware\HttpsMiddleware;
 use App\Http\Middleware\KycMiddleware;
 use App\Http\Middleware\LanguageMiddleware;
 use App\Http\Middleware\Permissions;
-use App\Http\Middleware\Verification;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\Sanitization;
@@ -90,12 +90,13 @@ class Kernel extends HttpKernel
         'permissions' => Permissions::class,
 
         'sanitizer' => Sanitization::class,
-        'user.verified' => Verification::class,
+        'user.verified' => AuthorizationMiddleware::class,
         'demo' => DemoMode::class,
      
         'admin.verified' => AdminVerification::class,
         'https' => HttpsMiddleware::class,
         'dos.security' => SecurityMiddleware::class,
         'kyc' => KycMiddleware::class,
+        
     ];
 }

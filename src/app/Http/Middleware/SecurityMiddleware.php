@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Http\Request;
 
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Route;
 
 
 class SecurityMiddleware
@@ -24,6 +25,7 @@ class SecurityMiddleware
         try {
                 /** dos security check  */
                 if(site_settings('dos_prevent') == StatusEnum::true->status() && !session()->has('dos_captcha') && session()->has('security_captcha')){
+                    session()->put('requested_route',Route::currentRouteName());
                     return ($request->expectsJson() || $request->isXmlHttpRequest()) ? response()->json(response_status('Unauthorized ip or country','error'), 403) : redirect()->route('dos.security');
                 }
                 else{

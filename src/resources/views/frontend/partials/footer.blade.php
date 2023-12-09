@@ -23,10 +23,10 @@
             <div class="col-lg-7 mx-auto">
               <div class="section-title light text-center">
                 <h3 class="mt-0 title-anim">
-                   {{$ctaContent->value->title}}
+                   {{@$ctaContent->value->title}}
                 </h3>
                 <p class="mt-4">
-                  {{$ctaContent->value->description}}
+                  {{@$ctaContent->value->description}}
                 </p>
               </div>
 
@@ -34,8 +34,8 @@
               <div class="d-flex align-items-center justify-content-center gap-3 gap-md-4 text-center">
 
                     @foreach ( $ctaElements as $ctaBtn )
-                        <a href="{{url($ctaBtn->value->url)}}" class="i-btn btn--primary btn--lg capsuled">
-                             {{$ctaBtn->value->button_name}}
+                        <a href="{{url(@$ctaBtn->value->url)}}" class="i-btn {{$loop->even ? " btn--secondary" : "btn--primary" }}  btn--lg capsuled">
+                             {{@$ctaBtn->value->button_name}}
                         </a>
                     @endforeach
   
@@ -68,8 +68,7 @@
                       <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate("Enter your email")}}" />
                       <button
                         type="submit"
-                        class="i-btn btn--primary btn--lg capsuled"
-                      >
+                        class="i-btn btn--primary btn--lg capsuled">
                         <span class="d-md-block d-none"> 
                           {{translate("Subscribe")}}
                         </span>
@@ -99,8 +98,8 @@
 
                   @foreach ($icons  as  $icon)
 
-                      <a href="{{$icon->value->url}}">
-                        <i class="{{$icon->value->social_icon}}"></i>
+                      <a href="{{@$icon->value->url}}">
+                        <i class="{{@$icon->value->social_icon}}"></i>
                       </a>
 
                   @endforeach
@@ -139,7 +138,7 @@
                       </h6>
                       <ul>
                           @foreach ($pages as  $page)
-                              <li><a href="{{route('pages',$page->slug)}}"> {{$page->title}}</a></li> 
+                              <li><a href="{{route('page',$page->slug)}}"> {{$page->title}}</a></li> 
                           @endforeach
                       </ul>
                     </div>

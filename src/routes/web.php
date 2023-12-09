@@ -4,7 +4,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CommunicationsController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\FrontendController;
-
+use App\Http\Controllers\User\Auth\AuthorizationController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
 use App\Http\Controllers\User\Auth\RegisterController;
@@ -27,13 +27,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    $hitLimit = 500;
-        try {
-            $hitLimit = site_settings('web_route_rate_limit');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-    Route::middleware(['sanitizer','user.verified',"throttle:$hitLimit,1"])->group(function (){
+
+    Route::middleware(['sanitizer',"throttle:refresh" ,"https" ,"dos.security"])->group(function (){
 
         #guest user route
         Route::middleware(['guest:web'])->name('auth.')->group(function () {
@@ -46,6 +41,7 @@ use Illuminate\Support\Facades\Route;
 
             #Register route
             Route::controller(RegisterController::class)->group(function () {
+
                 Route::get('/register', 'create')->name('register');
                 Route::post('/register/store', 'store')->name('register.store');
             
@@ -80,18 +76,21 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/logout', 'logout')->name('logout');
             });
 
+            #Autorization route
+
+            Route::controller(AuthorizationController::class)->group(function () {
+
+                Route::get('/email-verification', 'emailVerification')->name('email.verification');
+            });
+
+
+
            #home & profile route
             Route::controller(HomeController::class)->group(function(){
                 Route::any('dashboard','home')->name('home');
-                Route::prefix('profile')->name('profile.')->group(function () {
-                    Route::get('/','profile')->name('index');
-                    Route::post('/update', 'profileUpdate')->name('update');
-                    Route::get('payment','payment')->name('payment');
-                });
-                Route::prefix('passwords')->name('password.')->group(function () {
-                    Route::post('/update', 'passwordUpdate')->name('update');
-                });
-
+                Route::get('profile','profile')->name('profile');
+                Route::get('profile/update','profileUpdate')->name('profile.update');
+                Route::post('/update', 'passwordUpdate')->name('password.update');
                 Route::get('/notifications','notification')->name('notifications');
                 Route::post('/read-notification','readNotification')->name('read.notification');
             });
@@ -166,16 +165,11 @@ use Illuminate\Support\Facades\Route;
 
         Route::controller(FrontendController::class)->group(function (){
 
-            /** base url  */
-
-
                 Route::get('/', 'home')->name('home');
-
-                Route::get('/pricing-plan', 'plan')->name('plan');
-                Route::get('/blogs', 'blogs')->name('blogs');
-                Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
-
-                Route::get('/pages/{slug}', 'pages')->name('pages');
+                Route::get('/plans', 'plan')->name('plan');
+                Route::get('/blogs', 'blog')->name('blog');
+                Route::get('/blogs/{slug}', 'blogDetails')->name('blog.details');
+                Route::get('/pages/{slug}', 'page')->name('page');
 
         });
 
@@ -184,7 +178,9 @@ use Illuminate\Support\Facades\Route;
 
             Route::any('/subscribe', 'subscribe')->name('subscribe');
             Route::get('/contact', 'contact')->name('contact');
-            Route::post('/contacts', 'store')->name('contact.store');
+            Route::post('/contact/store', 'store')->name('contact.store');
+            Route::get('/feedback', 'feedback')->name('feedback');
+            Route::post('/feedback/store', 'feedbackStore')->name('feedback.store');
 
         });
 
@@ -197,15 +193,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/webhook','webhook')->name('webhook');
             Route::get('/language/change/{code?}','languageChange')->name('language.change');
             Route::get('/currency/change/{code?}','currencyChange')->name('currency.change');
-            Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
-            Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
             Route::get('/optimize-clear',"clear")->name('optimize.clear');
-            
-            Route::get('/security-captcha',"security")->name('dos.security');
-            Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
 
             /** cookie settings */
-
             Route::get('/set-cookie',  'setCookie');
             Route::get('/accept-cookie',  'acceptCookie')->name("accept.cookie");
             Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");;
@@ -218,11 +208,22 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/error/{message?}', function (?string $message = null) {
         abort(403,$message ?? unauthorized_message());
-    })->name('error')->middleware(['sanitizer']);
+    })->name('error')->middleware(['sanitizer','https']);
 
     Route::get('queue-work', function () {
         return Illuminate\Support\Facades\Artisan::call('queue:work', ['--stop-when-empty' => true]);
-    })->name('queue.work')->middleware(['sanitizer']);
+    })->name('queue.work')->middleware(['sanitizer','https']);
+
+
+    /** security and captcha */
+    Route::controller(CoreController::class)->middleware(["sanitizer",'https'])->group(function () {
+
+        Route::get('/security-captcha',"security")->name('dos.security');
+        Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
+        Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
+        Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
+
+    });
 
 
 

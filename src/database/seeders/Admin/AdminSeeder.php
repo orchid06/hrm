@@ -24,7 +24,6 @@ class AdminSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 "email_verified_at" => Carbon::now(),
                 "password"=>    Hash::make('123123'),
-                'status' => StatusEnum::true->status(),
                 'super_admin' => StatusEnum::true->status(),
              ]);
         }

@@ -372,7 +372,7 @@
                 @endphp
                 @foreach ($pages as  $page)
                     <li class="menu-item">
-                        <a href="{{route('pages',$page->slug)}}" class="menu-link @if($lastSegment == $page->slug) active @endif ">
+                        <a href="{{route('page',$page->slug)}}" class="menu-link @if($lastSegment == $page->slug) active @endif ">
                           {{$page->title}}
                         </a>
                     </li>
@@ -388,9 +388,11 @@
                   {{translate("Get Started")}}
                 </a>
 
-                <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
-                    {{translate('Login')}}
-                </a>
+                @if(!auth_user('web'))
+                  <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
+                      {{translate('Login')}}
+                  </a>
+                @endif
               </div>
             </div>
 
@@ -457,20 +459,15 @@
           <div class="sidebar-overlay"></div>
         </div>
 
-        <div
-          class="nav-right d-flex jsutify-content-end align-items-center gap-3">
+        <div class="nav-right d-flex jsutify-content-end align-items-center gap-3">
+
           <div class="d-lg-block d-none lang">
             <div class="dropdown">
-              <button
-                class="lang-btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <span class="flag">
-                  <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-                </span>
+              <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="flag">
+                    <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
+                  </span>
               </button>
-
 
               @if(!$languages->isEmpty())
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -489,18 +486,49 @@
             </div>
           </div>
 
+
+          <div class="d-lg-block d-none lang">
+            <div class="dropdown">
+              <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="flag">
+                    <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
+                  </span>
+              </button>
+
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                  
+                  <li>
+                    <a href="{{route('user.profile')}}" class="dropdown-item" >
+                        {{translate('Profile')}}
+                    </a>
+                  </li>
+    
+                    <li>
+                      <a href="{{route('user.logout')}}" class="dropdown-item" >
+                          {{translate('Logout')}}
+                      </a>
+                    </li>
+            
+                </ul>
+
+            </div>
+          </div>
+
           <div class="d-lg-block d-none">
             <a href="{{route("plan")}}"
               class="i-btn btn--primary-outline btn--lg capsuled" >
                 {{translate("Get Started")}}
             </a>
           </div>
-
-          <div class="d-lg-block d-none">
-            <a  href="{{route("auth.login")}}"  class="i-btn btn--secondary btn--lg capsuled">
-                 {{translate("Login")}}
-            </a>
-          </div>
+          @if(!auth_user('web'))
+            <div class="d-lg-block d-none">
+                <a  href="{{route("auth.login")}}"  class="i-btn btn--secondary btn--lg capsuled">
+                    {{translate("Login")}}
+                </a>
+            </div>
+          @endif
 
           <div class="d-lg-none">
             <div class="mobile-menu-btn sidebar-trigger">

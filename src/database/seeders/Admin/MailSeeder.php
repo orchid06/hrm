@@ -25,8 +25,7 @@ class MailSeeder extends Seeder
                     'name' => $v['name'],
                     'code' => $k,
                     'credential' => $v['credential'],
-                    'default' =>  Arr::get($v , "default" , StatusEnum::false->status() )  
-
+                    'default' =>  Arr::get($v , "default" , StatusEnum::false->status() ) 
                 ]);
             }
         }

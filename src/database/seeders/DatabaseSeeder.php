@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\Currency;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Core\Setting;
@@ -39,10 +40,11 @@ class DatabaseSeeder extends Seeder
             //  PlatformSeeder::class,
             // PackageSeeder::class
 
-            SeedersFrontendSeeder::class,
-            MenuSeeder::class,
-            PageSeeder::class,
+            // SeedersFrontendSeeder::class,
+            // MenuSeeder::class,
+            // PageSeeder::class,
 
+            CurrencySeeder::class
 
             
         ]);

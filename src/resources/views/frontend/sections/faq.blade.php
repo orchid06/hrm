@@ -8,12 +8,12 @@
       <div class="row">
         <div class="col-xl-7 col-lg-8 mx-auto">
           <div class="section-title text-center">
-            <span>{{$content->value->sub_title}}</span>
+            <span>{{@$content->value->sub_title}}</span>
             <h3 class="title-anim">
-                {{$content->value->title}}
+                {{@$content->value->title}}
             </h3>
             <p>
-              {{$content->value->description}}
+              {{@$content->value->description}}
             </p>
           </div>
         </div>

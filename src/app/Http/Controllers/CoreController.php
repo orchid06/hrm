@@ -231,7 +231,12 @@ class CoreController extends Controller
         if(site_settings('dos_prevent') == StatusEnum::true->status() && !session()->has('dos_captcha')){
 
             return view('dos_security',[
-                'title' => translate("Security Verification")
+                'meta_data' => $this->metaData(
+                    [
+                        "title"    =>  trans('default.too_many_request')
+                    ]
+                ),
+   
             ]);
         }
         abort(403);
@@ -244,7 +249,7 @@ class CoreController extends Controller
         $request->validate([
             "captcha" =>   ['required' , function (string $attribute, mixed $value, Closure $fail) {
                 if (strtolower($value) != strtolower(session()->get('gcaptcha_code'))) {
-                    $fail(translate("Invalid Captch Code"));
+                    $fail(translate("Invalid captcha code"));
                 }
             }]
         ]);
@@ -252,7 +257,13 @@ class CoreController extends Controller
         session()->forget('gcaptcha_code');
         session()->forget('security_captcha');
         session()->put('dos_captcha',$request->input("captcha"));
-        return redirect()->route('admin.home');
+
+        $route = 'home';
+        if(session()->has('requested_route')){
+            $route = session()->get('requested_route');
+        }
+
+        return redirect()->route($route);
     }
 
 
