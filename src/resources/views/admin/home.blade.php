@@ -23,26 +23,26 @@
       <div class="row g-3 mb-4">
       <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="i-card-sm style-2 primary">
-              <div class="icon">
-                <i class="las la-cube"></i>
-              </div>
-              <div class="card-info">
+          <div class="card-info">
               <h3>
                   {{Arr::get($data,"total_package",0)}}
                 </h3>
                 <h5 class="title">
                   {{translate("Total Package")}}
                 </h5>
-                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+                <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+              </div>
+              <div class="d-flex flex-column gap-4">
+                <span class="i-badge success-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
+                <div class="icon">
+                  <i class="las la-cube"></i>
+                </div>
               </div>
           </div>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 success">
-          <div class="icon">
-            <i class="las la-user-friends"></i>
-          </div>
           <div class="card-info">
             <h3>
               {{Arr::get($data,"total_user",0)}}
@@ -50,16 +50,19 @@
             <h5 class="title">
               {{translate("Total Users")}}
             </h5>
-            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+            <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+          </div>
+          <div class="d-flex flex-column gap-4">
+          <span class="i-badge danger-text">0.54% <i class="bi bi-graph-down-arrow"></i></span>
+          <div class="icon">
+            <i class="las la-user-friends"></i>
+          </div>
           </div>
         </div>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="i-card-sm style-2 info">
-              <div class="icon">
-                <i class="las la-dollar-sign"></i>
-              </div>
               <div class="card-info">
                 <h3>
                   {{site_settings("currency_symbol")}}  {{truncate_price(Arr::get($data,"total_earning",0))}}
@@ -67,28 +70,34 @@
                 <h5 class="title">
                   {{translate('Total Earning')}}
                 </h5>
-                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+                <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+              </div>
+              <div class="d-flex flex-column gap-4">
+              <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
+              <div class="icon">
+                <i class="las la-cube"></i>
+              </div>
               </div>
           </div>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 danger">
-          <div class="icon">
-          <i class="las la-exchange-alt"></i>
-          </div>
           <div class="card-info">
             <h3>{{Arr::get($data,"total_category",0)}} </h3> 
             <h5 class="title">{{translate('Total Category')}}</h5>
-            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+            <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+          </div>
+          <div class="d-flex flex-column gap-4">
+          <span class="i-badge success-text">0.54% <i class="bi bi-graph-down-arrow"></i></span>
+            <div class="icon">
+              <i class="las la-exchange-alt"></i>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 success">
-          <div class="icon">
-            <i class="las la-user-friends"></i>
-          </div>
           <div class="card-info">
           <h3>
               {{Arr::get($data,"total_user",0)}}
@@ -96,15 +105,18 @@
             <h5 class="title">
               {{translate("Total Users")}}
             </h5>
-            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+            <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+          </div>
+          <div class="d-flex flex-column gap-4">
+            <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
+            <div class="icon">
+              <i class="las la-user-friends"></i>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="i-card-sm style-2 warning">
-              <div class="icon">
-                <i class="lar las la-money-bill"></i>
-              </div>
               <div class="card-info">
                 <h3>
                   {{Arr::get($data,"total_payment_method",0)}}
@@ -112,7 +124,13 @@
                 <h5 class="title">
                   {{translate("Total Payment Method")}}
                 </h5>
-                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+                <a href="#" class="i-btn btn--sm btn--outline">View All</a>
+              </div>
+              <div class="d-flex flex-column gap-4">
+                <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
+              <div class="icon">
+                <i class="las la-cube"></i>
+              </div>
               </div>
           </div>
       </div>
@@ -126,7 +144,7 @@
           </h4>
         </div>
         <div class="card-body">
-          <div id="subscription" class="apex-chart"></div>
+          <div id="perform-category" class="apex-chart"></div>
         </div>
       </div>
       </div>
@@ -135,7 +153,76 @@
   <!-- charts -->
 
   <div class="row g-3 mb-4">
-   
+    <div class="col-lg-4">
+      <div class="i-card-md">
+        <div class="card--header">
+          <h4 class="card-title">
+             {{translate("Activities")}} 
+          </h4>
+        </div>
+        <div class="card-body">
+          <ul class="activity-list">
+            <li>
+              <div class="d-flex align-items-start gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request through AI and added new project this week</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="col-lg-8">
       <div class="i-card-md">
         <div class="card--header">
@@ -273,18 +360,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="i-card-md">
-        <div class="card--header">
-          <h4 class="card-title">
-             {{translate("Earnings Per Month In")}} {{ \Carbon\Carbon::now()->year }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div id="earning" class="apex-chart"></div>
-        </div>
-      </div>
-    </div>
+    
     <div class="col-lg-5">
       <div class="i-card-md">
         <div class="card--header">
@@ -327,7 +403,8 @@
     $secondaryRgba =  hexa_to_rgba(site_settings('secondary_color'));
     $primary_light = "rgba(".$primaryRgba.",0.1)";
     $primary_light2 = "rgba(".$primaryRgba.",0.702)";
-    $primary_light3 = "rgba(".$primaryRgba.",0.03)";
+    $primary_light3 = "rgba(".$primaryRgba.",0.5)";
+    $primary_light4 = "rgba(".$primaryRgba.",0.3)";
     $secondary_light = "rgba(".$secondaryRgba.",0.1)";
   @endphp 
 
@@ -466,21 +543,54 @@
 
     /** gateway used by months */
     var options = {
-          series: gatewayValues,
+          series: [44, 55, 41, 17, 15],
           chart: {
-          type: 'polarArea',
-          height: 365
+          width: 380,
+          type: 'donut',
+          dropShadow: {
+            enabled: true,
+            color: '#111',
+            top: -1,
+            left: 3,
+            blur: 3,
+            opacity: 0.2
+          }
         },
-        labels: gatewayLabel ,
         stroke: {
-          colors: ['#fff']
+          width: 0,
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                total: {
+                  showAlways: true,
+                  show: true
+                }
+              }
+            }
+          }
+        },
+        labels: ["Comedy", "Action", "SciFi", "Drama", "Horror"],
+        dataLabels: {
+          dropShadow: {
+            blur: 3,
+            opacity: 0.8
+          }
         },
         fill: {
-          opacity: 0.8
+          opacity: 1,
+          pattern: {
+            enabled: true,
+          },
+        },
+        states: {
+          hover: {
+            filter: 'none'
+          }
         },
 
-        colors:['{{ site_settings('primary_color') }}',"{{site_settings('secondary_color')}}" , "{{ $primary_light}}" , "{{ $primary_light2}}" ,"{{$primary_light3}}","{{$secondary_light}}"],
-        
         responsive: [{
           breakpoint: 480,
           options: {
@@ -492,10 +602,10 @@
             }
           }
         }]
-    };
+        };
 
-    var chart = new ApexCharts(document.querySelector("#paymentGateway"), options);
-    chart.render();
+        var chart = new ApexCharts(document.querySelector("#paymentGateway"), options);
+        chart.render();
 
   /** subscription used in total */
     var options = {
@@ -524,7 +634,62 @@
       chart.render();
       
  
-      
+      // m-chart-right-top
+      var options = {
+          series: [{
+          name: 'Net Profit',
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        }, {
+          name: 'Revenue',
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        }, {
+          name: 'Free Cash Flow',
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 3,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        },
+        yaxis: {
+          title: {
+            text: '$ (thousands)'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$ " + val + " thousands"
+            }
+          }
+        },
+        colors: ['{{ site_settings('primary_color') }}','{{  $primary_light3 }}','{{  $primary_light4 }}'],
+        // colors: ['#F44336', '#E91E63', '#9C27B0']
+
+        };
+
+        var chart = new ApexCharts(document.querySelector("#perform-category"), options);
+        chart.render();
       
       
 </script>

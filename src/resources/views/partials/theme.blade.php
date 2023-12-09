@@ -2,7 +2,7 @@
     $primaryRgba =  hexa_to_rgba(site_settings('primary_color'));
     $secondaryRgba =  hexa_to_rgba(site_settings('secondary_color'));
     $primary_light = "rgba(".$primaryRgba.",0.09)";
-    $primary_light2 = "rgba(".$primaryRgba.",0.702)";
+    $primary_light2 = "rgba(".$primaryRgba.",0.2)";
     $primary_light3 = "rgba(".$primaryRgba.",0.03)";
     $secondary_light = "rgba(".$secondaryRgba.",0.09)";
 @endphp
