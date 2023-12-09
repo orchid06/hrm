@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('meta_title',155)->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0'); 
-            $table->enum('show_in_header',[0,1])->default(0)->comment('Yes : 1,No : 0');   
-            $table->enum('show_in_footer',[0,1])->default(0)->comment('Yes : 1,No : 0');  
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1,Deactive: 0'); 
+            $table->enum('show_in_header',[0,1])->default(0)->comment('Yes: 1,No: 0');   
+            $table->enum('show_in_footer',[0,1])->default(0)->comment('Yes: 1,No: 0');  
             $table->timestamps();
         });
     }

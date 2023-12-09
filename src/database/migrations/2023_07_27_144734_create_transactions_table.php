@@ -18,12 +18,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('currency_id')->nullable();
-            $table->double('post_balance',20,2)->nullable();
-            $table->double('amount',20,2)->nullable();
-            $table->double('charge',20,2)->nullable();
-            $table->double('final_amount',20,2)->nullable();
+            $table->double('amount',20,5)->nullable();
+            $table->double('post_balance',20,5)->default(0.00000);
+            $table->double('charge',20,5)->nullable();
+            $table->double('final_amount',20,5)->nullable();
             $table->string('trx_code',255)->nullable();
-            $table->enum('trx_type',["+","-"])->nullable();
+            $table->enum('trx_type',["+","-"])->nullable()->comment('+ = plus , - = minus');
             $table->text('remarks')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();

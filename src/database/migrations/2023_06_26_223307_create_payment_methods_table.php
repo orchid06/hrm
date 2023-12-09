@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('currency_id')->nullable();
+            $table->string('uid',100)->index()->nullable();
             $table->integer('serial_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
@@ -22,14 +22,13 @@ return new class extends Migration
             $table->string("code")->unique();
             $table->longText("parameters")->nullable();
             $table->longText("extra_parameters")->nullable();
-            $table->double("convention_rate",15, 2)->default(0.00000000);
-            $table->double("percentage_charge",15, 2)->default(0.0000);
-            $table->double("fixed_charge",15, 2)->default(0.00000000);
-            $table->double("minimum_amount",15, 2)->default(0.00000000);
-            $table->double("maximum_amount",15, 2)->default(0.00000000);
+            $table->double("percentage_charge",20, 2)->default(0.00);
+            $table->double("fixed_charge",20, 2)->default(0.00);
+            $table->double("minimum_amount",20, 2)->nullable();
+            $table->double("maximum_amount",20, 2)->nullable();
             $table->text('payment_notes')->nullable();
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');   
-            $table->enum('type',[0,1])->default(1)->comment('Automatic : 1,Manual : 0');  
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');   
+            $table->enum('type',[0,1])->default(1)->comment('Automatic: 1, Manual: 0');  
             $table->timestamps();
         });
     }

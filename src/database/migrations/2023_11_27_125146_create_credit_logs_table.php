@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('credit_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subscription_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('trx_code',200);
             $table->text('details')->nullable();
             $table->enum('type',["+","-"])->nullable();
+            $table->mediumInteger('balance')->default(0);
+            $table->mediumInteger('post_balance')->default(0);
             $table->string('remark',155)->nullable();
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('duration')->comment('Hours');
             $table->double('minimum_amount',10,5);
             $table->double('maximum_amount',10,5);
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
             $table->double('fixed_charge',10,5);
             $table->double('percent_charge',10,5);
             $table->text('description')->nullable();

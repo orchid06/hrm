@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('name',255);
             $table->string('url',255);
             $table->longText('section')->nullable();
-            $table->enum('show_in_header',[0,1])->default(1)->comment('Yes : 1,No : 0');   
-            $table->enum('show_in_footer',[0,1])->default(0)->comment('Yes : 1,No : 0');   
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');   
+            $table->enum('menu_visibility', [0,1,2])->default(2)->comment('Header: 0, Footer: 1, Both: 2');
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1,Deactive: 0');   
+            $table->enum('is_default',[0,1])->default(0)->comment('Yes: 1,No: 0');   
             $table->timestamps();
         });
     }

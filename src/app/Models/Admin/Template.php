@@ -32,10 +32,4 @@ class Template extends Model
             'username' => 'N/A',
         ]);
     }
-
-
-   
-
-
-
 }

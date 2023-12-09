@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('name',100)->unique();
             $table->longText('permissions')->nullable();
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
             $table->timestamps();
         });
     }

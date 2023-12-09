@@ -9,26 +9,6 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
-     
-
-// id	
-// user_id	
-// custom_template_category_id	
-// name	
-// slug	
-// code	
-// description	
-// fields	
-// prompt	
-// icon	
-// total_words_generated	
-// is_active	
-// created_by
-// admin
-// created_at	
-// updated_at	
-// dele
     public function up(): void
     {
         Schema::create('ai_templates', function (Blueprint $table) {

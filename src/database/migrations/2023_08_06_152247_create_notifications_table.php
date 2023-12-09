@@ -16,7 +16,7 @@ return new class extends Migration
             $table->morphs('notificationable');
             $table->text('message')->nullable();
             $table->text('url')->nullable();
-            $table->enum('is_read',[0,1])->default(0)->comment('Yes : 1,No : 0');
+            $table->enum('is_read',[0,1])->default(0)->comment('Yes: 1,No: 0');
             $table->timestamps();
         });
     }

@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('symbol');
             $table->double('exchange_rate');
-            $table->enum('status',[0,1])->default(1)->comment('Active : 1,Deactive : 0');
-            $table->enum('default',[0,1])->nullable()->comment('Yes: 1,No: 0');
-            $table->enum('base',[0,1])->nullable()->comment('Active : 1,Deactive : 0');
+            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
+            $table->enum('default',[0,1])->nullable()->comment('Yes: 1, No: 0');
+            $table->enum('base',[0,1])->nullable()->comment('Active: 1, Deactive: 0');
             $table->timestamps();
         });
     }
