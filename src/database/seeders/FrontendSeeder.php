@@ -739,7 +739,7 @@ class FrontendSeeder extends Seeder
                         "url"=> "##",
                     ],
                     [
-                        "social_icon" =>  "bi bi-twitter-x",
+                        "social_icon" =>  "bi bi-twitter",
                         "title"=> "twitter",
                         "url"=> "##",
                     ],

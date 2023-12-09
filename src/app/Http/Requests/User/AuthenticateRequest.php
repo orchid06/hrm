@@ -28,15 +28,16 @@ class AuthenticateRequest extends FormRequest
 
 
         $rules =  [
-            'login_data' => ['required'],
-            'password' => ['required']
+            'login_data' => ['required','max:155'],
+            'password' => ['required','max:155']
         ];
 
         if((new AuthService())->loginWithOtp()){
             unset($rules['password']);
         }
 
-        if(site_settings("captcha_with_registration") == StatusEnum::true->status()){
+        if(site_settings("captcha_with_login") == StatusEnum::true->status()){
+            
             if(site_settings("default_recaptcha") == StatusEnum::true->status()){
                 $rules['default_captcha_code'] = (new AuthService())->captchaValidationRules();                
             }

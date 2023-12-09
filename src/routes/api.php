@@ -20,22 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::get('/products',function(){
-//     try {
-//         $client = new Client();
-//         $response = $client->get('https://dummyjson.com/products');
-
-//         if ($response->getStatusCode() === 200) {
-//             $data = json_decode($response->getBody());
-//             return response()->json(['data' => $data], 200);
-//         } else {
-//             return response()->json(['message' => 'Failed to fetch data'], 500);
-//         }
-//     } catch (\Exception $e) {
-//         return response()->json(['message' => $e->getMessage()], 500);
-//     }
-// });
-
 
 
 

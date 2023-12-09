@@ -41,7 +41,7 @@ try {
 
 }
 
-Route::middleware(['sanitizer','https',"dos.security","throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
+Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
 
      #guest admin route start here
 	Route::middleware(['guest:admin'])->group(function () {

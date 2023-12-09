@@ -66,7 +66,7 @@
                       aria-labelledby="v-pills-{{$loop->index}}-tab">
                       <div class="row g-4">
                           <div class="col-xxl-8 col-xl-7">
-                            @foreach (@get_appearance()->feature->element->images as  $key => $val)
+                              @foreach (@get_appearance()->feature->element->images as  $key => $val)
                                 @php
                                     $file =  $element->file->where("type",$key)->first();
                                 @endphp

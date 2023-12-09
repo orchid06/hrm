@@ -44,17 +44,20 @@
 
     @include('partials.theme')
 
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+    
+      @php
+          $intregrationsContent  = get_content("content_integration")->first();  
+          $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
+      @endphp
 
-    @php
-        $intregrationsContent  = get_content("content_integration")->first();  
-        $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
-    @endphp
-
-   <style>
-      .integration .scrolling-presets{
-          background-image: url({{imageUrl(@$intregrationsImg,"frontend",true,@get_appearance()->integration->content->images->image->size)}});
-      }
-   </style>
+      <style>
+          .integration .scrolling-presets{
+              background-image: url({{imageUrl(@$intregrationsImg,"frontend",true,@get_appearance()->integration->content->images->image->size)}});
+          }
+      </style>
+      
+    @endif
 
     @stack('styles')
     @stack('style-include')
@@ -65,17 +68,20 @@
   <body>
 
 
-    @include('frontend.partials.header')
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+        @include('frontend.partials.header')
+    @endif
 
     <main class="main" id="main">
          @yield('content')
     </main>
 
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+        @include('frontend.partials.footer')
 
-    @include('frontend.partials.footer')
-
-    @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
-       @include('frontend.partials.cookie')
+        @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
+          @include('frontend.partials.cookie')
+        @endif
     @endif
 
     @yield("modal")
@@ -85,7 +91,7 @@
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-   @if(!request()->routeIs("auth.*"))
+   @if(!request()->routeIs("auth.*") && !request()->routeIs("dos.security"))
       <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
@@ -216,6 +222,21 @@
             })
        
       })
+
+
+
+      $(document).on('click','.toggle-password',function(e){
+        
+          var parentAuthInput = $(this).closest('.auth-input');
+          var passwordField = parentAuthInput.find('.toggle-input');
+
+          var fieldType = passwordField.attr('type') === 'password' ? 'text' : 'password';
+          passwordField.attr('type', fieldType);
+
+          var toggleIcon = parentAuthInput.find('.toggle-icon');
+          toggleIcon.toggleClass('bi-eye bi-eye-slash');
+
+        });
 
 
 

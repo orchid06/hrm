@@ -27,7 +27,7 @@ class MenuRequest extends FormRequest
 
         $rules = [
             'serial_id'       => ['required','numeric','gt:-1','max:100000'],
-            'name'            => ['required',"unique:menus,name,".request()->id],
+            'name'            => ['required',"max:255","unique:menus,name,".request()->id,],
             'url'             => ['required','max:100',"unique:menus,url,".request()->id],
             'section'         => ['array'],
         ];

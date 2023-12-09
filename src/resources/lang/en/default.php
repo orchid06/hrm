@@ -30,6 +30,10 @@ return [
 
     "something_went_wrong" => "Something went wrong",
     "explore_all" => "Explore All",
+    "verify_yourself" => "To continue, please verify yourself",
+    "too_many_request" => "To many reqeust",
+    "login_page_title" => "Login to Your Account",
+    "login_btn_text" => "Login to your account",
 
 
     /** site  title  */
@@ -38,6 +42,10 @@ return [
     "blogs"     => 'Blogs',
     "feedback"  => 'Feedback',
     "contact"  =>  'Contacts',
+    "plan"     =>   'Pricing Plan',
+    "login"    =>   'Login',
+    "otp_verification"    =>   'Otp Verification',
+    "email_verification"    =>   'Email Verification',
 
 
 

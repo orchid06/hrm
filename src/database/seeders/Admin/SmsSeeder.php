@@ -26,7 +26,6 @@ class SmsSeeder extends Seeder
                     'code' => $k,
                     'credential' => $v['credential'],
                     'default' =>  Arr::get($v , "default" , StatusEnum::false->status() )  
-
                 ]);
             }
         }

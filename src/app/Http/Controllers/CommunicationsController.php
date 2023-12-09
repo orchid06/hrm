@@ -18,10 +18,25 @@ use App\Traits\Notifyable;
 use App\Traits\Fileable;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
+use App\Models\Admin\Menu;
+
 class CommunicationsController extends Controller
 {
 
+
+
      use Notifyable , Fileable;
+
+     public $lastSegment;
+
+     public function __construct()
+     {
+        $this->lastSegment = collect(request()->segments())->last();
+    
+     }
+
+
+
    /**
      * contact view
      *
@@ -29,12 +44,15 @@ class CommunicationsController extends Controller
      */
     public function contact() :View{
 
-   
+        
+
         return view('frontend.contact',[
 
             'meta_data' => $this->metaData([
-                "title" => trans('default.contact')
+                "title"     => trans('default.contact'),
             ]),
+
+            'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail()
 
         ]);
     }
@@ -49,11 +67,11 @@ class CommunicationsController extends Controller
 
         $contact           = new Contact();
         $contact->name     = $request->input("name");
+        $contact->phone    = $request->input("phone");
         $contact->email    = $request->input("email");
-        $contact->address  = $request->input("address");
+        $contact->subject  = $request->input("subject");
         $contact->message  = $request->input("message");
         $contact->save();
-
 
         $route             =  route("admin.contact.list");
         $code =  [
@@ -154,6 +172,7 @@ class CommunicationsController extends Controller
             'meta_data' => $this->metaData([
                 "title" => trans('default.feedback')
             ]),
+            'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail()
          
         ]);
     }

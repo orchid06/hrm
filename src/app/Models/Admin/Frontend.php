@@ -28,7 +28,6 @@ class Frontend extends Model
         });
         static::saved(function(Model $model) {
             $model->updated_by = auth_user()?->id;
-
             Cache::forget('frontend_content');
 
         });

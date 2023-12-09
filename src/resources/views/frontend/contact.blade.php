@@ -14,10 +14,10 @@
         <div class="row align-items-center gy-4">
           <div class="col-lg-6">
             <div class="inner-banner-content">
-              <h2>{{$contactSection->value->banner_title}}</h2>
+              <h2>{{@$contactSection->value->banner_title}}</h2>
 
               <p>
-                {{$contactSection->value->banner_description}}
+                {{@$contactSection->value->banner_description}}
               </p>
             </div>
           </div>
@@ -41,9 +41,9 @@
       <div class="col-lg-5">
         <div class="contact-left gs_reveal fromLeft">
           <div class="section-title light">
-            <h3 class="mt-0">{{$contactSection->value->section_heading}}</h3>
+            <h3 class="mt-0">{{@$contactSection->value->section_heading}}</h3>
             <p>
-              {{$contactSection->value->section_description}}
+              {{@$contactSection->value->section_description}}
             </p>
           </div>
 
@@ -78,7 +78,9 @@
       </div>
 
       <div class="col-lg-7">
-        <form action="#" class="contact-form ms-xl-5 gs_reveal fromRight">
+        <form action="{{route("contact.store")}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post">
+
+          @csrf
           <h4>  {{$contactSection->value->section_title}}</h4>
           <div class="row gx-4 gy-5 mt-4">
             <div class="col-lg-6">
@@ -120,7 +122,7 @@
                   placeholder="{{translate("Email")}}"
                   class="form__field"
                   type="email"
-                  name="emial"
+                  name="email"
                   value="{{old('email')}}"
                   id="email"/>
                 <label class="form__label" for="email">
@@ -170,25 +172,26 @@
     <div
       class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div>
-        <h5> {{$contactSection->value->support_title}}</h5>
+        <h5> {{@$contactSection->value->support_title}}</h5>
         <p>
-           {{$contactSection->value->support_description}}
+           {{@$contactSection->value->support_description}}
         </p>
       </div>
       <a
-        href="{{url($contactSection->value->button_url)}}"
+        href="{{url(@$contactSection->value->button_url)}}"
         class="i-btn btn--secondary btn--lg capsuled">
-        {{$contactSection->value->button_name}}
+        {{@$contactSection->value->button_name}}
       </a>
     </div>
   </div>
 
-
 </section>
-{{-- 
-  @foreach ($menu->section as $section )
+
+
+
+  @foreach (@$menu->section as $section )
         @include('frontend.sections.'.$section)
-  @endforeach --}}
+  @endforeach
 
 @endsection
 

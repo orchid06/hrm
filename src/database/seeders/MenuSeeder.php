@@ -39,11 +39,11 @@ class MenuSeeder extends Seeder
             ],
 
             "blogs" => [
-                'name'     => "Blog",
+                'name'     => "Blogs",
       
             ],
 
-            "plan" => [
+            "plans" => [
                 'name'     => "Plans",
 
             ],

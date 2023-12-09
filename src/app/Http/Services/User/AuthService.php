@@ -19,44 +19,6 @@ class AuthService
 
 
     
-
-    // /**
-    //  * Send Otp
-    //  *
-    //  * @param User $user
-    //  * @return array
-    //  */
-    // public function sendOtp(User $user , string $type , string $medium = "sms" ,string $template = "REGISTRATION_VERIFY") :array {
-        
-    //     $expiredTime = (int) site_settings('otp_expired_in');
-    //     $user->otp()?->where('type',$type)->delete();
-    //     $otp = new Otp();
-    //     $code = generateOTP();
-    //     $otp->otp =  $code;
-    //     $otp->type = $type;
-    //     $otp->expired_at = Carbon::now()->addMinutes($expiredTime);
-    //     $user->otp()->save($otp);
-    
-    //     $templateCode = [
-    //         'name' => $user->name,
-    //         'code' => $code,
-    //         'time' =>  Carbon::now(),
-    //     ];
-    //     if($medium == 'sms'){
-    //         $templateCode = [
-    //             'name' => $user->name,
-    //             'otp' => $code,
-    //             'time' =>  Carbon::now(),
-    //         ];
-    //         return SendSMS::smsNotification('OTP_VERIFY',$templateCode ,$user);
-    //     }
-
-    //     return SendMail::mailNotifications($template,$templateCode ,$user);
-        
-    // }
-
-
-  
     /**
      * send otp method
      *
@@ -66,41 +28,36 @@ class AuthService
         
         #send mail
         $code = generateOTP();
-
         $templateCode = [
-
             'name'    => $sendTo->name,
             'code'    => $code,
             'time'    => Carbon::now(),
         ];
 
-        if($medium == 'sms'){
+        $sendTo->otp()->delete();
 
-            $response   =  SendSMS::smsNotification($template,$templateCode ,$sendTo);
-        }
-        else{
+        $expiredTime = (int) site_settings('otp_expired_in');
 
-            $response   =  SendMail::mailNotifications($template,$templateCode ,$sendTo);
-        }
+        $otp               = new Otp();
+        $otp->otp          = $code;
+        $otp->type         = strtolower($template);
+        $otp->expired_at   = Carbon::now()->addSeconds($expiredTime);
         
-        #if mail send then save otp
-        if(isset($response['status']) && $response['status']) {
+        $sendTo->otp()->save($otp);
 
-            $sendTo->otp()
-               ->where('type',strtolower($template))
-               ->delete();
+        $otpMethod =  [
+            "sms"       => "App\Http\Utility\SendSMS",
+            "email"     => "App\Http\Utility\SendMail",
+        ];
+        $method    =  $medium == 'sms' ? "smsNotification" : "mailNotifications" ;
 
-            $otp               = new Otp();
-            $otp->otp          = $code;
-            $otp->type         = strtolower($template);
-            // $otp->expired_at   = Carbon::now()->addMinutes($expiredTime);
-            $sendTo->otp()->save($otp);
+        $response  =  Arr::get($otpMethod, $medium,"")::{$method}($template,$templateCode ,$sendTo);
 
-        }
-
+        $response["otp"] = $otp;
         return $response;
+ 
 
-        
+    
     }
 
 
@@ -112,11 +69,13 @@ class AuthService
      */
     public function captchaValidationRules(string $type = 'default') :array {
         $googleCaptcha = (object) json_decode(site_settings("google_recaptcha"));
+
         $rules = ['required' , function (string $attribute, mixed $value, Closure $fail) {
             if (strtolower($value) != strtolower(session()->get('gcaptcha_code'))) {
-                $fail(translate("Invalid Captch Code"));
+                $fail(translate("Invalid captcha code"));
             }
         }];
+
         if($type =="google"){
             $rules =  ['required' , function (string $attribute, mixed $value, Closure $fail) use($googleCaptcha) {
                 $g_response =  Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify",[
@@ -126,7 +85,7 @@ class AuthService
                 ]);
 
                 if (!$g_response->json("success")) {
-                    $fail(translate("Recaptcha Validation Failed"));
+                    $fail(translate("Recaptcha validation failed"));
                 }
             }];
         }

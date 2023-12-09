@@ -14,12 +14,12 @@
         <div class="col-xl-5 col-lg-4">
           <div>
             <div class="section-title">
-              <span>{{$content->value->sub_title}}</span>
+              <span>{{@$content->value->sub_title}}</span>
 
-              <h3 class="title-anim">{{$content->value->title}}</h3>
+              <h3 class="title-anim">{{@$content->value->title}}</h3>
   
               <p>
-                {{$content->value->description}}
+                {{@$content->value->description}}
               </p>
             </div>
 
@@ -63,7 +63,7 @@
 
 
             @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-                  <div class="tab-pane fade {{$loop->index == 0 ? "show active" : ""}}  " id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
+                  <div class="tab-pane fade {{$loop->index == 0 ? "show active" : ""}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
 
                      @php
                         $purchasePlans = $plans->where('duration',$value);
@@ -75,18 +75,12 @@
                                     @forelse ($purchasePlans as  $plan)
                                       <div class="tab-pane fade {{$loop->index == 0 ? "show active" :""}}  " id="{{$key}}-{{$plan->slug}}" role="tabpanel" aria-labelledby="{{$key}}-{{$plan->slug}}-tab" >
                                         <div class="plan-card-detail">
-                                          <p>
-                                             {{ $plan->description}}
-                                          </p>
+                                            <p>
+                                              {{ $plan->description}}
+                                            </p>
                                           <ul>
 
 
-                                            @php
-                                               
-                                              $planConfigs =  plan_configuration( $plan);
-                 
-                                            @endphp
-                                            
                                            
                                             @foreach (plan_configuration( $plan) as $configKey => $configVal )
                                               <li>

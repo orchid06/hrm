@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Contact extends Model
 {
@@ -13,8 +14,8 @@ class Contact extends Model
 
     protected static function booted()
     {
-        static::creating(function ($contact) {
-            $contact->uid = str_unique();
+        static::creating(function (Model $model) {
+            $model->uid = Str::uuid();
         });
     }
 

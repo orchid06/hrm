@@ -1,7 +1,6 @@
 
 @php
    $blogContent  = get_content("content_blog")->first();  
-   $blogElements = get_content("element_blog"); 
    $blogs        = App\Models\Article::active()->feature()->take(10)->get();
 @endphp
 
@@ -11,17 +10,17 @@
         <div class="row g-5">
           <div class="col-xl-3 col-lg-8 col-md-11 col-12">
             <div class="section-title">
-              <span>{{$blogContent->value->sub_title}}</span>
+              <span>{{@$blogContent->value->sub_title}}</span>
               <h3 class="title-anim">
-                  {{$blogContent->value->title}}
+                  {{@$blogContent->value->title}}
               </h3>
               <p>
-                  {{$blogContent->value->description}}
+                  {{@$blogContent->value->description}}
               </p>
             </div>
 
             <div>
-              <a href="{{route("blogs")}}" class="learn-more">
+              <a href="{{route("blog")}}" class="learn-more">
                 <span class="circle" aria-hidden="true">
                   <span class="icon arrow"> </span>
                 </span>
@@ -116,7 +115,7 @@
 
                                 <ul class="blog-tags">
                                   <li>
-                                    <a href="{{route('blogs',['category' =>$blog->category->slug ])}}">
+                                    <a href="{{route('blog',['category' =>$blog->category->slug ])}}">
                                          {{$blog->category->title}}
                                     </a>
                                   </li>
