@@ -6,7 +6,8 @@
   right: unset;
   top: 0;
   transition: all 0.35s;
-  background-color: #1c2538;
+  // background-color: #202a3f;
+  background-color: #131f4b;
   z-index: 110;
   .sidebar-logo {
     height: 70px;
@@ -48,7 +49,7 @@
             width: 100%;
             gap: 8px;
             padding: 8px 20px 8px 20px;
-            color: #aeb7ca;
+            color: #bdc4d3;
             font-size: 14px;
             line-height: 1;
             transition: 0.4s ease-in-out;
@@ -86,7 +87,7 @@
               justify-content: center;
             }
             > p {
-              color: #aeb7ca;
+              color: #bdc4d3;
               display: flex;
               align-items: center;
               gap: 5px;

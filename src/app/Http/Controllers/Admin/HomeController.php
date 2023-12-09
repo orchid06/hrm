@@ -65,7 +65,7 @@ class HomeController extends Controller
         $data['total_withdraw_method'] = Withdraw::count();
         $data['total_payment_method'] = PaymentMethod::count();
         $data['total_earning'] = round(PaymentLog::where('status','1')->sum('amount')) + round(PaymentLog::where('status','1')->sum('charge'));
-        $data['latest_log'] = PaymentLog::latest()->take(8)->get();
+        $data['latest_log'] = PaymentLog::latest()->take(6)->get();
 
 
         $data['visitor_by_months'] = sortByMonth(Visitor::selectRaw("MONTHNAME(created_at) as months, count(*) as total")

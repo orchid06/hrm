@@ -18,182 +18,107 @@
 
   <!-- card -->
 
-  <div class="row g-3 mb-4">
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-      <div class="i-card-sm style-2 success">
-        <div class="icon">
-          <i class="las la-user-friends"></i>
-        </div>
-        <div class="card-info">
-          <h5 class="title">
-             {{translate("Total Users")}}
-          </h5>
-          <h3>
-             {{Arr::get($data,"total_user",0)}}
-          </h3>
-        </div>
+    <div class="row mb-3">
+      <div class="col-lg-6">
+      <div class="row g-3 mb-4">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="i-card-sm style-2 primary">
+              <div class="icon">
+                <i class="las la-cube"></i>
+              </div>
+              <div class="card-info">
+              <h3>
+                  {{Arr::get($data,"total_package",0)}}
+                </h3>
+                <h5 class="title">
+                  {{translate("Total Package")}}
+                </h5>
+                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+              </div>
+          </div>
       </div>
-    </div>
 
-   
-   
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+      <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 success">
-            <div class="icon">
-              <i class="las la-cube"></i>
-            </div>
-            <div class="card-info">
-              <h5 class="title">
-                {{translate("Total Package")}}
-              </h5>
-              <h3>
-                {{Arr::get($data,"total_package",0)}}
-              </h3>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-        <div class="i-card-sm style-2 info">
-            <div class="icon">
-              <i class="las la-users"></i>
-            </div>
-            <div class="card-info">
-              <h5 class="title">
-                {{translate("Total Visitors")}}
-              </h5>
-              <h3>{{$data['total_visitor']}}
-                {{Arr::get($data,"total_visitor",0)}}
-              </h3>
-            </div>
-        </div>
-    </div>
-
-
-   <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-      <div class="i-card-sm style-2 success">
           <div class="icon">
-            <i class="lar la-newspaper"></i>
+            <i class="las la-user-friends"></i>
           </div>
           <div class="card-info">
-            <h5 class="title">
-              {{translate("Total Article")}}
-            </h5>
             <h3>
-              {{Arr::get($data,"total_article",0)}}
+              {{Arr::get($data,"total_user",0)}}
             </h3>
+            <h5 class="title">
+              {{translate("Total Users")}}
+            </h5>
+            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="i-card-sm style-2 info">
+              <div class="icon">
+                <i class="las la-dollar-sign"></i>
+              </div>
+              <div class="card-info">
+                <h3>
+                  {{site_settings("currency_symbol")}}  {{truncate_price(Arr::get($data,"total_earning",0))}}
+                </h3>
+                <h5 class="title">
+                  {{translate('Total Earning')}}
+                </h5>
+                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+              </div>
           </div>
       </div>
-  </div>
 
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-        <div class="i-card-sm style-2 info">
-            <div class="icon">
-              <i class="las la-dollar-sign"></i>
-            </div>
-            <div class="card-info">
-              <h5 class="title">
-                 {{translate('Total Earning')}}
-              </h5>
-              <h3>
-                {{site_settings("currency_symbol")}}  {{truncate_price(Arr::get($data,"total_earning",0))}}
-              </h3>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-      <div class="i-card-sm style-2 danger">
-        <div class="icon">
-         <i class="las la-exchange-alt"></i>
-        </div>
-        <div class="card-info">
-          <h5 class="title">{{translate('Total Category')}}</h5>
-          <h3>{{Arr::get($data,"total_category",0)}} </h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-      <div class="i-card-sm style-2 primary">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="i-card-sm style-2 danger">
           <div class="icon">
-            <i class="las la-hand-holding-usd"></i>
+          <i class="las la-exchange-alt"></i>
           </div>
           <div class="card-info">
-            <h5 class="title">
-              {{translate("Total Withdraw Method")}}
-            </h5>
-            <h3>
-              {{Arr::get($data,"total_withdraw_method",0)}}
-            </h3>
+            <h3>{{Arr::get($data,"total_category",0)}} </h3> 
+            <h5 class="title">{{translate('Total Category')}}</h5>
+            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
           </div>
-      </div>
-  </div>
-
-  <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-    <div class="i-card-sm style-2 warning">
-        <div class="icon">
-          <i class="lar las la-money-bill"></i>
         </div>
-        <div class="card-info">
-          <h5 class="title">
-            {{translate("Total Payment Method")}}
-          </h5>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="i-card-sm style-2 success">
+          <div class="icon">
+            <i class="las la-user-friends"></i>
+          </div>
+          <div class="card-info">
           <h3>
-            {{Arr::get($data,"total_payment_method",0)}}
-          </h3>
-        </div>
-    </div>
-</div>
-
-
-  </div>
-
-  <!-- charts -->
-
-  <div class="row g-3 mb-4">
-    <div class="col-lg-6">
-      <div class="i-card-md">
-        <div class="card--header">
-          <h4 class="card-title">
-             {{translate("Payment Gateway Used in")}} {{ \Carbon\Carbon::now()->year }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div id="paymentGateway" class="apex-chart"></div>
+              {{Arr::get($data,"total_user",0)}}
+            </h3>
+            <h5 class="title">
+              {{translate("Total Users")}}
+            </h5>
+            <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="col-lg-6">
-      <div class="i-card-md">
-        <div class="card--header">
-          <h4 class="card-title">
-            {{translate("Visitors By Month In")}}  {{ \Carbon\Carbon::now()->year }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div id="visitor" class="apex-chart"></div>
-        </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="i-card-sm style-2 warning">
+              <div class="icon">
+                <i class="lar las la-money-bill"></i>
+              </div>
+              <div class="card-info">
+                <h3>
+                  {{Arr::get($data,"total_payment_method",0)}}
+                </h3>
+                <h5 class="title">
+                  {{translate("Total Payment Method")}}
+                </h5>
+                <a href="#" class="i-btn btn--sm btn--white btn--primary-outline">View All</a>
+              </div>
+          </div>
       </div>
     </div>
-
-    <div class="col-lg-6">
-      <div class="i-card-md">
-        <div class="card--header">
-          <h4 class="card-title">
-             {{translate("Earnings Per Month In")}} {{ \Carbon\Carbon::now()->year }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div id="earning" class="apex-chart"></div>
-        </div>
       </div>
-    </div>
-
-    <div class="col-lg-6">
+      <div class="col-lg-6">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
@@ -204,14 +129,14 @@
           <div id="subscription" class="apex-chart"></div>
         </div>
       </div>
+      </div>
     </div>
 
-  </div>
+  <!-- charts -->
 
-  <!-- table -->
-
-  <div class="row">
-    <div class="col-lg-12">
+  <div class="row g-3 mb-4">
+   
+    <div class="col-lg-8">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
@@ -348,6 +273,52 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-4">
+      <div class="i-card-md">
+        <div class="card--header">
+          <h4 class="card-title">
+             {{translate("Earnings Per Month In")}} {{ \Carbon\Carbon::now()->year }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <div id="earning" class="apex-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="i-card-md">
+        <div class="card--header">
+          <h4 class="card-title">
+             {{translate("Payment Gateway Used in")}} {{ \Carbon\Carbon::now()->year }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <div id="paymentGateway" class="apex-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="i-card-md">
+        <div class="card--header">
+          <h4 class="card-title">
+            {{translate("Visitors By Month In")}}  {{ \Carbon\Carbon::now()->year }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <div id="visitor" class="apex-chart"></div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  </div>
+
+  <!-- table -->
+
+  <div class="row">
+    
   </div>
 
 
