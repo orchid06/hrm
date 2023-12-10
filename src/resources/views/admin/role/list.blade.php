@@ -56,7 +56,7 @@
                     <div class="col-xl-5 col-lg-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                <div class="form-inner w-100">
+                                <div class="form-inner">
                                       <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name or createdby or updatedby')}}">
 
                                 </div>

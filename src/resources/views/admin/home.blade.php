@@ -19,8 +19,8 @@
   <!-- card -->
 
     <div class="row mb-3">
-      <div class="col-lg-6">
-      <div class="row g-3 mb-4">
+      <div class="col-xl-6">
+      <div class="row g-3">
       <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="i-card-sm style-2 primary">
           <div class="card-info">
@@ -136,7 +136,7 @@
       </div>
     </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-xl-6">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
@@ -153,77 +153,19 @@
   <!-- charts -->
 
   <div class="row g-3 mb-4">
-    <div class="col-lg-4">
+    <div class="col-xxl-4 col-xl-5">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
-             {{translate("Activities")}} 
+             {{translate("Payment Gateway Used in")}} {{ \Carbon\Carbon::now()->year }}
           </h4>
         </div>
         <div class="card-body">
-          <ul class="activity-list">
-            <li>
-              <div class="d-flex align-items-start gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">Replied to new support request through AI and added new project this week</span>
-              </div>
-              <span class="time">6.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">New theme for <strong>website</strong></span>
-              </div>
-              <span class="time">2.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">Replied to new support request</span>
-              </div>
-              <span class="time">6.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">New theme for <strong>website</strong></span>
-              </div>
-              <span class="time">2.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">Replied to new support request</span>
-              </div>
-              <span class="time">6.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">New theme for <strong>website</strong></span>
-              </div>
-              <span class="time">2.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">Replied to new support request</span>
-              </div>
-              <span class="time">6.68PM</span>
-            </li>
-            <li>
-              <div class="d-flex align-items-center gap-2">
-                <span class="list-dot"><i class="bi bi-dot"></i></span>
-                <span class="activity-title">New theme for <strong>website</strong></span>
-              </div>
-              <span class="time">2.68PM</span>
-            </li>
-           
-          </ul>
+          <div id="paymentGateway" class="apex-chart"></div>
         </div>
       </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-xxl-8 col-xl-7">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
@@ -360,21 +302,7 @@
         </div>
       </div>
     </div>
-    
-    <div class="col-lg-5">
-      <div class="i-card-md">
-        <div class="card--header">
-          <h4 class="card-title">
-             {{translate("Payment Gateway Used in")}} {{ \Carbon\Carbon::now()->year }}
-          </h4>
-        </div>
-        <div class="card-body">
-          <div id="paymentGateway" class="apex-chart"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-7">
+    <div class="col-xxl-8 col-xl-7">
       <div class="i-card-md">
         <div class="card--header">
           <h4 class="card-title">
@@ -382,7 +310,77 @@
           </h4>
         </div>
         <div class="card-body">
-          <div id="visitor" class="apex-chart"></div>
+          <div id="visitor-chart" class="apex-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-xl-5">
+      <div class="i-card-md">
+        <div class="card--header">
+          <h4 class="card-title">
+             {{translate("Activities")}} 
+          </h4>
+        </div>
+        <div class="card-body">
+          <ul class="activity-list">
+            <li>
+              <div class="d-flex align-items-start gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request through AI and added new project this week</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+           
+          </ul>
         </div>
       </div>
     </div>
@@ -633,7 +631,6 @@
       var chart = new ApexCharts(document.querySelector("#subscription"), options);
       chart.render();
       
- 
       // m-chart-right-top
       var options = {
           series: [{
@@ -690,7 +687,53 @@
 
         var chart = new ApexCharts(document.querySelector("#perform-category"), options);
         chart.render();
-      
+
+
+        var options = {
+          series: [{
+          name: 'Income',
+          type: 'column',
+          data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
+        }, {
+          name: 'Cashflow',
+          type: 'column',
+          data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
+        }, {
+          name: 'Revenue',
+          type: 'line',
+          data: [20, 29, 37, 36, 44, 45, 50, 58]
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          stacked: false
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          width: [1, 1, 4]
+        },
+
+        xaxis: {
+          categories: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+        },
+        tooltip: {
+          fixed: {
+            enabled: true,
+            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            offsetY: 20,
+            offsetX: 50
+          },
+        },
+        legend: {
+          horizontalAlign: 'left',
+          offsetX: 30
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#visitor-chart"), options);
+        chart.render();
       
 </script>
 @endpush

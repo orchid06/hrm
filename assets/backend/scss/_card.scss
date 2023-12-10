@@ -54,6 +54,7 @@
         position: relative;
         z-index: 1;
         padding: 20px;
+        overflow: hidden;
 
         &:hover{
             &::before{
@@ -66,15 +67,15 @@
         }
 
         &::before,&::after{
-            content: '';
+            content: '';    
             position: absolute;
             display: block;
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background-color: rgba(255,255,255,0.07);
+            background-color: rgba(0, 0, 0, 0.015);
             z-index: -1;
-            right: 30%;
+            right: 20%;
             transform: translateY(50%);
             @include transition-5;
         }
