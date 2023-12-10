@@ -582,21 +582,21 @@ return [
         "PASSWORD_RESET" => [
             "name"      => "Password Reset",
             "subject"   => "Password Reset",
-            "body"      => "We have received a request to reset the password for your account on {{code}} and Request time {{time}}",
-            "sms_body"  => "We have received a request to reset the password for your account on {{code}} and Request time {{time}}",
+            "body"      => "We have received a request to reset the password for your account on {{otp_code}} and Request time {{time}}",
+            "sms_body"  => "We have received a request to reset the password for your account on {{otp_code}} and Request time {{time}}",
             "sort_code" => [
-                'code' => "Password Reset Code",
-                'time' => "Password Reset Time",
+                'otp_code' => "Password Reset Code",
+                'time'     => "Password Reset Time",
             ]
         ],
 
         "REGISTRATION_VERIFY" => [
             "name"      => "Registration Verify",
             "subject"   => "Registration Verify",
-            "body"      => "<p> We have received a request to create an account, you need to verify email first, your verification code is {{code}} and request time {{time}}</p>",
-            "sms_body"  => "",
+            "body"      => "We have received a request to create an account, you need to verify email first, your verification code is {{otp_code}} and request time {{time}}",
+            "sms_body"  => "We have received a request to create an account, you need to verify email first, your verification code is {{otp_code}} and request time {{time}}",
             "sort_code" => ([
-                'code' => "Verification Code",
+                'otp_code'  => "Verification Code",
                 'time' => "Time",
             ])
         ],
@@ -615,7 +615,7 @@ return [
         "TEST_MAIL" => [
             "name"      => "Mail Configuration Test",
             "subject"   => "Test Mail",
-            "body"      => "<h5>This is testing mail for mail configuration.</h5><h5>Request time<span style=\"background-color: rgb(255, 255, 0);\"> {{time}}</span></h5>",
+            "body"      => "This is testing mail for mail configuration Request time<span style=\"background-color: rgb(255, 255, 0);\"> {{time}}</span></h5>",
             "sms_body"  => "",
             "sort_code" => ([
                 'time' => "Time",
@@ -639,7 +639,7 @@ return [
             "name"      => "Contact Message",
             "subject"   => "Contact Message reply",
             "body"      => "Hello Dear! {{email}} {{message}}",
-            "sms_body"  => "",
+            "sms_body"  => "Hello Dear! {{email}} {{message}}",
             "sort_code" => ([
                 'email'   => "email",
                 'message' => "message"
@@ -649,12 +649,12 @@ return [
         "OTP_VERIFY" => [
             "name"      => "OTP Verificaton",
             "subject"   => "OTP Verificaton",
-            "body"      => "",
-            "sms_body"  => "Your Otp {{otp}} and request time {{time}}, expired time {{expired_time}}",
+            "body"      => "Your Otp {{otp_code}} and request time {{time}}, expired time {{expire_time}}",
+            "sms_body"  => "Your Otp {{otp_code}} and request time {{time}}, expired time {{expire_time}}",
             "sort_code" => ([
-                'otp'  => "otp",
-                'time' => "Time",
-                'expired_time' => "OTP Expired Time"
+                'otp_code'         => "OTP (One time password)",
+                'time'        => "Time",
+                'expire_time' => "OTP Expired Time"
             ])
         ],
 
@@ -662,7 +662,7 @@ return [
             "name"      => "Subscription Expired",
             "subject"   => "Subscription Expired",
             "body"      => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
-            "sms_body"  => "",
+            "sms_body"  => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
             "sort_code" => ([
                 'time' => "Time",
                 'name' => "Package Name",

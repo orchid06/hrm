@@ -486,35 +486,39 @@
             </div>
           </div>
 
-
-          <div class="d-lg-block d-none lang">
-            <div class="dropdown">
-              <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <span class="flag">
-                    <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
-                  </span>
-              </button>
+          @if(auth_user('web'))
+              <div class="d-lg-block d-none lang">
+                <div class="dropdown">
 
 
-                <ul class="dropdown-menu dropdown-menu-end">
 
-                  
-                  <li>
-                    <a href="{{route('user.profile')}}" class="dropdown-item" >
-                        {{translate('Profile')}}
-                    </a>
-                  </li>
-    
-                    <li>
-                      <a href="{{route('user.logout')}}" class="dropdown-item" >
-                          {{translate('Logout')}}
-                      </a>
-                    </li>
-            
-                </ul>
+                  <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="flag">
+                        <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
+                      </span>
+                  </button>
 
-            </div>
-          </div>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                      
+                      <li>
+                        <a href="{{route('user.profile')}}" class="dropdown-item" >
+                            {{translate('Profile')}}
+                        </a>
+                      </li>
+        
+                        <li>
+                          <a href="{{route('user.logout')}}" class="dropdown-item" >
+                              {{translate('Logout')}}
+                          </a>
+                        </li>
+                
+                    </ul>
+
+                </div>
+              </div>
+          @endif
 
           <div class="d-lg-block d-none">
             <a href="{{route("plan")}}"

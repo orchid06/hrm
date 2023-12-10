@@ -28,12 +28,7 @@ class HomeController extends Controller
      */
     public function home(Request $request) :View{
 
-        return view('user.home',[
-            'meta_data'=> $this->metaData([],"home"),
-            'counter' => $this->counter(),
-            'payment_logs' => PaymentLog::with(['package','user','method'])->latest()->where('user_id',auth_user('web')->id)
-            ->take(10)->get()
-        ]);
+        return view('user.home');
     }
 
 

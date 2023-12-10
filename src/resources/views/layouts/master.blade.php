@@ -44,12 +44,12 @@
 
     @include('partials.theme')
 
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
     
-      @php
+        @php
           $intregrationsContent  = get_content("content_integration")->first();  
           $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
-      @endphp
+        @endphp
 
       <style>
           .integration .scrolling-presets{
@@ -68,7 +68,7 @@
   <body>
 
 
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
         @include('frontend.partials.header')
     @endif
 
@@ -76,7 +76,7 @@
          @yield('content')
     </main>
 
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("auth.*"))
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
         @include('frontend.partials.footer')
 
         @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
@@ -91,7 +91,7 @@
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-   @if(!request()->routeIs("auth.*") && !request()->routeIs("dos.security"))
+   @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security"))
       <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
       <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>

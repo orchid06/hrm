@@ -193,7 +193,7 @@
                             <small class="text-danger">*</small>
                         </label>
                         <textarea required placeholder="{{ translate('Type Here ...') }}" name="remarks" id="remarks" cols="30"
-                            rows="3"></textarea>
+                            rows="10"></textarea>
                     </div>
 
 

@@ -85,7 +85,7 @@ class LanguageService
 
         Language::where('uid','!=',$uid)->update([
           'is_default' => (StatusEnum::false)->status(),
-          "updated_by" => auth_user('admin')->id
+          "updated_by" => auth_user('admin')?->id
         ]);
         Language::where('uid',$uid)->update([
           'is_default' => (StatusEnum::true)->status(),
