@@ -26,8 +26,8 @@ class AiTemplate extends Model
         static::creating(function (Model $model) {
             
             $model->uid             = Str::uuid();
-            $model->user_id         = auth_user('web')?auth_user('web')->id : null;
-            $model->admin_id        = auth_user('admin')?auth_user('admin')->id : null;
+            $model->user_id         = request()->routeIs('user.*') ? auth_user('web')?->id : null;
+            $model->admin_id        = request()->routeIs('admin.*') ? auth_user('admin')?->id : null;
             $model->status          = StatusEnum::true->status();
             $model->setParameters();
         });

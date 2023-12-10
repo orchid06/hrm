@@ -39,7 +39,7 @@ class Package extends Model
 
         static::updating(function(Model $model) {
 
-            $model->updated_by = auth_user()->id;
+            $model->updated_by = auth_user()?->id;
         });
 
         static::saving(function (Model $model) {

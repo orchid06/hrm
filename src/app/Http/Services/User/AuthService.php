@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Closure;
 use Illuminate\Support\Facades\Http;
 
+use App\Jobs\SendMailJob;
+use App\Jobs\SendSmsJob;
 class AuthService 
 {
 
@@ -28,10 +30,11 @@ class AuthService
         
         #send mail
         $code = generateOTP();
+        
         $templateCode = [
-            'name'    => $sendTo->name,
-            'code'    => $code,
-            'time'    => Carbon::now(),
+            'name'        => $sendTo->name,
+            'otp_code'    => $code,
+            'time'        => Carbon::now(),
         ];
 
         $sendTo->otp()->delete();
@@ -42,18 +45,29 @@ class AuthService
         $otp->otp          = $code;
         $otp->type         = strtolower($template);
         $otp->expired_at   = Carbon::now()->addSeconds($expiredTime);
-        
+
         $sendTo->otp()->save($otp);
 
-        $otpMethod =  [
-            "sms"       => "App\Http\Utility\SendSMS",
-            "email"     => "App\Http\Utility\SendMail",
+
+        $templateCode['expire_time']  = $otp->expired_at;
+
+     
+
+        $jobs =  [
+            "email"     => "App\Jobs\SendMailJob",
+            "sms"       => "App\Jobs\SendSmsJob",
         ];
-        $method    =  $medium == 'sms' ? "smsNotification" : "mailNotifications" ;
 
-        $response  =  Arr::get($otpMethod, $medium,"")::{$method}($template,$templateCode ,$sendTo);
 
-        $response["otp"] = $otp;
+        
+    
+        Arr::get($jobs, $medium,"")::dispatch($sendTo ,$template,$templateCode);
+
+        $response =  [
+            'otp'         => $otp,
+            'status'      => true,
+            'message'     => "Verification code has been dispatched",
+        ];
         return $response;
  
 
@@ -95,23 +109,6 @@ class AuthService
 
 
 
-    /**
-     * opt Resend Status
-     *
-     * @param User $user
-     * @return boolean
-     */
-    public function otpResendStatus(User $user , string $type ) :bool {
-        $userOtp = $user->otp()?->where('type',$type)->first();
-        if($userOtp){
-            if(Carbon::parse($userOtp->created_at)->addMinute() > Carbon::now()) {
-                return false;
-            }
-            return true;
-        }
-        return true;
-    }
-
 
     /**
      * Otp login check
@@ -129,28 +126,40 @@ class AuthService
     }
     
 
+
+    
     /**
-     * check verification code expired 
+     * Otp login check
      *
-     * @param User $user
-     * @return void
+     * @return boolean
      */
-    public function checkExpiredStatus(User $user , string $type ) :void {
+    public function otpConfiguration(User $user , string $type = 'sms' ,string $template = 'OTP_VERIFY') :bool {
 
-        $sessionParam = "expired_alert";
-        if($type == "otp_verification"){
-            $sessionParam = "otp_expired_alert";
+        $status = true;
+
+        try {
+
+            $response = $this->sendOtp($user,$template,$type);
+            $otp      = Arr::get($response,"otp",collect());
+            session()->put("otp_expire_at",$otp->expired_at);
+            
+            $field = $type == 'sms' ? "phone" :"email";
+    
+            session()->put("user_identification",[
+                'field' => $field,
+                'value' =>  $user->{$field},
+            ]);
+            
+           
+
+        } catch (\Throwable $th) {
+            $status = false ;
         }
 
-        if(site_settings('otp_expired_status') == StatusEnum::true->status()){
-            $userOtp = $user->otp()?->where('type',$type)->first();
-            session()->forget($sessionParam);
-            if($userOtp){
-                session()->put($sessionParam, $userOtp->expired_at);
-            }
-        }
+        return $status;
 
     }
 
+ 
 
 }

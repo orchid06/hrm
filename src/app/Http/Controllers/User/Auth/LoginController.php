@@ -46,11 +46,17 @@ class LoginController extends Controller
     }
 
     
+    /**
+     * Autenticate a user 
+     *
+     * @param AuthenticateRequest $request
+     * @return RedirectResponse
+     */
     public function authenticate(AuthenticateRequest $request) :RedirectResponse
     {
         $field             = $this->getLoginField($request->input('login_data'));
         $remember_me       = $request->has('remember_me') ? true : false; 
-
+        $credentials       = [$field => request()->input('login_data'), 'password' => request()->input('password')];
         $attemptValidtion  = site_settings("login_attempt_validation");
 
         if($attemptValidtion == StatusEnum::true->status() && $this->hasTooManyLoginAttempts($request, $field)){
@@ -60,16 +66,17 @@ class LoginController extends Controller
 
         if($this->authService->loginWithOtp()){
             $user =  User::where("phone",request()->input('login_data'))->first();
-            if($user){
-                return $this->handleOtpLogin($user);
+
+            if($user && $this->authService->otpConfiguration($user)){
+                return redirect(route('auth.otp.verification'))
+                ->with(response_status('Check your phone! An OTP has been sent successfully.'));
             }
             return redirect()->back()->with(response_status("Invalid credential","error"));
         }
 
-        $authenticate = Auth::guard('web')
-            ->attempt([$field => $request->input('login_data'), 'password' => $request->input('password')],$remember_me);
 
-        if ($authenticate){
+        if (Auth::guard('web')->attempt( $credentials ,$remember_me)){
+
             $request->session()->regenerate();
             $user              = auth_user('web');
             $user->last_login  = Carbon::now();
@@ -79,8 +86,8 @@ class LoginController extends Controller
         }
         
 
-
         if($attemptValidtion  == StatusEnum::true->status()){
+
             $this->incrementLoginAttempts($request, $field);
         }
 
@@ -89,15 +96,7 @@ class LoginController extends Controller
 
 
 
-
-
-    public function handleOtpLogin(User $user){
-        $response = $this->authService->sendOtp($user,'OTP_VERIFY','sms');
-        $otp      = Arr::get($response,"otp",collect());
-        session()->put("otp_expire_at",$otp->expired_at);
-        return redirect(route('auth.otp.verification'))
-        ->with(response_status('Check your phone! An OTP has been sent successfully.'));
-    }
+   
     
     /**
      * get login feild

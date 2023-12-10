@@ -35,17 +35,31 @@ use Illuminate\Support\Facades\Route;
 
             #Login route
             Route::controller(LoginController::class)->group(function () {
+
                 Route::get('/login', 'login')->name('login');
                 Route::post('/authenticate', 'authenticate')->name('authenticate');
             });
 
+        
             #Register route
             Route::controller(RegisterController::class)->group(function () {
 
                 Route::get('/register', 'create')->name('register');
                 Route::post('/register/store', 'store')->name('register.store');
-            
+    
             });
+
+            #otp autorization route
+            Route::controller(AuthorizationController::class)->group(function () { 
+
+                Route::get('/otp-verification', 'otpVerification')->name('otp.verification');
+                Route::get('/email-verification', 'otpVerification')->name('email.verification')->withoutMiddleware(['guest:web']);
+                Route::post('/otp-verify', 'otpVerify')->name('otp.verify')->withoutMiddleware('guest:web');
+                Route::get('/otp-resend', 'otpResend')->name('otp.resend')->withoutMiddleware('guest:web');
+            });
+
+
+          
 
             #password route
             Route::controller(NewPasswordController::class)->name('password.')->group(function () {
@@ -56,11 +70,13 @@ use Illuminate\Support\Facades\Route;
                 Route::post('password/verify/code','verifyCode')->name('verify.code');
                 Route::get('password/reset', 'resetPassword')->name('reset');
                 Route::post('password/update', 'updatePassword')->name('update');
+                
             });
 
 
             #SOCIAL LOGIN CONTROLLER
             Route::controller(SocialAuthController::class)->name('social.')->group(function () {
+                
                 Route::get('login/{medium}', 'redirectToOauth')->name('login');
                 Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
             });
@@ -76,12 +92,8 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/logout', 'logout')->name('logout');
             });
 
-            #Autorization route
 
-            Route::controller(AuthorizationController::class)->group(function () {
 
-                Route::get('/email-verification', 'emailVerification')->name('email.verification');
-            });
 
 
 

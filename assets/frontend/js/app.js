@@ -181,6 +181,7 @@
   
     
     function handleOtp(e) {
+
       const input = e.target;
       let value = input.value;
       let isValidInput = value.match(/[0-9a-z]/gi);
@@ -199,9 +200,11 @@
       if (fieldIndex == inputs.length - 1 && isValidInput) {
         submit();
       }
+
     }
   
     function handleOnPasteOtp(e) {
+
       const data = e.clipboardData.getData("text");
       const value = data.split("");
       if (value.length === inputs.length) {
@@ -211,12 +214,22 @@
     }
   
     function submit() {
+
       let otp = "";
       inputs.forEach((input) => {
         otp += input.value;
         input.disabled = true;
         input.classList.add("disabled");
       });
+
+      const otpField = document.querySelector("#optCode");
+      otpField.value  = otp;
+
+
+      var form = document.getElementById('otpForm');
+
+      form.submit();
+      
     }
   
   })();

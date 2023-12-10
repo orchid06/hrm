@@ -74,12 +74,7 @@
                     </li>
 
 
-                    <li class="nav-item" role="presentation">
-
-                        <a class="nav-link " id="v-pills-pusher-tab" data-bs-toggle="tab" href="#v-pills-pusher" role="tab" aria-controls="v-pills-pusher" aria-selected="true">
-                            <i class="lab la-pushed"></i> {{translate('Pusher Settings')}}
-                        </a>
-                    </li>
+                
 
 
                     <li class="nav-item" role="presentation">
@@ -797,48 +792,7 @@
                 </div>
 
 
-                 <!-- pusher settings tab content -->
-                 <div class="tab-pane fade" id="v-pills-pusher" role="tabpanel"   aria-labelledby="v-pills-pusher-tab">
-                    <form  class="settingsForm" enctype="multipart/form-data">
-                        @csrf
-                        <div class="i-card-md">
-                            <div class="card--header">
-                                <h4 class="card-title">
-                                    {{translate('Pusher Configuration')}}
-                                </h4>
-
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-
-                                    @foreach($pusher as $key => $val)
-                                        <div class="col-xl-6">
-                                            <div class="form-inner">
-                                                <label for="ftp">
-                                                    {{
-                                                        ucfirst(str_replace('_',' ',$key))
-                                                    }}  <small class="text-danger" >*</small>
-                                                </label>
-                                                <input required type="text" min="0" name="site_settings[pusher_settings][{{$key}}]" id="pusher"  value="{{$val}}" required placeholder="**********">
-                                            </div>
-                                        </div>
-                                    @endforeach
-
-
-                                    <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
-                                            {{translate("Submit")}}
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
+           
                 <!-- google recaptcha tab content -->
                 <div class="tab-pane fade" id="v-pills-recap" role="tabpanel" aria-labelledby="v-pills-recap-tab">
                     <form class="settingsForm" data-route="{{route('admin.setting.plugin.store')}}" method="POST" enctype="multipart/form-data">
@@ -1036,7 +990,7 @@
                                     </div>
 
                                     @if(site_settings('login_attempt_validation') == App\Enums\StatusEnum::true->status())
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6">
                                             <div class="form-inner">
                                                 <label for="max_login_attemtps">
                                                     {{translate('Maximum Login Attempts')}} <small class="text-danger" >*({{translate('Per Minute')}})</small>
@@ -1046,8 +1000,8 @@
                                         </div>
                                     @endif
 
-                                 
-                                    <div class="col-lg-6 d-none otp-activation">
+
+                                    <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="otp_expired_in">
                                                 {{translate('Otp expired in')}} <small class="text-danger" >*({{translate('Second')}})</small>
@@ -1055,12 +1009,14 @@
                                             <input type="number" name="site_settings[otp_expired_in]" id="otp_expired_in"  value="{{site_settings('otp_expired_in')}}" required placeholder="{{translate("Otp expired in")}}">
                                         </div>
                                     </div>
+
+
                                         
-                                    <div class="col-lg-6 d-none otp-activation">
+                                    <div class="col-lg-12 d-none otp-activation">
                                         <div class="form-inner">
 
                                             <label for="otpVerification">
-                                                {{translate('Sms Otp Verification')}}
+                                                {{translate('Mobile Otp Verification')}}
                                                 <span class="text-danger" >*</span>
                                             </label>
 

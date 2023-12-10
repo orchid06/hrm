@@ -107,9 +107,11 @@ class AiService
 
     public function generatreContent(Request $request ,AiTemplate $template) :array{
 
+
         $logData ['template_id'] = $template->id;
-        $logData ['user_id']     =  auth_user('web') ? auth_user('web') ->id  : null;
-        $logData ['admin_id']    =  auth_user('admin') ? auth_user('admin')->id : null;
+
+        $logData['admin_id']     = request()->routeIs('admin.*') ? auth_user('admin')?->id : null;
+        $logData['user_id']      = request()->routeIs('user.*') ? auth_user('web')?->id : null;
    
         $customPrompt = $template->custom_prompt;
 
