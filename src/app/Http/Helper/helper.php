@@ -14,6 +14,7 @@ use App\Models\Core\Language;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Core\Setting;
 use App\Models\Core\Translation;
+use App\Models\Country;
 use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\User;
@@ -675,7 +676,26 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
+
+   if (!function_exists('get_countries')){
+
+
+      function get_countries() :mixed{
+
+         $countries = Cache::remember('countries',24 * 60, function ()   {
+            return  Country::active()->get();
+         });
+
+         return $countries;
+
+      }
+
+
+   }
+
+
    if (!function_exists('check_permission')){
+
       function check_permission(string $accessPermission ) :bool{
          $status = true;
 

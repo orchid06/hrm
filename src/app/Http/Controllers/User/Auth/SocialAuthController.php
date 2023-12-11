@@ -42,16 +42,15 @@ class SocialAuthController extends Controller
        	
         $user = User::where('email',$userOauth->email)->first();
         if(!$user){
-            $user  = new User();
-            $user->name = $userOauth->user['name'];
-            $user->email = $userOauth->user['email'];
-            $user->o_auth_id = $userOauth->user['id'];
-            $user->status =  (StatusEnum::true)->status();
+            $user                    = new User();
+            $user->name              = $userOauth->user['name'];
+            $user->email             = $userOauth->user['email'];
+            $user->o_auth_id         = $userOauth->user['id'];
             $user->email_verified_at =  Carbon::now();
             $user->save();
         }
         
         Auth::guard('web')->login($user);
-        return redirect()->route('home')->with(response_status("Login Success"));
+        return redirect()->route('user.home')->with(response_status("Login Success"));
     }
 }

@@ -40,6 +40,21 @@ class FrontendSeeder extends Seeder
 
             ],
 
+
+            
+            "feedback" => [
+
+                "content"  => [
+                    "banner_title" => "Get In Touch With us",
+                    "banner_description" => "Our 24/7 support experts are here to assist you through tough times, so you get back to building exciting projects",
+                    "heading" => "We'd love hear from you",
+                    "description" => "We welcome all the questions & remarks. Growth is the only constant in our",
+                ],
+
+                
+
+            ],
+
             "cta" => [
 
                 "content"  => [
@@ -709,7 +724,7 @@ class FrontendSeeder extends Seeder
 
             ],
 
-            "newslatter" => [
+            "newsletter" => [
 
                 "content"  => [
                     "title" => "Subscribe",

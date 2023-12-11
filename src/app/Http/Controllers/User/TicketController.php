@@ -7,20 +7,36 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketRequest;
 use App\Http\Services\TicketService;
 use App\Http\Utility\SendNotification;
+use App\Jobs\SendMailJob;
+use App\Jobs\SendSmsJob;
+use App\Models\Admin;
+use App\Models\Core\File;
 use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Traits\Notifyable;
+use Illuminate\Support\Arr;
 
 class TicketController extends Controller
 {
 
 
-    protected $ticketService;
+    use Notifyable;
+
+    protected $ticketService ,$user;
+
+
+
 
     public function __construct(){
         $this->ticketService = new TicketService();
+
+        $this->middleware(function ($request, $next) {
+            $this->user = auth_user('web');
+            return $next($request);
+        });
     }
     
     /**
@@ -30,13 +46,16 @@ class TicketController extends Controller
      */
     public function list() :View{
 
-        return view('user.ticket.list',[
-            'meta_data'=> $this->metaData(["title" => translate("Ticket List")]),
-            'tickets' => Ticket::filter()->with(['user','messages'])
-            ->where('user_id',auth_user('web')->id)
-            ->latest()
-            ->paginate(paginateNumber())
 
+        return view('user.ticket.list',[
+            'meta_data' => $this->metaData(["title" => translate("Ticket List")]),
+            'tickets'   => Ticket::with(['user','messages'])
+                                    ->where('user_id',$this->user->id)
+                                    ->latest()
+                                    ->search(['subject'])
+                                    ->filter(['ticket_number',"status",'priority'])
+                                    ->date()
+                                    ->paginate(paginateNumber())
         ]);
     }
 
@@ -63,8 +82,18 @@ class TicketController extends Controller
      */
     public function store(TicketRequest $request) :RedirectResponse{
 
-        $ticket =  $this->ticketService->store($request->except('_token'));
-        return redirect()->route('user.ticket.show',$ticket->ticket_number)->with(response_status('Ticket Successfully Created'));
+        
+        try {
+            $ticket =  $this->ticketService->store($request->except('_token') ,$this->user->id);
+            return redirect()->route('user.ticket.show',$ticket->ticket_number)
+                             ->with(response_status('Ticket Successfully Created'));
+
+        } catch (\Exception $ex) {
+            $response = response_status(strip_tags($ex->getMessage()),'error');
+        }
+        return back()->with($response);
+
+       
     }
 
 
@@ -73,15 +102,17 @@ class TicketController extends Controller
      *
      * @return View
      */
-    public function show(string $ticketNumber) :View{
+    public function show(string $ticketNumber) : View {
 
         return view('user.ticket.show',[
+
             'meta_data'=> $this->metaData(["title" => translate("Ticket Details")]),
-            'ticket' => Ticket::with(['user','messages','messages.admin' ,'messages.admin.image'])
-            ->where('user_id',auth_user('web')->id)
-            ->where("ticket_number",$ticketNumber)
-            ->latest()
-            ->firstOrFail()
+
+            'ticket'   => Ticket::with(['user','messages','messages.admin' ,'messages.admin.file'])
+                            ->where('user_id',$this->user->id)
+                            ->where("ticket_number",$ticketNumber)
+                            ->latest()
+                            ->firstOrFail()
         ]);
     }
 
@@ -95,24 +126,63 @@ class TicketController extends Controller
     public function reply(Request $request) :RedirectResponse{
 
         $request->validate([
-            'ticket_id' => "required|exists:tickets,id",
-            "message" => 'required'
+            'id' => "required|exists:tickets,id",
+            "message" => 'required|string'
         ]);
 
-        $ticket = Ticket::where('id',$request->get('ticket_id'))->firstOrFail();
-        $message = new Message();
-        $message->ticket_id = $request->get('ticket_id');
-        $message->message = $request->get("message");
-        $message->save();
+    
+        $ticket              = Ticket::with(['user'])
+                                 ->where('user_id',$this->user)
+                                 ->where('id',$request->input('id'))->firstOrFail();
 
-        if(site_settings('database_notifications') == StatusEnum::true->status()){
+        $message             = $this->ticketService->reply($ticket,$request);
+
+        $admin               = Admin::where('super_admin',StatusEnum::true->status())->first();
+
+        if($message){
+
             $code = [
-                "message" =>   auth_user("web")->name ." Just Replied To a Ticket",
-                "url" => route('admin.ticket.show',$ticket->ticket_number)
+                "link"          => route("admin.ticket.show",$ticket->ticket_number), 
+                "name"          => $this->user->name,
+                "ticket_number" => $ticket->ticket_number
             ];
-            SendNotification::database_notifications($code);
-        }
 
+            $notifications = [
+
+                'database_notifications' => [
+                    'action' => [SendNotification::class, 'database_notifications'],
+                    'params' => [
+                        [ $admin, 'TICKET_REPLY', $code, Arr::get( $code , "link", null) ],
+                    ],
+                ],
+               
+                'email_notifications' => [
+                    'action' => [SendMailJob::class, 'dispatch'],
+                    'params' => [
+                        [$admin, 'TICKET_REPLY', $code],
+                    ],
+                ],
+
+                'slack_notifications' => [
+                    'action' => [SendNotification::class, 'slack_notifications'],
+                    'params' => [
+                        [
+                            $admin, 'NEW_TICKET', $code, Arr::get( $code , "link", null)
+                        ]
+                    ],
+                ],
+
+                'sms_notifications' => [
+                    'action' => [SendSmsJob::class, 'dispatch'],
+                    'params' => [
+                        [$admin, 'TICKET_REPLY', $code],
+                    ],
+                ],
+            ];
+
+            $this->notify($notifications);
+            
+        }
 
         return back()->with(response_status('Replied Successfully'));
     }
@@ -123,15 +193,28 @@ class TicketController extends Controller
      */
     public function download(Request $request) :mixed {
 
-        $request->validate([
-            'id'=>'required|exists:images,id',
-        ]);
+         $request->validate([
+            'id'=>'required|exists:files,id',
+         ]);
 
-        $url =  $this->ticketService->download($request);
-        if(!$url){
-            return back()->with('error',translate('File Not Found'));
-        }
-        return $url;
+        $file = File::where('id',$request->input('id'))->firstOrFail();
+
+        return $this->downloadFile(config("settings")['file_path']['ticket']['path'],$file);
+
+    }
+
+
+
+    /**
+     * destroy a ticket
+     */
+    public function destroy(string $id) :RedirectResponse {
+
+        $ticket   = Ticket::with(['messages','file'])
+                     ->where('id',$id)
+                     ->where('user_id',$this->user->id)
+                    ->firstOrFail();
+        return back()->with($this->ticketService->delete($ticket));
 
     }
 

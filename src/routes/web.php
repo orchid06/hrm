@@ -44,7 +44,7 @@ use Illuminate\Support\Facades\Route;
             #Register route
             Route::controller(RegisterController::class)->group(function () {
 
-                Route::get('/register', 'create')->name('register');
+                Route::get('/register/{referral_code?}', 'create')->name('register');
                 Route::post('/register/store', 'store')->name('register.store');
     
             });
@@ -92,13 +92,9 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/logout', 'logout')->name('logout');
             });
 
-
-
-
-
-
            #home & profile route
             Route::controller(HomeController::class)->group(function(){
+                
                 Route::any('dashboard','home')->name('home');
                 Route::get('profile','profile')->name('profile');
                 Route::get('profile/update','profileUpdate')->name('profile.update');
@@ -136,6 +132,8 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/reply/{ticket_number}','show')->name('show');
                 Route::post('/reply/store','reply')->name('reply');
                 Route::post('/file/download','download')->name('file.download');
+                Route::get('/destroy/{id}','destroy')->name('destroy');
+
             });
 
 

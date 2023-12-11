@@ -107,8 +107,6 @@
 </div>
 
 
-@foreach ($menu->section as $section )
-    @include('frontend.sections.'.$section)
-@endforeach
+@include('frontend.partials.page_section')
 
 @endsection

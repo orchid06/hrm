@@ -18,13 +18,11 @@
             <div class="auth-right">
               <div class="auth-content">
                 <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
-
                     <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-  
                 </a>
                 <h2>
 
-                    {{Arr::get('meta_data','title',translate("Verify your account"))}}
+                    {{Arr::get($meta_data,'title',translate("Verify your account"))}}
                 </h2>
 
                 <p>
@@ -41,7 +39,7 @@
  
                     @csrf
 
-                    <input hidden type="text" name="opt_code" id="optCode">
+                    <input hidden type="text" name="otp_code" id="otpCode">
 
                     <div class="otp-field">
 
@@ -78,8 +76,5 @@
       </div>
     </div>
   </section>
-
-
- 
 
 @endsection

@@ -48,7 +48,9 @@ class UserController extends Controller
         $user      = auth_user('web');
         $package   = Package::where("slug",$slug)->firstOrfail();
         $response  = $this->userService->createSubscription($user,$package);
-        $status    = isset($response['status']) ? "success" :'error';
+        $status    = isset($response['status']) 
+                         ? 'success' 
+                         : 'error';
         
         return back()->with(response_status(Arr::get($response,"message",trans("default.something_went_wrong")),$status));
     }
@@ -56,27 +58,6 @@ class UserController extends Controller
 
 
 
-
-    /**
-     * Pricing Plan
-     *
-     * @return View
-     */
-    public function plan(Request $request) :View{
-
-        return view('user.plan',[
-        
-            'meta_data'=> $this->metaData(["title" => translate("Pricing Plan")]),
-            'packages' => Package::active()->get(),
-            "payment_methods" => PaymentMethod::with(['image'])
-                                ->active()
-                                ->orderBy('serial_id','asc')
-                                ->get(),
-            "subscription" => Subscription::where('user_id',auth_user('web')->id)
-                ->where('status', StatusEnum::true->status())
-                ->first()
-        ]);
-    }
 
 
    

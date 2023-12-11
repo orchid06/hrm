@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
@@ -146,6 +146,10 @@ class User extends Authenticatable
     public function subscriptions() :HasMany{
 
         return $this->hasMany(Subscription::class,'user_id')->latest();
+    }
+    public function runningSubscription() :HasOne{
+
+        return $this->hasOne(Subscription::class,'user_id')->running();
     }
 
 

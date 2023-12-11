@@ -3,7 +3,7 @@
 
 @php
    $blogContent  = get_content("content_blog")->first();  
-   $newsLatter  = get_content("content_newslatter")->first();
+   $newsLetter  = get_content("content_newsletter")->first();
 
 @endphp
 
@@ -68,9 +68,9 @@
 
         <div class="col-lg-4">
           <div class="blog-newsletter">
-            <h4>{{@$newsLatter->value->title}}</h4>
+            <h4>{{@$newsLetter->value->title}}</h4>
             <p>
-                {{@$newsLatter->value->description}}
+                {{@$newsLetter->value->description}}
             </p>
 
             <form action="{{route('subscribe')}}" method="post">

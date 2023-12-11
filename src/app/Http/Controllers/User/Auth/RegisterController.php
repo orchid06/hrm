@@ -6,18 +6,21 @@ use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Http\Services\User\AuthService;
+use App\Http\Services\UserService;
+use App\Models\Package;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Closure;
 
 class RegisterController extends Controller
 {
 
 
-    protected $authService ,$settings;
+    protected $authService ,$userService;
 
     /**
      *
@@ -25,10 +28,18 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->settings = (object) json_decode(site_settings("user_authentication"));
 
-    
         $this->authService = new AuthService();
+        $this->userService = new UserService();
+
+
+        $this->middleware(function ($request, $next) {
+            if (site_settings('registration') == StatusEnum::false->status()) {
+                return redirect()->route('auth.login')->with(response_status('Registration module is currently unavailable!!', 'error'));
+            }
+            return $next($request);
+        });
+
     }
 
     
@@ -41,10 +52,43 @@ class RegisterController extends Controller
      */
     public function store(UserRegisterRequest $request) :RedirectResponse{
 
-      
-
-        dd($request->all());
     
+        $response = response_status(translate("Something went wrong!! please try again"),'error');
+        try {
+            
+            if($request->has('referral_code')){
+                
+                $refferedBy = User::active()->where('referral_code',$request->input('referral_code'))->first();
+            }
+
+            $user                       =  new User();
+            $user->name                 =  $request->input('name');
+            $user->username             =  $request->input('username');
+            $user->phone                =  $request->input('phone');
+            $user->email                =  $request->input('email');
+            $user->address              =  $request->input('address',[]);
+            $user->password             =  $request->input('password');
+            $user->country_id           =  $request->input('country_id');
+            $user->referral_id          =  $refferedBy?->id;
+            $user->save();
+
+            $package = Package::active()->where('id',site_settings('signup_bonus',-1))->first();
+            
+            if($package){
+                $this->userService->createSubscription( $user ,  $package , "Sign up bonus");
+            }
+
+            Auth::guard('web')->loginUsingId($user->id);
+            return redirect()->route('user.home');
+
+        } catch (\Exception $ex) {
+
+            $response = response_status(strip_tags($ex->getMessage(),'error'));
+
+        }
+      
+        return back()->with( $response);
+
     }
 
 
@@ -54,11 +98,9 @@ class RegisterController extends Controller
      * @return View
      */
     public function create() :View{
-        if($this->settings->registration == StatusEnum::false->status()){
-            abort(403,unauthorized_message("Registration modeule is currently off now"));
-        }
+
         return view('user.auth.register',[
-            'meta_data'=> $this->metaData([],'register'),
+            'meta_data'=> $this->metaData(['title' => translate("Register")]),
         ]);
     }
 

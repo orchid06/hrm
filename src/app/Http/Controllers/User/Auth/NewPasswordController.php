@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\User\AuthService;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View ;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class NewPasswordController extends Controller
 {
@@ -27,9 +29,10 @@ class NewPasswordController extends Controller
      */
     public function create():View{
 
-        return view('user.auth.forgot_password',[
-            'meta_data'=> $this->metaData([],'login'),
-            'title'=> "Reset Passsword",
+        return view('user.auth.password.forgot_password',[
+        
+            'meta_data'=> $this->metaData(["title" => trans('default.reset_passsword')]),
+         
         ]);
     }
 
@@ -39,24 +42,19 @@ class NewPasswordController extends Controller
      *
      * @return mixed
      */
-    public function store(Request $request):mixed{
+    public function store(Request $request):RedirectResponse {
 
         $request->validate([
             'email' => "required|email|exists:users,email"
         ]);
-        $message = response_status("Invalid Email","error");
-        $user = User::where('email',$request->email)->first();
-        if($user){
-            $response =  $this->authService->sendOtp($user,'reset_password',"email",'PASSWORD_RESET');
-            $message = response_status('Can\'t Sent Email!! Configuration Error' , "error");
-            if($response['status']){
-                $request->session()->flash('success', translate("Check your email a code sent successfully for verify reset password process !! You Need To Verify Your Account!!"));
-                session()->put("reset_password_email",$user->email);
-                return redirect()->route("password.verify");
-            }
-        }
 
-        return redirect()->back()->with($message);
+        $user      = User::where('email',$request->input('email'))->firstOrfail();
+        $response  =  $this->authService->sendOtp($user);
+        $request->session()->flash('success', translate("Check your email a code sent successfully for verify reset password process !! You Need To Verify Your Account!!"));
+
+        session()->put("user_reset_password_email",$user->email);
+        return redirect()->route("auth.password.verify");
+
     }
     
 
@@ -69,8 +67,8 @@ class NewPasswordController extends Controller
     public function verify() :View{
 
         return view("user.auth.verification",[
-            'meta_data'=> $this->metaData([],'verification'),
-            'title'=> "Verify Your Email",
+            'meta_data'=> $this->metaData(["title" => trans('default.verify_email')]),
+            "route"    => "auth.password.verify.code",
         ]);
     }
 
@@ -82,21 +80,25 @@ class NewPasswordController extends Controller
      */
     public function verifyCode(Request $request) :mixed {
 
+      
         $request->validate([
-            'email' => "required|email|exists:users,email",
-            'code' => "required",
+            'otp_code' => "required|numeric",
         ]);      
 
-        $message = response_status("Invalid Code","error");
-        $user = User::with("otp")->where('email',$request->email)->first();
-        if($user && $user->email == session()->get("reset_password_email")){
-            $userOtp = $user->otp()?->where('type','reset_password')->first();
-            if($userOtp && $userOtp->otp == $request->get("code")){
-              session()->put("user_reset_password_otp",$userOtp->otp);
-              return redirect()->route('password.reset');
-            }
+        $response  = response_status("The provided code does not exist.",'error');
+
+        $user      = User::with("otp")
+                      ->where('email',session()->get("user_reset_password_email"))
+                      ->firstOrfail();
+
+        $otp       = $user->otp->where("otp", $request->input("otp_code"))->first();
+
+        if($otp){
+            session()->put("user_reset_password_code",$request->input("otp_code"));
+            return redirect()->route('auth.password.reset');
         }
-        return redirect()->back()->with($message);
+
+        return redirect()->back()->with($response);
     }
 
     /**
@@ -106,11 +108,8 @@ class NewPasswordController extends Controller
      */
     public function resetPassword () :View{
 
-        return view("user.auth.reset",[
-            'meta_data'=> $this->metaData([
-                "title"=>"Reset Password"
-            ]),
-            'title'=> "Reset Your Password",
+        return view("user.auth.password.reset_password",[
+            'meta_data'=> $this->metaData(["title" => trans('default.reset_passsword')]),
         ]);
     }
 
@@ -122,21 +121,45 @@ class NewPasswordController extends Controller
      */
     public function updatePassword(Request $request) :RedirectResponse {
 
-        $request->validate([
-            'password' => ['required', 'confirmed', 'min:5']
-        ]);
 
-        $user = User::with("otp")->where('email',session()->get("reset_password_email"))->first();
-        $userOtp = $user->otp()?->where('type','reset_password')->first();
-        if($user && $userOtp->otp == session()->get("user_reset_password_otp")){
-            $user->password = Hash::make($request->get('password'));
-            $user->save();
-            session()->forget("reset_password_email");
-            session()->forget("user_reset_password_otp");
-            $user->otp()?->where('type','reset_password')->delete();
-            return redirect()->route('login')->with(response_status("Your Password Has Been Updated!!"));
+        $rules['password']        =  ["required","confirmed",Password::min(5)];
+
+        if(site_settings('strong_password') == StatusEnum::true->status()){
+
+            $rules['password']    =  ["required","confirmed",Password::min(8)
+                                        ->mixedCase()
+                                        ->letters()
+                                        ->numbers()
+                                        ->symbols()
+                                        ->uncompromised()
+                                    ];
         }
-        return back()->with(response_status("Invalid Email",'error'));
+
+        $request->validate($rules);
+
+        $response = response_status("Invalid otp !! please verify your otp again!!",'error');
+
+
+        $user = User::with("otp")
+                      ->where('email',session()->get("user_reset_password_email"))
+                      ->firstOrfail();
+
+    
+        $otp  = $user->otp->where("otp", session()->get("user_reset_password_code"))->first();
+
+        
+        if($otp){
+
+            $response         = response_status("Your Password Has Been Updated!!");
+            $user->password   = $request->input('password');
+            $user->save();
+            $otp->delete();
+            session()->forget("user_reset_password_code");
+            session()->forget("user_reset_password_email");
+        }
+
+        return redirect()->route('auth.login')->with($response);
+    
     }
 
 

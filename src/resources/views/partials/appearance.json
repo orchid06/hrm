@@ -188,6 +188,22 @@
     },
 
 
+    "feedback": {
+
+        "builder": true,
+        "name": "feedback",
+        "no_selection": true,
+        "content": {
+            "banner_title" :"text",
+            "banner_description": "text",
+            "heading" :"text",
+            "description" :"textarea"
+        }
+    
+    },
+
+
+
 
     "template": {
         "builder": true,
@@ -358,11 +374,11 @@
         }
     },
 
-    "newslatter": {
+    "newsletter": {
 
         "builder": true,
         "no_selection": true,
-        "name": "newslatter_section ",
+        "name": "newsletter_section ",
         "content": {
             "title": "text",
             "description": "textarea"

@@ -73,6 +73,7 @@
     @endif
 
     <main class="main" id="main">
+
          @yield('content')
     </main>
 
@@ -82,6 +83,7 @@
         @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
           @include('frontend.partials.cookie')
         @endif
+
     @endif
 
     @yield("modal")
@@ -239,8 +241,12 @@
         });
 
 
-
-
+        $(document).on('click','#genarate-captcha',function(e){
+            var url = "{{ route('captcha.genarate',[":randId"]) }}"
+            url = (url.replace(':randId',Math.random()))
+            document.getElementById('default-captcha').src = url;
+            e.preventDefault()
+        })
 
 
     </script>

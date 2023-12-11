@@ -133,7 +133,6 @@ class FrontendController extends Controller
             "meta_keywords"       =>  (array) $page->meta_keywords,
         ];
 
-
         return view('frontend.page',[
             'meta_data'   => $this->metaData($metaData),
             'page'        => $page,

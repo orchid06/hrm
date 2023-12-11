@@ -20,6 +20,7 @@ class PaymentController extends Controller
     protected $paymentService ;
 
     public function __construct(){
+        
         $this->paymentService = new PaymentService();
     }
 

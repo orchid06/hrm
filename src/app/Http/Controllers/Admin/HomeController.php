@@ -213,8 +213,9 @@ class HomeController extends Controller
 
      public function readNotification(Request $request) :string{
 
-        $notification = Notification::where("id", $request->id)
-        ->first();
+        $notification = Notification::where('notificationable_type','App\Models\Admin')
+                            ->where("id", $request->id)
+                            ->first();
         $status  = false;
         $message = translate('Notification Not Found');
         if( $notification ){

@@ -127,7 +127,7 @@
 
                 <div class="have-account">
                   <p>
-                    {{translate("Create Account")}} ?
+                    {{translate("Create New")}} ?
                     <a href="{{route('auth.register')}}">
                         {{translate("Sign Up")}}
                     </a>
@@ -175,19 +175,6 @@
 
     @endif
 
-    <script>
-        'use strict'
-
-        $(document).on('click','#genarate-captcha',function(e){
-            var url = "{{ route('captcha.genarate',[":randId"]) }}"
-            url = (url.replace(':randId',Math.random()))
-            document.getElementById('default-captcha').src = url;
-            e.preventDefault()
-        })
-
-       
     
-
-    </script>
 
 @endpush
