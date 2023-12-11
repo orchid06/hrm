@@ -47,11 +47,13 @@
                         </div>
                     @endif
 
-                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
-                        <div class="search-area">
+                    <div class="col-md-8 d-flex justify-content-end">
+                        <div class="filter-wrapper">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="las la-filter"></i>
+                            </button>
+                            <div class="filter-dropdown">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-
-
                                @if(request()->routeIs("admin.ai.template.default"))
                                  <input hidden name="default" value="{{App\Enums\StatusEnum::true->status()}}"  type="text">
                                @endif
@@ -104,10 +106,13 @@
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
-                                <a href="{{route('admin.ai.template.list')}}"  class="i-btn btn--sm danger">
-                                    <i class="las la-sync"></i>
-                                </a>
-                            </form>
+                                </form>
+                            </div>  
+                        </div>  
+                        <div class="ms-3">
+                            <a href="{{route('admin.ai.template.list')}}"  class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

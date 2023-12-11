@@ -11,14 +11,12 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-
                     <form hidden id="bulkActionForm" action="{{route("admin.credit.report.bulk")}}" method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-             
                     @if(check_permission('delete_report') )
                         <div class="col-md-6 d-flex justify-content-start">
                      
@@ -43,55 +41,51 @@
                     @endif
             
                     <div class="col-md-6 d-flex justify-content-md-end justify-content-start">
-                        <div class="search-area">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">
-
-                        
-                                <div class="form-inner">
-                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
-                                </div>
-
-                        
-                                <div class="form-inner">
-                                    <select name="user" id="user" class="user">
-                                        <option value="">
-                                            {{translate('Select User')}}
-                                        </option>
-                       
-                                        @foreach(system_users() as $user)
-                                           <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div class="form-inner">
-                                    <select name="type" id="type" class="type">
-                                        <option value="">
-                                            {{translate('Select type')}}
-                                        </option>
-                                        <option {{ App\Models\Transaction::$PLUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$PLUS}}">{{translate("Plus")}}</option>
-                                        <option {{ App\Models\Transaction::$MINUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$MINUS}}">{{translate("Minus")}}</option>
-                         
-                
-                                    </select>
-                                </div>
-
-                                <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
-                                </div>
-                            
-
-                                <button class="i-btn btn--sm info">
-                                    <i class="las la-sliders-h"></i>
+                        <div class="filter-wrapper">
+                                <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="las la-filter"></i>
                                 </button>
+                                <div class="filter-dropdown">
+                                    <form action="{{route(Route::currentRouteName())}}" method="get">
+                                        <div class="form-inner">
+                                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                        </div>
+                                        <div class="form-inner">
+                                            <select name="user" id="user" class="user">
+                                                <option value="">
+                                                    {{translate('Select User')}}
+                                                </option>
+                            
+                                                @foreach(system_users() as $user)
+                                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-inner">
+                                            <select name="type" id="type" class="type">
+                                                <option value="">
+                                                    {{translate('Select type')}}
+                                                </option>
+                                                <option {{ App\Models\Transaction::$PLUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$PLUS}}">{{translate("Plus")}}</option>
+                                                <option {{ App\Models\Transaction::$MINUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$MINUS}}">{{translate("Minus")}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-inner">
+                                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
+                                        </div>
+                                        <button class="i-btn btn--sm info w-100">
+                                            <i class="las la-sliders-h"></i>
+                                        </button>
+                                    </form>
+                                </div>  
+                            </div>  
+                            <div class="ms-3">
                                 <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
                                     <i class="las la-sync"></i>
                                 </a>
-                            </form>
+                            </div> 
                         </div>
-                    </div>
                 </div>
             </div>
 

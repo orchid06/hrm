@@ -192,7 +192,7 @@ button,
 .i-badge {
   border-radius: 3px;
   display: inline-block;
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
@@ -213,6 +213,9 @@ button,
       &:hover {
         background-color: $color-success;
         color: $color-white;
+        a{
+          color: $color-white;
+        }
       }
     }
     .success-text {
@@ -309,6 +312,14 @@ button,
       color: $color-info;
     }
   }
+  
+  &.primary {
+    background-color: $color-primary;
+    &:hover {
+      background-color: $color-primary-light;
+      color: $color-primary;
+    }
+  }
 }
 
 .simplebar-scrollbar:before {
@@ -326,6 +337,9 @@ button,
   white-space: nowrap;
   vertical-align: middle;
   transition: 0.3s ease;
+  @include md-down-device(){
+    font-size: 14px;
+  }
   &.success {
     background-color: $color-success-light;
     color: $color-success;
@@ -883,7 +897,7 @@ button {
           .nav-link {
             border: none;
             border-right: 3px solid transparent;
-            color: $text-secondary;
+            color: $text-primary;
             border-radius: 0;
             padding: 12px 16px;
             font-size: 15px;
@@ -897,8 +911,9 @@ button {
             }
             i {
               color: $text-secondary;
-              font-size: 18px;
-              margin-right: 3px;
+              font-size: 20px;
+              margin-right: 6px;
+              vertical-align: middle;
               [dir="rtl"] & {
                 margin-right: unset;
                 margin-left: 4px;
@@ -984,4 +999,11 @@ button {
     position: unset;
     top: unset;
   }
+}
+
+.modal-header{
+  padding: 1rem 1.25rem !important;
+}
+.modal-body{
+  padding: 1.25rem !important;
 }

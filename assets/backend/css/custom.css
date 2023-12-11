@@ -320,12 +320,6 @@
   white-space: nowrap;
 }
 
-.d-dos-input input {
-  width: 70px;
-}
-
-
-
 .stop-btn{
   z-index: 9999999 !important;
 }

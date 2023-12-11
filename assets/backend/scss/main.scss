@@ -46,7 +46,7 @@
       font-size: 22px;
 
       @include md-down-device{
-        font-size: 18px;
+        font-size: 20px;
       }
     }
     .page-title-right {
@@ -1812,4 +1812,12 @@ ul.inbox-list {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.module-note{
+  a{
+    color: $color-primary;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 }

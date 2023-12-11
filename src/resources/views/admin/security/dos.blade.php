@@ -3,13 +3,11 @@
         
 <div class="row g-4">
 
-    <div class="col-xl-8">
+    <div class="col-xl-12">
         <div class="i-card-md">
             <div class="card-body">   
-            
                     <div class="d-flex align-items-center gap-3 mb-20">
                         <label for="dos_prevent">{{translate('Prevent Dos Attack')}}</label>
-
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
                             {{ site_settings('dos_prevent') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }}
@@ -21,10 +19,8 @@
                         </div>
                     </div>
                     <form action="{{route("admin.security.dos.update")}}" method="post">
-                        
                         @csrf
-                        <div class="d-flex align-items-center gap-4 d-dos-input ">
-                            
+                        <div class="d-flex align-items-center gap-4 d-dos-input">
                             <div class="form-inner d-flex align-items-center gap-3">
                                 <label class="w-nowrap" > 
                                     {{translate("If there are more than")}}
@@ -33,7 +29,6 @@
                                 <input value="{{site_settings("dos_attempts")}}"  required type="number" name="site_settings[dos_attempts]" >
 
                             </div>
-
                             <div class="form-inner d-flex align-items-center gap-3">
                                 <label class="w-nowrap" > 
                                     {{translate("attempts in")}}
@@ -44,35 +39,31 @@
                                 <label class="w-nowrap"> 
                                     {{translate("second")}}
                                 </label>
-
                             </div>
-
                         </div>
-
-                        <div class="form-inner">
-                            <input class="form-check-input" {{site_settings("dos_security") == "captcha" ? "checked" :"" }} type="radio" name="site_settings[dos_security]" id="captcha" value="captcha">
-                            <label class="form-check-label" for="captcha">
-                                {{translate('Show Captcha')}}
-                            </label>
-                            <input class="form-check-input" type="radio" {{site_settings("dos_security") == "block_ip" ?  "checked" :"" }} name="site_settings[dos_security]" id="blokedIp" value="block_ip">
-                            <label class="form-check-label" for="blokedIp">
-                                {{translate('Block Ip')}}
-                            </label>
+                        <div class="form-inner d-flex">
+                            <div class="me-3">
+                                <input class="form-check-input" {{site_settings("dos_security") == "captcha" ? "checked" :"" }} type="radio" name="site_settings[dos_security]" id="captcha" value="captcha">
+                                <label class="form-check-label" for="captcha">
+                                    {{translate('Show Captcha')}}
+                                </label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" type="radio" {{site_settings("dos_security") == "block_ip" ?  "checked" :"" }} name="site_settings[dos_security]" id="blokedIp" value="block_ip">
+                                <label class="form-check-label" for="blokedIp">
+                                    {{translate('Block Ip')}}
+                                </label>
+                            </div>
                         </div>
-
                         <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
                             {{translate("Submit")}}
                         </button>
-                        
                     </form>
-
             </div>
         </div>
     </div>
-
 </div>   
 
-  
 @endsection
 
 

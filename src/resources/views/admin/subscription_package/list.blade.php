@@ -261,9 +261,9 @@
                 </table>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3 text-end">
                 @if( 0 < $earings)
-                 {{translate("Total Earnings")}} <span class="i-badge capsuled success"> {{@num_format(
+                 {{translate("Total Earnings")}} <span class="i-badge capsuled success ms-2"> {{@num_format(
                     number : $earings??0,
                     calC   : true
                   )}} </span>
