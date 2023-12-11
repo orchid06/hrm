@@ -22,7 +22,7 @@
                                                 class="btn-custom ig-btn btn--lg btn--primary w-100"
                                                 id="btn-confirm">{{translate('Pay Now')}}
                                         </button>
-                                        <form action="{{ route('ipn', [optional($log->method)->code, $log->transaction]) }}" method="POST" class="form">
+                                        <form action="{{ route('ipn', [ $log->trx_code]) }}" method="POST" class="form">
                                             @csrf
                                             <script
                                                 src="//js.paystack.co/v1/inline.js"

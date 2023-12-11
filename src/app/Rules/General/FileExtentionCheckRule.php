@@ -74,6 +74,7 @@ class FileExtentionCheckRule implements Rule
 
 
     public function checkRule(mixed $file) : int{
+        
         $fileSizeInBytes = $file->getSize();
         $indicator = 1;
         if( round($fileSizeInBytes / 1024) >  (int) site_settings('max_file_size')){

@@ -23,7 +23,8 @@ class PaymentLog extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'custom_data' => 'object',
+        'custom_data'      => 'object',
+        'gateway_response' => 'object',
     ];
 
 
@@ -56,6 +57,11 @@ class PaymentLog extends Model
     public function scopePending(Builder $q) :Builder{
 
         return $q->where('status',DepositStatus::value("PENDING",true));
+    }
+
+    public function scopeInitiate(Builder $q) :Builder{
+
+        return $q->where('status',DepositStatus::value("INITIATE",true));
     }
 
 

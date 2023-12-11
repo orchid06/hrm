@@ -53,6 +53,7 @@ trait EnumTrait
      * @return array
      */
     public static function value(mixed $param , ? bool $is_string = false): mixed {
+        
         $res = Arr::get(self::toArray(),$param,null);
         if($res && $is_string){
             $res  = strval($res);

@@ -2,54 +2,60 @@
 
 namespace App\Http\Services\Gateway\payeer;
 
+use App\Enums\DepositStatus;
 use App\Enums\StatusEnum;
 use App\Models\PaymentLog;
 
-use App\Http\Services\PaymentService;
-use App\Models\Admin\PaymentMethod;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class Payment
 {
-    public static function paymentData(PaymentLog $log)
+    public static function paymentData(PaymentLog $log) :string
     {
         $siteName = site_settings('site_name');
-        $gateway = ($log->method->parameters);
+        $gateway  = ($log->method->parameters);
         $m_amount = number_format($log->amount, 2, '.', "");
         $arHash = [
             trim($gateway->merchant_id),
-            $log->transaction,
+            $log->trx_code,
             $m_amount,
-            $log->method->currency,
-            base64_encode("Pay To $siteName"),
+            $log->method->currency->code,
+            base64_encode("Deposit To $siteName"),
             trim($gateway->secret_key)
         ];
 
-        $val['m_shop'] = trim($gateway->merchant_id);
-        $val['m_orderid'] = $log->transaction;
-        $val['m_amount'] = $m_amount;
-        $val['m_curr'] =  $log->method->currency;
-        $val['m_desc'] = base64_encode("Pay To $siteName");
-        $val['m_sign'] = strtoupper(hash('sha256', implode(":", $arHash)));
-        $val['lang'] = 'en';
+        $val['m_shop']     = trim($gateway->merchant_id);
+        $val['m_orderid']  = $log->trx_code;
+        $val['m_amount']   = $m_amount;
+        $val['m_curr']     = $log->method->currency->code;
+        $val['m_desc']     = base64_encode("Deposit To $siteName");
+        $val['m_sign']     = strtoupper(hash('sha256', implode(":", $arHash)));
 
-        $send['val'] = $val;
-        $send['view'] = 'user.payment.redirect';
-        $send['method'] = 'get';
-        $send['url'] = 'https://payeer.com/merchant';
+        $send['val']       = $val;
+        $send['view']      = 'user.payment.redirect';
+        $send['method']    = 'get';
+        $send['url']       = 'https://payeer.com/merchant';
         
-       
-
+    
         return json_encode($send);
     }
 
 
-    public static function ipn(mixed $request, PaymentMethod $gateway, PaymentLog $log = null,mixed $trx = null, mixed $type = null)
+    public static function ipn(Request $request, PaymentLog $log ) :array
     {
 
+        $data['status']       = 'error';
+        $data['message']      = translate('Transaction failed.');
+        $data['redirect']     = route('user.home');
+        $data['gw_response']  = $request->all();
+        $status               = DepositStatus::value('FAILED',true);
 
-        $params = ($gateway->parameters);
+        $params               = ($log->method->parameters);
+
         if (isset($request->m_operation_id) && isset($request->m_sign)) {
+
             $sign_hash = strtoupper(hash('sha256', implode(":", array(
                 $request->m_operation_id,
                 $request->m_operation_ps,
@@ -65,31 +71,19 @@ class Payment
             ))));
 
             if ($request->m_sign != $sign_hash) {
-                $data['status'] = 'error';
-                $data['msg'] = translate('digital signature not matched');
-                $data['redirect'] = route('failed');
+                $data['message'] = translate('digital signature not matched');
             } else {
-                $log = PaymentLog::with(['user','method'])->where('transaction', $request->m_orderid)->latest()->first();
-                if ($request->m_amount == round($log->final_amount,2) && $request->m_curr == $log->method->currency && $request->m_status == 'success' && $log->status == StatusEnum::false->status()) {
-                    PaymentService::make_payment($log);
-                    $data['status'] = 'success';
-                    $data['msg'] = trans('default.trx_success');      
 
-                    $data['redirect'] = route('success');
-
-                    return $data;
-                } else {
-                    $data['status'] = 'error';
-                    $data['msg'] = trans('default.trx_failed');
-                    $data['redirect'] = route('failed');
-                    return $data;
-                }
+                if ($request->m_amount == round($log->final_amount,2) && $request->m_curr == $log->method->currency->code && $request->m_status == 'success') {
+                    $data['status']   = 'success';
+                    $data['message']  = trans('default.deposit_success');
+                    $status           = DepositStatus::value('PAID',true);
+                } 
             }
-        } else {
-            $data['status'] = 'error';
-            $data['msg'] = translate('transaction was unsuccessful');
-            $data['redirect'] = route('failed');
         }
+
+        User::updateDepositLog($log,$status ,$data);
+
         return $data;
     }
 }

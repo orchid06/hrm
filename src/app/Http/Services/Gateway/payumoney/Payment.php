@@ -20,12 +20,12 @@ class Payment
         $hash_string = '';
         $send['val'] = [
             'key' => $gateway->merchant_key ?? '',
-            'txnid' => $log->transaction,
+            'txnid' => $log->trx_code,
             'amount' => round($log->final_amount,2),
             'firstname' => optional($log->user)->username ?? 'SMM Panel',
             'email' => optional($log->user)->email ?? '',
-            'productinfo' => $log->transaction ?? 'Order',
-            'surl' => route('ipn', [$log->method->code, $log->transaction]),
+            'productinfo' => $log->trx_code ?? 'Order',
+            'surl' => route('ipn', [$log->method->code, $log->trx_code]),
             'furl' => route('failed'),
             'service_provider' =>$siteName ?? 'SMM Panel',
         ];
@@ -47,7 +47,7 @@ class Payment
     {
         if (isset($request->status) && $request->status == 'success') {
             if (($gateway->parameters->merchant_key ?? '') == $request->key) {
-                if ($log->transaction == $request->txnid) {
+                if ($log->trx_code == $request->txnid) {
                     if (round($log->final_amount,2) <= $request->amount) {
                         PaymentService::make_payment($log);
 

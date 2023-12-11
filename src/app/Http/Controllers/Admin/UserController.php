@@ -71,7 +71,7 @@ class UserController extends Controller
                                     ->paginate(paginateNumber())
                                     ->appends(request()->all()),
 
-            "countries"    => Country::get(),
+            "countries"    => get_countries(),
     
         ]);
     }

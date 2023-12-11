@@ -36,6 +36,7 @@ return [
     "login_btn_text" => "Login to your account",
 
     "register_page_title" => "Sign up Your Account",
+    "deposit_success" => "Deposit successful! Your funds have been successfully added.",
     
 
     /** site  title  */

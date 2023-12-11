@@ -30,7 +30,7 @@
                             {{translate("Basic Information")}}
                         </h3>
                       <ul class="list-group list-group-flush border mt-4 payment-info">
-                        <li class="list-group-item">{{translate("Transaction Id")}} : <span class="payment-info-value">{{$log->transaction}}</span></li>
+                        <li class="list-group-item">{{translate("Transaction Id")}} : <span class="payment-info-value">{{$log->trx_code}}</span></li>
                         <li class="list-group-item">{{translate('Payment Method')}} : <span class="payment-info-value">{{$log->method->name}}</span></li>
                         <li class="list-group-item">{{translate('Amount')}} :  <span class="payment-info-value">{{site_settings("currency_symbol")}} {{round($log->amount)}}</span></li>
                         <li class="list-group-item">{{translate('Charage')}} :  <span class="payment-info-value">{{site_settings("currency_symbol")}} {{round($log->charge)}}</span></li>

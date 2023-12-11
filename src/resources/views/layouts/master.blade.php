@@ -13,7 +13,6 @@
 
     <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,"favicon",true)}}" alt="{{@site_logo('site_favicon')->file?->name}}">
 
-
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/swiper.css')}}" rel="stylesheet" type="text/css" />
@@ -81,7 +80,7 @@
         @include('frontend.partials.footer')
 
         @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
-          @include('frontend.partials.cookie')
+           @include('frontend.partials.cookie')
         @endif
 
     @endif

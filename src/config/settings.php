@@ -554,27 +554,6 @@ return [
             ],
         ],
 
-        "test2w" => [
-            "code"             => "test2w",
-            "serial_id"        => "25",
-            "currency_id"      => "1",
-            "parameters"       => [
-                "ds3_0" => [
-                    "field_name"  => "#",
-                    "field_label" => "#",
-                    "type"        => "#",
-                    "validation"  => "#",
-                ],
-                "we23_1" => [
-                    "field_name"  => "#",
-                    "field_label" => "#",
-                    "type"        => "#",
-                    "validation"  => "#",
-                ],
-            ],
-            "extra_parameters" => [],
-        ],
-
     ] ,
 
     "notification_template" => [
@@ -833,6 +812,39 @@ return [
             "sort_code" => ([
                 'type'       => "Action type",
                 'details'    => "Action Details"
+            ])
+        ],
+
+
+        
+        "KYC_UPDATE" => [
+            "name"      => "KYC Log Status Updated",
+            "subject"   => "KYC Log Status Updated",
+            "body"      => "We're here to inform you that there has been an update to your KYC (Know Your Customer) log status.
+                            Kyc Information:
+                                Applied By : {{name}}
+                                status     : {{status}}",
+
+            "sms_body"  => "We're here to inform you that there has been an update to your KYC (Know Your Customer) log status.
+                            Kyc Information:Applied By : {{name}} status : {{status}}",
+            "sort_code" => ([
+                'name'       => "User name",
+                'status'     => "Verification status"
+            ])
+        ],
+
+
+        
+        "KYC_APPLIED" => [
+            "name"      => "New KYC Verification Application Received",
+            "subject"   => "New KYC Verification Application Received",
+            "body"      => "A new user has applied for KYC (Know Your Customer) verification. Here are the details
+            Kyc Information:Applied By :{{name}} Application time :{{time}}",
+            "sms_body"  => "A new user has applied for KYC (Know Your Customer) verification. Here are the details
+             Kyc Information:Applied By :{{name}} Application time :{{time}}",
+            "sort_code" => ([
+                'name'       => "User name",
+                'status'     => "Verification status"
             ])
         ],
     ] ,

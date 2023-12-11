@@ -8,9 +8,9 @@
     <div class="container-fluid px-0">
       <div class="header-container">
         <div class="header-logo">
-          <a href="{{route('home')}}">
-              <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-          </a>
+            <a href="{{route('home')}}">
+                <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+            </a>
         </div>
 
         <div class="sidebar">
@@ -504,18 +504,18 @@
               </button>
 
               @if(!$languages->isEmpty())
-                <ul class="dropdown-menu dropdown-menu-end">
-                  @foreach($languages as $language)
-                    <li>
-                      <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                          <span class="flag">
-                                <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                          </span>
-                          {{$language->name}}
-                      </a>
-                    </li>
-                  @endforeach
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                      @foreach($languages as $language)
+                        <li>
+                          <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                              <span class="flag">
+                                    <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                              </span>
+                              {{$language->name}}
+                          </a>
+                        </li>
+                      @endforeach
+                  </ul>
                @endif
             </div>
           </div>

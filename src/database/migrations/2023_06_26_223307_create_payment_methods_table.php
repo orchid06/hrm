@@ -24,9 +24,10 @@ return new class extends Migration
             $table->longText("extra_parameters")->nullable();
             $table->double("percentage_charge",20, 2)->default(0.00);
             $table->double("fixed_charge",20, 2)->default(0.00);
-            $table->double("minimum_amount",20, 2)->nullable();
-            $table->double("maximum_amount",20, 2)->nullable();
+            $table->double("minimum_amount",20, 2)->default(0.00);
+            $table->double("maximum_amount",20, 2)->default(0.00);
             $table->text('payment_notes')->nullable();
+            $table->text('gateway_response')->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');   
             $table->enum('type',[0,1])->default(1)->comment('Automatic: 1, Manual: 0');  
             $table->timestamps();
