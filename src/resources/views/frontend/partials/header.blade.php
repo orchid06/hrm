@@ -384,15 +384,15 @@
             <div class="sidebar-action d-lg-none">
               <div
                 class="d-flex align-items-center justify-content-between gap-3">
-                <a href="{{route("plan")}}"class="i-btn btn--primary-outline btn--lg capsuled">
-                  {{translate("Get Started")}}
-                </a>
-
-                @if(!auth_user('web'))
-                  <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
-                      {{translate('Login')}}
+                  <a href="{{route("plan")}}"class="i-btn btn--primary-outline btn--lg capsuled">
+                    {{translate("Get Started")}}
                   </a>
-                @endif
+
+                  @if(!auth_user('web'))
+                    <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
+                        {{translate('Login')}}
+                    </a>
+                  @endif
               </div>
             </div>
 
@@ -428,7 +428,40 @@
                 </div>
               </div>
 
-              <div class="currency d-lg-none">
+
+              @if(auth_user('web'))
+                <div class="lang">
+                    <div class="dropdown">
+
+                      <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span class="flag">
+                            <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
+                          </span>
+                      </button>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                          <li>
+                            <a href="{{route('user.profile')}}" class="dropdown-item" >
+                                {{translate('Profile')}}
+                            </a>
+                          </li>
+            
+                            <li>
+                              <a href="{{route('user.logout')}}" class="dropdown-item" >
+                                  {{translate('Logout')}}
+                              </a>
+                            </li>
+                    
+                        </ul>
+
+                    </div>
+                </div>
+              @endif
+
+ 
+              <div class="currency">
                 <div>
                   <button
                     class="dropdown-toggle"
@@ -453,6 +486,7 @@
                   @endif
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -490,8 +524,6 @@
               <div class="d-lg-block d-none lang">
                 <div class="dropdown">
 
-
-
                   <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <span class="flag">
                         <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
@@ -501,7 +533,6 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
 
-                      
                       <li>
                         <a href="{{route('user.profile')}}" class="dropdown-item" >
                             {{translate('Profile')}}

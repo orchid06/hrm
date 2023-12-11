@@ -52,7 +52,6 @@ class NewPasswordController extends Controller
             $request->session()->flash('success', translate("Check your email a code sent successfully for verify reset password process !! You Need To Verify Your Account!!"));
 
             session()->put("password_reset_email",$admin->email);
-
             return redirect()->route("admin.password.verify");
         }
         
@@ -92,12 +91,11 @@ class NewPasswordController extends Controller
                         ->where('email',session()->get("password_reset_email"))
                         ->firstOrFail();
 
-        $otp       = $admin->otp()->where('type','password_reset')
+        $otp       = $admin->otp
                         ->where("otp",$request->input("code"))
                         ->first();
 
         if($otp){
-
             session()->put("reset_password_otp",$request->input("code"));
             return redirect()->route('admin.password.reset');
         }

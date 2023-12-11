@@ -37,7 +37,6 @@ class LoginController extends Controller
             $this->validateLogin($request);
   
             if (Auth::guard('admin')->attempt([$this->username($request->input('login')) => $request->input('login') , "password"=>$request->input('password')])){
-                $request->session()->regenerate();
                 return redirect()->intended('/admin/dashboard')->with(response_status('Successfully Loggedin'));
             }
 
@@ -101,7 +100,6 @@ class LoginController extends Controller
     public function logout(Request $request) :RedirectResponse
     {
         Auth::guard('admin')->logout();
-        $request->session()->regenerateToken();
         return redirect('/admin');
     }
 

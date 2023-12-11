@@ -35,9 +35,10 @@ return [
     "login_page_title" => "Login to Your Account",
     "login_btn_text" => "Login to your account",
 
+    "register_page_title" => "Sign up Your Account",
+    
 
     /** site  title  */
-
     "home"      => 'Home',
     "blogs"     => 'Blogs',
     "feedback"  => 'Feedback',
@@ -46,6 +47,8 @@ return [
     "login"    =>   'Login',
     "otp_verification"    =>   'Otp Verification',
     "email_verification"    =>   'Email Verification',
+    "reset_passsword"    =>   'Reset Password',
+    "verify_email"    =>   'Verify Your email',
 
 
 

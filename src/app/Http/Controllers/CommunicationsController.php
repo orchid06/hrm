@@ -19,6 +19,7 @@ use App\Traits\Fileable;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Admin\Menu;
+use Illuminate\Support\Str;
 
 class CommunicationsController extends Controller
 {
@@ -44,14 +45,10 @@ class CommunicationsController extends Controller
      */
     public function contact() :View{
 
-        
-
         return view('frontend.contact',[
-
             'meta_data' => $this->metaData([
                 "title"     => trans('default.contact'),
             ]),
-
             'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail()
 
         ]);
@@ -153,9 +150,7 @@ class CommunicationsController extends Controller
             'details'      => "email:".$subscriber->email,
         ];
 
-
         $this->send_notification($route,$code);
-
         return  back()->with(response_status('Subscribed successfully'));
     }
 
@@ -168,7 +163,6 @@ class CommunicationsController extends Controller
     public function feedback() :View{
         
         return view('frontend.feedback',[
-            
             'meta_data' => $this->metaData([
                 "title" => trans('default.feedback')
             ]),
@@ -186,22 +180,29 @@ class CommunicationsController extends Controller
     public function feedbackStore(Request $request) :RedirectResponse{
 
 
+
         $request->validate([
             "author"      => ['required',"max:155"],
             "quote"       => ['required',"max:255"],
-            "rating"      => ['integer',"max:5","min:1"],
+            "rating"      => ['required','integer',"max:5","min:1"],
             "designation" => ['required',"max:155"],
-            "image"       => ["required",'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))]
+            "image"       => ["nullable",'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))]
         ]);
 
         $requestData = $request->except(['_token','image']);
         $frontend         = new Frontend();
+        $frontend->uid    = Str::uuid();
+        $frontend->status = StatusEnum::false->status();
         $frontend->key    = "element_testimonial";
         $frontend->value  = $requestData;
-        $frontend->save(); 
+
+        $frontend->saveQuietly(); 
+
+
 
         $files = [];
-        if($request->has("image")){
+
+        if($request->hasFile("image")){
             $response = $this->storeFile(
                 file        : $request->file("image"), 
                 location    : config("settings")['file_path']['frontend']['path'],

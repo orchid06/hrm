@@ -20,7 +20,7 @@ class AdminVerification
          try {
             if(auth_user() && auth_user()->status == StatusEnum::false->status() ){
             
-                $request->session()->flash('error', translate("This Account Has Been Banned"));
+                $request->session()->flash('error', translate("Your account has been suspended indefinitely due to a violation of our terms and conditions. For further assistance, please contact our support team."));
 
                 Auth::guard('admin')->logout();
                 return redirect('/admin');

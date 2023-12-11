@@ -43,7 +43,7 @@ class SettingController extends Controller
             'title'       => 'Settings',
             'breadcrumbs' => ['home'=>'admin.home','Settings'=> null],
             'timeZones'   => timezone_identifiers_list(),
-            'countries'   => Country::where('is_blocked',StatusEnum::false->status())->get()
+            'countries'   => get_countries()
         ]);
     }
 

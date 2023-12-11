@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\User\AuthService;
+use App\Models\Core\Otp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Route;
 class AuthorizationController extends Controller
 {
     
@@ -35,7 +37,7 @@ class AuthorizationController extends Controller
      */
     public function otpVerification() :View {
 
-        return view('user.auth.verification.otp_verification',[
+        return view('user.auth.verification',[
             
             'meta_data'=> $this->metaData([
                   "title" => trans("default.otp_verification")]),
@@ -53,59 +55,104 @@ class AuthorizationController extends Controller
      * @return RedirectResponse
      */
     public function otpVerify(Request $request) :RedirectResponse {
-
    
         $request->validate([
-            "opt_code" => ['required','numeric']
+            "otp_code" => ['required', 'numeric'],
         ]);
-
-        $responseMessage =  response_status('The provided OTP does not exist. Please consider requesting a new OTP','error');
-
+        
+        $flag = StatusEnum::false->status();
+        $responseMessage = response_status('The provided OTP does not exist. Please consider requesting a new OTP', 'error');
+        
         try {
             $identification = session()->get("user_identification");
-            if($identification 
-            && is_array($identification) 
-            && isset($identification['field'], $identification['value'])
-           ){
-                    DB::transaction(function() use ($request ,$identification) {
-                        $user = User::with(['otp'])
-                            ->where(Arr::get($identification,'field','phone') ,Arr::get($identification,'value',"") )
-                            ->firstOrfail();
-
-                        $otp = $user->otp->where("otp",$request->input("opt_code"))->first();
-
-                        if($otp &&  $otp->expired_at > Carbon::now()){
-
-                            $verificationType = $identification['field'] == "email" ? "email":"sms";
-
-                            if($verificationType == 'email'){
-
-                                $user->email_verified_at =  Carbon::now();
-                                $user->save();
-                            }
-                            else{
-                                Auth::guard('web')->loginUsingId($user->id); 
-                            }
-
-                            session()->forget('otp_expire_at');
-                            session()->forget('user_identification');
-                            $otp->delete();
-                        
-                       
-
-                            return redirect()->route('user.home')->with(response_status('Verification process successfully completed. Your account is now verified and ready for use. Thank you for confirming your details with us.'));
-                        }
-                    });
-
+            if ($this->isValidIdentification($identification) && $this->processVerification($request, $identification)) {
+                $flag = StatusEnum::true->status();
+                $responseMessage = ('Verification process successfully completed. Your account is now verified and ready for use. Thank you for confirming your details with us.');
             }
         } catch (\Exception $ex) {
+            $responseMessage = response_status(strip_tags($ex->getMessage()), 'error');
+        }
+        
+        return $flag == StatusEnum::true->status()
+        ? redirect()->route('user.home')->with($responseMessage)
+        : redirect()->back()->with($responseMessage);
+        
+    }
 
-            $responseMessage =  response_status(strip_tags($ex->getMessage()),'error');
 
+
+    /**
+     * Verify identifications
+     *
+     * @param mixed $identification
+     * @return boolean
+     */
+    private function isValidIdentification(mixed $identification) :bool {
+
+         return $identification && is_array($identification) && filled($identification['field']) && filled($identification['value']);
+    }
+
+
+    /**
+     * Verification process
+     *
+     * @param Request $request
+     * @param mixed $identification
+     * @return array
+     */
+    private function processVerification(Request $request, mixed $identification) :bool {
+
+        return DB::transaction(function () use ($request, $identification) {
+
+            $response = false;
+            $user = User::where($identification['field'], $identification['value'])->firstOrFail();
+            $otp  = $user->otp->where("otp", $request->input("otp_code"))->first();
+
+            if ($this->isValidOtp($otp)) {
+                $response = $this->completeVerification($user, $otp, $identification);
+            }
+
+            return $response;
+        });
+    }
+
+
+    /**
+     * Verify otp code
+     *
+     * @param Otp|null $otp
+     * @return boolean
+     */
+    private function isValidOtp(?Otp $otp) :bool {
+        return $otp && $otp->expired_at > Carbon::now();
+    }
+
+
+    /**
+     * Complete  verification route
+     *
+     * @param User $user
+     * @param Otp $otp
+     * @param array $identification
+     * @return boolean
+     */
+    private function completeVerification(User $user,Otp $otp, array $identification) :bool {
+
+        $verificationType = $identification['field'] == "email" ? "email" : "sms";
+
+        if ($verificationType == 'email') {
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+        } else {
+            Auth::guard('web')->loginUsingId($user->id);
         }
 
-        return back()->with($responseMessage);
+        session()->forget('otp_expire_at');
+        session()->forget('user_identification');
+        $otp->delete();
 
+        return true;
+    
     }
 
 

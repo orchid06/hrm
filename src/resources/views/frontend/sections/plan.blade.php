@@ -80,8 +80,6 @@
                                             </p>
                                           <ul>
 
-
-                                           
                                             @foreach (plan_configuration( $plan) as $configKey => $configVal )
                                               <li>
                                                 <span>

@@ -4,7 +4,7 @@
 
    $file        = $ctaContent->file->where("type",'image')->first();
    $ctaElements = get_content("element_cta");
-   $newsLatter  = get_content("content_newslatter")->first();
+   $newsLetter  = get_content("content_newsletter")->first();
 
    $footer      = get_content("content_footer")->first();
    $paymentImg  = $ctaContent->file->where("type",'payment_image')->first();
@@ -54,10 +54,10 @@
             <div class="col-lg-5 gs_reveal fromLeft">
               <div class="news-content">
                 <h4>
-                  {{@$newsLatter->value->title}}
+                  {{@$newsLetter->value->title}}
                 </h4>
                 <p>
-                  {{@$newsLatter->value->description}}
+                  {{@$newsLetter->value->description}}
                 </p>
               </div>
             </div>

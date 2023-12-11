@@ -55,7 +55,7 @@ class LoginController extends Controller
     public function authenticate(AuthenticateRequest $request) :RedirectResponse
     {
         $field             = $this->getLoginField($request->input('login_data'));
-        $remember_me       = $request->has('remember_me') ? true : false; 
+        $remember_me       = $request->has('remember_me'); 
         $credentials       = [$field => request()->input('login_data'), 'password' => request()->input('password')];
         $attemptValidtion  = site_settings("login_attempt_validation");
 
@@ -63,7 +63,6 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request, $field);
         }
         
-
         if($this->authService->loginWithOtp()){
             $user =  User::where("phone",request()->input('login_data'))->first();
 
@@ -76,18 +75,12 @@ class LoginController extends Controller
 
 
         if (Auth::guard('web')->attempt( $credentials ,$remember_me)){
-
-            $request->session()->regenerate();
-            $user              = auth_user('web');
-            $user->last_login  = Carbon::now();
-            $user->save();
-            $this->clearLoginAttempts($request, $field);
+            $this->onSuccessfulLogin($request, $field);
             return redirect()->intended('/')->with(response_status('Login success'));
         }
         
 
         if($attemptValidtion  == StatusEnum::true->status()){
-
             $this->incrementLoginAttempts($request, $field);
         }
 
@@ -95,6 +88,13 @@ class LoginController extends Controller
     }
 
 
+
+    private function onSuccessfulLogin(AuthenticateRequest $request, string $field): void {
+        $user = auth_user('web');
+        $user->last_login = Carbon::now();
+        $user->save();
+        $this->clearLoginAttempts($request, $field);
+    }
 
    
     
@@ -174,7 +174,6 @@ class LoginController extends Controller
     public function logout() :RedirectResponse{
 
         Auth::guard('web')->logout();
-        request()->session()->regenerateToken();
         return redirect('/');
     }
 }

@@ -6,6 +6,7 @@ use App\Enums\StatusEnum;
 use App\Http\Services\User\AuthService;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -26,7 +27,29 @@ class UserRegisterRequest extends FormRequest
     {
 
         $googleCaptcha = (object) json_decode(site_settings("google_recaptcha"));
-        $rules =  $this->get_validation(request()->except(['_token']))['rules'];
+
+        $rules = [
+            'name'               => ["required","max:100",'string'],
+            'username'           => ['required',"string","max:155","alpha_dash",'unique:users,username'],
+            "country_id"         => ['nullable',"exists:countries,id"],
+            'phone'              => ['unique:users,phone'],
+            'email'              => ['email','required','unique:users,email'],
+            'password'           => [Password::min(6),"confirmed"],
+            'terms_condition'    => ["required"],
+        ];
+
+        if(site_settings('strong_password') == StatusEnum::true->status()){
+
+            $rules['password']    =  ["required","confirmed",Password::min(8)
+                                        ->mixedCase()
+                                        ->letters()
+                                        ->numbers()
+                                        ->symbols()
+                                        ->uncompromised()
+                                    ];
+        }
+
+
         if(site_settings("captcha_with_registration") == StatusEnum::true->status()){
 
             if(site_settings("default_recaptcha") == StatusEnum::true->status()){
@@ -42,60 +65,7 @@ class UserRegisterRequest extends FormRequest
     }
 
 
-    /**
-     * get validation message
-     *
-     * @return array
-     */
-    public function messages() :array
-    {
-        $validation  =  $this->get_validation(request()->except(['_token']));
-        return $validation ['message'];
-    }
+   
 
-    /**
-     * get validation rules and mes
-     *
-     * @param array $request_data
-     * @return array
-     */
-    public function get_validation(array $request_data) :array{
-
-        $rules = [];
-        $message = [];
-        $inputFeilds = json_decode(site_settings('user_registration_settings'),true);
-        foreach( $inputFeilds as $fields){
-            if($fields['required'] == StatusEnum::true->status()){
-                if($fields['type'] == 'file'){
-                    $rules['register_data.'.$fields['name'].".*"] = ['required', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true),'Ticket File')];
-                }
-                
-                if($fields['type'] == 'email'){
-              
-                    $rules['register_data.'.$fields['name']] = ['required','email','unique:users,email'];
-                    $message['register_data.'.$fields['name'].".email"] = ucfirst($fields['name']).translate(' Feild Is Must Be Contain a Valid Email');
-                }
-
-                elseif($fields['type'] == 'password' && $fields['name'] ==  'password'){
-                    $rules['register_data.'.$fields['name']] = ['required', 'confirmed', 'min:5'];
-                }
-                elseif( $fields['name'] ==  'phone' || $fields['name'] ==  'user_name' ){
-                    
-                    $rules['register_data.'.$fields['name']] = ['required', 'unique:users,'.$fields['name']];
-                }
-                else{
-                    if($fields['status'] ==  StatusEnum::true->status()){
-                        $rules['register_data.'.$fields['name']] = ['required'];
-                    }
-                    
-                }
-             
-            }
-        }
-
-        return  [
-            'rules' => $rules,
-            'message' => $message,
-        ];
-    }
+  
 }

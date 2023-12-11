@@ -110,8 +110,13 @@ class AiService
 
         $logData ['template_id'] = $template->id;
 
-        $logData['admin_id']     = request()->routeIs('admin.*') ? auth_user('admin')?->id : null;
-        $logData['user_id']      = request()->routeIs('user.*') ? auth_user('web')?->id : null;
+        $logData['admin_id']     = request()->routeIs('admin.*') 
+                                  ? auth_user('admin')?->id 
+                                  : null;
+
+        $logData['user_id']      = request()->routeIs('user.*') 
+                                  ? auth_user('web')?->id 
+                                  : null;
    
         $customPrompt = $template->custom_prompt;
 
@@ -121,25 +126,33 @@ class AiService
             }
         }
         $getBadWords     = site_settings('ai_bad_words');
-        $processBadWords = $getBadWords ? explode(",",$getBadWords) :[];
+
+        $processBadWords = $getBadWords 
+                            ? explode(",",$getBadWords) 
+                            :[];
         
         if(is_array($processBadWords)){
             $customPrompt = str_replace($processBadWords,"",$customPrompt);
         }
 
-         $model          =  site_settings("open_ai_model");
-         
-         $temperature    = (float)  ($request->input("ai_creativity") ?  $request->input("ai_creativity") : site_settings("ai_default_creativity"));
+
+         $temperature    = (float)($request->input("ai_creativity")
+                            ? $request->input("ai_creativity") 
+                            : site_settings("ai_default_creativity"));
          $aiParams = [
-            'model'             => $model,
+            'model'             => $this->getAiModel(),
             'temperature'       => $temperature, 
             'presence_penalty'  => 0.6,
             'frequency_penalty' => 0,
         ];
 
-        $aiTone = $request->input("content_tone") ?  $request->input("content_tone") : site_settings("ai_default_tone");
+        $aiTone = $request->input("content_tone") 
+                   ? $request->input("content_tone") 
+                   : site_settings("ai_default_tone");
 
-        $tokens = (int) ($request->input("max_result") ?  $request->input("max_result") : site_settings("default_max_result",-1));
+        $tokens = (int)($request->input("max_result") 
+                    ? $request->input("max_result") 
+                    : site_settings("default_max_result",-1));
 
         $customPrompt .= 'Write in ' . $request->input("language") . ' language.'  . ' The tone of voice should be ' . $aiTone . ' Do not write translations.';  
 
@@ -159,6 +172,26 @@ class AiService
     }
 
 
+
+    public function getAiModel() :string{
+
+        $model = site_settings("open_ai_model");
+       
+        if(request()->routeIs("user.*")){
+            $subscription    =  auth_user('web')->runningSubscription;
+            $model = optional(optional($subscription)->package->ai_configuration)->open_ai_model ?? $model;
+        }
+        return $model ;
+    }
+
+
+    /**
+     * Generate content using open ai
+     *
+     * @param array $aiParams
+     * @param array $logData
+     * @return array
+     */
     public function generateContent(array $aiParams , array $logData) :array {
 
         $status       = false;

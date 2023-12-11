@@ -68,7 +68,13 @@
                 <div class="row gy-4 gx-4">
                   @forelse ($purchasePlans as  $plan)
                       <div class="col-xl-4 col-md-6">
-                        <div class="plan-detail-card fade-item">
+                        <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif fade-item">
+                          @if($plan->is_recommended == App\Enums\StatusEnum::true->status())
+                              <div class="recommend-content"><p>
+                                  {{translate("Recommended")}}
+                              </p></div>
+                          @endif
+
                           <div class="plan-detail-top">
                             <span>
                                 {{$plan->title}}
@@ -121,11 +127,6 @@
   </section>
 
 
-
-
-  @foreach (@$menu->section as $section )
-        @include('frontend.sections.'.$section)
-  @endforeach
-
+  @include('frontend.partials.page_section')
 @endsection
 

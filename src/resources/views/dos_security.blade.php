@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-
    <div class="recapture">
     <div class="container">
       <div class="recapture-wrapper">
@@ -61,19 +60,4 @@
 @endsection
 
 
-@push('script-push')
-<script>
-	(function($){
 
-        $(document).on('click','#genarate-captcha',function(e){
-            var url = "{{ route('captcha.genarate',[":randId"]) }}"
-            url = (url.replace(':randId',Math.random()))
-            document.getElementById('default-captcha').src = url;
-            e.preventDefault()
-        })
-
-
-
-    })(jQuery);
-</script>
-@endpush

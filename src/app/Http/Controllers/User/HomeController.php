@@ -7,21 +7,35 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Core\File;
-use App\Models\Favourite;
-use App\Models\Link;
+
 use App\Models\Notification;
 use App\Models\PaymentLog;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Illuminate\Validation\Rules\Password;
+
 use Illuminate\Support\Facades\Hash;
 class HomeController extends Controller
 {
+
+
+    protected $user;
+
+    public function __construct(){
+
+        $this->middleware(function ($request, $next) {
+            $this->user = auth_user('web');
+            return $next($request);
+        });
+    }
+    
     
     /**
-     * Admin Dashboard
+     * User Dashboard
      *
      * @param Request $request
      * @return void
@@ -53,7 +67,7 @@ class HomeController extends Controller
     public function profile(Request $request ) :View{
 
         return view('user.profile',[
-            'meta_data'=> $this->metaData(['title'=>translate("Profile")])
+            'meta_data'=> $this->metaData(['title'=> translate("Profile")])
         ]);
     }
      
@@ -67,29 +81,46 @@ class HomeController extends Controller
     public function profileUpdate(Request $request ) :RedirectResponse{
 
         $request->validate([
-            'user_name' => "required|unique:users,user_name,".auth_user('web')->id,
-            'phone' => "required|unique:users,phone,".auth_user('web')->id,
-            'email' => "required|unique:users,email,".auth_user('web')->id,
-            'name' => "required",
+            'name'               => ["required","max:100",'string'],
+            'username'           => ['required',"string","max:155","alpha_dash",'unique:users,username,'.$this->user->id],
+            "country_id"         => ['nullable',"exists:countries,id"],
+            'phone'              => ['unique:users,phone,'.$this->user->id],
+            'email'              => ['email','required','unique:users,email,'.$this->user->id],
+            "image"              => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]
         ]);
-     
-        $user = auth_user('web');
-        $user->user_name = $request->get('user_name');
-        $user->phone = $request->get('phone');
-        $user->email = $request->get('email');
-        $user->name = $request->get('name');
+
+        $user                       =  $this->user;
+        $user->name                 =  $request->input('name');
+        $user->username             =  $request->input('username');
+        $user->phone                =  $request->input('phone');
+        $user->email                =  $request->input('email');
+        $user->address              =  $request->input('address',[]);
+        $user->password             =  $request->input('password');
+        $user->country_id           =  $request->input('country_id');
         $user->save();
 
-        if($request->hasFile('image')){
-            $response = FileService::storeFile($request->file('image'), config("settings")['file_path']['profile']['user']['path'],null ,@$user->file->name );
-            if($response['status']){
-                $user->file()->delete();
-                $image = new File();
-                $image->name =  Arr::get( $response ,'name',"#");
-                $image->disk =  Arr::get( $response ,'disk',"local");
-                $user->file()->save($image);
+         if($request->hasFile('image')){
+
+                $oldFile = $user->file()->where('type','profile')->first();
+                $response = $this->storeFile(
+                    file        : $request->file('image'), 
+                    location    : config("settings")['file_path']['profile']['user']['path'],
+                    removeFile  : $oldFile
+                );
+                
+                if(isset($response['status'])){
+                    $image = new File([
+                        'name'      => Arr::get($response, 'name', '#'),
+                        'disk'      => Arr::get($response, 'disk', 'local'),
+                        'type'      => 'profile',
+                        'size'      => Arr::get($response, 'size', ''),
+                        'extension' => Arr::get($response, 'extension', ''),
+                    ]);
+
+                    $user->file()->save($image);
+                }
             }
-        }
+                
     
         return back()->with(response_status('Profile Updated'));
     }
@@ -103,21 +134,31 @@ class HomeController extends Controller
      */
     public function passwordUpdate(Request $request ) :RedirectResponse{
 
-        $request->validate([
-            'current_password' => 'required',
-            'password' => 'required|confirmed|min:5',
-        ],
-        [
-            'current_password.required' => translate('Your Current Password is Required'),
-            'password' => translate('Password Feild Is Required'),
-            'password.confirmed' => translate('Confirm Password Does not Match'),
-            'password.min' => translate('Minimum 5 digit or character is required'),
-        ]);
+
+        $rules   = [
+            'current_password' => 'required|max:100',
+            'password'         => 'required|confirmed|min:6',
+        ];
+
+        if(site_settings('strong_password') == StatusEnum::true->status()){
+
+            $rules['password']    =  ["required","confirmed",Password::min(8)
+                                        ->mixedCase()
+                                        ->letters()
+                                        ->numbers()
+                                        ->symbols()
+                                        ->uncompromised()
+                                    ];
+        }
+
+        $request->validate($rules);
+
         $user = auth_user('web');
-        if (!Hash::check($request->current_password, $user->password)) {
+
+        if(!Hash::check($request->input('current_password'), $this->user->password)) {
             return back()->with('error', translate("Your Current Password does not match !!"));
         }
-        $user->password = Hash::make($request->password);
+        $user->password = $request->input('password');
         $user->save();
         return back()->with(response_status('Password Updated'));
     }
@@ -130,9 +171,21 @@ class HomeController extends Controller
 
     public function readNotification(Request $request) :string{
 
-       
+        $notification = Notification::where('notificationable_type','App\Models\User')
+                          ->where("id", $request->input("id"))
+                          ->where("notificationable_id",$this->user->id)
+                          ->first();
+        $status  = false;
+        $message = translate('Notification Not Found');
+        if( $notification ){
+
+            $notification->is_read =  (StatusEnum::true)->status();
+            $notification->save();
+            $status = true;
+            $message = translate('Notification Readed');
+        }
         return json_encode([
-            "status" => $status,
+            "status"  => $status,
             "message" => $message
         ]);
 
@@ -148,9 +201,11 @@ class HomeController extends Controller
       
         return view('user.notifications',[
             'meta_data'=> $this->metaData(['title'=>translate("Notifications")]),
-            'notifications' => Notification::where('user_id',auth_user('web')->id)
-            ->latest()
-            ->paginate(paginateNumber())
+            'notifications' => Notification::where('notificationable_type','App\Models\User')
+                                ->where("id", $request->input("id"))
+                                ->where("notificationable_id",$this->user->id)
+                                ->latest()
+                                ->paginate(paginateNumber())
         ]);
   
 

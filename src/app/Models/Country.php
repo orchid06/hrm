@@ -28,7 +28,19 @@ class Country extends Model
             $model->is_blocked     = StatusEnum::false->status();
         });
 
+
+        static::saved(function (Model $model) {
+            Cache::forget('countries');
+
+        });
+
     }
+
+
+    public function scopeActive(Builder $q) :Builder {
+        return $q->where("is_blocked",StatusEnum::false->status());
+    }
+
 
 
     public function updatedBy() :BelongsTo{

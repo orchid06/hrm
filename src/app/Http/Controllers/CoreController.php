@@ -83,10 +83,10 @@ class CoreController extends Controller
          $height = explode('x',$size)[1];
          $image = imagecreate($width, $height);
          $fontFile = realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf';
+
+         $fontSize = 5;
          if($width > 100 && $height > 100){
              $fontSize = 30;
-         }else{
-             $fontSize = 5;
          }
          $text = $width . 'X' . $height;
          $backgroundcolor = imagecolorallocate($image, 237, 241, 250);

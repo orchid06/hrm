@@ -1,258 +1,238 @@
-
 @extends('layouts.master')
 @section('content')
 
 @php
+    $authContent     =  get_content("content_authentication_section")->first();  
 
-    $socialAuth =  (site_settings('social_login'));
     $socialProviders =  json_decode(site_settings('social_login_with'),true);
-    $authentication_section = frontend_section()->where("slug",'authentication_section')->first();
     $mediums = [];
     foreach($socialProviders as $key=>$login_medium){
         if($login_medium['status'] == App\Enums\StatusEnum::true->status()){
             array_push($mediums, str_replace('_oauth',"",$key));
-            $flag =  App\Enums\StatusEnum::true->status();
         }
     }
-    $registrationFields = json_decode(site_settings('user_registration_settings'),true);
-    usort($registrationFields, function ($tmp, $tmp1) {
-        return $tmp['order'] <=> $tmp1['order'];
-    });
-    $custom_feild_counter = 0;
-    $custom_rules = [];
-    $googleCaptcha = (object) json_decode(site_settings("google_recaptcha"));
 
+
+    $socialAuth           = (site_settings('social_login'));
+
+    $googleCaptcha        = (object) json_decode(site_settings("google_recaptcha"));
+
+    $captcha              = (site_settings('captcha_with_registration'));
+    $defaultcaptcha       = (site_settings('default_recaptcha'));
+    $geoCountry           = Arr::get(get_ip_info() , "country",'');
+
+    $countries            = get_countries();
+
+    $termsPage            =  App\Models\Admin\Page::active()
+                                   ->where('slug',"terms-and-conditions")
+                                   ->first();
 
 @endphp
 
-  <div class="login-section pt-110 pb-110">
-    <div class="container">
-      <div class="row g-0">
-        <div class="col-lg-6 d-lg-block d-none">
-          <div class="login-banner">
-            <div class="login-banner-content">
 
-            </div>
-            <div class="login-banner-img">
-              {{-- <img src="{{imageUrl(config("settings")['file_path']['frontend']['path']."/".@$authentication_section->file->name,@$authentication_section->file->disk ) }}" alt="{{@$authentication_section->file->name}}"> --}}
+<section class="auth">
+    <div class="container-fluid px-0">
+      <div class="auth-wrapper">
+        <div class="row g-0">
+
+           @include("user.partials.auth_slider")
+     
+
+          <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
+            <div class="auth-right">
+              <div class="auth-content">
+                <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
+
+                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+
+                </a>
+
+                <h2>
+                   {{trans("default.register_page_title")}}
+                </h2>
+
+                <p>
+                    {{@$authContent->value->description }}
+                </p>
+                <form class="auth-form" action="{{route('auth.register.store')}}" method="POST" id="login-form">
+                  @csrf
+
+
+                  <input hidden type="text" name="referral_code" value="{{request()->route("referral_code")}}">
+
+                  <div class="auth-input">
+                        <input required type="text" value="{{old("name")}}" name="name" placeholder="{{translate('Enter your name')}}" />
+                        <span>
+                            <i class="bi bi-person"></i>
+                        </span>
+                  </div>
+
+                  <div class="auth-input">
+                        <input required type="text" value="{{old("username")}}" name="username" placeholder="{{translate('Enter your username')}}" />
+                        <span>
+                            <i class="bi bi-person"></i>
+                        </span>
+                  </div>
+
+                  <div class="auth-input">
+                        <input required type="email" value="{{old("email")}}" name="email" placeholder="{{translate('Enter your email')}}"/>
+                        <span>
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                  </div>
+
+                  <div class="auth-input">
+
+                         <select class="select-two" name="country_id" id="country_id">
+                             <option value="">
+                                 {{translate("Select country")}}
+                             </option>
+                              @foreach ($countries  as  $country)
+                                
+                                 <option {{ $geoCountry  == $country || old("country_id") == $country ? 'selected' :""}} value="{{$country->id}}">
+                                       {{ $country->name}}
+                                 </option>
+                                  
+                              @endforeach
+                         </select>
+                        <span>
+                            <i class="bi bi-globe-americas"></i>
+                        </span>
+                  </div>
+
+
+                  <div class="auth-input">
+                    <input required type="phone" value="{{old("phone")}}" name="phone" placeholder="{{translate('Enter your phone')}}"/>
+                    <span>
+                        <i class="bi bi-telephone"></i>
+                    </span>
+                 </div>
+
+
+                    <div class="auth-input">
+                        <input name="password" required type="password" placeholder="{{translate("Password")}}" class="toggle-input" autocomplete="new-password" />
+                        <span class="toggle-password">
+                            <i class="bi bi-eye toggle-icon "></i>
+                        </span>
+                    </div>
+
+                    <div class="auth-input">
+                        <input name="password_confirmation" required type="password" placeholder="{{translate("Confrim password")}}" class="toggle-input" />
+                        <span class="toggle-password">
+                            <i class="bi bi-eye toggle-icon "></i>
+                        </span>
+                    </div>
+
+
+                  <div class="d-flex align-items-center justify-content-between gap-3">
+                    <div class="auth-checkbox">
+                      <input required type="checkbox" id="terms_condition" value="1" name="terms_condition" />
+                      <label for="terms_condition">{{translate("By completing the registration process, you agree and accept our")}}
+                        @if($termsPage)
+                            <a href="{{route('page',$termsPage->slug)}}"> {{$termsPage->title}}</a>
+                        @endif
+                     </label>
+                    </div>
+
+                  </div>
+
+                  @if( $captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha == App\Enums\StatusEnum::true->status()  )
+
+                    <div class="row g-1">
+                          <div class="col-lg-6">
+                              <a id='genarate-captcha' class="align-middle justify-content-center cursor-pointer ">
+                                  <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" id="default-captcha">
+
+                                  <i class="bi bi-arrow-repeat"></i>
+                              </a>
+                          </div>
+                          <div class="col-lg-6">
+                              <input type="text"  required name="default_captcha_code"placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
+                          </div>
+                    </div>
+
+                   @endif
+    
+                    <div>
+                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--secondary btn--lg capsuled w-100"
+                            data-sitekey="{{$googleCaptcha->key}}"
+                            data-callback='onSubmit'
+                            data-action='register'
+                            @else
+                            class="i-btn btn--secondary btn--lg capsuled w-100"
+                            @endif
+                            type="submit">
+                              {{trans("Register")}}
+                          </button>
+                    </div>
+                </form>
+
+
+                @if($socialAuth == App\Enums\StatusEnum::true->status())
+
+                    <span class="or">
+                       {{translate('Or')}}
+                    </span>
+
+                    <div class="sign-option">
+
+                      @foreach($mediums as $medium)
+                           <a href="{{route('auth.social.login', $medium)}}" class="{{$medium}}"><i class="bi bi-{{$medium}}"></i>{{translate("Sign in with")}} {{$medium}}</a>
+                      @endforeach
+
+                    </div>
+                @endif
+
+                <div class="have-account">
+                  <p>
+                    {{translate("Already Have An Account")}} ?
+                    <a href="{{route('auth.login')}}">
+                        {{translate("Login")}}
+                    </a>
+                  </p>
+                </div>
+              </div>
+              
+
+                @include("user.partials.auth_shape")
+               
+
+              <div class="glass-bg"></div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
-            <div class="login-form-area">
-                <div class="login-right-title">
-                    <h3>
-                        {{@translate('Register Here')}}
-                    </h3>
-                </div>
-              <form action="{{route('register.store')}}" class="login-right-form" method="post" id="registration-form">
-                  @csrf
-                  <div class="row">
-
-                      @foreach($registrationFields as $inputData)
-                          @if($inputData['status'] == App\Enums\StatusEnum::true->status())
-
-                              @php
-                                  if(isset($inputData['name']))
-                                  {
-                                      $field_name = $inputData['name'];
-                                  }
-                              @endphp
-
-                              <div class="col-lg-{{$inputData['width'] == '100' ? '12' :'6'}} mb-2">
-
-                                      <label for="{{$loop->index}}" class="form-label">
-                                          {{$inputData['labels']}} @if($inputData['required'] == App\Enums\StatusEnum::true->status() || $inputData['type'] == 'file') <span class="text-danger">
-                                              {{$inputData['required'] == App\Enums\StatusEnum::true->status() ?  "*" :""}}
-
-                                              @if($inputData['type'] == 'file')
-                                                  ({{$inputData['placeholder']}} !! {{translate('Max-'). site_settings("max_file_upload")}}  )
-                                              @endif
-                                          </span>@endif
-                                      </label>
-                                      <div class="form-inner">
-
-                                          @if($inputData['type'] == 'select')
-
-                                          @php
-                                              $country_code = null;
-                                              $myCollection = collect(config('country'))->map(function($row) {
-                                                  return collect($row);
-                                              });
-                                              $countries = $myCollection->sortBy('code');
-                                          @endphp
-
-
-                                              <select {{$inputData['required'] == App\Enums\StatusEnum::true->status() ? "required" :""}} class="form-control selectTwo country-code form-style p-md-3"  name="register_data[{{ $field_name }}]" >
-                                                  <option value="">{{translate('Select Category')}}</option>
-                                                  @foreach(config('country') as $value)
-                                                      <option value="{{$value['phone_code']}}"
-                                                              data-name="{{$value['name']}}"
-                                                              data-code="{{$value['code']}}"
-                                                          {{$country_code == $value['code'] ? 'selected' : ''}}> {{$value['name']}}
-                                                      </option>
-                                                  @endforeach
-
-                                              </select>
-
-                                          @elseif($inputData['type'] == 'textarea')
-                                          <textarea {{$inputData['required'] == App\Enums\StatusEnum::true->status() ? "required" :""}}  name="register_data[{{ $field_name }}]"id="text-editor" cols="30" rows="10" placeholder="{{$inputData['placeholder']}}">
-
-                                              {{old('register_data.'.$field_name)}}
-                                          </textarea>
-
-                                          @elseif($inputData['type'] == 'file')
-                                          <input  {{$inputData['required'] == App\Enums\StatusEnum::true->status() ? "required" :""}}   multiple  type="file" name="register_data[{{ $field_name }}][]" >
-
-                                          @else
-
-                                              <input  {{$inputData['required'] == App\Enums\StatusEnum::true->status() ? "required" :""}} type="{{$inputData['type']}}"   name="register_data[{{ $field_name }}]" value="{{old('register_data.'.$field_name)}}" id="{{$field_name}}" placeholder="{{$inputData['placeholder']}}">
-                                          @endif
-
-                                      </div>
-
-                              </div>
-
-                          @endif
-                      @endforeach
-
-
-                        @php
-                            $page = App\Models\Admin\Page::whereRaw("JSON_CONTAINS(slug->'$.*', '\"terms-&-condition\"')")->first();
-                        @endphp
-
-                        @if( $page)
-                            <div class="form-inner">
-                                <div class="login-form-bottom">
-                                    <div class="login-form-checkbox">
-                                        <input  type="checkbox" value="1" name="agree"  id="terms">
-                                        <label for="terms">
-                                            {{translate("By completing the registration process, you agree and accept our")}} <a href="{{route('page',@get_translation($page->slug))}}">{{@get_translation($page->title)}}</a>
-                                        </label>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        @endif
-
-                  </div>
-
-
-
-                  @if(site_settings("captcha_with_registration") == App\Enums\StatusEnum::true->status() )
-
-
-                    <div class="row">
-
-                          @if(site_settings("default_recaptcha") == App\Enums\StatusEnum::true->status())
-
-                                  <div class="col-lg-5">
-                                      <a id='genarate-captcha' class="align-middle justify-content-center pointer ">
-                                          <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" id="default-captcha">
-                                          <i class="fa-sharp fa-light fa-rotate fs-22"></i>
-                                      </a>
-                                  </div>
-                                  <div class="col-lg-5">
-                                      <div class="form-inner">
-                                      <input type="text"  required name="default_captcha_code" value="" placeholder="{{translate('Enter captcha value')}}" autocomplete="off">
-                                      </div>
-                                  </div>
-                          @endif
-                     </div>
-
-                  @endif
-
-                  <div class="sign-in-btn ">
-                          <button  @if($googleCaptcha->status == App\Enums\StatusEnum::true->status())  class="g-recaptcha"
-                          data-sitekey="{{$googleCaptcha->key}}"
-                          data-callback='onSubmit'
-                          data-action='register'@endif>
-                              {{translate("Submit")}}
-                          </button>
-                  </div>
-              </form>
-
-
-              <div class="login-right-bottom">
-                  @if($socialAuth == App\Enums\StatusEnum::true->status())
-                      <div class="sign-options">
-                          @foreach($mediums as $medium)
-                              @php
-                                  $class = "btn-primary";
-                                  if($medium == 'google'){
-                                      $class = "btn-danger";
-                                  }
-                              @endphp
-                            <a href="{{route('social.login', $medium)}}" class=" sign-option  "><i class="fa-brands fa-{{$medium}} "></i> {{ucfirst($medium)}}</a>
-                          @endforeach
-
-                      </div>
-                  @endif
-                   <p>{{translate('Already Have An Account!!')}}
-                      <a href="{{route('login')}}">
-                          {{translate("Login")}} ?
-                      </a>
-                  </p>
-              </div>
-            </div>
-          </div>
       </div>
     </div>
-  </div>
+  </section>
+
 
 @endsection
 
-@if(site_settings("captcha_with_registration") == App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())
+
+
+
+@if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())
 
     @push('script-include')
-      <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
     @endpush
 
 @endif
 
+
 @push('script-push')
 
-@if(site_settings("captcha_with_registration") == App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())
-  <script>
-    function onSubmit(token) {
-      document.getElementById("registration-form").submit();
-    }
-  </script>
-@endif
+  @if($captcha  == App\Enums\StatusEnum::true->status() &&    $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())
 
-<script>
-    'use strict'
-    setCountryCode();
-    $(document).on('click','#genarate-captcha',function(e){
-        var url = "{{ route('captcha.genarate',[":randId"]) }}"
-        url = (url.replace(':randId',Math.random()))
-        document.getElementById('default-captcha').src = url;
-        e.preventDefault()
-    })
-    $(document).on('click','#toggle-password',function(e){
-        var passwordInput = $("#password-input");
-        var passwordFieldType = passwordInput.attr('type');
-            if (passwordFieldType == 'password') {
-                passwordInput.attr('type', 'text');
-                $("#toggle-password").removeClass('fa-duotone fa-eye eye').addClass('fa-duotone fa-eye-slash eye');
-            } else {
-                passwordInput.attr('type', 'password');
-                $("#toggle-password").removeClass('fa-duotone fa-eye-slash eye').addClass('fa-duotone fa-eye eye');
-            }
-    });
+      <script>
+          'use strict'
+          function onSubmit(token) {
+            document.getElementById("login-form").submit();
+          }
+      </script>
 
-    $(document).on('change', '.country-code', function () {
-        setCountryCode();
-    });
+    @endif
 
-    function setCountryCode() {
-        var code = $('.country-code').val();
-        $('#phone').val(code);
-    }
-
-</script>
+  
 
 @endpush
-
-
-

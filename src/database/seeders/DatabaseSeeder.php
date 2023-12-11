@@ -40,11 +40,11 @@ class DatabaseSeeder extends Seeder
             //  PlatformSeeder::class,
             // PackageSeeder::class
 
-            // SeedersFrontendSeeder::class,
+            SeedersFrontendSeeder::class,
             // MenuSeeder::class,
             // PageSeeder::class,
 
-            CurrencySeeder::class
+            // CurrencySeeder::class
 
             
         ]);

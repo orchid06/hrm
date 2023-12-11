@@ -290,7 +290,7 @@ class UserController extends Controller
             'packages'             => Package::active()->get(),
             'withdraw_methods'     => Withdraw::active()->get(),
             'methods'              => PaymentMethod::active()->get(),
-            "countries"            => Country::get(),
+            "countries"            => get_countries(),
         ]);
 
     }

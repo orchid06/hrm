@@ -222,7 +222,7 @@
         input.classList.add("disabled");
       });
 
-      const otpField = document.querySelector("#optCode");
+      const otpField = document.querySelector("#otpCode");
       otpField.value  = otp;
 
 
