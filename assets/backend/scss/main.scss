@@ -425,6 +425,32 @@
   display: block;
 }
 
+.filter-wrapper{
+  position: relative;
+
+  .flatpickr-calendar{
+    max-width: 270px !important;
+  }
+}
+
+.filter-dropdown{
+  width: 100%;
+  min-width: 235px;
+  background-color: $color-white;
+  @include shadow-1;
+  padding: 15px;
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  display: none;
+  z-index: 9;
+  @include transition-4;
+  border: 1px solid $color-border;
+  &.show{
+    display: block;
+  }
+}
+
 .simplebar-content-wrapper {
   min-height: 100%;
 }
@@ -1721,7 +1747,7 @@ ul.inbox-list {
 // dashboard
 
 .activity-list{
-  max-height: 400px;
+  max-height: 365px;
   height: auto;
   overflow: auto;
   padding-right: 8px;
@@ -1782,7 +1808,7 @@ ul.inbox-list {
 }
 
 #paymentGateway{
-  min-height: 365px !important;
+  min-height: 392px !important;
   display: flex;
   justify-content: center;
   align-items: center;

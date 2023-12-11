@@ -185,5 +185,14 @@
         $(this).closest('.modal').modal('hide');
     })
 
+    // filter dropdown
+    const filterBtn = document.querySelector('.filter-btn');
+    const filterDropdown = document.querySelector('.filter-dropdown');
+
+    if (filterBtn) {
+        filterBtn.addEventListener('click', function () {
+            filterDropdown.classList.toggle('show');
+        });
+    }
 
 }())

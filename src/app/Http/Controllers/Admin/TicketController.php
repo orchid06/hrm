@@ -116,11 +116,7 @@ class TicketController extends Controller
             $response = response_status(strip_tags($ex->getMessage()),'error');
         }
         return back()->with($response);
-
-      
     }
-
-
 
 
     /**

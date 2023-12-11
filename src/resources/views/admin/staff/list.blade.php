@@ -12,7 +12,7 @@
                          <input type="hidden" name="type" id="type">
                     </form>
                     @if(check_permission('create_staff') || check_permission('update_staff') || check_permission('delete_staff'))
-                        <div class="col-md-8 d-flex justify-content-start">
+                        <div class="col-md-5 d-flex justify-content-start">
                             @if(check_permission('update_staff') || check_permission('delete_staff'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,10 +79,10 @@
                         </div>
                     @endif
 
-                    <div class="col-md-4 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                <div class="form-inner w-100">
+                                <div class="form-inner">
                                       <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by Name or Username or Phone or Email or Role')}}">
                                 </div>
 

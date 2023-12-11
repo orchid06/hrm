@@ -258,8 +258,7 @@ table.dataTable.no-footer {
     gap: 12px;
     .list-group-item {
         color: $text-primary;
-        background-color: $site-bg;
-        border: unset;
+        border: 1px solid $color-border;
         padding: 15px 15px;
         &.read-notification {
             border-radius: 4px;
