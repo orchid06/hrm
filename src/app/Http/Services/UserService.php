@@ -6,6 +6,7 @@ use App\Enums\PlanDuration;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Enums\WithdrawStatus;
+use App\Http\Services\Gateway\bkash\Payment;
 use App\Http\Utility\SendMail;
 use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
@@ -21,6 +22,7 @@ use App\Models\Package;
 use App\Models\PaymentLog;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
@@ -96,6 +98,15 @@ class UserService
 
 
 
+    /**
+     * Withdraw request handle
+     *
+     * @param Request $request
+     * @param User $user
+     * @param Withdraw $method
+     * @param mixed $status
+     * @return array
+     */
     public function createWithdrawLog(Request $request , User $user , Withdraw $method ,mixed $status = null) :array{
 
 
@@ -223,7 +234,6 @@ class UserService
      */
     public function createSubscription(User $user , Package $package ,string | null $remarks =  null) :array {
 
-
         try {
 
             $price           = round($package->discount_price) > 0 ?  $package->discount_price :  $package->price;
@@ -305,7 +315,7 @@ class UserService
 
             DB::transaction(function() use ($params,$oldSubscription,$user,$package) {
     
-                /** subscription and transaction process */
+
 
                 $params['trx_code']               = trx_number() ; 
     
@@ -324,6 +334,7 @@ class UserService
                 $package->save();
     
                 $transactionParams = [
+
                     "currency_id"    => base_currency()->id,
                     "amount"         => $subscription->payment_amount,
                     "final_amount"   => $subscription->payment_amount,
@@ -336,18 +347,18 @@ class UserService
                 $transaction         =  PaymentService::makeTransaction($user,$transactionParams);
     
           
-                $balance        = PlanDuration::value('UNLIMITED');
-                $socialBalance  = PlanDuration::value('UNLIMITED');
+                $balance             = PlanDuration::value('UNLIMITED');
+                $socialBalance       = PlanDuration::value('UNLIMITED');
     
                 if((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')){
-                    $balance        = (int) $subscription->word_balance;
+                    $balance         = (int) $subscription->word_balance;
                 }
                 if((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')){
-                    $socialBalance  = (int) $subscription->post_balance;
+                    $socialBalance   = (int) $subscription->post_balance;
                 }
     
-    
-                /** credit log generation  */
+
+
                 $crditLogs =  [
     
                     "word_credit"        => [
@@ -375,11 +386,11 @@ class UserService
                     $log['remark']           = k2t($key);
                     $log['details']          = $transaction->details;
                     $log['type']             = Transaction::$PLUS;
+
                     CreditLog::create($log);
                 }
 
 
-                /** affiliate commission calculation */
                 $continuousCommission  = site_settings("continuous_commission");
                 $affiliateBonus        =  $continuousCommission == StatusEnum::true->status() || Subscription::where('user_id', $user->id)->count() < 1;
 
@@ -388,8 +399,6 @@ class UserService
                     $this->affiliateBonus($user, $subscription);
                 }
 
-
-                /** notify user and system admin */
                 $route             =  route("admin.subscription.report.list");
                 $userRoute         =  route("user.subscription.report.list");
                 $admin             = Admin::where('super_admin',StatusEnum::true->status())->first();
@@ -401,6 +410,7 @@ class UserService
                 ];
 
                 $notifications = [
+
                     'database_notifications' => [
                         'action' => [SendNotification::class, 'database_notifications'],
                         'params' => [
@@ -456,6 +466,14 @@ class UserService
     }
 
 
+
+    /**
+     * Affiliate Bonus calculations
+     *
+     * @param User $user
+     * @param Subscription $subscription
+     * @return void
+     */
     public function affiliateBonus(User $user , Subscription $subscription) :void {
 
         DB::transaction(function() use ($user,$subscription) {
@@ -490,6 +508,15 @@ class UserService
     }
 
 
+    /**
+     * Create deposit request
+     *
+     * @param Request $request
+     * @param User $user
+     * @param PaymentMethod $method
+     * @param mixed $status
+     * @return array
+     */
     public function createDepositLog(Request $request , User $user ,PaymentMethod $method , mixed $status = null) :array{
 
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
@@ -504,10 +531,11 @@ class UserService
 
             'currency_id'          =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id ,
             "amount"               =>  $amount,
-            "base_amount"           =>  convert_to_base($amount),
+            "base_amount"          =>  convert_to_base($amount),
             "charge"               =>  $charge,
             "final_base"           =>  $finalBase,
             "final_amount"         =>  $finalAmount,
+            "base_final_amount"    =>  convert_to_base($amount + $charge),
             "status"               =>  $status,
             "notes"                =>  $request->input("remarks"),
             "trx_code"             =>  trx_number(),
@@ -520,10 +548,8 @@ class UserService
         $log = DB::transaction(function() use ($request,$params,$user,$method) {
 
             $log = $this->paymentService->paymentLog($user,$method ,$params);
-            if(request()->routeIs('user.*')){
-                $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data");
-            }
 
+         
             $params ['trx_type']        = Transaction::$PLUS;
             $params ['trx_code']        = $log->trx_code;
             $params ['remarks']         = 'deposit';
@@ -540,10 +566,11 @@ class UserService
 
             $route          =  route("admin.deposit.report.list");
             $userRoute      =  route("user.deposit.report.list");
-            $admin          = Admin::where('super_admin',StatusEnum::true->status())->first();
+            $admin          =  Admin::where('super_admin',StatusEnum::true->status())->first();
 
 
             if($log->status  == DepositStatus::value("PAID",true)){
+
                 $params ['trx_code']       =  $log->trx_code;
                 $transaction               =  PaymentService::makeTransaction($user,$params);
                 $user->balance +=$log->base_amount;
@@ -551,6 +578,7 @@ class UserService
             }
 
             $notifications = [
+
                 'database_notifications' => [
                     'action' => [SendNotification::class, 'database_notifications'],
                     'params' => [
@@ -589,10 +617,6 @@ class UserService
         });
 
         $message = translate("Your deposit request has been processed successfully");
-
-        if($status == DepositStatus::value("PENDING",true)){
-            $message = translate("Your deposit Request is submitted !! Please wait for confirmation");
-        }
      
         $response    = response_status($message);
 
@@ -605,7 +629,15 @@ class UserService
     }
 
 
-    
+    /**
+     *Save custom field
+     *
+     * @param Request $request
+     * @param mixed $log
+     * @param object $params
+     * @param string $key
+     * @return void
+     */
     public function saveCustomInfo(Request $request , mixed $log , object $params , string $key ) :void{
 
           
@@ -671,6 +703,74 @@ class UserService
         }
     }
 
+
+
+    /**
+     * manual  input validation rules
+     *
+     * @param mixed $params
+     * @return array
+     */
+    public function paramValidationRules(mixed $params) :array {
+
+        $rules           = [];
+        $verifyImages    = [];
+        if ($params != null) {
+            foreach ($params as $key => $cus) {
+                $rules[$key] = [$cus->validation];
+
+                if ($cus->type == 'file') {
+                    array_push($rules[$key], 'image');
+                    array_push($rules[$key], new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)));
+                    array_push($verifyImages, $key);
+                }
+                if ($cus->type == 'text') {
+                    array_push($rules[$key], 'max:191');
+                }
+                if ($cus->type == 'textarea') {
+                    array_push($rules[$key], 'max:300');
+                }
+            }
+        }
+
+        return $rules;
+
+    }
+
+
+    /**
+     * Update deposit log
+     *
+     * @param PaymentLog $log
+     * @param mixed $status
+     * @param array $responseData
+     * @return void
+     */
+    public static function updateDepositLog(PaymentLog $log , mixed $status ,array $responseData) :void{
+
+        $log->status            =   $status;
+        $log->gateway_response  =   $responseData;
+        $log->save();
+
+        if($log->status  == DepositStatus::value("PAID",true)){
+
+            $params  = [
+                'trx_code'     => $log->trx_code,
+                'currency_id'  => $log->currency_id,
+                'amount'       => $log->amount,
+                'charge'       => $log->charge,
+                'final_amount' => $log->amount + $log->charge,
+                'trx_type'     => Transaction::$PLUS,
+                'remarks'      => "Deposit",
+                'details'      => $log->amount." ".$log->currency?->code.' Deposited Via ' .$log->method->name
+            ];
+
+            $transaction  =  PaymentService::makeTransaction($log->user,$params);
+            $log->user->balance +=$log->base_amount;
+            $log->user->save();
+        }
+
+    }
     
     
   

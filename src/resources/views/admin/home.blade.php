@@ -215,7 +215,7 @@
 
                       @forelse($data['latest_log'] as $log)
                       <tr>
-                          <td data-label="{{translate("Transaction Id")}}">{{$log->transaction}}</td>
+                          <td data-label="{{translate("Transaction Id")}}">{{$log->trx_code}}</td>
 
                 
                             <td data-label="{{translate("User")}}">

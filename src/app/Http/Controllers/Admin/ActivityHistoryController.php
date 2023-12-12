@@ -25,6 +25,7 @@ use App\Models\Admin\Withdraw;
 use App\Models\AffiliateLog;
 use App\Models\AiTemplate;
 use App\Models\CreditLog;
+use App\Models\KycLog;
 use App\Models\Package;
 use App\Models\TemplateUsage;
 use App\Models\WithdrawLog;
@@ -32,6 +33,8 @@ use App\Traits\ModelAction;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use App\Traits\Notifyable;
+use Illuminate\Support\Facades\Redirect;
+
 class ActivityHistoryController extends Controller
 {
 
@@ -86,7 +89,6 @@ class ActivityHistoryController extends Controller
             'title'           => 'Templates Reports',
             "genarated_words" => TemplateUsage::filter(['template:slug',"user:username"])
                                   ->date()
-                                  ->search(['user:username'])
                                   ->sum("total_words"),
 
             "reports"         => TemplateUsage::with(['template','admin','user'])
@@ -346,6 +348,7 @@ class ActivityHistoryController extends Controller
                                         ->latest()
                                         ->paginate(paginateNumber())
                                         ->appends(request()->all()),
+                                        
             'methods'         => PaymentMethod::active()->get()
             
 
@@ -368,13 +371,11 @@ class ActivityHistoryController extends Controller
         return view('admin.report.deposit_details',[
 
             'breadcrumbs'     =>  ['Home'=>'admin.home',"Deposits"=> "admin.deposit.report.list",'Deposit Details'=> null],
-            'title'           => 'Deposit Reports',
+            'title'           => 'Deposit Details',
             "report"          =>  PaymentLog::with(['user','method','method.currency','currency'])
                                     ->findOrfail($id)
                                         
         ]);
-
-    
     }
 
 
@@ -443,7 +444,7 @@ class ActivityHistoryController extends Controller
         return view('admin.report.withdraw_details',[
 
             'breadcrumbs'     =>  ['Home'=>'admin.home',"Withdraws"=> "admin.withdraw.report.list",'Withdraw Details'=> null],
-            'title'           => 'Deposit Reports',
+            'title'           => 'Withdraw details',
             "report"          =>  WithdrawLog::with(['user','method','method','currency'])
                                     ->findOrfail($id)
                                         
@@ -474,6 +475,7 @@ class ActivityHistoryController extends Controller
         $response      =  response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error');
 
         if($log->user &&  $log->user->balance > $log->base_final_amount){
+
             $response =  (new PaymentService())->handleWithdrawRequest($log ,$request->except(['id','token']));
             $response =  response_status(Arr::get($response,"message",translate('Fail to update')) ,$response['status']? "success":"error" );
         }               
@@ -485,7 +487,7 @@ class ActivityHistoryController extends Controller
 
 
     /**
-     * deposit report
+     * affiliate report
      *
      * @return View
      */
@@ -498,7 +500,7 @@ class ActivityHistoryController extends Controller
             'title'           => 'Affiliate Reports',
             "reports"         =>  AffiliateLog::with(['user','subscription','subscription.package','referral'])
                                     ->search(['trx_code'])
-                                    ->filter(["user:username",])
+                                    ->filter(["user:username"])
                                     ->date()               
                                     ->latest()
                                     ->paginate(paginateNumber())
@@ -509,6 +511,144 @@ class ActivityHistoryController extends Controller
 
     
     }
+
+
+
+
+    /**
+     * kyc report
+     *
+     * @return View
+     */
+
+    public function kycReport() :View{
+
+
+        return view('admin.report.kyc_report',[
+
+            'breadcrumbs'     =>  ['Home'=>'admin.home','Kycs Reports'=> null],
+            'title'           => 'Kyc Reports',
+            "reports"         =>  KycLog::with(['user'])
+                                    ->search(['notes'])
+                                    ->filter(["user:username","status"])
+                                    ->date()               
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all()),
+
+         
+        ]);
+
+    
+    }
+
+
+
+    /**
+     * kyc report details
+     *
+     * @return View
+     */
+    
+     public function kycDetails(int | string $id) :View{
+
+
+        return view('admin.report.kyc_details',[
+
+            'breadcrumbs'     => ['Home'=>'admin.home','Kycs'=> "admin.kyc.report.list" ,'Details' => null],
+            'title'           => 'Kyc Details',
+            "report"         =>  KycLog::with(['user','file']) 
+                                    ->where('id',$id)          
+                                    ->latest()
+                                    ->firstOrfail()
+    
+
+         
+        ]);
+
+    
+    }
+
+
+
+    /**
+     * kyc report update
+     *
+     * @return View
+     */
+    
+     public function kycUpdate(Request $request) :RedirectResponse{
+
+        $request->validate([
+            "id"        => ['required',"exists:kyc_logs,id"],
+            "status"    => ['required',Rule::in([WithdrawStatus::value('APPROVED'),WithdrawStatus::value('REJECTED')])],
+            "notes"     => ['required',"string",'max:255'],
+        ]);
+
+        $report  = KycLog::with(['user','file']) 
+                    ->pending()    
+                    ->where('id',$request->input("id"))     
+                    ->latest()
+                    ->firstOrfail();
+
+
+        
+        $report->status  = $request->input('status');
+        $report->notes   = $request->input('notes');
+        $report->save();
+
+        if($report->status == WithdrawStatus::value('APPROVED',true)) {
+
+            $report->user->is_kyc_verified  = StatusEnum::true->status();
+            $report->user->save();
+        }
+
+
+        #todo : notify user 
+
+        $code = [
+            "name"            => $report->user->name,
+            "status"          => Arr::get(array_flip(WithdrawStatus::toArray()),$report->status ,"Pending")
+        ];
+
+        $route      =  route("user.kyc.report.list");
+
+        $notifications = [
+
+            'database_notifications' => [
+                
+                'action' => [SendNotification::class, 'database_notifications'],
+                'params' => [
+                   [ $report->user, 'KYC_UPDATE', $code, $route ]
+                ],
+            ],
+          
+            'email_notifications' => [
+
+                'action' => [SendMailJob::class, 'dispatch'],
+                'params' => [
+                   [$report->user, 'KYC_UPDATE', $code],
+                ],
+            ],
+            'sms_notifications' => [
+
+                'action' => [SendSmsJob::class, 'dispatch'],
+                'params' => [
+                    [$report->user, 'KYC_UPDATE', $code],
+                ],
+            ],
+        ];
+
+        $this->notify($notifications);
+
+        return back()->with(response_status("Updated successfully"));
+
+    
+    }
+
+
+
+    
 
 
   

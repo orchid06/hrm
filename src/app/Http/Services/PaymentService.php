@@ -34,90 +34,8 @@ class PaymentService
 
     use Notifyable;
 
-    /**
-     * create a new payment log
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function createPaymentLog(Request $request) :array{
-
-        $package = Package::where("id",$request->get('package_id'))->first();
-        $method = PaymentMethod::with(['image'])->where('id', $request->get('method_id'))->active()->first();
-
-        if (!$method || !$package) {
-            return [
-                'status' => false,
-                'message' => translate("Gateway Or Package Not Found !!"),
-            ];
-        }
-
-        $packagePrice = $package->price;
-        if(round($package->discount_price) != 0 ){
-            $packagePrice = $package->discount_price;
-        }
-
-        $charge = round_amount($method->fixed_charge + ($packagePrice * $method->percentage_charge / 100));
-        $payable = round_amount($packagePrice + $charge);
-        $finalAmount = round_amount($payable * $method->convention_rate);
-        $user = auth_user('web');
-        $log = $this->newLog($user, $method, $charge, $finalAmount, $packagePrice ,$package);
-        session()->put('trx_number', $log->transaction);
-        $imgUrl = imageUrl(config("settings")['file_path']['payment_method']['path']."/".@$method->file->name ,@$method->file->disk );
-
-        return [
-
-            'status' => true,
-            'gateway_image' =>  $imgUrl ,
-            'amount' => "Amount : " .round_amount($log->amount) . ' ' . site_settings("currency_symbol"),
-            'charge' => "Charge : ".round_amount($log->charge) . ' ' . site_settings("currency_symbol"),
-            'gateway_currency' => ($log->gateway_currency),
-            'payable' => "Payable : ". round_amount($log->amount + $log->charge) . ' ' . site_settings("currency_symbol"),
-            'conversion_rate' => 1 . ' ' .  site_settings("currency_symbol") . ' = ' . round_amount($log->rate) . ' ' . $method->currency,
-            'in' => "Conversion Rate : " . trans('In') . ' ' . $method->currency . ':' . round_amount($log->final_amount,2),
-            'payment_url' => route('user.payment.confirm'),
-        ];
-
-    }
 
 
-    /**
-     * manual  input validation rules
-     *
-     * @param mixed $params
-     * @return array
-     */
-    public function paramValidationRules(mixed $params) :array{
-
-        $rules           = [];
-        $verifyImages    = [];
-        if ($params != null) {
-            foreach ($params as $key => $cus) {
-                $rules[$key] = [$cus->validation];
-                if ($cus->type == 'file') {
-                    array_push($rules[$key], 'image');
-                    array_push($rules[$key], new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)));
-                    array_push($verifyImages, $key);
-                }
-                elseif ($cus->type == 'text') {
-                    array_push($rules[$key], 'max:191');
-                }
-                elseif ($cus->type == 'textarea') {
-                    array_push($rules[$key], 'max:300');
-                }
-              
-            }
-        }
-
-        return $rules;
-
-    }
-
-
-  
-
-   
-  
 
     /**
      * create a new deposit Log
@@ -134,16 +52,18 @@ class PaymentService
         $log                       = PaymentLog::firstOrNew(
                                         [
                                             'method_id'   => $method->id,
+                                            'user_id'     => $user->id,
                                             'status'      => DepositStatus::value("INITIATE",true),
                                         ]
                                     );
-        $log->user_id              = $user->id;
-        $log->method_id            = $method->id;
+
+
         $log->currency_id          = Arr::get($params,"currency_id",null);
         $log->amount               = Arr::get($params,"amount",0.00);
         $log->base_amount          = Arr::get($params,"base_amount",0.00);
         $log->charge               = Arr::get($params,"charge",0.00);
         $log->final_amount         = Arr::get($params,"final_amount",0.00);
+        $log->base_final_amount    = Arr::get($params,"base_final_amount",0.00);
         $log->rate                 = Arr::get($params,"rate",0.00);
         $log->custom_data          = Arr::get($params,"custom_data",[]);
         $log->trx_code             = Arr::get($params,"trx_code",trx_number());

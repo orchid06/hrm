@@ -2,14 +2,13 @@
 
 namespace App\Http\Services\Gateway\nagad;
 
-
-
-use App\Http\Services\CurlService;
-use App\Http\Services\PaymentService;
-use App\Models\Admin\PaymentMethod;
+use App\Enums\DepositStatus;
+use App\Enums\StatusEnum;
+use App\Http\Services\UserService;
 use App\Models\PaymentLog;
 use Config;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 
 class Payment
 {
@@ -20,65 +19,82 @@ class Payment
     private $tnxStatus = false;
     public $amount;
     private $merchantAdditionalInfo = [];
-    public static function paymentData(PaymentLog $log)
+    public static function paymentData(PaymentLog $log) :string
     {
    
         date_default_timezone_set('Asia/Dhaka');
-        $gateway = ($log->method->parameters);
+
+        $gateway     = ($log->method->parameters);
+        $sandbox     = true;
+        $nagadHost   = "http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/api/dfs";
+
   
-        if ($gateway->sandbox === '1') {
-            $sandbox = true;
-            $nagadHost = "http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/api/dfs";
-        }else{
-            $sandbox = false;
+        if ($gateway->sandbox == StatusEnum::false->status()) {
+
+            $sandbox   = false;
             $nagadHost = "https://api.mynagad.com/api/dfs";
         }
         
-        $config = [
-            'sandbox'=>   $sandbox ,
-            'merchant_id'=> $gateway->marchent_id ,
-            'merchant_number'=>  $gateway->marchent_number ,
-            'public_key'=>  $gateway->pub_key ,
-            'private_key'=>  $gateway->pri_key ,
-            'callbackURL'=>   route('ipn', [$log->method->code, $log->transaction]) ,
-            "timezone" => "Asia/Dhaka"
-        ];
 
-        Config::set('nagad',  $config );
-        $trx_id = $log->transaction;
-        $redirectUrl = (new Payment())->tnxID($trx_id)
+        self::setConfig($gateway,$log->trx_code,$sandbox);
+
+       
+        $redirectUrl = (new Payment())->tnxID($log->trx_code)
                  ->amount(round($log->final_amount))
                  ->getRedirectUrl($nagadHost);
-           
+          
+                 
+
+
+        $response['error']   = true;
+        $response['message'] = translate("Invalid Request");
+            
 
         if($redirectUrl){
-            $send['redirect'] = true;
+            $send['redirect']     = true;
             $send['redirect_url'] = $redirectUrl;      
         }
-        else{
-            $send['error'] = true;
-            $send['message'] = "Invalid Request";
-        }
-    
+      
         return json_encode($send);
 
     }
 
-    public static function ipn(mixed $request, PaymentMethod $gateway, PaymentLog $log = null,mixed $trx = null, mixed $type = null)
-    {
-        if($request->status && $request->status == "Success"){
-            PaymentService::make_payment($log);
-            $data['status'] = 'success';
-            $data['msg'] = trans('default.trx_success');   
+    public static function setConfig(mixed $gateway ,string $trx_code , bool $sandbox) :void{
 
-            $data['redirect'] = route('success');
-            return $data;
-       }
-       else {
-        $data['status'] = 'error';
-        $data['msg'] = translate('Payment Cancel.');
-        $data['redirect'] = route('failed');
-       }
+
+        $config = [
+            'sandbox'         =>  $sandbox ,
+            'merchant_id'     =>  $gateway->marchent_id ,
+            'merchant_number' =>  $gateway->marchent_number ,
+            'public_key'      =>  $gateway->pub_key ,
+            'private_key'     =>  $gateway->pri_key ,
+            'callbackURL'     =>   route('ipn', [$trx_code]) ,
+            "timezone"         => "Asia/Dhaka"
+        ];
+
+        Config::set('nagad',  $config );
+
+    }
+
+
+    public static function ipn(Request $request, PaymentLog $depositLog) :array {
+
+        $data['status']      = 'error';
+        $data['message']     = translate('Invalid amount.');
+        $data['redirect']    = route('user.home');
+        $data['gw_response'] = $request->all();
+        $status               = DepositStatus::value('FAILED',true);
+        if($request->status && $request->status == "Success"){
+
+            $data['status']   = 'success';
+            $data['message']  = trans('default.deposit_success');
+            $status           = DepositStatus::value('PAID',true);
+
+        }
+
+        UserService::updateDepositLog($depositLog,$status ,$data);
+
+        return $data;
 
     }
 
@@ -149,7 +165,6 @@ class Payment
                     );
 
 
-                    // $merchantAdditionalInfo = '{"no_of_seat": "1", "Service_Charge":"20"}';
                     if($this->tnxID !== ''){
                         $this->merchantAdditionalInfo['tnx_id'] =  $this->tnxID;
                     }
@@ -160,13 +175,12 @@ class Payment
                         'merchantCallbackURL' => $merchantCallbackURL,
                         'additionalMerchantInfo' => (object)$this->merchantAdditionalInfo
                     );
-                    // order submit
+
                     $OrderSubmitUrl = $nagadHost."/check-out/complete/" . $paymentReferenceId;
                     $Result_Data_Order = Payment::HttpPostMethod($OrderSubmitUrl, $PostDataOrder);
                         if ($Result_Data_Order['status'] == "Success") {
                             $callBackUrl = ($Result_Data_Order['callBackUrl']);
                             return $callBackUrl;
-                            //echo "<script>window.open($url, '_self')</script>";
                         }
                         else {
                             echo json_encode($Result_Data_Order);

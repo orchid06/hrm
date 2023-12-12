@@ -500,6 +500,16 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::prefix("/affiliate/reports")->name('affiliate.report.')->group(function(){
                     Route::get('/','affiliateReport')->name('list');
                });
+
+
+               #kyc reports
+               Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){
+
+                    Route::get('/','kycReport')->name('list');
+                    Route::get('/details/{id}','kycDetails')->name('details');
+                    Route::post('/update','kycUpdate')->name('update');
+
+               });
                
           });
 

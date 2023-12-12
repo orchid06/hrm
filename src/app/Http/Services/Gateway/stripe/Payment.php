@@ -28,7 +28,7 @@ class Payment
         $send['src'] = "https://checkout.stripe.com/checkout.js";
         $send['view'] = 'user.payment.stripe';
         $send['method'] = 'post';
-        $send['url'] = route('ipn',["code" => $log->method->code, "trx" => $log->transaction]);
+        $send['url'] = route('ipn',["code" => $log->method->code, "trx" => $log->trx_code]);
         return json_encode($send);
     }
 

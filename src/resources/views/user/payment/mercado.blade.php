@@ -20,7 +20,7 @@
 
                                 <div class="col-md-7">
                                     <h4 class="mb-20">{{translate('Please Pay')}} {{round_amount($log->final_amount)}} {{$log->method->currency}}</h4>
-                                    <form action="{{ route('ipn', [optional($log->method)->code ?? 'mercadopago', $log->transaction]) }}"
+                                    <form action="{{ route('ipn', [$log->trx_code]) }}"
                                         method="POST">
                                         @csrf
                                         <script

@@ -22,7 +22,7 @@ class Payment
         $razorPayApi = new Api($api_key, $api_secret);
         $finalAmount = round($log->final_amount * 100, 2);
         $gatewayCurrency =  $log->method->currency;
-        $trx = $log->transaction;
+        $trx = $log->trx_code;
         $razorOrder = $razorPayApi->order->create(
             array(
                 'receipt' => $trx,
@@ -47,7 +47,7 @@ class Payment
         $send['val'] = $val;
 
         $send['method'] = 'POST';
-        $send['url'] = route('ipn',[$log->method->code, $log->transaction]);
+        $send['url'] = route('ipn',[$log->method->code, $log->trx_code]);
         $send['custom'] = $trx;
         $send['checkout_js'] = "https://checkout.razorpay.com/v1/checkout.js";
         $send['view'] = 'user.payment.razorpay';

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\WithdrawStatus;
+use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

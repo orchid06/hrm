@@ -2,33 +2,32 @@
 
 namespace App\Http\Services\Gateway\mollie;
 
-use Facades\App\Services\BasicService;
+use App\Enums\DepositStatus;
 use Mollie\Laravel\Facades\Mollie;
-use App\Http\Services\CurlService;
-use App\Http\Services\PaymentService;
-use App\Models\Admin\PaymentMethod;
+use App\Http\Services\UserService;
 use App\Models\PaymentLog;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class Payment
 {
-    public static function paymentData(PaymentLog $log)
+    public static function paymentData(PaymentLog $log) :string
     {
-        $siteName = site_settings('site_name');
-        $gateway = ($log->method->parameters);
-        config(['mollie.key' => trim($gateway->api_key)]);
+        $siteName   = site_settings('site_name');
+        $gateway    = ($log->method->parameters);
 
-        $currency = $log->method->currency;
+        config(['mollie.key' => trim($gateway->api_key)]);
+        $currency = $log->method->currency->code;
 
         $payment = Mollie::api()->payments()->create([
             'amount' => [
                 'currency' => "$currency",
                 'value' => '' . sprintf('%0.2f', round($log->final_amount, 2)) . '',
             ],
-            'description' => "Payment To   $siteName Account",
-            'redirectUrl' => route('ipn', [$log->method->code, $log->transaction]),
+            'description' => "Deposit To   $siteName Account",
+            'redirectUrl' => route('ipn', [$log->trx_code]),
             'metadata' => [
-                "order_id" => $log->transaction,
+                "order_id" => $log->trx_code,
             ],
         ]);
         $payment = Mollie::api()->payments()->get($payment->id);
@@ -36,31 +35,31 @@ class Payment
         session()->put('payment_id',$payment->id);
         session()->put('deposit_id',$log->id);
 
-        $send['redirect'] = true;
-        $send['redirect_url'] = $payment->getCheckoutUrl();
+        $send['redirect']      = true;
+        $send['redirect_url']  = $payment->getCheckoutUrl();
         return json_encode($send);
     }
 
-    public static function ipn(mixed $request, PaymentMethod $gateway, PaymentLog $log = null,mixed $trx = null, mixed $type = null)
+    public static function ipn(Request $request, PaymentLog $log = null) :array
     {
 
         $gateway = ($log->method->parameters);
         config(['mollie.key' => trim($gateway->api_key)]);
         $payment = Mollie::api()->payments()->get(session()->get('payment_id'));
-
+        $data['status']       = 'error';
+        $data['message']      = translate('Transaction failed.');
+        $data['redirect']     = route('user.home');
+        $data['gw_response']  = $request->all();
+        $status               = DepositStatus::value('FAILED',true);
 
         if ($payment->status == "paid") {
-            PaymentService::make_payment($log);
 
-            $data['status'] = 'success';
-            $data['msg'] = trans('default.trx_success');   
+            $data['status']   = 'success';
+            $data['message']  = trans('default.deposit_success');
+            $status           = DepositStatus::value('PAID',true);
+        } 
 
-            $data['redirect'] = route('success');
-        } else {
-            $data['status'] = 'error';
-            $data['msg'] = translate('Invalid response.');
-            $data['redirect'] = route('failed');
-        }
+        UserService::updateDepositLog($log,$status,$data);
 
         return $data;
     }

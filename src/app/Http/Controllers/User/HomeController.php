@@ -153,7 +153,7 @@ class HomeController extends Controller
 
         $request->validate($rules);
 
-        $user = auth_user('web');
+        $user = $this->user;
 
         if(!Hash::check($request->input('current_password'), $this->user->password)) {
             return back()->with('error', translate("Your Current Password does not match !!"));

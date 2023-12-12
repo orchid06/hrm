@@ -9,6 +9,7 @@ use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Auth\SocialAuthController;
+use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\ReportController;
@@ -104,18 +105,20 @@ use Illuminate\Support\Facades\Route;
             });
 
             #payment route
-            Route::controller(PaymentController::class)->prefix('/payment')->name('payment.')->group(function(){
+            Route::controller(DepositController::class)->prefix('/deposit')->name('deposit.')->group(function(){
+                
                 Route::any('/process','process')->name('process');
                 Route::any('/confirm','confirm')->name('confirm');
                 Route::any('/manual/confirm','manualPay')->name('manual');
+                
             });
 
             #basic user route
             Route::controller(UserController::class)->group(function(){
 
                 /** NEW ROUTE START */
-
                   Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
+                  
                   
                 /** END */
 
@@ -137,33 +140,35 @@ use Illuminate\Support\Facades\Route;
             });
 
 
+            #report route
             Route::controller(ReportController::class)->group(function(){
 
                 Route::prefix("/template/reports")->name('template.report.')->group(function(){
                     Route::get('/','templateReport')->name('list');
                 });
-
                 Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function(){
                     Route::get('/','withdrawReport')->name('list');
+                    Route::get('/details/{id}','withdrawDetails')->name('details');
                 });
-
                 Route::prefix("/deposit/reports")->name('deposit.report.')->group(function(){
-                    Route::get('/','paymentReport')->name('list');
+                    Route::get('/','depositReport')->name('list');
+                    Route::get('/details/{id}','depositDetails')->name('details');
                 });
-
                 Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
                     Route::get('/','subscriptionReport')->name('list');
                 });
-
                 Route::prefix("/affiliate/reports")->name('affiliate.report.')->group(function(){
                     Route::get('/','affiliateReport')->name('list');
                 });
-
                 Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){
                     Route::get('/','kycReport')->name('list');
+                    Route::get('/details/{id}','kycDetails')->name('details');
                 });
                 Route::prefix("/credit/reports")->name('credit.report.')->group(function(){
                     Route::get('/','creditReport')->name('list');
+                });
+                Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
+                    Route::get('/','transactionReport')->name('list');
                 });
     
             });
