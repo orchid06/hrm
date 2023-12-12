@@ -39,47 +39,53 @@
 
                         @endif
                         <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
-                            <div class="search-area">
-                                <form action="{{route(Route::currentRouteName())}}" method="get">
 
-                                    <div class="form-inner">
-                                        <select name="is_blocked" id="is_blocked" class="select2">
-                                            <option value="">
-                                                {{translate('Select status')}}
-                                            </option>
-                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                               <option  {{request()->input('is_blocked') ==   $v ? 'selected' :""}} value="{{$v}}">  {{ $v == 1 ? 'Blocked' :"Unblock" }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                            <div class="filter-wrapper">
+                                <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="las la-filter"></i>
+                                </button>
+                                <div class="filter-dropdown">
+                                    <form action="{{route(Route::currentRouteName())}}" method="get">
+                                        <div class="form-inner">
+                                            <select name="is_blocked" id="is_blocked" class="select2">
+                                                <option value="">
+                                                    {{translate('Select status')}}
+                                                </option>
+                                                @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
+                                                <option  {{request()->input('is_blocked') ==   $v ? 'selected' :""}} value="{{$v}}">  {{ $v == 1 ? 'Blocked' :"Unblock" }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-inner">
+                                            <select name="country_id" id="country_id" class="select2">
+                                                <option value="">
+                                                    {{translate('Select country')}}
+                                                </option>
+                                                @foreach($countries as $country)
+                                                <option  {{$country->id ==   request()->input('country_id') ? 'selected' :""}} value="{{$country->id}}">  
+                                                    {{$country->name}}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-inner">
+                                            <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search name or code')}}">
 
 
-                                    <div class="form-inner">
-                                        <select name="country_id" id="country_id" class="select2">
-                                            <option value="">
-                                                {{translate('Select country')}}
-                                            </option>
-                                            @foreach($countries as $country)
-                                               <option  {{$country->id ==   request()->input('country_id') ? 'selected' :""}} value="{{$country->id}}">  
-                                                   {{$country->name}}
-                                               </option>
-                                             @endforeach
-                                        </select>
-                                    </div>
-    
-                                    <div class="form-inner">
-                                        <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search name or code')}}">
+                                        </div>
 
-
-                                    </div>
-
-                                    <button class="i-btn btn--sm info">
-                                        <i class="las la-sliders-h"></i>
-                                    </button>
-                                    <a href="{{route('admin.security.ip.list')}}"  class="i-btn btn--sm danger">
-                                        <i class="las la-sync"></i>
-                                    </a>
-                                </form>
+                                        <button class="i-btn btn--sm info w-100">
+                                            <i class="las la-sliders-h"></i>
+                                        </button>
+                                    </form>
+                                </div>  
+                            </div>
+                            <div class="ms-3">
+                                <a href="{{route('admin.security.ip.list')}}"  class="i-btn btn--sm danger">
+                                    <i class="las la-sync"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

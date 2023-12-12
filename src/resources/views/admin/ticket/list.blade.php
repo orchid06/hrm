@@ -97,7 +97,7 @@
                 <div class="col-md-8 col-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-funnel"></i>
+                            <i class="las la-filter"></i>
                         </button>
                         <div class="filter-dropdown">
                             <form action="{{ route(Route::currentRouteName()) }}" method="get">
@@ -146,15 +146,15 @@
                                     <i class="las la-sliders-h"></i>
                                 </button>
                             </form>
-                            </div>  
                         </div>  
-                    <div>
-                    <a href="{{ route('admin.ticket.list') }}" class="i-btn btn--sm danger ms-3">
-                        <i class="las la-sync"></i>
-                    </a>
+                    </div>  
+                    <div class="ms-3">
+                        <a href="{{ route('admin.ticket.list') }}" class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-    
+            
 
 
         <div class="table-container position-relative">

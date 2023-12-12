@@ -18,7 +18,7 @@
 
   <!-- card -->
 
-    <div class="row mb-3">
+    <div class="row mb-3 g-3">
       <div class="col-xl-6">
       <div class="row g-3">
       <div class="col-lg-6 col-md-6 col-sm-6">

@@ -407,17 +407,17 @@
                     <form   class="settingsForm"   enctype="multipart/form-data">
                         @csrf
                         <div class="i-card-md">
-                            <div class="card--header ">
-                                <div class="d-flex align-items-center flex-wrap gap-2">
+                            <div class="card--header">
+                                <div>
                                     <h4 class="card-title">
                                         {{translate('Logging')}}
                                     </h4>
-                                    <p>
-                                        {{trans('default.loggin_note')}}
-                                    </p>
                                 </div>
                             </div>
                             <div class="card-body">
+                                <p class="mb-3">
+                                    {{trans('default.loggin_note')}}
+                                </p>
                                 <div class="row">
                                     <div class="col-xl-6 ">
                                         <div class="form-inner">
@@ -430,9 +430,9 @@
 
                                     <div class="col-xl-6 ">
                                         <div class="module-note">
-                                            <label >
+                                            <h6 class="mb-2">
                                                 {{translate('Information')}}
-                                            </label>
+                                            </h6>
                                             <p>
                                                 <a href="https://sentry.io" target="_blank">{{translate("Sentry")}}
                                                 </a>
@@ -805,7 +805,7 @@
                             </div>
 
                             <div class="card-body">
-                                <div class="d-flex gap-3">
+                                <div class="d-flex gap-2 flex-wrap">
                                     <div class="form-group form-check form-check-success">
                                         <input {{ site_settings('default_recaptcha') == App\Enums\StatusEnum::true->status() ? 'checked' :"" }} type="checkbox" class="form-check-input status-update"
 

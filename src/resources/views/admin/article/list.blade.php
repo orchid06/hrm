@@ -63,45 +63,50 @@
                     @endif
 
                     <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
-                        <div class="search-area">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">
 
-                                <div class="form-inner">
-                                    <select name="status" id="status" class="select2">
-                                        <option value="">
-                                            {{translate('Select status')}}
-                                        </option>
-                                        @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                           <option  {{request()->input('status') ==   $v ? 'selected' :""}} value="{{$v}}"> {{translate($k)}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="filter-wrapper">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="las la-filter"></i>
+                            </button>
+                            <div class="filter-dropdown">
+                                <form action="{{route(Route::currentRouteName())}}" method="get">
+                                    <div class="form-inner">
+                                        <select name="status" id="status" class="select2">
+                                            <option value="">
+                                                {{translate('Select status')}}
+                                            </option>
+                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
+                                            <option  {{request()->input('status') ==   $v ? 'selected' :""}} value="{{$v}}"> {{translate($k)}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
 
-                                <div class="form-inner">
-                                    <select name="category" id="category" class="select2">
-                                        <option value="">
-                                            {{translate('Select Category')}}
-                                        </option>
-                                        @foreach($categories as $category)
-                                           <option  {{$category->slug ==   request()->input('category') ? 'selected' :""}} value="{{$category->slug}}"> {{$category->title}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                
+                                    <div class="form-inner">
+                                        <select name="category" id="category" class="select2">
+                                            <option value="">
+                                                {{translate('Select Category')}}
+                                            </option>
+                                            @foreach($categories as $category)
+                                            <option  {{$category->slug ==   request()->input('category') ? 'selected' :""}} value="{{$category->slug}}"> {{$category->title}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}">
+                                    </div>
 
-                                <div class="form-inner">
-                                    <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}">
-                                </div>
-
-                                <button class="i-btn btn--sm info">
-                                    <i class="las la-sliders-h"></i>
-                                </button>
-                                <a href="{{route('admin.article.list')}}"  class="i-btn btn--sm danger">
-                                    <i class="las la-sync"></i>
-                                </a>
-                            </form>
+                                    <button class="i-btn btn--sm info w-100">
+                                        <i class="las la-sliders-h"></i>
+                                    </button>
+                                </form>
+                            </div>  
+                        </div>
+                        <div class="ms-3">
+                            <a href="{{route('admin.article.list')}}"  class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

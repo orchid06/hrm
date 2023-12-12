@@ -140,7 +140,7 @@
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->subscriptions->count() > 0)
                                        
-                                            <small class=" i-badge-solid success">{{@$user->subscriptions->first()->package->title}}</small>
+                                            <small class=" i-badge success">{{@$user->subscriptions->first()->package->title}}</small>
                                         @endif
 
                                     </div>
@@ -152,7 +152,7 @@
                                         {{$user->email}} 
                                     </div>
 
-                                    <span class=" i-badge-solid success">{{$user->phone}}</span>
+                                    <span class=" i-badge success">{{$user->phone}}</span>
                                 </td>
 
                                 <td  data-label="{{translate("Country")}}">
@@ -162,7 +162,7 @@
                          
                                 <td data-label="{{translate("Balance")}}">
                                     
-                                    <span class="i-badge-solid info"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
+                                    <span class="i-badge-solid primary"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
                                         {{num_format(
                                             number : $user->balance,
                                             calC   : true

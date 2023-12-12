@@ -127,7 +127,6 @@
 
                     <div class="col-lg-12 mt-3 mb-3">
                         <div class="accordion" id="advanceOption">
-
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="socailConfig">
                                     <button
