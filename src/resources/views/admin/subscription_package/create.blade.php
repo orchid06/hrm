@@ -129,8 +129,8 @@
 
 
                         <div class="col-lg-12 mt-3 mb-3">
+                            <div class="faq-wrap style-2">
                             <div class="accordion" id="advanceOption">
-
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="socailConfig">
                                         <button
@@ -144,15 +144,10 @@
                                             <i title="{{translate('Social Platform Configuration')}}" class="ms-1 las la-question-circle"></i>
                                         </button>
                                     </h2>
-                                    <div
-                                        id="socailSection"
-                                        class="accordion-collapse collapse show"
-                                        aria-labelledby="socailConfig"
-                                        data-bs-parent="#advanceOption">
+                                    <div id="socailSection" class="accordion-collapse collapse show" aria-labelledby="socailConfig" data-bs-parent="#advanceOption">
                                         <div class="accordion-body">
-                        
-                                            <div class="row">
-                                                <div class="col-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-sm-6">
                                                     <div class="form-inner">
 
                                                         <label for="platform_access">
@@ -174,7 +169,7 @@
                                 
                                                     </div>
                                                </div>
-                                               <div class="col-6">
+                                               <div class="col-sm-6">
                                                     <div class="form-inner">
 
                                                         <label for="profile"
@@ -187,7 +182,7 @@
                                                     </div>
                                                </div>
 
-                                                <div class="col-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         
                                                         <label for="post"
@@ -201,30 +196,24 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-6">
-                                                    <div class="form-inner">
-
+                                                <div class="col-sm-6">
+                                                    <div class="mb-1 d-flex align-items-center gap-2">
                                                         <input id="webhook_access" value="{{App\Enums\StatusEnum::true->status()}}" {{old('social_access.webhook_access') == App\Enums\StatusEnum::true->status() ? "checked" :""}} class="form-check-input" name="social_access[webhook_access]" type="checkbox"   >
-                                                        <label for="webhook_access" class="form-check-label me-3">
+                                                        <label for="webhook_access" class="form-check-label me-3 mb-0">
                                                             {{translate('Webhook Access')}}
                                                         </label>
-
-                                                        <input id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}" {{old('social_access.schedule_post') == App\Enums\StatusEnum::true->status() ? "checked" :""}} class="form-check-input" name="social_access[schedule_post]" type="checkbox"   >
-                                                        <label for="schedule_post" class="form-check-label me-3">
+                                                    </div>
+                                                    <div class="mb-0 d-flex align-items-center gap-2">
+                                                    <input id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}" {{old('social_access.schedule_post') == App\Enums\StatusEnum::true->status() ? "checked" :""}} class="form-check-input" name="social_access[schedule_post]" type="checkbox"   >
+                                                        <label for="schedule_post" class="form-check-label me-3 mb-0">
                                                             {{translate('Schedule Posting')}}
                                                         </label>
-
                                                     </div>
                                                 </div>
-
                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
-
-
-
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="aiConfig">
                                         <button
@@ -238,23 +227,14 @@
                                             <i title="{{translate('Configure ai settings that package should include')}}" class="ms-1 las la-question-circle"></i>
                                         </button>
                                     </h2>
-                                    <div
-                                        id="aiSection"
-                                        class="accordion-collapse collapse "
-                                        aria-labelledby="aiConfig"
-                                        data-bs-parent="#advanceOption">
+                                    <div id="aiSection" class="accordion-collapse collapse " aria-labelledby="aiConfig" data-bs-parent="#advanceOption">
                                         <div class="accordion-body">
-                        
-
                                             <div class="row">
-                                                <div class="col-6">
-
+                                                <div class="col-sm-6">
                                                     <div class="form-inner">
-
                                                         <label for="open_ai_model">
                                                             {{translate("Ai Model")}} 
                                                         </label>
-                                
                                                         <select   class="select2" id="open_ai_model" name="ai_configuration[open_ai_model]" >
                                                             <option  value="">
                                                                 {{translate("Select Model")}}
@@ -266,31 +246,25 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                
                                                     </div>
-                                                    
                                                 </div>
-                                                <div class="col-6">
-
+                                                <div class="col-sm-6">
                                                     <div class="form-inner">
-                                                
                                                         <label for="word_limit"
                                                         class="form-label">{{ translate('No. Of Words') }}
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
         
                                                         <input type="number" min="-1"
                                                         value="{{old("ai_configuration.word_limit")}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate("No. of Words")}}"   >
-                            
                                                     </div>
                                                 </div>
-                                             
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
-
 
                         <div class="col-12 ">
                             <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">

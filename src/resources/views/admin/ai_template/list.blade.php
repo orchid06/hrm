@@ -103,7 +103,7 @@
                                     <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}">
                                 </div>
 
-                                <button class="i-btn btn--sm info">
+                                <button class="i-btn btn--sm info w-100">
                                     <i class="las la-sliders-h"></i>
                                 </button>
                                 </form>

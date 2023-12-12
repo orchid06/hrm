@@ -5,9 +5,6 @@
 @endpush
 @section('content')
 
-
-
-
     <form action="{{route('admin.page.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <input hidden type="text" id="id" name="id" value="{{$page->id}}">

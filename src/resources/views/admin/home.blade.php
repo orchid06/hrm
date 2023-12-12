@@ -5,14 +5,21 @@
     <h4 class="page-title">
        {{translate($title)}}
     </h4>
-    <div class="page-title-right">
-      <ol class="breadcrumb m-0">
+    <div class="page-title-right d-flex justify-content-end align-items-center gap-3">
+    <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
              <div class="cron">
               {{translate("Last Cron Run")}} : {{session()->has("last_corn_run") ?  diff_for_humans(session()->get("last_corn_run")) : translate("N/A")  }}
              </div>
         </li>
       </ol>
+    <form action="">
+      <div class="date-search">
+          <input type="text" id="datePicker2" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+          <button type="submit"><i class="bi bi-search"></i></button>
+      </div>
+    </form>
+
     </div>
   </div>
 
@@ -32,7 +39,7 @@
                 </h5>
                 <a href="#" class="i-btn btn--sm btn--outline">View All</a>
               </div>
-              <div class="d-flex flex-column gap-4">
+              <div class="d-flex flex-column align-items-end gap-4">
                 <span class="i-badge success-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
                 <div class="icon">
                   <i class="las la-cube"></i>
@@ -52,7 +59,7 @@
             </h5>
             <a href="#" class="i-btn btn--sm btn--outline">View All</a>
           </div>
-          <div class="d-flex flex-column gap-4">
+          <div class="d-flex flex-column align-items-end gap-4">
           <span class="i-badge danger-text">0.54% <i class="bi bi-graph-down-arrow"></i></span>
           <div class="icon">
             <i class="las la-user-friends"></i>
@@ -72,7 +79,7 @@
                 </h5>
                 <a href="#" class="i-btn btn--sm btn--outline">View All</a>
               </div>
-              <div class="d-flex flex-column gap-4">
+              <div class="d-flex flex-column align-items-end gap-4">
               <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
               <div class="icon">
                 <i class="las la-cube"></i>
@@ -88,7 +95,7 @@
             <h5 class="title">{{translate('Total Category')}}</h5>
             <a href="#" class="i-btn btn--sm btn--outline">View All</a>
           </div>
-          <div class="d-flex flex-column gap-4">
+          <div class="d-flex flex-column align-items-end gap-4">
           <span class="i-badge success-text">0.54% <i class="bi bi-graph-down-arrow"></i></span>
             <div class="icon">
               <i class="las la-exchange-alt"></i>
@@ -107,7 +114,7 @@
             </h5>
             <a href="#" class="i-btn btn--sm btn--outline">View All</a>
           </div>
-          <div class="d-flex flex-column gap-4">
+          <div class="d-flex flex-column align-items-end gap-4">
             <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
             <div class="icon">
               <i class="las la-user-friends"></i>
@@ -126,7 +133,7 @@
                 </h5>
                 <a href="#" class="i-btn btn--sm btn--outline">View All</a>
               </div>
-              <div class="d-flex flex-column gap-4">
+              <div class="d-flex flex-column align-items-end gap-4">
                 <span class="i-badge danger-text">0.54% <i class="bi bi-graph-up-arrow"></i></span>
               <div class="icon">
                 <i class="las la-cube"></i>
@@ -734,6 +741,10 @@
 
         var chart = new ApexCharts(document.querySelector("#visitor-chart"), options);
         chart.render();
+
+
+        // datepicker
+
       
 </script>
 @endpush

@@ -10,7 +10,9 @@
         <div class="card-body">
 
             @if(@$appearance->content)
-                @include('admin.frontend.partial.content')
+                <div class="mb-5">
+                    @include('admin.frontend.partial.content')
+                </div>
             @endif
 
             @if(@$appearance->element)

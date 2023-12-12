@@ -1,4 +1,4 @@
-<form action="{{route('admin.appearance.update')}}" class="add-listing-form mb-5" enctype="multipart/form-data" method="post">
+<form action="{{route('admin.appearance.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
     @csrf
 
     <input type="hidden" name="type" value="content">

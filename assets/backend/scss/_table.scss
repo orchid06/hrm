@@ -52,7 +52,6 @@ table td {
     text-align: right;
   }
   a{
-    text-decoration: underline !important;
     color: inherit;
     @include transition-3;
     &:hover{

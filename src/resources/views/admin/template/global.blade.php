@@ -52,7 +52,7 @@
             <div class="card-body">
                 <div class="text-center">
                     @foreach(Arr::get(config('settings'),"default_template_code" ,[]) as $key => $value)
-                        <div class="d-flex  align-items-center justify-content-between">
+                        <div class="d-flex  align-items-center justify-content-between mb-2">
                             <div class="me-2 ">
                                 <p>{{ucfirst($value)}}</p>
                             </div>
