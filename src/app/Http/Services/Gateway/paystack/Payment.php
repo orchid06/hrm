@@ -4,9 +4,7 @@ namespace App\Http\Services\Gateway\paystack;
 
 use App\Enums\DepositStatus;
 use App\Http\Services\CurlService;
-use App\Http\Services\PaymentService;
 use App\Http\Services\UserService;
-use App\Models\Admin\PaymentMethod;
 use App\Models\PaymentLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
