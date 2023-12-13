@@ -7,7 +7,6 @@
 @section('content')
 
     <div class="i-card-md">
-
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
@@ -42,7 +41,7 @@
                         </div>
                     @endif
             
-                    <div class="col-md-6 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-end">
 
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">

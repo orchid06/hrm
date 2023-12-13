@@ -4,10 +4,7 @@
 @section('content')
 
     <div class="i-card-md">
-       
-
         <div class="card-body">
-
             <div class="search-action-area">
                 <div class="d-flex justify-content-md-end justify-content-start">
                     <div class="search-area">

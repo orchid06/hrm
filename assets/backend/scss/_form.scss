@@ -131,7 +131,7 @@ input {
     border: 1px solid $color-border;
     width: 100%;
     display: block;
-    padding: 10px 12px;
+    padding: 12px 12px;
     border-radius: 3px;
     font-size: 13px;
     color: $text-secondary;
@@ -155,7 +155,7 @@ select {
     width: 100%;
     display: block;
     font-size: 13px;
-    height: 40px;
+    height: 42px;
     border: 1px solid var(--color-border);
     padding: 0 5px;
     color: var(--text-secondary);
@@ -165,14 +165,13 @@ select {
 input[type="color"] {
     background-color: transparent;
     outline: none;
-    height: 40px;
+    height: 42px;
     padding: 5px;
 }
 
 input[type="file"] {
     background-color: transparent;
     outline: none;
-    padding: 7px;
 }
 
 input[type="checkbox"] {
@@ -273,6 +272,7 @@ select {
     width: 100%;
     display: block;
     font-size: 13px;
+    min-width: 80px;
 }
 
 // Select 2 custom styles
@@ -483,5 +483,9 @@ select {
 }
 
 .faq-wrap input, textarea {
-    padding: 10px 12px;
+    padding: 6px 12px;
 }
+.faq-wrap input[type=checkbox] {
+    padding: 6px 6px;
+}
+

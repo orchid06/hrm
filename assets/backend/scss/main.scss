@@ -121,7 +121,6 @@
     font-weight: 500;
     font-size: 16px;
     background: var(--white);
-    // border-radius: 5px;
     color: var(--text-primary);
     font-family: var(--font-merriw);
     padding: 15px 40px 15px 15px;
@@ -136,10 +135,6 @@
     i {
       margin-right: 10px;
       font-size: 16px;
-    }
-
-    @include md-down-device() {
-      padding: 20px 55px 20px 20px;
     }
 
     &:hover {
@@ -210,6 +205,10 @@
     text-align: left;
     padding: 25px;
     background-color: $card-bg;
+
+    @include md-down-device{
+      padding: 15px;
+    }
   }
   .accordion-item:last-of-type .accordion-collapse {
     overflow: hidden;

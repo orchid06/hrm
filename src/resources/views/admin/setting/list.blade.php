@@ -418,7 +418,7 @@
                                 <p class="mb-3">
                                     {{trans('default.loggin_note')}}
                                 </p>
-                                <div class="row">
+                                <div class="row g-3">
                                     <div class="col-xl-6 ">
                                         <div class="form-inner">
                                             <label for="sentry_dns">

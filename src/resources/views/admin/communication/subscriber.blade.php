@@ -6,12 +6,8 @@
             <h4 class="card-title">
                 {{translate('Subscriber List')}}
             </h4>
-
-
         </div>
-
         <div class="card-body">
-
             <div class="search-action-area">
                 <div class="row g-4">
                     <form hidden id="bulkActionForm" action="{{route("admin.subscriber.bulk")}}" method="post">

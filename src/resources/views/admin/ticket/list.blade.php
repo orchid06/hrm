@@ -267,8 +267,8 @@
             </table>
         </div>
 
-        <div class="Paginations">
     
+        <div class="Paginations">
             {{ $tickets->links() }}
         
         </div>
@@ -289,7 +289,7 @@
 
 @push('script-push')
 <script>
-	(function($){
+	(function($){   
 
         $(".select2").select2({
             placeholder:"{{translate('Select Status')}}",
@@ -306,6 +306,8 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
+         
+    
 
 
 	})(jQuery);
