@@ -31,7 +31,7 @@
       <div class="row gx-4 gy-5">
         <div class="col-lg-8">
           <div class="blog-thumbnail">
-            <img src="{{imageUrl(@$blog->file,"article",true)}}" alt="{{@$blog->file->name}}" />
+            <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
           </div>
 
           <div class="blog-contents">
@@ -76,7 +76,7 @@
             <form action="{{route('subscribe')}}" method="post">
 
                 @csrf
-                <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate("Enter your email")}}" />
+                <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate('Enter your email')}}" />
 
               <button class="i-btn btn--secondary btn--lg capsuled w-100">
                 {{translate("Subscribe")}}
@@ -95,7 +95,7 @@
 
                             <div class="resource-item">
                                     <a href="{{route('blog.details',$blog->slug)}}" class="resource-thumbnail">
-                                        <img src="{{imageUrl(@$blog->file,"article",true)}}" alt="{{@$blog->file->name}}" />
+                                        <img src="{{imageUrl(@$blog->file,'article',true)}}" alt="{{@$blog->file->name}}" />
                                     </a>
                     
                                     <div class="resource-content">

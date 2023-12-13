@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6 order-md-2 order-1 text-md-end text-center">
                     <a href="{{route('admin.home')}}" class="site-logo">
-                        <img src="{{imageUrl(@site_logo('site_logo')->file,"site_logo",true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
+                        <img src="{{imageUrl(@site_logo('site_logo')->file,'site_logo',true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
                 </div>
             </div>
             <form action="{{route('admin.password.verify.code')}}" class="login-right-form" method="post">

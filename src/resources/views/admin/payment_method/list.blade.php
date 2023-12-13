@@ -4,7 +4,7 @@
         <div class="card-body">
                 <div class="search-action-area">
                     <div class="row g-4">
-                        <form hidden id="bulkActionForm" action="{{route("admin.paymentMethod.bulk")}}" method="post">
+                        <form hidden id="bulkActionForm" action='{{route("admin.paymentMethod.bulk")}}' method="post">
                             @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -103,10 +103,10 @@
                                             {{$loop->iteration}}
                                         </td>
     
-                                        <td data-label="{{translate("Name")}}">
+                                        <td data-label='{{translate("Name")}}'>
                                             <div class="user-meta-info d-flex align-items-center gap-2">
                                            
-                                                <img class="rounded-circle avatar-sm" src="{{imageUrl(@$method->file,"payment_method",true)}}" alt="{{@$method->file->name}}">
+                                                <img class="rounded-circle avatar-sm" src='{{imageUrl(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name}}">
 
                                                 <p>	 {{$method->name}}</p>
     
@@ -118,13 +118,13 @@
                                         </td>
                                         <td data-label="{{translate('Limit')}}">{{truncate_price($method->minimum_amount,0)}} - {{truncate_price($method->maximum_amount,0)}} {{base_currency()->code}}  </td>
     
-                                        <td data-label="{{translate("Updated By")}}">
+                                        <td data-label='{{translate("Updated By")}}'>
                                             <span class="i-badge capsuled info">
                                                 {{$method->updatedBy->name}}
                                             </span>
                                         </td>
     
-                                        <td data-label="{{translate("Status")}}">
+                                        <td data-label='{{translate("Status")}}'>
                                             <div class="form-check form-switch switch-center">
                                                 <input {{!check_permission('update_method') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                     data-column="status"
@@ -137,14 +137,14 @@
                                         </td>
     
     
-                                        <td data-label="{{translate("Options")}}">
+                                        <td data-label='{{translate("Options")}}'>
                                             <div class="table-action">
     
                                                 @if(check_permission('update_method') || check_permission('delete_method'))
 
                                                   @if(check_permission('update_method'))
 
-                                                    <a href="{{route('admin.paymentMethod.edit',['uid' => $method->uid , "type" => request()->route('type')])}}" class=" icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a href="{{route('admin.paymentMethod.edit',['uid' => $method->uid , 'type' => request()->route('type')])}}" class=" icon-btn warning"><i class="las la-pen"></i></a>
 
                                                   @endif
 

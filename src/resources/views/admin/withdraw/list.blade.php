@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.withdraw.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.withdraw.bulk")}}' method="post">
                         @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -53,7 +53,7 @@
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
-                                    <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by name')}}">
+                                    <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by name')}}">
 
                                 </div>
 
@@ -100,11 +100,11 @@
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate("name")}}">
+                                <td data-label='{{translate("Name")}}'>
 
                                     <div class="user-meta-info d-flex align-items-center gap-2">
 
-                                        <img class="rounded-circle avatar-sm" src="{{imageUrl(@$withdraw->file,"withdraw_method",true)}}" alt="{{@$withdraw->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src="{{imageUrl(@$withdraw->file,'withdraw_method',true)}}" alt="{{@$withdraw->file->name}}">
 
                                         <p>	 {{$withdraw->name}}</p>
                                     </div>
@@ -115,7 +115,7 @@
                                 </td>
                                 <td data-label="{{translate('Limit')}}">{{truncate_price($withdraw->minimum_amount)}} - {{truncate_price($withdraw->maximum_amount)}} {{base_currency()->code}}  </td>
 
-                                <td data-label="{{translate("Status")}}">
+                                <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_withdraw') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="status"
@@ -126,7 +126,7 @@
                                         <label class="form-check-label" for="status-switch-{{$withdraw->id}}"></label>
                                     </div>
                                 </td>
-                                <td data-label="{{translate("Action")}}">
+                                <td data-label="{{translate('Action')}}">
                                     <div class="table-action">
                                         @if(check_permission('update_withdraw') || check_permission('delete_withdraw') )
                                             @if(check_permission('update_withdraw'))
@@ -191,7 +191,7 @@
                                     {{translate('Max pending withdraw')}} <small class="text-danger">*</small>
                                 </label>
 
-                                <input id="max_pending_withdraw" placeholder="{{translate("Enter number")}}" type="number" name="site_settings[max_pending_withdraw]" value="{{site_settings('max_pending_withdraw')}}">
+                                <input id="max_pending_withdraw" placeholder="{{translate('Enter number')}}" type="number" name="site_settings[max_pending_withdraw]" value="{{site_settings('max_pending_withdraw')}}">
                              
                             </div>
                         </div>

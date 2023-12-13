@@ -60,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting() :void
     {
 
-        // try {
+        try {
             $hitLimit = site_settings('api_route_rate_limit');
 
             RateLimiter::for('api', function (Request $request) use($hitLimit) {
@@ -100,10 +100,10 @@ class RouteServiceProvider extends ServiceProvider
 
 
 
-        // } catch (\Throwable $th) {
+        } catch (\Throwable $th) {
 
        
-        // }
+        }
 
     }
 }

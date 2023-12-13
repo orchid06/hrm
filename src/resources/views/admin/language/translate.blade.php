@@ -41,17 +41,17 @@
 								<td data-label="#">
 									{{$loop->iteration}}
 								</td>
-								<td data-label="{{translate("key")}}">
+								<td data-label='{{translate("Key")}}'>
 									{{limit_words($translate->value,20)}}
 								</td>
 
-								<td data-label="{{translate("value")}}">
+								<td data-label='{{translate("Value")}}'>
 									<div class="form-inner">
 										<input  id="lang-key-value-{{ $loop->iteration }}" name='translate[{{$translate->key }}]' value="{{ $translate->value }}" type="text">
 									</div>
 								</td>
 
-								<td data-label="{{translate("Options")}}">
+								<td data-label='{{translate("Options")}}'>
 									<div class="table-action">
 
 

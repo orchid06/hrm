@@ -33,8 +33,8 @@
                                         </label>
                                         
                                 
-                                        <input type="text" name="title" id="title" placeholder="{{translate("Enter Title")}}"
-                                            value="{{old("title")}}" required>        
+                                        <input type="text" name="title" id="title" placeholder='{{translate("Enter Title")}}'
+                                            value='{{old("title")}}' required>        
                                                                                                   
                                     </div>                                                                         
                                                          
@@ -48,8 +48,8 @@
                                         {{translate('Slug')}}
                                     </label>
                             
-                                    <input type="text" name="slug" id="slug"   placeholder="{{translate("Enter Slug")}}"
-                                        value="{{old("slug")}}">
+                                    <input type="text" name="slug" id="slug"   placeholder='{{translate("Enter Slug")}}'
+                                        value='{{old("slug")}}'>
 
                                     
                                             
@@ -75,7 +75,7 @@
                                     <label for="serial_id"> 
                                         {{translate('Serial Id')}}  <span class="text-danger">*</span>
                                     </label>
-                                    <input type="number" name="serial_id" value="{{old("serial_id") ? old("serial_id") : $serialId}}" >
+                                    <input type="number" name="serial_id" value='{{old("serial_id") ? old("serial_id") : $serialId}}' >
                                 </div>
                             </div>
                 

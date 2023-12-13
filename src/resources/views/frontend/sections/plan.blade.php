@@ -37,7 +37,7 @@
 
               @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
 
-                <button class="nav-link {{$loop->index  == 0 ? "active" :""}}" id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}" type="button"role="tab"aria-controls="{{$key}}"
+                <button class='nav-link {{$loop->index  == 0 ? "active" :""}}' id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}" type="button"role="tab"aria-controls="{{$key}}"
                   aria-selected="true">
                     {{
                       ucfirst(strtolower($key))
@@ -48,7 +48,7 @@
 
             </div>
 
-            <a href="{{route("plan")}}" class="learn-more">
+            <a href="{{route('plan')}}" class="learn-more">
                 <span class="circle" aria-hidden="true">
                   <span class="icon arrow"> </span>
                 </span>
@@ -63,7 +63,7 @@
 
 
             @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-                  <div class="tab-pane fade {{$loop->index == 0 ? "show active" : ""}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
+                  <div class='tab-pane fade {{$loop->index == 0 ? "show active" : ""}}' id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
 
                      @php
                         $purchasePlans = $plans->where('duration',$value);
@@ -73,7 +73,7 @@
                               <div class="tab-content" id="price-tabContent">
                                   
                                     @forelse ($purchasePlans as  $plan)
-                                      <div class="tab-pane fade {{$loop->index == 0 ? "show active" :""}}  " id="{{$key}}-{{$plan->slug}}" role="tabpanel" aria-labelledby="{{$key}}-{{$plan->slug}}-tab" >
+                                      <div class='tab-pane fade {{$loop->index == 0 ? "show active" :""}}' id="{{$key}}-{{$plan->slug}}" role="tabpanel" aria-labelledby="{{$key}}-{{$plan->slug}}-tab" >
                                         <div class="plan-card-detail">
                                             <p>
                                               {{ $plan->description}}
@@ -94,7 +94,7 @@
                                          
                                           </ul>
                                           <div>
-                                            <a href="{{route("user.plan.purchase",$plan->slug)}}"
+                                            <a href='{{route("user.plan.purchase",$plan->slug)}}'
                                               class="i-btn btn--secondary btn--lg capsuled">
                                                 {{translate("Subscribe")}}
                                             </a>
@@ -117,7 +117,7 @@
                         
                                 @forelse ($purchasePlans as  $plan)
                                    
-                                  <a class="nav-link plan-card-item {{$loop->index == 0 ? "active" :""}}" id="{{$key}}-{{$plan->slug}}-tab" data-bs-toggle="pill" href="#{{$key}}-{{$plan->slug}}" role="tab"aria-controls="{{$key}}-{{$plan->slug}}"aria-selected="true">
+                                  <a class="nav-link plan-card-item {{$loop->index == 0 ? 'active' :''}}" id="{{$key}}-{{$plan->slug}}-tab" data-bs-toggle="pill" href="#{{$key}}-{{$plan->slug}}" role="tab"aria-controls="{{$key}}-{{$plan->slug}}"aria-selected="true">
                                     <div class="plan-card-left">
                                       <span>
                                         {{$plan->title}}

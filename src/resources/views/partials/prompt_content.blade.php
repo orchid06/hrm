@@ -25,9 +25,9 @@
                     </label>
 
                     @if($input->type == "text")
-                        <input data-name="{{'{'.@$input->field_name.'}'}}" placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif  name="custom[{{ @$input->field_name }}]" id=" {{ $key }} " value="{{old("custom.".@$input->field_name)}}" type="text" class="prompt-input">
+                        <input data-name="{{'{'.@$input->field_name.'}'}}" placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif  name="custom[{{ @$input->field_name }}]" id="{{ $key }}" value="{{old("custom.".@$input->field_name)}}" type="text" class="prompt-input">
                     @else
-                        <textarea class="prompt-input" data-name="{{'{'.@$input->field_name.'}'}}"  placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif name="custom[{{ @$input->field_name }}]"  id=" {{ $key }} "  cols="30" rows="6">{{old("custom.".@$input->field_name)}}</textarea>
+                        <textarea class="prompt-input" data-name="{{'{'.@$input->field_name.'}'}}"  placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif name="custom[{{ @$input->field_name }}]"  id="{{ $key }}"  cols="30" rows="6">{{old("custom.".@$input->field_name)}}</textarea>
                     @endif
 
                 </div>
@@ -75,7 +75,7 @@
                             {{translate("Max Results Length")}} <i title="{{translate('Maximum words for each result')}}" class="ms-1 pointer las la-question-circle"></i>
                         </label>
 
-                        <input placeholder="{{translate("Enter number")}}" type="number" min="1" name="max_result"  value="{{old("max_result")}}" >
+                        <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result"  value='{{old("max_result")}}' >
 
                     </div>
 

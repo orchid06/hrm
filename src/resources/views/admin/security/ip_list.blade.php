@@ -4,7 +4,7 @@
         <div class="card-body">
                 <div class="search-action-area">
                     <div class="row g-4">
-                        <form hidden id="bulkActionForm" action="{{route("admin.security.ip.bulk")}}" method="post">
+                        <form hidden id="bulkActionForm" action='{{route("admin.security.ip.bulk")}}' method="post">
                             @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -121,17 +121,17 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-                                    <td data-label="{{translate("Ip")}}">
+                                    <td data-label='{{translate("Ip")}}'>
                                          {{$ip->ip_address}}
                                     </td>
 
-                                    <td data-label="{{translate("Country")}}">
+                                    <td data-label='{{translate("Country")}}'>
                                         <span class="i-badge capsuled success">
                                             {{$ip->country->name}}
                                         </span>
                                    </td>
                                
-                                    <td data-label="{{translate("Blocked")}}">
+                                    <td data-label='{{translate("Blocked")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_security') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_blocked"
@@ -144,7 +144,7 @@
                                     </td>
 
 
-                                    <td data-label="{{translate("Action")}}">
+                                    <td data-label='{{translate("Action")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_security'))
                                                 <a href="javascript:void(0);"    data-href="{{route('admin.security.ip.destroy',$ip->id)}}" class=" pointer delete-item icon-btn danger">

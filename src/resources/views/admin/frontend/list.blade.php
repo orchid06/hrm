@@ -51,7 +51,7 @@
 
                                 <input type="hidden" name="id">
                                 <input type="hidden" name="type" value="element">
-                                <input type="hidden" name="key" value="{{request()->route("key")}}">
+                                <input type="hidden" name="key" value='{{request()->route("key")}}'>
 
                                 @foreach($appearance->element as $k => $content)
                                     
@@ -116,7 +116,7 @@
                                                     @else
                               
 
-                                                            <input value="" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
+                                                            <input value="" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="{{$k}}">
                                                     
                                                     @endif
                                                 </div>
@@ -161,6 +161,7 @@
 <script>
 	(function($){
        	"use strict";
+        
             $(".select2").select2({
 			   placeholder:"{{translate('Select Status')}}",
 	     	})

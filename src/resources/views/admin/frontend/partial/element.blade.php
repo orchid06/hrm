@@ -2,7 +2,7 @@
     <div class="row g-4">
 
 
-        <form hidden id="bulkActionForm" action="{{route("admin.appearance.bulk")}}" method="post">
+        <form hidden id="bulkActionForm" action='{{route("admin.appearance.bulk")}}' method="post">
             @csrf
             <input type="hidden" name="bulk_id" id="bulkid">
             <input type="hidden" name="value" id="value">
@@ -115,7 +115,7 @@
                                             @endphp
                 
                                             <div class="avatar-group-item">
-                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src="{{imageUrl(@$file,"frontend",true,$imType->size)}}" alt="{{@$file->name}}">
+                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src='{{imageUrl(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}">
                                             </div>
                                         @endforeach
                                 </div>
@@ -140,9 +140,9 @@
                     @endforeach
                        
 
-                    <td data-label="{{translate("Status")}}">
+                    <td data-label='{{translate("Status")}}'>
                         <div class="form-check form-switch switch-center">
-                            <input {{!check_permission('update_frontend') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                            <input {{!check_permission("update_frontend") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                 data-column="status"
                                 data-route="{{ route('admin.appearance.update.status') }}"
                                 data-status="{{ $appearance_element->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -153,7 +153,7 @@
                     </td>
 
 
-                    <td data-label="{{translate("Action")}}">
+                    <td data-label='{{translate("Action")}}'>
                         <div class="table-action">
                             
                             @if(check_permission('update_frontend') )

@@ -24,7 +24,7 @@
 
           <div class="col-lg-6">
             <div class="w-75 mx-auto">
-              <img src="{{imageUrl(@$file,"frontend",true,@get_appearance()->contact_us->content->images->image->size)}}" alt="{{@$file->name}}" />
+              <img src="{{imageUrl(@$file,'frontend',true,@get_appearance()->contact_us->content->images->image->size)}}" alt="{{@$file->name}}" />
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
             <li>
               <span><i class="bi bi-envelope-open"></i></span>
               <div>
-                <a href="mailto:{{site_settings("email")}}">
+                <a href="mailto:{{site_settings('email')}}">
                     {{site_settings("email")}}
                 </a>
               </div>
@@ -60,7 +60,7 @@
             <li>
               <span><i class="bi bi-telephone"></i></span>
               <div>
-                <a href="tel:{{site_settings("phone")}}"> {{site_settings("phone")}}</a>
+                <a href="tel:{{site_settings('phone')}}"> {{site_settings("phone")}}</a>
               </div>
             </li>
 
@@ -78,7 +78,7 @@
       </div>
 
       <div class="col-lg-7">
-        <form action="{{route("contact.store")}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post">
+        <form action="{{route('contact.store')}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post">
 
           @csrf
           <h4>  {{$contactSection->value->section_title}}</h4>
@@ -87,10 +87,10 @@
               <div class="form__group field">
                 <input
                   required
-                  placeholder="{{translate("Name")}}"
+                  placeholder="{{translate('Name')}}"
                   class="form__field"
                   name="name"
-                  value="{{old("name")}}"
+                  value="{{old('name')}}"
                   type="text"
                   id="name"/>
                 <label class="form__label" for="name">
@@ -103,12 +103,12 @@
               <div class="form__group field">
                 <input
                   required
-                  placeholder="{{translate("Phone")}}"
+                  placeholder="{{translate('Phone')}}"
                   id="number"
                   class="form__field"
                   type="text"
                   name="phone"
-                  value="{{old("phone")}}"/>
+                  value="{{old('phone')}}"/>
                 <label class="form__label" for="number">
                     {{translate("Phone")}}
                 </label>
@@ -119,7 +119,7 @@
               <div class="form__group field">
                 <input
                   required
-                  placeholder="{{translate("Email")}}"
+                  placeholder="{{translate('Email')}}"
                   class="form__field"
                   type="email"
                   name="email"
@@ -135,10 +135,10 @@
               <div class="form__group field">
                 <input  
                   required
-                  placeholder="{{translate("Subject")}}"
+                  placeholder="{{translate('Subject')}}"
                   name="subject"
                   class="form__field"
-                  value="{{old("subject")}}"
+                  value="{{old('subject')}}"
                   type="text"
                   id="subject"
                 />
@@ -150,7 +150,7 @@
 
             <div class="col-12">
               <div class="form__group field">
-                <textarea            placeholder="{{translate("Message")}}" required  class="form__field" id="message" name="message">{{old('message')}}</textarea>
+                <textarea            placeholder="{{translate('Message')}}" required  class="form__field" id="message" name="message">{{old('message')}}</textarea>
                   <label class="form__label" for="message">
                      {{translate("Write your Message")}}
                   </label>

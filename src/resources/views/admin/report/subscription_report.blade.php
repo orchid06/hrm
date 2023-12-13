@@ -18,7 +18,7 @@
                             <div class="filter-dropdown">
                                 <form action="{{route(Route::currentRouteName())}}" method="get">
                                     <div class="form-inner">
-                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                     </div>
                                     <div class="form-inner">
                                         <select name="user" id="user" class="user">
@@ -44,7 +44,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inner">
-                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id")}}">
+                                        <input type="text"  name="search" value="{{request()->input('search')}}" placeholder='{{translate("Search by transaction id")}}'>
                                     </div>
                                     <button class="i-btn btn--sm info w-100">
                                         <i class="las la-sliders-h"></i>
@@ -113,11 +113,11 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td  data-label="{{translate("Trx Code")}}">
+                                    <td  data-label="{{translate('Trx Code')}}">
                                         {{$report->trx_code}}
                                     </td>
 
-                                    <td data-label="{{translate("Expired In")}}">
+                                    <td data-label="{{translate('Expired In')}}">
                                         @if($report->expired_at)
                                            {{ get_date_time($report->expired_at) }}
                                         @else
@@ -125,28 +125,28 @@
                                         @endif
                                     </td>
 
-                                    <td data-label="{{translate("User")}}">
+                                    <td data-label='{{translate("User")}}'>
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
 
-                                    <td data-label="{{translate("Package")}}">
+                                    <td data-label='{{translate("Package")}}'>
                                          {{@$report->package->title}}
                                     </td>
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                          @php echo subscription_status($report->status) @endphp
                                     </td>
 
-                                    <td data-label="{{translate("Payment Info")}}">
+                                    <td data-label='{{translate("Payment Info")}}'>
                                         {{@num_format(
                                             number : $report->payment_amount??0,
                                             calC   : true
                                         )}}
                                     </td>
 
-                                    <td data-label="{{translate("Date")}}">
+                                    <td data-label='{{translate("Date")}}'>
                                         @if($report->created_at)
                                            {{ get_date_time($report->created_at) }}
                                         @else
@@ -154,7 +154,7 @@
                                         @endif
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
                                             @php
@@ -176,7 +176,7 @@
                                             <a href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Update")}}"  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
                                     
                                         </div>
                                     </td>
@@ -302,7 +302,7 @@
                                         {{translate('Expire Date')}} <span class="text-danger">*
                                             </span>
                                     </label>
-                                    <input type="date" required name="expired_at" id="expired_at" placeholder="{{translate("Enter Date")}}">
+                                    <input type="date" required name="expired_at" id="expired_at" placeholder='{{translate("Enter Date")}}'>
                                 </div>
                             </div>
 
@@ -312,7 +312,7 @@
                                         {{translate('Remarks')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                       <textarea required placeholder="{{translate("Type Here ...")}}" name="remarks" id="remarks" cols="30" rows="5"></textarea>
+                                       <textarea required placeholder='{{translate("Type Here ...")}}' name="remarks" id="remarks" cols="30" rows="5"></textarea>
                                 </div>
                             </div>
 

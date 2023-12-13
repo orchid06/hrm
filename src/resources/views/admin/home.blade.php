@@ -15,7 +15,7 @@
       </ol>
     <form action="">
       <div class="date-search">
-          <input type="text" id="datePicker2" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+          <input type="text" id="datePicker2" name="date" value="{{request()->input('date')}}"  placeholder="{{translate('Filter by date')}}">
           <button type="submit"><i class="bi bi-search"></i></button>
       </div>
     </form>
@@ -222,10 +222,10 @@
 
                       @forelse($data['latest_log'] as $log)
                       <tr>
-                          <td data-label="{{translate("Transaction Id")}}">{{$log->trx_code}}</td>
+                          <td data-label="{{translate('Transaction Id')}}">{{$log->trx_code}}</td>
 
                 
-                            <td data-label="{{translate("User")}}">
+                            <td data-label="{{translate('User')}}">
                             
                                 @if($log->user)
 
@@ -240,7 +240,7 @@
                             </td>
 
 
-                            <td data-label="{{translate("Method")}}">
+                            <td data-label="{{translate('Method')}}">
                             
                                 @if($log->method)
 
@@ -255,16 +255,16 @@
                             </td>
 
 
-                            <td data-label="{{translate("Amount")}}">
+                            <td data-label="{{translate('Amount')}}">
                               {{$log->method->currency_symbol}} {{round($log->final_amount)}} 
                             </td>
                         
-                            <td data-label="{{translate("Date")}}">
+                            <td data-label="{{translate('Date')}}">
                                 {{diff_for_humans($log->created_at)}}
                             </td>
 
                   
-                          <td data-label="{{translate("Status")}}">
+                          <td data-label="{{translate('Status')}}">
                               @if($log->status == '0')
                                 <span class="i-badge capsuled warning">
                                   {{translate("Pending")}}
@@ -281,7 +281,7 @@
                               @endif
                           </td>
 
-                          <td data-label="{{translate("Options")}}">
+                          <td data-label="{{translate('Options')}}">
                               <div class="table-action">
                                   @if(check_permission('update_transaction')  ) 
                                       

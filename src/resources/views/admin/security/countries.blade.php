@@ -4,7 +4,7 @@
         <div class="card-body">
                 <div class="search-action-area">
                     <div class="row g-4">
-                        <form hidden id="bulkActionForm" action="{{route("admin.security.country.bulk")}}" method="post">
+                        <form hidden id="bulkActionForm" action='{{route("admin.security.country.bulk")}}' method="post">
                             @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -88,7 +88,7 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-                                    <td data-label="{{translate("name")}}">
+                                    <td data-label='{{translate("name")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2"><p>{{$country->name}}</p>
                                           
                                                 <span class="i-badge capsuled success">
@@ -97,14 +97,14 @@
                                         </div>
 
                                     </td>
-                                    <td data-label="{{translate("Phone Code")}}">
+                                    <td data-label='{{translate("Phone Code")}}'>
                                         {{$country->phone_code}}
                                     </td>
                                
 
-                                    <td data-label="{{translate("Total Ip")}}">
+                                    <td data-label='{{translate("Total Ip")}}'>
                                         
-                                        <a href="{{route("admin.security.ip.list",['country_id' => $country->id])}}">
+                                        <a href="{{route('admin.security.ip.list',['country_id' => $country->id])}}">
                                             <span class="i-badge capsuled success">
                                                {{translate("No of ip")}} {{$country->ip_count}}
                                             </span>
@@ -112,7 +112,7 @@
                             
                                     </td>
                                
-                                    <td data-label="{{translate("Blocked")}}">
+                                    <td data-label='{{translate("Blocked")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_security') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_blocked"

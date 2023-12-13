@@ -2,7 +2,6 @@
 
 @section('content')
 
-
         <div class="row g-4 position-relative">
             @include('admin.partials.loader')
 
@@ -65,7 +64,7 @@
                                             {{translate('Content')}} <small class="text-danger">*</small>
                                         </label>
 
-                                        <textarea placeholder="{{translate("Enter Your Content")}}" name="content" id="content" cols="30" rows="10"></textarea>
+                                        <textarea placeholder='{{translate("Enter Your Content")}}' name="content" id="content" cols="30" rows="10"></textarea>
 
                                     </div>
                                 </div>
@@ -253,12 +252,6 @@
 
 
         }
-
-
-
-
-      
-
           
 	})(jQuery);
 </script>

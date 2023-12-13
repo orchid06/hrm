@@ -4,7 +4,7 @@
         <div class="card-body">
                 <div class="search-action-area">
                     <div class="row g-4">
-                        <form hidden id="bulkActionForm" action="{{route("admin.currency.bulk")}}" method="post">
+                        <form hidden id="bulkActionForm" action='{{route("admin.currency.bulk")}}' method="post">
                             @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -99,7 +99,7 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-                                    <td data-label="{{translate("name")}}">
+                                    <td data-label='{{translate("name")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2"><p>{{$currency->name}}</p>
                                             @if($currency->default == App\Enums\StatusEnum::true->status())
                                                 <span class="i-badge capsuled success">
@@ -112,10 +112,10 @@
                                     <td data-label="{{translate('symbol')}}">{{$currency->symbol}}</td>
                                     <td data-label="{{translate('code')}}">{{$currency->code}}</td>
                           
-                                    <td data-label="{{translate("exchange rate")}}" >
+                                    <td data-label='{{translate("exchange rate")}}' >
                                         {{translate('1 '.base_currency()->code.' = ')}} {{num_format($currency->exchange_rate,$currency)}}
                                     </td>
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_currency') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -129,7 +129,7 @@
 
                                  
 
-                                    <td data-label="{{translate("Action")}}">
+                                    <td data-label='{{translate("Action")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_currency') || check_permission('delete_currency') )
                                                 @if(check_permission('update_currency'))
@@ -249,7 +249,7 @@
                                         {{translate('Exchange Rate')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="number" placeholder="{{translate("Exchange Rate")}}" min="0" step="any" id="exchange_rate"  class="form-control"
+                                    <input type="number" placeholder='{{translate("Exchange Rate")}}' min="0" step="any" id="exchange_rate"  class="form-control"
                                        name="exchange_rate"
                                        value="{{ old('exchange_rate')}}"
                                        required>
@@ -316,7 +316,7 @@
                                         {{translate('No of Decimals')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input id="num_decimal" placeholder="{{translate("Enter number")}}" type="number" name="site_settings[num_of_decimal]" value="{{site_settings('num_of_decimal')}}">
+                                    <input id="num_decimal" placeholder='{{translate("Enter number")}}' type="number" name="site_settings[num_of_decimal]" value="{{site_settings('num_of_decimal')}}">
                                  
                                 </div>
                             </div>
@@ -329,7 +329,7 @@
                                         {{translate('Decimal Separator')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input id="decimal_separator" placeholder="{{translate("Decimal separator")}}" type="text" name="site_settings[decimal_separator]" value="{{site_settings('decimal_separator')}}">
+                                    <input id="decimal_separator" placeholder='{{translate("Decimal separator")}}' type="text" name="site_settings[decimal_separator]" value="{{site_settings('decimal_separator')}}">
                                  
                                 </div>
                             </div>
@@ -342,7 +342,7 @@
                                         {{translate('Thousands Separator')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input id="thousands_separator" placeholder="{{translate("Thousands Separator")}}" type="text" name="site_settings[thousands_separator]" value="{{site_settings('thousands_separator')}}">
+                                    <input id="thousands_separator" placeholder='{{translate("Thousands Separator")}}' type="text" name="site_settings[thousands_separator]" value="{{site_settings('thousands_separator')}}">
                                  
                                 </div>
                             </div>
@@ -357,7 +357,7 @@
                                     <select class="select2 price-format" name="site_settings[price_format]" id="price_format">
                                        
                                         @foreach (Arr::get(config('settings'),'price_format' ,[]) as $k => $v)
-                                            <option  {{site_settings('price_format') == $v ? "selected" :""  }} value="{{$v}}">
+                                            <option  {{site_settings("price_format") == $v ? "selected" :""  }} value="{{$v}}">
                                                 {{ucfirst(str_replace("_"," ",$k))}}
                                             </option>
                                         @endforeach
@@ -372,7 +372,7 @@
                                     <label for="truncate_after" class="form-label" >
                                         {{translate('Truncate After')}} <small class="text-danger">* ({{translate("Must be greater than 1000")}})</small>
                                     </label>
-                                    <input id="truncate_after" placeholder="{{translate("Enter number")}}" min="1000" type="number" name="site_settings[truncate_after]" value="{{site_settings('truncate_after')}}">
+                                    <input id="truncate_after" placeholder='{{translate("Enter number")}}' min="1000" type="number" name="site_settings[truncate_after]" value="{{site_settings('truncate_after')}}">
                                 </div>
                             </div>
 

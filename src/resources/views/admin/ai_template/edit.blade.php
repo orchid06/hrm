@@ -71,7 +71,7 @@
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
 
-                                    <input placeholder="{{translate("Search Icon")}}" class="icon-picker" value="{{$template->icon}}" type="text" name="icon" id="Icon">
+                                    <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value="{{$template->icon}}" type="text" name="icon" id="Icon">
                                 
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                         {{translate('Short Description')}}  <span class="text-danger">*</span>
                                     </label>
 
-                                    <textarea  placeholder="{{translate("Enter Short Description")}}" name="description" id="description" cols="30" rows="2">{{$template->description}}</textarea>
+                                    <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{$template->description}}</textarea>
 
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                         {{translate('Prompt')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <textarea  placeholder="{{translate("Enter Prompt")}}" name="custom_prompt" id="customPrompt" cols="30" rows="2">{{$template->custom_prompt}}</textarea>
+                                    <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{$template->custom_prompt}}</textarea>
 
                                 </div>
                             </div>

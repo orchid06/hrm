@@ -119,7 +119,7 @@
                             <label for="description"> 
                                 {{translate('Description')}} <small class="text-danger">*</small>
                             </label>
-                            <textarea required placeholder="{{translate("Enter Description")}}" name="description" id="description"  cols="30" rows="5">{{$package->description}}</textarea>
+                            <textarea required placeholder="{{translate('Enter Description')}}" name="description" id="description"  cols="30" rows="5">{{$package->description}}</textarea>
                         </div>
                     </div>
 
@@ -194,7 +194,7 @@
                                                     <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
 
                                                     <input type="number" min="-1"
-                                                    value="{{@$package->social_access->post}}" name="social_access[post]" id="post" placeholder="{{translate("Total Post")}}" required   >
+                                                    value="{{@$package->social_access->post}}" name="social_access[post]" id="post" placeholder="{{translate('Total Post')}}" required   >
 
                                                 
                                                 </div>
@@ -275,7 +275,7 @@
                                                     <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
 
                                                     <input type="number" min="-1"
-                                                    value="{{@$package->ai_configuration->word_limit}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate("No. of Words")}}"   >
+                                                    value="{{@$package->ai_configuration->word_limit}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate('No. of Words')}}"   >
 
                                             
                         

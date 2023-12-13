@@ -53,12 +53,12 @@
                                                 <select class="select2" id="open_ai_model" name="site_settings[open_ai_model]"
                                                     required>
 
-                                                       @foreach (Arr::get(config('settings'),'open_ai_model',[]) as $k => $v )
-                                                            <option value="{{$k}}" {{site_settings("open_ai_model") == $k  ? "selected" :""}} >
-                                                                {{ $v }}
-                                                            </option>
-                                                       @endforeach
-                                                      
+                                                   @foreach (Arr::get(config('settings'),'open_ai_model',[]) as $k => $v )
+                                                    <option value="{{$k}}" {{site_settings("open_ai_model") == $k  ?"selected" :""}} >
+                                                        {{ $v }}
+                                                    </option>
+                                                   @endforeach
+                                                  
                                                 </select>
                                         </div>
                                     </div>
@@ -116,8 +116,8 @@
 
                                             </label>
 
-                                            <input placeholder="{{translate("Max Result")}}" type="number" id="default_max_result"name="site_settings[default_max_result]"
-                                                class="form-control" value="{{ site_settings("default_max_result") }}"
+                                            <input placeholder='{{translate("Max Result")}}' type="number" id="default_max_result"name="site_settings[default_max_result]"
+                                                class="form-control" value='{{ site_settings("default_max_result") }}'
                                                 min="-1">
                                         </div>
                                     </div>
@@ -191,16 +191,16 @@
                             <div class="card-body">
                                 <div class="row">
                                     
-                                        <div class="col-12 mb-20 add-key-btn @if(site_settings("ai_key_usage") == App\Enums\StatusEnum::true->status()) d-none @endif">
+                                        <div class="col-12 mb-20 add-key-btn @if(site_settings('ai_key_usage') == App\Enums\StatusEnum::true->status()) d-none @endif">
                                             <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Key')}}</a>
                                         </div> 
                                   
                                   
                                         <div class="col-lg-12">
 
-                                            <div class="@if(site_settings("ai_key_usage") == App\Enums\StatusEnum::false->status())  addedField @endif form-inner api-key-section">
+                                            <div class="@if(site_settings('ai_key_usage') == App\Enums\StatusEnum::false->status())  addedField @endif form-inner api-key-section">
 
-                                                <div class="main-api-key @if(site_settings("ai_key_usage") == App\Enums\StatusEnum::false->status()) d-none @endif">
+                                                <div class="main-api-key @if(site_settings('ai_key_usage') == App\Enums\StatusEnum::false->status()) d-none @endif">
                                                     <label for="open_ai_secret"
                                                     class="form-label">{{ translate('Open AI Secret Key') }} 
 
@@ -208,11 +208,11 @@
 
                                                     </label>
 
-                                                    <input placeholder="{{translate("Open AI Secret Key")}}" type="text" id="open_ai_secret"name="site_settings[open_ai_secret]"
-                                                        class="form-control" value="{{ site_settings("open_ai_secret") }}" >
+                                                    <input placeholder="{{translate('Open AI Secret Key')}}" type="text" id="open_ai_secret"name="site_settings[open_ai_secret]"
+                                                        class="form-control" value="{{ site_settings('open_ai_secret') }}" >
                                                 </div>
 
-                                                <div class="random-keys  @if(site_settings("ai_key_usage") == App\Enums\StatusEnum::true->status()) d-none @endif">
+                                                <div class="random-keys  @if(site_settings('ai_key_usage') == App\Enums\StatusEnum::true->status()) d-none @endif">
 
                            
                                                     @foreach (format_rand_keys() as $k => $v ) 

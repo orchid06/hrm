@@ -52,13 +52,13 @@
                             <tbody id="ticketField">
                                 @foreach ($kycSettings as $input)
                                 <tr>
-                                    <td data-label="{{translate("Label")}}">
+                                    <td data-label='{{translate("Label")}}'>
                                         <div class="form-inner mb-0">
                                             <input type="text" name="custom_inputs[{{$loop->index}}][labels]"  value="{{$input['labels']}}">
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Type")}}">
+                                    <td data-label='{{translate("Type")}}'>
                                         <div class="form-inner mb-0">
 
                                             @if($input['default'] == App\Enums\StatusEnum::true->status())
@@ -77,10 +77,10 @@
                                         </div>
                                     </td>
 
-                                    <td  data-label="{{translate("Required")}}" >
+                                    <td  data-label='{{translate("Required")}}' >
                                         <div class="form-inner mb-0">
                                             @if($input['default'] == App\Enums\StatusEnum::true->status() && $input['type'] != 'file' )
-                                                <input disabled  type="text" name="custom_inputs[required]"  value="{{$input['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :"No"}}">
+                                                <input disabled  type="text" name="custom_inputs[required]"  value="{{$input['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :'No'}}">
                                                 <input hidden  type="text" name="custom_inputs[{{$loop->index}}][required]"  value="{{$input['required']}}">
                                             @else
                                                 <select class="form-select" name="custom_inputs[{{$loop->index}}][required]" >
@@ -95,7 +95,7 @@
                                         </div>
                                     </td>
 
-                                    <td  data-label="{{translate("Placeholder")}}">
+                                    <td  data-label='{{translate("Placeholder")}}'>
                                         <div class="form-inner mb-0">
                                             <input type="text" name="custom_inputs[{{$loop->index}}][placeholder]"  value="{{$input['placeholder']}}">
                                         </div>
@@ -105,7 +105,7 @@
 
                                     </td>
 
-                                    <td data-label="{{translate("Option")}}">
+                                    <td data-label='{{translate("Option")}}'>
                                         @if($input['default'] == App\Enums\StatusEnum::true->status())
                                             {{translate('N/A')}}
                                             @else

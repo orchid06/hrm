@@ -9,7 +9,7 @@
       <div class="row g-5 align-items-center">
         <div class="col-lg-7 pe-lg-5 order-lg-0 order-2 gs_reveal fromLeft">
           <div>
-            <img src="{{imageUrl(@$file,"frontend",true,@get_appearance()->analytics->content->images->image->size)}}" alt="{{@$file->name}}" />
+            <img src='{{imageUrl(@$file,"frontend",true,@get_appearance()->analytics->content->images->image->size)}}' alt="{{@$file->name}}" />
           </div>
         </div>
 

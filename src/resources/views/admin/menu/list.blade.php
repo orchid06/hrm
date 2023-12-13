@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.menu.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.menu.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -105,10 +105,10 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-                                    <td data-label="{{translate("Name")}}">
+                                    <td data-label='{{translate("Name")}}'>
                                         {{ ($menu->name)}}
                                     </td>
-                                    <td data-label="{{translate("Url")}}">
+                                    <td data-label='{{translate("Url")}}'>
                                          <a target="_blank" href="{{url($menu->url)}}">
                                             {{limit_words(url($menu->url),20)}}
                                          </a>
@@ -116,7 +116,7 @@
                                     </td>
                                     
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
 
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_menu') || $menu->is_default == App\Enums\StatusEnum::true->status() ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -132,7 +132,7 @@
                                     </td>
 
                              
-                                    <td data-label="{{translate("Action")}}">
+                                    <td data-label='{{translate("Action")}}'>
                                         <div class="table-action">
 
                                             @if(check_permission('update_menu') ||  check_permission('delete_menu'))
@@ -203,8 +203,8 @@
                                         <small class="text-danger">*</small>
                                     </label>
                                     
-                                    <input type="text" name="name"   placeholder="{{translate("Enter name")}}"
-                                        value="{{old("name")}}" required >
+                                    <input type="text" name="name"   placeholder='{{translate("Enter name")}}'
+                                        value='{{old("name")}}' required >
                                       
 
                                 </div>
@@ -218,8 +218,8 @@
                                     <label for="url">
                                         {{translate('Url')}} <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" required name="url" id="url"  placeholder="{{translate("Enter url")}}"
-                                        value="{{old("url")}}">
+                                    <input type="text" required name="url" id="url"  placeholder='{{translate("Enter url")}}'
+                                        value='{{old("url")}}'>
 
                                      
                                 </div>
@@ -231,8 +231,8 @@
                                         {{translate('Serial Id')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="number" min="0" required name="serial_id" id="serial_id"  placeholder="{{translate("Enter Serial Id")}}"
-                                        value="{{old("serial_id") ? old("serial_id") :$serialId }}">
+                                    <input type="number" min="0" required name="serial_id" id="serial_id"  placeholder='{{translate("Enter Serial Id")}}'
+                                        value='{{old("serial_id") ? old("serial_id") :$serialId }}'>
                                 </div>
                             </div>
 

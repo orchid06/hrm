@@ -28,7 +28,7 @@
                                         {{translate('Title')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value="{{old("title")}}">
+                                    <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value='{{old("title")}}'>
 
                                
                                 
@@ -41,7 +41,7 @@
                                         {{translate('slug')}} 
                                     </label>
 
-                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value="{{old("slug")}}">       
+                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>       
                                  
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                         {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['article']['size']}})</small>
                                     </label>
                                 
-                                    <input data-size = "{{config("settings")['file_path']['article']['size']}}" id="image" name="image" type="file" class="preview" >
+                                    <input data-size = '{{config("settings")["file_path"]["article"]["size"]}}' id="image" name="image" type="file" class="preview" >
             
                                     <div class="mt-2 image-preview-section">
                                         

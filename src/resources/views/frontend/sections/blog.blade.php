@@ -20,7 +20,7 @@
             </div>
 
             <div>
-              <a href="{{route("blog")}}" class="learn-more">
+              <a href='{{route("blog")}}' class="learn-more">
                 <span class="circle" aria-hidden="true">
                   <span class="icon arrow"> </span>
                 </span>
@@ -56,7 +56,7 @@
                             <div class="blog-item">
                               <div class="blog-img">
                                 <img
-                                  src="{{imageUrl(@$blog->file,"article",true)}}"
+                                  src='{{imageUrl(@$blog->file,"article",true)}}'
                                   alt="{{@$blog->file->name}}"
                                   loading="lazy"/>
 
