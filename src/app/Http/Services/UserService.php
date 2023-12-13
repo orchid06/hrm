@@ -135,30 +135,32 @@ class UserService
             ];
 
 
-            $transaction = DB::transaction(function() use ($request,$params,$user,$method ,$baseAmount ) {
+            DB::transaction(function() use ($request,$params,$user,$method ,$baseAmount ) {
                 
                 $log = $this->paymentService->withdrawLog($user , $method ,$params);
 
-                if(request()->routeIs('user.*')){
-                   $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data");
-                }
+                    if(request()->routeIs('user.*')){
+                        $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data");
+                    }
 
-                $params ['trx_type']   = Transaction::$MINUS;
-                $params ['trx_code']   = $log->trx_code;
-                $params ['remarks']    = 'withdraw';
-                $params ['details']    = $params['amount']." ".session("currency")?->code.' Withdraw Via ' .$method->name;
-                
+                    if($log->status == WithdrawStatus::value("APPROVED")){
 
-                $transaction           =  PaymentService::makeTransaction($user,$params);
+                        $params ['trx_type']   = Transaction::$MINUS;
+                        $params ['trx_code']   = $log->trx_code;
+                        $params ['remarks']    = 'withdraw';
+                        $params ['details']    = $params['amount']." ".session("currency")?->code.' Withdraw Via ' .$method->name;
+                    
+                        $transaction           =  PaymentService::makeTransaction($user,$params);
 
-                if($transaction){
+                        $user->balance -= $baseAmount;
+                        $user->save();
 
-                    $user->balance -= $baseAmount;
-                    $user->save();
+                    }
+                    
                     $code = [
                         "name"      => $user->name,
-                        "trx_code"  => $transaction->trx_code,
-                        "amount"    => num_format($transaction->amount,$log->currency),
+                        "trx_code"  => $log->trx_code,
+                        "amount"    => num_format($log->amount,$log->currency),
                         "method"    => $method->name,
                         "time"      => Carbon::now(),
                     ];
@@ -204,9 +206,6 @@ class UserService
                     $this->notify($notifications);
 
 
-                }
-
-                return   $transaction;
             
             });
 

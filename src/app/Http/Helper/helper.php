@@ -377,6 +377,7 @@ use Illuminate\Database\Eloquent\Collection;
          $famount    = (number_format($number,$decimal, $ds, $ts));
 
          if((site_settings('price_format') == StatusEnum::true->status()) && $number > site_settings('truncate_after') ){
+            
             if ($number >= 1000000) {
                $famount  =  number_format($number,$decimal, $ds, $ts) . 'm';
             } elseif ($number >= 1000) {

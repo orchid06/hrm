@@ -53,7 +53,6 @@ class Payment
         $response['error']   = true;
         $response['message'] = translate("Invalid Request");
 
-
         if(isset($response->auto_return) && $response->auto_return == 'approved') {
 
             $send['redirect']     = true;

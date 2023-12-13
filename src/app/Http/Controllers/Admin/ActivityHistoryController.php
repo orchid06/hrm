@@ -445,7 +445,7 @@ class ActivityHistoryController extends Controller
 
             'breadcrumbs'     =>  ['Home'=>'admin.home',"Withdraws"=> "admin.withdraw.report.list",'Withdraw Details'=> null],
             'title'           => 'Withdraw details',
-            "report"          =>  WithdrawLog::with(['user','method','method','currency'])
+            "report"          =>  WithdrawLog::with(['user','method','method','currency',"file"])
                                     ->findOrfail($id)
                                         
         ]);

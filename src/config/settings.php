@@ -488,37 +488,12 @@ return [
             "currency_id"      => "1",
             "parameters"       => [
                 "passphrase" => '#',
-            ],
-            "extra_parameters" => [],
-        ],
-
-        "Blockchain" => [
-            
-            "code"             => "blockchain",
-            "serial_id"        => "20",
-            "currency_id"      => "1",
-            "parameters"       => [
-                "api_key" => '#',
-                "xpub_code" => '#',
-            ],
-            "extra_parameters" => [],
-        ],
-
-        "Checkout" => [
-
-            "code"             => "checkout",
-            "serial_id"        => "21",
-            "currency_id"      => "1",
-            "parameters"       => [
-                "secret_key" => '#',
-                "public_key" => '#',
-                "channel"    => '#',
+                "wallet_id" => '#',
             ],
             "extra_parameters" => [],
         ],
 
         "Coingate" => [
-
             "code"             => "coingate",
             "serial_id"        => "22",
             "currency_id"      => "1",
@@ -529,7 +504,6 @@ return [
         ],
 
         "Skrill" => [
-
             "code"             => "skrill",
             "serial_id"        => "23",
             "currency_id"      => "1",

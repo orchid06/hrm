@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,10 +44,10 @@ class SocialAuthController extends Controller
         $user = User::where('email',$userOauth->email)->first();
         if(!$user){
             $user                    = new User();
-            $user->name              = $userOauth->user['name'];
-            $user->email             = $userOauth->user['email'];
-            $user->o_auth_id         = $userOauth->user['id'];
-            $user->email_verified_at =  Carbon::now();
+            $user->name              = Arr::get($userOauth->user,"name", null) ;
+            $user->email             = $userOauth->email ; 
+            $user->o_auth_id         = Arr::get($userOauth->user,"id", null);
+            $user->email_verified_at = Carbon::now();
             $user->save();
         }
         

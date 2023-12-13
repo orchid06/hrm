@@ -6,7 +6,6 @@ use App\Enums\DepositStatus;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepositRequest;
-use App\Http\Services\PaymentService;
 use App\Http\Services\UserService;
 use App\Models\Admin\PaymentMethod;
 use App\Models\PaymentLog;
@@ -43,8 +42,7 @@ class DepositController extends Controller
 
 
         $method           = PaymentMethod::with(['currency'])->find($request->input("payment_id"));
-        $status           = false;
-        $responseStatus   = response_status(translate('Deposit amount should be less than ').num_format(number :$method->minimum_amount ,calC:true). " and greter than ".num_format(number :$method->minimum_amount ,calC:true),'error');
+        $responseStatus   = response_status(translate('Deposit amount should be less than ').num_format(number :$method->maximum_amount ,calC:true). " and greter than ".num_format(number :$method->minimum_amount ,calC:true),'error');
 
         try {
             $amount    = (double) $request->input('amount');
@@ -109,12 +107,14 @@ class DepositController extends Controller
         }
 
 
-        if (isset($data->error)) {
-            return back()->with(response_status($data->message,'error'));
-        }
         if (isset($data->redirect)) {
             return redirect($data->redirect_url);
         }
+
+        if (isset($data->error)) {
+            return back()->with(response_status($data->message,'error'));
+        }
+       
 
         return view($data->view,[
             'log'       => $depositLog,
@@ -134,17 +134,19 @@ class DepositController extends Controller
      * @param string $type
      * @return mixed
      */
-    public function callbackIpn(Request $request , string $trxCode , ? string $type = null ) :RedirectResponse  {
+    public function callbackIpn(Request $request , ? string $trxCode = null , ? string $type = null ) :RedirectResponse  {
         
 
         $responseStatus = response_status("Invalid deposit request",'error');
 
         try {
       
+            $trxCode    = $trxCode?? session()->get("trx_code");
             $depositLog = PaymentLog::with(['user','method','currency'])
                             ->where('trx_code', $trxCode)
                             ->initiate()
                             ->first();
+
 
             $gatewayService = 'App\\Http\\Services\\Gateway\\'.$depositLog->method->code.'\\Payment';
             $data           = $gatewayService::ipn($request, @$depositLog, @$type);

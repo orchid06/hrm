@@ -35,6 +35,8 @@
         </script>
 
     @endif
+
+
     
     @if (site_settings("google_ads") == App\Enums\StatusEnum::true->status() )
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-{{site_settings("google_adsense_publisher_id")}}"

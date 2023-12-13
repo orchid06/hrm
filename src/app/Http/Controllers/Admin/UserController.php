@@ -277,7 +277,7 @@ class UserController extends Controller
      */
     public function show(string $uid) :View{
 
-        $user  = User::with(['file','kycLogs','templates','paymentLogs','transactions','subscriptions','tickets','withdraws','affiliates'])
+        $user  = User::with(['file','kycLogs','templates','paymentLogs','transactions','subscriptions','tickets','withdraws','affiliates',"referral"])
                     ->where('uid',$uid)
                     ->firstOrFail();
 

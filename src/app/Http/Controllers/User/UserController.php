@@ -3,33 +3,30 @@
 namespace App\Http\Controllers\User;
 
 use App\Enums\StatusEnum;
+use App\Enums\WithdrawStatus;
 use App\Http\Controllers\Controller;
 
-use App\Http\Services\PaymentService;
 use App\Http\Services\UserService;
-use App\Http\Utility\SendNotification;
 use App\Models\Package;
-use App\Models\Subscription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\Models\Admin\Category;
 use Illuminate\View\View;
-
-use App\Models\Admin\PaymentMethod;
-use App\Models\PaymentLog;
-use App\Models\Transaction;
+use App\Models\Admin\Withdraw;
 use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
     
-    protected $userService;
+    protected $userService ,$user;
 
     public function __construct(){
         
         $this->userService      = new UserService();
 
+        $this->middleware(function ($request, $next) {
+            $this->user = auth_user('web');
+            return $next($request);
+        });
     }
 
 
@@ -40,9 +37,9 @@ class UserController extends Controller
      */
     public function planPurchase(string $slug) :RedirectResponse{
 
-        $user      = auth_user('web');
+
         $package   = Package::where("slug",$slug)->firstOrfail();
-        $response  = $this->userService->createSubscription($user,$package);
+        $response  = $this->userService->createSubscription($this->user,$package);
         $status    = isset($response['status']) 
                          ? 'success' 
                          : 'error';
@@ -50,6 +47,106 @@ class UserController extends Controller
         return back()->with(response_status(Arr::get($response,"message",trans("default.something_went_wrong")),$status));
     }
 
+
+
+    /**
+     * Process withdraw request
+     *
+     * @return RedirectResponse
+     */
+    public function withdrawRequest(Request $request) :RedirectResponse{
+
+        $amount = session()->get("withdraw_amount");
+        $gwId   = session()->get("gw_id");
+
+        $balance = (int)$this->user->balance;
+        
+
+        $rules = [
+            "amount" => ['numeric','gt:0',"max:".$balance],
+        ];
+
+        $gateway           = Withdraw::with(['file'])->findOrfail($gwId);
+
+        $customRules       = $this->userService->paramValidationRules($gateway->parameters);
+        $mergedRules       = array_merge($rules, $customRules);
+
+        $request->validate($mergedRules);
+
+        $response         = response_status(translate("Invalid amount and gateway"),'error');
+
+        if((int)$request->input('amount') == $amount){
+            $response = $this->userService
+                             ->createWithdrawLog($request,$this->user,$gateway,WithdrawStatus::value('PENDING',true));
+        }
+
+        session()->forget("withdraw_amount");
+        session()->forget("gw_id");
+
+        return redirect()
+                ->route('user.withdraw.report.list')->with($response);
+    }
+
+
+
+    /**
+     * Withdraw preview
+     *
+     * @return View
+     */
+    public function withdrawPreview(Request $request) :View | RedirectResponse{
+
+        $balance = (int)$this->user->balance;
+        $request->validate([
+            "id"     => ['required','exists:withdraws,id'],
+            "amount" => ['numeric','gt:0',"max:".$balance],
+        ]);
+
+        $method           = Withdraw::with(['file'])->find($request->input("id"));
+        $amount           = (int) $request->input('amount');
+
+        $error            = $this->validateWithdrawRequest($method, $amount);
+
+        if($error !== null){
+            return back()->with("error",$error);
+        }
+
+        session()->put("withdraw_amount",$amount);
+        session()->put("gw_id",$method->id);
+
+        return view('user.withdraw_preview',[
+
+            'meta_data' => $this->metaData(['title'=> translate("Withdraw preview")]),
+            'method'    => $method,
+            'amount'    => $amount,
+        ]);
+
+    }
+    
+
+
+    /**
+     * Validate withdraw request
+     *
+     * @param Withdraw $method
+     * @param integer $amount
+     * @return string|null
+     */
+    public function validateWithdrawRequest(Withdraw $method , int $amount ) :?string {
+
+        $maxRequestLimit = (int) site_settings("max_pending_withdraw",100);
+        $pendingRequest  = (int) $this->user?->pendingWithdraws->count();
+
+        if($amount  < $method->minimum_amount || $amount > $method->maximum_amount ){
+            return translate('Withdraw amount should be less than ').num_format(number :$method->maximum_amount ,calC:true). " and greter than ".num_format(number :$method->minimum_amount ,calC:true);
+        }
+
+        if($maxRequestLimit == $pendingRequest ){
+            return translate('Oops! It looks like your withdrawal request has gone over the limit. Please review and try again.');
+        }
+
+        return null;
+    }
 
 
 
