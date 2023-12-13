@@ -116,12 +116,13 @@ use Illuminate\Support\Facades\Route;
             #basic user route
             Route::controller(UserController::class)->group(function(){
 
-                /** NEW ROUTE START */
-                  Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
+                Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
+                Route::prefix("/withdraw")->name('withdraw.')->group(function(){
+                        Route::post('/request','withdrawRequest')->name('request');
+                        Route::get('/preview','withdrawPreview')->name('preview');
+                });
                   
-                  
-                /** END */
-
+     
 
 
             });

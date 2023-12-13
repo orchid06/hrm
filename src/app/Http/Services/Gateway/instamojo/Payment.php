@@ -23,7 +23,6 @@ class Payment
         ];
   
         $postParam = [
-
             'purpose'                 => 'Payment to ' . $siteName,
             'amount'                  => round($log->final_amount),
             'buyer_name'              => optional($log->user)->name ?? 'User Name',
@@ -42,7 +41,7 @@ class Payment
         $response['message'] = translate("Invalid Request");
 
         if ($response->success) {
-            $send['redirect'] = true;
+            $send['redirect']     = true;
             $send['redirect_url'] = $response->payment_request[0]->longurl;
         } 
         return json_encode($send);

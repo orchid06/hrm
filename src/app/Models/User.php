@@ -169,6 +169,12 @@ class User extends Authenticatable
     }
 
 
+    public function pendingWithdraws() :HasMany{
+
+        return $this->hasMany(WithdrawLog::class,'user_id')->pending();
+    }
+
+
     public function scopeActive(Builder $q) :Builder{
         
         return $q->where("status",StatusEnum::true->status());

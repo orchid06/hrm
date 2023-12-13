@@ -177,7 +177,7 @@ return [
 
         App\Providers\MailConfigServiceProvider::class,
         App\Providers\SocialLoginServiceProvider::class,
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
 
     ])->toArray(),
 
@@ -193,7 +193,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
         'Redis' => Illuminate\Support\Facades\Redis::class,
 

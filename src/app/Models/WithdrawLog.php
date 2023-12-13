@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Enums\WithdrawStatus;
 use App\Models\Admin\Currency;
-use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
+use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

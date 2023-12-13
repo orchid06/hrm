@@ -41,7 +41,9 @@ class Payment
         $response = json_decode($response, true);
 
         if ($response && isset($response['data'])) {
+
             $data['message'] = Arr::get($response['data'],"gateway_response", translate('Invalid amount'));
+            
             if ($response['data']['status'] == 'success') {
                 $payable = round(($log->final_amount * 100));
                 if (round($response['data']['amount']) == $payable && $response['data']['currency'] == $log->method->currency->code) {

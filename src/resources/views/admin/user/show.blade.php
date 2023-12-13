@@ -137,14 +137,23 @@
                             @php
                                $earnings =  $user->affiliates->sum("commission_amount");
                             @endphp
-                            <span class="i-badge-solid info"> {{num_format($earnings,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
-                                {{num_format(
-                                    number :$earnings,
-                                    calC   : true
-                                )}} @endif
-                            </span>
+                            <a href="{{route("admin.affiliate.report.list",['user' => $user->username])}}">
+
+                                <span class="i-badge-solid info"> {{num_format($earnings,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
+                                    {{num_format(
+                                        number :$earnings,
+                                        calC   : true
+                                    )}} @endif
+                                </span>
+
+                            </a>
+                           
 
                         </li>
+                    @endif
+
+                    @if($user->referral)
+                       <li class="list-group-item">{{ translate('RefferdbBy') }} : <a href="{{route('admin.user.show',$user->referral->uid)}}">{{ $user->referral?->name }}</a></li>
                     @endif
                     
                     <li class="list-group-item">{{ translate('Name') }} : {{ $user->name }}</li>

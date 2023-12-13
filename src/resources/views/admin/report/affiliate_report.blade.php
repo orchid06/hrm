@@ -80,7 +80,7 @@
                             </th>
 
                             <th scope="col">
-                                {{translate('Reffer User')}}
+                                {{translate('Reffered User')}}
                             </th>
 
                             <th scope="col">
