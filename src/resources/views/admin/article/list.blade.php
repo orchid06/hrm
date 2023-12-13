@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.article.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.article.bulk")}}' method="post">
                         @csrf
                         <input type="hidden" name="bulk_id" id="bulkid">
                         <input type="hidden" name="value" id="value">
@@ -94,7 +94,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inner">
-                                        <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}">
+                                        <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
                                     </div>
 
                                     <button class="i-btn btn--sm info w-100">
@@ -161,9 +161,9 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Title")}}">
+                                    <td data-label='{{translate("Title")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-sm" src="{{imageUrl(@$article->file,"article",true)}}" alt="{{@$article->file->name}}">
+                                            <img class="rounded-circle avatar-sm" src='{{imageUrl(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
 
                                             <p>	 {{$article->title}}</p>
                                         </div>
@@ -171,17 +171,17 @@
 
 
 
-                                    <td data-label="{{translate("Category")}}">
+                                    <td data-label='{{translate("Category")}}'>
                                         {{@($article->category->title)}}
                                     </td>
 
-                                    <td data-label="{{translate("Created by")}}">
+                                    <td data-label='{{translate("Created by")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$article->createdBy->name}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -193,7 +193,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Feature")}}">
+                                    <td data-label='{{translate("Feature")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_feature"
@@ -205,7 +205,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_article') || check_permission('delete_article') )
 

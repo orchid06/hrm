@@ -98,10 +98,10 @@
                                 {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['withdraw_method']['size']}})</small>
                             </label>
                         
-                            <input data-size = {{config("settings")['file_path']['withdraw_method']['size']}} id="image" name="image" type="file" class=" preview" >
+                            <input data-size = "{{config('settings')['file_path']['withdraw_method']['size']}}" id="image" name="image" type="file" class=" preview" >
     
                             <div class="mt-2  payment-preview image-preview-section" >
-                                <img src="{{imageUrl(@$withdraw->file,"withdraw_method",true)}}" alt="{{@$withdraw->file->name}}" class="payment-image">
+                                <img src="{{imageUrl(@$withdraw->file,'withdraw_method',true)}}" alt="{{@$withdraw->file->name}}" class="payment-image">
                             </div>
                         </div>                     
                     </div>

@@ -53,7 +53,7 @@
                         $file =  $element->file->where("type",$key)->first();
                   @endphp
                   <li>
-                     <img src="{{imageUrl(@$file,"frontend",true,$val->size)}}" alt="{{@$file->name}}" />
+                     <img src="{{imageUrl(@$file,'frontend',true,$val->size)}}" alt="{{@$file->name}}" />
                   </li>
                   
               @endforeach
@@ -99,7 +99,7 @@
             </span>
             </div>
          </div>
-         <img src="{{imageUrl(@$bannerImg,"frontend",true,@get_appearance()->banner->content->images->image->size)}}" alt="{{@$bannerImg->name}}" />
+         <img src="{{imageUrl(@$bannerImg,'frontend',true,@get_appearance()->banner->content->images->image->size)}}" alt="{{@$bannerImg->name}}" />
       </div>
       </div>
    </div>

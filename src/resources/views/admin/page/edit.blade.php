@@ -32,7 +32,7 @@
                                        </label>
                                        
                                
-                                       <input type="text" name="title" id="title" placeholder="{{translate("Enter Title")}}"
+                                       <input type="text" name="title" id="title" placeholder='{{translate("Enter Title")}}'
                                            value="{{$page->title}}" required>        
                                                                                            
                                    </div>                                                                         
@@ -47,7 +47,7 @@
                                        {{translate('Slug')}}
                                    </label>
                            
-                                   <input type="text" name="slug" id="slug"   placeholder="{{translate("Enter Slug")}}"
+                                   <input type="text" name="slug" id="slug"   placeholder='{{translate("Enter Slug")}}'
                                        value="{{$page->slug}}">
 
                                       

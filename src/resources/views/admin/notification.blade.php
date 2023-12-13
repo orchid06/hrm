@@ -16,7 +16,7 @@
                                 <div class="d-flex mb-2 align-items-center">
                                     <div class="flex-shrink-0">
                                         <img class="rounded-circle avatar-sm"
-                                        src="{{imageUrl(auth_user()->file,"profile,admin",true) }}"
+                                        src='{{imageUrl(auth_user()->file,"profile,admin",true) }}'
                                         alt="{{@auth_user()->file->name}}" />
                                     </div>
                                     <div class="flex-grow-1 ms-3">

@@ -9,7 +9,7 @@
       <div class="header-container">
         <div class="header-logo">
             <a href="{{route('home')}}">
-                <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
             </a>
         </div>
 
@@ -19,7 +19,7 @@
               <div class="mobile-logo-wrap">
                 <a href="{{route('home')}}">
                   
-                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
         
                 </a>
               </div>
@@ -33,9 +33,7 @@
                   y="0"
                   viewBox="0 0 426.667 426.667"
                   style="enable-background: new 0 0 512 512"
-                  xml:space="preserve"
-                  class=""
-                >
+                  xml:space="preserve">
                   <g>
                     <path
                       d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
@@ -384,12 +382,12 @@
             <div class="sidebar-action d-lg-none">
               <div
                 class="d-flex align-items-center justify-content-between gap-3">
-                  <a href="{{route("plan")}}"class="i-btn btn--primary-outline btn--lg capsuled">
+                  <a href='{{route("plan")}}' class="i-btn btn--primary-outline btn--lg capsuled">
                     {{translate("Get Started")}}
                   </a>
 
                   @if(!auth_user('web'))
-                    <a href="{{route("auth.login")}}" class="i-btn btn--secondary btn--lg capsuled">
+                    <a href='{{route("auth.login")}}' class="i-btn btn--secondary btn--lg capsuled">
                         {{translate('Login')}}
                     </a>
                   @endif
@@ -435,7 +433,7 @@
 
                       <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           <span class="flag">
-                            <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
+                            <img src='{{imageUrl(@auth_user("web")->file,"profile,user",true) }}' alt='{{@auth_user("web")->file->name}}' />
                           </span>
                       </button>
 
@@ -526,7 +524,7 @@
 
                   <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <span class="flag">
-                        <img src="{{imageUrl(@auth_user("web")->file,"profile,user",true) }}" alt="{{@auth_user("web")->file->name}}" />
+                        <img src="{{imageUrl(@auth_user('web')->file,'profile,user',true) }}" alt="{{@auth_user('web')->file->name}}" />
                       </span>
                   </button>
 
@@ -552,14 +550,14 @@
           @endif
 
           <div class="d-lg-block d-none">
-            <a href="{{route("plan")}}"
+            <a href="{{route('plan')}}"
               class="i-btn btn--primary-outline btn--lg capsuled" >
                 {{translate("Get Started")}}
             </a>
           </div>
           @if(!auth_user('web'))
             <div class="d-lg-block d-none">
-                <a  href="{{route("auth.login")}}"  class="i-btn btn--secondary btn--lg capsuled">
+                <a  href="{{route('auth.login')}}"  class="i-btn btn--secondary btn--lg capsuled">
                     {{translate("Login")}}
                 </a>
             </div>

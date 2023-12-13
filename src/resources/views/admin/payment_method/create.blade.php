@@ -4,7 +4,7 @@
 
     <div class="i-card-md">
         <div class="card-body">
-            <form action="{{route('admin.paymentMethod.store',"manual")}}" class="add-listing-form" enctype="multipart/form-data" method="post">
+            <form action='{{route("admin.paymentMethod.store","manual")}}' class="add-listing-form" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="row">
 
@@ -85,7 +85,7 @@
                                 {{translate('Percentage Charge
                                 ')}} <small class="text-danger">*</small>
                             </label>
-                            <input required placeholder="{{translate("Enter Percentage Charge")}}" type="number" min="0" step="any"  id="percentage_charge" name="percentage_charge" value="{{old("percentage_charge")}}"  >                     
+                            <input required placeholder='{{translate("Enter Percentage Charge")}}' type="number" min="0" step="any"  id="percentage_charge" name="percentage_charge" value='{{old("percentage_charge")}}'  >                     
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                                 ')}} <small class="text-danger">*</small>
                             </label>
                 
-                            <input required placeholder="{{translate("Enter Fixed Charge")}}" type="number" min="0" step="any"  id="fixed_charge" name="fixed_charge" value="{{old("fixed_charge")}}"  >                          
+                            <input required placeholder='{{translate("Enter Fixed Charge")}}' type="number" min="0" step="any"  id="fixed_charge" name="fixed_charge" value='{{old("fixed_charge")}}'  >                          
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                                 {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['payment_method']['size']}})</small>
                             </label>
                         
-                            <input data-size = {{config("settings")['file_path']['payment_method']['size']}} id="image" name="image" type="file" class=" preview" >
+                            <input data-size = "{{config('settings')['file_path']['payment_method']['size']}}" id="image" name="image" type="file" class=" preview" >
     
                             <div class="mt-2 image-preview-section">
                     

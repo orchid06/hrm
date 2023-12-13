@@ -5,7 +5,7 @@
 		<div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-					<form hidden id="bulkActionForm" action="{{route("admin.language.bulk")}}" method="post">
+					<form hidden id="bulkActionForm" action='{{route("admin.language.bulk")}}' method="post">
 						@csrf
 						<input type="hidden" name="bulk_id" id="bulkid">
 						<input type="hidden" name="value" id="value">
@@ -99,7 +99,7 @@
 										@endif
 										{{$loop->iteration}}
 									</td>
-									<td data-label="{{translate("Language")}}">
+									<td data-label='{{translate("Language")}}'>
 										<div class="user-meta-info d-flex align-items-center gap-2">
 											<img class="rounded-circle avatar-sm" src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}">
 											<p>{{$language->name}} </p>
@@ -112,10 +112,10 @@
 										</div>
 									</td>
 
-									<td data-label="{{translate("Code")}}">
+									<td data-label='{{translate("Code")}}'>
 										{{$language->code}}
 									</td>
-									<td data-label="{{translate("Status")}}">
+									<td data-label='{{translate("Status")}}'>
 										<div class="form-check form-switch switch-center">
 											<input {{!check_permission('update_language') ? "disabled" :"" }}   type="checkbox" class="status-update form-check-input"
 												data-column="status"
@@ -129,14 +129,14 @@
 									</td>
 
 
-									<td data-label="{{translate("Created by")}}">
+									<td data-label='{{translate("Created by")}}'>
 										<span class="i-badge capsuled info">
 											{{$language->createdBy->username}}
 										</span>
 
 									</td>
-									<td data-label="{{translate(
-									"Updated By")}}">
+									<td data-label='{{translate(
+									"Updated By")}}'>
 
 										<span class=" i-badge capsuled success">
 											{{$language->updatedBy->username}}
@@ -145,7 +145,7 @@
 									</td>
 
 
-									<td data-label="{{translate("Options")}}">
+									<td data-label='{{translate("Options")}}'>
 										<div class="table-action">
 
 											@if(check_permission('update_language') ||  check_permission('translate_language') || check_permission('delete_language') )

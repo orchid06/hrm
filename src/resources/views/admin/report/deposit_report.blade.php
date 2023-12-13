@@ -18,7 +18,7 @@
                             <div class="filter-dropdown">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                             <div class="form-inner">
-                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                 </div>
                                 <div class="form-inner">
                                     <select name="status" id="status" class="status">
@@ -125,40 +125,40 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Date")}}">
+                                    <td data-label='{{translate("Date")}}'>
                                         {{ get_date_time($report->created_at) }}
                                     </td>
                            
 
-                                    <td data-label="{{translate("User")}}">
+                                    <td data-label='{{translate("User")}}'>
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
 
-                                    <td data-label="{{translate("Payment Method")}}">
+                                    <td data-label='{{translate("Payment Method")}}'>
                                      
                                         {{$report->method->name}}
                                         
                                     </td>
                                     
-                                    <td  data-label="{{translate("Trx Code")}}">
+                                    <td  data-label='{{translate("Trx Code")}}'>
                                           {{$report->trx_code}}
                                     </td>
 
-                                    <td  data-label="{{translate("Final Amount")}}">
+                                    <td  data-label='{{translate("Final Amount")}}'>
                                           {{num_format($report->final_amount,@$report->method->currency)}}
                                     </td>
-                                    <td  data-label="{{translate("Status")}}">
+                                    <td  data-label='{{translate("Status")}}'>
                                          
                                         @php echo  payment_status($report->status)  @endphp
                                     </td>
 
                        
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Update")}}"  href="{{route('admin.deposit.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                         </div>
                                     </td>

@@ -1,11 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-
 @php
-
     $authContent     =  get_content("content_authentication_section")->first();  
-
 @endphp
 
 <section class="auth">
@@ -18,7 +15,7 @@
             <div class="auth-right">
               <div class="auth-content">
                 <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
-                    <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                    <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
                 </a>
                 <h2>
 
@@ -42,27 +39,25 @@
                     <input hidden type="text" name="otp_code" id="otpCode">
 
                     <div class="otp-field">
-
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
+                        <input type="text" maxlength="1" />
                     </div>
 
-                  <div class="">
-                    <button class="i-btn btn--secondary btn--lg capsuled w-100" type="submit">
-                          {{translate("Verify")}}
-                    </button>
-                    @if(session()->has("user_identification") &&  \Carbon\Carbon::now()  >  session()->get("otp_expire_at"))
-                        <a href="{{route("auth.otp.resend")}}"
-                            class="i-btn btn--secondary btn--lg capsuled w-100 mt-2"
-                            type="submit">
-                            {{translate("Resend Otp")}}
-                        </a>
-                    @endif
+                  <div>
+                      <button class="i-btn btn--secondary btn--lg capsuled w-100" type="submit">
+                            {{translate("Verify")}}
+                      </button>
+                      @if(session()->has("user_identification") &&  \Carbon\Carbon::now()  >  session()->get("otp_expire_at"))
+                          <a href="{{route('auth.otp.resend')}}"
+                              class="i-btn btn--secondary btn--lg capsuled w-100 mt-2"
+                              type="submit">
+                              {{translate("Resend Otp")}}
+                          </a>
+                      @endif
                   </div>
                 </form>
               </div>

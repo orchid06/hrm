@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-md-6 order-md-2 order-1 text-md-end text-center">
                     <a href="{{route('admin.home')}}" class="site-logo">
-                        <img src="{{imageUrl(@site_logo('site_logo')->file,"site_logo",true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
+                        <img src="{{imageUrl(@site_logo('site_logo')->file,'site_logo',true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                             <label for="email" class="form-label">
                                 {{translate("Email")}} <span class="text-danger" >*</span>
                             </label>
-                            <input type="email" name="email" required   id="email" placeholder="{{translate("Enter your email")}}">
+                            <input type="email" name="email" required   id="email" placeholder='{{translate("Enter your email")}}'>
                         </div>
                     </div>
 

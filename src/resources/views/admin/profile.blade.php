@@ -7,7 +7,7 @@
 			<div class="profile-info">
 				<div class="image">
 
-					<img src="{{imageUrl(@$user->file,"profile,admin",true)}}" alt="{{@$user->file->name}}" />
+					<img src='{{imageUrl(@$user->file,"profile,admin",true)}}' alt="{{@$user->file->name}}" />
 				</div>
 				<div class="designation">
 				<a href="javascript: void(0);">
@@ -39,7 +39,7 @@
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade active show" id="profile-tab" role="tabpanel">
 
-					<form action="{{route("admin.profile.update")}}" class="account-form" method="post" enctype="multipart/form-data">
+					<form action='{{route("admin.profile.update")}}' class="account-form" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
 							<div class="col-lg-6">
@@ -65,7 +65,7 @@
 									{{translate('Email')}} 
 									<small class="text-danger">* </small>
 									</label>
-									<input type="email" id="email" placeholder="{{translate("Enter your Email")}}"
+									<input type="email" id="email" placeholder='{{translate("Enter your Email")}}'
 									name="email"  value="{{$user->email}}"  >
 								</div>
 							</div>
@@ -84,7 +84,7 @@
 									<label for="image">
 									   {{translate('Profile Image')}}
 									</label>
-									<input class="preview" data-size = "{{config("settings")['file_path']['profile']['admin']['size']}}" id="image" name="image" type="file">
+									<input class="preview" data-size = "{{config('settings')['file_path']['profile']['admin']['size']}}" id="image" name="image" type="file">
 
 
 									<div class="mt-2 image-preview-section">
@@ -133,7 +133,7 @@
 									<label for="password_confirmation">
 										{{translate("Confirm Password")}} <small class="text-danger">*</small>
 									</label>
-									<input type="text" placeholder="{{translate("Confirm Password")}}"
+									<input type="text" placeholder='{{translate("Confirm Password")}}'
 									id="password_confirmation" name="password_confirmation" class="form-control">
 								</div>
 							</div>

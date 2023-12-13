@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.credit.report.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.credit.report.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -26,7 +26,7 @@
                                 <ul class="dropdown-menu">
                                     
                                     <li>
-                                        <button data-message="{{translate("Are you sure you want to remove these record permanently?")}}" data-type ="{{request()->routeIs('admin.staff.recycle.list') ? 'force_delete' :"delete"}}"   class="dropdown-item bulk-action-modal">
+                                        <button data-message='{{translate("Are you sure you want to remove these record permanently?")}}' data-type ='{{request()->routeIs("admin.staff.recycle.list") ? "force_delete" :"delete"}}'   class="dropdown-item bulk-action-modal">
                                             {{translate("Delete")}}
                                         </button>
                                     </li>
@@ -46,7 +46,7 @@
                                 <div class="filter-dropdown">
                                     <form action="{{route(Route::currentRouteName())}}" method="get">
                                         <div class="form-inner">
-                                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                         </div>
                                         <div class="form-inner">
                                             <select name="user" id="user" class="user">
@@ -70,7 +70,7 @@
                                             </select>
                                         </div>
                                         <div class="form-inner">
-                                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
+                                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
                                         </div>
                                         <button class="i-btn btn--sm info w-100">
                                             <i class="las la-sliders-h"></i>
@@ -139,23 +139,23 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Date")}}">
+                                    <td data-label="{{translate('Date')}}">
                                         {{ get_date_time($report->created_at) }}
                                     </td>
 
-                                    <td data-label="{{translate("User")}}">
+                                    <td data-label="{{translate('User')}}">
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
                                     
-                                    <td  data-label="{{translate("Trx Code")}}">
+                                    <td  data-label="{{translate('Trx Code')}}">
                                           {{$report->trx_code}}
                                     </td>
 
-                                    <td  data-label="{{translate("Credit")}}">
-                                        <span class="text--{{$report->type == App\Models\Transaction::$PLUS ? "success" :"danger" }}">
-                                            <i class="las la-{{$report->type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}"></i>
+                                    <td  data-label="{{translate('Credit')}}">
+                                        <span class='text--{{$report->type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
+                                            <i class='las la-{{$report->type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}'></i>
                                             @if(App\Enums\PlanDuration::value('UNLIMITED') == $report->balance)
                                               {{translate('Unlimited')}}
                                             @else
@@ -164,7 +164,7 @@
                                         </span>
                                     </td>
 
-                                    <td  data-label="{{translate("Post Credit")}}">
+                                    <td  data-label='{{translate("Post Credit")}}'>
                                         @if(App\Enums\PlanDuration::value('UNLIMITED') == $report->balance)
                                            {{translate('Unlimited')}}
                                         @else
@@ -172,13 +172,13 @@
                                         @endif
                                     </td>
 
-                                    <td  data-label="{{translate("Remark")}}">
+                                    <td  data-label='{{translate("Remark")}}'>
                                  
                                             {{k2t($report->remark)}}
                          
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
                                             <a href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">

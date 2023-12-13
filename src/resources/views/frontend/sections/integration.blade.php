@@ -30,7 +30,7 @@
                       <div class="d-flex align-items-center gap-3 pb-3">
                         <div class="integration-logo">
                           <img
-                            src="{{imageUrl(@$platform->file,"platform",true)}}"
+                            src='{{imageUrl(@$platform->file,"platform",true)}}'
                             alt="{{@$platform->file->name}}"
                             loading="lazy"
                           />

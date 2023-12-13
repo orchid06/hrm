@@ -44,7 +44,7 @@
       </div>
 
       <div class="col-lg-7">
-        <form action="{{route("feedback.store")}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post" enctype="multipart/form-data">
+        <form action="{{route('feedback.store')}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post" enctype="multipart/form-data">
 
           @csrf
           <h4> 
@@ -55,10 +55,10 @@
               <div class="form__group field">
                 <input
                   required
-                  placeholder="{{translate("Name")}}"
+                  placeholder="{{translate('Name')}}"
                   class="form__field"
                   name="author"
-                  value="{{old("author")}}"
+                  value="{{old('author')}}"
                   type="text"
                   id="author"/>
 
@@ -72,12 +72,12 @@
               <div class="form__group field">
                 <input
                   required
-                  placeholder="{{translate("Designation")}}"
+                  placeholder="{{translate('Designation')}}"
                   id="designation"
                   class="form__field"
                   type="text"
                   name="designation"
-                  value="{{old("designation")}}"/>
+                  value="{{old('designation')}}"/>
                 <label class="form__label" for="designation">
                     {{translate("Designation")}}
                 </label>
@@ -115,7 +115,7 @@
 
             <div class="col-12">
               <div class="form__group field">
-                <textarea placeholder="{{translate("Message")}}" required  class="form__field" id="quote" name="quote">{{old('quote')}}</textarea>
+                <textarea placeholder="{{translate('Message')}}" required  class="form__field" id="quote" name="quote">{{old('quote')}}</textarea>
                   <label class="form__label" for="quote">
                      {{translate("Write your Message")}}
                   </label>

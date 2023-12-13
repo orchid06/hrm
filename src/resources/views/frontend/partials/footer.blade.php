@@ -34,7 +34,7 @@
               <div class="d-flex align-items-center justify-content-center gap-3 gap-md-4 text-center">
 
                     @foreach ( $ctaElements as $ctaBtn )
-                        <a href="{{url(@$ctaBtn->value->url)}}" class="i-btn {{$loop->even ? " btn--secondary" : "btn--primary" }}  btn--lg capsuled">
+                        <a href="{{url(@$ctaBtn->value->url)}}" class='i-btn {{$loop->even ? " btn--secondary" : "btn--primary" }}  btn--lg capsuled'>
                              {{@$ctaBtn->value->button_name}}
                         </a>
                     @endforeach
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="cta-bg">
-          <img src="{{imageUrl(@$file,"frontend",true,@get_appearance()->cta->content->images->image->size)}}" alt="{{@$file->name}}" loading="lazy" />
+          <img src='{{imageUrl(@$file,"frontend",true,@get_appearance()->cta->content->images->image->size)}}' alt="{{@$file->name}}" loading="lazy" />
         </div>
       </div>
 
@@ -65,7 +65,7 @@
               <form action="{{route('subscribe')}}" class="news-form" method="post">
                   @csrf
                     <div class="news-form-content">
-                      <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate("Enter your email")}}" />
+                      <input name="email" value="{{old('email')}}" type="email" placeholder='{{translate("Enter your email")}}' />
                       <button
                         type="submit"
                         class="i-btn btn--primary btn--lg capsuled">
@@ -89,7 +89,7 @@
                 <a href="{{route('home')}}" class="site-log">
                   <h3>
                         <img
-                        src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}"
+                        src='{{imageUrl(@site_logo("user_site_logo")->file,"user_site_logo",true)}}'
                         alt="{{@site_logo('user_site_logo')->file->name}}" />
                   </h3>
                 </a>
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="payment-img">
-                     <img src="{{imageUrl(@$paymentImg,"frontend",true,@get_appearance()->footer->content->images->payment_image->size)}}" alt="" />
+                     <img src="{{imageUrl(@$paymentImg,'frontend',true,@get_appearance()->footer->content->images->payment_image->size)}}" alt="{{@$paymentImg->name}}" />
                 </div>
               </div>
             </div>

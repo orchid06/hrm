@@ -2,7 +2,7 @@
     @csrf
 
     <input type="hidden" name="type" value="content">
-    <input type="hidden" name="key" value="{{request()->route("key")}}">
+    <input type="hidden" name="key" value='{{request()->route("key")}}'>
 
     <div class="row">
     
@@ -23,7 +23,7 @@
                                 @php
                                     $file =  $appearance_content?->file->where('type', $imK)->first()
                                 @endphp
-                                <img src="{{imageUrl(@$file,"frontend",true)}}" alt="{{@$file->name}}">
+                                <img src='{{imageUrl(@$file,"frontend",true)}}' alt="{{@$file->name}}">
                     
                             </div>                      
                                             
@@ -75,7 +75,7 @@
                                 <textarea placeholder="{{translate(k2t($k))}}" required @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10">@php echo @$appearance_content->value->$k @endphp</textarea>
                         @else
 
-                                <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type="{{$content == 'number' ? "number" :"text"}}" name="{{$k}}" id="{{$k}}">
+                                <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="{{$k}}">
                         
                         @endif
                     </div>

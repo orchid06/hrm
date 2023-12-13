@@ -11,7 +11,7 @@
 
     @include('partials.meta_content')
 
-    <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,"favicon",true)}}" alt="{{@site_logo('site_favicon')->file?->name}}">
+    <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}" alt="{{@site_logo('site_favicon')->file?->name}}">
 
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -25,7 +25,7 @@
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
 
     @if (site_settings("google_analytics") == App\Enums\StatusEnum::true->status() )
-       <script async src="https://www.googletagmanager.com/gtag/js?id={{site_settings("google_analytics_tracking_id")}}"></script>
+       <script async src="https://www.googletagmanager.com/gtag/js?id={{site_settings('google_analytics_tracking_id')}}"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -39,7 +39,7 @@
 
     
     @if (site_settings("google_ads") == App\Enums\StatusEnum::true->status() )
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-{{site_settings("google_adsense_publisher_id")}}"
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-{{site_settings('google_adsense_publisher_id')}}"
           crossorigin="anonymous"></script>
     @endif
 
@@ -54,7 +54,7 @@
 
       <style>
           .integration .scrolling-presets{
-              background-image: url({{imageUrl(@$intregrationsImg,"frontend",true,@get_appearance()->integration->content->images->image->size)}});
+              background-image: url("{{imageUrl(@$intregrationsImg,'frontend',true,@get_appearance()->integration->content->images->image->size)}}");
           }
       </style>
       

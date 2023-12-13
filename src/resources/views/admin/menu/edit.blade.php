@@ -48,7 +48,7 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             
-                                            <input type="text" name="name" id="name" placeholder="{{translate("Enter name")}}"
+                                            <input type="text" name="name" id="name" placeholder='{{translate("Enter name")}}'
                                                 value="{{$menu->name}}" required>        
                                                                                                      
                                         </div>                                                                         
@@ -60,7 +60,7 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             
-                                            <input type="text" name="url" id="url" placeholder="{{translate("Enter url")}}"
+                                            <input type="text" name="url" id="url" placeholder='{{translate("Enter url")}}'
                                                 value="{{$menu->url}}" required>        
                                                                                                        
                                         </div>                                                                         
@@ -159,7 +159,7 @@
                                             <a href="javascript:void(0)" class=" i-btn btn--sm danger ms-auto section-remove">
                                                 <i class="las la-times-circle"></i>
                                             </a>
-                                            <a href="{{route("admin.appearance.list",$key)}}" class="i-btn btn--sm success cog-section ms-auto">
+                                            <a href='{{route("admin.appearance.list",$key)}}' class="i-btn btn--sm success cog-section ms-auto">
                                                 <i class="las la-cog"></i>
                                             </a>
                                         </li>

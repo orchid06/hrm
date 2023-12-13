@@ -17,7 +17,7 @@
                         <div class="filter-dropdown">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
-                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                 </div>
 
                         
@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id")}}">
+                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
                                 </div>
                             
 
@@ -107,21 +107,21 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Date")}}">
+                                    <td data-label='{{translate("Date")}}'>
                                         {{ get_date_time($report->created_at) }}
                                     </td>
-                                    <td data-label="{{translate("Trx Code ")}}">
+                                    <td data-label='{{translate("Trx Code ")}}'>
                                         {{ ($report->trx_code) }}
                                     </td>
 
-                                    <td data-label="{{translate("User")}}">
+                                    <td data-label='{{translate("User")}}'>
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
 
 
-                                    <td data-label="{{translate("Reffered To")}}">
+                                    <td data-label='{{translate("Reffered To")}}'>
                                         @if($report->referral)
                                             <a href="{{route('admin.user.show',$report->referral->uid)}}">
                                                 {{$report->referral->name}}
@@ -131,20 +131,20 @@
                                         @endif
                                     </td>
                                 
-                                    <td data-label="{{translate("Subscription Package")}}">
+                                    <td data-label='{{translate("Subscription Package")}}'>
                                           {{$report->subscription? @$report->subscription->package->title  : 'N/a'}}
                                     </td>
-                                    <td data-label="{{translate("Commission Rate")}}">
+                                    <td data-label='{{translate("Commission Rate")}}'>
                                           {{$report->commission_rate}}%
                                     </td>
-                                    <td data-label="{{translate("Amount")}}">
+                                    <td data-label='{{translate("Amount")}}'>
                                         {{@num_format(
                                             number : $report->commission_amount??0,
                                             calC   : true
                                         )}}
                                     </td>
                                 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
                                             <a href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">

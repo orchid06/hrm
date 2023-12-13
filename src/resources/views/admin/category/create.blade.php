@@ -28,9 +28,9 @@
                                 <ul class="nav nav-tabs style-1" role="tablist">                                  
                                     @foreach($sortedArray as $code)
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link  
+                                            <button class='nav-link  
                                             {{$loop->index == 0 ? "active" :""}}
-                                            " id="lang-tab-{{$code}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{$code}}" type="button" role="tab" aria-controls="lang-tab-content-{{$code}}" aria-selected="true">
+                                            ' id="lang-tab-{{$code}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{$code}}" type="button" role="tab" aria-controls="lang-tab-content-{{$code}}" aria-selected="true">
                                                 <img class="lang-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" class="me-2 rounded" height="18">
                                                 <span class="align-middle">
                                                    
@@ -46,7 +46,7 @@
                                 <div id="titleTab" class="tab-content">
 
                                     @foreach($sortedArray as $code)
-                                        <div class="tab-pane fade {{$loop->index == 0 ? " show active" :""}} " id="lang-tab-content-{{$code}}" role="tabpanel">                                       
+                                        <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} ' id="lang-tab-content-{{$code}}" role="tabpanel">                                       
                                             <div class="form-inner">                                               
                                                 <label  for="{{$code}}-input">
                                                     {{translate('Title')}} 
@@ -60,8 +60,8 @@
                                                     $lang_code =  strtolower($code)
                                                 @endphp
    
-                                                <input id="{{$code}}-input" type="text" name="title[{{strtolower($code)}}]"   placeholder="{{translate("Enter Title")}}"
-                                                    value="{{old("title.$lang_code")}}">
+                                                <input id="{{$code}}-input" type="text" name="title[{{strtolower($code)}}]"   placeholder='{{translate("Enter Title")}}'
+                                                    value='{{old("title.$lang_code")}}'>
 
                                                  
                                                
@@ -79,8 +79,8 @@
                                         {{translate('Slug')}} 
                                     </label>
                                 
-                                    <input type="text" name="slug" id="slug"  placeholder="{{translate("Enter Slug")}}"
-                                        value="{{old("slug")}}">  
+                                    <input type="text" name="slug" id="slug"  placeholder='{{translate("Enter Slug")}}'
+                                        value='{{old("slug")}}'>  
                                                                                            
                                 </div>                                                                         
                         
@@ -93,7 +93,7 @@
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
 
-                                    <input placeholder="{{translate("Search Icon")}}" class="icon-picker" value="{{old("icon")}}" type="text" name="icon" id="Icon">
+                                    <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
                                 
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                         {{translate('Short Description')}} 
                                     </label>
 
-                                    <textarea  placeholder="{{translate("Enter Short Description")}}" name="description" id="description" cols="30" rows="2">{{old("description")}}</textarea>
+                                    <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{old("description")}}</textarea>
 
                                 </div>
                             </div>

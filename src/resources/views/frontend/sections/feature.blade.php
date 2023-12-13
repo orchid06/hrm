@@ -31,7 +31,7 @@
               aria-orientation="vertical">
               @foreach ($featureElements as  $element)
                   <a
-                    class="nav-link {{$loop->index ==  0 ? "active" :""}}"
+                    class='nav-link {{$loop->index ==  0 ? "active" :""}}'
                     id="v-pills-{{$loop->index}}-tab"
                     data-bs-toggle="pill"
                     href="#v-pills-{{$loop->index}}"
@@ -62,7 +62,7 @@
               id="v-pills-tabContent">
 
                 @foreach ($featureElements as  $element)
-                    <div class="tab-pane fade {{$loop->index  == 0 ? "show active" :"" }} " id="v-pills-{{$loop->index}}" role="tabpanel"
+                    <div class='tab-pane fade {{$loop->index  == 0 ? "show active" :"" }} ' id="v-pills-{{$loop->index}}" role="tabpanel"
                       aria-labelledby="v-pills-{{$loop->index}}-tab">
                       <div class="row g-4">
                           <div class="col-xxl-8 col-xl-7">
@@ -72,7 +72,7 @@
                                 @endphp
                                 <div class="platform-content-img">
                                   <img
-                                    src="{{imageUrl(@$file,"frontend",true,$val->size)}}"
+                                    src='{{imageUrl(@$file,"frontend",true,$val->size)}}'
                                     alt="{{@$file->name}}"
                                     loading="lazy"/>
                                 </div>

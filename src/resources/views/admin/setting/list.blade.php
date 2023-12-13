@@ -141,7 +141,7 @@
                                             <label for="site_name" class="form-label">
                                                 {{translate('Site Name')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[site_name]" id="site_name"  value="{{site_settings('site_name')}}" required placeholder="{{translate("Name")}}">
+                                            <input type="text" name="site_settings[site_name]" id="site_name"  value="{{site_settings('site_name')}}" required placeholder='{{translate("Name")}}'>
                                         </div>
                                     </div>
 
@@ -152,7 +152,7 @@
                                             <label for="user_site_name">
                                                 {{translate('User Site Name')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[user_site_name]" id="user_site_name"  value="{{site_settings('user_site_name')}}" required placeholder="{{translate("User Site Name")}}">
+                                            <input type="text" name="site_settings[user_site_name]" id="user_site_name"  value="{{site_settings('user_site_name')}}" required placeholder='{{translate("User Site Name")}}'>
 
                                          </div>
                                       
@@ -163,7 +163,7 @@
                                             <label for="phone">
                                                 {{translate('Phone')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[phone]" id="phone"  value="{{site_settings('phone')}}" required placeholder="{{translate("Phone")}}">
+                                            <input type="text" name="site_settings[phone]" id="phone"  value="{{site_settings('phone')}}" required placeholder="{{translate('Phone')}}">
                                         </div>
                                     </div>
 
@@ -172,7 +172,7 @@
                                             <label for="email">
                                                 {{translate('Email')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="email" name="site_settings[email]" id="email"  value="{{site_settings('email')}}"  placeholder="{{translate("Email")}}">
+                                            <input type="email" name="site_settings[email]" id="email"  value="{{site_settings('email')}}"  placeholder='{{translate("Email")}}'>
                                         </div>
                                     </div>
 
@@ -181,7 +181,7 @@
                                             <label for="address">
                                                 {{translate('Address')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[address]" id="address"  value="{{site_settings('address')}}"  placeholder="{{translate("Address")}}">
+                                            <input type="text" name="site_settings[address]" id="address"  value="{{site_settings('address')}}"  placeholder='{{translate("Address")}}'>
                                         </div>
                                     </div>
 
@@ -261,7 +261,7 @@
                                             <label for="pagination_number" class="form-label">
                                                 {{translate('Data Perpage')}} <small class="text-danger" >*</small>
                                             </label>
-                                                <input type="number" min="0" name="site_settings[pagination_number]" id="pagination_number"  value="{{site_settings('pagination_number')}}" required placeholder="{{translate("Data Perpage")}}">
+                                                <input type="number" min="0" name="site_settings[pagination_number]" id="pagination_number"  value="{{site_settings('pagination_number')}}" required placeholder='{{translate("Data Perpage")}}'>
                                         </div>
                                     </div>
 
@@ -270,7 +270,7 @@
                                             <label for="vistors" class="form-label">
                                                 {{translate('Web Visitors')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="number" min="0" name="site_settings[vistors]" id="vistors"  value="{{site_settings('vistors')}}" required placeholder="{{translate("Site Vistors")}}">
+                                            <input type="number" min="0" name="site_settings[vistors]" id="vistors"  value="{{site_settings('vistors')}}" required placeholder='{{translate("Site Vistors")}}'>
                                         </div>
                                     </div>
 
@@ -281,7 +281,7 @@
                                             </label>
                                           
 
-                                            <textarea name="site_settings[copy_right_text]" placeholder="{{translate("Copy Right Text")}}" id="copy_right_text" cols="30" rows="4">{{site_settings('copy_right_text')}}</textarea>
+                                            <textarea name="site_settings[copy_right_text]" placeholder='{{translate("Copy Right Text")}}' id="copy_right_text" cols="30" rows="4">{{site_settings('copy_right_text')}}</textarea>
                                         </div>
                                     </div>
 
@@ -301,7 +301,7 @@
                                                 data-route="{{ route('admin.setting.update.status') }}"  >
                                                
                                           
-                                            <input type="text"  name="site_settings[google_adsense_publisher_id]" id="google_adsense_publisher_id"  value="{{site_settings('google_adsense_publisher_id')}}" required placeholder="{{translate("Enter Id")}}">
+                                            <input type="text"  name="site_settings[google_adsense_publisher_id]" id="google_adsense_publisher_id"  value="{{site_settings('google_adsense_publisher_id')}}" required placeholder='{{translate("Enter Id")}}'>
                                         </div>
                                     </div>
 
@@ -317,7 +317,7 @@
                                             data-status='{{ site_settings('google_analytics') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                             data-route="{{ route('admin.setting.update.status') }}"  >
 
-                                            <input type="text"  name="site_settings[google_analytics_tracking_id]" id="google_analytics_tracking_id"  value="{{site_settings('google_analytics_tracking_id')}}" required placeholder="{{translate("Enter Id")}}">
+                                            <input type="text"  name="site_settings[google_analytics_tracking_id]" id="google_analytics_tracking_id"  value="{{site_settings('google_analytics_tracking_id')}}" required placeholder='{{translate("Enter Id")}}'>
                                         </div>
                                     </div>
 
@@ -424,7 +424,7 @@
                                             <label for="sentry_dns">
                                                 {{translate('Sentry Dns')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[sentry_dns]" id="sentry_dns"  value="{{site_settings('sentry_dns')}}" required placeholder="{{translate("Enter Dns")}}">
+                                            <input type="text" name="site_settings[sentry_dns]" id="sentry_dns"  value="{{site_settings('sentry_dns')}}" required placeholder='{{translate("Enter Dns")}}'>
                                         </div>
                                     </div>
 
@@ -763,7 +763,7 @@
                                             <label for="slack_channel">
                                                 {{translate("Slack Channel")}} <small class="text-danger" >({{translate("optional")}})</small>
                                             </label>
-                                            <input type="text" name="site_settings[slack_channel]" id="slack_channel"  value="{{site_settings('slack_channel')}}"  placeholder="{{translate("Slack Channel")}}">
+                                            <input type="text" name="site_settings[slack_channel]" id="slack_channel"  value="{{site_settings('slack_channel')}}"  placeholder='{{translate("Slack Channel")}}'>
                                         </div>
                                     </div>
 
@@ -772,7 +772,7 @@
                                             <label for="slack_web_hook_url">
                                                 {{translate('Slack Web Hook Url')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[slack_web_hook_url]" id="slack_web_hook_url"  value="{{site_settings('slack_web_hook_url')}}" required placeholder="{{translate("Slack Web Hook Url")}}">
+                                            <input type="text" name="site_settings[slack_web_hook_url]" id="slack_web_hook_url"  value="{{site_settings('slack_web_hook_url')}}" required placeholder='{{translate("Slack Web Hook Url")}}'>
                                         </div>
                                     </div>
 
@@ -939,8 +939,8 @@
                                                         </label>
 
                                                         <div class="input-group">
-                                                            <input id="callbackUrl" readonly value="{{route('auth.social.login.callback',str_replace("_oauth","",$medium))}}" type="text" class="form-control" >
-                                                            <span class="input-group-text pointer copy-text pointer"  data-text ="{{route('auth.social.login.callback',str_replace("_oauth","",$medium))}}" ><i class="las la-copy"></i></span>
+                                                            <input id="callbackUrl" readonly value='{{route("auth.social.login.callback",str_replace("_oauth","",$medium))}}' type="text" class="form-control" >
+                                                            <span class="input-group-text pointer copy-text pointer"  data-text ='{{route("auth.social.login.callback",str_replace("_oauth","",$medium))}}' ><i class="las la-copy"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1006,7 +1006,7 @@
                                             <label for="otp_expired_in">
                                                 {{translate('Otp expired in')}} <small class="text-danger" >*({{translate('Second')}})</small>
                                             </label>
-                                            <input type="number" name="site_settings[otp_expired_in]" id="otp_expired_in"  value="{{site_settings('otp_expired_in')}}" required placeholder="{{translate("Otp expired in")}}">
+                                            <input type="number" name="site_settings[otp_expired_in]" id="otp_expired_in"  value="{{site_settings('otp_expired_in')}}" required placeholder='{{translate("Otp expired in")}}'>
                                         </div>
                                     </div>
 
@@ -1091,13 +1091,13 @@
                                         <tbody id="ticketField">
                                             @foreach ($ticketSettings as $ticketInput)
                                              <tr>
-                                                <td data-label="{{translate("Label")}}">
+                                                <td data-label='{{translate("Label")}}'>
                                                     <div class="form-inner mb-0">
                                                         <input type="text" name="custom_inputs[{{$loop->index}}][labels]"  value="{{$ticketInput['labels']}}">
                                                     </div>
                                                 </td>
 
-                                                <td data-label="{{translate("Type")}}">
+                                                <td data-label='{{translate("Type")}}'>
                                                     <div class="form-inner mb-0">
 
                                                         @if($ticketInput['default'] == App\Enums\StatusEnum::true->status())
@@ -1116,10 +1116,10 @@
                                                     </div>
                                                 </td>
 
-                                                <td  data-label="{{translate("Required")}}" >
+                                                <td  data-label='{{translate("Required")}}' >
                                                     <div class="form-inner mb-0">
                                                         @if($ticketInput['default'] == App\Enums\StatusEnum::true->status() && $ticketInput['type'] != 'file' )
-                                                            <input disabled  type="text" name="custom_inputs[required]"  value="{{$ticketInput['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :"No"}}">
+                                                            <input disabled  type="text" name="custom_inputs[required]"  value="{{$ticketInput['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :'No'}}">
                                                             <input hidden  type="text" name="custom_inputs[{{$loop->index}}][required]"  value="{{$ticketInput['required']}}">
                                                         @else
                                                             <select class="form-select" name="custom_inputs[{{$loop->index}}][required]" >
@@ -1134,7 +1134,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td  data-label="{{translate("Placeholder")}}">
+                                                <td  data-label="{{translate('Placeholder')}}">
                                                     <div class="form-inner mb-0">
                                                         <input type="text" name="custom_inputs[{{$loop->index}}][placeholder]"  value="{{$ticketInput['placeholder']}}">
                                                     </div>
@@ -1144,7 +1144,7 @@
 
                                                 </td>
 
-                                                <td data-label="{{translate("Option")}}">
+                                                <td data-label="{{translate('Option')}}">
                                                     @if($ticketInput['default'] == App\Enums\StatusEnum::true->status())
                                                         {{translate('N/A')}}
                                                         @else
@@ -1195,7 +1195,7 @@
                                                 <label for="{{$logoKey}}">
                                                     {{(k2t($logoKey))}} <small class="text-danger" >* ({{config("settings")['file_path'][$logoKey]['size']}})</small>
                                                 </label>
-                                                <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class=" preview" data-size = {{config("settings")['file_path'][$logoKey]['size']}}>
+                                                <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class=" preview" data-size = "{{config('settings')['file_path'][$logoKey]['size']}}">
                                                 <div class="mt-2 image-preview-section">
                                                     
                                                     <img src="{{imageUrl(@site_logo($logoKey)->file,$logoKey,true)}}" alt="{{@site_settings($logoKey)}}" class="fav-preview">

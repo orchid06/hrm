@@ -19,7 +19,7 @@
                             <div class="filter-dropdown">
                                 <form action="{{route(Route::currentRouteName())}}" method="get">
                                     <div class="form-inner">
-                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate("Filter by date")}}">
+                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                     </div>
                                     
                                     <div class="form-inner">
@@ -106,11 +106,11 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Template")}}">
+                                    <td data-label='{{translate("Template")}}'>
                                         <p>{{$report->template->name}}</p>
                                     </td>
                                     
-                                    <td data-label="{{translate("Genarated By")}}"> 
+                                    <td data-label='{{translate("Genarated By")}}'> 
                                         @php
                                            $name  = $report->user?  $report->user->name : @$report->admin->name;
                                            $role  = $report->user? translate('System User') :translate('admin') ;
@@ -120,18 +120,18 @@
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Generated On")}}">
+                                    <td data-label='{{translate("Generated On")}}'>
                                         {{ get_date_time($report->created_at) }}
                                     </td>
                                     
 
-                                    <td  data-label="{{translate("Words")}}">
+                                    <td  data-label='{{translate("Words")}}'>
                                         <span class="i-badge capsuled success">
                                             {{$report->total_words}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
                                             <a href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">

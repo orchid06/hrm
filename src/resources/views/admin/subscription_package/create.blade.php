@@ -13,7 +13,7 @@
                                     {{translate('Title')}} <small class="text-danger">*</small>
                                 </label>
 
-                                <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value="{{old("title")}}">
+                                <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value="{{old('title')}}">
 
                             
                             
@@ -48,7 +48,7 @@
 
                                 <div class="input-group mb-3">
 
-                                    <input placeholder="{{translate('Enter Price')}}" id="price" step="any" required type="number" min="0" name="price" value="{{old("price")}}" class="form-control">
+                                    <input placeholder="{{translate('Enter Price')}}" id="price" step="any" required type="number" min="0" name="price" value="{{old('price')}}" class="form-control">
                                     <span class="input-group-text"> {{(base_currency()->code)}} </span>
                                 </div>
 
@@ -63,7 +63,7 @@
 
 
                                 <div class="input-group mb-3">
-                                    <input class="form-control" id="discount_price" placeholder="{{translate('Enter Discount Price')}}" step="0.1" type="number" min="0" name="discount_price" value="{{old("discount_price")}}">
+                                    <input class="form-control" id="discount_price" placeholder="{{translate('Enter Discount Price')}}" step="0.1" type="number" min="0" name="discount_price" value="{{old('discount_price')}}">
 
                                     <span class="input-group-text"> {{(base_currency()->code)}} </span>
                                 </div>
@@ -108,7 +108,7 @@
                                 </label>
 
                                 <div class="input-group mb-3">
-                                    <input class="form-control" id="affiliate_commission" placeholder="{{translate('Enter commission')}}" step="0.1" type="number" min="0" max="100" name="affiliate_commission" value="{{old("affiliate_commission")}}">
+                                    <input class="form-control" id="affiliate_commission" placeholder="{{translate('Enter commission')}}" step="0.1" type="number" min="0" max="100" name="affiliate_commission" value="{{old('affiliate_commission')}}">
 
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -123,7 +123,7 @@
                                 <label for="description"> 
                                     {{translate('Description')}} <small class="text-danger">*</small>
                                 </label>
-                                <textarea required placeholder="{{translate("Enter Description")}}" name="description" id="description"  cols="30" rows="5">{{old("description")}}</textarea>
+                                <textarea required placeholder="{{translate('Enter Description')}}" name="description" id="description"  cols="30" rows="5">{{old("description")}}</textarea>
                             </div>
                         </div>
 
@@ -177,7 +177,7 @@
                                                         <small class="text-danger" >*</small></label>
                                                         <input type="number" min="1"
                                                         placeholder="{{translate('Total Profile')}}"
-                                                        value="{{old("social_access.profile")}}" name="social_access[profile]" id="profile" required>
+                                                        value="{{old('social_access.profile')}}" name="social_access[profile]" id="profile" required>
                             
                                                     </div>
                                                </div>
@@ -190,7 +190,7 @@
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
 
                                                         <input type="number" min="-1"
-                                                        value="{{old("social_access.post")}}" name="social_access[post]" id="post" placeholder="{{translate("Total Post")}}" required   >
+                                                        value="{{old('social_access.post')}}" name="social_access[post]" id="post" placeholder="{{translate('Total Post')}}" required   >
 
                                                     
                                                     </div>
@@ -255,7 +255,7 @@
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
         
                                                         <input type="number" min="-1"
-                                                        value="{{old("ai_configuration.word_limit")}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate("No. of Words")}}"   >
+                                                        value="{{old('ai_configuration.word_limit')}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate('No. of Words')}}"   >
                                                     </div>
                                                 </div>
                                             </div>

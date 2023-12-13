@@ -18,21 +18,21 @@
                             <label class="form-check-label mb-0" ></label>
                         </div>
                     </div>
-                    <form action="{{route("admin.security.dos.update")}}" method="post">
+                    <form action='{{route("admin.security.dos.update")}}' method="post">
                         @csrf
                         <div class="d-flex align-items-center flex-wrap d-dos-input">
                             <div class="form-inner d-flex align-items-center gap-2 me-4">
                                 <label class="w-nowrap" > 
                                     {{translate("If there are more than")}}
                                 </label>
-                                <input value="{{site_settings("dos_attempts")}}"  required type="number" name="site_settings[dos_attempts]" >
+                                <input value='{{site_settings("dos_attempts")}}'  required type="number" name="site_settings[dos_attempts]" >
                             </div>
                             <div class="form-inner d-flex align-items-center gap-2">
                                 <label class="w-nowrap" > 
                                     {{translate("attempts in")}}
                                 </label>
 
-                                <input value="{{site_settings("dos_attempts_in_second")}}"  required type="number" name="site_settings[dos_attempts_in_second]" >
+                                <input value='{{site_settings("dos_attempts_in_second")}}'  required type="number" name="site_settings[dos_attempts_in_second]" >
 
                                 <label class="w-nowrap"> 
                                     {{translate("second")}}

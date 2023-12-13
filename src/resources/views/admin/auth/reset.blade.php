@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6 order-md-2 order-1 text-md-end text-center">
                     <a href="{{route('admin.home')}}" class="site-logo">
-                        <img src="{{imageUrl(@site_logo('site_logo')->file,"site_logo",true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
+                        <img src="{{imageUrl(@site_logo('site_logo')->file,'site_logo',true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
                 </div>
             </div>
             <form action="{{route('admin.password.update.request')}}" class="login-right-form" method="post">
@@ -23,7 +23,7 @@
                             <label class="form-label" for="password-input">
                                 {{translate("Password")}} <span class="text-danger" >*</span>
                             </label>
-                            <input required  type="password"  name="password" placeholder="{{translate("Enter password")}}" id="password-input">
+                            <input required  type="password"  name="password" placeholder='{{translate("Enter password")}}' id="password-input">
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                             <label class="form-label" for="confrim-password-input">
                                 {{translate("Confrim Password")}} <span class="text-danger" >*</span>
                             </label>
-                            <input required  type="password"  name="password_confirmation"  placeholder="{{translate("Enter Confrim password")}}" id="confrim-password-input">
+                            <input required  type="password"  name="password_confirmation"  placeholder='{{translate("Enter Confrim password")}}' id="confrim-password-input">
                         </div>
                     </div>
 

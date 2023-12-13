@@ -43,7 +43,7 @@
               <div class="auth-content">
                 <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
 
-                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
                 </a>
 
@@ -58,24 +58,24 @@
                   @csrf
 
 
-                  <input hidden type="text" name="referral_code" value="{{request()->route("referral_code")}}">
+                  <input hidden type="text" name="referral_code" value="{{request()->route('referral_code')}}">
 
                   <div class="auth-input">
-                        <input required type="text" value="{{old("name")}}" name="name" placeholder="{{translate('Enter your name')}}" />
+                        <input required type="text" value="{{old('name')}}" name="name" placeholder="{{translate('Enter your name')}}" />
                         <span>
                             <i class="bi bi-person"></i>
                         </span>
                   </div>
 
                   <div class="auth-input">
-                        <input required type="text" value="{{old("username")}}" name="username" placeholder="{{translate('Enter your username')}}" />
+                        <input required type="text" value="{{old('username')}}" name="username" placeholder="{{translate('Enter your username')}}" />
                         <span>
                             <i class="bi bi-person"></i>
                         </span>
                   </div>
 
                   <div class="auth-input">
-                        <input required type="email" value="{{old("email")}}" name="email" placeholder="{{translate('Enter your email')}}"/>
+                        <input required type="email" value="{{old('email')}}" name="email" placeholder="{{translate('Enter your email')}}"/>
                         <span>
                             <i class="bi bi-envelope"></i>
                         </span>
@@ -102,7 +102,7 @@
 
 
                   <div class="auth-input">
-                    <input required type="phone" value="{{old("phone")}}" name="phone" placeholder="{{translate('Enter your phone')}}"/>
+                    <input required type="phone" value="{{old('phone')}}" name="phone" placeholder="{{translate('Enter your phone')}}"/>
                     <span>
                         <i class="bi bi-telephone"></i>
                     </span>
@@ -110,14 +110,14 @@
 
 
                     <div class="auth-input">
-                        <input name="password" required type="password" placeholder="{{translate("Password")}}" class="toggle-input" autocomplete="new-password" />
+                        <input name="password" required type="password" placeholder="{{translate('Password')}}" class="toggle-input" autocomplete="new-password" />
                         <span class="toggle-password">
                             <i class="bi bi-eye toggle-icon "></i>
                         </span>
                     </div>
 
                     <div class="auth-input">
-                        <input name="password_confirmation" required type="password" placeholder="{{translate("Confrim password")}}" class="toggle-input" />
+                        <input name="password_confirmation" required type="password" placeholder="{{translate('Confrim password')}}" class="toggle-input" />
                         <span class="toggle-password">
                             <i class="bi bi-eye toggle-icon "></i>
                         </span>
@@ -159,7 +159,7 @@
                             data-callback='onSubmit'
                             data-action='register'
                             @else
-                            class="i-btn btn--secondary btn--lg capsuled w-100"
+                               class="i-btn btn--secondary btn--lg capsuled w-100"
                             @endif
                             type="submit">
                               {{trans("Register")}}
