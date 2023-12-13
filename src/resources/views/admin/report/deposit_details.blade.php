@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
 
-                        <li class="list-group-item">{{ translate('User') }} : <a href="{{route("admin.user.show",$report->user->uid)}}">
+                        <li class="list-group-item">{{ translate('User') }} : <a href='{{route("admin.user.show",$report->user->uid)}}'>
                             {{$report->user->name}}</a></li>
 
                         <li class="list-group-item">{{ translate('Transaction Id') }} : {{ $report->trx_code }}</li>
@@ -69,7 +69,7 @@
                                    
                                             @endphp
                                         
-                                            <img src="{{imageUrl($file,"payment",true)}}"
+                                            <img src='{{imageUrl($file,"payment",true)}}'
                                                 alt="{{ @$file->name }}">
                                         @else
                                             {{ $v->field_name }}
@@ -85,12 +85,12 @@
                                 <div class="d-flex justify-content-center p-4 gap-2">
 
                                     <div class="action">
-                                        <a href="javascript:void(0)" data-status = "{{App\Enums\DepositStatus::value("PAID")}}";    class="i-btn btn--sm success update ">
+                                        <a href="javascript:void(0)" data-status = '{{App\Enums\DepositStatus::value("PAID")}';    class="i-btn btn--sm success update ">
                                             <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
                                         </a>
                                     </div>
                                     <div class="action">
-                                        <a href="javascript:void(0)"   data-status = "{{App\Enums\DepositStatus::value("REJECTED")}}"  class="i-btn btn--sm danger update">
+                                        <a href="javascript:void(0)"   data-status = '{{App\Enums\DepositStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
                                             <i class="las la-times-circle me-1"></i> {{translate('Reject')}}
                                         </a>
                                     </div>
@@ -143,7 +143,7 @@
                                     {{translate('Feedback')}}
                                         <small class="text-danger">*</small>
                                 </label>
-                                   <textarea required placeholder="{{translate("Type Here ...")}}" name="feedback" id="feedback" cols="30" rows="5"></textarea>
+                                   <textarea required placeholder='{{translate("Type Here ...")}}' name="feedback" id="feedback" cols="30" rows="5"></textarea>
                             </div>
                         </div>
 

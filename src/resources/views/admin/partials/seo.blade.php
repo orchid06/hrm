@@ -14,8 +14,8 @@
                 
                 </label>
 
-                <input type="text" name="meta_title" id="metaTitle"  placeholder="{{translate("Enter Title")}}"
-                    value="{{@$model->meta_title?? old("meta_title") }}">
+                <input type="text" name="meta_title" id="metaTitle"  placeholder='{{translate("Enter Title")}}'
+                    value='{{@$model->meta_title?? old("meta_title") }}'>
             </div> 
             
 
@@ -24,7 +24,7 @@
                     {{translate('Meta Description')}} 
                 </label>
 
-                <textarea  placeholder="{{translate("Enter Description")}}" id="meta_description"  name="meta_description"  cols="30" rows="5">{{@$model->meta_description??old("meta_description") }}</textarea>
+                <textarea  placeholder='{{translate("Enter Description")}}' id="meta_description"  name="meta_description"  cols="30" rows="5">{{@$model->meta_description??old("meta_description") }}</textarea>
             </div>
 
 

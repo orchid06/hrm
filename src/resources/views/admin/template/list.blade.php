@@ -72,7 +72,7 @@
                                     </td>
 
                                  
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label="{{translate('Options')}}">
                                         <div class="table-action">
                                             @if(check_permission('update_template'))
                                                <a  href="{{route('admin.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>

@@ -8,7 +8,7 @@
             <div class="search-action-area">
                 <div class="row g-4">
 
-                    <form hidden id="bulkActionForm" action="{{route("admin.subscription.package.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action="{{route('admin.subscription.package.bulk')}}" method="post">
                         @csrf
                         <input type="hidden" name="bulk_id" id="bulkid">
                         <input type="hidden" name="value" id="value">
@@ -138,7 +138,7 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Title")}}">
+                                <td data-label="{{translate('Title')}}">
                                     {{$package->title}}
                                     @if($package->is_free ==  App\Enums\StatusEnum::true->status())
                                         <span class="i-badge capsuled success">
@@ -148,7 +148,7 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Price")}}">
+                                <td data-label="{{translate('Price')}}">
                                     @if($package->discount_price > 0)
                                         <del>
                                             {{num_format($package->price,base_currency())}}
@@ -160,19 +160,19 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Duration")}}">
+                                <td data-label="{{translate('Duration')}}">
                                 
                                      @php  echo plan_duration($package->duration)  @endphp
                                 </td>
 
-                                <td data-label="{{translate("Affiliate Commission")}}">
+                                <td data-label="{{translate('Affiliate Commission')}}">
                                       {{($package->affiliate_commission)}}%  
                                 </td>
 
-                                <td data-label="{{translate("Subscriptions - Earnings")}}">
+                                <td data-label="{{translate('Subscriptions - Earnings')}}">
 
                                     <span class="i-badge capsuled success">
-                                        <a href="{{route("admin.subscription.report.list",['package' => $package->slug])}}">
+                                        <a href="{{route('admin.subscription.report.list',['package' => $package->slug])}}">
                                           {{translate("Total Subscription")}} {{$package->subscriptions_count}}
                                         </a>
                                     </span>
@@ -185,7 +185,7 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Status")}}">
+                                <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_package') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="status"
@@ -197,7 +197,7 @@
                                     </div>
                                 </td>
 
-                                <td data-label="{{translate("Feature")}}">
+                                <td data-label='{{translate("Feature")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_package') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="is_feature"
@@ -209,7 +209,7 @@
                                     </div>
                                 </td>
 
-                                <td data-label="{{translate("Recommended")}}">
+                                <td data-label='{{translate("Recommended")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_package') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="is_recommended"
@@ -222,7 +222,7 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Options")}}">
+                                <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
                                         @if(check_permission('update_package') || check_permission('delete_package') )
 

@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.ai.template.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.ai.template.bulk")}}' method="post">
                         @csrf
                         <input type="hidden" name="bulk_id" id="bulkid">
                         <input type="hidden" name="value" id="value">
@@ -100,7 +100,7 @@
 
                               
                                 <div class="form-inner">
-                                    <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}">
+                                    <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
                                 </div>
 
                                 <button class="i-btn btn--sm info w-100">
@@ -172,30 +172,30 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Title")}}">
+                                    <td data-label='{{translate("Title")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
                                             <i class="@php echo $template->icon @endphp " ></i>
                                             <p>	 {{$template->name}}</p>
                                         </div>
                                     </td>
 
-                                    <td  data-label="{{translate("No of word")}}">
+                                    <td  data-label='{{translate("No of word")}}'>
                                         <span class="ms-5 i-badge capsuled success">
                                             {{$template->templateUsages->sum("total_words")}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Category")}}">
+                                    <td data-label='{{translate("Category")}}'>
                                         {{@($template->category->title)}}
                                     </td>
 
-                                    <td data-label="{{translate("User")}}">
+                                    <td data-label='{{translate("User")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$template->user->name}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_ai_template') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -207,7 +207,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Default")}}">
+                                    <td data-label='{{translate("Default")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_ai_template') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_default"
@@ -219,7 +219,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
                                             <a  href="{{route('admin.ai.template.content',$template->uid)}}"  class="update icon-btn info"><i class="las la-file-code"></i></a>

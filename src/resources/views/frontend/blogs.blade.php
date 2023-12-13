@@ -19,7 +19,7 @@
             </p>
 
             <form action="{{route(Route::currentRouteName())}}" class="blog-search">
-              <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by  title')}}"/>
+              <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}"/>
 
               <div>
                 <div class="blog-filter">
@@ -48,16 +48,14 @@
                     y="0"
                     viewBox="0 0 64 64"
                     style="enable-background: new 0 0 512 512"
-                    xml:space="preserve"
-                    class=""
-                  >
+                    xml:space="preserve">
                     <g>
                       <path
                         d="m60.08 53.34-16-16a22.57 22.57 0 1 0-6.74 6.74l16 16a4.76 4.76 0 1 0 6.73-6.74zM11.26 39A19.58 19.58 0 1 1 39 39a19.6 19.6 0 0 1-27.74 0z"
                         data-name="Layer 18"
                         opacity="1"
                         data-original="#000000"
-                        class=""
+                        
                       ></path>
                     </g>
                   </svg>
@@ -96,7 +94,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="blog-item fade-item">
                         <div class="blog-img">
-                            <img src="{{imageUrl(@$blog->file,"article",true)}}" alt="{{@$blog->file->name}}" />
+                            <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
 
                             <div class="blog-card__pop">
                             <span class="shape shape-left">

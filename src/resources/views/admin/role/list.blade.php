@@ -6,7 +6,7 @@
 		<div class="card-body">
 			<div class="search-action-area">
                 <div class="row g-4">
-					<form hidden id="bulkActionForm" action="{{route("admin.role.bulk")}}" method="post">
+					<form hidden id="bulkActionForm" action='{{route("admin.role.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -119,11 +119,11 @@
 										{{$loop->iteration}}
 									</td>
 
-									<td data-label="{{translate("name")}}">
+									<td data-label='{{translate("name")}}'>
 										{{$role->name}}
 									</td>
 
-									<td data-label="{{translate("Status")}}">
+									<td data-label='{{translate("Status")}}'>
 										<div class="form-check form-switch switch-center">
 											<input {{!check_permission('update_role') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
 												data-column="status"
@@ -135,13 +135,13 @@
 										</div>
 									</td>
 
-									<td data-label="{{translate("Created By")}}">
+									<td data-label='{{translate("Created By")}}'>
 										<span class="i-badge capsuled info">
 											{{$role->createdBy->username}}
 										</span>
 									</td>
 
-									<td data-label="{{translate("Updated by")}}">
+									<td data-label='{{translate("Updated by")}}'>
 										<span class="i-badge capsuled success">
 											{{$role->updatedBy->username}}
 										</span>
@@ -149,7 +149,7 @@
 									</td>
 
 
-									<td data-label="{{translate("Action")}}">
+									<td data-label='{{translate("Action")}}'>
 										<div class="table-action">
 
 											@if(check_permission('update_role') ||  check_permission('delete_role'))

@@ -10,7 +10,7 @@
                     <div class="search-area">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
                             <div class="form-inner">
-                                <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by name')}}">
+                                <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by name')}}">
 
                             </div>
                             <button class="i-btn btn--sm info">
@@ -62,7 +62,7 @@
                                     </td>
 
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_gateway') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -74,13 +74,13 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Updated By")}}">
+                                    <td data-label='{{translate("Updated By")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$gateway->updatedBy->name}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_gateway') &&  $gateway->code != "104PHP")
                                               <a  href="{{route('admin.mailGateway.edit',$gateway->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>

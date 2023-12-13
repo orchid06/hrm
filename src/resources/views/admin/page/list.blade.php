@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.page.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.page.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -118,22 +118,22 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Title")}}">
+                                    <td data-label='{{translate("Title")}}'>
 
                                         {{($page->title)}}
 
                                     </td>
 
 
-                                    <td data-label="{{translate("Created By")}}">
+                                    <td data-label='{{translate("Created By")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$page->createdBy->name}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_page') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
                                                 data-route="{{ route('admin.page.update.status') }}"
                                                 data-status="{{ $page->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -142,9 +142,9 @@
                                             <label class="form-check-label" for="status-switch-{{$page->id}}"></label>
                                         </div>
                                     </td>
-                                    <td data-label="{{translate("Header visibility")}}">
+                                    <td data-label='{{translate("Header visibility")}}'>
                                         <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_page') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="show_in_header"
                                                 data-route="{{ route('admin.page.update.status') }}"
                                                 data-status="{{ $page->show_in_header == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -153,9 +153,9 @@
                                             <label class="form-check-label" for="status-switch-header-{{$page->id}}"></label>
                                         </div>
                                     </td>
-                                    <td data-label="{{translate("Footer visibility")}}">
+                                    <td data-label='{{translate("Footer visibility")}}'>
                                         <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_page') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="show_in_footer"
                                                 data-route="{{ route('admin.page.update.status') }}"
                                                 data-status="{{ $page->show_in_footer == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -166,7 +166,7 @@
                                     </td>
 
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_page') || check_permission('delete_page') )
 

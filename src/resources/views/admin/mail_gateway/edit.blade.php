@@ -98,7 +98,7 @@
 								{{translate('Email')}} <small class="text-danger" >*</small>
 									
 							</label>
-							<input required type="email" name="email" id="email" placeholder="{{translate("Enter Email")}}">
+							<input required type="email" name="email" id="email" placeholder='{{translate("Enter Email")}}'>
 						</div>						
 					</div>
 

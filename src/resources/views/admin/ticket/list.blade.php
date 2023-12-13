@@ -85,7 +85,7 @@
                     <div class="col-md-4 col-6 d-flex justify-content-start">
                         @if(check_permission('create_category'))
                             <div class="action">
-                                <a href="{{route("admin.ticket.create")}}" class="i-btn btn--sm success">
+                                <a href="{{route('admin.ticket.create')}}" class="i-btn btn--sm success">
                                     <i class="las la-plus me-1"></i>  {{translate('Add New')}}
                                 </a>
                             </div>
@@ -208,45 +208,45 @@
                            
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate("Ticket Number")}}">
+                                <td data-label="{{translate('Ticket Number')}}">
                                     <a href="{{route('admin.ticket.show',$ticket->ticket_number)}}">
                                         {{$ticket->ticket_number}}
                                     </a>
                                 </td>
 
 
-                                <td data-label="{{translate("User")}}">
+                                <td data-label="{{translate('User')}}">
                                     <a href="{{route('admin.user.show', $ticket->user->uid)}}">
                                        {{$ticket->user?->name}}
                                     </a>
                                 </td>
 
 
-                                <td data-label="{{translate("Subject")}}">
+                                <td data-label="{{translate('Subject')}}">
                                     {{limit_words($ticket->subject,15)}}
                                 </td>
 
 
-                                <td data-label="{{translate("Status")}}">
+                                <td data-label="{{translate('Status')}}">
                                     @php echo ticket_status($ticket->status) @endphp
 
                                 </td>
 
-                                <td data-label="{{translate("Priority")}}">
+                                <td data-label="{{translate('Priority')}}">
                                     @php echo priority_status($ticket->priority) @endphp
                                 </td>
 
-                                <td data-label="{{translate("Creation Time")}}">
+                                <td data-label="{{translate('Creation Time')}}">
                                     {{get_date_time($ticket->created_at)}}
                                 </td>
-                                <td data-label="{{translate("Options")}}">
+                                <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
 
                                         <a  href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
 
                                         @if(check_permission('delete_ticket') )
                                           
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
+                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
                                             <i class="las la-trash-alt"></i></a>
 
                                         @endif

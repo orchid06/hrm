@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.staff.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.staff.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -23,7 +23,7 @@
 
                                         @if(check_permission('delete_staff'))
                                             <li>
-                                                <button data-message="{{translate("Are you sure you want to remove these record permanently?")}}" data-type ="{{request()->routeIs('admin.staff.recycle.list') ? 'force_delete' :"delete"}}"   class="dropdown-item bulk-action-modal">
+                                                <button data-message='{{translate("Are you sure you want to remove these record permanently?")}}' data-type ="{{request()->routeIs('admin.staff.recycle.list') ? 'force_delete' :'delete'}}"   class="dropdown-item bulk-action-modal">
                                                     {{translate("Delete")}}
                                                 </button>
                                             </li>
@@ -31,7 +31,7 @@
                                             @if(request()->routeIs('admin.staff.recycle.list'))
                                             
                                                 <li>
-                                                    <button data-message="{{translate("Are you sure you want to restore these record ?")}}" data-type ="restore"  class="dropdown-item bulk-action-modal">
+                                                    <button data-message='{{translate("Are you sure you want to restore these record ?")}}' data-type ="restore"  class="dropdown-item bulk-action-modal">
                                                         {{translate("Restore")}}
                                                     </button>
                                                 </li>
@@ -149,10 +149,10 @@
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate("Name")}}">
+                                <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
 
-                                        <img class="rounded-circle avatar-sm" src="{{imageUrl(@$staff->file,"profile,admin",true)}}" alt="{{@$staff->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$staff->file,"profile,admin",true)}}' alt="{{@$staff->file->name}}">
 
                                         <p>	{{ $staff->name}}</p>
                                         <span class="i-badge capsuled success">
@@ -162,28 +162,28 @@
                                     </div>
                                 </td>
 
-                                <td data-label="{{translate("Email")}}">
+                                <td data-label="{{translate('Email')}}">
                                     {{$staff->email}}
                                 </td>
 
-                                <td data-label="{{translate("Phone")}}">
+                                <td data-label="{{translate('Phone')}}">
                                     {{$staff->phone ? $staff->phone : "N/A"}}
                                 </td>
 
-                                <td data-label="{{translate("Created By")}}">
+                                <td data-label="{{translate('Created By')}}">
                                     <span class="i-badge capsuled info">
                                         {{$staff->createdBy->username}}
                                     </span>
                                 </td>
 
 
-                                <td data-label="{{translate("Created By")}}">
+                                <td data-label="{{translate('Created By')}}">
                                     <span class="i-badge capsuled info">
                                         {{ $staff->last_login ? diff_for_humans($staff->last_login) : "N/A"}}
                                     </span>
                                 </td>
 
-                                <td data-label="{{translate("Status")}}">
+                                <td data-label="{{translate('Status')}}">
                                     <div class="form-check form-switch switch-center">
                                         <input  {{!check_permission('update_staff') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="status"
@@ -197,7 +197,7 @@
                                 </td>
 
 
-                                <td data-label="{{translate("Action")}}">
+                                <td data-label="{{translate('Action')}}">
                                     <div class="table-action">
 
                                         @if(check_permission('update_staff') ||  check_permission('delete_staff'))
@@ -296,8 +296,8 @@
 
                                     </label>
 
-                                    <input type="text" name="name" id="name"  placeholder="{{translate("Enter Name")}}"
-                                        value="{{old("name")}}">
+                                    <input type="text" name="name" id="name"  placeholder="{{translate('Enter Name')}}"
+                                        value="{{old('name')}}">
                                 </div>
                             </div>
 
@@ -308,8 +308,8 @@
                                             <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="text" name="username" id="username" placeholder="{{translate("Enter User Name")}}"
-                                        value="{{old("username")}}" required>
+                                    <input type="text" name="username" id="username" placeholder="{{translate('Enter User Name')}}"
+                                        value="{{old('username')}}" required>
                                 </div>
 
                             </div>
@@ -321,8 +321,8 @@
                                             <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="text" name="email" id="email" placeholder="{{translate("Enter Email")}}"
-                                        value="{{old("email")}}" required>
+                                    <input type="text" name="email" id="email" placeholder="{{translate('Enter Email')}}"
+                                        value="{{old('email')}}" required>
                                 </div>
 
                             </div>
@@ -334,8 +334,8 @@
 
                                     </label>
 
-                                    <input type="text" name="phone" id="phone"   placeholder="{{translate("Enter Phone")}}"
-                                        value="{{old("phone")}}">
+                                    <input type="text" name="phone" id="phone"   placeholder="{{translate('Enter Phone')}}"
+                                        value="{{old('phone')}}">
                                 </div>
                             </div>
 
@@ -388,7 +388,7 @@
                                             <small class="text-danger">*({{translate('Minimum 5 Characters')}})</small>
                                     </label>
 
-                                    <input placeholder="{{translate("Enter Password")}}" type="password" name="password" value="{{old('password')}}">
+                                    <input placeholder="{{translate('Enter Password')}}" type="password" name="password" value="{{old('password')}}">
                                 </div>
                             </div>
 
@@ -431,7 +431,7 @@
                                     <label for="Name">
                                         {{translate('Name')}}
                                     </label>
-                                    <input type="text" name="name" id="Name" placeholder="{{translate("Enter Name")}}">
+                                    <input type="text" name="name" id="Name" placeholder="{{translate('Enter Name')}}">
                                 </div>
                             </div>
 
@@ -441,7 +441,7 @@
                                         {{translate('User Name')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" name="username" id="userName" placeholder="{{translate("Enter User Name")}}" required>
+                                    <input type="text" name="username" id="userName" placeholder="{{translate('Enter User Name')}}" required>
                                 </div>
                             </div>
 
@@ -451,7 +451,7 @@
                                         {{translate('Email')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" name="email" id="Email" placeholder="{{translate("Enter Email")}}" required>
+                                    <input type="text" name="email" id="Email" placeholder="{{translate('Enter Email')}}" required>
                                 </div>
                             </div>
 
@@ -461,7 +461,7 @@
                                         {{translate('Phone')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" name="phone" id="phoneNumber"  placeholder="{{translate("Enter Phone")}}" required>
+                                    <input type="text" name="phone" id="phoneNumber"  placeholder="{{translate('Enter Phone')}}" required>
                                 </div>
                             </div>
 
@@ -529,7 +529,7 @@
                                         {{translate('Password')}} <span class="text-danger" >*</span>
 
                                     </label>
-                                    <input required type="text" name="password" id="password"   placeholder="{{translate("Enter Password")}}">
+                                    <input required type="text" name="password" id="password"   placeholder='{{translate("Enter Password")}}'>
                                 </div>
                             </div>
 
@@ -539,7 +539,7 @@
                                         {{translate('Confirm Password')}}
                                             <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="password_confirmation" name="password_confirmation"   placeholder="{{translate("Enter Confrim Password")}}" required>
+                                    <input type="text" id="password_confirmation" name="password_confirmation"   placeholder='{{translate("Enter Confrim Password")}}' required>
                                 </div>
                             </div>
                         </div>

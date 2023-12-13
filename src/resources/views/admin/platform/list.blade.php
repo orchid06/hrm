@@ -4,7 +4,7 @@
         <div class="card-body">
                 <div class="search-action-area">
                     <div class="row g-4">
-                        <form hidden id="bulkActionForm" action="{{route("admin.platform.bulk")}}" method="post">
+                        <form hidden id="bulkActionForm" action='{{route("admin.platform.bulk")}}' method="post">
                             @csrf
                             <input type="hidden" name="bulk_id" id="bulkid">
                             <input type="hidden" name="value" id="value">
@@ -83,15 +83,15 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-                                    <td data-label="{{translate("name")}}">
+                                    <td data-label='{{translate("Name")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-sm" src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{@$platform->file->name}}">
+                                            <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
 
                                             <p>	 {{$platform->name}}</p>
                                         </div>
                                     </td>
                                  
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -103,7 +103,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Feature")}}">
+                                    <td data-label='{{translate("Feature")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_feature"
@@ -115,7 +115,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Integrated")}}">
+                                    <td data-label='{{translate("Integrated")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_integrated"
@@ -127,13 +127,13 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Action")}}">
+                                    <td data-label='{{translate("Action")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_platform') )
                                                 @if(check_permission('update_platform'))
                                                 
                                         
-                                                    <a  href="javascript:void(0);" data-img ="{{imageUrl(@$platform->file,"platform",true)}}"   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                    <a  href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                                 @endif
                                            
@@ -187,7 +187,7 @@
                                         {{translate('Description')}} 
                                     </label>
 
-                                    <textarea placeholder="{{translate("Type Here...")}}" name="description" id="description" cols="30" rows="5"></textarea>
+                                    <textarea placeholder='{{translate("Type Here...")}}' name="description" id="description" cols="30" rows="5"></textarea>
                                 </div>
                             </div>
 
@@ -197,7 +197,7 @@
                                         {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['platform']['size']}})</small>
                                     </label>
                                 
-                                    <input data-size = {{config("settings")['file_path']['platform']['size']}} id="image" name="image" type="file" class="preview" >
+                                    <input data-size = "{{config('settings')['file_path']['platform']['size']}}" id="image" name="image" type="file" class="preview" >
             
                                     <div class="mt-2 image-preview-section">
                                         

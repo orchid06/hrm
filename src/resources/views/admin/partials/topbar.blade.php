@@ -70,7 +70,7 @@
                               <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                 <div class="notify-icon">
                                   <img class="rounded-circle"
-                                    src="{{imageUrl(auth_user()->file,"profile,admin",true) }}"
+                                    src='{{imageUrl(auth_user()->file,"profile,admin",true) }}'
                                     alt="{{@auth_user()->file->name}}" />
                                 </div>
 
@@ -101,7 +101,7 @@
 
                   @if($notifications->count() >0)
                     <div class="dropdown-menu-footer">
-                        <a href="{{route("admin.notifications")}}">
+                        <a href='{{route("admin.notifications")}}'>
                            {{translate("View All")}}
                         </a>
                     </div>
@@ -177,7 +177,7 @@
         <div class="profile-dropdown">
           <div class="topbar-profile dropdown-toggle" type="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{imageUrl(@auth_user()->file,"profile,admin",true)}}" alt="{{@auth_user()->file->name}}">
+            <img src='{{imageUrl(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
           </div>
           <div class="dropdown-menu dropdown-menu-end">
             <ul>

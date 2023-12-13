@@ -137,7 +137,7 @@
                             @php
                                $earnings =  $user->affiliates->sum("commission_amount");
                             @endphp
-                            <a href="{{route("admin.affiliate.report.list",['user' => $user->username])}}">
+                            <a href="{{route('admin.affiliate.report.list',['user' => $user->username])}}">
 
                                 <span class="i-badge-solid info"> {{num_format($earnings,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
                                     {{num_format(
@@ -173,7 +173,7 @@
                 <h4 class="card-title">{{ translate('Update Subscriptions') }}</h4>
             </div>
             <div class="card-body">
-                <form action="{{route("admin.user.subscription")}}"  method="post"
+                <form action="{{route('admin.user.subscription')}}"  method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{ $user->id }}">
@@ -232,7 +232,7 @@
                                     <label  for="Name">
                                         {{translate('Name')}} <span class="text-danger">*</span>
                                     </label>
-                                    <input required type="text" name="name" value="{{$user->name}}" id="Name"  placeholder="{{translate("Enter Name")}}">
+                                    <input required type="text" name="name" value="{{$user->name}}" id="Name"  placeholder="{{translate('Enter Name')}}">
                                 </div>
                             </div>
 
@@ -242,7 +242,7 @@
                                         {{translate('Username')}}
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" value="{{$user->username}}" name="username" id="username" placeholder="{{translate("Enter Username")}}" required>
+                                    <input type="text" value="{{$user->username}}" name="username" id="username" placeholder="{{translate('Enter Username')}}" required>
                                 </div>
                             </div>
 
@@ -252,7 +252,7 @@
                                         {{translate('Email')}}
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="email"  value="{{$user->email}}" name="email" id="Email"  placeholder="{{translate("Enter Email")}}" required>
+                                    <input type="email"  value="{{$user->email}}" name="email" id="Email"  placeholder="{{translate('Enter Email')}}" required>
                                 </div>
 
                             </div>
@@ -264,7 +264,7 @@
                                         {{translate('Phone')}}
 
                                     </label>
-                                    <input type="text"  value="{{$user->phone}}" name="phone" id="phoneNumber"  placeholder="{{translate("Enter Phone")}}" required>
+                                    <input type="text"  value="{{$user->phone}}" name="phone" id="phoneNumber"  placeholder="{{translate('Enter Phone')}}" required>
                                 </div>
                             </div>
 
@@ -314,11 +314,11 @@
                                     <label for="image">
                                         {{translate('Profile Image')}}
                                     </label>
-                                    <input data-size = {{config("settings")['file_path']['profile']['user']['size']}} id="image" name="image" type="file" class="preview" >
+                                    <input data-size = "{{config('settings')['file_path']['profile']['user']['size']}}" id="image" name="image" type="file" class="preview" >
             
                                     <div class="mt-2 payment-preview image-preview-section">
 
-                                        <img src="{{imageUrl($user->file,"profile,user",true) }}" alt="{{@$user->file->name}}">
+                                        <img src="{{imageUrl($user->file,'profile,user',true) }}" alt="{{@$user->file->name}}">
                                         
                                     </div>
 
@@ -333,7 +333,7 @@
                                         {{translate('Password')}}
 
                                     </label>
-                                    <input  type="text" name="password" id="password"   placeholder="{{translate("Enter Password")}}">
+                                    <input  type="text" name="password" id="password"   placeholder="{{translate('Enter Password')}}">
                                 </div>
                             </div>
 
@@ -343,7 +343,7 @@
                                         {{translate('Confirm Password')}}
 
                                     </label>
-                                    <input type="text" id="password_confirmation" name="password_confirmation"   placeholder="{{translate("Enter Confrim Password")}}" >
+                                    <input type="text" id="password_confirmation" name="password_confirmation"   placeholder="{{translate('Enter Confrim Password')}}" >
                                 </div>
 
                             </div>
@@ -410,7 +410,7 @@
                     </button>
                 </div>
 
-                <form action="{{route('admin.user.balance')}}" id="" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.user.balance')}}" method="post" enctype="multipart/form-data">
                     <input value="{{$user->id}}" hidden name="id"  type="text">
                     <input  hidden name="type" id="type"  type="text">
 

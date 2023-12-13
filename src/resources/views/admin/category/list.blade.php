@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.category.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action='{{route("admin.category.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -131,7 +131,7 @@
                                         {{$loop->iteration}}
                                     </td>
 
-                                    <td data-label="{{translate("Title")}}">
+                                    <td data-label='{{translate("Title")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
                          
                                              <i class="@php echo @$category->icon  @endphp" ></i>
@@ -143,20 +143,20 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Template")}}">
-                                         <a href="{{route("admin.ai.template.list",['category' => $category->slug])}}">
+                                    <td data-label='{{translate("Template")}}'>
+                                         <a href="{{route('admin.ai.template.list',['category' => $category->slug])}}">
                                            {{translate('No of template')}} ({{$category->templates_count}})
                                          </a>
                                     </td>
                                   
             
-                                    <td data-label="{{translate("Created By")}}">
+                                    <td data-label='{{translate("Created By")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$category->createdBy->name}}
                                         </span>
                                     </td>
 
-                                    <td data-label="{{translate("Status")}}">
+                                    <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_category') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="status"
@@ -167,7 +167,7 @@
                                             <label class="form-check-label" for="status-switch-{{$category->id}}"></label>
                                         </div>
                                     </td>
-                                    <td data-label="{{translate("Feature")}}">
+                                    <td data-label='{{translate("Feature")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_category') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                                 data-column="is_feature"
@@ -179,7 +179,7 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="{{translate("Options")}}">
+                                    <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_category') || check_permission('delete_category') )
 

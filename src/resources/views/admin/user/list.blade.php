@@ -5,7 +5,7 @@
             <div class="search-action-area">
                 <div class="row g-4">
 
-                    <form hidden id="bulkActionForm" action="{{route("admin.user.bulk")}}" method="post">
+                    <form hidden id="bulkActionForm" action="{{route('admin.user.bulk')}}" method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
@@ -134,9 +134,9 @@
                                     {{$loop->iteration}}
                                 </td>
 
-                                <td data-label="{{translate("Name")}}">
+                                <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"  src="{{imageUrl($user->file,"profile,user",true) }}" alt="{{@$user->file->name}}">
+                                        <img class="rounded-circle avatar-sm"  src='{{imageUrl($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->subscriptions->count() > 0)
                                        
@@ -146,7 +146,7 @@
                                     </div>
                                 </td>
 
-                                <td data-label="{{translate("Email - Phone")}}">
+                                <td data-label='{{translate("Email - Phone")}}'>
                                     
                                     <div class="d-block">
                                         {{$user->email}} 
@@ -155,12 +155,12 @@
                                     <span class=" i-badge success">{{$user->phone}}</span>
                                 </td>
 
-                                <td  data-label="{{translate("Country")}}">
+                                <td  data-label="{{translate('Country')}}">
                                     {{$user->country->name}}
                                 </td>
 
                          
-                                <td data-label="{{translate("Balance")}}">
+                                <td data-label="{{translate('Balance')}}">
                                     
                                     <span class="i-badge-solid primary"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
                                         {{num_format(
@@ -171,13 +171,13 @@
                                 </td>
 
                               
-                                <td data-label="{{translate("Created By")}}">
+                                <td data-label="{{translate('Created By')}}">
                                     <span class="i-badge capsuled info">
                                         {{$user->createdBy->name}}
                                     </span>
                                 </td>
 
-                                <td data-label="{{translate("Status")}}">
+                                <td data-label="{{translate('Status')}}">
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_user') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="status"
@@ -190,16 +190,16 @@
                                     </div>
                                 </td>
 
-                                <td data-label="{{translate("Options")}}">
+                                <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a  href="{{route('admin.user.show', $user->uid)}}"  data-toggle="tooltip" data-placement="top" title="{{translate("Update/Show")}}" class=" icon-btn info"><i class="las la-pen"></i></a>
-                                                <a target="_blank" href="{{route('admin.user.login', $user->uid)}}" class=" icon-btn success" data-toggle="tooltip" data-placement="top" title="{{translate("Login")}}"><i class="las la-sign-in-alt"></i></a>
+                                                <a  href="{{route('admin.user.show', $user->uid)}}"  data-toggle="tooltip" data-placement="top" title="{{translate('Update/Show')}}" class=" icon-btn info"><i class="las la-pen"></i></a>
+                                                <a target="_blank" href="{{route('admin.user.login', $user->uid)}}" class=" icon-btn success" data-toggle="tooltip" data-placement="top" title="{{translate('Login')}}"><i class="las la-sign-in-alt"></i></a>
                                             @endif
 
                                             @if(check_permission('delete_user'))
-                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                             @endif
                                         @else
@@ -251,8 +251,8 @@
                                     <label  for="Name">
                                         {{translate('Name')}} <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="name" id="Name"  required  placeholder="{{translate("Enter Name")}}"
-                                        value="{{old("name")}}">
+                                    <input type="text" name="name" id="Name"  required  placeholder="{{translate('Enter Name')}}"
+                                        value="{{old('name')}}">
                                 </div>
 
                             </div>
@@ -264,8 +264,8 @@
                                             <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="text" name="username" id="username"  placeholder="{{translate("Enter User Name")}}"
-                                        value="{{old("username")}}" required>
+                                    <input type="text" name="username" id="username"  placeholder="{{translate('Enter User Name')}}"
+                                        value="{{old('username')}}" required>
                                 </div>
                             </div>
 
@@ -276,8 +276,8 @@
                                             <small class="text-danger">*</small>
                                     </label>
 
-                                    <input type="email" name="email" id="email"   placeholder="{{translate("Enter Email")}}"
-                                        value="{{old("email")}}" required>
+                                    <input type="email" name="email" id="email"   placeholder="{{translate('Enter Email')}}"
+                                        value="{{old('email')}}" required>
                                 </div>
                             </div>
 
@@ -294,7 +294,7 @@
                                         </option>
 
                                         @foreach ($countries as $country )
-                                            <option {{old("country_id") == $country->id ? "selected" :""}} value="{{$country->id}}">
+                                            <option {{old('country_id') == $country->id ? "selected" :""}} value="{{$country->id}}">
                                                  {{$country->name}}
                                             </option>
                                         @endforeach
@@ -311,8 +311,8 @@
                                         {{translate('Phone')}}
                                     </label>
 
-                                    <input type="text" name="phone" id="phone" placeholder="{{translate("Enter Phone")}}"
-                                        value="{{old("phone")}}" required>
+                                    <input type="text" name="phone" id="phone" placeholder="{{translate('Enter Phone')}}"
+                                        value="{{old('phone')}}" required>
                                 </div>
                             </div>
 
@@ -339,7 +339,7 @@
                                     <label for="image">
                                         {{translate('Profile Image')}}
                                     </label>
-                                    <input data-size = {{config("settings")['file_path']['profile']['user']['size']}} id="image" name="image" type="file" class="preview" >
+                                    <input data-size = "{{config('settings')['file_path']['profile']['user']['size']}}" id="image" name="image" type="file" class="preview" >
             
                                     <div class="mt-2 image-preview-section">
                                         
@@ -354,7 +354,7 @@
                                         {{translate('Password')}}
                                             <small class="text-danger">*({{translate('Minimum 6 Characters')}})</small>
                                     </label>
-                                    <input placeholder="{{translate("Enter Password")}}" type="text" id="password"  name="password" value="{{old('password')}}">
+                                    <input placeholder="{{translate('Enter Password')}}" type="text" id="password"  name="password" value="{{old('password')}}">
                                 </div>
                             </div>
                             
@@ -364,7 +364,7 @@
                                         {{translate('Confrim Password')}}
                                             <small class="text-danger">*({{translate('Minimum 6 Characters')}})</small>
                                     </label>
-                                    <input placeholder="{{translate("Enter Confirm Password")}}" type="text" id="password_confirmation"  name="password_confirmation" value="{{old('password_confirmation')}}">
+                                    <input placeholder="{{translate('Enter Confirm Password')}}" type="text" id="password_confirmation"  name="password_confirmation" value="{{old('password_confirmation')}}">
                                 </div>
                             </div>
 
