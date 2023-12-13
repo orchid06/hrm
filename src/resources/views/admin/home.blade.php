@@ -169,6 +169,44 @@
         </div>
         <div class="card-body">
           <div id="paymentGateway" class="apex-chart"></div>
+          <div class="row g-0 text-center">
+            <div class="col-6 col-sm-4">
+                <div class="p-3 border border-dashed border-start-0">
+                    <h5 class="mb-1">
+                        <span>
+                            44
+                        </span>
+                    </h5>
+                    <p class="text-muted mb-0">
+                          Total
+                    </p>
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col-6 col-sm-4">
+                <div class="p-3 border border-dashed border-start-0">
+                    <h5 class="mb-1">
+                        <span>
+                            30
+                        </span>
+                    </h5>
+                    <p class="text-muted mb-0">
+                          Opened
+                    </p>
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col-6 col-sm-4">
+                <div class="p-3 border border-dashed border-start-0">
+                    <h5 class="mb-1"><span>
+                        6
+                    </span></h5>
+                    <p class="text-muted mb-0">
+                          Closed
+                    </p>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -317,6 +355,40 @@
           </h4>
         </div>
         <div class="card-body">
+          <div class="row g-0 mb-4">
+            <div class="col-sm-3">
+              <div class="p-3 border text-center border-dashed border-start-0">
+                <h5 class="mb-1">
+                    <span>30</span>
+                </h5>
+                <p class="text-muted mb-0">Opened</p>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="p-3 border text-center border-dashed border-start-0">
+                <h5 class="mb-1">
+                    <span>30</span>
+                </h5>
+                <p class="text-muted mb-0">Opened</p>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="p-3 border text-center border-dashed border-start-0">
+                <h5 class="mb-1">
+                    <span>30</span>
+                </h5>
+                <p class="text-muted mb-0">Opened</p>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="p-3 border text-center border-dashed border-start-0">
+                <h5 class="mb-1">
+                    <span>30</span>
+                </h5>
+                <p class="text-muted mb-0">Opened</p>
+              </div>
+            </div>
+          </div>
           <div id="visitor-chart" class="apex-chart"></div>
         </div>
       </div>
@@ -334,6 +406,34 @@
               <div class="d-flex align-items-start gap-2">
                 <span class="list-dot"><i class="bi bi-dot"></i></span>
                 <span class="activity-title">Replied to new support request through AI and added new project this week</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
+              </div>
+              <span class="time">6.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">New theme for <strong>website</strong></span>
+              </div>
+              <span class="time">2.68PM</span>
+            </li>
+            <li>
+              <div class="d-flex align-items-center gap-2">
+                <span class="list-dot"><i class="bi bi-dot"></i></span>
+                <span class="activity-title">Replied to new support request</span>
               </div>
               <span class="time">6.68PM</span>
             </li>

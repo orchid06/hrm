@@ -172,6 +172,10 @@ table td:last-child {
     .form-inner {
       position: relative;
       margin-bottom: 0;
+      @include sm-down-device{
+        min-width: 100%;
+        max-width: 100%;
+      }
 
       .search-icon {
         position: absolute;

@@ -395,6 +395,7 @@ button {
   border-radius: 3px;
   transition: 0.35s;
   line-height: 1;
+  white-space: nowrap;
 
   [dir="rtl"] & {
     flex-direction: row-reverse;
