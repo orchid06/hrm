@@ -206,7 +206,7 @@
                     </div>
 
 
-                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                         {{ translate('Submit') }}
                     </button>
                 </form>
@@ -345,38 +345,25 @@
                                     </label>
                                     <input type="text" id="password_confirmation" name="password_confirmation"   placeholder="{{translate('Enter Confrim Password')}}" >
                                 </div>
-
                             </div>
-
-
-
                             <div class="col-lg-12">
-
                                 <div class="form-inner">
-                                    <input id="email_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->email_verified_at ? "checked" :""}} class="form-check-input" name="email_verified" type="checkbox"   >
+                                    <input id="email_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->email_verified_at ? "checked" :""}} class="form-check-input me-1" name="email_verified" type="checkbox"   >
                                     <label for="email_verified" class="form-check-label me-3">
                                          {{translate('Email Verified')}}
                                     </label>
-
-                                    <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input" name="auto_subscription" type="checkbox"   >
+                                    <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
                                     <label for="auto_subscription" class="form-check-label me-3">
                                          {{translate('Auto Subscription')}}
                                     </label>
-
-
-                                    <input id="is_kyc_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->is_kyc_verified ? "checked" :""}} class="form-check-input" name="is_kyc_verified" type="checkbox"   >
+                                    <input id="is_kyc_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->is_kyc_verified ? "checked" :""}} class="form-check-input me-1" name="is_kyc_verified" type="checkbox"   >
                                     <label for="is_kyc_verified" class="form-check-label me-3">
                                          {{translate('Kyc Verified')}}
                                     </label>
                                 </div>
-                              
-
                             </div>
-
-
-
                             <div class="col-lg-6">
-                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>
                             </div>
@@ -487,10 +474,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

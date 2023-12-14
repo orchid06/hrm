@@ -153,7 +153,7 @@
     }
 
     // Ripple button effects==============
-    Array.from(document.querySelectorAll('[anim="ripple"]'), el => {
+    Array.from(document.querySelectorAll('[data-anim="ripple"]'), el => {
         el.addEventListener('click', e => {
             e = e.touches ? e.touches[0] : e;
             const r = el.getBoundingClientRect(), d = Math.sqrt(Math.pow(r.width, 2) + Math.pow(r.height, 2)) * 2;

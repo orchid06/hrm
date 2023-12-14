@@ -32,8 +32,7 @@
                   data-bs-toggle="collapse"
                   data-bs-target="#collapse-{{$loop->index}}"
                   aria-expanded="false"
-                  aria-controls="collapse-{{$loop->index}}"
-                >
+                  aria-controls="collapse-{{$loop->index}}">
                   <i class="{{ $element->value->icon}}"></i>
                   {{$element->value->question}}
                 </button>

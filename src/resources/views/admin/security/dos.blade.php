@@ -53,7 +53,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </form>

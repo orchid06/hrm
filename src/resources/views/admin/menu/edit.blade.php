@@ -47,10 +47,8 @@
                                                 {{translate('Name')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            
                                             <input type="text" name="name" id="name" placeholder='{{translate("Enter name")}}'
-                                                value="{{$menu->name}}" required>        
-                                                                                                     
+                                                value="{{$menu->name}}" required>                                                              
                                         </div>                                                                         
                                 </div>
                                 <div class="col-lg-6">
@@ -61,11 +59,9 @@
                                             </label>
                                             
                                             <input type="text" name="url" id="url" placeholder='{{translate("Enter url")}}'
-                                                value="{{$menu->url}}" required>        
-                                                                                                       
+                                                value="{{$menu->url}}" required>                                                             
                                         </div>                                                                         
                                 </div>
-
                                 <div class="col-12">
                                     <div class="form-inner">
                                         <label for="serial_id"> 
@@ -74,31 +70,24 @@
                                         <input type="number" name="serial_id" value="{{$menu->serial_id}}" >
                                     </div>
                                 </div>
-
                                 <div class="col-12">
-                              
                                     <div class="form-inner ">
                                         <label class="me-2">
                                             {{translate("Visible In")}}
                                         </label>
-
                                         @foreach (App\Enums\MenuVisibilty::toArray() as $k => $v )
                                             <input id="{{ $k }}" @if($menu->menu_visibility == $v ) checked  @endif value="{{ $v }}" class="form-check-input" name="menu_visibility" type="radio">
                                             <label for="{{ $k }}" class="form-check-label me-2">
                                                 {{translate($k)}}
                                             </label>
                                         @endforeach
-      
                                     </div>
                                 </div>
-    
-
-                            
                                     <ul class="dropable-section mt-4">
                                         @if($menu->section)
                                             @foreach ($menu->section as $key)
 
-                                                <li class="alert alert-secondary alert-dismissible fade show alert-with-icon pointer  moveable-section">
+                                                <li class="alert border fade show alert-with-icon pointer  moveable-section">
 
                                                     <input type="hidden" name="section[]" value="{{$key}}">
                                                     <i class="las la-check-circle"></i>
@@ -120,16 +109,13 @@
                     
                                 
                                 <div class="col-12">
-                                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
-
                             </div>
                         </div>
-                
                     </div>
-
                 </form>
             </div>
             <div class="col-xl-5">
@@ -141,21 +127,15 @@
                         </div>
                 
                         <div class="card-body">             
-    
                             <ul class="dragable-section">
-
                                 @foreach (get_appearance(true) as $key => $appearance )
-
                                     @if (isset($appearance['builder']) && $appearance['builder'] && !@$appearance['no_selection'])
-
-                                        <li class="alert alert-secondary alert-dismissible fade show alert-with-icon pointer  moveable-section">
-
+                                        <li class="alert border fade show alert-with-icon pointer  moveable-section">
                                             <input type="hidden" name="section[]" value="{{$key}}">
                                             <i class="las la-check-circle"></i>
                                             <p>
                                                 {{k2t(Arr::get($appearance,'name',""))}}
                                             </p>
-
                                             <a href="javascript:void(0)" class=" i-btn btn--sm danger ms-auto section-remove">
                                                 <i class="las la-times-circle"></i>
                                             </a>
@@ -163,13 +143,9 @@
                                                 <i class="las la-cog"></i>
                                             </a>
                                         </li>
-
                                     @endif
-                                    
                                 @endforeach
-
                             </ul>
-                    
                         </div>
                     </div>
             </div>

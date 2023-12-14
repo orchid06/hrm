@@ -49,6 +49,7 @@
     </div>
 
     <div class="col-lg-12 mb-3">
+        <div class="faq-wrap style-2">
         <div class="accordion" id="advanceOption">
             <div class="accordion-item">
             <h2 class="accordion-header" id="advanceContent">
@@ -120,5 +121,6 @@
                 </div>
             </div>
             </div>
+        </div>
         </div>
     </div>

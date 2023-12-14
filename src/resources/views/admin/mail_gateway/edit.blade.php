@@ -60,7 +60,7 @@
 
 						<div class="col-12">
 							<div class="d-flex align-items-center gap-3">
-								<button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+								<button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
 									{{translate("Submit")}}
 								</button>
 								<a href="javascript:void(0)"   data-bs-toggle="modal" data-bs-target="#test" class="i-btn btn--info btn--md">
@@ -103,10 +103,10 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+						<button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
 							{{translate("Close")}}
 						</button>
-						<button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+						<button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
 							{{translate("Submit")}}
 						</button>
 					</div>
