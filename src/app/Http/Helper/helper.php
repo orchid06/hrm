@@ -959,14 +959,15 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('get_platform')){
-      function get_platform(array $ids) : MediaPlatform | Collection | null{
+      function get_platform( ? array $ids =  null) : MediaPlatform | Collection | null{
         
      
          $platforms = Cache::remember('media_platform',24 * 60, function ()   {
             return  MediaPlatform::get();
          });
 
-         return $platforms->whereIn('id',$ids);
+         return $ids ? $platforms->whereIn('id', $ids) : $platforms;
+
       }
    }
 

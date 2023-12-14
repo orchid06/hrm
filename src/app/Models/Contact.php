@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\Filterable;
 
 class Contact extends Model
 {
-    use HasFactory;
+    use HasFactory ,Filterable;
     protected $guarded = [];
 
 
@@ -20,9 +21,5 @@ class Contact extends Model
     }
 
 
-    public function scopeFilter($q){
-        return $q->when(request()->name,function($query) {
-            return $query->where("name","like","%".request()->name."%");
-        });
-    }
+
 }

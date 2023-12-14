@@ -1,90 +1,70 @@
 
 @extends('admin.layouts.master')
-
+@push('style-include')
+  <link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
+@endpush
 @section('content')
     <div class="i-card-md">
-        <div class="card--header">
-            <h4 class="card-title">
-                {{translate('Contact List')}}
-            </h4>
-
-        </div>
-
         <div class="card-body">
             <div class="search-action-area">
+
                 <div class="row g-4">
-                    <form hidden id="bulkActionForm" action="{{route("admin.contact.bulk")}}" method="post">
+
+                    <form hidden id="bulkActionForm" action='{{route("admin.contact.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-                    @if(check_permission('create_contact') || check_permission('update_contact') || check_permission('delete_contact'))
-                        <div class="col-md-4 d-flex justify-content-start">
-                            @if(check_permission('update_contact') || check_permission('delete_contact'))
-                                <div class="i-dropdown bulk-action d-none">
-                                    <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="las la-cogs fs-15"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        @if(check_permission('update_contact'))
-                                            <li>
-                                                <button  id="deleteModal" class="dropdown-item">
-                                                    {{translate("Delete")}}
-                                                </button>
-                                            </li>
-                                        @endif
-                                        @if(request()->routeIs('admin.archive'))
-                                            <li>
-                                                <button class="dropdown-item" id="bulkActionBtn" data-type ="restore">
-                                                    {{translate("Restore")}}
-                                                </button>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    @endif
-                    @if(request()->routeIs('admin.contact.list'))
-                        <div class="action ms-3">
-                            <a href="{{route('admin.archive')}}" class="i-btn btn--sm btn--success">
-                                {{translate('Show Archive contact')}}
-                            </a>
-                        </div>
-                    @else
-                        <div class="action ms-3">
-                            <a href="{{route('admin.contact.list')}}" class="i-btn btn--sm btn--success">
-                                {{translate('Show contact List')}}
-                            </a>
-                        </div>
-                    @endif
-                </div>
-                <div class="d-flex justify-content-md-end justify-content-start">
-                    <div class="search-area">
-                        <form action="{{route(Route::currentRouteName())}}" method="get">
 
-                            <div class="form-inner">
-                                    <input name="name" value="{{request()->name}}" type="search" placeholder="{{translate('Search By Name')}}">
+                    <div class="col-md-4 d-flex justify-content-start">
+
+                        @if(check_permission('update_frontend') )
+                            <div class="i-dropdown bulk-action d-none">
+                                <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="las la-cogs fs-15"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button data-type="delete"  class="dropdown-item bulk-action-modal">
+                                            {{translate("Delete")}}
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
+                        @endif
 
-                            <button class="i-btn btn--sm info">
-                                <i class="las la-sliders-h"></i>
-                            </button>
-                            <a href="{{route('admin.contact.list')}}"  class="i-btn btn--sm danger">
-                                <i class="las la-sync"></i>
-                            </a>
-                        </form>
+                       
                     </div>
+              
+                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
+                        <div class="search-area">
+                            <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                                <div class="form-inner">
+                                        <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by name , email or phone')}}">
+                                </div>
+
+                                <button class="i-btn btn--sm info">
+                                    <i class="las la-sliders-h"></i>
+                                </button>
+                                <a href="{{route('admin.contact.list')}}"  class="i-btn btn--sm danger">
+                                    <i class="las la-sync"></i>
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
+       
             </div>
 
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col">
-                                @if(check_permission('create_contact') || check_permission('update_contact') || check_permission('delete_contact'))
+                          <th scope="col">
+                                @if(check_permission('update_frontend'))
                                     <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
                                 @endif#
                             </th>
@@ -110,12 +90,11 @@
 
                     <tbody>
 
-                        @forelse($contacts->chunk(site_settings('chunk_value')) as $chunkContacts)
-                            @foreach($chunkContacts as $contact)
-                                <tr>
+                        @forelse($contacts as $contact)
+                            <tr>
                                 <td data-label="#">
-                                    @if(check_permission('create_contact') || check_permission('update_contact') || check_permission('delete_contact'))
-                                        <input type="checkbox" value="{{$contact->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$contact->id}}" />
+                                    @if(check_permission('update_frontend'))
+                                      <input type="checkbox" value="{{$contact->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$contact->id}}" />
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
@@ -135,22 +114,12 @@
 
                                         @if(check_permission('update_frontend'))
 
-                                            <a  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Show")}}"  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
 
-                                            <a  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
-                                            @if(request()->routeIs('admin.contact.list'))
-                                                <a href="javascript:void(0);"data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
-                                                    <i class="las la-trash-alt"></i></a>
-                                            @else
-                                                <form action="{{route('admin.force.destroy',$contact->id)}}" method="get" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <button class=" pointer icon-btn danger" id="deleteModal"><i class="las la-trash-alt"></i></button>
-                                                </form>
-                                                <form action="{{route('admin.restore',$contact->id)}}" method="post" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <button class="pointer icon-btn success"><i class="las la-trash-restore-alt"></i></button>
-                                                </form>
-                                            @endif
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Send Mail")}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
+
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);"data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
+                                                <i class="las la-trash-alt"></i></a>
 
                                         @else
                                             {{translate('N/A')}}
@@ -160,7 +129,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            @endforeach
                         @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="100">
@@ -172,10 +140,8 @@
                 </table>
             </div>
 
-            <div class="Paginations">
-                
+            <div class="pagination">
                 {{ $contacts->links() }}
-               
             </div>
         </div>
     </div>
@@ -184,12 +150,17 @@
 
 @section('modal')
 
+
+    @include('modal.delete_modal')
+
+    @include('modal.bulk_modal')
+
     <!-- send mail modal -->
-    <div class="modal fade" id="sendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="sendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendMailModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-icon" >
+                    <h5 class="modal-icon" id="exampleModalLabel">
                         {{translate('Send Email')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -209,7 +180,7 @@
                                         {{translate('Message')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                    <textarea required placeholder="{{translate('Type Here')}}" name="message"  cols="30" rows="5">{{old("message")}}</textarea>
+                                    <textarea required placeholder="{{translate('Type Here')}}" class="summernote" name="message" id="message" cols="30" rows="5">{{old("message")}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -230,12 +201,12 @@
 
 
     <!-- show modal -->
-    <div class="modal fade" id="showMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="showMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="showMessage" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-icon" >
+                    <h5 class="modal-icon" id="exampleModalLabel">
                         {{translate('Message')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -267,6 +238,11 @@
     </div>
 
 @endsection
+
+@push('script-include')
+    <script src="{{asset('assets/global/js/summernote.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/editor.init.js')}}"></script>
+@endpush
 
 
 @push('script-push')

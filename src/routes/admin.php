@@ -419,14 +419,21 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
           #Communication Route
           Route::controller(CommunicationsController::class)->group(function(){
 
-               Route::get('/contacts','contact')->name('contact.list');
-               Route::post('contact/bulk/action','bulkContact')->name('contact.bulk');
+               /** contacts route */
+               Route::get('/contacts','contacts')->name('contact.list');
                Route::get('/destroy/{uid}','destroy')->name('contact.destroy');
-               Route::get('/subscribers','subscriber')->name('subscriber.list');
-               Route::post('subscriber/bulk/action','bulkSubscriber')->name('subscriber.bulk');
+               Route::post('contact/bulk/action','bulkContactDestroey')->name('contact.bulk');
+
+
+               /** subscription route */
+               Route::get('/subscribers','subscribers')->name('subscriber.list');
                Route::get('/subscriber/destroy/{uid}','destroySubscriber')->name('subscriber.destroy');
-               
+               Route::post('subscriber/bulk/action','bulkSubscriberDestory')->name('subscriber.bulk');
+
+
+               /** mail sending route */
                Route::post('/send-email','sendMail')->name('send.mail');
+               Route::post('/send-email-all','sendMailSubscriber')->name('send.mail.all');
    
           });
 
