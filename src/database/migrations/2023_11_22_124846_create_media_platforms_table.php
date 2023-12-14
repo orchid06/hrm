@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("name",155);
             $table->string("slug",155);
             $table->string("description",255)->nullable();
+            $table->longText("configuration")->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Active: 1, Inactive: 0');
             $table->enum('is_feature',[0,1])->default(0)->comment('Yes: 1, No: 0');
             $table->enum('is_integrated',[0,1])->default(0)->comment('Yes: 1, No: 0');
