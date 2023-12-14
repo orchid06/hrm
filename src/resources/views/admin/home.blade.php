@@ -129,7 +129,7 @@
                   {{Arr::get($data,"total_payment_method",0)}}
                 </h3>
                 <h5 class="title">
-                  {{translate("Total Payment Method")}}
+                  {{translate("Total Method")}}
                 </h5>
                 <a href="#" class="i-btn btn--sm btn--outline">View All</a>
               </div>

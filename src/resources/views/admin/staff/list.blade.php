@@ -396,10 +396,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -493,10 +493,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -546,10 +546,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

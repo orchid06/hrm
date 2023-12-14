@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-                    <div class="col-md-12 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-12 d-flex justify-content-end">
                         <div class="filter-wrapper">
                             <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="las la-filter"></i>
@@ -166,11 +166,11 @@
                 </table>
             </div>
             
-             <div class="mt-3">
+             <div class="mt-3 text-end">
 
                 @if( 0 < $genarated_words)
 
-                 {{translate("Total Words")}} <span class="i-badge capsuled success"> {{truncate_price($genarated_words,0)}} </span>
+                 {{translate("Total Words")}} <span class="ms-2 i-badge capsuled success"> {{truncate_price($genarated_words,0)}} </span>
 
                 @endif
 
@@ -229,7 +229,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark btn--danger" anim="ripple" data-bs-dismiss="modal">
+                    <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
                     

@@ -641,7 +641,7 @@ button {
 
 // Ripple Wave effect=============
 
-[anim="ripple"] {
+[data-anim="ripple"] {
   position: relative;
   overflow: hidden;
   &:before {

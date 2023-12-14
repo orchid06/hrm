@@ -3,7 +3,7 @@
   <div class="header-container">
     <div class="d-flex align-items-center gap-lg-3 gap-2">
       <div class="header-icon">
-        <button class="btn-icon vertical-menu-btn ripple-dark" anim="ripple">
+        <button class="btn-icon vertical-menu-btn ripple-dark" data-anim="ripple">
           <i class="las la-bars"></i>
         </button>
       </div>
@@ -12,13 +12,13 @@
     <div class="d-flex align-items-center gap-lg-3 gap-2">
 
       <div class="header-icon d-flex">
-        <div class="btn-icon fullscreen-btn ripple-dark" anim="ripple">
+        <div class="btn-icon fullscreen-btn ripple-dark" data-anim="ripple">
           <i class="las la-expand"></i>
         </div>
       </div>
 
       <div class="header-icon d-flex">
-        <div class="btn-icon ripple-dark" anim="ripple">
+        <div class="btn-icon ripple-dark" data-anim="ripple">
            <a href="{{route('admin.setting.cache.clear')}}">
               <i class="las la-broom"></i>
            </a>
@@ -26,7 +26,7 @@
       </div>
 
       <div class="header-icon">
-        <div class="btn-icon ripple-dark" anim="ripple">
+        <div class="btn-icon ripple-dark" data-anim="ripple">
            <a target="_blank" href="{{url('/')}}">
               <i class="las la-globe"></i>
            </a>
@@ -50,7 +50,7 @@
               @if($notifications->count() > 0)
                 <span>{{$notifications->count()}}</span>
               @endif
-              <div class="btn-icon dropdown-toggle ripple-dark" anim="ripple"
+              <div class="btn-icon dropdown-toggle ripple-dark" data-anim="ripple"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <i class="lar la-bell"></i>

@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="col-12 ">
-                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>
                             </div>
