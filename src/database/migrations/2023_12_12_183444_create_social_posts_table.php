@@ -22,14 +22,12 @@ return new class extends Migration
             $table->longText('content')->nullable();
             $table->longText('platform_response')->nullable();
             $table->enum('is_scheduled',[0,1])->default(0)->comment('No: 0, Yes: 1');
+            $table->timestamp('schedule_time')->nullable();
+            $table->mediumInteger("repeat_every")->default(0)->comment('In minutes');
+            $table->timestamp('repeat_schedule_end_date')->nullable();
             $table->enum('is_draft',[0,1])->default(0)->comment('No: 0, Yes: 1');
-            
             $table->enum('status',[0,1])->default(0)->comment('No: 0, Yes: 1');
             
-            $table->timestamp('schedule_time')->nullable();
-
-            
-
             $table->timestamps();
         });
     }

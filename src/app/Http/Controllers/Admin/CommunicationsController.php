@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Utility\SendMail;
+use App\Jobs\SendMailJob;
 use App\Models\Contact;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
@@ -11,21 +12,22 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
-use App\Http\Services\ContactService;
-use App\Http\Services\SubscriberService;
+use App\Traits\ModelAction;
 
 class CommunicationsController extends Controller
 {
-    private $contactService, $subscriberService;
+
+
+    use ModelAction;
+  
     /**
      *
      * @return void
      */
     public function __construct()
     {
-        $this->contactService = new ContactService();
-        $this->subscriberService = new SubscriberService();
-        $this->middleware(['permissions:view_frontend'])->only('subscriber','contact');
+
+        $this->middleware(['permissions:view_frontend'])->only('subscribers','contacts');
         $this->middleware(['permissions:update_frontend'])->only(['destroySubscriber','destroy']);
     }
 
@@ -35,30 +37,46 @@ class CommunicationsController extends Controller
      *
      * @return View
      */
-    public function subscriber() :View{
+    public function subscribers() :View{
 
-        return view('admin.communication.subscriber',[
+        return view('admin.communication.subscribers',[
+
             'breadcrumbs' =>  ['Home'=>'admin.home','Subscribers'=> null],
-            'title' => 'Manage Subscribers',
-            'subscribers' => request()->routeIs('admin.subscriber.list') ?
-            Subscriber::filter()->latest()->paginate(paginateNumber())->appends(request()->all()):
-            Subscriber::onlyTrashed()->filter()->latest()->paginate(paginateNumber())->appends(request()->all())
+            'title'       =>  translate("Manage Subscribers"),
+            'subscribers' =>  Subscriber::filter(['email'])
+                                ->latest()
+                                ->paginate(paginateNumber())->appends(request()->all())
         ]);
     }
+
+
+    /**
+     * destroy a specific subscriber
+     *
+     * @param string $uid
+     * @return RedirectResponse
+     */
+    public function destroySubscriber(string $uid) :RedirectResponse{
+
+        $subscriber  = Subscriber::where('uid',$uid)->firstOrfail();
+        $subscriber->delete(); 
+        return  back()->with(response_status('Subscriber Deleted'));
+    }
+
+
+
 
     /**
      * contact list
      *
      * @return View
      */
-    public function contact() :View{
+    public function contacts() :View{
 
-        return view('admin.communication.contact',[
-            'breadcrumbs' =>  ['Home'=>'admin.home','Contacts'=> null],
-            'title' => 'Manage Contacts',
-            'contacts' => request()->routeIs('admin.contact.list') ?
-                Contact::filter()->latest()->paginate(paginateNumber())->appends(request()->all()):
-                Contact::onlyTrashed()->filter()->latest()->paginate(paginateNumber())->appends(request()->all())
+        return view('admin.communication.contacts',[
+            'breadcrumbs' => ['Home'=>'admin.home','Contacts'=> null],
+            'title'       => translate('Manage Contacts'),
+            'contacts'    => Contact::search(['name','email','phone'])->latest()->paginate(paginateNumber())->appends(request()->all())
         ]);
     }
 
@@ -71,66 +89,14 @@ class CommunicationsController extends Controller
      */
     public function destroy(string $uid) :RedirectResponse{
 
-        $contact  = Contact::where('uid',$uid)->firstOrFail();
-        $response =  response_status('Contact Not Found','error');
-        if($contact){
-            $contact->delete();
-            $response =  response_status('Contact Deleted');
-        }
-        return  back()->with($response);
-    }
-    public function forceDestroy($id) :RedirectResponse{
-
-        $response = response_status('Contact Not Found', 'error');
-        $contact = Contact::onlyTrashed()->where('id', $id)->firstOrFail();
-        if($contact->trashed()){
-            $response =  response_status('Contact Deleted');
-            $contact->forceDelete();
-        }
-        return back()->with($response);
+        $contact  = Contact::where('uid',$uid)->firstOrfail();
+        $contact->delete(); 
+    
+        return  back()->with(response_status('Contact Deleted'));
     }
 
-    public function restore($id) :RedirectResponse{
-        $contact = Contact::onlyTrashed()->where('id', $id)->firstOrFail();
-        $contact->restore();
-        $response =  response_status('Contact Restored');
-        return redirect()->route('admin.archive')->with($response);
-    }
 
-    /**
-     * destroy a specific subscriber
-     *
-     * @param string $uid
-     * @return RedirectResponse
-     */
-    public function destroySubscriber(string $uid) :RedirectResponse{
 
-        $subscriber  = Subscriber::where('uid',$uid)->firstOrfail();
-        $response =  response_status('Subscriber Not Found','error');
-        if($subscriber){
-
-            $subscriber->delete();
-            $response =  response_status('Subscriber Deleted');
-        }
-        return  back()->with($response);
-    }
-    public function forceDestroySubscriber($id) :RedirectResponse{
-
-        $response = response_status('Subscriber Not Found', 'error');
-        $subscriber = Subscriber::onlyTrashed()->where('id', $id)->firstOrFail();
-        if($subscriber->trashed()){
-            $response =  response_status('Subscriber Deleted');
-            $subscriber->forceDelete();
-        }
-        return back()->with($response);
-    }
-
-    public function restoreSubscriber($id) :RedirectResponse{
-        $subscriber = Subscriber::onlyTrashed()->where('id', $id)->firstOrFail();
-        $subscriber->restore();
-        $response =  response_status('Subscriber Restored');
-        return redirect()->route('admin.subscriber.archive')->with($response);
-    }
 
 
     /**
@@ -142,7 +108,7 @@ class CommunicationsController extends Controller
     public function sendMail(Request $request) :RedirectResponse{
 
         $request->validate([
-            'message'=>'required',
+            'message'=>'required|string',
             'email'=>'email|required',
         ],[
             'message.required' => translate('Message Is Required'),
@@ -150,9 +116,9 @@ class CommunicationsController extends Controller
         ]);
 
         $templateCode =[
-            'name' =>  $request->email,
-            'email' => $request->email,
-            "message" => $request->message
+            'name'     =>  $request->email,
+            'email'    => $request->email,
+            "message"  => $request->message
         ];
 
         $response = SendMail::mailNotifications('CONTACT_REPLY',$templateCode ,(object) $templateCode);
@@ -160,44 +126,79 @@ class CommunicationsController extends Controller
         return back()->with(response_status(Arr::get($response,'message',""),$response['status'] ? "success" :"error"));
     }
 
-     /**
+
+    /**
+     * send mail to all subscribers
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function sendMailSubscriber(Request $request) :RedirectResponse{
+
+        $subscribers = Subscriber::latest()->cursor();
+ 
+        foreach($subscribers->chunk(20) as $chunkSubscribers){
+
+            foreach($chunkSubscribers as $subscriber){
+                $templateCode = [
+                 
+                    'name'     =>  $subscriber->email,
+                    'email'    => $subscriber->email,
+                    "message"  => $request->input('message')
+                ];
+    
+                SendMailJob::dispatch((object) $templateCode,'CONTACT_REPLY',$templateCode);
+            }
+        }
+     
+ 
+         return back()->with(response_status("Email Successfully Sent to Subscribers","success" ));
+     }
+
+
+
+    /**
      * Bulk action
      *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function bulkContact(Request $request) :RedirectResponse {
+    public function bulkSubscriberDestory(Request $request) :RedirectResponse {
 
-        $bulkIds = json_decode($request->input('bulk_id'), true);
-        $request->merge([
-            "bulk_id" =>  $bulkIds
-        ]);
-
-        $rules = [
-            'bulk_id' => ['array', 'required'],
-            'bulk_id.*' => ['exists:contacts,id'],
-            'type' => ['required', Rule::in(['delete', 'restore'])],
-        ];
-        $request->validate($rules);
-        $response = $this->contactService->bulktAction( $request);
+        try {
+            $response =  $this->bulkAction($request,[
+                "model"        => new Subscriber(),
+            ]);
+    
+        } catch (\Exception $exception) {
+            $response  = \response_status($exception->getMessage(),'error');
+        }
         return  back()->with($response);
     }
 
-    public function bulkSubscriber(Request $request) :RedirectResponse {
 
-        $bulkIds = json_decode($request->input('bulk_id'), true);
-        $request->merge([
-            "bulk_id" =>  $bulkIds
-        ]);
 
-        $rules = [
-            'bulk_id' => ['array', 'required'],
-            'bulk_id.*' => ['exists:subscribers,id'],
-            'type' => ['required', Rule::in(['delete', 'restore'])],
-        ];
-        $request->validate($rules);
-        $response = $this->subscriberService->bulktAction( $request);
+    /**
+     * Bulk action
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function bulkContactDestroey(Request $request) :RedirectResponse {
+
+        try {
+            $response =  $this->bulkAction($request,[
+                "model"        => new Contact(),
+            ]);
+    
+        } catch (\Exception $exception) {
+            $response  = \response_status($exception->getMessage(),'error');
+        }
         return  back()->with($response);
     }
+ 
+
+   
+
 
 }

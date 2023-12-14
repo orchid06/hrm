@@ -46,6 +46,14 @@ return [
             'delete_currency',
         ],
 
+
+        "social_account" => [
+            'view_account',
+            'create_account',
+            'update_account',
+            'delete_account',
+        ],
+
         "ticket" => [
             "view_ticket",
             "delete_ticket",

@@ -20,7 +20,7 @@ class MediaPlatform extends Model
 
     protected $casts = [
 
-        'meta_keywords' => 'object',
+        'configuration' => 'object',
     ];
 
     protected static function booted(){
@@ -31,21 +31,19 @@ class MediaPlatform extends Model
         });
 
         static::creating(function (Model $model) {
+            
             $model->uid        = Str::uuid();
             $model->status     = StatusEnum::true->status();
         });
 
-
         static::saving(function (Model $model) {
-
             if(request()->input('name')){
                 $model->slug       = make_slug(request()->input('name'));
             }
-    
         });
+
         static::saved(function (Model $model) {
             Cache::forget('media_platform');
-
         });
         
     }

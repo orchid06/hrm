@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('social_accounts', function (Blueprint $table) {
+            
             $table->id();
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('platform_id');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->string('name',155)->nullable();
             $table->text('account_information')->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Disconnected: 0, Connected: 1');
+            $table->enum('account_type',[0,1,2])->comment('Profile: 0, Page: 1 ,Group:2');
             $table->timestamps();
         });
     }
