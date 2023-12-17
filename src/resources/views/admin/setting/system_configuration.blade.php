@@ -44,9 +44,9 @@
                                 data-key='sms_notification'
                                 data-status='{{ site_settings('sms_notification') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                 data-route="{{ route('admin.setting.update.status') }}"
-                                id="email-notification">
+                                id="sms-notification">
 
-                            <label class="form-check-label" for="email-notification"></label>
+                            <label class="form-check-label" for="sms-notification"></label>
                         </div>
                     </div>
                 </li>

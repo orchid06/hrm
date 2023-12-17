@@ -245,7 +245,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
@@ -374,7 +374,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label>
+                                    <label for="image">
                                         {{translate('Profile Image')}}
                                     </label>
                                     <input id="image" name="image" type="file">
@@ -482,13 +482,12 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label>
+                                    <label for="pro-image">
                                         {{translate('Profile Image')}}
                                     </label>
-                                    <input id="image" name="image" type="file">
+                                    <input id="pro-image" name="image" type="file">
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

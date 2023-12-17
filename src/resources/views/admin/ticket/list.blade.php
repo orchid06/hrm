@@ -155,8 +155,8 @@
                     </div>
                 </div>
             
-
-
+                </div>
+                </div>
         <div class="table-container position-relative">
 
             @include('admin.partials.loader')
@@ -195,8 +195,6 @@
                            {{translate("Options")}}
                        </th>
                    </tr>
-
-                    </tr>
                 </thead>
 
                 <tbody>
@@ -258,7 +256,7 @@
                         @empty
 
                         <tr>
-                            <td class="border-bottom-0" colspan="100">
+                            <td class="border-bottom-0" colspan="90">
                                 @include('admin.partials.not_found')
                             </td>
                         </tr>

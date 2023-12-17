@@ -15,7 +15,7 @@
             </h5>
 
             <h3> {{$user->subscriptions->count()}}</h3>
-            <a href="{{route('admin.subscription.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--white btn--sm">
+            <a href="{{route('admin.subscription.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
                 {{translate("View All")}}
             </a>
             </div>
@@ -33,7 +33,7 @@
                 </h5>
                 <h3>{{$user->tickets->count()}}</h3>
 
-                <a href="{{route('admin.ticket.list',['user' => $user->username])}}" class="mt-3 i-btn btn--white btn--sm">
+                <a href="{{route('admin.ticket.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
                 {{translate("View All")}}
                 </a>
             </div>
@@ -51,7 +51,7 @@
             </h5>
             <h3>{{$user->paymentLogs->count()}}</h3>
 
-            <a href="{{route('admin.deposit.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--white btn--sm">
+            <a href="{{route('admin.deposit.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
                 {{translate("View All")}}
             </a>
             </div>
@@ -70,7 +70,7 @@
             </h5>
             <h3>{{$user->withdraws->count()}}</h3>
   
-            <a href="{{route('admin.withdraw.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--white btn--sm">
+            <a href="{{route('admin.withdraw.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
                {{translate("View All")}}
             </a>
           </div>
@@ -89,7 +89,7 @@
             </h5>
             <h3>{{$user->transactions->count()}}</h3>
 
-            <a href="{{route('admin.transaction.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--white btn--sm">
+            <a href="{{route('admin.transaction.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
             {{translate("View All")}}
             </a>
         </div>

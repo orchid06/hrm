@@ -8,8 +8,6 @@
     <form action="{{route('admin.ai.template.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <div class="row g-4">
-
-     
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">
@@ -25,11 +23,7 @@
                                     <label for="Name"> 
                                         {{translate('Name')}} <small class="text-danger">*</small>
                                     </label>
-
                                     <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value='{{old("name")}}'>
-
-                                
-                                
                                 </div>
                             </div>
                         
@@ -38,14 +32,10 @@
                                     <label for="slug"> 
                                         {{translate('slug')}} 
                                     </label>
-
-                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>       
-                                    
-                                    
+                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>                                       
                                 </div>
                             </div>
 
-                             
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="category"> 
@@ -64,39 +54,27 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="Icon"> 
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
-
                                     <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
-                                
                                 </div>
                             </div>
-
 
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="description"> 
                                         {{translate('Short Description')}}  <span class="text-danger">*</span>
                                     </label>
-
                                     <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{old("description")}}</textarea>
-
                                 </div>
                             </div>
-                        
-
-
-                       
                         </div>
                     </div>            
                 </div>
             </div>
-
-
 
             <div class="col-xl-12">
                 <div class="i-card-md">
@@ -120,7 +98,6 @@
                            </div>
 
                             <div class="col-lg-12">
-
 
                                 <div class="mb-4 input-hint d-none">
                                     <label>{{ translate('Input Variables') }}</label>
@@ -185,7 +162,6 @@
 	(function($){
        	"use strict";
     
-       
             $(".select2").select2({
 			   placeholder:"{{translate('Select Category')}}",
 	     	})
@@ -194,7 +170,6 @@
                title: "{{translate('Search Here !!')}}",
             });
 
-           
         
 	})(jQuery);
 </script>

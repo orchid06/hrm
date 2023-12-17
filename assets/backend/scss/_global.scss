@@ -469,8 +469,84 @@ button {
   }
 
   &.btn--lg {
-    padding: 12px 20px;
+    padding: 14px 22px;
     font-size: 15px;
+  }
+}
+
+// AI Button
+@keyframes stretch {
+  0% {
+      transform: scale(0.5);
+      background-color: #aaaaaa;
+  }
+  50% {
+      background-color: #cccccc;
+  }
+  100% {
+      transform: scale(1);
+      background-color: #ffffff;
+  }
+}
+
+@mixin dot-animation {
+  animation: {
+      direction: alternate;
+      duration: 0.5s;
+      fill-mode: none;
+      iteration-count: infinite;
+      name: stretch;
+      play-state: running;
+      timing-function: ease-out;
+  }
+  border-radius: 100%;
+  display: block;
+  height: 10px;
+  margin: 0 1px;
+  width: 10px;
+}
+
+.ai-btn {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-width: 160px !important;
+
+  &.btn__dots--loading {
+      // font-size: 0;
+      .btn__dots {
+          display: flex;
+          margin-left: 5px;
+          i {
+              @include dot-animation;
+              animation-delay: .1s;
+              margin: 0 5px;
+              &:first-child {
+                  animation-delay: 0s;
+                  margin: 0;
+              }
+              &:last-child {
+                  animation-delay: .2s;
+                  margin: 0;
+              }
+          }
+      }
+  }
+  i {
+      font-weight: normal;
+  }
+  .btn__dots {
+      display: none;
+  }
+}
+
+.ai-form-output{
+  opacity: 0;
+  transition: 0.65s ease;
+
+  &.show-output{
+    opacity: 1;
   }
 }
 
@@ -503,7 +579,6 @@ button {
       }
     }
   }
-
 }
 
 .mb-50 {
@@ -843,8 +918,6 @@ button {
       top: -5px;
       right: -9px;
       border-radius: 9px;
-      // box-shadow: none;
-      // border: none;
       cursor: pointer;
       &:before,
       &:after {
@@ -860,7 +933,6 @@ button {
 }
 
 // Apex Chart Style
-
 .apex-chart {
   min-height: 100px;
   .apexcharts-canvas {

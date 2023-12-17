@@ -55,7 +55,7 @@
                             <form action="{{route(Route::currentRouteName())}}" method="get">
 
                                 <div class="form-inner">
-                                    <input name="search" name="{{request()->search}}" type="search" placeholder="{{translate('Search by title')}}">
+                                    <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by title')}}">
                                 </div>
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
@@ -189,7 +189,7 @@
                
                         @empty
                             <tr class="border-bottom-0">
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>

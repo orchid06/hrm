@@ -210,7 +210,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
@@ -234,7 +234,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
+                    <h5 class="modal-title">
                         {{translate('Add User')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">

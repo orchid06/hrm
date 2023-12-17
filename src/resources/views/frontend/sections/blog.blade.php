@@ -115,8 +115,9 @@
 
                                 <ul class="blog-tags">
                                   <li>
-                                    <a href="{{route('blog',['category' =>$blog->category->slug ])}}">
-                                         {{$blog->category->title}}
+       
+                                    <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
+                                         {{@$blog->category->title}}
                                     </a>
                                   </li>
                                 </ul>

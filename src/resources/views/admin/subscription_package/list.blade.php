@@ -204,7 +204,7 @@
                                             data-route="{{ route('admin.subscription.package.update.status') }}"
                                             data-status="{{ $package->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
                                             data-id="{{$package->uid}}" {{$package->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-{{$package->id}}" >
+                                        id="status-switch-feature-{{$package->id}}" >s
                                         <label class="form-check-label" for="status-switch-feature-{{$package->id}}"></label>
                                     </div>
                                 </td>
@@ -252,7 +252,7 @@
                             @empty
 
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
