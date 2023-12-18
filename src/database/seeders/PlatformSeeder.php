@@ -19,11 +19,13 @@ class PlatformSeeder extends Seeder
         $platforms      = Arr::get(config('settings'),'platforms' ,[]);
 
         try {
-            foreach($platforms as $name){
+            foreach($platforms as $name => $config){
                 if(! in_array($name,$existsPlatform)){
                     MediaPlatform::create([
-                        "name"   => $name,
-                        "slug"   => make_slug($name),
+                        "name"            => $name,
+                        "slug"            => make_slug($name),
+                        "description"     => 'Seamlessly execute social media management and social customer care on '.$name.' from a single, scalable platform',
+                        "configuration"   => $config,
                     ]);
                 }
             }

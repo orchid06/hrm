@@ -32,7 +32,6 @@ class Category extends Model
 
     protected static function booted(){
 
-        static::addGlobalScope(new ActiveScope());
 
         static::addGlobalScope('autoload', function (Builder $builder) {
             $builder->with(['translations' => function ($query) {
@@ -66,6 +65,7 @@ class Category extends Model
         return $q->where("status",StatusEnum::true->status());
     }
 
+   
     public function scopeFeature(Builder $q) :Builder{
         return $q->where("is_feature",StatusEnum::true->status());
     }
@@ -89,6 +89,15 @@ class Category extends Model
         return $this->hasMany(Article::class, 'category_id','id');
     }
 
+
+    public function parent() :BelongsTo{
+        return $this->belongsTo(Category::class, 'parent_id','id');
+    }
+
+
+    public function childrens() :HasMany{
+        return $this->hasMany(Category::class, 'parent_id','id');
+    }
 
 
 

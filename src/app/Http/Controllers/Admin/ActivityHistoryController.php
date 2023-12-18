@@ -57,8 +57,10 @@ class ActivityHistoryController extends Controller
                     "depositDetails",
                     'withdrawReport',
                     'withdrawUpdate',
-                    'withdrawDetails'
-
+                    'withdrawDetails',
+                    'kycReport',
+                    'kycDetails',
+                    'kycUpdate'
                 ]);
 
         $this->middleware(['permissions:delete_report'])
@@ -69,7 +71,7 @@ class ActivityHistoryController extends Controller
                     'destroyTransaction',
                     'transactionBulk',
                     'depostiBulk',
-                    'destroyDeposit',
+                    'destroyDeposit'
                 ]);
     }
 
@@ -604,7 +606,6 @@ class ActivityHistoryController extends Controller
         }
 
 
-        #todo : notify user 
 
         $code = [
             "name"            => $report->user->name,

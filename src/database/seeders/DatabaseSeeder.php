@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // AdminSeeder::class,
-            // CurrencySeeder::class
+            // CurrencySeeder::class,
             // SettingsSeeder::class,
             // LangSeeder::class,
             // RoleSeeder::class,
@@ -37,14 +37,15 @@ class DatabaseSeeder extends Seeder
             // MailSeeder::class,
 
             /** new  tested seeder */
-            // CountrySeeder::class
-            //  PlatformSeeder::class,
-            // PackageSeeder::class
+            // CountrySeeder::class,
+            // PackageSeeder::class,
 
             // SeedersFrontendSeeder::class,
             // MenuSeeder::class,
             // PageSeeder::class,
-            TemplateSeeder::class,
+            // TemplateSeeder::class,
+
+            PlatformSeeder::class,
 
             
         ]);

@@ -88,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
 
 
             view()->share([
-                'languages'       => Language::where('status',(StatusEnum::true)->status())->get(),
+                'languages'       => Language::active()->get(),
             ]);
             
         } catch (\Throwable $th) {

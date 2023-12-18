@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Builder;
+use App\Traits\Filterable;
 class KycLog extends Model
 {
-    use HasFactory;
+    use HasFactory , Filterable;
     protected $guarded = [];
 
 

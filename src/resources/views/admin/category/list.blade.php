@@ -93,10 +93,23 @@
                                 {{translate('Title')}}
                             </th>
 
+                            @if(!request()->routeIs("admin.category.subcategories"))
+                                <th scope="col">
+                                    {{translate('Sub Categories')}}
+                                </th>
+                             @else
+                              
+                                <th scope="col">
+                                    {{translate('Parent')}}
+                                </th>
+                              
+                            @endif
+
                             <th scope="col">
                                 {{translate('Template')}}
                             </th>
 
+                
                             <th scope="col">
                                 {{translate('Created By')}}
                             </th>
@@ -143,12 +156,29 @@
                                         </div>
                                     </td>
 
+                                    @if(!request()->routeIs("admin.category.subcategories"))
+                                        <td data-label='{{translate("Sub Categories")}}'>
+                                            <a href="{{route('admin.category.subcategories',['parent' => $category->slug])}}">
+                                            {{translate('Subcategories : ')}} ({{$category->childrens_count}})
+                                            </a>
+                                        </td>
+                                       @else
+
+                                        <td data-label='{{translate("Parent")}}'>
+                                            <a href="{{route('admin.category.edit',['uid' => $category->parent->uid])}}">
+                                                {{$category->parent->title}}
+                                            </a>
+                                        </td>
+
+                                    @endif
+
                                     <td data-label='{{translate("Template")}}'>
                                          <a href="{{route('admin.ai.template.list',['category' => $category->slug])}}">
                                            {{translate('No of template')}} ({{$category->templates_count}})
                                          </a>
                                     </td>
-                                  
+
+          
             
                                     <td data-label='{{translate("Created By")}}'>
                                         <span class="i-badge capsuled info">

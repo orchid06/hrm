@@ -179,7 +179,7 @@ return [
     'expired_data_delete'       => StatusEnum::false->status(),
     'expired_data_delete_after' => 10,
 
-    "site_meta_keywords" => null,
+    "site_meta_keywords" => json_encode(['demo']),
     "title_separator"    => ":",
 
     'live_chat' => StatusEnum::true->status(),
@@ -213,7 +213,7 @@ return [
             'multiple' => StatusEnum::false->status()
         ]
     ]),
-    "kyc_verification"      => "#",
+    "kyc_verification"      => StatusEnum::false->status(),
     "ticket_settings" => json_encode(
     [
         [

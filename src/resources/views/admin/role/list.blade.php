@@ -198,6 +198,7 @@
 
 
 
+
 @section('modal')
 	@include('modal.delete_modal')
 	@include('modal.bulk_modal')
