@@ -523,7 +523,7 @@
 
                   <li class="sub-menu-item">
                       <a class='sidebar-menu-link {{sidebar_awake("admin.menu.*")}}' href='{{route("admin.menu.list")}}'>
-                        <span></i></span>
+                        <span></span>
                         <p>
                           {{translate('Menu')}}
                         </p>
@@ -554,7 +554,7 @@
 
                   <li class="sub-menu-item">
                       <a class='sidebar-menu-link {{sidebar_awake(["admin.article.list","admin.article.edit"])}}' href='{{route("admin.article.list")}}'>
-                        <span></i></span>
+                        <span></span>
                         <p>
                           {{translate('Articles')}}
                         </p>

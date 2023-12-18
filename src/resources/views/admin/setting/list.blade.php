@@ -193,7 +193,7 @@
                                                 {{translate('Time Zone')}} <small class="text-danger" >*</small>
                                             </label>
 
-                                            <select  name="site_settings[time_zone]" id="time_zone" class=" select2 " id="time_zone">
+                                            <select  name="site_settings[time_zone]" id="time_zone" class="select2">
                                                 @foreach($timeZones as $timeZone)
                                                     <option value="'{{@$timeZone}}'" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
                                                 @endforeach
@@ -245,7 +245,7 @@
                                                 {{translate('Country')}} <small class="text-danger" >*</small>
                                             </label>
 
-                                            <select   name="site_settings[country]" id="country" class=" select2 " id="country">
+                                            <select   name="site_settings[country]" id="country" class="select2">
                                                  @foreach ($countries as $country)
                                                      <option {{site_settings('country') == $country->name ? "selected" :"" }} value="{{$country->name}}">
                                                           {{$country->name}}
