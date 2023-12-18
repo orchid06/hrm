@@ -114,7 +114,6 @@
   .accordion-item {
     margin-bottom: 20px !important;
     border: 1px solid $color-border;
-    @include shadow-1;
     background-color: $site-bg;
   }
   .accordion-button {

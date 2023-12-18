@@ -11,7 +11,7 @@
                          <input type="hidden" name="type" id="type">
                     </form>
                     @if(check_permission('create_category') || check_permission('update_category') || check_permission('delete_category'))
-                        <div class="col-md-4 d-flex justify-content-start">
+                        <div class="col-md-6 d-flex justify-content-start">
                             @if(check_permission('update_category') || check_permission('delete_category'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,7 +60,7 @@
                      
                         </div>
                     @endif
-                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">

@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="text-center">
+                    <div class="text-center d-flex gap-2 flex-column">
                         @foreach(($template->sort_code) as $key => $value)
                             <div class="d-flex  align-items-center justify-content-between">
                                 <div class="me-2 ">

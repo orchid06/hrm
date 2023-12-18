@@ -146,6 +146,11 @@ input {
         color: $text-light;
     }
 }
+
+input[type=file]{
+    padding: 9px 12px;
+}
+
 textarea {
     @extend input;
     min-height: 100px;
@@ -233,7 +238,7 @@ input[type="radio"] {
 .form-control {
     border: 1px solid $color-border !important;
     border-radius: 3px;
-    padding: 10px 12px;
+    padding: 12px 12px;
     font-size: 13px;
     background-color: transparent;
     color: $text-primary;
@@ -288,8 +293,8 @@ select {
 }
 .select2-container .select2-selection--single {
     display: block;
-    height: 42px;
-    line-height: 42px;
+    height: 45px;
+    line-height: 45px;
     min-width: 170px;
 }
 .select2-container--default .select2-selection--single {

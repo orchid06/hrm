@@ -17,7 +17,7 @@
                          <input type="hidden" name="type" id="type">
                     </form>
 
-                    <div class="col-md-4 d-flex justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-start">
 
                         @if(check_permission('update_frontend') )
                             <div class="i-dropdown bulk-action d-none">
@@ -37,7 +37,7 @@
                        
                     </div>
               
-                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
 
