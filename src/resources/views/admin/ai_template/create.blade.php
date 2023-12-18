@@ -28,8 +28,6 @@
 
                                     <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value='{{old("name")}}'>
 
-                                
-                                
                                 </div>
                             </div>
                         
@@ -40,8 +38,7 @@
                                     </label>
 
                                     <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>       
-                                    
-                                    
+
                                 </div>
                             </div>
 
@@ -66,6 +63,20 @@
 
 
                             <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="sub_category"> 
+                                        {{translate('Sub Category')}} 
+                                    </label>
+                                    <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
+                                        <option value="" >
+                                            {{translate("Select One")}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="Icon"> 
                                         {{translate('Icon')}} <span class="text-danger">*</span>
@@ -189,11 +200,63 @@
             $(".select2").select2({
 			   placeholder:"{{translate('Select Category')}}",
 	     	})
+            $(".sub_category_id").select2({
+			   placeholder:"{{translate('Select Sub Category')}}",
+	     	})
 
             $('.icon-picker').iconpicker({
                title: "{{translate('Search Here !!')}}",
             });
 
+ 
+            $(document).on('change','#category',function(e){
+
+                 var id = $(this).val()
+                subCategories(id);
+                e.preventDefault()
+            })
+
+
+            function subCategories(id){
+
+                var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
+                url = url.replace(':id', id).replace(':html', true);
+
+                $.ajax({
+
+                    method:'get',
+                    url: url,
+                    dataType: 'json',
+                
+                    success: function(response){
+
+                        if(response.status){
+                            $('#sub_category_id').html(response.html)
+                        }
+                    
+                    },
+                    error: function (error){
+                        if(error && error.responseJSON){
+                            if(error.responseJSON.errors){
+                                for (let i in error.responseJSON.errors) {
+                                    toastr(error.responseJSON.errors[i][0],'danger')
+                                }
+                            }
+                            else{
+                                if((error.responseJSON.message)){
+                                    toastr(error.responseJSON.message,'danger')
+                                }
+                                else{
+                                    toastr( error.responseJSON.error,'danger')
+                                }
+                            }
+                        }
+                        else{
+                            toastr(error.message,'danger')
+                        }
+                    },
+		    	})
+            }
            
         
 	})(jQuery);

@@ -34,7 +34,7 @@
                                                 <img class="lang-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" class="me-2 rounded" height="18">
                                                 <span class="align-middle">
                                                    
-                                                   {{$code}}
+                                                   {{ucfirst($code)}}
                                                     
                                                    
                                                 </span>
@@ -100,6 +100,7 @@
                                 </div>                                                                         
                         
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="Icon"> 
@@ -111,6 +112,30 @@
                                 </div>
                             </div>
 
+                            @if($category->parent_id)
+                                <div class="col-lg-12">
+                                            
+                                    <div class="form-inner">
+                                        <label  for="parent_id">
+                                            {{translate('Parent Id')}} 
+                                        </label>
+                                
+                                        <select name="parent_id" id="parent_id">
+                                            <option value="">
+                                                {{translate("Select Parent Category")}}
+                                            </option>
+
+                                            @foreach ($categories as  $parentCategory)
+                                                <option {{ $parentCategory->id ==  $category->parent_id ? "selected" :""}} value="{{$parentCategory->id}}">
+                                                    {{$parentCategory->title}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                                                                            
+                                    </div>                                                                         
+
+                                </div>
+                            @endif
 
                             <div class="col-lg-12">
                                 <div class="form-inner">
@@ -177,6 +202,11 @@
                 tags: true,
                 tokenSeparators: [',']
 	     	})
+
+            $("#parent_id").select2({
+
+	     	})
+
 	})(jQuery);
 </script>
 @endpush

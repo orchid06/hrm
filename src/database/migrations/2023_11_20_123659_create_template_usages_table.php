@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('package_id')->nullable();
             $table->longText('content')->nullable();
             $table->integer('total_words')->default(0);
-            $table->longText('open_ai_usage	')->nullable();
+            $table->longText('open_ai_usage')->nullable();
+
             $table->timestamps();
         });
     }

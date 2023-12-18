@@ -74,7 +74,7 @@ class FrontendService
            });
         } catch (\Exception $ex) {
 
-            $response = response_status($ex->getMessage(),"errror");
+            $response = response_status(strip_tags($ex->getMessage()),"error");
         }
 
         return $response;

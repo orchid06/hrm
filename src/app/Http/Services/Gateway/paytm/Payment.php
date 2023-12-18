@@ -44,7 +44,7 @@ class Payment
         $send['val'] = $val;
         $send['view'] = 'user.payment.redirect';
         $send['method'] = 'post';
-        $send['url'] = $log->transaction_url . "?orderid=" . $log->trx_code;
+        $send['url'] = $log->transaction_url . "?order. $log->trx_code;
 
         return json_encode($send);
     }

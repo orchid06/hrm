@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\StatusEnum;
 use Closure;
 use Illuminate\Http\Request;
+use Predis\Response\Status;
 use Symfony\Component\HttpFoundation\Response;
 
 class KycMiddleware
@@ -15,6 +17,18 @@ class KycMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        try {
+
+            $user = auth_user('web');
+            if(site_settings('kyc_verification') == StatusEnum::true->status() && $user->is_kyc_verified ==  StatusEnum::false->status()) {
+                        return redirect()->route('user.kyc.form')
+                                           ->with(response_status("Please apply for kyc verification"));
+            }
+
+            return $next($request);
+        } catch (\Exception $ex) {
+        
+        }
         return $next($request);
     }
 }

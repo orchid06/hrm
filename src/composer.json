@@ -6,6 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "authorizenet/authorizenet": ">=1.9.3",
+        "btcpayserver/btcpayserver-greenfield-php": "^2.0",
+        "coingate/coingate-php": "^3.0",
         "gregwar/captcha": "1.*",
         "guzzlehttp/guzzle": "^7.2",
         "infobip/infobip-api-php-client": "^3.2",
@@ -25,12 +28,14 @@
         "predis/predis": "^2.2",
         "sendgrid/sendgrid": "~7",
         "sentry/sentry-laravel": "^3.5",
+        "socialiteproviders/instagram": "^5.0",
+        "socialiteproviders/linkedin": "^4.2",
+        "socialiteproviders/tiktok": "^5.1",
+        "socialiteproviders/twitter": "^4.1",
+        "socialiteproviders/youtube": "^4.1",
         "textmagic/sdk": "dev-master",
         "twilio/sdk": "^6.37",
-        "authorizenet/authorizenet": ">=1.9.3",
-        "btcpayserver/btcpayserver-greenfield-php": "^2.0",
-        "vonage/client": "^2.4",
-        "coingate/coingate-php": "^3.0"
+        "vonage/client": "^2.4"
     },
     "require-dev": {
         "authorizenet/authorizenet": "dev-master#ef297d3e2d7c1092ddabd2c376eb485aac1aa66c",

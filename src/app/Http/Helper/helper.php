@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Enums\TicketStatus;
 use App\Enums\WithdrawStatus;
+use App\Models\Admin;
 use App\Models\Admin\Currency;
 use App\Models\Admin\Frontend;
 use App\Models\Admin\Template;
@@ -522,7 +523,7 @@ use Illuminate\Database\Eloquent\Collection;
 
          }
 
-         return strip_tags($keyWord);
+         return ucwords(strip_tags($keyWord));
       }
    }
 
@@ -756,6 +757,13 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 			list($r, $g, $b) = sscanf($code, "#%02x%02x%02x");
 			return  "$r,$g,$b";
+		}
+	}
+
+   if (!function_exists('get_admin')){
+		function get_admin():Admin
+		{
+			return Admin::where('super_admin',StatusEnum::true->status())->first();
 		}
 	}
 

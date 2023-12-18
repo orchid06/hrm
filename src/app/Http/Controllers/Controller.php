@@ -23,6 +23,7 @@ class Controller extends BaseController
     public function metaData( array $customData = [], ) :array {
 
 
+
         [$width, $height] = explode('x', Arr::get($customData, "img_size", config("settings")['file_path']['meta_image']['size']));
         return  [
 
@@ -35,7 +36,7 @@ class Controller extends BaseController
             'twitter_card'     =>  Arr::get($customData,"twitter_card", 'summary'),
             'robots'           =>  Arr::get($customData,"robots", 'follow'),
             'meta_description' =>  Arr::get($customData,"meta_description", @site_settings("site_description")),
-            "meta_keywords"    =>  Arr::get($customData,"keywords", json_decode(site_settings('site_meta_keywords',true))) 
+            "meta_keywords"    =>  Arr::get($customData,"keywords", json_decode(site_settings('site_meta_keywords'),true))
             
         ];
 

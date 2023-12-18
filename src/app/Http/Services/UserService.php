@@ -167,7 +167,7 @@ class UserService
     
                     $route          =  route("admin.withdraw.report.list");
                     $userRoute      =  route("user.withdraw.report.list");
-                    $admin          = Admin::where('super_admin',StatusEnum::true->status())->first();
+                    $admin          = get_admin();
 
                     $notifications = [
                         'database_notifications' => [
@@ -400,7 +400,7 @@ class UserService
 
                 $route             =  route("admin.subscription.report.list");
                 $userRoute         =  route("user.subscription.report.list");
-                $admin             = Admin::where('super_admin',StatusEnum::true->status())->first();
+                $admin             = get_admin();
                 $code =  [
                     'name'         => $user->name,
                     'start_date'   => date('Y-m-d'),
@@ -565,7 +565,7 @@ class UserService
 
             $route          =  route("admin.deposit.report.list");
             $userRoute      =  route("user.deposit.report.list");
-            $admin          =  Admin::where('super_admin',StatusEnum::true->status())->first();
+            $admin          = get_admin();
 
 
             if($log->status  == DepositStatus::value("PAID",true)){

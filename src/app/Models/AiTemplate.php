@@ -87,6 +87,17 @@ class AiTemplate extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+
+
+    /**
+     * Get the sub category that owns the AiTemplate
+     *
+     * @return BelongsTo
+     */
+    public function subCategory(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'sub_category_id', 'id');
+    }
     /**
      * Get the admin that owns the AiTemplate
      *

@@ -4,7 +4,7 @@
       <div class="modal-body">
         <div class="modal-delete-noti">
           <div class="notification-modal-icon bulk-action-img">
-            <img src="" class="bulk-warning-image" alt="trash-bin.gif">
+            <img src="{{asset('assets/images/trash-bin.gif')}}" class="bulk-warning-image" alt="trash-bin.gif">
           </div>
           <div class="notification-modal-content">
             <h5>   {{trans('default.are_you_sure')}}</h5>

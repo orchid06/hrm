@@ -31,7 +31,7 @@ class PaymentMethod extends Model
     protected static function booted()
     {
 
-        static::addGlobalScope(new ActiveScope());
+       
 
         static::creating(function (Model $model) {
             

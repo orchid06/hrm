@@ -141,6 +141,9 @@
                             <th scope="col">
                                 {{translate('Category')}}
                             </th>
+                            <th scope="col">
+                                {{translate('Sub Category')}}
+                            </th>
 
                             <th scope="col">
                                 {{translate('User')}}
@@ -187,6 +190,17 @@
 
                                     <td data-label='{{translate("Category")}}'>
                                         {{@($template->category->title)}}
+                                    </td>
+
+                                    <td data-label='{{translate("Category")}}'>
+
+                                        @php
+                                           $subCategory = translate('N/A');
+                                           if($template->subCategory && $template->subCategory->parent_id ==   $template->category?->id ){
+                                               $subCategory = $template->subCategory->title ;
+                                           }
+                                        @endphp
+                                        {{@$subCategory}}
                                     </td>
 
                                     <td data-label='{{translate("User")}}'>
