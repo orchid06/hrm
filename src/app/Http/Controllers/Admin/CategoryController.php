@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
         $this->categoryService = new CategoryService();
         //check permissions middleware
-        $this->middleware(['permissions:view_category'])->only(['list']);
+        $this->middleware(['permissions:view_category'])->only(['list','subcategories']);
         $this->middleware(['permissions:create_category'])->only(['store','create']);
         $this->middleware(['permissions:update_category'])->only(['updateStatus','update','edit','bulk']);
         $this->middleware(['permissions:delete_category'])->only(['destroy','bulk']);
@@ -45,22 +45,38 @@ class CategoryController extends Controller
      */
     public function list() :View{
 
+        $title         =  translate('Manage Categories');
+        $breadcrumbs   =  ['Home'=>'admin.home','Categories'=> null];
+
+        if(request()->routeIs("admin.category.subcategories")){
+            $title             = translate('Manage Subcategories');
+            $breadcrumbs       = ['Home'=>'admin.home','Categories'=> route('admin.category.list') ,"Subcategories" => null];
+        }
         
         return view('admin.category.list',[
     
-            'breadcrumbs'  =>  ['Home'=>'admin.home','Categories'=> null],
-            'title'        =>  'Manage Categories',
-            'categories'   =>  Category::with(['createdBy'])
-                                ->withCount(['templates'])
-                                ->search(['title','translations:value'])
+            'breadcrumbs'  =>  $breadcrumbs,
+            'title'        =>  $title,
+            'categories'   =>  Category::with(['createdBy','childrens'])
+                                ->when(request()->routeIs("admin.category.subcategories"), function (Builder $q) {
+                                    $q->whereNotNull('parent_id');
+                                }, function (Builder $q) {
+                                    $q->whereNull('parent_id');
+                                })
                                 ->when(request()->routeIs('admin.ai.template.categories') ,function(Builder $q){
                                     $q->template();
                                 })
+                                ->withCount(['templates','childrens','parent'])
+                                ->search(['title','translations:value'])
+                                ->filter(['parent:slug'])
                                 ->latest()
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all())
         ]);
     }
+
+
+
 
 
 
@@ -72,8 +88,9 @@ class CategoryController extends Controller
     public function create() :View{
 
         return view('admin.category.create',[
-            'breadcrumbs' =>  ['Home'=>'admin.home','Categories'=> !request()->routeIs('admin.ai.template.category.create') ? 'admin.category.list' :"admin.ai.template.categories","Create" => null],
-            'title'       => 'Create Category',
+            'breadcrumbs'      =>  ['Home'=>'admin.home','Categories'=> !request()->routeIs('admin.ai.template.category.create') ? 'admin.category.list' :"admin.ai.template.categories","Create" => null],
+            'title'            => 'Create Category',
+            'categories'       => Category::active()->doesntHave('parent')->get(),
         ]);
 
     }
@@ -98,12 +115,21 @@ class CategoryController extends Controller
      */
     public function edit(string $uid) :View{
 
+        $category               = Category::withoutGlobalScope('autoload')
+                                    ->with(['translations'])
+                                    ->where("uid",$uid)->firstOrfail();
+
         return view('admin.category.edit',[
-            'breadcrumbs' => ['Home'=>'admin.home','Categories'=> 'admin.category.list',"Edit" => null],
-            'title'       => 'Edit Category',
-            'category'    => Category::withoutGlobalScope('autoload')
-                             ->with(['translations'])
-                             ->where("uid",$uid)->firstOrfail(),
+            
+            'breadcrumbs'       => ['Home'=>'admin.home','Categories'=> 'admin.category.list',"Edit" => null],
+            'title'             => 'Edit Category',
+            'category'          => Category::withoutGlobalScope('autoload')
+                                        ->with(['translations'])
+                                        ->where("uid",$uid)->firstOrfail(),
+            'categories'        => Category::where('id','!=',$category->id)
+                                        ->active()
+                                        ->doesntHave('parent')
+                                        ->get(),
         ]);
 
     }
@@ -150,10 +176,10 @@ class CategoryController extends Controller
      */
     public function destroy(string | int $id) :RedirectResponse{
 
-        $category  = Category::withCount(['articles','templates'])->where('id',$id)->firstOrfail();
+        $category  = Category::withCount(['articles','templates','childrens'])->where('id',$id)->firstOrfail();
 
         $response =  response_status('Can not be deleted!! item has related data','error');
-        if(1  > $category->articles_count &&  1  > $category->templates_count){
+        if(1  > $category->articles_count &&  1  > $category->templates_count &&  1  > $category->childrens_count ){
             $category->delete();
             $response =  response_status('Item deleted succesfully');
 
@@ -173,7 +199,7 @@ class CategoryController extends Controller
         try {
             $response =  $this->bulkAction($request,[
                 "model"        => new Category(),
-                "with_count"   => ['articles','templates'],
+                "with_count"   => ['articles','templates','childrens'],
             ]);
     
         } catch (\Exception $exception) {

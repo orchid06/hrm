@@ -133,7 +133,11 @@
                                                 @if(check_permission('update_platform'))
                                                 
                                         
-                                                    <a  href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                    <a  href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
+                                                    </a>
+
+                                                    <a  href="javascript:void(0);"  data-platform = "{{$platform}}" class="update-config fs-15 icon-btn info"><i class="las la-pen"></i>
+                                                    </a>
 
                                                 @endif
                                            
@@ -222,6 +226,66 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Update Configuration')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+
+                <form action="{{route('admin.platform.configuration.update')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <input   hidden name="id" type="text">
+       
+                            <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="client_id" class="form-label" >
+                                        {{translate('Client Id')}}  <span  class="text-danger">*</span>
+                                    </label>
+
+                                   <input required type="text" name="configuration[client_id]">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="client_secret" class="form-label" >
+                                        {{translate('Client Secret')}}  <span  class="text-danger">*</span>
+                                    </label>
+
+                                   <input required type="text" name="configuration[client_secret]">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 
   

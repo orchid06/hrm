@@ -28,13 +28,14 @@ class AiService
 
         $response = response_status('Template created successfully');
         try {
-            $template                  = new AiTemplate();
-            $template->name            = $request->input("name");
-            $template->category_id     = $request->input("category_id");
-            $template->description     = $request->input("description");
-            $template->icon            = $request->input("icon");
-            $template->custom_prompt   = $request->input("custom_prompt");
-            $template->is_default      = $request->input("is_default");
+            $template                      = new AiTemplate();
+            $template->name                = $request->input("name");
+            $template->category_id         = $request->input("category_id");
+            $template->sub_category_id     = $request->input("sub_category_id");
+            $template->description         = $request->input("description");
+            $template->icon                = $request->input("icon");
+            $template->custom_prompt       = $request->input("custom_prompt");
+            $template->is_default          = $request->input("is_default");
             $template->save();
             
         } catch (\Exception $ex) {
@@ -62,6 +63,7 @@ class AiService
             $template                  = AiTemplate::findOrfail($request->input('id'));
             $template->name            = $request->input("name");
             $template->category_id     = $request->input("category_id");
+            $template->sub_category_id = $request->input("sub_category_id");
             $template->description     = $request->input("description");
             $template->icon            = $request->input("icon");
             $template->custom_prompt   = $request->input("custom_prompt");

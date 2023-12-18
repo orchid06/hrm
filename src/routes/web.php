@@ -11,7 +11,6 @@ use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Auth\SocialAuthController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -117,12 +116,21 @@ use Illuminate\Support\Facades\Route;
             Route::controller(UserController::class)->group(function(){
 
                 Route::get('purchase/{slug}','planPurchase')->name('plan.purchase');
+
+                # withdraw route
                 Route::prefix("/withdraw")->name('withdraw.')->group(function(){
-                        Route::post('/request','withdrawRequest')->name('request');
-                        Route::get('/preview','withdrawPreview')->name('preview');
+                    Route::post('/request','withdrawRequest')->name('request');
+                    Route::get('/preview','withdrawPreview')->name('preview');
+                });
+
+                #kyc route
+                Route::prefix("/kyc")->name('kyc.')->group(function(){
+                    Route::get('form','kycForm')->name('form');
+                    Route::post('apply','kycApplication')->name('apply');
                 });
                   
-     
+
+
 
 
             });
@@ -214,8 +222,18 @@ use Illuminate\Support\Facades\Route;
             /** cookie settings */
             Route::get('/set-cookie',  'setCookie');
             Route::get('/accept-cookie',  'acceptCookie')->name("accept.cookie");
-            Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");;
+            Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");
             Route::get('/download-cookie-data',  'downloadCookieData');
+
+
+
+            /** social account connect callback */
+
+            Route::get('account/{medium}', 'redirectAccount')->name('account');
+            Route::get('account/{medium}/callback', 'handleAccountCallback')->name('account.callback');
+
+
+            Route::get('subcategories/{category_id}/{html?}', 'getSubcategories')->name('get.subcategories');
 
         });
 
@@ -238,6 +256,11 @@ use Illuminate\Support\Facades\Route;
         Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
         Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
         Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
+
+
+
+
+
 
     });
 

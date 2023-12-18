@@ -93,7 +93,7 @@
               <ul class="sub-menu">
 
                   <li class="sub-menu-item">
-                      <a class="sidebar-menu-link {{sidebar_awake(['admin.category.list' ,'admin.category.edit' ,'admin.category.sub'])}}" href="{{route('admin.category.list')}}">
+                      <a class="sidebar-menu-link {{sidebar_awake(['admin.category.list' ,'admin.category.edit' ,'admin.category.subcategories'])}}" href="{{route('admin.category.list')}}">
                         <span></span>
                           <p>
                             {{translate('Categories')}}
@@ -129,7 +129,22 @@
                   <p>{{translate('Social Platforms')}}</p>
               </a>
           </li>
+
         @endif
+
+
+        @if(check_permission('view_account'))
+
+          <li class="sidebar-menu-item">
+              <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' data-anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
+                  <span><i class="las la-hashtag"></i></span>
+                  <p>{{translate('Social Accounts')}}</p>
+              </a>
+          </li>
+
+        @endif
+
+        
 
         @if(check_permission('view_ai_template'))
           

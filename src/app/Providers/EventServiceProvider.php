@@ -18,6 +18,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            \SocialiteProviders\LinkedIn\LinkedInExtendSocialite::class.'@handle',
+            \SocialiteProviders\YouTube\YouTubeExtendSocialite::class.'@handle',
+            \SocialiteProviders\Instagram\InstagramExtendSocialite::class.'@handle',
+            \SocialiteProviders\TikTok\TikTokExtendSocialite::class.'@handle',
+            \SocialiteProviders\Twitter\TwitterExtendSocialite::class.'@handle',
+
+        ],
     ];
 
     /**

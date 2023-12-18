@@ -67,6 +67,18 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
+                                    <label for="sub_category"> 
+                                        {{translate('Sub Category')}} 
+                                    </label>
+                                    <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
+                                      
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="form-inner">
                                     <label for="Icon"> 
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
@@ -218,11 +230,74 @@
 			   placeholder:"{{translate('Select Category')}}",
 	     	})
 
+            $("#sub_category_id").select2({
+			   placeholder:"{{translate('Select sub category')}}",
+	     	})
+
             $('.icon-picker').iconpicker({
                title: "{{translate('Search Here !!')}}",
             });
 
-            
+            subCategories("{{$template->category_id}}")
+
+            $(document).on('change','#category',function(e){
+                var id = $(this).val()
+                subCategories(id);
+                e.preventDefault()
+            })
+
+            function subCategories(id){
+
+                var url = '{{ route("get.subcategories", ["category_id" => ":id"]) }}';
+                url = url.replace(':id', id);
+
+                $.ajax({
+
+                method:'get',
+                url: url,
+                dataType: 'json',
+
+                success: function(response){
+
+                    var sub_category =  "{{$template->sub_category_id}}";
+                    console.log(sub_category )
+                    var options = '<option  value="" > {{translate("Select Sub category")}} </option>';
+                    var attribute = '';
+
+                    if(response.status){
+
+                        for(let i in response.categories){
+                            attribute = ''
+                            if(sub_category == i){
+                                attribute  = "selected";
+                            }
+                            options+=`<option ${attribute} value="${i}"> ${response.categories[i]} </option>` ;
+                        }
+                        $('#sub_category_id').html(options)
+                    }
+                },
+                error: function (error){
+                    if(error && error.responseJSON){
+                        if(error.responseJSON.errors){
+                            for (let i in error.responseJSON.errors) {
+                                toastr(error.responseJSON.errors[i][0],'danger')
+                            }
+                        }
+                        else{
+                            if((error.responseJSON.message)){
+                                toastr(error.responseJSON.message,'danger')
+                            }
+                            else{
+                                toastr( error.responseJSON.error,'danger')
+                            }
+                        }
+                    }
+                    else{
+                        toastr(error.message,'danger')
+                    }
+                },
+             })
+            }
 
 
 	})(jQuery);

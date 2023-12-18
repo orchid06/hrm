@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 
-  
     <div class="i-card-md">
         <div class="card-body">
             <ul class="list-group">
@@ -99,7 +98,6 @@
                </li>
 
 
-
                 
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
 
@@ -148,9 +146,6 @@
                     </div>
 
                 </li>
-
-             
-
 
 
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
