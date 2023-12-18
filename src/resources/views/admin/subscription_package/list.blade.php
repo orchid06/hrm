@@ -16,7 +16,7 @@
                     </form>
                     
                     @if(check_permission('create_package') || check_permission('update_package') )
-                        <div class="col-md-4 d-flex justify-content-start">
+                        <div class="col-md-6 d-flex justify-content-start">
                             @if(check_permission('update_package'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,7 +56,7 @@
                      
                         </div>
                     @endif
-                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
 
@@ -204,7 +204,7 @@
                                             data-route="{{ route('admin.subscription.package.update.status') }}"
                                             data-status="{{ $package->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
                                             data-id="{{$package->uid}}" {{$package->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-feature-{{$package->id}}" >s
+                                        id="status-switch-feature-{{$package->id}}">
                                         <label class="form-check-label" for="status-switch-feature-{{$package->id}}"></label>
                                     </div>
                                 </td>

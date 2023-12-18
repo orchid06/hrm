@@ -65,6 +65,15 @@
     (function($){
         "use strict";
 
+        var inputTags = document.querySelectorAll('input[type="checkbox"]');
+
+        inputTags.forEach(function(inputTag){
+
+            if(inputTag.hasAttribute('disabled')){
+                inputTag.style.backgroundColor = 'rgba(0,0,0,.8)';
+            }
+        })
+
         window.onload = function () {
             $('.table-loader').addClass("d-none");
         }
