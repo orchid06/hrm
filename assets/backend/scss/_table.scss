@@ -173,8 +173,7 @@ table td:last-child {
       position: relative;
       margin-bottom: 0;
       @include sm-down-device{
-        min-width: 100%;
-        max-width: 100%;
+        width: 100%;
       }
 
       .search-icon {

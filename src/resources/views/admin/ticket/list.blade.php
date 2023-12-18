@@ -82,7 +82,7 @@
         <div class="search-action-area">
             <div class="row g-4">
                 @if(check_permission('create_category'))
-                    <div class="col-md-4 col-6 d-flex justify-content-start">
+                    <div class="col-md-6 col-6 d-flex justify-content-start">
                         @if(check_permission('create_category'))
                             <div class="action">
                                 <a href="{{route('admin.ticket.create')}}" class="i-btn btn--sm success">
@@ -94,7 +94,7 @@
                 @endif
                
         
-                <div class="col-md-8 col-6 d-flex justify-content-end">
+                <div class="col-md-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="las la-filter"></i>

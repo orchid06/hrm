@@ -11,7 +11,7 @@
                             <input type="hidden" name="type" id="type">
                     </form>
                     @if(check_permission('create_withdraw') || check_permission('update_withdraw') )
-                        <div class="col-md-4 d-flex justify-content-start">
+                        <div class="col-md-6 d-flex justify-content-start">
                             @if(check_permission('update_withdraw'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,12 +49,11 @@
 
                         </div>
                     @endif
-                    <div class="col-md-8 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
                                     <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by name')}}">
-
                                 </div>
 
 

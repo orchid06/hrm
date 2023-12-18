@@ -338,6 +338,10 @@
 
       .lang-dropdown {
         margin-left: 20px;
+
+        @include md-down-device{
+          margin-left: 15px;
+        }
         [dir="rtl"] & {
           margin-right: 30px;
           margin-left: unset;

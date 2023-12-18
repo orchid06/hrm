@@ -13,7 +13,7 @@
                          <input type="hidden" name="type" id="type">
                     </form>
 					@if(check_permission('create_role') || check_permission('update_role') || check_permission('delete_role'))
-                        <div class="col-xl-7 col-lg-5 d-flex justify-content-start">
+                        <div class="col-xl-7 col-lg-5 col-md-6 d-flex justify-content-start">
                             @if(check_permission('update_role') || check_permission('delete_role'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +53,7 @@
                          
 						</div>
 					@endif
-                    <div class="col-xl-5 col-lg-7 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-xl-5 col-lg-7 col-md-6 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">

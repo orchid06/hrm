@@ -6,27 +6,23 @@
 
     <div class="col">
       <div class="i-card-sm style-2 primary">
+            <div class="card-info">
+                <h5 class="title">
+                    {{translate("Total Subscription")}}
+                </h5>
+                <h3> {{$user->subscriptions->count()}}</h3>
+                <a href="{{route('admin.subscription.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
+                    {{translate("View All")}}
+                </a>
+            </div>
             <div class="icon">
                 <i class="las la-subscript"></i>
-            </div>
-            <div class="card-info">
-            <h5 class="title">
-                {{translate("Total Subscription")}}
-            </h5>
-
-            <h3> {{$user->subscriptions->count()}}</h3>
-            <a href="{{route('admin.subscription.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
-                {{translate("View All")}}
-            </a>
             </div>
       </div>
     </div>
 
     <div class="col">
         <div class="i-card-sm style-2 info">
-            <div class="icon">
-                <i class="las la-sms"></i>
-            </div>
             <div class="card-info">
                 <h5 class="title">
                     {{translate("Total Tickets")}}
@@ -37,23 +33,26 @@
                 {{translate("View All")}}
                 </a>
             </div>
+            <div class="icon">
+                <i class="las la-sms"></i>
+            </div>
         </div>
     </div>
 
     <div class="col">
         <div class="i-card-sm style-2 success">
+            <div class="card-info">
+                <h5 class="title">
+                    {{translate("Deposit logs")}}
+                </h5>
+                <h3>{{$user->paymentLogs->count()}}</h3>
+
+                <a href="{{route('admin.deposit.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
+                    {{translate("View All")}}
+                </a>
+            </div>
             <div class="icon">
                 <i class="las la-hryvnia"></i>
-            </div>
-            <div class="card-info">
-            <h5 class="title">
-                {{translate("Deposit logs")}}
-            </h5>
-            <h3>{{$user->paymentLogs->count()}}</h3>
-
-            <a href="{{route('admin.deposit.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
-                {{translate("View All")}}
-            </a>
             </div>
         </div>
     </div>
@@ -61,9 +60,6 @@
 
     <div class="col">
         <div class="i-card-sm style-2 warning">
-          <div class="icon">
-              <i class="las la-hryvnia"></i>
-          </div>
           <div class="card-info">
             <h5 class="title">
                {{translate("Withdraw logs")}}
@@ -74,32 +70,33 @@
                {{translate("View All")}}
             </a>
           </div>
+          <div class="icon">
+              <i class="las la-hryvnia"></i>
+          </div>
         </div>
     </div>
 
 
     <div class="col">
         <div class="i-card-sm style-2 danger">
-        <div class="icon">
-            <i class="las la-bars"></i>
-        </div>
-        <div class="card-info">
-            <h5 class="title">
-            {{translate("Transaction logs")}}
-            </h5>
-            <h3>{{$user->transactions->count()}}</h3>
+            <div class="card-info">
+                <h5 class="title">
+                {{translate("Transaction logs")}}
+                </h5>
+                <h3>{{$user->transactions->count()}}</h3>
 
-            <a href="{{route('admin.transaction.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
-            {{translate("View All")}}
-            </a>
-        </div>
+                <a href="{{route('admin.transaction.report.list',['user' => $user->username])}}" class="mt-3 i-btn btn--outline btn--sm">
+                {{translate("View All")}}
+                </a>
+            </div>
+            <div class="icon">
+                <i class="las la-bars"></i>
+            </div>
         </div>
     </div>
-
 </div>
 
 <div class="row g-4 mb-4">
-
     <div class="col-6">
         <button type="button"   class="i-btn btn--sm success deposit-balance">
             <i class="las la-plus me-1"></i>  {{translate('Deposit')}}
