@@ -9,14 +9,12 @@
                 <form data-route="{{route('admin.ai.template.content.generate')}}" class="ai-content-form" enctype="multipart/form-data" method="post">
                     @csrf
                     <input type="text" hidden name="id" value="{{$template->id}}">
-
                     <div class="i-card-md">
                         <div class="card--header">
                             <h4 class="card-title">
                                 {{translate($template->name)}}
                             </h4>
                         </div> 
-
                         <div class="card-body">
                             <div class="row">
                                 @include('partials.prompt_content')
@@ -25,9 +23,7 @@
                                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Generate")}}
                                     </button>
-                                </div>
-
-                                    
+                                </div>    
                             </div>
                         </div>            
                     </div>

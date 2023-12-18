@@ -37,7 +37,7 @@
 
                                   <div class="col-xl-4 col-md-5">
                                       <div class="form-inner mb-0">
-                                          <input type="date" id="date_picker" name="date" value="{{request()->input('date')}}" placeholder="{{translate("Enter Date")}}">
+                                          <input type="date" id="date_picker" name="date" value="{{request()->input('date')}}">
                                       </div>
                                   </div>
                               </div>                               
@@ -116,7 +116,7 @@
                         </tr>
                         @empty 
                         <tr class="border-bottom-0">
-                            <td class="border-bottom-0" colspan="100">
+                            <td class="border-bottom-0" colspan="90">
                                 @include('frontend.partials.not_found')
                             </td>
                         </tr>

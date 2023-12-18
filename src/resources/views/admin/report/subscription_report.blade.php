@@ -185,7 +185,7 @@
                             @empty
 
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>
@@ -302,7 +302,7 @@
                                         {{translate('Expire Date')}} <span class="text-danger">*
                                             </span>
                                     </label>
-                                    <input type="date" required name="expired_at" id="expired_at" placeholder='{{translate("Enter Date")}}'>
+                                    <input type="date" required name="expired_at" id="expired_at">
                                 </div>
                             </div>
 

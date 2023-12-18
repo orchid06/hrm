@@ -124,7 +124,7 @@
                           
                             @empty
                                 <tr>
-                                    <td class="border-bottom-0" colspan="100">
+                                    <td class="border-bottom-0" colspan="90">
                                         @include('admin.partials.not_found',['custom_message' => "No Categories found!!"])
                                     </td>
                                 </tr>
@@ -153,7 +153,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-icon" id="exampleModalLabel">
+                    <h5 class="modal-icon" >
                         {{translate('Send Mail')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -180,10 +180,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -196,7 +196,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-icon" id="exampleModalLabel">
+                    <h5 class="modal-icon" >
                         {{translate('Send Mail')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -223,10 +223,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
