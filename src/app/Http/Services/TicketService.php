@@ -72,7 +72,7 @@ class TicketService
             $route          =  route("admin.ticket.list");
             $userRoute      =  route("user.ticket.list");
 
-            $admin          = Admin::where('super_admin',StatusEnum::true->status())->first();
+            $admin          = get_admin();
             $priority       = Arr::get(array_flip(PriorityStatus::toArray()), $ticket->priority, 'Low');
 
             $code           = [

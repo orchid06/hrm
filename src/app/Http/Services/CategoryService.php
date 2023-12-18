@@ -27,6 +27,7 @@ class CategoryService
         DB::transaction(function() use ($request) {
 
             $category                   = new Category();
+            $category->parent_id        = $request->input('parent_id');
             $category->title            = Arr::get($request->input('title'),'default','');
             $category->is_feature       = $request->has('is_feature') ? $request->input('is_feature') : StatusEnum::false->status();
             $category->display_in       = $request->input('display_in');
@@ -49,7 +50,8 @@ class CategoryService
     public function update(Request $request) :void{
 
         DB::transaction(function() use ($request) {
-            $category = Category::where('id',$request->input('id'))->firstOrfail();
+            $category                   = Category::where('id',$request->input('id'))->firstOrfail();
+            $category->parent_id        = $request->input('parent_id');
             $category->title            = Arr::get($request->input('title'),'default','');
             $category->icon             = $request->input('icon');
             $category->display_in       = $request->input('display_in');

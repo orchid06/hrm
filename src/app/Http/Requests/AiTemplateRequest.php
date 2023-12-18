@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Enums\StatusEnum;
+use App\Models\Admin\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Closure;
 
 class AiTemplateRequest extends FormRequest
 {
@@ -27,6 +29,16 @@ class AiTemplateRequest extends FormRequest
             'name'             => ["required","unique:ai_templates,name,".request()->id],
             'slug'             => ['unique:ai_templates,slug,'.request()->id],
             'category_id'      => ["required","exists:categories,id"],
+            'sub_category_id'  => ["nullable","exists:categories,id",function (string $attribute, mixed $value, Closure $fail)  {
+                                        $parent = Category::active()
+                                                ->where('parent_id',request()->input('category_id'))
+                                                ->where('id',request()->input('sub_category_id'))
+                                                ->first();
+                                
+                                        if (!$parent) {
+                                            $fail(translate("Invalid subcategory id"));
+                                        }
+                                  }],
             'description'      => ["required",'max:200',"string"],
             'icon'             => ["required",'max:100'],
             'is_default'       => ["required", Rule::in(StatusEnum::toArray())],

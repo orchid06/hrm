@@ -39,7 +39,7 @@ class AiTemplateController extends Controller
         $this->middleware(['permissions:delete_ai_template'])->only(['destroy','bulk']);
         
         $this->middleware(function (Request $request, Closure $next) {
-            $this->categories = Category::template()->get();
+            $this->categories = Category::template()->doesntHave('parent')->get();
             return $next($request);
         });
         $this->aiService =  new AiService();
@@ -58,7 +58,7 @@ class AiTemplateController extends Controller
 
             'breadcrumbs'  => ['Home'=>'admin.home','Ai Templates '=> null],
             'title'        =>  !request()->routeIs('admin.ai.template.default') ? 'Manage Ai Template' :"Default Templates",
-            'templates'    => AiTemplate::with(['category','user','admin','templateUsages'])->search(['name'])
+            'templates'    => AiTemplate::with(['category','user','admin','templateUsages','subCategory'])->search(['name'])
                                 ->filter(["status",'category:slug','status','is_default','user:username,name'])
                                 ->when(request()->routeIs('admin.ai.template.default'),function(Builder $q){
                                     return $q->default();

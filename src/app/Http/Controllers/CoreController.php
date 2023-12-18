@@ -9,6 +9,7 @@ use App\Http\Utility\SendNotification;
 use App\Http\Utility\SendSMS;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
+use App\Models\Admin\Category;
 use App\Models\Admin\Currency;
 use App\Models\Core\Language;
 use App\Models\Package;
@@ -332,6 +333,32 @@ class CoreController extends Controller
         }
 
         return [];
+    }
+
+
+    
+    public function getSubcategories(int | string $id , bool $html = false) :mixed {
+
+
+        $categories =  Category::where('parent_id', $id)
+                        ->active()->get();
+
+        $options    = "";
+        if ($html) {
+            foreach ($categories as $category) {
+                $options .= '<option value="' . $category->id . '">' . $category->title . '</option>';
+            }
+        }
+
+        return [
+
+            'status'     => true,
+            'html'       => $options,
+            'categories' => $categories->pluck('title','id')->toArray(),
+        ];
+
+
+
     }
 
 
