@@ -11,7 +11,7 @@
             <div class="list-group">
                     @foreach($notifications as $notification)
                         @if($notification->url)
-                            <a href="javascript:void(0);" data-id="{{$notification->id}}" data-href= "{{($notification->url)}}"   class=" read-notification list-group-item list-group-item-action ">
+                            <a href="javascript:void(0);" data-id="{{$notification->id}}" data-href= "{{($notification->url)}}"   class="read-notification list-group-item list-group-item-action ">
 
                                 <div class="d-flex mb-2 align-items-center">
                                     <div class="flex-shrink-0">

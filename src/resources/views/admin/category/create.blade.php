@@ -31,7 +31,7 @@
                                             <button class='nav-link  
                                             {{$loop->index == 0 ? "active" :""}}
                                             ' id="lang-tab-{{$code}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{$code}}" type="button" role="tab" aria-controls="lang-tab-content-{{$code}}" aria-selected="true">
-                                                <img class="lang-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" class="me-2 rounded" height="18">
+                                                <img class="lang-img me-2 rounded" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" height="18">
                                                 <span class="align-middle">
                                                    
                                                    {{$code}}
@@ -63,8 +63,7 @@
                                                 <input id="{{$code}}-input" type="text" name="title[{{strtolower($code)}}]"   placeholder='{{translate("Enter Title")}}'
                                                     value='{{old("title.$lang_code")}}'>
 
-                                                 
-                                               
+
                                             </div>                                                                         
                                         </div>
                                     @endforeach
@@ -74,7 +73,7 @@
 
                             <div class="col-lg-6">
                                         
-                                <div class=" form-inner">
+                                <div class="form-inner">
                                     <label  for="slug">
                                         {{translate('Slug')}} 
                                     </label>
@@ -98,6 +97,30 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-lg-12">
+                                        
+                                <div class="form-inner">
+                                    <label  for="parent_id">
+                                        {{translate('Parent Id')}} 
+                                    </label>
+                            
+                                    <select name="parent_id" id="parent_id">
+                                        <option value="">
+                                            {{translate("Select Parent Category")}}
+                                        </option>
+
+                                        @foreach ($categories as  $parentCategory)
+                                            <option {{old('parent_id') ==  $parentCategory->id ? "selected" :""}} value="{{$parentCategory->id}}">
+                                                  {{$parentCategory->title}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                                                                           
+                                </div>                                                                         
+                        
+                                    
+                            </div>
 
                             <div class="col-lg-12">
                                 <div class="form-inner">
@@ -144,7 +167,7 @@
 
 
                             <div class="col-12 ">
-                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>
                             </div>
@@ -180,6 +203,9 @@
 
             $('.icon-picker').iconpicker({
                title: "{{translate('Search Here !!')}}",
+            });
+            $('#parent_id').select2({
+
             });
 
 

@@ -185,7 +185,7 @@
                             @empty
 
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>
@@ -247,7 +247,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark btn--danger" anim="ripple" data-bs-dismiss="modal">
+                    <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
                     
@@ -302,7 +302,7 @@
                                         {{translate('Expire Date')}} <span class="text-danger">*
                                             </span>
                                     </label>
-                                    <input type="date" required name="expired_at" id="expired_at" placeholder='{{translate("Enter Date")}}'>
+                                    <input type="date" required name="expired_at" id="expired_at">
                                 </div>
                             </div>
 
@@ -321,10 +321,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

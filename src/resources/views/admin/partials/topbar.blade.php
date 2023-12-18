@@ -3,22 +3,21 @@
   <div class="header-container">
     <div class="d-flex align-items-center gap-lg-3 gap-2">
       <div class="header-icon">
-        <button class="btn-icon vertical-menu-btn ripple-dark" anim="ripple">
+        <button class="btn-icon vertical-menu-btn ripple-dark" data-anim="ripple">
           <i class="las la-bars"></i>
         </button>
       </div>
     </div>
 
     <div class="d-flex align-items-center gap-lg-3 gap-2">
-
       <div class="header-icon d-flex">
-        <div class="btn-icon fullscreen-btn ripple-dark" anim="ripple">
+        <div class="btn-icon fullscreen-btn ripple-dark" data-anim="ripple">
           <i class="las la-expand"></i>
         </div>
       </div>
 
       <div class="header-icon d-flex">
-        <div class="btn-icon ripple-dark" anim="ripple">
+        <div class="btn-icon ripple-dark" data-anim="ripple">
            <a href="{{route('admin.setting.cache.clear')}}">
               <i class="las la-broom"></i>
            </a>
@@ -26,13 +25,12 @@
       </div>
 
       <div class="header-icon">
-        <div class="btn-icon ripple-dark" anim="ripple">
+        <div class="btn-icon ripple-dark" data-anim="ripple">
            <a target="_blank" href="{{url('/')}}">
               <i class="las la-globe"></i>
            </a>
         </div>
       </div>
-
 
       @if(site_settings('database_notifications') ==  App\Enums\StatusEnum::true->status() && check_permission('view_notification'))
           @php
@@ -43,16 +41,12 @@
                                   ->get();
           @endphp
 
-
-
           <div class="header-icon">
             <div class="notification-dropdown">
               @if($notifications->count() > 0)
                 <span>{{$notifications->count()}}</span>
               @endif
-              <div class="btn-icon dropdown-toggle ripple-dark" anim="ripple"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <div class="btn-icon dropdown-toggle ripple-dark" data-anim="ripple" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="lar la-bell"></i>
               </div>
               <div class="dropdown-menu dropdown-menu-end">
@@ -73,7 +67,6 @@
                                     src='{{imageUrl(auth_user()->file,"profile,admin",true) }}'
                                     alt="{{@auth_user()->file->name}}" />
                                 </div>
-
                                 <div class="notification-item-content">
                                   <h5> {{auth_user()->name}} <small>
                                       {{diff_for_humans($notification->created_at)}}
@@ -84,7 +77,6 @@
                                       }}
                                   </p>
                                 </div>
-
                               </a>
                             </li>
                           @empty
@@ -94,11 +86,9 @@
                               </p>
                             </li>
                           @endforelse
-
                         </ul>
                     </div>
                 </div>
-
                   @if($notifications->count() >0)
                     <div class="dropdown-menu-footer">
                         <a href='{{route("admin.notifications")}}'>
@@ -115,9 +105,7 @@
        <!-- currency switcher -->
        <div class="header-icon">
           <div class="lang-dropdown">
-            <div class="btn-icon btn--text dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <div class="btn-icon btn--text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               {{session()->get('currency')?->code}}
             </div>
             @if(site_currencies() && !site_currencies()->isEmpty())
@@ -133,26 +121,20 @@
                 </ul>
               </div>
             @endif
-            
           </div>
       </div>
       
       <!-- language switcher -->
-
       <div class="header-icon">
         @php
           $lang = $languages->where('code',session()->get('locale'));
-
           $code = count($lang)!=0 ? $lang->first()->code:"en";
           $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
         @endphp
         <div class="lang-dropdown">
-          <div class="btn-icon dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <div class="btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <img id="header-lang-img" class="flag-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" height="20">
           </div>
-
           @if(!$languages->isEmpty())
             <div class="dropdown-menu dropdown-menu-end">
               <ul>
@@ -167,7 +149,6 @@
               </ul>
             </div>
           @endif
-
         </div>
       </div>
 
@@ -175,33 +156,26 @@
      <!-- profile -->
       <div class="header-icon">
         <div class="profile-dropdown">
-          <div class="topbar-profile dropdown-toggle" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="topbar-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src='{{imageUrl(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
           </div>
           <div class="dropdown-menu dropdown-menu-end">
             <ul>
               <li>  <span class="dropdown-item">{{translate('Welcome')}} {{auth_user()->name}}!</span></li>
-
               <li>
                   <a class="dropdown-item" href="{{route('admin.profile.index')}}"> <i class="las la-cog"></i>
                     {{translate("Setting")}}
                   </a>
               </li>
-
               <li>
-
                   <a href="{{route('admin.logout')}}" class="pointer dropdown-item " >  <i class="las la-sign-out-alt"></i>
                     {{translate('logout')}}
                   </a>
-
               </li>
             </ul>
           </div>
         </div>
       </div>
-
-      
     </div>
   </div>
 </header>

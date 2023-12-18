@@ -826,7 +826,7 @@ return [
              Kyc Information:Applied By :{{name}} Application time :{{time}}",
             "sort_code" => ([
                 'name'       => "User name",
-                'status'     => "Verification status"
+                'time'     => "Time"
             ])
         ],
     ] ,
@@ -995,12 +995,31 @@ return [
 
 
     "platforms" => [
-        'facebook',
-        'Instagram',
-        'linkedin',
-        'youtube',
-        'tikTok',
-        "twitter"
+
+        'Facebook' => [
+            'client_id'     => '#',
+            'client_secret' => '#'
+        ],
+        'Instagram' => [
+            'client_id'     => '#',
+            'client_secret' => '#',
+        ],
+        'Linkedin' => [
+            'client_id'     => '#',
+            'client_secret' => '#',
+        ],
+        'Youtube' => [
+            'client_id'     => '#',
+            'client_secret' => '#',
+        ],
+        'TikTok' => [
+            'client_id'     => '#',
+            'client_secret' => '#',
+        ],
+        "Twitter" => [
+            'client_id'     => '#',
+            'client_secret' => '#',
+        ]
     ],
 
     

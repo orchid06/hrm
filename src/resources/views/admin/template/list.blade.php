@@ -9,7 +9,7 @@
                     <div class="search-area">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
                             <div class="form-inner">
-                                <input name="search" name="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name or subject')}}">
+                                <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name or subject')}}">
 
                             </div>
                             <button class="i-btn btn--sm info">
@@ -87,7 +87,7 @@
                  
                         @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>

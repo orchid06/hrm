@@ -215,6 +215,7 @@ input[type="radio"] {
 .input-group {
     border-radius: 3px;
     overflow: hidden;
+    gap: 10px;
     input {
         border-radius: 0;
     }
@@ -319,7 +320,7 @@ select {
     border: 1px solid $color-border !important;
     background-color: transparent;
     display: flex;
-    padding: 7.4px;
+    padding: 9px;
     line-height: 1;
     [dir="rtl"] & {
         justify-content: flex-end;

@@ -18,7 +18,7 @@
             <li class="sidebar-menu-item">
                 <a
                     class="sidebar-menu-link {{sidebar_awake('admin.home')}}"
-                    anim="ripple"
+                    data-anim="ripple"
                     href='{{route("admin.home")}}'
                     aria-expanded="false">
                     <span><i class="las la-home"></i></span>
@@ -93,7 +93,7 @@
               <ul class="sub-menu">
 
                   <li class="sub-menu-item">
-                      <a class="sidebar-menu-link {{sidebar_awake(['admin.category.list' ,'admin.category.edit' ,'admin.category.sub'])}}" href="{{route('admin.category.list')}}">
+                      <a class="sidebar-menu-link {{sidebar_awake(['admin.category.list' ,'admin.category.edit' ,'admin.category.subcategories'])}}" href="{{route('admin.category.list')}}">
                         <span></span>
                           <p>
                             {{translate('Categories')}}
@@ -124,12 +124,27 @@
         @if(check_permission('view_platform'))
 
           <li class="sidebar-menu-item">
-              <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
+              <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' data-anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
                   <span><i class="lab la-buffer"></i></span>
                   <p>{{translate('Social Platforms')}}</p>
               </a>
           </li>
+
         @endif
+
+
+        @if(check_permission('view_account'))
+
+          <li class="sidebar-menu-item">
+              <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' data-anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
+                  <span><i class="las la-hashtag"></i></span>
+                  <p>{{translate('Social Accounts')}}</p>
+              </a>
+          </li>
+
+        @endif
+
+        
 
         @if(check_permission('view_ai_template'))
           
@@ -300,7 +315,7 @@
             <li class="sidebar-menu-item">
                 <a
                   class='sidebar-menu-link {{sidebar_awake("admin.ticket.*")}}'
-                  anim="ripple"
+                  data-anim="ripple"
                   href='{{route("admin.ticket.list")}}'
                   aria-expanded="false">
                   <span><i class="las la-question-circle"></i></span>
@@ -508,7 +523,7 @@
 
                   <li class="sub-menu-item">
                       <a class='sidebar-menu-link {{sidebar_awake("admin.menu.*")}}' href='{{route("admin.menu.list")}}'>
-                        <span></i></span>
+                        <span></span>
                         <p>
                           {{translate('Menu')}}
                         </p>
@@ -539,7 +554,7 @@
 
                   <li class="sub-menu-item">
                       <a class='sidebar-menu-link {{sidebar_awake(["admin.article.list","admin.article.edit"])}}' href='{{route("admin.article.list")}}'>
-                        <span></i></span>
+                        <span></span>
                         <p>
                           {{translate('Articles')}}
                         </p>
@@ -739,7 +754,7 @@
 
        @if(check_permission('view_currency'))
           <li class="sidebar-menu-item">
-              <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' anim="ripple" href="{{route('admin.currency.list')}}" aria-expanded="false">
+              <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' data-anim="ripple" href="{{route('admin.currency.list')}}" aria-expanded="false">
                   <span><i class="las la-euro-sign"></i></span>
                   <p>{{translate('Currencies')}}</p>
               </a>
@@ -788,7 +803,7 @@
       
         @if(check_permission('view_withdraw'))
             <li class="sidebar-menu-item">
-                <a class='sidebar-menu-link {{sidebar_awake("admin.withdraw.*")}}' anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
+                <a class='sidebar-menu-link {{sidebar_awake("admin.withdraw.*")}}' data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
                     <span><i class="las la-dolly-flatbed"></i></span>
                     <p>{{translate('Withdraw Method')}}</p>
                 </a>

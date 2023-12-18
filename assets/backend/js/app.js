@@ -153,7 +153,7 @@
     }
 
     // Ripple button effects==============
-    Array.from(document.querySelectorAll('[anim="ripple"]'), el => {
+    Array.from(document.querySelectorAll('[data-anim="ripple"]'), el => {
         el.addEventListener('click', e => {
             e = e.touches ? e.touches[0] : e;
             const r = el.getBoundingClientRect(), d = Math.sqrt(Math.pow(r.width, 2) + Math.pow(r.height, 2)) * 2;
@@ -194,5 +194,43 @@
             filterDropdown.classList.toggle('show');
         });
     }
+
+    // Ai button
+
+    var aiOutput = document.querySelector('.ai-form-output');
+
+    $('.ai-btn').on('click', function () {
+        var self = this;
+        $(this).addClass('btn__dots--loading');
+        $(this).append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+
+        setTimeout(function () {
+            $(self).removeClass('btn__dots--loading');
+            $(self).find('.btn__dots').remove();
+        }, 3000);
+
+        
+
+
+        var grandparentDiv = this;
+
+        for(var i = 0; i < 6; i++){
+            grandparentDiv = grandparentDiv.parentNode;
+        }
+
+    // Hide the grandparent div
+    
+    setTimeout(function(){
+        grandparentDiv.style.opacity = '0';
+        grandparentDiv.style.transition = '0.5s';
+
+        setTimeout(function(){
+            grandparentDiv.style.display = 'none';
+            aiOutput.classList.add('show-output');
+        },500)
+    },3000);
+
+      
+    });
 
 }())

@@ -19,17 +19,14 @@
 
             <div class="col-lg-12">
                 <div class="form-inner">
-
                     <label for="{{  $key }}"> 
                         {{ @$input->field_label }} @if(@$input->validation == 'required') <small class="text-danger">*</small>@endif
                     </label>
-
                     @if($input->type == "text")
                         <input data-name="{{'{'.@$input->field_name.'}'}}" placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif  name="custom[{{ @$input->field_name }}]" id="{{ $key }}" value="{{old("custom.".@$input->field_name)}}" type="text" class="prompt-input">
                     @else
                         <textarea class="prompt-input" data-name="{{'{'.@$input->field_name.'}'}}"  placeholder="{{ @$input->field_label }}" @if(@$input->validation == 'required') required @endif name="custom[{{ @$input->field_name }}]"  id="{{ $key }}"  cols="30" rows="6">{{old("custom.".@$input->field_name)}}</textarea>
                     @endif
-
                 </div>
             </div>
 
@@ -49,6 +46,7 @@
     </div>
 
     <div class="col-lg-12 mb-3">
+        <div class="faq-wrap style-2">
         <div class="accordion" id="advanceOption">
             <div class="accordion-item">
             <h2 class="accordion-header" id="advanceContent">
@@ -120,5 +118,6 @@
                 </div>
             </div>
             </div>
+        </div>
         </div>
     </div>

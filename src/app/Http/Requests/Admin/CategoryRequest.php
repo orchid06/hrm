@@ -4,9 +4,12 @@ namespace App\Http\Requests\Admin;
 
 use App\Enums\CategoryDisplay;
 use App\Enums\StatusEnum;
+use App\Models\Admin\Category;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Closure;
+
 class CategoryRequest extends FormRequest
 {
     /**
@@ -30,6 +33,18 @@ class CategoryRequest extends FormRequest
             "title.*"           => ['max:155'],
             "title.default"     => ["required","unique:categories,title,".request()->id],
             'slug'              => ["max:150","unique:categories,slug,".request()->id],
+            "parent_id"         => ["nullable","exists:categories,id",function (string $attribute, mixed $value, Closure $fail)  {
+
+                $parent = Category::active()
+                            ->doesntHave('parent')
+                            ->where('id',request()->input('parent_id'))
+                            ->first();
+            
+                if (!$parent) {
+                    $fail(translate("Invalid parent id"));
+                }
+            }],
+            
             'description'       => ["nullable",'string','max:255'],
             'meta_title'        => ["nullable","string","max:155"],
             'meta_description'  => ["nullable",'string','max:255'],

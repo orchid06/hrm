@@ -245,7 +245,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
@@ -374,7 +374,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label>
+                                    <label for="image">
                                         {{translate('Profile Image')}}
                                     </label>
                                     <input id="image" name="image" type="file">
@@ -396,10 +396,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -482,21 +482,20 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label>
+                                    <label for="pro-image">
                                         {{translate('Profile Image')}}
                                     </label>
-                                    <input id="image" name="image" type="file">
+                                    <input id="pro-image" name="image" type="file">
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -546,10 +545,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

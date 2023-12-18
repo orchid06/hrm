@@ -204,7 +204,7 @@
                                             data-route="{{ route('admin.subscription.package.update.status') }}"
                                             data-status="{{ $package->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
                                             data-id="{{$package->uid}}" {{$package->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-{{$package->id}}" >
+                                        id="status-switch-feature-{{$package->id}}" >s
                                         <label class="form-check-label" for="status-switch-feature-{{$package->id}}"></label>
                                     </div>
                                 </td>
@@ -252,7 +252,7 @@
                             @empty
 
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
@@ -318,15 +318,12 @@
                               <input {{ site_settings('auto_subscription') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }} 
                               data-key='auto_subscription'   data-status='{{ site_settings('auto_subscription') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                               data-route="{{ route('admin.setting.update.status') }}" class="form-check-input status-update" id="auto_subscription" type="checkbox">
-
                               <label for="auto_subscription" class="form-check-label" >
                                   <b> {{translate("Allow user to configure Auto Subscription")}} : </b>
                                   {{translate("if enable, user can configure auto subscription settings!!")}}
                               </label>
-
                             </div>
                         </div>
-
 
                         <div class="col-lg-6">
                             <label for="auto_subscription_package"> 
@@ -372,10 +369,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                         {{translate("Submit")}}
                     </button>
                 </div>

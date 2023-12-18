@@ -110,7 +110,7 @@
 
                     <div class="col-lg-12">
                         <div class="form-inner">
-                            <label id="description">
+                            <label for="description">
                                 {{translate('Notes')}}
                             </label>
                             <textarea required type="text" class="form-control" placeholder="{{translate('Type here')}}"  id="description" name="description" rows="4">{{$withdraw->description}}</textarea>
@@ -164,7 +164,7 @@
 
 
                     <div class="col-12">
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

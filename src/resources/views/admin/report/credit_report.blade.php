@@ -61,7 +61,7 @@
                                             </select>
                                         </div>
                                         <div class="form-inner">
-                                            <select name="type" id="type" class="type">
+                                            <select name="type" id="trx-ype" class="type">
                                                 <option value="">
                                                     {{translate('Select type')}}
                                                 </option>
@@ -198,7 +198,7 @@
                             @empty
 
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>

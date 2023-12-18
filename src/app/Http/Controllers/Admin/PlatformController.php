@@ -47,6 +47,32 @@ class PlatformController extends Controller
     }
 
 
+
+
+    /**
+     * Update a specific platform comfiguration
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function configurationUpdate(Request $request) :RedirectResponse{
+
+        $request->validate([
+            "id"                            => ['required','exists:media_platforms,id'],
+            "configuration"                 => ["required",'array'],
+            "configuration.client_id"       => ["required","max:255"],
+            "configuration.client_secret"   => ["required","max:255"],
+        ]);
+
+        $platform                      = MediaPlatform::findOrfail($request->input('id'));
+        $platform->configuration       = $request->input("configuration");
+        $platform->save();
+
+    
+        return  back()->with(response_status('Configuration updated successfully'));
+    }
+
+
     /**
      * Update a specific platform
      *
@@ -56,6 +82,7 @@ class PlatformController extends Controller
     public function update(Request $request) :RedirectResponse{
 
         $request->validate([
+            "id"            => ['required','exists:media_platforms,id'],
             "description"   => ["nullable","string",'max:255']
         ]);
 

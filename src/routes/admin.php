@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\WithdrawController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
+use App\Http\Controllers\Admin\SocialAccountController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\TryCatch;
@@ -308,6 +309,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
           Route::controller(CategoryController::class)->prefix("/category")->name('category.')->group(function(){
 
                Route::get('/list','list')->name('list');
+               Route::get('/sub-categories','list')->name('subcategories');
                Route::get('/create','create')->name('create');
                Route::post('/store','store')->name('store');
                Route::get('/edit/{uid}','edit')->name('edit');
@@ -377,6 +379,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::get('/list','list')->name('list');
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/update','update')->name('update');
+               Route::post('/configuration/update','configurationUpdate')->name('configuration.update');
                Route::post('/update/status','updateStatus')->name('update.status');
 
           });
@@ -409,8 +412,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::get('/dos','dos')->name('dos');
                Route::post('/dos/update','dosUpdate')->name('dos.update');
 
-               
-           
 
           });
 
@@ -515,6 +516,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                     Route::get('/','kycReport')->name('list');
                     Route::get('/details/{id}','kycDetails')->name('details');
                     Route::post('/update','kycUpdate')->name('update');
+                    
 
                });
                
@@ -537,6 +539,31 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::get('/destroy/file/{id}','destroyFile')->name('destroy.file');
 
           });
+
+
+          #social account and post route
+
+
+          Route::name('social.')->prefix('social/')->group(function () {
+
+
+               #Account manager
+               Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
+
+                    Route::any('/list','list')->name('list');
+                    Route::get('/create','create')->name('create');
+                    Route::post('/store','store')->name('store');
+                    Route::get('/edit/{uid}','edit')->name('edit');
+                    Route::post('/update','update')->name('update');
+                    Route::post('/update/status','updateStatus')->name('update.status');
+                    Route::post('/bulk/action','bulk')->name('bulk');
+                    Route::get('/destroy/{id}','destroy')->name('destroy');
+                 
+     
+               });
+
+          });
+
 
 
 

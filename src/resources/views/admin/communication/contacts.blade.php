@@ -118,7 +118,7 @@
 
                                             <a data-toggle="tooltip" data-placement="top" title="{{translate("Send Mail")}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);"data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
 
                                         @else
@@ -131,7 +131,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="100">
+                                <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
@@ -160,7 +160,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-icon" id="exampleModalLabel">
+                    <h5 class="modal-icon" >
                         {{translate('Send Email')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -187,10 +187,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
                         </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
@@ -206,7 +206,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-icon" id="exampleModalLabel">
+                    <h5 class="modal-icon" >
                         {{translate('Message')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -227,7 +227,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
 

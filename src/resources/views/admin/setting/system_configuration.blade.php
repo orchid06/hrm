@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 
-  
     <div class="i-card-md">
         <div class="card-body">
             <ul class="list-group">
@@ -44,9 +43,9 @@
                                 data-key='sms_notification'
                                 data-status='{{ site_settings('sms_notification') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                 data-route="{{ route('admin.setting.update.status') }}"
-                                id="email-notification">
+                                id="sms-notification">
 
-                            <label class="form-check-label" for="email-notification"></label>
+                            <label class="form-check-label" for="sms-notification"></label>
                         </div>
                     </div>
                 </li>
@@ -99,7 +98,6 @@
                </li>
 
 
-
                 
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
 
@@ -148,9 +146,6 @@
                     </div>
 
                 </li>
-
-             
-
 
 
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">

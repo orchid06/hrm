@@ -110,7 +110,7 @@
 
                     <div class="col-12">
                         <div class="form-inner">
-                            <label id="description">
+                            <label for="description">
                                 {{translate('Notes')}}
                             </label>
                             <textarea  placeholder="{{translate('Enter Description Notes')}}" name="description" id="description" cols="3" rows="3">{{old("description")}}</textarea> 
@@ -128,7 +128,7 @@
 
 
                     <div class="col-12">
-                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

@@ -10,9 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class SocialAuthController extends Controller
 {
+
+
+
+
+    public $oauthCreds ;
+    public function __construct(){
+
+        $this->oauthCreds = json_decode(site_settings('social_login_with'),true);
+    }
+
+    
      /**
      * socail auth redirect function
      *
@@ -22,7 +34,26 @@ class SocialAuthController extends Controller
      */
     public function redirectToOauth(Request $request, string $service)
     {
+
+        $this->setConfig($service);
+       
         return Socialite::driver($service)->redirect();
+    }
+
+
+    /**
+     * Set configuration
+     *
+     * @param string $service
+     * @return void
+     */
+    public function setConfig(string $service) :void{
+
+        $credential               = Arr::get($this->oauthCreds ,$service."_oauth",[]);
+        $credential["redirect"]   = url('login/'.$service.'/callback');
+        Arr::forget($credential, 'status');
+        Config::set('services.'.$service, $credential);
+
     }
 
     /**
@@ -33,7 +64,10 @@ class SocialAuthController extends Controller
      */
     public function handleOauthCallback(string $service) : \Illuminate\Http\RedirectResponse
     {
+
+        $this->setConfig($service);
         
+
         try {
             $userOauth = Socialite::driver($service)->stateless()->user();
     

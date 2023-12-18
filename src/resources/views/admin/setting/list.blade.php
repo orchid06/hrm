@@ -193,7 +193,7 @@
                                                 {{translate('Time Zone')}} <small class="text-danger" >*</small>
                                             </label>
 
-                                            <select  name="site_settings[time_zone]" id="time_zone" class=" select2 " id="time_zone">
+                                            <select  name="site_settings[time_zone]" id="time_zone" class="select2">
                                                 @foreach($timeZones as $timeZone)
                                                     <option value="'{{@$timeZone}}'" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
                                                 @endforeach
@@ -245,7 +245,7 @@
                                                 {{translate('Country')}} <small class="text-danger" >*</small>
                                             </label>
 
-                                            <select   name="site_settings[country]" id="country" class=" select2 " id="country">
+                                            <select   name="site_settings[country]" id="country" class="select2">
                                                  @foreach ($countries as $country)
                                                      <option {{site_settings('country') == $country->name ? "selected" :"" }} value="{{$country->name}}">
                                                           {{$country->name}}
@@ -324,7 +324,7 @@
                     
 
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -392,7 +392,7 @@
                                     
                                   
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -446,7 +446,7 @@
                                     </div>
 
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -488,7 +488,7 @@
                                     </div>
 
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -552,7 +552,7 @@
                                     </div>
 
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -656,7 +656,7 @@
                                             </div>
 
                                             <div class="col-12 ">
-                                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -693,7 +693,7 @@
                                             @endforeach
 
                                             <div class="col-12">
-                                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -729,7 +729,7 @@
                                                 </div>
                                             @endforeach
                                             <div class="col-12 ">
-                                                <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -780,7 +780,7 @@
 
 
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -871,7 +871,7 @@
                                         @endforeach
 
                                         <div class="col-12 ">
-                                            <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                            <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                                 {{translate("Submit")}}
                                             </button>
                                         </div>
@@ -950,7 +950,7 @@
                                 @endforeach
 
                                 <div>
-                                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -1035,7 +1035,7 @@
                                 </div>
 
                                 <div>
-                                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -1163,7 +1163,7 @@
                                 </div>
 
                                 <div class="mt-20">
-                                    <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -1208,7 +1208,7 @@
 
 
                                     <div class="col-12">
-                                        <button type="submit" class="i-btn btn--md btn--primary" anim="ripple">
+                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -1262,7 +1262,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="i-btn btn--md ripple-dark" anim="ripple" data-bs-dismiss="modal">
+                <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                     {{translate("Close")}}
                 </button>
 
