@@ -225,15 +225,14 @@ use Illuminate\Support\Facades\Route;
             Route::get('/reject-cookie',  'rejectCookie')->name("reject.cookie");
             Route::get('/download-cookie-data',  'downloadCookieData');
 
+            Route::get('subcategories/{category_id}/{html?}', 'getSubcategories')->name('get.subcategories');
+
 
 
             /** social account connect callback */
 
             Route::get('account/{medium}', 'redirectAccount')->name('account');
             Route::get('account/{medium}/callback', 'handleAccountCallback')->name('account.callback');
-
-
-            Route::get('subcategories/{category_id}/{html?}', 'getSubcategories')->name('get.subcategories');
 
         });
 
@@ -256,11 +255,6 @@ use Illuminate\Support\Facades\Route;
         Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
         Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
         Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
-
-
-
-
-
 
     });
 

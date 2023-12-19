@@ -38,14 +38,14 @@ class Visitor extends Model
 
  
 
-    public static function insertOrupdtae(string  $ip,array $ipInfo , mixed $country ,? bool $blocked = false) :mixed{
+    public static function insertOrupdtae(string  $ip_address,array $ipInfo , mixed $country ,? bool $blocked = false) :mixed{
 
         
     
-        $ip = Visitor::where('ip_address', $ip)->first();
+        $ip = Visitor::where('ip_address', $ip_address)->first();
         if (!$ip) {
             $ip = new Visitor();
-            $ip->ip_address = $ip;
+            $ip->ip_address = $ip_address;
             $ip->country_id = $country?->id;
             $ip->is_blocked = $blocked ? StatusEnum::true->status() : StatusEnum::false->status();
         }

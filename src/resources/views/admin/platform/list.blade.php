@@ -54,109 +54,112 @@
 
 
                 <div class="table-container position-relative">
-                    @include('admin.partials.loader')
+                        @include('admin.partials.loader')
 
-                    <table>
-                        <thead>
-                        <tr>
-                            <th scope="col">
-                                @if(check_permission('update_platform'))
-                                    <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
-                                @endif#
-                            </th>
-                            <th scope="col">{{translate('Name')}}</th>
-                            <th scope="col">{{translate('Status')}}</th>
-                            <th scope="col">{{translate('Feature')}}</th>
-                            <th scope="col">{{translate('Integrated')}}</th>
-                            <th scope="col">{{translate('Options')}}</th>
-                        </tr>
-                        </thead>
-                    
-                        <tbody>
-                            @forelse ($platforms as $platform)
-                                <tr>
-                                    <td data-label="#">
-                                        @if( check_permission('update_platform'))
-                                           
-                                               <input  type="checkbox" value="{{$platform->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$platform->id}}" />
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    @if(check_permission('update_platform'))
+                                        <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
+                                    @endif#
+                                </th>
+                                <th scope="col">{{translate('Name')}}</th>
+                                <th scope="col">{{translate('Status')}}</th>
+                                <th scope="col">{{translate('Feature')}}</th>
+                                <th scope="col">{{translate('Integrated')}}</th>
+                                <th scope="col">{{translate('Options')}}</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody>
+                                @forelse ($platforms as $platform)
+                                    <tr>
+                                        <td data-label="#">
+                                            @if( check_permission('update_platform'))
                                             
-                                        @endif
-                                        {{$loop->iteration}}
-                                    </td>
-                                    <td data-label='{{translate("Name")}}'>
-                                        <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
-
-                                            <p>	 {{$platform->name}}</p>
-                                        </div>
-                                    </td>
-                                 
-                                    <td data-label='{{translate("Status")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="status"
-                                                data-route="{{ route('admin.platform.update.status') }}"
-                                                data-status="{{ $platform->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$platform->uid}}" {{$platform->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-{{$platform->id}}" >
-                                            <label class="form-check-label" for="status-switch-{{$platform->id}}"></label>
-                                        </div>
-                                    </td>
-
-                                    <td data-label='{{translate("Feature")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="is_feature"
-                                                data-route="{{ route('admin.platform.update.status') }}"
-                                                data-status="{{ $platform->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$platform->uid}}" {{$platform->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-feature-{{$platform->id}}" >
-                                            <label class="form-check-label" for="status-switch-feature-{{$platform->id}}"></label>
-                                        </div>
-                                    </td>
-
-                                    <td data-label='{{translate("Integrated")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="is_integrated"
-                                                data-route="{{ route('admin.platform.update.status') }}"
-                                                data-status="{{ $platform->is_integrated == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$platform->uid}}" {{$platform->is_integrated ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-integrated-{{$platform->id}}" >
-                                            <label class="form-check-label" for="status-switch-integrated-{{$platform->id}}"></label>
-                                        </div>
-                                    </td>
-
-                                    <td data-label='{{translate("Action")}}'>
-                                        <div class="table-action">
-                                            @if(check_permission('update_platform') )
-                                                @if(check_permission('update_platform'))
+                                                <input  type="checkbox" value="{{$platform->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$platform->id}}" />
                                                 
-                                        
-                                                    <a  href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
-                                                    </a>
-
-                                                    <a  href="javascript:void(0);"  data-platform = "{{$platform}}" class="update-config fs-15 icon-btn info"><i class="las la-pen"></i>
-                                                    </a>
-
-                                                @endif
-                                           
-                                            @else
-                                                {{translate('N/A')}}
                                             @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td class="border-bottom-0" colspan="90">
-                                        @include('admin.partials.not_found')
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
+                                            {{$loop->iteration}}
+                                        </td>
+                                        <td data-label='{{translate("Name")}}'>
+                                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                                <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
 
-                    </table>
+                                                <p>	 {{$platform->name}}</p>
+                                            </div>
+                                        </td>
+                                    
+                                        <td data-label='{{translate("Status")}}'>
+                                            <div class="form-check form-switch switch-center">
+                                                <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                    data-column="status"
+                                                    data-route="{{ route('admin.platform.update.status') }}"
+                                                    data-status="{{ $platform->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                    data-id="{{$platform->uid}}" {{$platform->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                                id="status-switch-{{$platform->id}}" >
+                                                <label class="form-check-label" for="status-switch-{{$platform->id}}"></label>
+                                            </div>
+                                        </td>
+
+                                        <td data-label='{{translate("Feature")}}'>
+                                            <div class="form-check form-switch switch-center">
+                                                <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                    data-column="is_feature"
+                                                    data-route="{{ route('admin.platform.update.status') }}"
+                                                    data-status="{{ $platform->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                    data-id="{{$platform->uid}}" {{$platform->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                                id="status-switch-feature-{{$platform->id}}" >
+                                                <label class="form-check-label" for="status-switch-feature-{{$platform->id}}"></label>
+                                            </div>
+                                        </td>
+
+                                        <td data-label='{{translate("Integrated")}}'>
+                                            <div class="form-check form-switch switch-center">
+                                                <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                    data-column="is_integrated"
+                                                    data-route="{{ route('admin.platform.update.status') }}"
+                                                    data-status="{{ $platform->is_integrated == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                    data-id="{{$platform->uid}}" {{$platform->is_integrated ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                                id="status-switch-integrated-{{$platform->id}}" >
+                                                <label class="form-check-label" for="status-switch-integrated-{{$platform->id}}"></label>
+                                            </div>
+                                        </td>
+
+                                        <td data-label='{{translate("Action")}}'>
+                                            <div class="table-action">
+                                                @if(check_permission('update_platform') )
+                                                    @if(check_permission('update_platform'))
+                                                    
+
+                                                        <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
+                                                        </a>
+                                            
+                                                        <a   href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
+                                                        </a>
+
+
+                        
+
+                                                    @endif
+                                            
+                                                @else
+                                                    {{translate('N/A')}}
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="border-bottom-0" colspan="90">
+                                            @include('admin.partials.not_found')
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+
+                        </table>
                 </div>
 
         </div>
@@ -269,6 +272,19 @@
                                 </div>
                             </div>
 
+                            
+                            <div class="col-xl-12">
+                                <div class="form-inner">
+                                    <label for="callbackUrl">
+                                        {{translate('Callback Url')}}
+                                    </label>
+
+                                    <div class="input-group">
+                                        <input id="callbackUrl"  readonly  type="text" class="form-control" >
+                                        <span class="input-group-text pointer copy-text pointer" data-type="modal"  data-text ='' ><i class="las la-copy"></i></span>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -286,10 +302,6 @@
         </div>
     </div>
 
-
-
-  
-  
 @endsection
 
 
@@ -299,22 +311,36 @@
 	(function($){
        	"use strict";
 
-
         $(document).on('click','.update',function(e){
 
             var platform = JSON.parse($(this).attr('data-platform'));
             var size = ($('#image').attr('data-size')).split("x");
-
             var imgUrl   =  `<img style="width:${size[0]}px;height:${size[1]}px;" src="${$(this).attr('data-img')}" alt="${platform.name}">`;
-            
             var modal = $('#platform-modal')
-
             modal.find('.modal-title').html("{{translate('Update Platform')}}")
             modal.find('.image-preview-section').html(imgUrl)
             modal.find('input[name="id"]').val(platform.id)
             modal.find('textarea[name="description"]').val(platform.description)
             modal.modal('show')
         })
+
+
+        $(document).on('click','.update-config',function(e){
+
+            var config         = JSON.parse($(this).attr('data-config'));
+            var id             = JSON.parse($(this).attr('data-id'));
+            var callbackUrl    = ($(this).attr('data-callback'));
+            var modal          = $('#config-modal')
+            modal.find('input[name="id"]').val(id)
+            modal.find('input[name="configuration[client_id]"]').val(config.client_id)
+            modal.find('input[name="configuration[client_secret]"]').val(config.client_secret)
+            $('#callbackUrl').val(callbackUrl)
+            $('.copy-text').attr('data-text',callbackUrl)
+            modal.modal('show')
+        })
+
+
+        
 
 	})(jQuery);
 </script>

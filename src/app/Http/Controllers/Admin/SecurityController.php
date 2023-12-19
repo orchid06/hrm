@@ -92,7 +92,9 @@ class SecurityController extends Controller
             'breadcrumbs'  => ['Home'=>'admin.home','Ip List'=> null],
             'title'        => 'Manage Ip',
             'countries'    => Country::get(),
-            'ip_lists'     => Visitor::with('country')->search(['ip_address'])->filter(["is_blocked",'country_id'])
+            'ip_lists'     => Visitor::with('country')
+                            ->search(['ip_address'])
+                            ->filter(["is_blocked",'country_id'])
                             ->latest()
                             ->when(request()->input('country_id'),function(Builder $q){
                                 return $q->where('country_id' ,request()->input('country_id'));
