@@ -2,7 +2,7 @@
 @section('content')
 
 @php
-    $authContent     =  get_content("content_authentication_section")->first();  
+    $authContent     =  get_content("content_authentication_section")->first();
     $loginAttributes =  json_decode(site_settings('login_with'),true);
     $socialProviders =  json_decode(site_settings('social_login_with'),true);
     $mediums = [];
@@ -31,10 +31,7 @@
     <div class="container-fluid px-0">
       <div class="auth-wrapper">
         <div class="row g-0">
-
            @include("user.partials.auth_slider")
-     
-
           <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
@@ -55,7 +52,7 @@
 
                   <div class="auth-input">
                     <input required type="text" name="login_data" placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
-                    <span>
+                    <span class="auth-input-icon">
                         <i class="bi bi-envelope"></i>
                     </span>
                   </div>
@@ -63,7 +60,7 @@
                     @if($otpFlag == App\Enums\StatusEnum::false->status())
                         <div class="auth-input">
                             <input name="password" required type="password" placeholder="{{translate('Password')}}" class="toggle-input" />
-                            <span class="toggle-password">
+                            <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
                             </span>
                         </div>
@@ -80,21 +77,30 @@
 
                   @if( $captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha == App\Enums\StatusEnum::true->status()  )
 
-                    <div class="row g-1">
-                          <div class="col-lg-6">
-                              <a id='genarate-captcha' class="align-middle justify-content-center cursor-pointer ">
-                                  <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" id="default-captcha">
+                    <div class="row align-items-center g-3">
+                          <div class="col-sm-6">
+                                <div class="captcha-wrapper">
+                                    <a id='genarate-captcha' class="align-middle justify-content-center">
+                                        <div class="captcha-img">
+                                            <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" id="default-captcha">
+                                        </div>
 
-                                  <i class="bi bi-arrow-repeat"></i>
-                              </a>
-                          </div>
-                          <div class="col-lg-6">
-                              <input type="text"  required name="default_captcha_code"placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
+                                        <span class="captcha-change">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                           </div>
+
+                          <div class="col-sm-6">
+                            <div class="captcha-input">
+                                <input type="text"  required name="default_captcha_code"placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
+                            </div>
                           </div>
                     </div>
 
                    @endif
-    
+
                     <div>
                           <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--secondary btn--lg capsuled w-100"
                             data-sitekey="{{$googleCaptcha->key}}"
@@ -134,10 +140,10 @@
                   </p>
                 </div>
               </div>
-              
+
 
                 @include("user.partials.auth_shape")
-               
+
 
               <div class="glass-bg"></div>
             </div>
@@ -175,6 +181,6 @@
 
     @endif
 
-    
+
 
 @endpush

@@ -1,16 +1,16 @@
 @php
-   $contentSection      = get_content("content_content")->first();  
+   $contentSection      = get_content("content_content")->first();
    $contentBanner       = $contentSection->file->where("type",'image')->first();
 @endphp
 
 
-<section class="ai pt-110 pb-110">
+<section class="ai pt-110 pb-110 ">
     <div class="horizontal-scroll">
       <div class="bg-texture"></div>
       <div class="i-panel ai-assistant">
         <div class="ai-panel-content">
           <div class="container">
-            <div class="row align-items-center g-lg-5 g-0">
+            <div class="row align-items-center g-lg-5 g-0 overflow-hidden">
               <div class="col-lg-5 gs_reveal fromLeft">
                 <div class="section-title">
                   <span>{{$contentSection->value->sub_title}}</span>

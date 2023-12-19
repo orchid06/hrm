@@ -1,5 +1,4 @@
 <header class="header">
-
   @php
       $lang = $languages->where('code',session()->get('locale'));
       $code = count($lang)!=0 ? $lang->first()->code:"en";
@@ -7,10 +6,18 @@
   @endphp
     <div class="container-fluid px-0">
       <div class="header-container">
-        <div class="header-logo">
-            <a href="{{route('home')}}">
-                <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-            </a>
+        <div class="d-flex align-items-center gap-3">
+            <div class="d-lg-none">
+                <div class="mobile-menu-btn sidebar-trigger">
+                <i class="bi bi-list"></i>
+                </div>
+            </div>
+
+            <div class="header-logo d-none d-sm-block">
+                <a href="{{route('home')}}">
+                    <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                </a>
+            </div>
         </div>
 
         <div class="sidebar">
@@ -18,9 +25,9 @@
             <div class="mobile-logo-area d-lg-none mb-5">
               <div class="mobile-logo-wrap">
                 <a href="{{route('home')}}">
-                  
+
                   <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-        
+
                 </a>
               </div>
 
@@ -375,7 +382,7 @@
                         </a>
                     </li>
                 @endforeach
-        
+
               </ul>
             </nav>
 
@@ -393,107 +400,37 @@
                   @endif
               </div>
             </div>
-
-            <div class="sidebar-bottom d-lg-none">
-    
-              <div class="lang">
-                <div class="dropdown">
-                  <button
-                    class="lang-btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <span class="flag">
-                      <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-                    </span>
-                  </button>
-
-                  @if(!$languages->isEmpty())
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      @foreach($languages as $language)
-                        <li>
-                          <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                              <span class="flag">
-                                    <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                               
-                              </span>
-                              {{$language->name}}
-                          </a>
-                        </li>
-                      @endforeach
-                    </ul>
-                  @endif
-                </div>
-              </div>
-
-
-              @if(auth_user('web'))
-                <div class="lang">
-                    <div class="dropdown">
-
-                      <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <span class="flag">
-                            <img src='{{imageUrl(@auth_user("web")->file,"profile,user",true) }}' alt='{{@auth_user("web")->file->name}}' />
-                          </span>
-                      </button>
-
-
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                          <li>
-                            <a href="{{route('user.profile')}}" class="dropdown-item" >
-                                {{translate('Profile')}}
-                            </a>
-                          </li>
-            
-                            <li>
-                              <a href="{{route('user.logout')}}" class="dropdown-item" >
-                                  {{translate('Logout')}}
-                              </a>
-                            </li>
-                    
-                        </ul>
-
-                    </div>
-                </div>
-              @endif
-
- 
-              <div class="currency">
-                <div>
-                  <button
-                    class="dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                  {{session()->get('currency')?->code}}
-                  </button>
-
-                  @if(site_currencies() && !site_currencies()->isEmpty())
-                      <ul class="dropdown-menu dropdown-menu-end">
-
-                        @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-
-                            <li>
-                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
-                            </li>
-                        @endforeach
-                
-                      </ul>
-                  @endif
-                </div>
-              </div>
-
-            </div>
           </div>
 
           <div class="sidebar-overlay"></div>
         </div>
 
         <div class="nav-right d-flex jsutify-content-end align-items-center gap-3">
+          <div class="currency">
+            <button
+                class="dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >
+                {{session()->get('currency')?->code}}
+            </button>
 
-          <div class="d-lg-block d-none lang">
+            @if(site_currencies() && !site_currencies()->isEmpty())
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+
+                    <li>
+                        <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                    </li>
+                @endforeach
+
+                </ul>
+            @endif
+          </div>
+
+          <div class="lang">
             <div class="dropdown">
               <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="flag">
@@ -519,9 +456,8 @@
           </div>
 
           @if(auth_user('web'))
-              <div class="d-lg-block d-none lang">
+              <div class="lang">
                 <div class="dropdown">
-
                   <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <span class="flag">
                         <img src="{{imageUrl(@auth_user('web')->file,'profile,user',true) }}" alt="{{@auth_user('web')->file->name}}" />
@@ -530,44 +466,38 @@
 
 
                     <ul class="dropdown-menu dropdown-menu-end">
-
                       <li>
                         <a href="{{route('user.profile')}}" class="dropdown-item" >
-                            {{translate('Profile')}}
+                           <i class="bi bi-person"></i> {{translate('Profile')}}
                         </a>
                       </li>
-        
+
                         <li>
                           <a href="{{route('user.logout')}}" class="dropdown-item" >
-                              {{translate('Logout')}}
+                             <i class="bi bi-box-arrow-left"></i> {{translate('Logout')}}
                           </a>
                         </li>
-                
+
                     </ul>
 
                 </div>
               </div>
+
+              <div class="d-lg-block d-none">
+                <a href="{{route('plan')}}"
+                  class="i-btn btn--primary-outline btn--lg capsuled" >
+                    {{translate("Get Started")}}
+                </a>
+              </div>
           @endif
 
-          <div class="d-lg-block d-none">
-            <a href="{{route('plan')}}"
-              class="i-btn btn--primary-outline btn--lg capsuled" >
-                {{translate("Get Started")}}
-            </a>
-          </div>
           @if(!auth_user('web'))
             <div class="d-lg-block d-none">
-                <a  href="{{route('auth.login')}}"  class="i-btn btn--secondary btn--lg capsuled">
+                <a  href="{{route('auth.login')}}" class="i-btn btn--secondary btn--lg capsuled">
                     {{translate("Login")}}
                 </a>
             </div>
           @endif
-
-          <div class="d-lg-none">
-            <div class="mobile-menu-btn sidebar-trigger">
-              <i class="bi bi-list"></i>
-            </div>
-          </div>
         </div>
       </div>
     </div>
