@@ -2,7 +2,7 @@
 @section('content')
 
 @php
-    $authContent     =  get_content("content_authentication_section")->first();  
+    $authContent     =  get_content("content_authentication_section")->first();
 
 @endphp
 
@@ -13,7 +13,7 @@
         <div class="row g-0">
 
            @include("user.partials.auth_slider")
-     
+
           <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
@@ -32,31 +32,34 @@
                 <form class="auth-form" action="{{route('auth.password.email')}}" method="POST" id="login-form">
                   @csrf
 
-                  <div class="auth-input">
+                    <div class="auth-input">
                         <input required type="text" name="email" placeholder="{{translate("Enter email")}}" />
-                        <span>
+                        <span class="auth-input-icon">
                             <i class="bi bi-envelope"></i>
                         </span>
-                  </div>
-
-                
-                  <div class="d-flex align-items-center justify-content-between gap-3">
-                       <a href="{{route('auth.login')}}" class="forget-pass"> {{translate("Login")}} ? </a>
-                  </div>
-
-                    <div>
-                          <button type="submit"    class="i-btn btn--secondary btn--lg capsuled w-100">
-                              {{trans("Submit")}}
-                          </button>
                     </div>
 
+                    <div>
+                        <button type="submit"    class="i-btn btn--secondary btn--lg capsuled w-100">
+                            {{trans("Submit")}}
+                        </button>
+                    </div>
                 </form>
-           
+
+                <div class="have-account">
+                    <p>
+                        {{translate("Already Have An Account")}} ?
+                        <a href="{{route('auth.login')}}">
+                            {{translate("Login")}}
+                        </a>
+                    </p>
+                </div>
+
               </div>
-              
+
 
                 @include("user.partials.auth_shape")
-               
+
 
               <div class="glass-bg"></div>
             </div>

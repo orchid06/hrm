@@ -2,7 +2,7 @@
 @section('content')
 
 @php
-    $authContent     =  get_content("content_authentication_section")->first();  
+    $authContent     =  get_content("content_authentication_section")->first();
 @endphp
 
 <section class="auth">
@@ -27,13 +27,13 @@
                 </p>
 
                 <form action="{{route($route)}}" class="auth-form otp-form" method="post" id="otpForm">
-                    
+
                     @if(session()->has("user_identification") && \Carbon\Carbon::now()  <  session()->get("otp_expire_at"))
                         <div class="otp-expired-message">
                             {{translate("Your otp will expire at")}} {{get_date_time(session()->get("otp_expire_at"))}}
                         </div>
                     @endif
- 
+
                     @csrf
 
                     <input hidden type="text" name="otp_code" id="otpCode">
@@ -53,7 +53,7 @@
                       </button>
                       @if(session()->has("user_identification") &&  \Carbon\Carbon::now()  >  session()->get("otp_expire_at"))
                           <a href="{{route('auth.otp.resend')}}"
-                              class="i-btn btn--secondary btn--lg capsuled w-100 mt-2"
+                              class="i-btn btn--primary btn--lg capsuled w-100 mt-3"
                               type="submit">
                               {{translate("Resend Otp")}}
                           </a>

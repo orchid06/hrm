@@ -2,16 +2,13 @@
 @section('content')
 
 @php
-  
-   $feedbackSection   = get_content("content_feedback")->first();  
-
-
+   $feedbackSection   = get_content("content_feedback")->first();
 @endphp
 
 <section class="inner-banner">
       <div class="container">
         <div class="row align-items-center gy-4">
-          <div class="col-lg-12">
+          <div class="col-12">
             <div class="inner-banner-content">
               <h2>{{@$feedbackSection->value->banner_title}}</h2>
 
@@ -20,14 +17,12 @@
               </p>
             </div>
           </div>
-
         </div>
       </div>
 
       <div class="primary-shade"></div>
       <div class="banner-texture"></div>
 </section>
-
 
 <section class="contact pb-110">
   <div class="container">
@@ -47,7 +42,7 @@
         <form action="{{route('feedback.store')}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post" enctype="multipart/form-data">
 
           @csrf
-          <h4> 
+          <h4>
             {{Arr::get($meta_data,"title",'Feedback')}}
           </h4>
           <div class="row gx-4 gy-5 mt-4">
@@ -84,34 +79,30 @@
               </div>
             </div>
 
+            <div class="12">
+                <div class="row align-items-start">
+                    <div class="col-md-8">
+                        <label  for="image">
+                            {{-- {{translate("Image")}} --}}
+                            <input  data-size = "100x100" type="file" name="image" id="image" class="preview">
+                        </label>
 
-            <div class="col-lg-6">
-           
-                <label class="form__label" for="image">
-                    {{translate("Image")}}
-                </label>
-              
-                <input  data-size = "100x100" type="file" name="image" id="image" class="preview">
 
-                <div class="mt-2 image-preview-section">
-                                        
+                        <div class="image-preview-section">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="rating">
+                            @for($i = 5 ; $i>=1 ;$i--)
+                                <input required type="radio" value="{{$i}}" @if($i==1) checked  @endif name="rating" id="rating-{{$i}}">
+                                <label for="rating-{{$i}}">
+                                </label>
+                            @endfor
+                        </div>
+                    </div>
                 </div>
-
-            
-                
-              </div>
-            <div class="col-lg-6">
-           
-                <div class="rating">
-                    @for($i = 5 ; $i>=1 ;$i--)
-                            <input required type="radio" value="{{$i}}" @if($i==1) checked  @endif name="rating" id="rating-{{$i}}">
-                            <label for="rating-{{$i}}"></label>
-                    @endfor
-                </div>
-                
-              </div>
-  
-
+            </div>
 
             <div class="col-12">
               <div class="form__group field">
@@ -135,8 +126,6 @@
 
 
 </section>
-
-
 
 @include('frontend.partials.page_section')
 

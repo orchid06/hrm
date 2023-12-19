@@ -1,5 +1,5 @@
 @php
-   $testimonialContent  = get_content("content_testimonial")->first();  
+   $testimonialContent  = get_content("content_testimonial")->first();
    $testimonialElements = get_content("element_testimonial")->take(10);
 
 @endphp
@@ -22,7 +22,6 @@
       </div>
 
         <div class="row g-lg-4 g-0 align-items-center">
-
             <div class="col-12">
                 @if( 0 < $testimonialElements->count())
                     <div class="review-wrapper">
@@ -48,16 +47,15 @@
                                             d="M6.6 19.24c-.66 1.66-1.7 3.3-3.09 4.88-.44.5-.5 1.22-.14 1.78.28.44.74.68 1.24.68.14 0 .28-.01.42-.06 2.94-.86 9.81-3.91 10-13.69.07-3.77-2.69-7.01-6.28-7.38-1.99-.2-3.97.45-5.44 1.77A7.038 7.038 0 0 0 1 12.43c0 3.3 2.34 6.19 5.6 6.81zM24.71 5.45c-1.98-.2-3.96.45-5.43 1.77a7.037 7.037 0 0 0-2.31 5.21c0 3.3 2.34 6.19 5.6 6.81-.66 1.66-1.7 3.3-3.09 4.88-.44.5-.5 1.22-.14 1.78.28.44.74.68 1.24.68.14 0 .28-.01.42-.06 2.94-.86 9.81-3.91 10-13.69v-.14c0-3.71-2.73-6.87-6.29-7.24z"
                                             opacity="1"
                                             data-original="#000000"
-                                            
+
                                           ></path>
                                         </g>
                                       </svg>
                                     </div>
 
-                                    <ul class="d-flex align-items-center gap-1"> 
+                                    <ul class="review-rating d-flex align-items-center gap-1">
                                       @php  echo show_ratings($element->value->rating) @endphp
                                     </ul>
-                                    
                                   </div>
 
                                   <div class="quote-icon quote-two">
@@ -75,7 +73,7 @@
                                           d="M6.6 19.24c-.66 1.66-1.7 3.3-3.09 4.88-.44.5-.5 1.22-.14 1.78.28.44.74.68 1.24.68.14 0 .28-.01.42-.06 2.94-.86 9.81-3.91 10-13.69.07-3.77-2.69-7.01-6.28-7.38-1.99-.2-3.97.45-5.44 1.77A7.038 7.038 0 0 0 1 12.43c0 3.3 2.34 6.19 5.6 6.81zM24.71 5.45c-1.98-.2-3.96.45-5.43 1.77a7.037 7.037 0 0 0-2.31 5.21c0 3.3 2.34 6.19 5.6 6.81-.66 1.66-1.7 3.3-3.09 4.88-.44.5-.5 1.22-.14 1.78.28.44.74.68 1.24.68.14 0 .28-.01.42-.06 2.94-.86 9.81-3.91 10-13.69v-.14c0-3.71-2.73-6.87-6.29-7.24z"
                                           opacity="1"
                                           data-original="#000000"
-                                          
+
                                         ></path>
                                       </g>
                                     </svg>
@@ -94,9 +92,9 @@
                                         @endphp
 
                                         <img src='{{imageUrl(@$file,"frontend",true,$val->size)}}' alt="{{@$file->name}}" />
-                      
+
                                       @endforeach
-                                        
+
 
                                     </span>
                                     <div>
@@ -115,7 +113,7 @@
                   @include("frontend.partials.not_found")
                 @endif
             </div>
-       
+
         </div>
     </div>
 </section>

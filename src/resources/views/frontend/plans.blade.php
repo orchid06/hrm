@@ -2,8 +2,8 @@
 @section('content')
 
 @php
-  
-   $planSection   = get_content("content_plan")->first();  
+
+   $planSection   = get_content("content_plan")->first();
 @endphp
 
 
@@ -19,8 +19,6 @@
 
             <div class="mt-5 d-flex justify-content-center">
               <div class="nav plan-tab" role="tablist">
-
-
 
                 @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
                     <button
@@ -39,19 +37,17 @@
 
                 @endforeach
 
-                
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="primary-shade"></div>
     <div class="banner-texture"></div>
-  </section>
+</section>
 
-  <section class="plan-detail pb-110">
+<section class="plan-detail pb-110">
     <div class="container">
       <div class="tab-content" id="tab-plans">
 
@@ -63,12 +59,12 @@
                  $purchasePlans = $plans->where('duration',$value);
               @endphp
 
-              
+
               <div class="plan-detail-wrapper">
                 <div class="row gy-4 gx-4">
                   @forelse ($purchasePlans as  $plan)
                       <div class="col-xl-4 col-md-6">
-                        <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif fade-item">
+                        <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif">
                           @if($plan->is_recommended == App\Enums\StatusEnum::true->status())
                               <div class="recommend-content"><p>
                                   {{translate("Recommended")}}
@@ -124,7 +120,7 @@
         @endforeach
       </div>
     </div>
-  </section>
+</section>
 
 
   @include('frontend.partials.page_section')

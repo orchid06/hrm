@@ -32,7 +32,6 @@
         },
         "+=0"
       );
-
     }
 
     // Section Title
@@ -45,12 +44,12 @@
             quote.anim.progress(1).kill();
             quote.split.revert();
           }
-  
+
           quote.split = new SplitText(quote, {
             type: "lines,words,chars",
             linesClass: "split-line",
           });
-  
+
           // Set up the anim
           quote.anim = gsap.from(quote.split.chars, {
             scrollTrigger: {
@@ -112,27 +111,27 @@
       onEnter: (batch) =>
         gsap.to(batch, {
           autoAlpha: 1,
-          duration: 0.4,
+          duration: 0.3,
           stagger: 0.1,
           overwrite: true,
         }),
       onLeave: (batch) =>
         gsap.set(batch, {
           autoAlpha: 0,
-          duration: 0.4,
+          duration: 0.3,
           overwrite: true,
         }),
       onEnterBack: (batch) =>
         gsap.to(batch, {
           autoAlpha: 1,
-          duration: 0.4,
+          duration: 0.3,
           stagger: 0.1,
           overwrite: true,
         }),
       onLeaveBack: (batch) =>
         gsap.set(batch, {
           autoAlpha: 0,
-          duration: 0.4,
+          duration: 0.3,
           overwrite: true,
         }),
     });

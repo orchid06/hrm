@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
             PlatformSeeder::class,
 
-            
+
         ]);
     }
 }

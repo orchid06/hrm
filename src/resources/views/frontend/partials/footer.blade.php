@@ -1,6 +1,6 @@
 
 @php
-   $ctaContent  = get_content("content_cta")->first();  
+   $ctaContent  = get_content("content_cta")->first();
 
    $file        = $ctaContent->file->where("type",'image')->first();
    $ctaElements = get_content("element_cta");
@@ -10,13 +10,10 @@
    $paymentImg  = $ctaContent->file->where("type",'payment_image')->first();
    $icons       =  get_content("element_social_icon");
 
-
-
 @endphp
 
 
 <footer class="footer">
-
       <div class="cta pb-110 pt-110">
         <div class="container">
           <div class="row">
@@ -38,7 +35,7 @@
                              {{@$ctaBtn->value->button_name}}
                         </a>
                     @endforeach
-  
+
               </div>
             </div>
           </div>
@@ -50,7 +47,7 @@
 
       <div class="newsletter">
         <div class="container">
-          <div class="row gx-0 gy-lg-0 gy-4 align-items-center">
+          <div class="row gx-0 gy-lg-0 gy-4 align-items-center overflow-hidden">
             <div class="col-lg-5 gs_reveal fromLeft">
               <div class="news-content">
                 <h4>
@@ -69,7 +66,7 @@
                       <button
                         type="submit"
                         class="i-btn btn--primary btn--lg capsuled">
-                        <span class="d-md-block d-none"> 
+                        <span class="d-md-block d-none">
                           {{translate("Subscribe")}}
                         </span>
                         <i class="bi bi-send"></i>
@@ -103,8 +100,8 @@
                       </a>
 
                   @endforeach
-             
-                 
+
+
                 </div>
 
                 <div class="payment-img">
@@ -120,7 +117,7 @@
                     <div class="footer-menu">
                       <h6> {{translate("Important Links")}}</h6>
                       <ul>
-                    
+
                         @foreach ($menus as  $menu)
 
                             <li><a href="{{url($menu->url)}}">  {{$menu->name}}</a></li>
@@ -138,13 +135,13 @@
                       </h6>
                       <ul>
                           @foreach ($pages as  $page)
-                              <li><a href="{{route('page',$page->slug)}}"> {{$page->title}}</a></li> 
+                              <li><a href="{{route('page',$page->slug)}}"> {{$page->title}}</a></li>
                           @endforeach
                       </ul>
                     </div>
                   </div>
 
-               
+
                 </div>
               </div>
             </div>
@@ -187,7 +184,7 @@
                                 </a>
                               </li>
                           @endforeach
-                           
+
                         </ul>
                     @endif
                   </div>
