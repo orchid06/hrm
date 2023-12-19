@@ -77,8 +77,9 @@ $(document).on('click','.key-generate',function(e){
 
 
 $(document).on('click', '.copy-text ', function (e) {
+    
     var data = $(this).attr('data-text')
-    var modal = $(this).data('type');
+    var modal = $(this).attr('data-type');
 
     var $tempInput = $('<input>');
  
