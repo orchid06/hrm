@@ -2,9 +2,8 @@
 @section('content')
 
 @php
-   $blogContent  = get_content("content_blog")->first();  
+   $blogContent  = get_content("content_blog")->first();
 @endphp
-
 
 <section class="inner-banner">
     <div class="container">
@@ -47,15 +46,14 @@
                     x="0"
                     y="0"
                     viewBox="0 0 64 64"
-                    style="enable-background: new 0 0 512 512"
-                    xml:space="preserve">
+                    >
                     <g>
                       <path
                         d="m60.08 53.34-16-16a22.57 22.57 0 1 0-6.74 6.74l16 16a4.76 4.76 0 1 0 6.73-6.74zM11.26 39A19.58 19.58 0 1 1 39 39a19.6 19.6 0 0 1-27.74 0z"
                         data-name="Layer 18"
                         opacity="1"
                         data-original="#000000"
-                        
+
                       ></path>
                     </g>
                   </svg>
@@ -68,9 +66,9 @@
     </div>
     <div class="primary-shade"></div>
     <div class="banner-texture"></div>
-  </section>
+</section>
 
-  <section class="blog pt-110 pb-110">
+<section class="blog pt-110 pb-110">
     <div class="container">
       <div class="blog-top">
         <div class="row gy-md-5 gy-4 align-items-end">

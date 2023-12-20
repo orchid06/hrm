@@ -15,7 +15,7 @@
 
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/frontend/css/swiper.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/nice-select.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 
@@ -37,7 +37,7 @@
     @endif
 
 
-    
+
     @if (site_settings("google_ads") == App\Enums\StatusEnum::true->status() )
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-{{site_settings('google_adsense_publisher_id')}}"
           crossorigin="anonymous"></script>
@@ -46,9 +46,9 @@
     @include('partials.theme')
 
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
-    
+
         @php
-          $intregrationsContent  = get_content("content_integration")->first();  
+          $intregrationsContent  = get_content("content_integration")->first();
           $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
         @endphp
 
@@ -57,12 +57,12 @@
               background-image: url("{{imageUrl(@$intregrationsImg,'frontend',true,@get_appearance()->integration->content->images->image->size)}}");
           }
       </style>
-      
+
     @endif
 
     @stack('styles')
     @stack('style-include')
-        
+
 
   </head>
 
@@ -74,7 +74,6 @@
     @endif
 
     <main class="main" id="main">
-
          @yield('content')
     </main>
 
@@ -89,18 +88,16 @@
 
     @yield("modal")
 
-
-
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-   @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security"))
-      <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
-      <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
-      <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
-      <script src="{{asset('assets/frontend/js/animation-init.js')}}"></script>
-  @endif
-      
+    @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security"))
+        <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
+        <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
+        <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
+        <script src="{{asset('assets/frontend/js/animation-init.js')}}"></script>
+    @endif
+
     <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>
 
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
@@ -114,8 +111,6 @@
     <script>
 
       "use strict";
-
-
       function social_share(url, title, w, h) {
           var dualScreenLeft =
             window.screenLeft != undefined ? window.screenLeft : screen.left;
@@ -153,7 +148,6 @@
             }
       }
 
-
       // read notification
       $(document).on('click','.read-notification',function(e){
           var href = $(this).attr('data-href')
@@ -183,11 +177,9 @@
               });
       }
 
-
-
       // cookie configuration
       $(document).on('click','.cookie-control',function(e){
-        
+
           var route = $(this).attr('data-route')
 
           console.log(route)
@@ -223,13 +215,11 @@
                     }
                 }
             })
-       
+
       })
 
-
-
       $(document).on('click','.toggle-password',function(e){
-        
+
           var parentAuthInput = $(this).closest('.auth-input');
           var passwordField = parentAuthInput.find('.toggle-input');
 
@@ -251,9 +241,6 @@
 
 
     </script>
-
-
-
 
     @include('partials.notify')
     @stack('script-include')

@@ -24,7 +24,7 @@
       <div class="banner-texture"></div>
 </section>
 
-<section class="contact pb-110">
+<section class="contact feedback pb-110">
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-5">
@@ -42,10 +42,21 @@
         <form action="{{route('feedback.store')}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post" enctype="multipart/form-data">
 
           @csrf
-          <h4>
-            {{Arr::get($meta_data,"title",'Feedback')}}
-          </h4>
-          <div class="row gx-4 gy-5 mt-4">
+          <div>
+              <h4 class="mb-4">
+                {{Arr::get($meta_data,"title",'How do you rate our service')}}
+              </h4>
+
+                <div class="rating">
+                    @for($i = 5 ; $i>=1 ;$i--)
+                        <input required type="radio" value="{{$i}}" @if($i==1) checked  @endif name="rating" id="rating-{{$i}}">
+                        <label for="rating-{{$i}}">
+                        </label>
+                    @endfor
+                </div>
+          </div>
+
+          <div class="row gx-4 gy-5 mt-1">
             <div class="col-lg-6">
               <div class="form__group field">
                 <input
@@ -79,27 +90,14 @@
               </div>
             </div>
 
-            <div class="12">
-                <div class="row align-items-start">
-                    <div class="col-md-8">
-                        <label  for="image">
-                            {{-- {{translate("Image")}} --}}
-                            <input  data-size = "100x100" type="file" name="image" id="image" class="preview">
-                        </label>
-
-
-                        <div class="image-preview-section">
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="rating">
-                            @for($i = 5 ; $i>=1 ;$i--)
-                                <input required type="radio" value="{{$i}}" @if($i==1) checked  @endif name="rating" id="rating-{{$i}}">
-                                <label for="rating-{{$i}}">
-                                </label>
-                            @endfor
-                        </div>
+            <div class="col-12">
+                <label class="mb-2">Upload Image <small class="text-muted">(Optional)</small></label>
+                <div>
+                    <label  for="image" class="feedback-file">
+                        <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
+                        <span><i class="bi bi-image"></i> Select a file</span>
+                    </label>
+                    <div class="image-preview-section">
                     </div>
                 </div>
             </div>
@@ -123,8 +121,6 @@
       </div>
     </div>
   </div>
-
-
 </section>
 
 @include('frontend.partials.page_section')

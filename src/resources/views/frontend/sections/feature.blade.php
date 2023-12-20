@@ -1,11 +1,11 @@
 
 @php
 
-   $featureContent   = get_content("content_feature")->first();  
+   $featureContent   = get_content("content_feature")->first();
    $featureElements  = get_content("element_feature");
 @endphp
 
-<section class="features pt-110 pb-110">
+<section class="features pt-110 pb-110 mb-110">
     <div class="section-fluid">
       <div class="container-fluid px-0">
         <div class="row">

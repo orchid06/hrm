@@ -1,5 +1,5 @@
 @php
-   $content             = get_content("content_why_us")->first();  
+   $content             = get_content("content_why_us")->first();
    $elemets             = get_content("element_why_us");
 @endphp
 
@@ -51,12 +51,12 @@
                   </div>
                 </div>
               </div>
-                
+
             @endforeach
-  
-   
+
+
           </div>
         </div>
       </div>
     </div>
- </section>
+</section>

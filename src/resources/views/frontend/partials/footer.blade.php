@@ -84,11 +84,9 @@
             <div class="col-lg-6">
               <div class="footer-left">
                 <a href="{{route('home')}}" class="site-log">
-                  <h3>
-                        <img
-                        src='{{imageUrl(@site_logo("user_site_logo")->file,"user_site_logo",true)}}'
-                        alt="{{@site_logo('user_site_logo')->file->name}}" />
-                  </h3>
+                    <img
+                    src='{{imageUrl(@site_logo("user_site_logo")->file,"user_site_logo",true)}}'
+                    alt="{{@site_logo('user_site_logo')->file->name}}" />
                 </a>
 
                 <div class="social-media">
@@ -150,54 +148,16 @@
       </div>
 
       <div class="footer-bottom pb-4 pt-4">
-        <div class="container">
-          <div class="row gy-3">
-            <div class="col-md-4 order-md-0 order-1">
-              <div class="text-center text-md-start">
-                <p>
-                   {{site_settings("copy_right_text")}}
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-8 order-md-1 order-0">
-              <div
-                class="d-flex align-items-center justify-content-md-end justify-content-center flex-wrap gap-5">
-
-                <div class="currency d-lg-flex d-none">
-                  <h6>{{translate("Currency")}} :</h6>
-                  <div class="dropup">
-                    <button
-                      class="dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      {{session()->get('currency')?->code}}
-                    </button>
-                    @if(site_currencies() && !site_currencies()->isEmpty())
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                          @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-                              <li>
-                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}">
-                                   {{$currency->code}}
-                                </a>
-                              </li>
-                          @endforeach
-
-                        </ul>
-                    @endif
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="text-center">
+        <p>
+            {{site_settings("copy_right_text")}}
+        </p>
         </div>
       </div>
 
 </footer>
 
 <div class="back-to-top d-md-flex d-none">
-      <p>{{trans('default.back_to_top')}}</p>
-      <span></span>
+    <p>{{trans('default.back_to_top')}}</p>
+    <span></span>
 </div>
