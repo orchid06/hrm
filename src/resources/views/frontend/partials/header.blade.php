@@ -4,7 +4,7 @@
       $code = count($lang)!=0 ? $lang->first()->code:"en";
       $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
   @endphp
-    <div class="container-fluid px-0">
+
       <div class="header-container">
         <div class="d-flex align-items-center gap-3">
             <div class="d-lg-none">
@@ -499,5 +499,5 @@
           @endif
         </div>
       </div>
-    </div>
+
   </header>

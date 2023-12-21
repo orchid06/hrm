@@ -35,8 +35,8 @@
           <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 mb-4">
             <div class="nav plan-tab" role="tablist">
               @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-                <button class='nav-link {{$loop->index  == 0 ? "active" :""}}' id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}" type="button"role="tab"aria-controls="{{$key}}"
-                  aria-selected="true">
+                <button class='nav-link {{$loop->index  == 0 ? "active" :""}}' id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}" type="button" role="tab" aria-controls="{{$key}}"
+                   aria-selected="true">
                     {{
                       ucfirst(strtolower($key))
                     }}
@@ -64,7 +64,7 @@
                      @endphp
                       <div class="row g-4">
                           <div class="col-xl-7 col-md-6 order-md-0 order-1">
-                              <div class="tab-content" id="price-tabContent">
+                              <div class="tab-content" id="price-tabContent-{{$loop->index}}">
 
                                     @forelse ($purchasePlans as  $plan)
                                       <div class='tab-pane fade {{$loop->index == 0 ? "show active" :""}}' id="{{$key}}-{{$plan->slug}}" role="tabpanel" aria-labelledby="{{$key}}-{{$plan->slug}}-tab" >
@@ -109,7 +109,7 @@
                             <div class="nav plan-card-list" role="tablist" aria-orientation="vertical">
                                 @forelse ($purchasePlans as  $plan)
 
-                                  <a class="nav-link plan-card-item {{$loop->index == 0 ? 'active' :''}}" id="{{$key}}-{{$plan->slug}}-tab" data-bs-toggle="pill" href="#{{$key}}-{{$plan->slug}}" role="tab"aria-controls="{{$key}}-{{$plan->slug}}"aria-selected="true">
+                                  <a class="nav-link plan-card-item {{$loop->index == 0 ? 'active' :''}}" id="{{$key}}-{{$plan->slug}}-tab" data-bs-toggle="pill" href="#{{$key}}-{{$plan->slug}}" role="tab" aria-controls="{{$key}}-{{$plan->slug}}"     aria-selected="true">
                                     <div class="plan-card-left">
                                       <span>
                                         {{$plan->title}}

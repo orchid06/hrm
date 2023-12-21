@@ -157,7 +157,7 @@
 
 </footer>
 
-<div class="back-to-top d-md-flex d-none">
+{{-- <div class="back-to-top d-md-flex d-none">
     <p>{{trans('default.back_to_top')}}</p>
     <span></span>
-</div>
+</div> --}}

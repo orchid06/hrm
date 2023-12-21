@@ -7,7 +7,6 @@
    $bannerImg      = $bannerContent->file->where("type",'image')->first();
 @endphp
 
-
 <section class="banner" id="banner" role="banner">
    <div class="container">
      <div class="banner-container">
@@ -16,7 +15,6 @@
            <div class="banner-content">
              <h1 class="quote-title">
                   {{@$bannerContent->value->title}}
-
              </h1>
              <p class="banner-text">
                  {{@$bannerContent->value->description}}
@@ -24,7 +22,6 @@
 
              <div
                class="d-flex align-items-center justify-content-center flex-wrap gap-lg-5 gap-4 mt-5">
-
                <a href="{{url($bannerContent->value->button_left_url)}}" class="i-btn btn--primary btn--lg capsuled">
                     {{@$bannerContent->value->button_left_name}}
                </a>
@@ -42,8 +39,6 @@
    </div>
 
    <ul class="social-media-integrate">
-
-
       @foreach ($bannerElements  as  $element)
               @foreach (@get_appearance()->banner->element->images as  $key => $val)
 
@@ -61,7 +56,6 @@
    <div class="primary-shade"></div>
 
    <div class="banner-texture">
-        <img src="" alt="">
    </div>
 </section>
 

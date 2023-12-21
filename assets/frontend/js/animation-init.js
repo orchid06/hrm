@@ -53,7 +53,7 @@
           quote.anim = gsap.from(quote.split.chars, {
             scrollTrigger: {
               trigger: quote,
-              start: "top 75%",
+              start: "top 70%",
               end: "bottom center",
               // scrub: 1,
             },

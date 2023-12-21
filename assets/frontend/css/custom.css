@@ -104,3 +104,8 @@
     padding: 15px;
   }
 }
+
+.otp-expired-message {
+  color: var(--color-warning);
+  font-size: 18px;
+}
