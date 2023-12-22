@@ -2,8 +2,8 @@
 @section('content')
 
 @php
-  
-   $contactSection   = get_content("content_contact_us")->first();  
+
+   $contactSection   = get_content("content_contact_us")->first();
 
    $file   = $contactSection->file->where("type",'image')->first();
 
@@ -33,7 +33,6 @@
       <div class="primary-shade"></div>
       <div class="banner-texture"></div>
 </section>
-
 
 <section class="contact pb-110">
   <div class="container">
@@ -73,7 +72,7 @@
 
           </ul>
 
-        
+
         </div>
       </div>
 
@@ -133,7 +132,7 @@
 
             <div class="col-12">
               <div class="form__group field">
-                <input  
+                <input
                   required
                   placeholder="{{translate('Subject')}}"
                   name="subject"

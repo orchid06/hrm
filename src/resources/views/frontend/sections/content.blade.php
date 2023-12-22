@@ -4,7 +4,7 @@
 @endphp
 
 
-<section class="ai pt-110 pb-110 ">
+<section class="ai pb-110 ">
     <div class="horizontal-scroll">
       <div class="bg-texture"></div>
       <div class="i-panel ai-assistant">

@@ -4,7 +4,7 @@
       $code = count($lang)!=0 ? $lang->first()->code:"en";
       $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
   @endphp
-    <div class="container-fluid px-0">
+
       <div class="header-container">
         <div class="d-flex align-items-center gap-3">
             <div class="d-lg-none">
@@ -39,8 +39,7 @@
                   x="0"
                   y="0"
                   viewBox="0 0 426.667 426.667"
-                  style="enable-background: new 0 0 512 512"
-                  xml:space="preserve">
+                >
                   <g>
                     <path
                       d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
@@ -500,5 +499,5 @@
           @endif
         </div>
       </div>
-    </div>
+
   </header>

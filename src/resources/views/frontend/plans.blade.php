@@ -52,7 +52,7 @@
       <div class="tab-content" id="tab-plans">
 
         @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-            <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}"id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
+            <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
 
 
               @php

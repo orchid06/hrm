@@ -14,7 +14,7 @@
           <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
-                <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
+                <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
                     <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
                 </a>
                 <h2>

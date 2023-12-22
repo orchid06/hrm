@@ -12,11 +12,11 @@
       <div class="auth-wrapper">
         <div class="row g-0">
            @include("user.partials.auth_slider")
-           
+
           <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
-                <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
+                <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
 
                   <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
@@ -32,7 +32,7 @@
                   @csrf
 
                     <div class="auth-input">
-                        <input name="password" required type="password" placeholder="{{translate("Password")}}" class="toggle-input" autocomplete="new-password" />
+                        <input name="password" required type="password"  placeholder="{{translate("Password")}}" class="toggle-input" autocomplete="new-password" />
                         <span class="auth-input-icon toggle-password">
                             <i class="bi bi-eye toggle-icon "></i>
                         </span>

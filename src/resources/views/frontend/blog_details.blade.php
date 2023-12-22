@@ -2,12 +2,12 @@
 @section('content')
 
 @php
-   $blogContent  = get_content("content_blog")->first();  
+   $blogContent  = get_content("content_blog")->first();
    $newsLetter  = get_content("content_newsletter")->first();
 
 @endphp
 
-<section class="blog-details pt-110">
+<section class="blog-details pt-110 mb-110">
     <div class="container">
       <div class="row">
         <div class="col-lg-10">
@@ -35,14 +35,14 @@
           </div>
 
           <div class="blog-contents">
-          
+
               @php  echo @$blog->description @endphp
 
             <div class="blog-share d-flex align-items-center flex-wrap gap-3">
               <h6> {{translate("Share on")}} :</h6>
               <div class="social-media">
 
-             
+
 
                 <a onclick="social_share('https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}',  'Facebook','600','300');" href="javascript:void(0);"><i class="bi bi-facebook"></i>
                 </a>
@@ -55,7 +55,7 @@
 
 
                 <a onclick="social_share('https://www.linkedin.com/sharing/share-offsite/?url={{url()->current()}}','Linkedin','600','450');" href="javascript:void(0);"><i class="bi bi-linkedin"></i></a>
-   
+
 
                 <a onclick="social_share('https://t.me/share/url?url={{url()->current()}}&text={{str_replace("'", "\'", $blog->title)}}','Telegram','600','450');" href="javascript:void(0);"><i class="bi bi-telegram"></i></a>
 
@@ -97,14 +97,14 @@
                                     <a href="{{route('blog.details',$blog->slug)}}" class="resource-thumbnail">
                                         <img src="{{imageUrl(@$blog->file,'article',true)}}" alt="{{@$blog->file->name}}" />
                                     </a>
-                    
+
                                     <div class="resource-content">
                                         <a href="{{route('blog.details',$blog->slug)}}">
                                             <h5>
                                                 {{limit_words($blog->title,28)}}
                                             </h5>
                                         </a>
-                        
+
                                         <div class="blog-meta mt-2">
                                             <span>{{get_date_time($blog->created_at,"F j, Y")}}</span>
                                         </div>
@@ -114,16 +114,15 @@
                         @empty
                             @include("frontend.partials.not_found")
                         @endforelse
-                    
+
                 </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+</section>
 
-
-  @include('frontend.sections.blog')
+@include('frontend.sections.blog')
 
 
 @endsection

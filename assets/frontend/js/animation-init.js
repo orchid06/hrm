@@ -26,7 +26,6 @@
         {
           duration: 0.8,
           opacity: 0,
-          y: 10,
           ease: "circ.out",
           stagger: 0.02,
         },
@@ -54,14 +53,13 @@
           quote.anim = gsap.from(quote.split.chars, {
             scrollTrigger: {
               trigger: quote,
-              start: "top 75%",
+              start: "top 70%",
               end: "bottom center",
               // scrub: 1,
             },
             duration: 0.6,
             ease: "circ.out",
             opacity: 0,
-            // y: 10,
             stagger: 0.02,
           });
         });
@@ -117,21 +115,7 @@
         }),
       onLeave: (batch) =>
         gsap.set(batch, {
-          autoAlpha: 0,
-          duration: 0.3,
-          overwrite: true,
-        }),
-      onEnterBack: (batch) =>
-        gsap.to(batch, {
           autoAlpha: 1,
-          duration: 0.3,
-          stagger: 0.1,
-          overwrite: true,
-        }),
-      onLeaveBack: (batch) =>
-        gsap.set(batch, {
-          autoAlpha: 0,
-          duration: 0.3,
           overwrite: true,
         }),
     });

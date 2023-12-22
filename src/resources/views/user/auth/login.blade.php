@@ -35,7 +35,7 @@
           <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
-                <a href="{{route('home')}}"class="site-log text-center mb-4 d-inline-block">
+                <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
 
                   <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
@@ -51,7 +51,7 @@
                   @csrf
 
                   <div class="auth-input">
-                    <input required type="text" name="login_data" placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
+                    <input required type="text" name="login_data"    placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
                     <span class="auth-input-icon">
                         <i class="bi bi-envelope"></i>
                     </span>
@@ -59,7 +59,7 @@
 
                     @if($otpFlag == App\Enums\StatusEnum::false->status())
                         <div class="auth-input">
-                            <input name="password" required type="password" placeholder="{{translate('Password')}}" class="toggle-input" />
+                            <input name="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
                             <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
                             </span>
@@ -82,7 +82,7 @@
                                 <div class="captcha-wrapper">
                                     <a id='genarate-captcha' class="align-middle justify-content-center">
                                         <div class="captcha-img">
-                                            <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" id="default-captcha">
+                                            <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" alt="" id="default-captcha">
                                         </div>
 
                                         <span class="captcha-change">
@@ -94,7 +94,7 @@
 
                           <div class="col-sm-6">
                             <div class="captcha-input">
-                                <input type="text"  required name="default_captcha_code"placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
+                                <input type="text"  required name="default_captcha_code" placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
                             </div>
                           </div>
                     </div>

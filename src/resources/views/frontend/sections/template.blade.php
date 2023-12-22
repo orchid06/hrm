@@ -1,17 +1,14 @@
 @php
-   $templateContent  = get_content("content_template")->first();  
-   $templateElements = get_content("element_template");  
+   $templateContent  = get_content("content_template")->first();
+   $templateElements = get_content("element_template");
    $templates        = App\Models\AiTemplate::with(['category'])
                           ->active()
                           ->default()
                           ->take(6)
-                          ->inRandomOrder() 
+                          ->inRandomOrder()
                           ->get();
 
 @endphp
-
-
-
 
 <section class="template pb-110">
     <div class="container">
@@ -47,15 +44,15 @@
                   <p>
                     {{$template->description}}
                   </p>
-                  
+
                 </div>
               </div>
           </div>
-            
+
         @empty
               @include("frontend.partials.not_found")
         @endforelse
-       
+
 
       </div>
     </div>
