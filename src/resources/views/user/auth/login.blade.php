@@ -124,9 +124,9 @@
 
                     <div class="sign-option">
 
-                      @foreach($mediums as $medium)
-                           <a href="{{route('auth.social.login', $medium)}}" class="{{$medium}}"><i class="bi bi-{{$medium}}"></i>{{translate("Sign in with")}} {{$medium}}</a>
-                      @endforeach
+                        @foreach($mediums as $medium)
+                            <a href="{{route('auth.social.login', $medium)}}" class="{{$medium}}"><i class="bi bi-{{$medium}}"></i>{{translate("Sign in with")}} {{$medium}}</a>
+                        @endforeach
 
                     </div>
                 @endif

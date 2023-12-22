@@ -25,6 +25,7 @@
         "mollie/laravel-mollie": "^2.14",
         "nexmo/client": "^2.4",
         "orhanerday/open-ai": "^4.9",
+        "phpseclib/phpseclib": "~3.0",
         "predis/predis": "^2.2",
         "sendgrid/sendgrid": "~7",
         "sentry/sentry-laravel": "^3.5",

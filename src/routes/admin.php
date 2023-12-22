@@ -551,14 +551,13 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
 
                     Route::any('/list','list')->name('list');
-                    Route::get('/create','create')->name('create');
+                    Route::get('/create/{platform}','create')->name('create');
                     Route::post('/store','store')->name('store');
                     Route::get('/edit/{uid}','edit')->name('edit');
                     Route::post('/update','update')->name('update');
                     Route::post('/update/status','updateStatus')->name('update.status');
                     Route::post('/bulk/action','bulk')->name('bulk');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
-                 
      
                });
 

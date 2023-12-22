@@ -324,13 +324,17 @@
   z-index: 9999999 !important;
 }
 
-/* .sidebar{
-  background-color: #091b50 !important;
-} */
 
 
 .sidebar-menu-item .side-menu-dropdown .sub-menu .sub-menu-item .sidebar-menu-link > span {
   width: 4px !important;
   height: 4px !important;
   border-radius: 50% !important;
+}
+
+
+
+
+.w-30{
+  width: 27px;
 }

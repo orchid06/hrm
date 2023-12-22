@@ -228,10 +228,12 @@ use Illuminate\Support\Facades\Route;
             Route::get('subcategories/{category_id}/{html?}', 'getSubcategories')->name('get.subcategories');
 
 
+            Route::post('get-template', 'getTemplate')->name('get.template');
+            Route::get('template-config/{id}', 'templateConfig')->name('template.config');
 
             /** social account connect callback */
 
-            Route::get('account/{medium}', 'redirectAccount')->name('account');
+            Route::get('{guard}/account-connect/{medium}/{type?}', 'redirectAccount')->name('account.connect');
             Route::get('account/{medium}/callback', 'handleAccountCallback')->name('account.callback');
 
         });

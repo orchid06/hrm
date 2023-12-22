@@ -40,7 +40,6 @@ return [
     
 
     /** site  title  */
-    "home"      => 'Home',
     "blogs"     => 'Blogs',
     "feedback"  => 'Feedback',
     "contact"  =>  'Contacts',
@@ -51,6 +50,9 @@ return [
     "reset_passsword"    =>   'Reset Password',
     "verify_email"    =>   'Verify Your email',
 
+
+    "on_click_note" => "Please be advised that the token obtained through the 'onclick' event for establishing a connection has a limited expiration time and will expire shortly. Kindly take note of this time constraint to ensure a timely and effective usage of the token.",
+    "tokenize_note" => "Extend the token expiry for uninterrupted posting. This optimization allows for a smoother workflow without the need for frequent regeneration. For inquiries or assistance, reach out anytime. Thank you for your cooperation in enhancing our operational efficiency."
 
 
 

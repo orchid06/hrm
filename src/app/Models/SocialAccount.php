@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SocialAccount extends Model
 {
@@ -66,6 +67,16 @@ class SocialAccount extends Model
         return $this->belongsTo(Subscription::class,"subscription_id");
     }
 
+
+
+    /**
+     * Get social post
+     *
+     * @return HasMany
+     */
+    public function posts(): HasMany{
+        return $this->hasMany(SocialPost::class,"account_id");
+    }
     
 
     

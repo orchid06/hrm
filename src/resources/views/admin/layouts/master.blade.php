@@ -247,7 +247,7 @@
         })
 
 
-        /** bulk action js end */
+   
 
 
         // update seettings
@@ -302,6 +302,17 @@
         if (!$(".Paginations").find("nav").length > 0) {
             $(".Paginations").addClass('d-none')
         }
+
+
+   
+
+
+
+
+
+
+
+
 
         
 

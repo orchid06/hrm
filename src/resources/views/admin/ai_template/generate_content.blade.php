@@ -145,7 +145,7 @@
                     $(".content-loader").addClass('d-none');
               
                 },
-			})
+			 })
 
 			e.preventDefault();
 		});

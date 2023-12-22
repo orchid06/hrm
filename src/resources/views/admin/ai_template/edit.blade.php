@@ -242,7 +242,10 @@
 
             $(document).on('change','#category',function(e){
                 var id = $(this).val()
-                subCategories(id);
+                if(id != ''){
+                    subCategories(id);
+                }
+        
                 e.preventDefault()
             })
 
