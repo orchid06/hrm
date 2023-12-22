@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AccountType;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Http\Services\UserService;
@@ -11,7 +12,9 @@ use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Admin\Category;
 use App\Models\Admin\Currency;
+use App\Models\AiTemplate;
 use App\Models\Core\Language;
+use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\Subscriber;
 use App\Models\Subscription;
@@ -27,11 +30,20 @@ use Illuminate\Support\Arr;
 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
+use Illuminate\Support\Facades\Route;
+
+
+use App\Traits\AccoutManager;
 class CoreController extends Controller
 {
 
 
+
+    use AccoutManager;
     
      
     /**
@@ -138,12 +150,14 @@ class CoreController extends Controller
 
     public function cron() :Void{
 
+
+        $userService = new UserService();
         try {
       
             $subscriptions = Subscription::with(['user','package'])
-                            ->running()
-                            ->expired()
-                            ->cursor();
+                                ->running()
+                                ->expired()
+                                ->cursor();
 
             foreach($subscriptions as $subscription){
 
@@ -152,6 +166,9 @@ class CoreController extends Controller
                     'expired_at' => date('Y-m-d'),
                 ]);
 
+
+                // inactive  user profile
+                $userService->inactiveSocialAccounts($subscription);
 
                 $code = [
                     'time'    => Carbon::now(),
@@ -337,13 +354,14 @@ class CoreController extends Controller
 
 
     
-    public function getSubcategories(int | string $id , bool $html = false) :mixed {
+    
+    public function getSubcategories(int | string $id , bool $html = false) :array {
 
 
         $categories =  Category::where('parent_id', $id)
                         ->active()->get();
 
-        $options    = "";
+        $options    = "<option value=''> Select Subcategory </option>";
         if ($html) {
             foreach ($categories as $category) {
                 $options .= '<option value="' . $category->id . '">' . $category->title . '</option>';
@@ -357,9 +375,188 @@ class CoreController extends Controller
             'categories' => $categories->pluck('title','id')->toArray(),
         ];
 
+    }
 
+
+
+
+    public function getTemplate(Request $request) :array {
+
+
+        $request->validate([
+            'category_id'     => "required|exists:categories,id",
+            'sub_category_id' => "nullable|exists:categories,id",
+        ]);
+
+        $templates =  AiTemplate::where("category_id", $request->input('category_id'))
+                        ->when($request->input('sub_category_id'), function ($query) use ($request){
+                            $query->where('sub_category_id', $request->input('sub_category_id'));
+                        })->active()->get();
+
+        $options    = "<option value=''> Select Template </option>";
+   
+        if($templates ->count() > 0){
+            foreach ($templates as $template) {
+                $options .= '<option value="' . $template->id . '">' . $template->name . '</option>';
+            }
+        }
+        
+        return [
+
+            'status'     => true,
+            'html'       => $options,
+            'templates'  => $templates->pluck('name','id')->toArray(),
+        ];
 
     }
+
+
+    public function templateConfig(int  $id) :array {
+
+        $template = AiTemplate::active()->where('id', $id)->first();
+
+        $status = false;
+        $html ='';
+        if($template){
+
+            if ($template->prompt_fields) {
+                foreach ($template->prompt_fields as $key => $input) {
+                    $html .= '<div class="col-lg-12">
+                                <div class="form-inner">
+                                    <label for="' . $key . '">' . @$input->field_label . ' ' . (@$input->validation == 'required' ? '<small class="text-danger">*</small>' : '') . '</label>';
+                    if ($input->type == "text") {
+                        $html .= '<input data-name="' . '{' . @$input->field_name . '}' . '" placeholder="' . @$input->field_label . '" ' . (@$input->validation == 'required' ? 'required' : '') . ' name="custom[' . @$input->field_name . ']" id="' . $key . '" value="' . old("custom." . @$input->field_name) . '" type="text" class="prompt-input">';
+                    } else {
+                        $html .= '<textarea class="prompt-input" data-name="' . '{' . @$input->field_name . '}' . '" placeholder="' . @$input->field_label . '" ' . (@$input->validation == 'required' ? 'required' : '') . ' name="custom[' . @$input->field_name . ']"  id="' . $key . '"  cols="30" rows="6">' . old("custom." . @$input->field_name) . '</textarea>';
+                    }
+                    $html .= '</div></div>';
+                }
+            }
+            $html .= '<div class="col-lg-12">
+                        <div class="form-inner">
+                            <label for="promptPreview">' . translate('Prompt Preview') . '</label>
+                            <textarea data-prompt_input="' . $template->custom_prompt . '" readonly id="promptPreview" cols="30" rows="10">' . $template->custom_prompt . '</textarea>
+                        </div>
+                    </div>';
+
+
+                    $status = true;
+        }
+
+
+        return [
+            'status' => $status,
+            "html"   =>  $html,
+        ];
+
+    }
+
+
+
+
+
+
+    /**
+     * socail account redirect function
+     *
+     * @param Request $request
+     * @param $service
+     * @return void
+     */
+    public function redirectAccount(Request $request, string $guard ,string $medium , string $type = null) :mixed {
+
+        if(!auth()->guard($guard)->check()) {
+            abort(403, "Unauthenticated user request");
+        }
+        $platform = $this->setConfig($medium);
+        session()->put("guard", $guard);
+
+        return Socialite::driver($medium)->redirect();
+    }
+
+
+    /**
+     * Set configuration
+     *
+     * @param string $medium
+     * @return void
+     */
+    public function setConfig(string $medium) :MediaPlatform{
+
+        $platform = MediaPlatform::where('slug',$medium)->first();
+
+        $credential["client_secret"] =  @$platform->configuration->client_secret;
+        $credential["client_id"]     =  @$platform->configuration->client_id;
+        $credential["redirect"]      =  url('account/'.$medium.'/callback');
+
+
+        Config::set('services.'.$medium, $credential);
+
+        return $platform;
+
+    }
+
+    /**
+     * handle o auth call back
+     *
+     * @param $service
+     * @return void
+     */
+    public function handleAccountCallback(string $service) : RedirectResponse
+    {
+
+        try {
+
+            $platform  = $this->setConfig($service);
+            $guard = session()->get('guard');
+
+            if(!$guard || !auth()->guard($guard)->check() ){
+                abort(403, "Unauthenticated user request");
+            }
+
+            
+            $account = Socialite::driver($service)->stateless()->user();
+
+            $id = Arr::get($account->attributes,'id',null);
+            if(!$account || !$account->token || !$id ){
+                abort(403, "Unauthenticated user request");
+            }
+
+            $identification = Arr::get($account->attributes,'email',null);
+            if(!$identification){
+                $identification = $id;
+            }
+            
+            $accountInfo = [
+                'id'         => Arr::get($account->attributes,'email',null),
+                'account_id' => $id,
+                'name'       => Arr::get($account->attributes,'name',null),
+                'avatar'     => Arr::get($account->attributes,'avatar',null),
+                'email'      => Arr::get($account->attributes,'email',null),
+                'token'      => @$account->token,
+                'expiresIn'  => @$account->expiresIn,
+            ];
+
+
+            $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::Profile->value);
+            $routeName =  $guard =='admin' ? "admin.social.account.list":"user.social.account.list";
+            return redirect()->route($routeName,['platform' => $platform->slug])->with(response_status("Account Added"));
+            
+    
+        } catch (\Exception $e) {
+
+            abort(403, "Unauthenticated user request");
+        }
+       	
+
+    }
+
+
+    
+
+
+
+
 
 
 }

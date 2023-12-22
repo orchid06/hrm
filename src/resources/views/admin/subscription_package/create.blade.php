@@ -204,7 +204,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="mb-0 d-flex align-items-center gap-2">
-                                                    <input id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}" {{old('social_access.schedule_post') == App\Enums\StatusEnum::true->status() ? "checked" :""}} class="form-check-input" name="social_access[schedule_post]" type="checkbox"   >
+                                                       <input id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}" {{old('social_access.schedule_post') == App\Enums\StatusEnum::true->status() ? "checked" :""}} class="form-check-input" name="social_access[schedule_post]" type="checkbox"   >
                                                         <label for="schedule_post" class="form-check-label me-3 mb-0">
                                                             {{translate('Schedule Posting')}}
                                                         </label>

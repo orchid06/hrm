@@ -89,7 +89,7 @@
 
                     <div class="col-md-6">
                         <div class="auth-input">
-                          <input required type="phone" value="{{old('phone')}}"   name="phone" placeholder="{{translate('Enter your phone')}}"/>
+                          <input required type="text" value="{{old('phone')}}"   name="phone" placeholder="{{translate('Enter your phone')}}"/>
                           <span class="auth-input-icon">
                             <i class="bi bi-telephone"></i>
                           </span>

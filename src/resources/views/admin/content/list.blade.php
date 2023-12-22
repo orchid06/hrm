@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
+
+
     <div class="i-card-md">
         <div class="card-body">
                 <div class="search-action-area">
@@ -41,7 +43,7 @@
                              @endif
                        
                             @if(check_permission('create_content'))
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#content-form" class="i-btn btn--sm success me-2 create">
+                                <button type="button" class="i-btn btn--sm success me-2 create">
                                     <i class="las la-plus me-1"></i>  {{translate('Add New')}}
                                 </button>
                             @endif
@@ -67,7 +69,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="table-container position-relative">
                     @include('admin.partials.loader')
@@ -157,11 +158,20 @@
 
         </div>
     </div>
+
+
+    <div  class="ai-section d-none">
+        @include('partials.prompt_content',['content_route' => route("admin.content.store")])
+    </div>
+
+
+
   
 @endsection
 @section('modal')
     @include('modal.delete_modal')
     @include('modal.bulk_modal')
+
     <div class="modal fade" id="content-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="content-form"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
@@ -224,44 +234,39 @@
     </div>
 
 
-  
-  
 @endsection
 
-
+@push('script-include')
+    @include('partials.ai_content_script');
+@endpush
 
 @push('script-push')
 <script>
 	(function($){
        	"use strict";
 
-    
+
+
+        $(".select2").select2({
+            placeholder:"{{translate('Select Category')}}",
+        })
+
+        $(".selectTemplate").select2({
+            placeholder:"{{translate('Select Template')}}",
+        })
+        $(".sub_category_id").select2({
+            placeholder:"{{translate('Select Sub Category')}}",
+        })
+
 
         $(document).on('click','.create',function(e){
-
-            var modal = $('#content-form');
-            var form = modal.find('form');
-            modal.find('input[name="id"]').attr('disabled',true)
-            modal.find('.modal-title').html("{{translate('Add Content')}}")
-            modal.find('#contentForm').attr('action','{{route("admin.content.store")}}')
-
-            form[0].reset();
-
+            $('.ai-section').fadeToggle(1000).toggleClass('d-none');;
         });
 
-        $(document).on('click','.update',function(e){
 
-            var content = JSON.parse($(this).attr('data-content'))
-            var modal = $('#content-form')
-            modal.find('#contentForm').attr('action','{{route("admin.content.update")}}')
-            modal.find('.modal-title').html("{{translate('Update Content')}}")
-       
-            modal.find('input[name="name"]').val(content.name)
-            modal.find('input[name="id"]').attr('disabled',false)
-            modal.find('input[name="id"]').val(content.id)
-            modal.find('textarea[name="content"]').val(content.content)
-            modal.modal('show')
-        })
+
+
+
 
 
 

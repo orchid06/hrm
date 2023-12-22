@@ -20,6 +20,7 @@ use App\Models\Core\File;
 use App\Models\CreditLog;
 use App\Models\Package;
 use App\Models\PaymentLog;
+use App\Models\SocialAccount;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Rules\General\FileExtentionCheckRule;
@@ -318,10 +319,9 @@ class UserService
 
                 $params['trx_code']               = trx_number() ; 
     
-                Subscription::where('user_id',$user->id)->update([
-                    "expired_at" => date('Y-m-d'),
-                    "status"     => SubscriptionStatus::value('Expired',true)
-                ]);
+              
+                $this->invalidatePreviousSubscriptions($user);
+         
     
                 $subscription   = Subscription::create($params);
     
@@ -772,5 +772,54 @@ class UserService
     }
     
     
+
+
+    /**
+     * Inactive social account
+     *
+     * @param Subscription $subscription
+     * @param string $details
+     * @return void
+     */
+    public function inactiveSocialAccounts(Subscription $subscription, string $details = "Subscription Expired") :void{
+
+        SocialAccount::where('user_id',$subscription->user->id)->where('id',$subscription->id)->update([
+            'status'  => StatusEnum::false->status(),
+            'details' => $details,
+        ]);
+    }
+
+
+
+    /**
+     * Invalid subscriptions
+     *
+     * @param User $user
+     * @return void
+     */
+    public function invalidatePreviousSubscriptions(User $user) :void{
+
+        $subscriptions  = Subscription::with('user')
+                            ->running()
+                            ->where('user_id',$user->id)
+                            ->get();
+
+        foreach($subscriptions as $subscription){   
+            
+            $subscription->expired_at =  date('Y-m-d');
+            $subscription->status     =  SubscriptionStatus::value('Expired',true);
+            $subscription->save();
+            $this->inactiveSocialAccounts($subscription);
+        }
+
+    }
+    
+
+    public function deductSubscriptionCredit(Subscription $subscription , string $key , int $value = 1) :Subscription{
+        $subscription->decrement($key,$value);
+
+        return $subscription;
+        
+    }
   
 }

@@ -998,19 +998,28 @@ return [
 
         'Facebook' => [
             'client_id'     => '#',
-            'client_secret' => '#'
+            'client_secret' => '#',
+            'app_version'   => '#',
+            'graph_api_url'   => '#',
+            'group_url'   => 'https://www.facebook.com/groups',
         ],
         'Instagram' => [
             'client_id'     => '#',
             'client_secret' => '#',
+            'app_version'   => '#',
+            'graph_api_url'   => '#'
         ],
         'Linkedin' => [
             'client_id'     => '#',
             'client_secret' => '#',
+            'app_version'   => '#',
+            'graph_api_url'   => '#'
         ],
         'Youtube' => [
             'client_id'     => '#',
             'client_secret' => '#',
+            'app_version'   => '#',
+            'graph_api_url'   => '#'
         ],
         'TikTok' => [
             'client_id'     => '#',
@@ -1019,9 +1028,22 @@ return [
         "Twitter" => [
             'client_id'     => '#',
             'client_secret' => '#',
+            'app_version'   => '#',
+            'graph_api_url'   => '#'
         ]
     ],
 
+
+    "platforms_connetion_field" => [
+
+        "facebook" => [
+            "access_token"
+        ],
+        "instagram" => [
+            "username",
+            "password",
+        ],
+    ]
     
 
 

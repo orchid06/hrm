@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AccountType;
 use App\Enums\DepositStatus;
 use App\Enums\PlanDuration;
 use App\Enums\PriorityStatus;
@@ -949,6 +950,31 @@ use Illuminate\Database\Eloquent\Collection;
          
 		}
    }
+
+
+
+   if (!function_exists('account_type')){
+		function account_type(mixed  $status) :string
+		{
+
+         $badges  = [
+            
+            AccountType::Profile->value      => "info",
+            AccountType::Page->value         => "success",
+            AccountType::Group->value        => "warning",
+      
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(AccountType::toArray()) ,$status , 'Pending')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
+
+   
 
 
    

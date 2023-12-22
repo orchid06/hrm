@@ -33,6 +33,7 @@ class AiTemplate extends Model
         });
 
         static::saving(function (Model $model) {
+            
             if(request()->input('slug') || request()->input('name') ){
                 $model->slug       = make_slug(request()->input('slug')? request()->input('slug') : request()->input('name'));
             }

@@ -60,8 +60,7 @@ class PlatformController extends Controller
         $request->validate([
             "id"                            => ['required','exists:media_platforms,id'],
             "configuration"                 => ["required",'array'],
-            "configuration.client_id"       => ["required","max:255"],
-            "configuration.client_secret"   => ["required","max:255"],
+            "configuration.*"               => ["required","max:255"],
         ]);
 
         $platform                      = MediaPlatform::findOrfail($request->input('id'));
