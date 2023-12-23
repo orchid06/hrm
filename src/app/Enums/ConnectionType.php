@@ -6,8 +6,8 @@ enum ConnectionType: int
 {
     use EnumTrait;
 
-    case UNOFFICIAL              = 1;
-    case ON_CLICK_CONNECT        = 0;
+    case UNOFFICIAL              = 0;
+    case OFFICIAL                = 1;
 
 
 

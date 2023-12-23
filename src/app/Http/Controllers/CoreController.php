@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccountType;
+use App\Enums\ConnectionType;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Http\Services\UserService;
@@ -233,10 +234,12 @@ class CoreController extends Controller
 
             }
 
-            session()->put('last_corn_run',Carbon::now());
+
         } catch (\Throwable $th) {
             //throw $th;
         }
+
+        session()->put('last_corn_run',Carbon::now());
 
     }
 
@@ -538,7 +541,7 @@ class CoreController extends Controller
             ];
 
 
-            $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::Profile->value);
+            $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::Profile->value ,ConnectionType::OFFICIAL->value);
             $routeName =  $guard =='admin' ? "admin.social.account.list":"user.social.account.list";
             return redirect()->route($routeName,['platform' => $platform->slug])->with(response_status("Account Added"));
             

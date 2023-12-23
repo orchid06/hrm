@@ -20,7 +20,15 @@
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 
     <link href="{{asset('assets/frontend/css/root.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/frontend/css/common.css')}}" rel="stylesheet" type="text/css" />
+      @if(request()->routeIs('user.*'))
+         <link href="{{asset('assets/frontend/css/dashboard.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('assets/frontend/css/simplebar.min.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('assets/frontend/css/all.min.css')}}" rel="stylesheet" type="text/css" />
+      @else
+         <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet" type="text/css" />
+      @endif
+      
     <link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
 
@@ -45,7 +53,7 @@
 
     @include('partials.theme')
 
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && !request()->routeIs('user.*'))
 
         @php
           $intregrationsContent  = get_content("content_integration")->first();
@@ -70,7 +78,11 @@
 
 
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
-        @include('frontend.partials.header')
+        @if(!request()->routeIs('user.*'))
+            @include('frontend.partials.header')
+        @else
+           @include('user.partials.header')
+        @endif
     @endif
 
     <main class="main" id="main">
@@ -78,12 +90,15 @@
     </main>
 
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
-        @include('frontend.partials.footer')
 
-        @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
-           @include('frontend.partials.cookie')
-        @endif
+      @if(!request()->routeIs('user.*'))
+         @include('frontend.partials.footer')
+      @endif
 
+      @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
+          @include('frontend.partials.cookie')
+      @endif
+    
     @endif
 
     @yield("modal")
@@ -91,7 +106,7 @@
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-    @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security"))
+    @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security") && !request()->routeIs("user.*"))
         <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
         <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
         <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
@@ -102,7 +117,14 @@
 
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
-    <script src="{{asset('assets/frontend/js/app.js')}}"></script>
+
+    @if(request()->routeIs('user.*'))
+      <script src="{{asset('assets/frontend/js/dashboard.js')}}"></script>
+      <script src="{{asset('assets/frontend/js/simplebar.min.js')}}"></script>
+      <script src="{{asset('assets/frontend/js/initiate.js')}}"></script>
+    @else
+      <script src="{{asset('assets/frontend/js/app.js')}}"></script>
+    @endif
     <script src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class SocialAccount extends Model
 {
@@ -27,7 +29,7 @@ class SocialAccount extends Model
     }
 
 
-   /**
+    /**
      * Admin where account belongs
      *
      * @return BelongsTo
@@ -78,6 +80,14 @@ class SocialAccount extends Model
         return $this->hasMany(SocialPost::class,"account_id");
     }
     
+
+    public function scopeActive(Builder $q) :Builder{
+        return $q->where('status',StatusEnum::true->status());
+    }
+    public function scopeInactive(Builder $q) :Builder{
+        return $q->where('status',StatusEnum::false->status());
+    }
+
 
     
 

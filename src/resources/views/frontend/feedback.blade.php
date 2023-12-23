@@ -89,13 +89,15 @@
                 </label>
               </div>
             </div>
-
+       
             <div class="col-12">
-                <label class="mb-2">Upload Image <small class="text-muted">(Optional)</small></label>
+                <label class="mb-2"> {{translate("Upload Image")}}</label>
                 <div>
                     <label  for="image" class="feedback-file">
                         <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
-                        <span><i class="bi bi-image"></i> Select a file</span>
+                        <span><i class="bi bi-image"></i> 
+                            {{translate("Select image")}}
+                        </span>
                     </label>
                     <div class="image-preview-section">
                     </div>

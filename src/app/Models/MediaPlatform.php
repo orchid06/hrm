@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use App\Traits\ModelAction;
 use App\Traits\Filterable;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class MediaPlatform extends Model
 {
     use HasFactory ,ModelAction ,Filterable;
@@ -64,6 +66,19 @@ class MediaPlatform extends Model
         return $q->where("is_integrated",StatusEnum::true->status());
     }
 
+
+
+    /**
+     * Get all of social accounts
+     *
+     * @return HasMany
+     */
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class, 'platform_id');
+    }
+
+    
 
    
 }

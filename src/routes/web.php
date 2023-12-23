@@ -97,7 +97,7 @@ use Illuminate\Support\Facades\Route;
                 
                 Route::any('dashboard','home')->name('home');
                 Route::get('profile','profile')->name('profile');
-                Route::get('profile/update','profileUpdate')->name('profile.update');
+                Route::post('profile/update','profileUpdate')->name('profile.update');
                 Route::post('/update', 'passwordUpdate')->name('password.update');
                 Route::get('/notifications','notification')->name('notifications');
                 Route::post('/read-notification','readNotification')->name('read.notification');
@@ -105,7 +105,8 @@ use Illuminate\Support\Facades\Route;
 
             #payment route
             Route::controller(DepositController::class)->prefix('/deposit')->name('deposit.')->group(function(){
-                
+
+                Route::get('/request','depositCreate')->name('create'); 
                 Route::any('/process','process')->name('process');
                 Route::any('/confirm','confirm')->name('confirm');
                 Route::any('/manual/confirm','manualPay')->name('manual');
@@ -119,19 +120,22 @@ use Illuminate\Support\Facades\Route;
 
                 # withdraw route
                 Route::prefix("/withdraw")->name('withdraw.')->group(function(){
+
+                    Route::get('/create','withdrawCreate')->name('create'); 
                     Route::post('/request','withdrawRequest')->name('request');
                     Route::get('/preview','withdrawPreview')->name('preview');
                 });
 
+                Route::get('/plans', 'plan')->name('plan');
+
+
                 #kyc route
                 Route::prefix("/kyc")->name('kyc.')->group(function(){
+
                     Route::get('form','kycForm')->name('form');
                     Route::post('apply','kycApplication')->name('apply');
                 });
                   
-
-
-
 
             });
         

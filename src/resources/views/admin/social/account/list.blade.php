@@ -140,7 +140,10 @@
                                     <th scope="col">{{translate('User')}}</th>
 
                                     <th scope="col">{{translate('Status')}}</th>
-                
+
+                                    <th scope="col">{{translate('Connection Status')}}</th>
+
+            
 
                                     @if(request()->input("platform") == 'facebook')
                                        <th scope="col">{{translate('Account Type')}}</th>
@@ -196,19 +199,28 @@
 
                                             <td data-label='{{translate("Status")}}'>
 
-                                                <div class="form-check form-switch switch-center">
-                                                    <input {{!check_permission('update_account') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                        data-column="status"
-                                                        data-route="{{ route('admin.social.account.update.status') }}"
-                                                        data-status="{{ $account->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                        data-id="{{$account->uid}}" {{$account->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                                    id="status-switch-{{$account->id}}" >
-                                                    <label class="form-check-label" for="status-switch-{{$account->id}}"> </label>
-                                        
-                                                </div>
+                                                @if(!$account->user_id)
+                                                    <div class="form-check form-switch switch-center">
+                                                        <input {{!check_permission('update_account') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                            data-column="status"
+                                                            data-route="{{ route('admin.social.account.update.status') }}"
+                                                            data-status="{{ $account->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                            data-id="{{$account->uid}}" {{$account->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                                        id="status-switch-{{$account->id}}" >
+                                                        <label class="form-check-label" for="status-switch-{{$account->id}}"> </label>
+                                            
+                                                    </div>
+                                                @else
+
+                                                  {{translate('N/A')}}
+                                                @endif
 
                                             </td>
         
+                                            <td data-label='{{translate("Connection Status")}}'>
+
+                                                @php echo account_connection($account->is_official) @endphp
+                                           </td>
                                             
                                             <td data-label='{{translate("Account Type")}}'>
 

@@ -75,7 +75,10 @@
         })
 
         window.onload = function () {
-            $('.table-loader').addClass("d-none");
+
+          $('.table-loader').addClass("d-none");
+         
+
         }
 
         // update status event start
