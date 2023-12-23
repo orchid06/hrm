@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AccountRequest;
+use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\SocialAccount;
 use App\Traits\ModelAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-
+use App\Traits\AccoutManager;
 class SocialAccountController extends Controller
 {
-    use ModelAction ;
+    use ModelAction , AccoutManager;
     protected $ticketService ;
 
     public function __construct(){
 
         $this->middleware(['permissions:view_account'])->only(['list']);
-        $this->middleware(['permissions:create_account'])->only('list');
-        $this->middleware(['permissions:update_account'])->only('destroy');
+        $this->middleware(['permissions:create_account'])->only('create');
+        $this->middleware(['permissions:update_account'])->only('updateStatus','bulk');
         $this->middleware(['permissions:delete_account'])->only('destroy');
     }
 
@@ -34,13 +38,15 @@ class SocialAccountController extends Controller
         return view('admin.social.account.list',[
 
             "title"           => translate("Social Account List"),
-            'breadcrumbs'     => ['Home'=>'admin.home','Tickets'=> null],
-            'tickets'         => SocialAccount::with(['user','subscription','subscription.package','platform','admin'])
-                                  ->filter(["status",'user:username','platform:slug'])
-                                  ->latest()
-                                  ->paginate(paginateNumber()),
-            "platforms"       => get_platform(),
-            "packages"        => Package::active()->get(),
+            'breadcrumbs'     => ['Home'=>'admin.home','Social Accounts'=> null],
+            'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform:slug','admin'])
+                                    ->filter(["status",'user:username','platform:slug'])
+                                    ->latest()
+                                    ->paginate(paginateNumber()),
+
+
+
+    
         ]);
     }
 
@@ -54,104 +60,113 @@ class SocialAccountController extends Controller
      *
      * @return View
      */
-    public function create() :View{
+    public function create(string $slug) :View{
 
 
-        return view('admin.ticket.create',[
+        $platform = MediaPlatform::with(['file'])->active()
+                        ->integrated()
+                        ->where('slug', $slug)
+                        ->firstOrfail();
 
-            "title"           => translate("Ticket Create"),
-            'breadcrumbs'     => ['Home'=>'admin.home','Tickets'=> "admin.ticket.list","Create" => null],
+        $route   = route('admin.social.account.list',['platform' => $platform->slug]);
 
+        return view('admin.social.account.create',[
+
+            "title"           =>  "Create ".$platform->name. " Account",
+            'breadcrumbs'     => ['Home'=>'admin.home',"Accounts"=> $route,"Create" => null],
+            'platform'        => $platform,
 
         ]);
     }
 
 
     /**
-     * store a new ticket
+     * store a new account
      *
      * @return RedirectResponse
      */
-    public function store(TicketRequest $request) :RedirectResponse{
+    public function store(AccountRequest $request) :RedirectResponse{
 
-        $response = response_status("Ticket created successfully");
-        
-        try {
-            $ticket =  $this->ticketService->store($request->except('_token') ,$request->input("user_id"));
-        } catch (\Exception $ex) {
-            $response = response_status(strip_tags($ex->getMessage()),'error');
-        }
+
+        $platform = MediaPlatform::where('id',request()->input("platform_id"))
+                        ->active()
+                        ->integrated()
+                        ->firstOrfail();
+
+
+        $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
+
+        $service =  new  $class();
+
+        $response = $service->{$platform->slug}($platform,$request->except("_token"));
         return back()->with($response);
+        
+
     }
 
 
-    /**
-     * Support Ticket View
-     *
-     * @return View
-     */
-    public function show(string $ticketNumber) :View{
-
-        return view('admin.ticket.show',[
-
-            "title"        => translate("Ticket Details"),
-            'breadcrumbs'  => ['Home'=>'admin.home','Tickets'=> "admin.ticket.list" ,"Reply" => null],
-            'ticket'       => Ticket::with(['user',"user.file",'messages','messages.admin' ,'messages.admin.file'])
-                                ->where("ticket_number",$ticketNumber)
-                                ->latest()
-                                ->firstOrFail()
-        ]);
-    }
-
-
-
-    
 
     /**
      * destroy a ticket
      */
     public function destroy(string $id) :RedirectResponse {
 
-        $ticket   = Ticket::with(['messages','file'])->where('id',$id)->firstOrFail();
-        return back()->with($this->ticketService->delete($ticket));
-
+        $account  = SocialAccount::withCount(['posts'])->where('id',$id)->firstOrfail();
+        $response =  response_status('Can not be deleted!! item has related data','error');
+        if(1  > $account->posts_count){
+            $account->delete();
+            $response =  response_status('Item deleted succesfully');
+        }
+        return  back()->with($response);
     }
 
 
+    
+
+
     /**
-     * Destroy Message
+     * Update a specific platform status
      *
-     * @param string $id
-     * @return RedirectResponse
+     * @param Request $request
+     * @return string
      */
-    public function destroyMessage(string $id) :RedirectResponse {
+    public function updateStatus(Request $request) :string{
 
-        $message = Message::where('id',$id)->firstOrFail();
-        $message->delete();
-        return back()->with(response_status('Message Deleted Successfully'));
+        $request->validate([
+            'id'      => 'required|exists:social_accounts,uid',
+            'status'  => ['required',Rule::in(StatusEnum::toArray())],
+            'column'  => ['required',Rule::in(['status','is_feature','is_integrated'])],
+        ]);
+
+
+     
+        return $this->changeStatus($request->except("_token"),[
+            "model"    => new SocialAccount(),
+        ]);
+
     }
 
 
+
     /**
-     * Update Ticket Status
+     * Bulk action
      *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function update(Request $request) :RedirectResponse {
-
-        $request->validate([
-            "id"     => ["required","exists:tickets,id"],
-            "key"    => ["required",Rule::in(['priority','status'])],
-            'status' => ["required"]
-        ]);
-
-        $responseStatus    = response_status('Status Updated');
-        $ticket            = Ticket::where('id',$request->input("id"))->firstOrfail();
-        $ticket->{$request->input("key")} = $request->input("status");
-        $ticket->update();
-        return back()->with($responseStatus );
+    public function bulk(Request $request) :RedirectResponse {
+        
+        try {
+            $response =  $this->bulkAction($request,[
+                "model"        => new SocialAccount(),
+            ]);
+    
+        } catch (\Exception $exception) {
+            $response  = \response_status($exception->getMessage(),'error');
+        }
+        return  back()->with($response);
     }
+
 
 
 

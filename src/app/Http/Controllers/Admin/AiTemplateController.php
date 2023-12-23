@@ -56,10 +56,10 @@ class AiTemplateController extends Controller
 
         return view('admin.ai_template.list',[
 
-            'breadcrumbs'  => ['Home'=>'admin.home','Ai Templates '=> null],
-            'title'        =>  !request()->routeIs('admin.ai.template.default') ? 'Manage Ai Template' :"Default Templates",
-            'templates'    => AiTemplate::with(['category','user','admin','templateUsages','subCategory'])->search(['name'])
-                                ->filter(["status",'category:slug','status','is_default','user:username,name'])
+            'breadcrumbs'     => ['Home'=>'admin.home','Ai Templates '=> null],
+            'title'           =>  !request()->routeIs('admin.ai.template.default') ? 'Manage Ai Template' :"Default Templates",
+            'templates'       => AiTemplate::with(['category','user','admin','templateUsages','subCategory'])->search(['name'])
+                                ->filter(["status",'category:slug','subCategory:slug','status','is_default','user:username,name'])
                                 ->when(request()->routeIs('admin.ai.template.default'),function(Builder $q){
                                     return $q->default();
                                 })
@@ -67,7 +67,8 @@ class AiTemplateController extends Controller
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all()),
 
-            "categories"   => $this->categories,
+            "categories"      => $this->categories,
+            "subCategories"   =>  Category::whereNotNull('parent_id')->get(),
         ]);
     }
 

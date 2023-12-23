@@ -252,25 +252,11 @@
 
                             <input   hidden name="id" type="text">
        
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="client_id" class="form-label" >
-                                        {{translate('Client Id')}}  <span  class="text-danger">*</span>
-                                    </label>
-
-                                   <input required type="text" name="configuration[client_id]">
-                                </div>
+                            <div class="col-lg-12" id ="configuration">
+                             
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="client_secret" class="form-label" >
-                                        {{translate('Client Secret')}}  <span  class="text-danger">*</span>
-                                    </label>
-
-                                   <input required type="text" name="configuration[client_secret]">
-                                </div>
-                            </div>
+                          
 
                             
                             <div class="col-xl-12">
@@ -331,9 +317,33 @@
             var id             = JSON.parse($(this).attr('data-id'));
             var callbackUrl    = ($(this).attr('data-callback'));
             var modal          = $('#config-modal')
+
             modal.find('input[name="id"]').val(id)
-            modal.find('input[name="configuration[client_id]"]').val(config.client_id)
-            modal.find('input[name="configuration[client_secret]"]').val(config.client_secret)
+
+            var html = "";
+            for(let i in config){
+            
+                var withoutUnderscores =  i.replace(/_/g, ' ');
+
+                var convertedString = withoutUnderscores.replace(/\b\w/g, function (match) {
+                    return match.toUpperCase();
+                });
+
+
+                html+= `<div class="form-inner">
+                                    <label for="client_secret" class="form-label" >
+                                        ${convertedString}  <span  class="text-danger">*</span>
+                                    </label>
+
+                                   <input value="${config[i]}" required type="text" name="configuration[${i}]">
+                                </div>`;
+
+            }
+
+
+            $("#configuration").html(html)
+
+
             $('#callbackUrl').val(callbackUrl)
             $('.copy-text').attr('data-text',callbackUrl)
             modal.modal('show')

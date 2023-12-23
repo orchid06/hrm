@@ -81,6 +81,7 @@ class Category extends Model
 
     
     public function templates() :HasMany{
+        
         return $this->hasMany(AiTemplate::class, 'category_id','id');
     }
 

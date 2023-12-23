@@ -4,17 +4,18 @@ namespace App\Http\Services;
 use App\Enums\PlanDuration;
 use App\Models\AiTemplate;
 use App\Models\TemplateUsage;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ModelAction;
 use Illuminate\Validation\Rule;
 use Orhanerday\OpenAi\OpenAi;
-
+use App\Traits\AccoutManager;
 class AiService
 {
 
-    use  ModelAction;
+    use  ModelAction ,AccoutManager;
 
 
 
@@ -181,7 +182,7 @@ class AiService
        
         if(request()->routeIs("user.*")){
             $subscription    =  auth_user('web')->runningSubscription;
-            $model = optional(optional($subscription)->package->ai_configuration)->open_ai_model ?? $model;
+            $model           = optional(optional($subscription)->package->ai_configuration)->open_ai_model ?? $model;
         }
         return $model ;
     }
@@ -207,23 +208,47 @@ class AiService
 
             if(isset($chat_results['choices'][0]['message']['content'])){
 
+
+
                 $realContent                   = $chat_results['choices'][0]['message']['content'];
                 $content                       = str_replace(["\r\n", "\r", "\n"] ,"<br>",$realContent); 
                 $usage                         = $chat_results['usage'];
                 $usage['model']                = $chat_results['model'];
                 $usage['genarated_tokens']     = count(explode(' ', ($content)));
+    
+                DB::transaction(function() use ($logData ,$usage ,$content) {
 
-                $templateLog                   = new TemplateUsage();
-                $templateLog->user_id          = Arr::get($logData,'user_id',null);
-                $templateLog->admin_id         = Arr::get($logData,'admin_id',null);
-                $templateLog->template_id      = Arr::get($logData,'template_id',null);
-                $templateLog->package_id       = Arr::get($logData,'package_id',null);
-                $templateLog->open_ai_usage    = $usage;
-                $templateLog->content          = $content;
-                $templateLog->total_words      = Arr::get($usage,'genarated_tokens',0);
-                $templateLog->save();
+                    $templateLog                   = new TemplateUsage();
+                    $templateLog->user_id          = Arr::get($logData,'user_id',null);
+                    $templateLog->admin_id         = Arr::get($logData,'admin_id',null);
+                    $templateLog->template_id      = Arr::get($logData,'template_id',null);
+                    $templateLog->package_id       = Arr::get($logData,'package_id',null);
+                    $templateLog->open_ai_usage    = $usage;
+                    $templateLog->content          = $content;
+                    $templateLog->total_words      = Arr::get($usage,'genarated_tokens',0);
+                    $templateLog->save();
 
-                #todo : generate subscription credit log and deduct word credit if user exists
+                    if(request()->routeIs("user.*")){
+                        $token = (int) Arr::get($usage , "runningSubscription" ,0);
+                        $user  = auth_user('web');
+                        $this->generateCreditLog(
+                            user        : auth_user('web'),
+                            trxType     : Transaction::$MINUS,
+                            balance     : (int) $usage['genarated_tokens'],
+                            postBalance : (int)$user->runningSubscription->remaining_word_balance,
+                            details     : $token ." word generated using (".@$templateLog->template->name . ") Template",
+                            remark      : t2k("word_credit"),
+                        );
+
+                        if(@$user->runningSubscription->remaining_word_balance != PlanDuration::UNLIMITED->value ) {
+                            $user->runningSubscription->decrement('remaining_word_balance',$token);
+                        }
+                    }
+                    
+  
+
+                });
+
 
                 $status         = true;
                 $message        = $realContent;

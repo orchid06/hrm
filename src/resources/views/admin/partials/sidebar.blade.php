@@ -136,7 +136,7 @@
         @if(check_permission('view_account'))
 
           <li class="sidebar-menu-item">
-              <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' data-anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
+              <a class='sidebar-menu-link {{sidebar_awake("admin.social.account.list")}}' data-anim="ripple" href="{{route('admin.social.account.list')}}" aria-expanded="false">
                   <span><i class="las la-hashtag"></i></span>
                   <p>{{translate('Social Accounts')}}</p>
               </a>
@@ -205,7 +205,7 @@
               <a class='sidebar-menu-link {{sidebar_awake("admin.content.*")}}'  href='{{route("admin.content.list")}}'>
                 <span><i class="las la-pager"></i></span>
                   <p>
-                    {{translate('Predefined Contents')}}
+                    {{translate('Ai Contents')}}
                   </p>
               </a>
           </li>
@@ -253,9 +253,6 @@
 
         @endif
         
-
-
-          <!-- user section -->
 
         <li class="sidebar-menu-title">
           {{translate('User , Reports & Support')}}

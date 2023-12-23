@@ -286,9 +286,6 @@
                                     </div>
 
 
-
-
-
                                     <div class="col-xl-6">
                                         <div class="form-inner">
                                             <label for="google_adsense_publisher_id" class="form-label">

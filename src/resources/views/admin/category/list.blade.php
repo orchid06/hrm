@@ -173,8 +173,21 @@
                                     @endif
 
                                     <td data-label='{{translate("Template")}}'>
-                                         <a href="{{route('admin.ai.template.list',['category' => $category->slug])}}">
-                                           {{translate('No of template')}} ({{$category->templates_count}})
+
+                                        @php
+                                          $count =  $category->templates_count;
+
+                                          $route = route('admin.ai.template.list',['category' => $category->slug]);
+
+                                          if(request()->routeIs("admin.category.subcategories")){
+                                               $count =  $category->parent->templates?->where('sub_category_id',$category->id)->count();
+                                               
+                                               $route = route('admin.ai.template.list',['category' => $category->parent->slug , "subCategory" =>  $category->slug]);
+                                          }
+                                          
+                                        @endphp
+                                         <a href="{{$route}}">
+                                           {{translate('No of template')}} ({{$count}})
                                          </a>
                                     </td>
 
