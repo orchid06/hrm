@@ -17,14 +17,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Validation\Rules\Password;
-
+use App\Traits\Fileable;
 use Illuminate\Support\Facades\Hash;
 class HomeController extends Controller
 {
 
 
+
     protected $user;
 
+    use Fileable;
     public function __construct(){
 
         $this->middleware(function ($request, $next) {
@@ -42,7 +44,9 @@ class HomeController extends Controller
      */
     public function home(Request $request) :View{
 
-        return view('user.home');
+        return view('user.home',[
+            'meta_data' => $this->metaData(["title" => trans('default.user_dashboard')]),
+        ]);
     }
 
 

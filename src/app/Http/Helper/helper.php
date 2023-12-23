@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\AccountType;
+use App\Enums\ConnectionType;
 use App\Enums\DepositStatus;
 use App\Enums\PlanDuration;
 use App\Enums\PriorityStatus;
@@ -259,15 +260,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('sortByMonth')) {
-      function sortByMonth($data){
+      function sortByMonth(array $data , bool $numFormat = false) :array{
          $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
          $sortedArray = [];
          foreach($months as $month){
-
-            if(isset($data[$month])){
-               $sortedArray[$month] = $data[$month];
-            }
-
+             $amount =  Arr::get($data,$month,0);
+             $sortedArray[$month] = $numFormat ? currency_conversion(number :round($amount)) :round($amount);
          }
          return $sortedArray;
       }
@@ -357,11 +355,29 @@ use Illuminate\Database\Eloquent\Collection;
          return round($amount,$precision);
       }
    }
+
+
+   
+   if (!function_exists('currency_conversion')){
+
+      function currency_conversion(int | float  $number ,?Currency $currency = null ) : int{
+
+         $currency   = $currency?? session()->get("currency");
+         $number     = floatval($number) * floatval($currency->exchange_rate);
+         
+         
+
+         return round(  $number);
+      }
+
+   }
+
+
    
 
    if (!function_exists('num_format')){
 
-      function num_format(int | float  $number , ?Currency $currency = null ,mixed $decimal  = null, ?bool $calC = false) :string | int{
+      function num_format(int | float  $number , ?Currency $currency = null ,mixed $decimal  = null, ?bool $calC = false ,$symbol = true) :string | int{
 
          $decimal    =   $decimal ?? (int)site_settings('num_of_decimal');
    
@@ -387,7 +403,7 @@ use Illuminate\Database\Eloquent\Collection;
             } 
          }
 
-         if(isset($alignments[site_settings('currency_alignment')]) && $currency){
+         if(isset($alignments[site_settings('currency_alignment')]) && $currency && $symbol){
             $famount = str_replace(['[symbol]', '[amount]'], [$currency->symbol, $famount],$alignments[site_settings('currency_alignment')]);
          }
 
@@ -967,6 +983,23 @@ use Illuminate\Database\Eloquent\Collection;
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(AccountType::toArray()) ,$status , 'Pending')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
+   if (!function_exists('account_connection')){
+		function account_connection(mixed  $status = null) :string
+		{
+
+         $badges  = [
+            ConnectionType::OFFICIAL->value         => "info",
+            ConnectionType::UNOFFICIAL->value       => "warning",
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(ConnectionType::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
          
 		}

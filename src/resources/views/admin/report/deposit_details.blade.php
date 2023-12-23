@@ -85,7 +85,7 @@
                                 <div class="d-flex justify-content-center p-4 gap-2">
 
                                     <div class="action">
-                                        <a href="javascript:void(0)" data-status = '{{App\Enums\DepositStatus::value("PAID")}';    class="i-btn btn--sm success update ">
+                                        <a href="javascript:void(0)" data-status = '{{App\Enums\DepositStatus::value("PAID")}}';    class="i-btn btn--sm success update ">
                                             <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
                                         </a>
                                     </div>

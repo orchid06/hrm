@@ -466,6 +466,11 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li>
+                        <a href="{{route('user.home')}}" class="dropdown-item" >
+                          <i class="bi bi-house"></i> {{translate('Home')}}
+                        </a>
+                      </li>
+                      <li>
                         <a href="{{route('user.profile')}}" class="dropdown-item" >
                            <i class="bi bi-person"></i> {{translate('Profile')}}
                         </a>

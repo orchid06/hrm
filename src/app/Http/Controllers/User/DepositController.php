@@ -32,6 +32,17 @@ class DepositController extends Controller
     }
 
 
+    public function depositCreate(Request $request){  
+
+        return view('user.deposit.create',[
+
+            'meta_data'  => $this->metaData(['title'=> translate("Deposit")]),
+            'methods'    => PaymentMethod::with(['file'])->active()->get(),
+  
+        ]);
+
+    }
+
     /**
      * Process deposit request
      *

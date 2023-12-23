@@ -40,27 +40,20 @@ trait AccoutManager
      * @param string $account_type
      * @return array
      */
-    protected function saveAccount(string $guard , MediaPlatform $platform , array $accountInfo, string  $account_type) :array{
+    protected function saveAccount(string $guard , MediaPlatform $platform , array $accountInfo, string  $account_type , string $is_official ) :array{
 
-        
-        $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ) {
+        $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ,$is_official ) {
 
                         $user = auth_user($guard);
-                        $connection = Arr::get($accountInfo,"token",null) 
-                                    ? StatusEnum::true->status()
-                                    : StatusEnum::false->status();
-
-                    
                         $accountId = Arr::get($accountInfo,"id",null);
-
-
 
                         $account = SocialAccount::firstOrNew(['account_id' => $accountId ,'platform_id' => $platform->id ]);
                         $account->platform_id                 = $platform->id;
                         $account->name                        = Arr::get($accountInfo,'name');
                         $account->account_information         = $accountInfo;
-                        $account->status                      = $connection;
+                        $account->status                      = StatusEnum::true->status();
                         $account->account_type                = $account_type;
+                        $account->is_official                 = $is_official;
 
                         switch ($guard) {
                             case 'web':

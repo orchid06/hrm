@@ -63,6 +63,10 @@ class PaymentLog extends Model
 
         return $q->where('status',DepositStatus::value("INITIATE",true));
     }
+    public function scopePaid(Builder $q) :Builder{
+
+        return $q->where('status',DepositStatus::value("PAID",true));
+    }
 
 
 }

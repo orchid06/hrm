@@ -58,6 +58,29 @@ class UserController extends Controller
 
 
     /**
+     * Withdraw request view 
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function withdrawCreate(Request $request) :View{
+
+
+        
+        return view('user.withdraw_request',[
+
+            'meta_data'  => $this->metaData(['title'=> translate("Withdraw Request")]),
+            'methods'    => Withdraw::with(['file'])->active()->get(),
+  
+        ]);
+
+
+    }
+
+
+
+
+    /**
      * Process withdraw request
      *
      * @return RedirectResponse
@@ -122,7 +145,7 @@ class UserController extends Controller
         session()->put("withdraw_amount",$amount);
         session()->put("gw_id",$method->id);
 
-        return view('user.withdraw_preview',[
+        return view('user.withdraw.preview',[
 
             'meta_data' => $this->metaData(['title'=> translate("Withdraw preview")]),
             'method'    => $method,
@@ -183,14 +206,14 @@ class UserController extends Controller
             $kycLog                  = new KycLog();
             $kycLog->user_id         = $this->user->id;
             $kycLog->status          = KycStatus::PENDING;
-            $kycLog->kyc_data        = (Arr::except($request['ticket_data'],['attachment']));
+            $kycLog->kyc_data        = (Arr::except($request['kyc_data'],['attachment']));
             $kycLog->save();
 
-            if(isset($request["ticket_data"] ['attachment'][0])){
-                foreach($request["ticket_data"] ['attachment'] as $file){
+            if(isset($request["kyc_data"] ['attachment'][0])){
+                foreach($request["kyc_data"] ['attachment'] as $file){
                     $response = $this->storeFile(
                         file        : $file, 
-                        location    : config("settings")['file_path']['ticket']['path'],
+                        location    : config("settings")['file_path']['kyc']['path'],
                     );
                     if(isset($response['status'])){
                         $file = new File([

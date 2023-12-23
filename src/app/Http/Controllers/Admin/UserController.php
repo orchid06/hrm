@@ -199,12 +199,13 @@ class UserController extends Controller
         try {
            
             DB::transaction(function() use ($id) {
-                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates'])
+                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts'])
                                 ->where('uid',$id)
                                 ->firstOrfail();
 
                 $user->subscriptions()->delete();
                 $user->affiliates()->delete();
+                $user->accounts()->delete();
                 $user->otp()->delete();
                 $user->transactions()->delete();
                 $user->notifications()->delete();

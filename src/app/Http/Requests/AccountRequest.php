@@ -53,7 +53,7 @@ class AccountRequest extends FormRequest
 
 
         foreach ($inputs as $key) {
-            $rules[$key] = ["required",'max:255'];
+            $rules[$key] = ["required"];
         }
         
         if(request()->routeIs('admin.ai.template.update')){
