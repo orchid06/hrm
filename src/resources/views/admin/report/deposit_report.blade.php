@@ -17,7 +17,7 @@
                             </button>
                             <div class="filter-dropdown">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                            <div class="form-inner">
+                               <div class="form-inner">
                                     <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                 </div>
                                 <div class="form-inner">
@@ -78,9 +78,8 @@
             <div class="table-container position-relative">
 
                 @include('admin.partials.loader')
-
             
-                <table >
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">
@@ -178,11 +177,8 @@
             </div>
             
       
-
             <div class="Paginations">
-
-                    {{ $reports->links() }}
-                
+                {{ $reports->links() }}
             </div>
         </div>
     </div>

@@ -85,7 +85,7 @@ use Illuminate\Support\Facades\Route;
         });
 
         #user route
-        Route::middleware(['auth:web','user.verified'])->prefix('user')->name('user.')->group(function()  {
+        Route::middleware(['auth:web','user.verified','kyc'])->prefix('user')->name('user.')->group(function()  {
 
             #Login route
             Route::controller(LoginController::class)->group(function () {
@@ -99,6 +99,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('profile','profile')->name('profile');
                 Route::post('profile/update','profileUpdate')->name('profile.update');
                 Route::post('/update', 'passwordUpdate')->name('password.update');
+                Route::post('/affiliate/update', 'affiliateUpdate')->name('affiliate.update');
                 Route::get('/notifications','notification')->name('notifications');
                 Route::post('/read-notification','readNotification')->name('read.notification');
             });
@@ -128,9 +129,8 @@ use Illuminate\Support\Facades\Route;
 
                 Route::get('/plans', 'plan')->name('plan');
 
-
                 #kyc route
-                Route::prefix("/kyc")->name('kyc.')->group(function(){
+                Route::prefix("/kyc")->name('kyc.')->withoutMiddleware(['kyc'])->group(function(){
 
                     Route::get('form','kycForm')->name('form');
                     Route::post('apply','kycApplication')->name('apply');

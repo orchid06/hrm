@@ -215,4 +215,23 @@ class HomeController extends Controller
 
     }
 
+
+
+    /**
+     * profile Update
+     *
+     * @return View
+     */
+    public function affiliateUpdate(Request $request ) :RedirectResponse{
+
+        $request->validate([
+            'referral_code'      => ['required','unique:users,referral_code,'.$this->user->id,'max:155'],
+        ]);
+
+        $user                       =  $this->user;
+        $user->referral_code        =  $request->input('referral_code');
+        $user->save();
+        return back()->with(response_status('Referral Code Updated'));
+    }
+
 }

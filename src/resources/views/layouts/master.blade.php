@@ -86,14 +86,25 @@
     @endif
 
     <main class="main" id="main">
-         @yield('content')
+   
+         @if(request()->routeIs('user.*'))
+
+            <section class="main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "p-0" :"" }}">
+                @yield('content')
+            </section>
+
+         @else
+
+            @yield('content')
+         
+         @endif
+         
     </main>
 
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
+    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && !request()->routeIs('user.*'))
 
-      @if(!request()->routeIs('user.*'))
          @include('frontend.partials.footer')
-      @endif
+
 
       @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
           @include('frontend.partials.cookie')
@@ -260,6 +271,24 @@
             document.getElementById('default-captcha').src = url;
             e.preventDefault()
         })
+
+
+        
+        //delete event start
+        $(document).on('click', ".delete-item", function (e) {
+            e.preventDefault();
+            var href = $(this).attr('data-href');
+            var message = 'Are you sure you want to remove these record ?'
+            if (($(this).attr('data-message'))) {
+                message = $(this).attr('data-message')
+            }
+            var src = "{{asset('assets/images/trash-bin.gif')}}";
+            $('.action-img').attr("src",src)
+            $("#action-href").attr("href", href);
+            $(".warning-message").html(message)
+            $("#actionModal").modal("show");
+        })
+
 
 
     </script>

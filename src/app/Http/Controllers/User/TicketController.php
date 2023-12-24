@@ -19,11 +19,12 @@ use Illuminate\View\View;
 use App\Traits\Notifyable;
 use Illuminate\Support\Arr;
 
+use App\Traits\Fileable;
 class TicketController extends Controller
 {
 
 
-    use Notifyable;
+    use Notifyable , Fileable;
 
     protected $ticketService ,$user;
 
@@ -132,7 +133,7 @@ class TicketController extends Controller
 
     
         $ticket              = Ticket::with(['user'])
-                                 ->where('user_id',$this->user)
+                                 ->where('user_id',$this->user->id)
                                  ->where('id',$request->input('id'))->firstOrFail();
 
         $message             = $this->ticketService->reply($ticket,$request);

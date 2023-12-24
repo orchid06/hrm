@@ -160,7 +160,6 @@
                                     <select class="form-select" name="custom_inputs[${count}][type]" >
                                         <option value="text">Text</option>
                                         <option value="email">Email</option>
-                                        <option value="number">Number</option>
                                         <option value="date">Date</option>
                                         <option value="textarea">Textarea</option>
                                         <option value="file">File</option>

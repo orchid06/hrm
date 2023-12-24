@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Builder;
 use App\Traits\Filterable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class KycLog extends Model
 {
     use HasFactory , Filterable;
@@ -25,9 +27,13 @@ class KycLog extends Model
         return $this->morphMany(File::class, 'fileable');
     }
 
-
     public function scopePending(Builder $q) :Builder{
 
         return $q->where('status',WithdrawStatus::value("PENDING",true));
+    }
+
+    public function user() :BelongsTo{
+        
+        return $this->belongsTo(User::class,'user_id');
     }
 }

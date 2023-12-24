@@ -372,7 +372,6 @@
            
             var remark = ($(this).attr('data-remarks'))
             var infos  = JSON.parse($(this).attr('data-info'));
-            console.log(infos)
 
             $('#content').html(remark)
             var lists = "";
