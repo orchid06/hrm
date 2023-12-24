@@ -63,6 +63,11 @@ class WithdrawLog extends Model
     }
 
 
+    public function scopeApproved(Builder $q) :Builder{
+
+        return $q->where('status',WithdrawStatus::value("APPROVED",true));
+    }
+
 
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Services\Account\facebook;
 
 use App\Traits\AccoutManager;
 use App\Enums\AccountType;
+use App\Enums\ConnectionType;
+use App\Enums\StatusEnum;
 use App\Models\MediaPlatform;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -33,7 +35,7 @@ class Account
         $apiVersion  = $platform->configuration->app_version;
         $api         = $baseApi."/".$apiVersion;
         $pageId      = Arr::get($request,'page_id', null);
-        $pageId      = Arr::get($request,'group_id', null);
+        $groupId      = Arr::get($request,'group_id', null);
 
         $response   = response_status(translate('Account Created'));
     
@@ -51,7 +53,7 @@ class Account
                     break;
 
                 case AccountType::Group->value:
-                    $api =   $api."/".$pageId;
+                    $api =   $api."/".$groupId;
                     break;
             }
             
@@ -92,7 +94,7 @@ class Account
                 'avatar'     => @$avatar ,
             ];
 
-            $this->saveAccount($guard ,$platform , $accountInfo ,$type );
+            $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value );
 
 
         } catch (\Exception $ex) {

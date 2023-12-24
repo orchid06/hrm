@@ -10,22 +10,26 @@ use App\Models\Admin\Category;
 use App\Models\Article;
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
-
+use App\Models\AiTemplate;
 use App\Models\Core\File;
 use App\Models\Link;
+use App\Models\MediaPlatform;
 use App\Models\Notification;
 use App\Models\Package;
 use App\Models\PaymentLog;
+use App\Models\SocialAccount;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Visitor;
+use App\Models\WithdrawLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\Fileable;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
@@ -44,72 +48,133 @@ class HomeController extends Controller
 
         return view('admin.home',[
             'title' => "Dashboard",
-            'data' => $this->getDashboardData($request)
-      
+            'data'  => $this->getDashboardData()
         ]);
     }
 
 
 
-     /**
+    /**
      * get dashboard data
+     * 
      */
 
-     public function getDashboardData($request =  null) :array{
-
-        $data['total_user'] = User::count();
-        $data['total_category'] = Category::count();
-        $data['total_package'] = Package::count();
-        $data['total_visitor'] = Visitor::count();
-        $data['total_article'] = Article::count();
-        $data['total_withdraw_method'] = Withdraw::count();
-        $data['total_payment_method'] = PaymentMethod::count();
-        $data['total_earning'] = round(PaymentLog::where('status','1')->sum('amount')) + round(PaymentLog::where('status','1')->sum('charge'));
-        $data['latest_log'] = PaymentLog::latest()->take(6)->get();
+     public function getDashboardData() :array{
 
 
-        $data['visitor_by_months'] = sortByMonth(Visitor::selectRaw("MONTHNAME(created_at) as months, count(*) as total")
-        ->whereYear('created_at', '=',date("Y"))
-        ->groupBy('months')
-        ->pluck('total', 'months')
-        ->toArray());
+
+        $data['latest_log']               = PaymentLog::with(['user','method','method.currency','currency'])
+                                                ->date()               
+                                                ->latest()
+                                                ->take(6)
+                                                ->get();
+        $data['latest_subscriptions']     = Subscription::with(['package','admin','user'])
+                                                ->date()               
+                                                ->latest()
+                                                ->take(8)
+                                                ->get();
+
+        $data['account_repot']            = [
+
+                "total_account"         => SocialAccount::count(),
+                "active_account"        => SocialAccount::active()->count(),
+                "inactive_account"      => SocialAccount::inactive()->count(),
+                "accounts_by_platform"  => MediaPlatform::withCount(['accounts'])
+                                            ->integrated()
+                                            ->pluck('accounts_count','name')
+                                            ->toArray()
+        ];
+
+        $subscripIncome = Subscription::date()->whereYear('created_at', '=',date("Y"))->sum('payment_amount');
+        $charge         = PaymentLog::paid()->date()->whereYear('created_at','=',date('Y'))->sum("charge");
+        $withDrawCharge = WithdrawLog::approved()->date()->whereYear('created_at','=',date('Y'))->sum("charge");
+        
+
+        $data['subscription_reports']    = [
+
+                                    "total_subscriptions"         => Subscription::date()->whereYear('created_at', '=',date("Y"))->count(),
+                                    "total_income"                => num_format(
+                                                                                number: $subscripIncome,
+                                                                                calC:true
+                                                                               ),
+            
+                                     "monthly_subscriptions"      =>  sortByMonth(Subscription::date()
+                                                                        ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                                        ->whereYear('created_at', '=',date("Y"))
+                                                                        ->groupBy('months')
+                                                                        ->pluck('total', 'months')
+                                                                        ->toArray()),
+                    
+                                     "monthly_income"             =>   sortByMonth(Subscription::date()
+                                                                            ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
+                                                                            ->whereYear('created_at', '=',date("Y"))
+                                                                            ->groupBy('months')
+                                                                            ->pluck('total', 'months')
+                                                                            ->toArray(),true)
+
+        ];
 
 
-        $data['earning_per_months'] = sortByMonth(PaymentLog::where('status','1')->selectRaw("MONTHNAME(created_at) as months, SUM(amount + charge) as total")
-        ->whereYear('created_at', '=',date("Y"))
-        ->groupBy('months')
-        ->pluck('total', 'months')
-        ->toArray());
 
-        $gateways = PaymentLog::with(['method'])->selectRaw('method_id, COUNT(*) AS count')
-            ->whereYear('created_at',date("Y"))
-            ->groupBy('method_id')
-            ->get();
-
-
-        $gatewayCounter = [];
-        foreach ($gateways as $gateway) {
-            if ($gateway->method->name !== 'N/A') {
-                $gatewayCounter[$gateway->method->name]=  $gateway->count;
-            }
-        }
+        $data['total_user']               = User::date()->count();
+        $data['total_category']           = Category::date()->count();
+        $data['total_package']            = Package::date()->count();
+        $data['total_visitor']            = Visitor::date()->count();
+        $data['total_article']            = Article::date()->count();
+        $data['total_template']           = AiTemplate::date()->count();
+        $data['total_earning']            = num_format(
+                                                number: $subscripIncome + $charge + $withDrawCharge,
+                                                calC:true
+                                            ) ;
+        $data['total_platform']           = MediaPlatform::active()->count();
 
 
-        $subscriptions = Subscription::with("package")->selectRaw('package_id, COUNT(*) AS count')
-        ->whereYear('created_at',date("Y"))
-        ->groupBy('package_id')
-        ->get();
 
 
-        $subscriptionCounter = [];
-        foreach ($subscriptions as $subscription) {
-            if ($subscription->package->title !== 'N/A') {
-                $subscriptionCounter[$subscription->package->title] =  $subscription->count;
-            }
-        }
+        $data['earning_per_months'] = sortByMonth(PaymentLog::paid()->selectRaw("MONTHNAME(created_at) as months, SUM(amount + charge) as total")
+                                            ->whereYear('created_at', '=',date("Y"))
+                                            ->groupBy('months')
+                                            ->pluck('total', 'months')
+                                            ->toArray());
 
-        $data["gateways"] = $gatewayCounter;
-        $data["subscription"] = $subscriptionCounter;
+        $data['subscription_by_plan']  =  Package::withCount(['subscriptions'])
+                                                ->pluck('subscriptions_count','title')
+                                                ->toArray();
+
+
+
+        $data['withdraw_charge']        = num_format(number:$withDrawCharge,calC:true);
+        $data['payment_charge']         = num_format(number:$charge,calC:true);
+
+        $data['monthly_payment_charge']       =  sortByMonth(PaymentLog::date()->paid()->selectRaw("MONTHNAME(created_at) as months, SUM(charge) as total")
+                                                ->whereYear('created_at', '=',date("Y"))
+                                                ->groupBy('months')
+                                                ->pluck('total', 'months')
+                                                ->toArray(),true);
+
+
+                                                
+        $data['monthly_withdraw_charge']       =  sortByMonth(WithdrawLog::date()->approved()->selectRaw("MONTHNAME(created_at) as months, SUM(charge) as total")
+                                                    ->whereYear('created_at', '=',date("Y"))
+                                                    ->groupBy('months')
+                                                    ->pluck('total', 'months')
+                                                    ->toArray(),true);
+
+
+        $data['latest_transactiions']           =  Transaction::with(['user','admin','currency'])
+                                                        ->search(['remarks','trx_code'])
+                                                        ->filter(["user:username",'trx_type'])
+                                                        ->date()               
+                                                        ->latest()
+                                                        ->take(8)
+                                                        ->get();
+
+
+
+
+
+
+
 
         return $data;
 

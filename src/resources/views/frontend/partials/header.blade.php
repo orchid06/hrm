@@ -443,9 +443,7 @@
 
                 @if(site_currencies() && !site_currencies()->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
-
                     @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-
                         <li>
                             <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
                         </li>

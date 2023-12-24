@@ -133,14 +133,14 @@
                                                     @if(check_permission('update_platform'))
                                                     
 
-                                                        <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
-                                                        </a>
-                                            
-                                                        <a   href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
-                                                        </a>
+                                                    <a  href="{{route('admin.social.account.create',['platform' => $platform->slug])}}" class=" fs-15 icon-btn success"><i class="las la-plus"></i>
+                                                    </a>
 
-
-                        
+                                                    <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
+                                                    </a>
+                                        
+                                                    <a   href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
+                                                    </a>
 
                                                     @endif
                                             
@@ -256,9 +256,6 @@
                              
                             </div>
 
-                          
-
-                            
                             <div class="col-xl-12">
                                 <div class="form-inner">
                                     <label for="callbackUrl">

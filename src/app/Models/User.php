@@ -260,6 +260,19 @@ class User extends Authenticatable
 
 
 
+    /**
+     * Get all of social accounts
+     *
+     * @return HasMany
+     */
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class, 'user_id');
+    }
+
+
+
+
     
     /**
      * Get all of credit logs
