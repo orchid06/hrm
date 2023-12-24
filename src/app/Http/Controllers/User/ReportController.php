@@ -59,11 +59,12 @@ class ReportController extends Controller
                                     ->paginate(paginateNumber())
                                     ->appends(request()->all()),
                                     
-            "templates"      => AiTemplate::where('user_id',$this->user->id)
-                                    ->whereHas("templateUsages")->get(),
+                                    
+            "templates"      => AiTemplate::whereHas("templateUsages")->get(),
            
          
         ]);
+
 
     }
 
@@ -80,7 +81,7 @@ class ReportController extends Controller
 
             'meta_data'       => $this->metaData(['title'=> translate("Withdraw Reports")]),
 
-            "reports"         =>  WithdrawLog::with(['user','method','currency'])
+            "reports"         =>  WithdrawLog::with(['user','method','currency','file'])
                                     ->where('user_id',$this->user->id)
                                     ->search(['trx_code'])
                                     ->filter(['status'])
@@ -99,25 +100,7 @@ class ReportController extends Controller
 
 
     
-    /**
-     * withdraw details
-     *
-     * @return View
-     */
-    public function withdrawDetails(int | string $id) :View{
-
-
-        return view('user.report.withdraw_details',[
-
-            'meta_data'       => $this->metaData(['title'=> translate("Withdraw Details")]),
-            "report"          => WithdrawLog::with(['user','method','method','currency'])
-                                    ->where('user_id',$this->user->id)
-                                    ->findOrfail($id)
-                                        
-        ]);
-
-    
-    }
+   
 
 
     /**
@@ -131,7 +114,7 @@ class ReportController extends Controller
         return view('user.report.deposit_report',[
 
             'meta_data'       => $this->metaData(['title'=> translate("Deposit Reports")]),
-            "reports"         => PaymentLog::with(['user','method','method.currency','currency'])
+            "reports"         => PaymentLog::with(['user','method','method.currency','currency','file'])
                                         ->where('user_id',$this->user->id)
                                         ->search(['trx_code'])
                                         ->filter(['method_id','status'])
@@ -150,25 +133,7 @@ class ReportController extends Controller
     }
 
 
-    
-    /**
-     * deposit details
-     *
-     * @return View
-     */
-    public function depositDetails(int | string $id) :View{
-
-
-        return view('user.report.deposit_details',[
-
-            'meta_data'       => $this->metaData(['title'=> translate("Deposit Details")]),
-            "report"          =>  PaymentLog::with(['user','method','method.currency','currency'])
-                                    ->where('user_id',$this->user->id)
-                                    ->findOrfail($id)
-                                        
-        ]);
-    }
-
+  
 
 
     /**
@@ -181,7 +146,7 @@ class ReportController extends Controller
 
         return view('user.report.subscription_report',[
 
-            'meta_data'       => $this->metaData(['title'=> translate("Subscription Details")]),
+            'meta_data'       => $this->metaData(['title'=> translate("Subscriptions Report")]),
 
             "reports"         => Subscription::with(['user','package','oldPackage'])
                                     ->where('user_id',$this->user->id)
@@ -218,6 +183,7 @@ class ReportController extends Controller
             "reports"         =>  AffiliateLog::with(['user','subscription','subscription.package','referral'])
                                     ->where('user_id',$this->user->id)
                                     ->search(['trx_code'])
+                                    ->filter(['referral:username'])
                                     ->date()               
                                     ->latest()
                                     ->paginate(paginateNumber())
@@ -298,7 +264,7 @@ class ReportController extends Controller
         return view('user.report.kyc_report',[
 
             'meta_data'       => $this->metaData(['title'=> translate("Credit Reports")]),
-            "reports"         => KycLog::with(['user'])
+            "reports"         => KycLog::with(['user','file'])
                                     ->where('user_id',$this->user->id)
                                     ->search(['notes'])
                                     ->filter(['status'])
@@ -312,26 +278,7 @@ class ReportController extends Controller
     }
 
 
-     /**
-     * Credit report
-     *
-     * @return View
-     */
-    public function kycDetails(string | int $id) :View{
-
-
-        return view('user.report.kyc_details',[
-
-            'meta_data'       => $this->metaData(['title'=> translate("Credit Reports")]),
-            "report"         => KycLog::with(['user','file'])
-                                    ->where('user_id',$this->user->id)
-                                    ->where('id',$id)
-                                    ->firstOrfail()
-
-
-        ]);
-
-    }
+   
 
 
 

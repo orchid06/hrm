@@ -374,7 +374,7 @@ class ActivityHistoryController extends Controller
 
             'breadcrumbs'     =>  ['Home'=>'admin.home',"Deposits"=> "admin.deposit.report.list",'Deposit Details'=> null],
             'title'           => 'Deposit Details',
-            "report"          =>  PaymentLog::with(['user','method','method.currency','currency'])
+            "report"          =>  PaymentLog::with(['user','method','method.currency','currency','file'])
                                     ->findOrfail($id)
                                         
         ]);
@@ -647,14 +647,6 @@ class ActivityHistoryController extends Controller
     
     }
 
-
-
-    
-
-
-  
-  
-  
 
 
 }

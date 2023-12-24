@@ -21,12 +21,14 @@ use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Models\Admin;
 use Carbon\Carbon;
-
+use App\Traits\Notifyable;
+use App\Traits\Fileable;
 class UserController extends Controller
 {
     
     protected $userService ,$user;
 
+    use Notifyable ,Fileable;
     public function __construct(){
         
         $this->userService      = new UserService();
@@ -35,6 +37,27 @@ class UserController extends Controller
             $this->user = auth_user('web');
             return $next($request);
         });
+    }
+
+
+
+    /**
+     * View pricing plan
+     *
+     * @return View
+     */
+    public function plan () :View{
+
+        return view('user.plan',[
+
+            'meta_data' => $this->metaData(
+                [
+                    "title"    =>  trans('default.plan')
+                ]
+            ),
+            "plans"     => Package::active()->get()
+  
+        ]);
     }
 
 
@@ -180,11 +203,13 @@ class UserController extends Controller
     }
 
 
-
     public function kycForm() :View {
 
+        if($this->user->is_kyc_verified   == StatusEnum::true->status()){
+            abort(404);
+        }
         return view('user.kyc_form',[
-            'meta_data' => $this->metaData(['title'=> translate("Kyc Verification")]),
+            'meta_data' => $this->metaData(['title'=> translate("Kyc Applications")]),
         ]);
 
     }
@@ -200,85 +225,95 @@ class UserController extends Controller
      */
     public function kycApplication(KycRequest $request) :RedirectResponse {
 
+        if($this->user->is_kyc_verified   == StatusEnum::true->status()){
+            abort(404);
+        }
 
-        DB::transaction(function() use ($request ) {
+        $pendingKycs = KycLog::where("user_id",$this->user->id)->pending()->count();
 
-            $kycLog                  = new KycLog();
-            $kycLog->user_id         = $this->user->id;
-            $kycLog->status          = KycStatus::PENDING;
-            $kycLog->kyc_data        = (Arr::except($request['kyc_data'],['attachment']));
-            $kycLog->save();
 
-            if(isset($request["kyc_data"] ['attachment'][0])){
-                foreach($request["kyc_data"] ['attachment'] as $file){
-                    $response = $this->storeFile(
-                        file        : $file, 
-                        location    : config("settings")['file_path']['kyc']['path'],
-                    );
-                    if(isset($response['status'])){
-                        $file = new File([
-                            'name'      => Arr::get($response, 'name', '#'),
-                            'disk'      => Arr::get($response, 'disk', 'local'),
-                            'type'      => 'ticket_file',
-                            'size'      => Arr::get($response, 'size', ''),
-                            'extension' => Arr::get($response, 'extension', ''),
-                        ]);
 
-                        $kycLog->file()->save($file);
-                    }
-                }
-            }
+        if($pendingKycs > 0){
+            return back()->with(response_status('You already have a pending kyc request, Please wait for our confirmation','error'));
+        }
 
-            $route          =  route("admin.kyc.report.details",$kycLog->id);
+        $kycLog =   DB::transaction(function() use ($request ) {
 
-            $admin          = get_admin();
+                        $kycLog                  = new KycLog();
+                        $kycLog->user_id         = $this->user->id;
+                        $kycLog->status          = KycStatus::value("PENDING",true);
+                        $kycLog->kyc_data        = (Arr::except($request['kyc_data'],['files']));
+                        $kycLog->save();
 
-            $code           = [
-                "name"          =>  $this->user->name,
-                "time"          =>  Carbon::now(),
-            ];
+                        if(isset($request["kyc_data"] ['files'])){
+                            foreach($request["kyc_data"] ['files'] as $key => $file){
+                                $response = $this->storeFile(
+                                    file        : $file, 
+                                    location    : config("settings")['file_path']['kyc']['path'],
+                                );
+                                if(isset($response['status'])){
+                                    $file = new File([
+                                        'name'      => Arr::get($response, 'name', '#'),
+                                        'disk'      => Arr::get($response, 'disk', 'local'),
+                                        'type'      => $key,
+                                        'size'      => Arr::get($response, 'size', ''),
+                                        'extension' => Arr::get($response, 'extension', ''),
+                                    ]);
 
-            $notifications = [
+                                    $kycLog->file()->save($file);
+                                }
+                            }
+                        }
 
-                'database_notifications' => [
-                    'action' => [SendNotification::class, 'database_notifications'],
-                    'params' => [
-                        [ $admin, 'KYC_APPLIED', $code, $route ],
-              
-                    ],
-                ],
+                        $route          =  route("admin.kyc.report.details",$kycLog->id);
+                        $admin          = get_admin();
+                        $code           = [
+                            "name"          =>  $this->user->name,
+                            "time"          =>  Carbon::now(),
+                        ];
 
-                'slack_notifications' => [
-                    'action' => [SendNotification::class, 'slack_notifications'],
-                    'params' => [
-                        [
-                            $admin, 'KYC_APPLIED', $code, $route
-                        ]
-                    ],
-                ],
+                        $notifications = [
 
-                'email_notifications' => [
-                    'action' => [SendMailJob::class, 'dispatch'],
-                    'params' => [
-                        [$admin,'KYC_APPLIED',$code],
-                      
-                    ],
-                ],
-                'sms_notifications' => [
-                    'action' => [SendMailJob::class, 'dispatch'],
-                    'params' => [
-                        [$admin,'NEW_TICKET',$code],
-                       
-                    ],
-                ],
-               
-            ];
+                            'database_notifications' => [
+                                'action' => [SendNotification::class, 'database_notifications'],
+                                'params' => [
+                                    [ $admin, 'KYC_APPLIED', $code, $route ],
+                        
+                                ],
+                            ],
 
-            $this->notify($notifications);
+                            'slack_notifications' => [
+                                'action' => [SendNotification::class, 'slack_notifications'],
+                                'params' => [
+                                    [
+                                        $admin, 'KYC_APPLIED', $code, $route
+                                    ]
+                                ],
+                            ],
 
-            return $kycLog ;
-        });
+                            'email_notifications' => [
+                                'action' => [SendMailJob::class, 'dispatch'],
+                                'params' => [
+                                    [$admin,'KYC_APPLIED',$code],
+                                
+                                ],
+                            ],
+                            'sms_notifications' => [
+                                'action' => [SendMailJob::class, 'dispatch'],
+                                'params' => [
+                                    [$admin,'KYC_APPLIED',$code],
+                                
+                                ],
+                            ],
+                        
+                        ];
 
+                        $this->notify($notifications);
+
+                        return $kycLog ;
+                    });
+
+   
 
         return back()->with(response_status('KYC application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
     }

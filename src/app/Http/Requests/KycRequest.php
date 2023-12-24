@@ -22,12 +22,8 @@ class KycRequest extends FormRequest
      */
     public function rules(): array
     {
-        
+
         $validation  =  $this->get_validation(request()->except(['_token']));
-
-
-        
-
         return  $validation ['rules'];
     }
 
@@ -56,7 +52,7 @@ class KycRequest extends FormRequest
                    $required ="required";
                 }
                 if($fields['type'] == 'file'){
-                    $rules['kyc_data.'.$fields['name']] = [$required, new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))];
+                    $rules['kyc_data.files.'.$fields['name']] = [$required, new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))];
                 }
                 elseif($fields['type'] == 'email'){
                     $rules['kyc_data.'.$fields['name']] = [$required,'email'];

@@ -93,7 +93,6 @@
                     </div>
                 @endif
                
-        
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">

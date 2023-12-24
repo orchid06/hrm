@@ -20,7 +20,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
-                data-bs-title="Dashboard">
+                data-bs-title="{{translate("Dashboard")}}">
                 <i class="bi bi-grid-1x2"></i>
               </div>
               <span class="d-lg-none">
@@ -29,109 +29,106 @@
             </a>
           </li>
 
-          {{-- <li class="sidemenu-item">
-            <a href="#" class="sidemenu-link">
+            @php
+                       $lastSegment = collect(request()->segments())->last();
+            @endphp
+
+          <li class="sidemenu-item">
+            <a href="javascript:void(0)" class="sidemenu-link  
+             @if($lastSegment == "reports")
+                 active
+             @endif">
               <div
                 class="sidemenu-icon"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
-                data-bs-title="Analytics"
-              >
-                <i class="bi bi-bar-chart-line"></i>
+                data-bs-title="{{translate("Reports")}}">
+                <i class="bi bi-graph-up"></i>
               </div>
-              <span class="d-lg-none">Analytics</span>
+              <span class="d-lg-none">
+                 {{translate("Reports")}}
+              </span>
             </a>
 
             <div class="side-menu-dropdown">
               <div class="menu-dropdown-header">
-                <h6>Analytics</h6>
+                <h6>
+                   {{translate("Analytical Reports")}}
+                </h6>
               </div>
 
               <ul class="sub-menu">
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link" href="#">
-                    <span><i class="bi bi-facebook"></i></span>
-                    <p>Facebook</p>
-                  </a>
-                </li>
 
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link" href="#">
-                    <span><i class="bi bi-instagram"></i></span>
-                    <p>Instagram</p>
-                  </a>
-                </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? "active" :""}}" href="{{route('user.template.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Template Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? "active" :""}}" href="{{route('user.subscription.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Subscription Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? "active" :""}}" href="{{route('user.credit.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Credit Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? "active" :""}}" href="{{route('user.deposit.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Deposit Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? "active" :""}}" href="{{route('user.withdraw.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Withdraw Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? "active" :""}}" href="{{route('user.affiliate.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Affiliate Reports')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? "active" :""}}" href="{{route('user.transaction.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Transaction Reports')}}
+                        </p>
+                    </a>
+                  </li>
 
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link" href="#">
-                    <span><i class="bi bi-twitter-x"></i></span>
-                    <p>Twitter</p>
-                  </a>
-                </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? "active" :""}}" href="{{route('user.kyc.report.list')}}">
+                      <span><i class="bi bi-arrow-return-right"></i></span>
+                        <p>
+                           {{translate('Kyc Reports')}}
+                        </p>
+                    </a>
+                  </li>
 
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link" href="#">
-                    <span><i class="bi bi-linkedin"></i></span>
-                    <p>Linkedin</p>
-                  </a>
-                </li>
-
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link" href="#">
-                    <span><i class="bi bi-youtube"></i></span>
-                    <p>You Tube</p>
-                  </a>
-                </li>
               </ul>
             </div>
-          </li> --}}
-
-          {{-- <li class="sidemenu-item">
-            <a href="./create-post.html" class="sidemenu-link">
-              <div
-                class="sidemenu-icon"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-custom-class="custom-tooltip"
-                data-bs-title="Create Post"
-              >
-                <i class="bi bi-pencil-square"></i>
-              </div>
-
-              <span class="d-lg-none">Create Post</span>
-            </a>
-          </li> --}}
-
-          {{-- <li class="sidemenu-item">
-            <a href="./calendar.html" class="sidemenu-link">
-              <div
-                class="sidemenu-icon"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-custom-class="custom-tooltip"
-                data-bs-title="Schedule"
-              >
-                <i class="bi bi-calendar4-event"></i>
-              </div>
-              <span class="d-lg-none">Schedule</span>
-            </a>
-          </li> --}}
-
-          {{-- <li class="sidemenu-item">
-            <a href="#" class="sidemenu-link">
-              <div
-                class="sidemenu-icon"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                data-bs-custom-class="custom-tooltip"
-                data-bs-title="Publishing"
-              >
-                <i class="bi bi-send"></i>
-              </div>
-              <span class="d-lg-none">Dashboard</span>
-            </a>
-          </li> --}}
+          </li>
 
           <li class="sidemenu-item">
             <a href="{{route("user.profile")}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? "active" :""}}">
@@ -140,7 +137,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="right"
                 data-bs-custom-class="custom-tooltip"
-                data-bs-title="Profile">
+                data-bs-title="{{translate("Profile")}}">
                 <i class="bi bi-person-check"></i>
               </div>
 
@@ -149,6 +146,37 @@
               </span>
             </a>
           </li>
+
+
+          <li class="sidemenu-item">
+              <a href="{{route("user.plan")}}" class="sidemenu-link  {{request()->routeIs('user.plan') ? "active" :""}}">
+                <div class="sidemenu-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="{{translate("Plans")}}">
+                  <i class="bi bi-box-seam"></i>
+                </div>
+                <span class="d-lg-none">
+                  {{translate("Plans")}}
+                </span>
+              </a>
+          </li>
+
+
+          <li class="sidemenu-item">
+            <a href="{{route("user.ticket.list")}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? "active" :""}}">
+              <div
+                class="sidemenu-icon"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="{{translate('Support Ticket')}}">
+                <i class="bi bi-patch-question"></i>
+              </div>
+
+              <span class="d-lg-none">
+                {{translate("Tickets")}}
+              </span>
+            </a>
+        </li>
+
 
  
         </ul>

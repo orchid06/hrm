@@ -100,7 +100,6 @@
 
                 @include('admin.partials.loader')
 
-            
                 <table >
                     <thead>
                         <tr>
@@ -165,7 +164,7 @@
                                           {{$report->trx_code}}
                                     </td>
 
-                                    <td  data-label='{{translate("Credit")}}'>
+                                    <td  data-label='{{translate("Balance")}}'>
                                         <span class='text--{{$report->trx_type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
                                             <i class='las la-{{$report->trx_type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}'></i>
 
@@ -174,7 +173,7 @@
                                         </span>
                                     </td>
 
-                                    <td  data-label='{{translate("Post Credit")}}'>
+                                    <td  data-label='{{translate("Post Balance")}}'>
 
                                         {{@num_format(
                                             number : $report->post_balance??0,
@@ -274,6 +273,8 @@
 @push('script-push')
 <script>
 	(function($){
+
+        "use strict";
 
         $(".select2").select2({
            

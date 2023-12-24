@@ -55,8 +55,8 @@
                                                 </option>
                             
                                                 @foreach(system_users() as $user)
-                                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                                </option>
+                                                    <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -165,7 +165,7 @@
                                     </td>
 
                                     <td  data-label='{{translate("Post Credit")}}'>
-                                        @if(App\Enums\PlanDuration::value('UNLIMITED') == $report->balance)
+                                        @if(App\Enums\PlanDuration::value('UNLIMITED') == $report->post_balance)
                                            {{translate('Unlimited')}}
                                         @else
                                             {{$report->post_balance}}

@@ -35,7 +35,6 @@
                                         </select>
                                     </div>
 
-
                                     <div class="form-inner">
                                         <select name="user" id="user" class="user">
                                             <option value="">
@@ -48,10 +47,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-inner">
-                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
-                                    </div>
-
+                              
                                     <button class="i-btn btn--sm info w-100">
                                         <i class="las la-sliders-h"></i>
                                     </button>
@@ -82,22 +78,12 @@
                             <th scope="col">
                                 {{translate('Date')}}
                             </th>
-                           
 
                             <th scope="col">
                                 {{translate('User')}}
                             </th>
 
-                            <th scope="col">
-                                {{translate('Method')}}
-                            </th>
-
-                            <th scope="col">
-                                {{translate('Trx Code')}}
-                            </th>
-                            <th scope="col">
-                                {{translate('Final Amount')}}
-                            </th>
+                  
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
@@ -109,8 +95,9 @@
                     </thead>
 
                     <tbody>
+                        
                         @forelse($reports as $report)
-  
+
                                 <tr>
                                     <td data-label="#">
                                       
@@ -128,19 +115,7 @@
                                         </a>
                                     </td>
 
-                                    <td data-label='{{translate("Payment Method")}}'>
-                                     
-                                        {{$report->method->name}}
-                                        
-                                    </td>
-                                    
-                                    <td  data-label='{{translate("Trx Code")}}'>
-                                          {{$report->trx_code}}
-                                    </td>
 
-                                    <td  data-label='{{translate("Final Amount")}}'>
-                                          {{num_format($report->final_amount,@$report->currency)}}
-                                    </td>
                                     <td  data-label='{{translate("Status")}}'>
                                          
                                         @php echo  withdraw_status($report->status)  @endphp
@@ -150,7 +125,7 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.withdraw.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.kyc.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                         </div>
                                     </td>
@@ -190,9 +165,7 @@
 <script>
 	(function($){
 
-        $(".select2").select2({
-           
-        });
+     
         $(".user").select2({
            
         });
