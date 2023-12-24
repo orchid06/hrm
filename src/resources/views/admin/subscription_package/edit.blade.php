@@ -277,10 +277,7 @@
                 }
             });
 
-
-
-           
-         
+       
 	})(jQuery);
 </script>
 @endpush
