@@ -23,12 +23,19 @@
   --site-bg: #f6fbfa;
   --sidebar-bg: #fff;
   --footer-bg: #020202;
+
+  --color-success: #0ab39c;
+  --color-success-light: rgba(10, 179, 156, 0.1);
+  --color-success-soft: #eafffc;
+
   --color-danger: #f8285a;
   --color-danger-light: rgb(248, 37, 87, 0.1);
   --color-danger-soft: #ffeef3;
+
   --color-warning: #f6c000;
-  --color-warning-light: rgb(245, 192, 0.1);
+  --color-warning-light: rgba(245, 192, 0, 0.1);
   --color-warning-soft: #fff8dd;
+  
   --color-info: #299cdb;
   --color-info-light: rgb(41, 157, 219, 0.1);
   --color-info-soft: #e9f3ff;
@@ -40,7 +47,6 @@
   outline: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-
 }
 
 h1,
@@ -110,6 +116,35 @@ button {
 
 figure {
   margin-bottom: 0 !important;
+}
+
+/* Text Colors */
+.text--primary {
+  color: var(--color-primary) !important;
+}
+
+.text--danger {
+  color: var(--color-danger) !important;
+}
+
+.text--info {
+  color: var(--color-info) !important;
+}
+
+.text--warning {
+  color: var(--color-warning) !important;
+}
+
+.text--success {
+  color: var(--color-success) !important;
+}
+
+.text--light {
+  color: var(--color-white) !important;
+}
+
+.text--dark {
+  color: var(--color-dark) !important;
 }
 
 /* Padding */

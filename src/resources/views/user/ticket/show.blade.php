@@ -4,17 +4,16 @@
 @endpush
 @section('content')
 
-<div class="row g-3 mb-4">
-
+<div class="row g-4 mb-4">
     <div class="col-xl-9 col-lg-8">
         <div class="i-card-md">
-            <div class="card--header">
+            <div class="card-header">
                 <h4 class="card-title">
                     {{translate(Arr::get($meta_data,'title'))}}
                 </h4>
             </div>
-            <div class="card-body">
 
+            <div class="card-body">
                 <div class="ticket-conversation">
                         @if ($ticket->status == App\Enums\TicketStatus::CLOSED->value)
                             <div class="text-center">
@@ -27,9 +26,9 @@
                             @csrf
                             <input hidden value="{{ $ticket->id }}" type="text" name="id" >
                             <textarea class="summernote" name="message" rows="3" placeholder="{{ translate('Reply Here ....') }}"></textarea>
-                            <div class="give-replay-action">
+                            <div class="give-replay-action mt-4">
                                 <div>
-                                    <button class="post-replay i-btn btn--sm btn--primary" type="submit">
+                                    <button class="post-replay i-btn btn--primary btn--lg capsuled" type="submit">
                                         {{ translate('Submit') }}
                                     </button>
                                 </div>
@@ -41,65 +40,62 @@
                         $messages = $ticket->messages;
                         $files = $ticket->file;
                     @endphp
+                </div>
+            </div>
+        </div>
 
-                  
-                    <div class="discussion-continer">
-                        <div class="i-card-md">
-                            <div class="card--header px-0">
-                                <h4 class="card-title">
-                                    {{ translate('Ticket Message') }}
-                                </h4>
-                            </div>
-                            <div class="card-body px-0 pb-0">
-                                @forelse($messages    as $message)
-                                    @php
-                                        $imgUrl = imageUrl(@$ticket->user->file,"profile,user",true);
-                                        if ($message->admin_id) {
-               
-                                            $imgUrl = imageUrl($message->admin->file,"profile,admin",true);;
-                                        }
-                                    @endphp
-                                    <div class="message-item d-flex justify-content-between align-items-start">
-                                        <div class="d-flex flex-grow-1">
-                                            <div class="author-image me-3">
-                                                <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
-                                            </div>
+        <div class="discussion-continer mt-4">
+            <div class="i-card-md">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        {{ translate('Ticket Message') }}
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    @forelse($messages    as $message)
+                        @php
+                            $imgUrl = imageUrl(@$ticket->user->file,"profile,user",true);
+                            if ($message->admin_id) {
 
-                                            <div class="author-content flex-grow-1">
-                                                <div class="mesg-meta mb-1">
-                                                    <h6>
-                                                        @if ($message->admin_id)
-                                                            {{ $message->admin?->name }}
-                                                        @else
-                                                            {{ $ticket->user?->name }}
-                                                        @endif
-                                                    </h6>
-                                                    <small> {{ diff_for_humans($message->created_at) }}</small>
-                                                </div>
-                                                <div class="mesg-body">
-                                                    @php echo $message->message  @endphp
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
+                                $imgUrl = imageUrl($message->admin->file,"profile,admin",true);;
+                            }
+                        @endphp
+                        <div class="message-item d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-grow-1">
+                                <div class="author-image me-3">
+                                    <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
+                                </div>
+
+                                <div class="author-content flex-grow-1">
+                                    <div class="mesg-meta mb-1">
+                                        <h6>
+                                            @if ($message->admin_id)
+                                                {{ $message->admin?->name }}
+                                            @else
+                                                {{ $ticket->user?->name }}
+                                            @endif
+                                        </h6>
+                                        <small> {{ diff_for_humans($message->created_at) }}</small>
                                     </div>
-                                @empty
-                                    @include('admin.partials.not_found')
-                                @endforelse
+                                    <div class="mesg-body">
+                                        @php echo $message->message  @endphp
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-
-
-                    </div>
-
+                    @empty
+                        @include('admin.partials.not_found')
+                    @endforelse
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-lg-4">
-        <div class="i-card-md mb-30">
-            <div class="card--header">
+        <div class="i-card-md">
+            <div class="card-header">
                 <h4 class="card-title">
                     {{ translate('Ticket Details') }}
                 </h4>
@@ -109,7 +105,6 @@
                 <div class="ticket-dtable">
                     <table>
                         <tbody>
-
                             <tr>
                                 <td>{{ translate('Ticket Id') }} :</td>
                                 <td>
@@ -142,15 +137,14 @@
                                     @php echo priority_status($ticket->priority) @endphp
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="i-card-md mb-30">
-            <div class="card--header">
+        <div class="i-card-md mt-4">
+            <div class="card-header">
                 <h4 class="card-title">
                     {{ translate('Custom Data') }}
                 </h4>
@@ -176,7 +170,6 @@
                                         </td>
                                     </tr>
                             @endforelse
-
                         </tbody>
                     </table>
                 </div>
@@ -184,7 +177,7 @@
         </div>
 
 
-      
+
         @if ($files && $files->count()  > 0)
             <div class="i-card-md mb-30">
                 <div class="card--header">

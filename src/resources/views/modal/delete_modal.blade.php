@@ -16,17 +16,17 @@
 
           <div class="modal-footer">
             <button type="button"
-                class="i-btn btn--lg bg-soft-warning"
+                class="i-btn btn--lg warning"
                 data-bs-dismiss="modal">
                 {{translate("No")}}
             </button>
               <div class="actionbtn">
-                  <a href="javascript:void(0)" class="i-btn btn--lg delete-btn btn-delete"
+                  <a href="javascript:void(0)" class="i-btn btn--lg delete-btn btn-delete danger"
                   id="action-href">
                   {{translate('Yes')}}
                  </a>
               </div>
-           
+
           </div>
         </div>
       </div>

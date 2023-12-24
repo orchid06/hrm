@@ -1,11 +1,11 @@
   <header class="header">
     @php
-        
         $lang = $languages->where('code',session()->get('locale'));
         $code = count($lang)!=0 ? $lang->first()->code:"en";
         $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
         $user = auth_user('web');
     @endphp
+
     <div class="container-fluid px-0">
       <div class="header-container">
         <div class="d-flex align-items-center gap-3">
@@ -15,7 +15,7 @@
             </div>
           </div>
           <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
-        
+
             <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
           </a>
@@ -23,15 +23,15 @@
 
         <nav class="nav-bar">
           <ul class="menu-list">
-           
+
             <li class="menu-item">
-              <a href="{{route('user.home')}}" class="menu-link"> 
+              <a href="{{route('user.home')}}" class="menu-link">
                 {{translate("Home")}}
               </a>
             </li>
 
             <li class="menu-item">
-              <a href="{{route('user.plan')}}" class="menu-link"> 
+              <a href="{{route('user.plan')}}" class="menu-link">
                 {{translate("Plans")}}
               </a>
             </li>
@@ -53,11 +53,9 @@
         <div class="header-right">
 
           <div class="header-right-item">
-            <a href="{{route("home")}}">
-              <i class="bi bi-globe-americas"></i>
+            <a href="{{route("home")}}" class="home-link-btn ">
+                <i class="bi bi-globe-americas"></i>
             </a>
-
-
           </div>
            <!-- languages -->
           <div class="header-right-item">
@@ -74,7 +72,7 @@
                 </button>
                 @if(!$languages->isEmpty())
                   <ul class="dropdown-menu dropdown-menu-end">
-                  
+
                     @foreach($languages as $language)
                       <li>
                         <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
@@ -85,7 +83,7 @@
                         </a>
                       </li>
                     @endforeach
-              
+
                   </ul>
                 @endif
             </div>
@@ -93,7 +91,7 @@
 
            <!-- currency -->
           <div class="header-right-item">
-            <div class="currency">
+            <div class="dropdown currency">
                 <button
                     class="dropdown-toggle"
                     type="button"
@@ -119,9 +117,8 @@
           </div>
 
            <!-- notifications -->
-
            @php
-             
+
              $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
                               ->where("notificationable_id",$user->id)
                               ->unread()
@@ -130,6 +127,7 @@
                               ->get();
               $notificationCount = $notifications->count();
            @endphp
+
           <div class="header-right-item">
             <div class="dropdown noti-dropdown">
 
@@ -145,22 +143,22 @@
                 </a>
 
              @endif
-             
+
 
               <ul class="dropdown-menu dropdown-menu-end">
                 <li class="dropdown-menu-title">
                   <h6>
                      {{translate("Notifications")}}
                   </h6>
-   
+
                      <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
-            
+
                 </li>
 
                 <li>
                   <div class="notification-items" data-simplebar>
                     <div class="notification-item">
-                    
+
                       <ul>
                         @forelse($notifications as $notification)
                             <li>
@@ -251,16 +249,16 @@
                   </li>
 
                   <li>
-                    <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i> 
+                    <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i>
                         {{translate("Withdraw")}}
                     </a>
                   </li>
 
-              
+
 
                   <li class="dropdown-menu-footer">
                     <a href="{{route("user.logout")}}">
-                      <i class="bi bi-box-arrow-left"></i> 
+                      <i class="bi bi-box-arrow-left"></i>
                         {{translate('Logout')}}
                     </a>
                   </li>

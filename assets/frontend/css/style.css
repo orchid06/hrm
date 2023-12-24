@@ -1375,9 +1375,10 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   height: 42px;
-  padding: 0 15px 0 8px;
+  width: 42px;
   background-color: var(--color-primary-soft);
   border-radius: 50px;
   color: var(--text-secondary);

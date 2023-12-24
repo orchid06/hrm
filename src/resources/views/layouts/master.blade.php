@@ -28,7 +28,7 @@
       @else
          <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet" type="text/css" />
       @endif
-      
+
     <link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
 
@@ -86,19 +86,19 @@
     @endif
 
     <main class="main" id="main">
-   
+
          @if(request()->routeIs('user.*'))
 
-            <section class="main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "p-0" :"" }}">
+            <section class="main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "px-0 pt-0" :"" }}">
                 @yield('content')
             </section>
 
          @else
 
             @yield('content')
-         
+
          @endif
-         
+
     </main>
 
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && !request()->routeIs('user.*'))
@@ -109,7 +109,7 @@
       @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
           @include('frontend.partials.cookie')
       @endif
-    
+
     @endif
 
     @yield("modal")
@@ -273,7 +273,7 @@
         })
 
 
-        
+
         //delete event start
         $(document).on('click', ".delete-item", function (e) {
             e.preventDefault();
