@@ -200,7 +200,7 @@
           </h4>
         </div>
         <div class="card-body">
-            <div class="row g-0 text-center mb-2">
+            <div class="row g-0 text-center mb-5">
             
               <div class="col-6 col-sm-6">
                   <div class="p-3 border border-dashed border-start-0">
@@ -487,7 +487,6 @@
 
 
   <div class="row g-3 mb-4">
-
     <div class="col-xxl-4 col-xl-5">
       <div class="i-card-md">
         <div class="card--header">
@@ -501,7 +500,33 @@
         </div>
         <div class="card-body">
           <div id="planReport" class="apex-chart"></div>
-
+          <div class="row g-0 text-center">
+            
+            <!--end col-->
+            <div class="col-6 col-sm-6">
+                <div class="p-3 border border-dashed border-start-0">
+                    <h5 class="mb-1">
+                        <span>
+                          {{Arr::get($data['account_repot'],"active_account",0)}}
+                        </span>
+                    </h5>
+                    <p class="text-muted mb-0">
+                        {{translate("Active")}}
+                    </p>
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col-6 col-sm-6">
+                <div class="p-3 border border-dashed border-start-0">
+                    <h5 class="mb-1"><span>
+                      {{Arr::get($data['account_repot'],"inactive_account",0)}}
+                    </span></h5>
+                    <p class="text-muted mb-0">
+                         {{translate("Inactive")}}
+                    </p>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

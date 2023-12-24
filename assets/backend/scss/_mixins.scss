@@ -92,8 +92,6 @@
 //  Media queries Mix
 // ====================
 
-// xl-device=====
-
 @mixin fifteen-up-device {
     @media (min-width: 1500px) {
         @content;

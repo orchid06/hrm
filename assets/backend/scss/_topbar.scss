@@ -50,9 +50,15 @@
           font-weight: 500;
         }
         a {
-          color: $color-primary;
           @include transition-5;
+          color: var(--color-primary);
           line-height: 1;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         &:hover {
           background-color: $color-primary;
