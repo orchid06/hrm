@@ -18,16 +18,15 @@
          .dropable-section .cog-section{
             display: none !important;
          }
-         
+
    </style>
 @endpush
 
 
 @section('content')
 
-        
-        <div class="row g-4">
 
+        <div class="row g-4">
             <div class="col-xl-7">
                 <form action="{{route('admin.menu.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
                         @csrf
@@ -38,33 +37,33 @@
                                 {{translate('Basic Information')}}
                             </h4>
                         </div>
-                    
+
                         <div class="card-body">
-                            <div class="row">                        
+                            <div class="row">
                                 <div class="col-lg-6">
-                                        <div class="form-inner">                              
+                                        <div class="form-inner">
                                             <label class="form-label" for="name">
                                                 {{translate('Name')}}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="text" name="name" id="name" placeholder='{{translate("Enter name")}}'
-                                                value="{{$menu->name}}" required>                                                              
-                                        </div>                                                                         
+                                                value="{{$menu->name}}" required>
+                                        </div>
                                 </div>
                                 <div class="col-lg-6">
-                                        <div class="form-inner">                              
+                                        <div class="form-inner">
                                             <label class="form-label" for="url">
                                                 {{translate('Url')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            
+
                                             <input type="text" name="url" id="url" placeholder='{{translate("Enter url")}}'
-                                                value="{{$menu->url}}" required>                                                             
-                                        </div>                                                                         
+                                                value="{{$menu->url}}" required>
+                                        </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-inner">
-                                        <label for="serial_id"> 
+                                        <label for="serial_id">
                                             {{translate('Serial Id')}}  <span class="text-danger">*</span>
                                         </label>
                                         <input type="number" name="serial_id" value="{{$menu->serial_id}}" >
@@ -98,16 +97,16 @@
                                                     <a href="javascript:void(0)" class=" i-btn btn--sm danger ms-auto section-remove">
                                                         <i class="las la-times-circle"></i>
                                                     </a>
-                                            
+
                                                 </li>
 
                                             @endforeach
                                         @endif
-                                
+
 
                                     </ul>
-                    
-                                
+
+
                                 <div class="col-12">
                                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
@@ -118,6 +117,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="col-xl-5">
                     <div class="i-card-md">
                         <div class="card--header">
@@ -125,8 +125,8 @@
                                 {{translate('Drag the section to the left side you want to show on the page.')}}
                             </h4>
                         </div>
-                
-                        <div class="card-body">             
+
+                        <div class="card-body">
                             <ul class="dragable-section">
                                 @foreach (get_appearance(true) as $key => $appearance )
                                     @if (isset($appearance['builder']) && $appearance['builder'] && !@$appearance['no_selection'])
@@ -149,10 +149,7 @@
                         </div>
                     </div>
             </div>
-
-       </div>   
-        
-
+       </div>
 
 @endsection
 
@@ -168,7 +165,6 @@
 <script>
 	(function($){
        	"use strict";
-
 
            $(".dropable-section").sortable({
                 group: 'no-drop',
@@ -188,14 +184,9 @@
             });
 
             $(document).on('click',".section-remove",function(e){
-
                 $(this).parent().remove();
-
             })
 
-    
-          
-     
 	})(jQuery);
 </script>
 @endpush
