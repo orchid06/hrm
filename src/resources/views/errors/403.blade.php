@@ -1,5 +1,25 @@
-@extends('errors::minimal')
+@extends('layouts.error')
+@section('content')
 
-@section('title', __('Unauthorized'))
-@section('code', '403')
-@section('message', __('Unauthorized'))
+
+<div class="col-lg-5">
+    <div class="error-content">
+        <h1>403</h1>
+        <p>{{@translate('Unauthorized')}}</p>
+
+        <div class="mt-lg-5 mt-4 d-flex align-items-center justify-content-center">
+            <a href="javascript:void(0)" class="i-btn btn--primary btn--lg capsuled">
+                {{@translate('Back To Home Page')}}
+            </a>
+        </div>
+    </div>
+</div>
+<div class="col-lg-7">
+    <div class="error-image">
+        <img src="{{asset('assets/images/403.png')}}" alt="403.png" class="img-fluid">
+    </div>
+</div>
+
+
+
+@endsection

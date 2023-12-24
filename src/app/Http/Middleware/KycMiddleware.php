@@ -22,7 +22,7 @@ class KycMiddleware
             $user = auth_user('web');
             if(site_settings('kyc_verification') == StatusEnum::true->status() && $user->is_kyc_verified ==  StatusEnum::false->status()) {
                         return redirect()->route('user.kyc.form')
-                                           ->with(response_status("Please apply for kyc verification"));
+                                           ->with(response_status("Please apply for kyc verification",'error'));
             }
 
             return $next($request);

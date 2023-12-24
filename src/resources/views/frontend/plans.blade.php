@@ -50,74 +50,72 @@
 <section class="plan-detail pb-110">
     <div class="container">
       <div class="tab-content" id="tab-plans">
+          @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
+              <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
 
-        @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-            <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
-
-
-              @php
-                 $purchasePlans = $plans->where('duration',$value);
-              @endphp
+                @php
+                  $purchasePlans = $plans->where('duration',$value);
+                @endphp
 
 
-              <div class="plan-detail-wrapper">
-                <div class="row gy-4 gx-4">
-                  @forelse ($purchasePlans as  $plan)
-                      <div class="col-xl-4 col-md-6">
-                        <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif">
-                          @if($plan->is_recommended == App\Enums\StatusEnum::true->status())
-                              <div class="recommend-content"><p>
-                                  {{translate("Recommended")}}
-                              </p></div>
-                          @endif
+                <div class="plan-detail-wrapper">
+                  <div class="row gy-4 gx-4">
+                    @forelse ($purchasePlans as  $plan)
+                        <div class="col-xl-4 col-md-6">
+                          <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif">
+                            @if($plan->is_recommended == App\Enums\StatusEnum::true->status())
+                                <div class="recommend-content"><p>
+                                    {{translate("Recommended")}}
+                                </p></div>
+                            @endif
 
-                          <div class="plan-detail-top">
-                            <span>
-                                {{$plan->title}}
-                            </span>
+                            <div class="plan-detail-top">
+                              <span>
+                                  {{$plan->title}}
+                              </span>
 
-                            <h4>  @if($plan->discount_price > 0) <del>
-                              {{num_format( number : $plan->price,decimal:0,
-                                           calC:true)}}</del> {{num_format( number : $plan->discount_price,decimal:0,
-                                           calC:true)}} @else {{num_format( number : $plan->price,decimal:0,
-                                           calC:true)}}@endif<span>/{{ucfirst(strtolower($key))}}</span></h4>
-                            <p>
-                              {{$plan->description}}
-                            </p>
+                              <h4>  @if($plan->discount_price > 0) <del>
+                                {{num_format( number : $plan->price,decimal:0,
+                                            calC:true)}}</del> {{num_format( number : $plan->discount_price,decimal:0,
+                                            calC:true)}} @else {{num_format( number : $plan->price,decimal:0,
+                                            calC:true)}}@endif<span>/{{ucfirst(strtolower($key))}}</span></h4>
+                              <p>
+                                {{$plan->description}}
+                              </p>
 
-                            <a href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--secondary btn--lg capsuled w-100">
-                              {{translate("Subscribe")}}
-                            </a>
-                          </div>
+                              <a href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--secondary btn--lg capsuled w-100">
+                                {{translate("Subscribe")}}
+                              </a>
+                            </div>
 
-                          <div class="plan-detail-body">
-                              <ul>
+                            <div class="plan-detail-body">
+                                <ul>
 
-                                @foreach (plan_configuration( $plan) as $configKey => $configVal )
-                                    <li>
-                                      <span>
-                                        <i class="bi bi-patch-check"></i>
-                                      </span>
-                                      <p> {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}</p>
-                                    </li>
-                                @endforeach
+                                  @foreach (plan_configuration( $plan) as $configKey => $configVal )
+                                      <li>
+                                        <span>
+                                          <i class="bi bi-patch-check"></i>
+                                        </span>
+                                        <p> {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}</p>
+                                      </li>
+                                  @endforeach
 
-                              </ul>
+                                </ul>
+                            </div>
                           </div>
                         </div>
+                    @empty
+
+                      <div class="col-12 justify-content-center text-center">
+                          @include("frontend.partials.not_found")
                       </div>
-                  @empty
 
-                     <div class="col-12 justify-content-center text-center">
-                        @include("frontend.partials.not_found")
-                     </div>
+                    @endforelse
 
-                  @endforelse
-
+                  </div>
                 </div>
               </div>
-            </div>
-        @endforeach
+          @endforeach
       </div>
     </div>
 </section>

@@ -25,7 +25,7 @@ class CustomInputRequest extends FormRequest
     {
         return [
             'custom_inputs.*.labels'      => ['required'],
-            'custom_inputs.*.type'        => ['required',Rule::in(['text','file','textarea','date','email'])],
+            'custom_inputs.*.type'        => ['required',Rule::in(['text','file','textarea','date','email','number'])],
             'custom_inputs.*.required'    => ['required',Rule::in(StatusEnum::toArray())],
             'custom_inputs.*.placeholder' => ['required'],
             'custom_inputs.*.default'     => ['required'],

@@ -20,7 +20,6 @@
                                     <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                 </div>
 
-                        
                                 <div class="form-inner">
                                     <select name="user" id="user" class="user">
                                         <option value="">
@@ -38,7 +37,6 @@
                                     <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
                                 </div>
                             
-
                                 <button class="i-btn btn--sm info w-100">
                                     <i class="las la-sliders-h"></i>
                                 </button>
@@ -132,7 +130,7 @@
                                     </td>
                                 
                                     <td data-label='{{translate("Subscription Package")}}'>
-                                          {{$report->subscription? @$report->subscription->package->title  : 'N/a'}}
+                                          {{$report->subscription? @$report->subscription->package->title  : 'N/A'}}
                                     </td>
                                     <td data-label='{{translate("Commission Rate")}}'>
                                           {{$report->commission_rate}}%
@@ -221,6 +219,9 @@
 @push('script-push')
 <script>
 	(function($){
+
+
+        "use strict";
 
         $(".select2").select2({
            

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->longText('kyc_data')->nullable();
             $table->text('notes')->nullable();
-            $table->enum('status',[1,2,3])->default(3)->comment('Approved: 1, Rejected: 2, Pending: 3');
+            $table->enum('status',[1,2,3])->comment('Approved: 1, Rejected: 2, Pending: 3');
             $table->timestamps();
         });
     }

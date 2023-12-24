@@ -436,8 +436,8 @@
                   </li>
 
                   
-                  {{-- <li class="sub-menu-item">
-                      <a class='sidebar-menu-link {{sidebar_awake("admin.transaction.report.*")}}'  href='{{route("admin.transaction.report.list")}}'>
+                  <li class="sub-menu-item">
+                      <a class='sidebar-menu-link {{sidebar_awake("admin.kyc.report.*")}}'  href='{{route("admin.kyc.report.list")}}'>
                         <span></span>
                         <p>
                           {{translate('Kyc Reports')}}
@@ -449,7 +449,7 @@
                             @endif
                         </p>
                       </a>
-                  </li> --}}
+                  </li>
 
 
 

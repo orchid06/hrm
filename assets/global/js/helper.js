@@ -51,7 +51,24 @@ $(document).on('change', '.preview', function (e) {
 
 
 
-$(document).on('click','.key-generate',function(e){
+$(document).on('click','.code-generate',function(e){
+
+
+    $("#referral_code").val(generateRandomNumber());
+
+    toastr( "New key generated",'success')
+     e.preventDefault()
+ })
+
+
+ function generateRandomNumber() {
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+    return randomNumber;
+  }
+
+
+
+ $(document).on('click','.key-generate',function(e){
 
 
     $("#webhook_api_key").val(generateSecureApiKey());

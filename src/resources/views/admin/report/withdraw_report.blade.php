@@ -30,7 +30,7 @@
                                             @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
                                                 <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
                                                     {{ucfirst(t2k($k))}}
-                                            </option>
+                                               </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -43,7 +43,7 @@
                                             </option>
                                             @foreach(system_users() as $user)
                                                 <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                            </option>
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
