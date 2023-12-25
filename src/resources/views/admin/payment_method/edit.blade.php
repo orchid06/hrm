@@ -97,7 +97,7 @@
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="minimum_amount" class="form-label">
-                                {{translate('Minimum Amount')}} <small class="text-danger">* ({{translate('In')}} {{(base_currency()->code)}}) </small>
+                                {{translate('Minimum Amount')}} <small class="text-danger">*  </small>
                             </label>
                             <input required type="number" step="any"  placeholder="{{translate('Enter Minimum Amount')}}" id="minimum_amount" name="minimum_amount" value="{{$method->minimum_amount}}" >
                         </div>
@@ -106,7 +106,7 @@
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="maximum_amount" class="form-label">
-                                {{translate('Maximum Amount')}} <small class="text-danger">* ({{translate('In')}} {{(base_currency()->code)}}) </small>
+                                {{translate('Maximum Amount')}} <small class="text-danger">* </small>
                             </label>
                             <input required type="number" step="any"  placeholder="{{translate('Enter Maximum Amount')}}" id="maximum_amount" name="maximum_amount" value="{{$method->maximum_amount}}" >
                         </div>

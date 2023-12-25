@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <section class="bg-light-1">
+    {{-- <section class="bg-light-1">
         <div class="dashboard-content">
             <div class="container">
                 <div class="row mt-110">
@@ -13,9 +13,9 @@
 
                             <div class="row align-items-center">
                                 <div class="col-md-5">
-                                        {{-- <img
+                                        <img
                                             src="{{imageUrl(config("settings")['file_path']['payment_method']['path']."/".@$log->method->file->name ,@$log->method->file->disk ) }}"
-                                            class="card-img-top gateway-img rounded" > --}}
+                                            class="card-img-top gateway-img rounded" >
                                 </div>
 
                                 <div class="col-md-7">
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 @endsection

@@ -403,4 +403,24 @@
             "modal": true
         }
     }
+    ,
+    "mega_menu": {
+        "builder": true,
+        "no_selection": true,
+        "name": "mega_menu",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x800"
+                }
+            },
+            "select":{
+                "status" :"0,1"
+            }
+
+        }
+    
+    }
+
+    
 }

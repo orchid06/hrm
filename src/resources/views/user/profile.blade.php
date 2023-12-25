@@ -54,7 +54,7 @@
                     </a>
 
                     <a
-                      href="{{route('user.withdraw.create')}}l"
+                      href="{{route('user.withdraw.create')}}"
                       class="i-btn btn--secondary btn--sm capsuled">
                       {{translate("Withdraw")}}
                     </a>
@@ -128,18 +128,20 @@
                     </li>
                   @endif
                    
-                  <li class="nav-item" role="presentation">
-                    <a
-                      class="nav-link"
-                      data-bs-toggle="tab"
-                      href="#affiliate-configuration"
-                      role="tab"
-                      aria-selected="false"
-                      tabindex="-1">
-                      <i class="bi bi-share"></i>
-                       {{translate("Affiliate Configuration")}}
-                    </a>
-                  </li>
+                  @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                    <li class="nav-item" role="presentation">
+                            <a
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            href="#affiliate-configuration"
+                            role="tab"
+                            aria-selected="false"
+                            tabindex="-1">
+                            <i class="bi bi-share"></i>
+                            {{translate("Affiliate Configuration")}}
+                            </a>
+                    </li>
+                 @endif
 
                    
                 </ul>
@@ -244,8 +246,7 @@
                         </div>
                     </div>
 
-                    <div
-                        class="tab-pane"
+                    <div class="tab-pane"
                         id="change-password"
                         role="tabpanel">
                         <div class="i-card-md">
@@ -363,67 +364,70 @@
                     @endif
 
 
-                    <div class="tab-pane" id="affiliate-configuration" role="tabpanel">
-                        <div class="i-card-md">
-                            <div class="card-header">
-                                    <h4 class="card-title">
-                                        {{translate("Affiliate Configurations")}}
-                                    </h4>
-                            </div>
+                    @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                        <div class="tab-pane" id="affiliate-configuration" role="tabpanel">
+                            <div class="i-card-md">
+                                <div class="card-header">
+                                        <h4 class="card-title">
+                                            {{translate("Affiliate Configurations")}}
+                                        </h4>
+                                </div>
 
-                            <div class="card-body">
-                                <form action="{{route('user.affiliate.update')}}"  method="post">
-                                    @csrf
-                                    <div class="row g-4">
-                                        <div class="col-lg-6">
+                                <div class="card-body">
+                                    <form action="{{route('user.affiliate.update')}}"  method="post">
+                                        @csrf
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
 
-                                            <div class="form-inner">
-                                                <label for="referral_code"
-                                                class="form-label">{{ translate('Referral Code') }} 
-                        
-                                                    <small class="text-danger" >*</small>
-                        
-                                                </label>
-                        
-                                                <div class="input-group">
-                                                    <input placeholder="{{translate("Referral Code")}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
-                                                    <span class="input-group-text  pointer code-generate"><i class="bi bi-arrow-repeat"></i>
-                                                    </span>
+                                                <div class="form-inner">
+                                                    <label for="referral_code"
+                                                    class="form-label">{{ translate('Referral Code') }} 
+                            
+                                                        <small class="text-danger" >*</small>
+                            
+                                                    </label>
+                            
+                                                    <div class="input-group">
+                                                        <input placeholder="{{translate("Referral Code")}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
+                                                        <span class="input-group-text  pointer code-generate"><i class="bi bi-arrow-repeat"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
+                        
                                             </div>
-                    
-                                         </div>
-                                         <div class="col-lg-6">
-                    
-                                            <div class="form-inner">
-                                                <label for="ReferralURL"
-                                                class="form-label">{{ translate('Referral URL') }} 
+                                            <div class="col-lg-6">
                         
-                                                </label>
-                        
-                                                <div class="input-group">
-                                                    <input readonly id="ReferralURL" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" class="form-control" >
-                                                    <span data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" class="input-group-text  pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                                <div class="form-inner">
+                                                    <label for="ReferralURL"
+                                                    class="form-label">{{ translate('Referral URL') }} 
+                            
+                                                    </label>
+                            
+                                                    <div class="input-group">
+                                                        <input readonly id="ReferralURL" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" class="form-control" >
+                                                        <span data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" class="input-group-text  pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                                    </div>
                                                 </div>
+                        
                                             </div>
-                    
-                                         </div>
-                                        <div class="col-12">
-                                            <button
-                                                type="submit"
-                                                class="i-btn btn--primary btn--lg capsuled">
-                                                
-                                                {{translate(
-                                                    "Update"
-                                                )}}
-                                            </button>
+                                            <div class="col-12">
+                                                <button
+                                                    type="submit"
+                                                    class="i-btn btn--primary btn--lg capsuled">
+                                                    
+                                                    {{translate(
+                                                        "Update"
+                                                    )}}
+                                                </button>
+                                            </div>
+
                                         </div>
-
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
               </div>
             </div>

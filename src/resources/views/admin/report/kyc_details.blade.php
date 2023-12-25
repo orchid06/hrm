@@ -3,7 +3,7 @@
     <div class="row g-4 mb-4">
         @php
            $col    = 6;
-           if(is_array($report->custom_data) && count($report->custom_data) < 1){
+           if(is_array($report->kyc_data) && count($report->kyc_data) < 1){
               $col = 12;
            }
         @endphp
@@ -47,21 +47,15 @@
                             <ul class="list-group list-group-flush">
 
                                 @foreach ($report->kyc_data as $k => $v)
-                                    <li class="list-group-item">{{ translate(ucfirst($k)) }} :
-                                        @if ($v->type == 'file')
-                                            @php
-                                                $file = $report
-                                                    ->file
-                                                    ->where('type', $k)
-                                                    ->first();
-                                   
-                                            @endphp
-                                        
-                                            <img src='{{imageUrl($file,"kyc",true)}}'
-                                                alt="{{ @$file->name }}">
-                                        @else
-                                            {{ $v->field_name }}
-                                        @endif
+                                    <li class="list-group-item">{{ translate(k2t($k)) }} :
+                                        {{ $v }}
+                                    </li>
+                                @endforeach
+
+                                @foreach ($report->file as $file)
+                                    <li class="list-group-item">{{ translate(k2t($file->type)) }} :
+                                        <img src='{{imageUrl($file,"kyc",true)}}'
+                                        alt="{{ @$file->name }}">
                                     </li>
                                 @endforeach
 
