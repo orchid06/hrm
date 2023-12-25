@@ -20,12 +20,12 @@
             </div>
 
             <div>
-              <a href='{{route("blog")}}' class="learn-more">
+              <a href='{{url(@$blogContent->value->button_url)}}' class="learn-more">
                 <span class="circle" aria-hidden="true">
                   <span class="icon arrow"> </span>
                 </span>
                 <span class="button-text">
-                   {{trans("default.explore_all")}}
+                   {{@$blogContent->value->button_name}}
                 </span>
               </a>
             </div>
@@ -67,13 +67,11 @@
                                       width="120"
                                       height="120"
                                       viewBox="0 0 120 120"
-                                      fill="none"
-                                    >
+                                      fill="none">
                                       <path
                                         fill-rule="evenodd"
                                         clip-rule="evenodd"
-                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                      />
+                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"/>
                                     </svg>
                                   </span>
                                   <a href="{{route('blog.details',$blog->slug)}}">
@@ -85,13 +83,11 @@
                                       width="120"
                                       height="120"
                                       viewBox="0 0 120 120"
-                                      fill="none"
-                                    >
+                                      fill="none">
                                       <path
                                         fill-rule="evenodd"
                                         clip-rule="evenodd"
-                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                      />
+                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"/>
                                     </svg>
                                   </span>
                                 </div>
@@ -101,7 +97,7 @@
                                 <div class="blog-meta">
 
                                   <span> {{get_date_time($blog->created_at,"F j, Y")}}
-                                 </span>
+                                  </span>
                                   <span> 
                                     {{get_date_time($blog->created_at," g a")}}
                                   </span>

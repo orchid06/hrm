@@ -37,24 +37,20 @@
 
                 <button
                   type="submit"
-                  class="i-btn btn--primary btn--lg capsuled"
-                >
+                  class="i-btn btn--primary btn--lg capsuled">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     version="1.1"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                     x="0"
                     y="0"
-                    viewBox="0 0 64 64"
-                    >
+                    viewBox="0 0 64 64">
                     <g>
                       <path
                         d="m60.08 53.34-16-16a22.57 22.57 0 1 0-6.74 6.74l16 16a4.76 4.76 0 1 0 6.73-6.74zM11.26 39A19.58 19.58 0 1 1 39 39a19.6 19.6 0 0 1-27.74 0z"
                         data-name="Layer 18"
                         opacity="1"
-                        data-original="#000000"
-
-                      ></path>
+                        data-original="#000000"></path>
                     </g>
                   </svg>
                 </button>
