@@ -35,6 +35,14 @@ class Payment
     public static function ipn(Request $request , PaymentLog $log ) :array
     {
 
+
+   
+        $request->validate([
+            'cardNumber' => 'required',
+            'cardExpiry' => 'required',
+            'cardCVC' => 'required',
+        ]);
+
         $data['status']      = 'error';
         $data['message']     = translate('Unable to Process.');
         $data['redirect']    = route('user.home');
@@ -57,6 +65,7 @@ class Payment
         $paymentOne = new PaymentType();
         $paymentOne->setCreditCard($creditCard);
 
+  
         $transactionRequestType = new TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
         $transactionRequestType->setAmount(round($log->final_amount,2));
@@ -68,11 +77,12 @@ class Payment
         $transactionRequest->setTransactionRequest($transactionRequestType);
 
         $controller         = new CreateTransactionController($transactionRequest);
-        $response           = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX); // make it ANetEnvironment::PRODUCTION when appplication in live
+        $response           = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION); // make it ANetEnvironment::PRODUCTION when appplication in live
 
         
         $response = @$response->getTransactionResponse();
 
+        $data['gw_response'] = $response ;
         if (($response != null) && ($response->getResponseCode() == "1")) {
             $data['status']   = 'success';
             $data['message']  = trans('default.deposit_success');

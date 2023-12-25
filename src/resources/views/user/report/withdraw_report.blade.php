@@ -5,12 +5,9 @@
 @endpush
 
 @section('content')
-
-
-<div class="row">
-    <div class="col-xl-12 col-lg-12 mx-auto">
+    <div>
       <div
-        class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+        class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}
@@ -29,13 +26,14 @@
           </button>
         </div>
       </div>
+
       <div class="collapse filterTwo mb-3" id="tableFilter">
         <div class="i-card-md">
           <div class="card-body">
             <div class="search-action-area p-0">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
-                 
+
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                     </div>
@@ -46,18 +44,18 @@
                                 {{translate('Select status')}}
                             </option>
                             @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
-                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
+                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">
                                     {{ucfirst(t2k($k))}}
                                </option>
                             @endforeach
                         </select>
                     </div>
 
-                   
+
                     <div class="form-inner">
                         <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
                     </div>
-                 
+
                     <div class="d-flex gap-2">
                             <button type="submit" class="i-btn primary btn--lg">
                                 <i class="bi bi-search"></i>
@@ -74,20 +72,17 @@
         </div>
       </div>
 
-        <div class="table-accordion">
-
+      <div class="table-accordion">
                 @if($reports->count() > 0)
                     <div class="accordion" id="wordReports">
-
                         @forelse($reports as $report)
-
                             <div class="accordion-item">
                                 <div class="accordion-header">
                                     <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                                         aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                        <div class="row align-items-center w-100 gy-2">
+                                        <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
 
-                                            <div class="col">
+                                            <div class="col-lg-3 col-sm-4 col-12">
                                                 <div class="table-accordion-header transfer-by">
                                                     <span class="icon-btn icon-btn-sm info circle">
                                                         <i class="bi bi-arrow-up-left"></i>
@@ -101,27 +96,31 @@
                                                 </div>
                                             </div>
 
-
-                                            <div class="col text-sm-center">
+                                            <div class="col-lg-3 col-sm-4 col-6 text-lg-center text-sm-center text-start">
                                                 <div class="table-accordion-header">
                                                     <h6>
                                                         {{translate("Method")}}
                                                     </h6>
-                                                   {{$report->method->name}}
+
+                                                    <p>
+                                                        {{$report->method->name}}
+                                                    </p>
                                                 </div>
                                             </div>
 
-                                            
-                                            <div class="col text-sm-center">
+                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
                                                 <div class="table-accordion-header">
                                                     <h6>
                                                         {{translate("Final Amount")}}
                                                     </h6>
-                                                    {{num_format($report->final_amount,@$report->currency)}}
+
+                                                    <p>
+                                                        {{num_format($report->final_amount,@$report->currency)}}
+                                                    </p>
                                                 </div>
                                             </div>
 
-                                            <div class="col text-sm-center">
+                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
                                                 <div class="table-accordion-header">
                                                     <h6>
                                                         {{translate("Status")}}
@@ -130,18 +129,17 @@
                                                 </div>
                                             </div>
 
-
-                                            <div class="col text-sm-center">
+                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
                                                 <div class="table-accordion-header">
-                                                <h6>
-                                                    {{translate("Date")}}
-                                                </h6>
-                                                {{ get_date_time($report->created_at) }}
+                                                    <h6>
+                                                        {{translate("Date")}}
+                                                    </h6>
+                                                    <p>
+                                                        {{ get_date_time($report->created_at) }}
+                                                    </p>
                                                 </div>
                                             </div>
 
-           
-                                         
                                         </div>
                                     </div>
                                 </div>
@@ -149,22 +147,22 @@
                                 <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                        
-    
+
+
                                             <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
                                             <li class="list-group-item">{{ translate('Charge') }} :
                                                 {{num_format($report->charge,@$report->currency)}}
                                             </li>
-                                         
+
                                             <li class="list-group-item">{{ translate('Final Amount') }} :
                                                 {{num_format($report->final_amount,@$report->currency)}}
                                             </li>
-                    
+
                                             <li class="list-group-item">{{ translate('Date') }} : {{ diff_for_humans($report->created_at) }}
                                             </li>
                                             <li class="list-group-item">{{ translate('Status') }} :     @php echo   withdraw_status($report->status)  @endphp
                                             </li>
-                    
+
                                             <li class="list-group-item">{{ translate('Feedback') }} :
                                                 {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
 
@@ -176,9 +174,9 @@
                                                                 ->file
                                                                 ->where('type', $k)
                                                                 ->first();
-                                               
+
                                                         @endphp
-                                                    
+
                                                         <img src='{{imageUrl($file,"withdraw",true)}}'
                                                             alt="{{ @$file->name }}">
                                                     @else
@@ -186,7 +184,7 @@
                                                     @endif
                                                 </li>
                                             @endforeach
-                    
+
                                         </ul>
                                     </div>
                                 </div>
@@ -198,20 +196,15 @@
                 @else
                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                 @endif
-        
-        </div>
 
-      
-        <div class="Paginations">
+      </div>
+
+      <div class="Paginations">
 
             {{ $reports->links() }}
-        
-        </div>
+
+      </div>
     </div>
-</div>
-
-
-
 @endsection
 
 
@@ -226,13 +219,13 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         });
 
         $(".status").select2({
-           
+
         });
-       
+
 
         flatpickr("#datePicker", {
             dateFormat: "Y-m-d",

@@ -37,7 +37,7 @@ class DepositController extends Controller
         return view('user.payment.create',[
 
             'meta_data'  => $this->metaData(['title'=> translate("Make Deposit")]),
-            'methods'    => PaymentMethod::with(['file'])->active()->get(),
+            'methods'    => PaymentMethod::with(['file','currency'])->active()->get(),
   
         ]);
 
@@ -51,14 +51,22 @@ class DepositController extends Controller
      */
     public function process(DepositRequest $request) : View | RedirectResponse {
 
+    
+        $method           = PaymentMethod::with(['currency'])->findOrfail($request->input("method_id"));
+        $request->merge([
+            'remarks' => 'Deposit Via '.$method->name,
+        ]);
 
-        $method           = PaymentMethod::with(['currency'])->find($request->input("payment_id"));
-        $responseStatus   = response_status(translate('Deposit amount should be less than ').num_format(number :$method->maximum_amount ,calC:true). " and greter than ".num_format(number :$method->minimum_amount ,calC:true),'error');
+        $amount      = (double) $request->input('amount');
+        $baseAmount  = round(convert_to_base($amount,5)*$method->currency->exchange_rate,5);
+
+        $responseStatus   = response_status(translate('Deposit amount should be less than ').num_format(number :$method->maximum_amount , currency: $method->currency). " and greter than ".num_format(number :$method->minimum_amount ,currency: $method->currency),'error');
 
         try {
-            $amount    = (double) $request->input('amount');
+            $amount      = (double) $request->input('amount');
 
-            if($amount  >= $method->minimum_amount || $amount <= $method->maximum_amount ){
+
+            if($baseAmount  >= $method->minimum_amount && $baseAmount <= $method->maximum_amount ){
 
                 $request->merge([
                     'remarks' => 'Deposit Via '.$method->name,
@@ -67,7 +75,6 @@ class DepositController extends Controller
                 $depositLog      = Arr::get($depositResponse ,"log");
 
                 return $this->depositConfirm($depositLog);
-                
             }
     
         } catch (\Exception $ex) {

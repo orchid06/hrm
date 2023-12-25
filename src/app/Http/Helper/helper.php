@@ -1030,7 +1030,7 @@ use Illuminate\Database\Eloquent\Collection;
         
      
          $platforms = Cache::remember('media_platform',24 * 60, function ()   {
-            return  MediaPlatform::get();
+            return  MediaPlatform::with('file')->get();
          });
 
          return $ids ? $platforms->whereIn('id', $ids) : $platforms;

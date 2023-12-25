@@ -148,7 +148,7 @@
                     var percentCharge =  parseFloat(method.percent_charge);
 
                     var netCharge     =  parseFloat(fixedCharge + (amount  * percentCharge / 100));
-                    var netAmount     =  (amount + netCharge).toFixed(2);
+                    var netAmount     =  (amount + netCharge);
 
                     var list  =  `<li class="list-group-item" aria-current="true">
                                             <h5>

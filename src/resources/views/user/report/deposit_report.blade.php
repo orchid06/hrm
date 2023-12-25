@@ -48,7 +48,7 @@
                             @foreach(App\Enums\DepositStatus::toArray() as $k => $v)
                                 <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
                                     {{ucfirst(t2k($k))}}
-                            </option>
+                               </option>
                             @endforeach
                         </select>
                     </div>
@@ -61,7 +61,7 @@
 
                             @foreach($methods as $method)
                                 <option  {{$method->id ==   request()->input('method_id') ? 'selected' :""}} value="{{$method->id}}"> {{$method->name}}
-                            </option>
+                               </option>
                             @endforeach
                 
                         </select>
@@ -152,8 +152,6 @@
                                                 </div>
                                             </div>
 
-           
-                                         
                                         </div>
                                     </div>
                                 </div>
@@ -166,8 +164,7 @@
                                             <li class="list-group-item">{{ translate('Charge') }} :
                                                 {{num_format($report->charge,@$report->currency)}}
                                             </li>
-                                            <li class="list-group-item">{{ translate('Rate') }}:{{num_format($report->charge,@base_currency())}}</li>
-                                            <li class="list-group-item">{{ translate('Final Amount') }} :
+                                            <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>                 <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>                                            <li class="list-group-item">{{ translate('Final Amount') }} :
                                                 {{num_format($report->final_amount,@$report->method->currency)}}
                                             </li>
                                             
