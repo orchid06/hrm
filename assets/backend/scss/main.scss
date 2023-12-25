@@ -93,6 +93,11 @@
 .faq-wrap {
   &.style-2 {
     .accordion-button {
+      &:focus{
+        &::after{
+          color: inherit;
+        }
+      }
       &::after {
         content: "\F282";
         font-size: 14px;
@@ -791,12 +796,14 @@
 
 .form-section {
   position: relative;
+  overflow: hidden;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   z-index: 1;
+  background-color: #000249;
 
   .form-bg {
     position: absolute;
@@ -814,32 +821,60 @@
     content: "";
     display: block;
     position: absolute;
-    left: -120px;
-    top: -120px;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: linear-gradient(140deg, var(--color-primary), transparent);
-    opacity: 0.15;
+    left: 10%;
+    top: 80px;
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #008dff;
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
     z-index: -1;
+    animation: drag 4s linear infinite alternate;
+    opacity: 0.7;
 
-    @include lg-down-device {
-      width: 280px;
-      height: 280px;
+    @include md-device{
+      width: 100px;
+      height: 100px;
+    }
+    @include md-down-device{
+        width: 70px;
+        height: 70px;
     }
   }
   &::before {
     content: "";
     display: block;
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    opacity: 0.2;
+    right: 9%;
+    bottom: 80px;
+    width: 120px;
+    height: 120px;
+    background-color: #e37c17;
     z-index: -1;
-    background-image: linear-gradient(125deg, rgba(255, 255, 255, 1) 56%, rgba(104, 58, 183, 0.2) 35%);
+    animation: drag 3s linear infinite alternate;
+    animation-delay: 3s;
+    filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.2));
+    clip-path: polygon(0% 0%, 0% 100%, 15% 100%, 15% 15%, 85% 15%, 85% 85%, 15% 85%, 15% 100%, 100% 100%, 100% 0%);
+    opacity: 0.7;
+
+    
+    @include md-device{
+      width: 100px;
+      height: 100px;
+    }
+    @include md-down-device{
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+
+@keyframes drag {
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(100%);
   }
 }
 

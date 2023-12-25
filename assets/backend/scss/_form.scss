@@ -2,6 +2,30 @@
     background-color: $color-white;
     filter: drop-shadow(0rem 2.5rem 1rem rgba(0, 0, 0, 0.09));
     padding: 35px 30px;
+    z-index: 1;
+
+    &::before{
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 220px;
+        height: 220px;
+        background-color: #f1f9ff;
+        z-index: -1;
+        border-radius: 0 0 80%;
+    }
+    &::after{
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 220px;
+        height: 220px;
+        background-color: #fcf3ea;
+        z-index: -1;
+        border-radius: 80% 0 0;
+    }
 
     &.form-two {
         background-color: $color-primary;
@@ -319,7 +343,7 @@ select {
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 26px;
     position: absolute;
-    top: 7px;
+    top: 9px;
     right: 6px;
     width: 20px;
 }

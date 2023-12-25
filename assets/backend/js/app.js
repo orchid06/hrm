@@ -207,4 +207,10 @@
         });
     }
 
+    // const datePicker = document.querySelector('#datePicker');
+
+    // if(datePicker){
+    //     event.stopPropagation();
+    // }
+
 }())
