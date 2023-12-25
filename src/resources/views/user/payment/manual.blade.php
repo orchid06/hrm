@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-   <section class="bg-light-1">
+   {{-- <section class="bg-light-1">
         <div class="dashboard-content">
             <div class="container">
                 <div class="row">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-  </section>
+  </section> --}}
 
 @endsection
 

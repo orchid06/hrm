@@ -12,7 +12,7 @@
             </h4>
             <div class="d-flex align-items-center gap-2">
               <a   href="{{route('user.ticket.create')}}" class="i-btn primary btn--sm capsuled">
-                <i class="bi bi-plus"></i> 
+                <i class="bi bi-plus-lg"></i>
                  {{translate('Create Ticket')}}
               </a>
               <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"aria-expanded="false"
@@ -26,7 +26,7 @@
             <div class="search-action-area">
               <div class="search-area">
                 <form action="{{ route(Route::currentRouteName()) }}" method="get">
-                   
+
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{ request()->input('date') }}" placeholder="{{ translate('Filter by date') }}">
                     </div>
@@ -35,7 +35,7 @@
                         <input type="text" name="ticket_number" value="{{ request()->input('ticket_number') }}" placeholder="{{ translate('Enter Ticket Number') }}">
                     </div>
 
-                 
+
                     <div class="form-inner">
                         <select name="status" class="select2" id="status">
                             <option value="">{{ translate('Select Status') }}</option>
@@ -107,10 +107,10 @@
                     <tbody>
 
                         @forelse($tickets as $ticket)
-                
+
                         <tr>
                             <td data-label="#">
-                    
+
                                 {{$loop->iteration}}
                             </td>
                             <td data-label="{{translate('Ticket Number')}}">
@@ -143,7 +143,7 @@
                                         class="icon-btn icon-btn-sm info">
                                         <i class="bi bi-eye-fill"></i>
                                    </a>
-            
+
                                     <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
                                         class="icon-btn icon-btn-sm danger delete-item">
                                         <i class="bi bi-trash"></i>
@@ -160,7 +160,7 @@
                             </tr>
                         @endforelse
 
-    
+
                     </tbody>
               </table>
             </div>
@@ -174,7 +174,7 @@
 @section('modal')
 
     @include('modal.delete_modal')
-  
+
 @endsection
 
 
@@ -184,10 +184,10 @@
 
 @push('script-push')
 <script>
-	(function($){   
+	(function($){
 
         "use strict";
-        
+
         $(".select2").select2({
             placeholder:"{{translate('Select Status')}}",
         })
@@ -195,13 +195,13 @@
             placeholder:"{{translate('Select priority')}}",
         })
 
-        
+
         flatpickr("#datePicker", {
             dateFormat: "Y-m-d",
             mode: "range",
         });
-         
-    
+
+
 	})(jQuery);
 </script>
 @endpush

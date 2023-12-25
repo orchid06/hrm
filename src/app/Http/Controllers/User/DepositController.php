@@ -34,9 +34,9 @@ class DepositController extends Controller
 
     public function depositCreate(Request $request){  
 
-        return view('user.deposit.create',[
+        return view('user.payment.create',[
 
-            'meta_data'  => $this->metaData(['title'=> translate("Deposit")]),
+            'meta_data'  => $this->metaData(['title'=> translate("Make Deposit")]),
             'methods'    => PaymentMethod::with(['file'])->active()->get(),
   
         ]);
@@ -71,7 +71,7 @@ class DepositController extends Controller
             }
     
         } catch (\Exception $ex) {
-            $message = strip_tags( $ex->getMessage());
+            $responseStatus = response_status(strip_tags( $ex->getMessage()),'error');
         }
     
 

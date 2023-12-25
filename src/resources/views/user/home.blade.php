@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-
     <div class="row g-4">
       <div class="col-12">
         <div class="dash-intro">
@@ -1133,5 +1132,4 @@
       </div>
     </div>
 
-  
 @endsection

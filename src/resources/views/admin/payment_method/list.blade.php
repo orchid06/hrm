@@ -116,7 +116,7 @@
                                         <td data-label="{{translate('Charge')}}">
                                             {{num_format($method->fixed_charge,base_currency())}} + {{$method->percentage_charge}} %
                                         </td>
-                                        <td data-label="{{translate('Limit')}}">{{truncate_price($method->minimum_amount,0)}} - {{truncate_price($method->maximum_amount,0)}} {{base_currency()->code}}  </td>
+                                        <td data-label="{{translate('Limit')}}">{{truncate_price($method->minimum_amount,0)}} - {{truncate_price($method->maximum_amount,0)}} {{$method->currency->code}}  </td>
     
                                         <td data-label='{{translate("Updated By")}}'>
                                             <span class="i-badge capsuled info">

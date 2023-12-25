@@ -68,7 +68,7 @@
                                    
                                             @endphp
                                         
-                                            <img src='{{imageUrl($file,"payment",true)}}'
+                                            <img src='{{imageUrl($file,"withdraw",true)}}'
                                                 alt="{{ @$file->name }}">
                                         @else
                                             {{ $v->field_name }}
