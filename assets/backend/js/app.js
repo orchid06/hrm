@@ -189,9 +189,21 @@
     const filterBtn = document.querySelector('.filter-btn');
     const filterDropdown = document.querySelector('.filter-dropdown');
 
+    if (filterDropdown) {
+        filterDropdown.addEventListener("click", function(event) {
+            event.stopPropagation();
+        });
+    }
+
+
     if (filterBtn) {
-        filterBtn.addEventListener('click', function () {
+        filterBtn.addEventListener('click', function(event) {
             filterDropdown.classList.toggle('show');
+            event.stopPropagation();
+        });
+
+        window.addEventListener('click', function() {
+            filterDropdown.classList.remove('show'); // Close dropdown when clicking outside
         });
     }
 

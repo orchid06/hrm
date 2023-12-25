@@ -25,6 +25,8 @@ class KycMiddleware
                                            ->with(response_status("Please apply for kyc verification",'error'));
             }
 
+          
+
             return $next($request);
         } catch (\Exception $ex) {
         

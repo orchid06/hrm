@@ -58,8 +58,12 @@
 
         &:hover{
             &::before{
-                right: 22%;
-                top: 30px;
+                right: 0px;
+                top: -30px;
+            }
+            &::after{
+                right: 50px;
+                bottom: -30px;
             }
         }
 
@@ -67,22 +71,20 @@
             content: '';    
             position: absolute;
             display: block;
-            width: 90px;
-            height: 90px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.12);
             z-index: -1;
             @include transition-5;
         }
         &::before{
-            right: 25%;
-            top: 0px;
-            width: 80px;
-            height: 80px;
+            right: -10px;
+            top: -60px;
         }
         &::after{
-            right: 12%;
-            bottom: 0px;
+            right: 70px;
+            bottom: -30px;
         }
 
         .card-info {
@@ -103,9 +105,10 @@
                 text-align: left;
             }
         }
+
         .icon {
             @include square(55px, 50%);
-            font-size: 32px;
+            font-size: 30px;
             color: $text-primary;
             line-height: 1;
             display: flex;
@@ -127,10 +130,9 @@
     }
 
     &.warning {
-        background: linear-gradient(38deg,$color-warning-light-2, $color-warning-light,$color-warning-light-2);
+        background: $color-warning-light-2;
         color: $color-warning;
         box-shadow: 5px 10px 20px -10px ($color-warning-light);
-        border-bottom: 2px solid $color-warning-light-2;
         .icon {
             background-color: $color-warning;
             i {
@@ -139,9 +141,8 @@
         }
     }
     &.success {
-        background: linear-gradient(38deg,$color-success-light-2, $color-success-light,$color-success-light-2);
+        background: $color-success-light-2;
         box-shadow: 5px 10px 20px -10px ($color-success-light);
-        border-bottom: 2px solid $color-success-light-2;
         .icon {
             background-color: $color-success;
             i {
@@ -150,9 +151,8 @@
         }
     }
     &.danger {
-        background: linear-gradient(38deg,$color-danger-light-2, $color-danger-light,$color-danger-light-2);
+        background: $color-danger-light-2;
         box-shadow: 5px 10px 20px -10px ($color-danger-light);
-        border-bottom: 2px solid $color-danger-light-2;
         .icon {
             background-color: $color-danger;
             i {
@@ -161,9 +161,8 @@
         }
     }
     &.info {
-        background: linear-gradient(38deg,$color-info-light-2, $color-info-light,$color-info-light-2);
+        background: $color-info-light-2;
         box-shadow: 5px 10px 20px -10px ($color-info-light);
-        border-bottom: 2px solid $color-info-light-2;
 
         .icon {
             background-color: $color-info;
@@ -173,9 +172,8 @@
         }
     }
     &.primary {
-        background: linear-gradient(38deg,$color-primary-light-2, $color-primary-light,$color-primary-light-2);
+        background: $color-primary-light-2;
         box-shadow: 5px 10px 20px -10px ($color-primary-light-2);
-        border-bottom: 2px solid $color-primary-light-2;
         .icon {
             background-color: $color-primary;
             i {

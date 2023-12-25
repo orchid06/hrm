@@ -214,14 +214,13 @@
 
                                                 <div class="random-keys  @if(site_settings('ai_key_usage') == App\Enums\StatusEnum::true->status()) d-none @endif">
 
-                           
                                                     @foreach (format_rand_keys() as $k => $v ) 
                                                         <div class="form-group mb-10">
                                                             <div class="input-group">
                                                             
                                                                 <input name="site_settings[rand_api_key][keys][]" class="form-control" type="text" value="{{$k}}" required placeholder="{{translate('Api key')}}">
 
-                                                                <select name="site_settings[rand_api_key][status][]" required  class="form-control">
+                                                                <select name="site_settings[rand_api_key][status][]" required  class="form-control ms-3">
 
                                                                     @foreach (App\Enums\StatusEnum::toArray() as $key => $val )
                                                                         <option value="{{$val}}" {{$v == $val  ? "selected" :""}} >

@@ -160,7 +160,7 @@ select {
     width: 100%;
     display: block;
     font-size: 13px;
-    height: 42px;
+    height: 46px;
     border: 1px solid var(--color-border);
     padding: 0 5px;
     color: var(--text-secondary);
@@ -220,7 +220,10 @@ input[type="radio"] {
 .input-group {
     border-radius: 3px;
     overflow: hidden;
-    gap: 10px;
+    gap: 0px;
+    select{
+        height: 46px;
+    }
     input {
         border-radius: 0;
     }

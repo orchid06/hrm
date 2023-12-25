@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 @endforeach
-            @elseif($k == 'select')
+            @elseif($k == 'select' )
 
                 @foreach($content as $k => $v)
             
@@ -45,7 +45,13 @@
                                     @foreach (explode(',',$v) as  $val)
 
                                         <option {{@$appearance_content->value->select_input->{$k} == $val? "selected" :""}}  value="{{$val}}">
-                                            {{$val}}
+                                            @if($val == App\Enums\StatusEnum::true->status())
+                                                    {{ucfirst('Active')}}
+                                            @elseif($val == App\Enums\StatusEnum::false->status())
+                                                    {{ucfirst('Inctive')}}
+                                            @else
+                                                    {{ucfirst($v)}}
+                                            @endif
                                         </option>
                                         
                                     @endforeach

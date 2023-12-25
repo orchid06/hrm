@@ -100,14 +100,16 @@
                         </p>
                     </a>
                   </li>
-                  <li class="sub-menu-item">
-                    <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? "active" :""}}" href="{{route('user.affiliate.report.list')}}">
-                      <span><i class="bi bi-arrow-return-right"></i></span>
-                        <p>
-                           {{translate('Affiliate Reports')}}
-                        </p>
-                    </a>
-                  </li>
+                  @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                    <li class="sub-menu-item">
+                      <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? "active" :""}}" href="{{route('user.affiliate.report.list')}}">
+                        <span><i class="bi bi-arrow-return-right"></i></span>
+                          <p>
+                            {{translate('Affiliate Reports')}}
+                          </p>
+                      </a>
+                    </li>
+                  @endif
                   <li class="sub-menu-item">
                     <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? "active" :""}}" href="{{route('user.transaction.report.list')}}">
                       <span><i class="bi bi-arrow-return-right"></i></span>

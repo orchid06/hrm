@@ -122,9 +122,13 @@ use Illuminate\Support\Facades\Route;
                 # withdraw route
                 Route::prefix("/withdraw")->name('withdraw.')->group(function(){
 
-                    Route::get('/create','withdrawCreate')->name('create'); 
-                    Route::post('/request','withdrawRequest')->name('request');
-                    Route::get('/preview','withdrawPreview')->name('preview');
+                    Route::get('/request','withdrawCreate')->name('create'); 
+
+                    Route::post('/request/process','withdrawProcess')->name('request.process');
+                   
+                    Route::get('/preview/{trx}','withdrawPreview')->name('preview');
+
+                    Route::post('/request/submit','withdrawRequest')->name('request.submit');
                 });
 
                 Route::get('/plans', 'plan')->name('plan');
@@ -135,7 +139,7 @@ use Illuminate\Support\Facades\Route;
                     Route::get('form','kycForm')->name('form');
                     Route::post('apply','kycApplication')->name('apply');
                 });
-                  
+
 
             });
         

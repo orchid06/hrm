@@ -87,16 +87,13 @@ class UserController extends Controller
      * @return View
      */
     public function withdrawCreate(Request $request) :View{
-
-
         
-        return view('user.withdraw_request',[
+        return view('user.withdraw.create',[
 
             'meta_data'  => $this->metaData(['title'=> translate("Withdraw Request")]),
-            'methods'    => Withdraw::with(['file'])->active()->get(),
+            'methods'    => Withdraw::active()->get(),
   
         ]);
-
 
     }
 
@@ -110,19 +107,25 @@ class UserController extends Controller
      */
     public function withdrawRequest(Request $request) :RedirectResponse{
 
-        $amount = session()->get("withdraw_amount");
+        $amount = (session()->get("withdraw_amount"));
         $gwId   = session()->get("gw_id");
 
-        $balance = (int)$this->user->balance;
-        
+        $gateway           = Withdraw::with(['file'])->findOrfail($gwId);
+        $error             = $this->validateWithdrawRequest($gateway, $amount);
 
+        if($error !== null){
+            return back()->with("error",$error);
+        }
+
+        $balance = ((int)$this->user->balance);
+        
         $rules = [
             "amount" => ['numeric','gt:0',"max:".$balance],
         ];
 
-        $gateway           = Withdraw::with(['file'])->findOrfail($gwId);
-
         $customRules       = $this->userService->paramValidationRules($gateway->parameters);
+
+
         $mergedRules       = array_merge($rules, $customRules);
 
         $request->validate($mergedRules);
@@ -130,12 +133,17 @@ class UserController extends Controller
         $response         = response_status(translate("Invalid amount and gateway"),'error');
 
         if((int)$request->input('amount') == $amount){
+
+            if($balance < $amount){
+                return back()->with(response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error'));
+            }
             $response = $this->userService
                              ->createWithdrawLog($request,$this->user,$gateway,WithdrawStatus::value('PENDING',true));
         }
 
         session()->forget("withdraw_amount");
         session()->forget("gw_id");
+        session()->forget("trx_code");
 
         return redirect()
                 ->route('user.withdraw.report.list')->with($response);
@@ -148,25 +156,52 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function withdrawPreview(Request $request) :View | RedirectResponse{
+    public function withdrawProcess(Request $request) :View | RedirectResponse{
 
         $balance = (int)$this->user->balance;
+        
         $request->validate([
             "id"     => ['required','exists:withdraws,id'],
             "amount" => ['numeric','gt:0',"max:".$balance],
         ]);
 
-        $method           = Withdraw::with(['file'])->find($request->input("id"));
-        $amount           = (int) $request->input('amount');
 
+        $method                    = Withdraw::with(['file'])->find($request->input("id"));
+        $amount                    = (int) $request->input('amount');
+        $charge                    = round_amount((float)$method->fixed_charge + ($amount  * (float)$method->percent_charge / 100));
+        $amountWithCharge          = convert_to_base($amount + $charge);
+        
+        if($balance <  $amountWithCharge){
+            return back()->with(response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error'));
+        }
+       
         $error            = $this->validateWithdrawRequest($method, $amount);
 
         if($error !== null){
             return back()->with("error",$error);
         }
 
+        $trx = trx_number();
+
         session()->put("withdraw_amount",$amount);
         session()->put("gw_id",$method->id);
+        session()->put("trx_code",$trx);
+        
+
+        return redirect()->route("user.withdraw.preview",$trx);
+
+    }
+
+
+    public function withdrawPreview(string $trx_code) :View | RedirectResponse{
+
+        $trx              = session()->get("trx_code");
+        if($trx_code  !=  $trx ){
+            return redirect()->route("user.withdraw.create")->with(response_status("Invalid request","error"));
+        }
+        $amount           = session()->get("withdraw_amount");
+        $gwId             = session()->get("gw_id");
+        $method           = Withdraw::with(['file'])->findOrfail($gwId);
 
         return view('user.withdraw.preview',[
 
@@ -176,6 +211,7 @@ class UserController extends Controller
         ]);
 
     }
+    
     
 
 
@@ -203,10 +239,10 @@ class UserController extends Controller
     }
 
 
-    public function kycForm() :View {
+    public function kycForm() :View  | RedirectResponse {
 
         if($this->user->is_kyc_verified   == StatusEnum::true->status()){
-            abort(404);
+            return redirect()->route('user.home');
         }
         return view('user.kyc_form',[
             'meta_data' => $this->metaData(['title'=> translate("Kyc Applications")]),
@@ -226,7 +262,7 @@ class UserController extends Controller
     public function kycApplication(KycRequest $request) :RedirectResponse {
 
         if($this->user->is_kyc_verified   == StatusEnum::true->status()){
-            abort(404);
+            return redirect()->route('user.home');
         }
 
         $pendingKycs = KycLog::where("user_id",$this->user->id)->pending()->count();

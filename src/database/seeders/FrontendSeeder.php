@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\StatusEnum;
 use App\Models\Admin\Frontend;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -776,6 +777,17 @@ class FrontendSeeder extends Seeder
 
                 "content"  => [
                    
+                ],
+                
+            ],
+
+            
+            "mega_menu" => [
+
+                "content"  => [
+                   "select_input" => [
+                     "status" => StatusEnum::true->status()
+                   ]
                 ],
                 
             ],

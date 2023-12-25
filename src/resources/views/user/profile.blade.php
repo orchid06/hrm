@@ -54,7 +54,7 @@
                     </a>
 
                     <a
-                      href="{{route('user.withdraw.create')}}l"
+                      href="{{route('user.withdraw.create')}}"
                       class="i-btn btn--secondary btn--sm capsuled">
                       {{translate("Withdraw")}}
                     </a>
@@ -95,8 +95,21 @@
                       href="#personal-details"
                       role="tab"
                       aria-selected="true">
-                      <i class="bi bi-person-gear"></i>
+                      <i class="bi bi-person-gear"></i> 
                         {{translate("Account")}}
+                    </a>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
+                    <a
+                      class="nav-link"
+                      data-bs-toggle="tab"
+                      href="#change-password"
+                      role="tab"
+                      aria-selected="false"
+                      tabindex="-1">
+                      <i class="bi bi-shield-lock"></i> 
+                       {{translate("Change Password")}}
                     </a>
                   </li>
 
@@ -114,19 +127,23 @@
                         </a>
                     </li>
                   @endif
+                   
+                  @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                    <li class="nav-item" role="presentation">
+                            <a
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            href="#affiliate-configuration"
+                            role="tab"
+                            aria-selected="false"
+                            tabindex="-1">
+                            <i class="bi bi-share"></i>
+                            {{translate("Affiliate Configuration")}}
+                            </a>
+                    </li>
+                 @endif
 
-                  <li class="nav-item" role="presentation">
-                    <a
-                      class="nav-link"
-                      data-bs-toggle="tab"
-                      href="#affiliate-configuration"
-                      role="tab"
-                      aria-selected="false"
-                      tabindex="-1">
-                      <i class="bi bi-share"></i>
-                       {{translate("Affiliate Configuration")}}
-                    </a>
-                  </li>
+                   
                 </ul>
               </div>
 
@@ -136,169 +153,155 @@
                         id="personal-details"
                         role="tabpanel">
                         <div class="i-card-md">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    {{translate("Profile")}}
-                                </h4>
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                {{translate("Profile")}}
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                <div class="form-inner mb-0">
+                                    <label for="name">
+                                        {{translate("Name")}} 
+                                    </label>
+                                    <input type="text" name="name" value="{{$user->name}}" id="name" />
+                                </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                <div class="form-inner mb-0">
+                                    <label for="Username">
+                                        {{translate("Username")}} <small class="text-danger">*</small>
+                                    </label>
+                                    <input type="text" name="username" value="{{$user->username}}" id="Username" />
+                                </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                <div class="form-inner mb-0">
+                                    <label for="email">
+                                        {{translate("email")}} <small class="text-danger">*</small>
+                                    </label>
+                                    <input type="text" name="email" value="{{$user->email}}" id="email" />
+                                </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-inner mb-0">
+                        
+                                    <label for="country">
+                                        {{translate('Country')}}
+                                    </label>
+
+                                        <select name="country_id" id="country">
+                                            <option value="">
+                                                {{translate('Select Country')}}
+                                            </option>
+                                            @foreach (get_countries() as $country )
+                                                <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
+                                                    {{$country->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                <div class="form-inner mb-0">
+                                    <label for="phone">
+                                        {{translate("Phone")}}
+                                    </label>
+                                    <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
+                                </div>
+                                </div>
+
+                            
+                                <div class="col-lg-12">
+                                <div class="form-inner mb-0">
+                                    <label for="image"> 
+                                        {{translate("Image")}}
+                                    </label>
+                                    <input data-size = "100x100" type="file" name="image" id="image" class="preview" />
+
+                                    <div class="image-preview-section">
+                                    </div>
+
+                                </div>
+                                </div>
 
                                 <div>
-                                    <button class="i-btn warning btn--md capsuled"  data-bs-toggle="collapse" data-bs-target="#ChangePassword" aria-expanded="false" aria-controls="ChangePassword">
-
-                                        Change Password
-                                    </button>
+                                <button
+                                    type="submit"
+                                    class="i-btn btn--primary btn--lg capsuled">
+                                    {{translate("Update")}}
+                                </button>
                                 </div>
+                            </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane"
+                        id="change-password"
+                        role="tabpanel">
+                        <div class="i-card-md">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    {{translate("Change Password")}}
+                                </h4>
                             </div>
 
                             <div class="card-body">
-                                <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('user.password.update')}}"  method="post">
                                     @csrf
                                     <div class="row g-4">
-                                        <div class="col-lg-6">
+                                        <div class="col-12">
                                             <div class="form-inner mb-0">
-                                                <label for="name">
-                                                    {{translate("Name")}}
+                                                <label for="current-password">
+                                                    {{translate("Current Password")}} <small class="text-danger">*</small>
                                                 </label>
-                                                <input type="text" name="name" value="{{$user->name}}" id="name" />
+                                                <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-inner mb-0">
-                                                <label for="Username">
-                                                    {{translate("Username")}} <small class="text-danger">*</small>
+                                                <label for="new-password"> 
+                                                    {{translate("New Password")}} <small class="text-danger">*</small>
                                                 </label>
-                                                <input type="text" name="username" value="{{$user->username}}" id="Username" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-inner mb-0">
-                                                <label for="email">
-                                                    {{translate("email")}} <small class="text-danger">*</small>
-                                                </label>
-                                                <input type="text" name="email" value="{{$user->email}}" id="email" />
+                                                <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="form-inner mb-0">
-                                                <label for="country">
-                                                    {{translate('Country')}}
+                                                <label for="confirm-password">
+                                                    {{translate("Confirm Password")}} <small class="text-danger">*</small>
                                                 </label>
-
-                                                <select name="country_id" id="country">
-                                                    <option value="">
-                                                        {{translate('Select Country')}}
-                                                    </option>
-                                                    @foreach (get_countries() as $country )
-                                                        <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
-                                                            {{$country->name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="phone">
-                                                    {{translate("Phone")}}
-                                                </label>
-                                                <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="image">
-                                                    {{translate("Image")}}
-                                                </label>
-
-                                                <div>
-                                                    <label for="image" class="feedback-file">
-                                                        <input hidden="" data-size="100x100" type="file" name="image" id="image" class="preview">
-
-                                                        <span>
-                                                            <i class="bi bi-image"></i>
-                                                            Select Image
-                                                        </span>
-                                                    </label>
-
-                                                    <div class="image-preview-section">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div>
+                                        <div class="col-12">
                                             <button
                                                 type="submit"
                                                 class="i-btn btn--primary btn--lg capsuled">
-                                                {{translate("Update")}}
+                                                
+                                                {{translate(
+                                                    "Update Password"
+                                                )}}
                                             </button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-
-                        <div class="collapse" id="ChangePassword">
-                            <div class="i-card-md mt-4">
-                                <div class="card-header">
-                                    <h4 class="card-title">
-                                        {{translate("Change Password")}}
-                                    </h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <form action="{{route('user.password.update')}}"  method="post">
-                                        @csrf
-                                        <div class="row g-4">
-                                            <div class="col-12">
-                                                <div class="form-inner mb-0">
-                                                    <label for="current-password">
-                                                        {{translate("Current Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="new-password">
-                                                        {{translate("New Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="confirm-password">
-                                                        {{translate("Confirm Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <button
-                                                    type="submit"
-                                                    class="i-btn btn--primary btn--lg capsuled">
-
-                                                    {{translate(
-                                                        "Update Password"
-                                                    )}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
 
                     @if($user->runningSubscription)
                         <div class="tab-pane" id="plan-tab" role="tabpanel">
@@ -323,10 +326,10 @@
                                                 <h5>
                                                     {{@$user->runningSubscription->package->title}}
                                                 </h5>
-
-                                                <span>{{translate("Expire date")}}:
+                                            
+                                                <span>{{translate("Expire date")}}: 
                                                 {{@$user->runningSubscription->expired_at ? get_date_time($user->runningSubscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
-
+                                                    
                                                 </span>
                                             </div>
                                         </div>
@@ -341,16 +344,16 @@
 
 
                                                 @foreach (plan_configuration( @$user->runningSubscription->package) as $configKey => $configVal )
-
+                    
                                                     <li class="list-group-item">
                                                         <i class="fa fa-check text-success"></i>
                                                         {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
                                                     </li>
-
-
+                                                    
+                                                    
                                                 @endforeach
 
-
+                                            
                                             </ul>
                                             </div>
                                         </div>
@@ -361,65 +364,70 @@
                     @endif
 
 
-                    <div class="tab-pane" id="affiliate-configuration" role="tabpanel">
-                        <div class="i-card-md">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    {{translate("Affiliate Configurations")}}
-                                </h4>
-                            </div>
+                    @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                        <div class="tab-pane" id="affiliate-configuration" role="tabpanel">
+                            <div class="i-card-md">
+                                <div class="card-header">
+                                        <h4 class="card-title">
+                                            {{translate("Affiliate Configurations")}}
+                                        </h4>
+                                </div>
 
-                            <div class="card-body">
-                                <form action="{{route('user.affiliate.update')}}"  method="post">
-                                    @csrf
-                                    <div class="row g-4">
-                                         <div class="col-xl-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="referral_code"
-                                                class="form-label">{{ translate('Referral Code') }}
+                                <div class="card-body">
+                                    <form action="{{route('user.affiliate.update')}}"  method="post">
+                                        @csrf
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
 
-                                                    <small class="text-danger" >*</small>
-
-                                                </label>
-
-                                                <div class="input-group">
-                                                    <input placeholder="{{translate("Referral Code")}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
-
-                                                    <span class="input-group-text danger pointer code-generate"><i class="bi bi-arrow-repeat"></i>
-                                                    </span>
+                                                <div class="form-inner">
+                                                    <label for="referral_code"
+                                                    class="form-label">{{ translate('Referral Code') }} 
+                            
+                                                        <small class="text-danger" >*</small>
+                            
+                                                    </label>
+                            
+                                                    <div class="input-group">
+                                                        <input placeholder="{{translate("Referral Code")}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
+                                                        <span class="input-group-text  pointer code-generate"><i class="bi bi-arrow-repeat"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
+                        
                                             </div>
-                                         </div>
-
-                                         <div class="col-xl-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="ReferralURL"
-                                                class="form-label">{{ translate('Referral URL') }}
-
-                                                </label>
-
-                                                <div class="input-group">
-                                                    <input readonly id="ReferralURL" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" class="form-control" >
-                                                    <span data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                            <div class="col-lg-6">
+                        
+                                                <div class="form-inner">
+                                                    <label for="ReferralURL"
+                                                    class="form-label">{{ translate('Referral URL') }} 
+                            
+                                                    </label>
+                            
+                                                    <div class="input-group">
+                                                        <input readonly id="ReferralURL" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" class="form-control" >
+                                                        <span data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" class="input-group-text  pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                                    </div>
                                                 </div>
+                        
                                             </div>
-                                         </div>
+                                            <div class="col-12">
+                                                <button
+                                                    type="submit"
+                                                    class="i-btn btn--primary btn--lg capsuled">
+                                                    
+                                                    {{translate(
+                                                        "Update"
+                                                    )}}
+                                                </button>
+                                            </div>
 
-                                        <div class="col-12">
-                                            <button
-                                                type="submit"
-                                                class="i-btn btn--primary btn--lg capsuled">
-
-                                                {{translate(
-                                                    "Update"
-                                                )}}
-                                            </button>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
               </div>
             </div>

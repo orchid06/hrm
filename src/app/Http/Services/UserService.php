@@ -126,7 +126,7 @@ class UserService
 
                 'currency_id'         =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id ,
                 "amount"              =>  $amount,
-                "base_amount"         =>  $baseAmount,
+                "base_amount"         =>  convert_to_base($amount),
                 "charge"              =>  $charge,
                 "final_amount"        =>  $amount + $charge,
                 "base_final_amount"   =>  convert_to_base($amount + $charge),
