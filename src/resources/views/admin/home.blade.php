@@ -502,27 +502,27 @@
           <div id="planReport" class="apex-chart"></div>
           <div class="row g-0 text-center">
             
-            <!--end col-->
+
             <div class="col-6 col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1">
                         <span>
-                          {{Arr::get($data['account_repot'],"active_account",0)}}
+                          {{Arr::get($data,"total_package",0)}}
                         </span>
                     </h5>
                     <p class="text-muted mb-0">
-                        {{translate("Active")}}
+                        {{translate("Package")}}
                     </p>
                 </div>
             </div>
-            <!--end col-->
+
             <div class="col-6 col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1"><span>
-                      {{Arr::get($data['account_repot'],"inactive_account",0)}}
+                      {{Arr::get($data['subscription_reports'],"total_subscriptions",0)}}
                     </span></h5>
                     <p class="text-muted mb-0">
-                         {{translate("Inactive")}}
+                         {{translate("Subscriptions")}}
                     </p>
                 </div>
             </div>

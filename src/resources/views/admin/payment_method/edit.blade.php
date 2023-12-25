@@ -248,6 +248,9 @@
 	(function($){
        	"use strict";
         
+           $(".select2").select2({
+			   placeholder:"{{translate('Select Currency')}}",
+	     	})
             currency();
             $(document).on('change', '.currency-change', function (){
                 $('#convention_rate').val($('.currency-change :selected').attr('data-rate'));

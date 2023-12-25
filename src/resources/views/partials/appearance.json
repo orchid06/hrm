@@ -414,6 +414,7 @@
                     "size": "600x800"
                 }
             },
+            "title": "text",
             "select":{
                 "status" :"0,1"
             }

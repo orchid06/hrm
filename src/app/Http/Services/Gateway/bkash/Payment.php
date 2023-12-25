@@ -28,8 +28,7 @@ class Payment
         $request['currency']               = 'BDT';
         $request['amount']                 = round($log->final_amount);
         $request['merchantInvoiceNumber']  = $log->trx_code;
-        $request['callbackURL']            = config("bkash.callbackURL");;
-
+        $request['callbackURL']            = config("bkash.callbackURL");
 
         $response =  BkashPaymentTokenize::cPayment(json_encode($request));
 

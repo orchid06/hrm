@@ -787,7 +787,8 @@ class FrontendSeeder extends Seeder
                 "content"  => [
                    "select_input" => [
                      "status" => StatusEnum::true->status()
-                   ]
+                   ],
+                   "title" => "Platform",
                 ],
                 
             ],

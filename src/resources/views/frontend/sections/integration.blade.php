@@ -1,9 +1,6 @@
 @php
     $intregrationsContent   = get_content("content_integration")->first();  
-    $platforms              = App\Models\MediaPlatform::with(['file'])
-                                ->feature()
-                                ->active()
-                                ->get();
+    $platforms              = get_platform()->where("is_feature",App\Enums\StatusEnum::true->status());
 @endphp
 
 <section class="integration pt-110 pb-110">
@@ -32,11 +29,10 @@
                           <img
                             src='{{imageUrl(@$platform->file,"platform",true)}}'
                             alt="{{@$platform->file->name}}"
-                            loading="lazy"
-                          />
+                            loading="lazy"/>
                         </div>
                         <h4>
-                          {{$platform->name}}
+                           {{$platform->name}}
                         </h4>
                       </div>
                       <p>

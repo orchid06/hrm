@@ -38,8 +38,7 @@
                   xmlns:xlink="http://www.w3.org/1999/xlink"
                   x="0"
                   y="0"
-                  viewBox="0 0 426.667 426.667"
-                >
+                  viewBox="0 0 426.667 426.667">
                   <g>
                     <path
                       d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
@@ -54,315 +53,127 @@
             <nav>
               <ul class="menu-list">
 
-                <li class="menu-item">
-                  <a href="javascript:void(0)" class="menu-link"
-                    >Platform
-                    <div class="menu-link-icon">
-                      <i class="bi bi-chevron-down"></i>
-                    </div>
-                  </a>
+                @php
+                    $megaMenu     = get_content("content_mega_menu")->first();
 
-                  <div class="mega-menu container-lg px-0">
-                    <div class="mega-menu-wrapper">
-                      <div class="row g-0 h-100">
-                        <div class="col-lg-3">
-                          <div class="mega-menu-left">
-                            <div class="maga-menu-item menu-feature">
-                              <h5>Capability</h5>
-                              <ul>
-                                <li>
-                                  <a href="javascript:void(0)">
-                                    <span
-                                      ><i class="bi bi-person-check"></i
-                                    ></span>
-                                    <div>
-                                      <h6>Profile manage</h6>
-                                      <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam, sapiente.
-                                      </p>
-                                    </div>
-                                  </a>
+                    $menuImg      = $megaMenu->file->where("type",'image')->first();
 
-                                  <div class="sub-mega-menu">
-                                    <div class="sub-menu-content">
-                                      <h6>
-                                        Manage All Your Social Media Channels
-                                        with EngageHub
-                                      </h6>
+                    $intregrationsContent   = get_content("content_integration")->first();  
 
-                                      <p>
-                                        Create, schedule, and post content
-                                        across several social media accounts
-                                        from one place.
-                                      </p>
 
-                                      <ul>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                      </ul>
-                                    </div>
+                    $platformContent  = get_content("content_platform")->first();
+                    $platformElements = get_content("element_platform");
 
-                                    <div class="sub-mega-menu-img">
-                                      <img
-                                        src="./assets/images/3184215.png"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                </li>
+                @endphp
 
-                                <li>
-                                  <a href="javascript:void(0)">
-                                    <span
-                                      ><i class="bi bi-pencil-square"></i
-                                    ></span>
-                                    <div>
-                                      <h6>Create Caption</h6>
-                                      <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam, sapiente.
-                                      </p>
-                                    </div>
-                                  </a>
-
-                                  <div class="sub-mega-menu">
-                                    <div class="sub-menu-content">
-                                      <h6>
-                                        Manage All Your Social Media Channels
-                                        with EngageHub
-                                      </h6>
-
-                                      <p>
-                                        Create, schedule, and post content
-                                        across several social media accounts
-                                        from one place.
-                                      </p>
-
-                                      <ul>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                        <li>
-                                          <span
-                                            ><i class="bi bi-activity"></i
-                                          ></span>
-                                          <p>Multiple Profile</p>
-                                        </li>
-                                      </ul>
-                                    </div>
-
-                                    <div class="sub-mega-menu-img">
-                                      <img
-                                        src="./assets/images/3184215.png"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                </li>
-
-                                <li>
-                                  <a href="javascript:void(0)">
-                                    <span
-                                      ><i class="bi bi-hourglass-split"></i
-                                    ></span>
-                                    <div>
-                                      <h6>Schedule Post</h6>
-                                      <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam, sapiente.
-                                      </p>
-                                    </div>
-                                  </a>
-                                </li>
-
-                                <li>
-                                  <a href="javascript:void(0)">
-                                    <span><i class="bi bi-inboxes"></i></span>
-                                    <div>
-                                      <h6>Engagement</h6>
-                                      <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam, sapiente.
-                                      </p>
-                                    </div>
-                                  </a>
-                                </li>
-
-                                <li>
-                                  <a href="javascript:void(0)">
-                                    <span
-                                      ><i class="bi bi-bar-chart-line"></i
-                                    ></span>
-                                    <div>
-                                      <h6>Analytics & Reports</h6>
-                                      <p>
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam, sapiente.
-                                      </p>
-                                    </div>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+               @if($megaMenu->value->select_input->status == App\Enums\StatusEnum::true->status() )
+                  <li class="menu-item">
+                      <a href="javascript:void(0)" class="menu-link">
+                        {{@$megaMenu->value->title}}
+                        <div class="menu-link-icon">
+                          <i class="bi bi-chevron-down"></i>
                         </div>
+                      </a>
 
-                        <div class="col-lg-9">
+                      <div class="mega-menu container-lg px-0">
+                        <div class="mega-menu-wrapper">
+                          <div class="row g-0 h-100">
+                            <div class="col-lg-3">
+                              <div class="mega-menu-left">
+                                <div class="maga-menu-item menu-feature">
+                                  <h5>{{$platformContent->value->sub_title}}</h5>
+                                  <ul>
+                                      @foreach ($platformElements as  $element)
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                              <span><i class="@php echo $element->value->icon @endphp"></i></span>
+                                              <div>
+                                                <h6>{{$element->value->title}}</h6>
+                                                <p>{{$element->value->sub_title}}</p>
+                                              </div>
+                                            </a>
 
-                            <div class="mega-menu-right">
-                              <div class="row g-0 h-100">
-                                <div class="col-lg-8">
-                                  <div class="social-integra">
-                                    <h5>Top Integrations</h5>
-                                    <div class="mega-menu-integra">
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/facebook.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>Facebook</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
+                                            <div class="sub-mega-menu">
+                                              <div class="sub-menu-content">
+                                                    @php echo @$element->value->description @endphp
+                                              </div>
 
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/instagram.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>Instagram</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
+                                              <div class="sub-mega-menu-img">
 
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/twitter.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>Twitter</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
+                                                @foreach (@get_appearance()->platform->element->images as  $key => $val)
 
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/linkedin.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>Linkedin</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
+                                                  @php
+                                                          $file =  $element->file->where("type",$key)->first();
+                                                  @endphp
+                                                  <div class="platform-content-img">
+                                                      <img
+                                                      src="{{imageUrl(@$file,'frontend',true,$val->size)}}"
+                                                      alt="{{@$file->name}}"
+                                                      loading="lazy"/>
+                                                  </div>
+                                                @endforeach
+                                  
+                                              </div>
+                                            </div>
+                                        </li>
+                                      @endforeach
 
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/tik-tok.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>TikTok</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
-
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/youtube.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>youtube</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
-
-                                      <a href="#" class="menu-social-item">
-                                        <div class="social-item-img">
-                                          <img
-                                            src="./assets/images/social-logo/vk.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div>
-                                          <h6>VK</h6>
-                                          <p>Profile,Pages & Groups</p>
-                                        </div>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                  <div class="mega-menu-banner">
-                                    <img
-                                      src="./assets/images/menu-banner.jpg"
-                                      alt=""
-                                    />
-                                  </div>
+                                  </ul>
                                 </div>
                               </div>
                             </div>
 
+                            <div class="col-lg-9">
+
+                                <div class="mega-menu-right">
+                                  <div class="row g-0 h-100">
+                                    <div class="col-lg-8">
+                                      <div class="social-integra">
+                                        <h5>{{$intregrationsContent->value->sub_title}}</h5>
+                                        <div class="mega-menu-integra">
+
+                                          @forelse ($platforms   as  $platform)
+                                            <a href="#" class="menu-social-item">
+                                              <div class="social-item-img">
+                                                <img
+                                                src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                alt="{{@$platform->file->name}}"
+                                                loading="lazy" />
+                                              </div>
+                                              <div>
+                                                <h6> {{$platform->name}}</h6>
+                                                <p>     {{$platform->description}}</p>
+                                              </div>
+                                            </a>
+                                          @empty
+                                            
+                                             <div class="text-center">
+                                                  {{translate('No data found')}}
+                                             </div>
+
+                                          @endforelse
+
+                                      
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                      <div class="mega-menu-banner">
+
+                                         <img src='{{imageUrl(@$menuImg,"frontend",true,@get_appearance()->mega_menu->content->images->image->size)}}' alt="{{@$menuImg->name}}" />
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                @endif
 
                 @foreach ($menus as  $menu)
                     <li class="menu-item">
@@ -460,26 +271,30 @@
                     </span>
                     </div>
 
-                    <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 44px);">
-                    <ul>
-                        <li class="dropdown-menu-title">
-                            <h6>
-                                Welcome, <span class="user-name">Scott Warner</span>!
-                            </h6>
-                        </li>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <ul>
 
-                        <li>
-                            <a href="{{route('user.profile')}}" class="dropdown-item" >
-                                <i class="bi bi-person"></i> {{translate('Profile')}}
-                            </a>
-                        </li>
+                            <li class="dropdown-menu-title">
+                                <h6>
+                                    {{translate('Welcome')}}, 
+                                    <span class="user-name">
+                                        {{auth_user('web')->name}}
+                                    </span>
+                                </h6>
+                            </li>
 
-                        <li class="dropdown-menu-footer">
-                            <a href="{{route('user.logout')}}">
-                                <i class="bi bi-box-arrow-left"></i> {{translate('Logout')}}
-                            </a>
-                        </li>
-                    </ul>
+                            <li>
+                                <a href="{{route('user.profile')}}" class="dropdown-item" >
+                                    <i class="bi bi-person"></i> {{translate('Profile')}}
+                                </a>
+                            </li>
+
+                            <li class="dropdown-menu-footer">
+                                <a href="{{route('user.logout')}}">
+                                    <i class="bi bi-box-arrow-left"></i> {{translate('Logout')}}
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             @endif
