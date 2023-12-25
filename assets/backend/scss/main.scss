@@ -10,7 +10,6 @@
 .main-content {
   width: calc(100% - 250px);
   margin-left: auto;
-  // max-height: calc(100vh - 70px);
   min-height: calc(100vh - 70px);
   height: 100%;
   padding: 20px 20px;
@@ -1100,7 +1099,6 @@
   }
   p {
     margin-bottom: 12px;
-    // font-size: 15px;
   }
 }
 
@@ -1301,7 +1299,6 @@ ul.inbox-list {
 .chat-wrapper {
   display: flex;
   gap: 10px;
-  // Chat Info
   .chat-info {
     min-width: 300px;
     max-width: 300px;
@@ -1765,13 +1762,12 @@ ul.inbox-list {
 
 
   li{
-    // margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     font-size: 15px;
     border-bottom: 1px solid #eee;
-    padding: 13px 0;
+    padding: 15px 0;
 
     .time{
       font-size: 12px;
@@ -1818,4 +1814,14 @@ ul.inbox-list {
     font-weight: 500;
     text-decoration: underline;
   }
+}
+
+#subscriptionReport{
+  min-height: 415px !important;
+}
+
+#planReport{
+  min-height: 350px !important;
+  display: flex;
+  align-items: center;
 }
