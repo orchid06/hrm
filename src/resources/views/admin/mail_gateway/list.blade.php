@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 
-
 @section('content')
 
     <div class="i-card-md">

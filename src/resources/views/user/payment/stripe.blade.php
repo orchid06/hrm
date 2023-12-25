@@ -29,7 +29,7 @@
                                 <script
                                     src="{{$data->src}}"
                                     class="stripe-button"
-                                    @foreach($data->val as $key=> $value)
+                                    @foreach( $data->val as $key => $value )
                                         data-{{$key}}="{{$value}}"
                                     @endforeach>
                                 </script>

@@ -141,7 +141,7 @@ class UserService
                 $log = $this->paymentService->withdrawLog($user , $method ,$params);
 
                     if(request()->routeIs('user.*')){
-                        $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data");
+                        $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data","withdraw");
                     }
 
                     if($log->status == WithdrawStatus::value("APPROVED")){
@@ -637,7 +637,7 @@ class UserService
      * @param string $key
      * @return void
      */
-    public function saveCustomInfo(Request $request , mixed $log , object $params , string $key ) :void{
+    public function saveCustomInfo(Request $request , mixed $log , object $params , string $key ,string $fileLocation) :void{
 
           
         $collection    = collect($request);
@@ -659,7 +659,7 @@ class UserService
                                     $response = $this->storeFile(
 
                                         file        : $request->file($inKey), 
-                                        location    :  config("settings")['file_path']['withdraw']['path'],
+                                        location    :  config("settings")['file_path'][$fileLocation]['path'],
                                     );
                                     
                                     if(isset($response['status'])){

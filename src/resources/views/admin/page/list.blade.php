@@ -175,7 +175,7 @@
                                                 @endif
 
                                                 @if(check_permission('delete_page'))
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class=" pointer delete-item icon-btn danger">
+                                                    <a href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @endif

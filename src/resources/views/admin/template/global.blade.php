@@ -21,7 +21,7 @@
                         <label for="body">
                             {{translate('Email Body')}} <small class="text-danger">*</small>
                         </label>
-                        <textarea class=" summernote " name="site_settings[default_mail_template]" id="body" cols="30" rows="10">@php echo site_settings("default_mail_template") @endphp</textarea>
+                        <textarea class="summernote " name="site_settings[default_mail_template]" id="body" cols="30" rows="10">@php echo site_settings("default_mail_template") @endphp</textarea>
                     </div> 
 
                     <div class="form-inner">

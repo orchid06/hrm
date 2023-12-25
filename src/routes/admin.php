@@ -466,14 +466,14 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                     Route::get('/destroy/{id}','templateReportdestroy')->name('destroy');
                });
                
-               #credit reports refactored
+               #credit reports 
                Route::prefix("/credit/reports")->name('credit.report.')->group(function(){
                     Route::get('/','creditReport')->name('list');
                     Route::get('/destroy/{id}','creditReportdestroy')->name('destroy');
                     Route::post('/bulk/action','creditReportBulk')->name('bulk');
                });
 
-               #transaction report refactored
+               #transaction report 
                Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
 
                     Route::get('/','transactionReport')->name('list');
@@ -482,14 +482,14 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
            
                });
 
-               #subscriptioon report refactored
+               #subscriptioon report 
                Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
                     Route::get('/','subscriptionReport')->name('list');
                     Route::post('/update','updateSubscription')->name('update');
                
                });
 
-               #deposit report refactored
+               #deposit report 
                Route::prefix("/deposit/reports")->name('deposit.report.')->group(function(){
 
                     Route::get('/','depositReport')->name('list');
@@ -523,7 +523,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
           });
 
 
-          #support route refactored
+          #support route 
           Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
 
                Route::any('/list','list')->name('list');

@@ -99,7 +99,7 @@
                                 {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['withdraw_method']['size']}})</small>
                             </label>
                         
-                            <input data-size = "{{config('settings')['file_path']['withdraw_method']['size']}}" id="image" name="image" type="file" class=" preview" >
+                            <input data-size = "{{config('settings')['file_path']['withdraw_method']['size']}}" id="image" name="image" type="file" class="preview" >
     
                             <div class="mt-2 image-preview-section">
                     

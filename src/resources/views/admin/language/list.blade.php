@@ -138,7 +138,7 @@
 									<td data-label='{{translate(
 									"Updated By")}}'>
 
-										<span class=" i-badge capsuled success">
+										<span class="i-badge capsuled success">
 											{{$language->updatedBy->username}}
 										</span>
 
@@ -157,13 +157,13 @@
 												@endif
 
 												@if(check_permission('translate_language'))
-													<a href="{{route('admin.language.translate',$language->code)}}" class=" pointer icon-btn success"><i class="las la-language"></i></a>
+													<a href="{{route('admin.language.translate',$language->code)}}" class="pointer icon-btn success"><i class="las la-language"></i></a>
 												@endif
 
 
 												@if(check_permission('delete_language') && $language->code !='en' && $language->is_default != App\Enums\StatusEnum::true->status() && session()->get('locale') != $language->code   )
 										
-														<a href="javascript:void(0);" data-href="{{route('admin.language.destroy',$language->uid)}}" class=" pointer delete-item icon-btn danger ">
+														<a href="javascript:void(0);" data-href="{{route('admin.language.destroy',$language->uid)}}" class="pointer delete-item icon-btn danger ">
 														<i class="las la-trash-alt"></i></a>
 												
 												@endif

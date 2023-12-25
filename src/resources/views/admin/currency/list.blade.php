@@ -148,7 +148,7 @@
 
                                                     @if($currency->default != App\Enums\StatusEnum::true->status() && $currency->code != "USD" && ($currency->code != @session('currency')->code))
                                                     
-                                                        <a href="javascript:void(0);"    data-href="{{route('admin.currency.destroy',$currency->id)}}" class=" pointer delete-item icon-btn danger">
+                                                        <a href="javascript:void(0);"    data-href="{{route('admin.currency.destroy',$currency->id)}}" class="pointer delete-item icon-btn danger">
                                                             <i class="las la-trash-alt"></i>
                                                         </a>
 

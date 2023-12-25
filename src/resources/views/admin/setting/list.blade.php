@@ -517,7 +517,7 @@
                                             <label for="primary_color">
                                                 {{translate('Primary Color')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[primary_color]" id="primary_color" class="   colorpicker" value="{{site_settings('primary_color')}}" required >
+                                            <input type="text" name="site_settings[primary_color]" id="primary_color" class="colorpicker" value="{{site_settings('primary_color')}}" required >
                                         </div>
                                     </div>
 
@@ -526,7 +526,7 @@
                                             <label for="secondary_color">
                                                 {{translate('Secondary Color')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[secondary_color]" id="secondary_color" class="   colorpicker" value="{{site_settings('secondary_color')}}" required >
+                                            <input type="text" name="site_settings[secondary_color]" id="secondary_color" class="colorpicker" value="{{site_settings('secondary_color')}}" required >
                                         </div>
                                     </div>
 
@@ -544,7 +544,7 @@
                                             <label for="text_secondary_color">
                                                 {{translate('Text Secondary Color')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[text_secondary]" id="text_secondary_color" class="   colorpicker" value="{{site_settings('text_secondary')}}" required>
+                                            <input type="text" name="site_settings[text_secondary]" id="text_secondary_color" class="colorpicker" value="{{site_settings('text_secondary')}}" required>
                                         </div>
                                     </div>
 
@@ -1193,7 +1193,7 @@
                                                 <label for="{{$logoKey}}">
                                                     {{(k2t($logoKey))}} <small class="text-danger" >* ({{config("settings")['file_path'][$logoKey]['size']}})</small>
                                                 </label>
-                                                <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class=" preview" data-size = "{{config('settings')['file_path'][$logoKey]['size']}}">
+                                                <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class="preview" data-size = "{{config('settings')['file_path'][$logoKey]['size']}}">
                                                 <div class="mt-2 image-preview-section">
                                                     
                                                     <img src="{{imageUrl(@site_logo($logoKey)->file,$logoKey,true)}}" alt="{{@site_settings($logoKey)}}" class="fav-preview">

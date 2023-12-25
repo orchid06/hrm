@@ -94,7 +94,7 @@
                                                         <li>
                                                             <a href="javascript:void(0)"
                                                                 data-href="{{ route('admin.ticket.destroy.message',$message->id) }}"
-                                                                class=" delete-item  dropdown-item" type="button">
+                                                                class="delete-item  dropdown-item" type="button">
                                                                 <i class="bi bi-trash3 me-2"></i>
                                                                 {{ translate('Delete') }}
                                                             </a>

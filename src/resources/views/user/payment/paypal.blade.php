@@ -24,7 +24,8 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{$data->cleint_id}}">
 </script>
 <script>
-    paypal.Buttons({
+    "use strict";
+        paypal.Buttons({
         createOrder: function (data, actions) {
             return actions.order.create({
                 purchase_units: [

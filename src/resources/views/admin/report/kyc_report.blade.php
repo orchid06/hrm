@@ -125,7 +125,7 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.kyc.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.kyc.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                         </div>
                                     </td>
@@ -165,7 +165,7 @@
 <script>
 	(function($){
 
-     
+        "use strict";
         $(".user").select2({
            
         });

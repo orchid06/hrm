@@ -43,7 +43,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="{{route("user.transaction.report.list")}}" class="menu-link">
+              <a href="{{route('user.transaction.report.list')}}" class="menu-link">
                    {{translate("Transactions")}}
                </a>
             </li>
@@ -53,7 +53,7 @@
         <div class="header-right">
 
           <div class="header-right-item">
-            <a target="_blank" href="{{route("home")}}" class="home-link-btn ">
+            <a target="_blank" href="{{route('home')}}" class="home-link-btn ">
                 <i class="bi bi-globe-americas"></i>
             </a>
           </div>
@@ -257,7 +257,7 @@
 
 
                   <li class="dropdown-menu-footer">
-                    <a href="{{route("user.logout")}}">
+                    <a href="{{route('user.logout')}}">
                       <i class="bi bi-box-arrow-left"></i>
                         {{translate('Logout')}}
                     </a>

@@ -64,7 +64,7 @@
                         {{translate("Amount")}}
                         <small class="text-danger">*</small></label>
                     <div class="input-group">
-                        <input placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old("amount")}}"/>
+                        <input placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old('amount')}}"/>
                         <span class="input-group-text">
                             {{ $currencySymbol}}
                         </span>
