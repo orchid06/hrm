@@ -17,11 +17,10 @@ class Payment
        
         $siteName    = site_settings('site_name');
         $gateway     = $log->method->parameters;
-        $currency    = $gateway->method->currency->code;
-
-
+        $currency    = $log->method->currency->code;
         $val['pay_to_email']        = trim($gateway->skrill_email);
         $val['transaction_id']      = "$log->trx_code";
+
         $val['return_url']          = route('success');
         $val['return_url_text']     = "Return   $siteName ";
         $val['cancel_url']          =  route('failed');
@@ -31,13 +30,15 @@ class Payment
         $val['currency']            = "$currency";
         $val['detail1_description'] = "$siteName";
         $val['detail1_text']        = "Deposit To  $siteName";
-        $val['logo_url']            = asset('assets/images/logoIcon/logo.png');
+        $val['logo_url']            = imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true);
 
 
         $send['val']                = $val;
         $send['view']               = 'user.payment.redirect';
         $send['method']             = 'post';
         $send['url']                = 'https://www.moneybookers.com/app/payment.pl';
+
+
         return json_encode($send);
 
 
@@ -72,6 +73,7 @@ class Payment
         }
 
         UserService::updateDepositLog($log,$status,$data);
+        
         return $data;
 
     }

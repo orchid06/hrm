@@ -97,6 +97,7 @@ class DepositController extends Controller
      */
     public function depositConfirm(PaymentLog $depositLog) :mixed {
 
+
         $metaData = [
             'title' => 'Pay With '.$depositLog->method->name
         ];
@@ -115,14 +116,19 @@ class DepositController extends Controller
             ]);
         }
 
-        try {
+
+
+        // try {
             $gatewayService  = 'App\\Http\\Services\\Gateway\\'.$depositLog->method->code.'\\Payment';
+
             $data            = $gatewayService::paymentData($depositLog);
+
+        
             $data            = json_decode($data);
 
-        } catch (\Exception $exception) {
-            return back()->with(response_status($exception->getMessage(),'error'));
-        }
+        // } catch (\Exception $exception) {
+        //     return back()->with(response_status($exception->getMessage(),'error'));
+        // }
 
 
         if (isset($data->redirect)) {

@@ -175,7 +175,7 @@
                             </li>
                             <li class="list-group-item">
                                 <p> {{translate("Charge")}}</p>
-                                <h6> {{$currencySymbol}}${netCharge}  (  {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
+                                <h6> {{$currencySymbol}}${netCharge.toFixed(3)}  (  {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
                             </li>
 
                             <li class="list-group-item">
@@ -193,7 +193,7 @@
                             <li class="list-group-item">
                                 <p> {{translate("Payable amount")}}</p>
                                 <h6>
-                                    ${method.currency.symbol}${finalAmount.toFixed(4)} ({{base_currency()->symbol}}${netAmountInBase.toFixed(4)})
+                                    ${method.currency.symbol}${finalAmount.toFixed(2)} ({{base_currency()->symbol}}${netAmountInBase.toFixed(2)})
                                 </h6>
                             </li>
                       

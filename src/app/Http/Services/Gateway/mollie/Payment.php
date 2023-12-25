@@ -49,7 +49,7 @@ class Payment
         $data['status']       = 'error';
         $data['message']      = translate('Transaction failed.');
         $data['redirect']     = route('user.home');
-        $data['gw_response']  = $request->all();
+        $data['gw_response']  = $payment;
         $status               = DepositStatus::value('FAILED',true);
 
         if ($payment->status == "paid") {
