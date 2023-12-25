@@ -89,7 +89,7 @@
    
          @if(request()->routeIs('user.*'))
 
-            <section class="main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "p-0" :"" }}">
+            <section class='main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "p-0" :"" }}'>
                 @yield('content')
             </section>
 

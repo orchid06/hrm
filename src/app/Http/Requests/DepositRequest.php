@@ -24,8 +24,8 @@ class DepositRequest extends FormRequest
 
 
         return [
-                'method_id' => ['required','exists:payment_methods,id'],
-                "amount"    => ['required','numeric','min:-1']
+            'method_id' => ['required','exists:payment_methods,id'],
+            "amount"    => ['required','numeric','min:-1']
         ];
     }
 }
