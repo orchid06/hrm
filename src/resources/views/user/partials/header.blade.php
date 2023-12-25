@@ -53,7 +53,7 @@
         <div class="header-right">
 
           <div class="header-right-item">
-            <a href="{{route("home")}}" class="home-link-btn ">
+            <a target="_blank" href="{{route("home")}}" class="home-link-btn ">
                 <i class="bi bi-globe-americas"></i>
             </a>
           </div>

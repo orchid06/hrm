@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{csrf_token()}}" />
 
-   <title>{{@site_settings("site_name")}} {{site_settings('title_separator')}} {{Arr::get($meta_data,"title",trans("default.home"))}}</title>
+   <title>{{@site_settings("user_site_name",site_settings('site_name'))}} {{site_settings('title_separator')}} {{Arr::get($meta_data,"title",trans("default.home"))}}</title>
 
 
     @include('partials.meta_content')

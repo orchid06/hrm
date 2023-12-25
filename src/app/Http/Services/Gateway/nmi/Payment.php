@@ -20,6 +20,7 @@ class Payment
         $xmlRequest->formatOutput  = true;
         $xmlSale                   = $xmlRequest->createElement('sale');
 
+
         self::appendXmlNode($xmlRequest, $xmlSale, 'api-key', $gateway->api_key);
         self::appendXmlNode($xmlRequest, $xmlSale, 'redirect-url', route('ipn',[$log->trx_code]));
         self::appendXmlNode($xmlRequest, $xmlSale, 'amount', round($log->final_amount));
@@ -30,11 +31,13 @@ class Payment
         $xmlRequest->appendChild($xmlSale);
         
 
-        $url = 'https://secure.nmi.com/api/v2/three-step' ;
 
-        $data = CurlService::curlPostRequestWithHeaders($url, ["Content-type: text/xml"], $xmlRequest->saveXML());
+        $data = CurlService::curlPostContent('https://secure.nmi.com/api/v2/three-step',$xmlRequest->saveXML(),["Content-type: text/xml"]);
+
+        
 
         $gwResponse = new \SimpleXMLElement($data);
+
         if ((string)$gwResponse->result == 1) {
             $formURL = $gwResponse->{'form-url'};
         } else {
@@ -59,7 +62,7 @@ class Payment
     public static function ipn(Request $request , PaymentLog $log ) :array {
 
         $data['status']      = 'error';
-        $data['message']     = translate('Invalid amount.');
+        $data['message']     = translate('Invalid Credit Card');
         $data['redirect']    = route('user.home');
         $data['gw_response'] = $request->all();
         $status              = DepositStatus::value('FAILED',true);
@@ -75,9 +78,12 @@ class Payment
         self::appendXmlNode($xmlRequest, $xmlCompleteTransaction, 'api-key', $gateway->api_key);
         self::appendXmlNode($xmlRequest, $xmlCompleteTransaction, 'token-id', $tokenId);
         $xmlRequest->appendChild($xmlCompleteTransaction);
-        $url = 'https://secure.nmi.com/api/v2/three-step' ;
-        $response = CurlService::curlPostRequestWithHeaders($url, ["Content-type: text/xml"], $xmlRequest->saveXML());
+        $response = CurlService::curlPostContent('https://secure.nmi.com/api/v2/three-step',$xmlRequest->saveXML(),["Content-type: text/xml"]);
         $gwResponse = @new \SimpleXMLElement((string)$response);
+
+
+
+        $data['gw_response'] =        $gwResponse;
         if ($gwResponse->result == 1) {
 
             $data['status']   = 'success';

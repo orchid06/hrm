@@ -6,8 +6,11 @@
 @php
 
    $balance         = auth_user("web")->balance;
-   $currencySymbol  = session('currency')?session('currency')->symbol : base_currency()->symbol;
-    
+   $currency        = session('currency')?session('currency'): base_currency();
+   $currencySymbol  = $currency->symbol;
+   $currencyCode    = $currency->code;
+   $exchangeRate    = $currency->exchange_rate;
+
 @endphp
 
 <div class="row">
@@ -38,8 +41,8 @@
                         <small class="text-danger">*</small>
                     </label>
 
-                    <select name="id" class="form-select deposit-method" 
-                        id="id">
+                    <select name="method_id" class="form-select deposit-method" 
+                        id="method_id">
 
                         <option value="">
                             {{translate('Select Method')}}
@@ -47,7 +50,7 @@
 
                         @foreach ($methods as $method )
 
-                        <option data-method ="{{$method}}" {{old("id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
+                        <option data-method ="{{$method}}" {{old("method_id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
                             {{$method->name}}
                         </option>
                             
@@ -68,7 +71,7 @@
                     </div>
                 </div>
 
-                <ul class="payment-details list-group mt-4 d-none">
+                <ul class="deposit-details list-group mt-4 d-none">
 
                 
                 </ul>
@@ -83,6 +86,11 @@
       </div>
     </div>
 </div>
+
+
+@php
+    $fromRate    = session()->get("currency") ? session()->get("currency")->exchange_rate :0;
+@endphp
 
 @endsection
 
@@ -102,17 +110,16 @@
             var method =  JSON.parse($(this).find(':selected').attr('data-method'));
             var amount = parseFloat($('#amount').val());
 
+            
             if(method && amount){
                 deopositCal(method,amount)
             }
-
 
         });
 
 
         $(document).on("keyup",'#amount',function(e){
-            
-     
+                 
             var methodId = $(".deposit-method").val()
             var amount = parseFloat($(this).val());
             if(methodId && amount){
@@ -135,14 +142,22 @@
 
         function deopositCal(method , amount){
                   
-               console.log(method)
 
-                var fixedCharge   =  parseFloat(method.fixed_charge);
-                var percentCharge =  parseFloat(method.percentage_charge);
+                var rate                =  parseFloat('{{$fromRate}}')
+                var fixedCharge         =  parseFloat(method.fixed_charge);
+                var percentCharge       =  parseFloat(method.percentage_charge);
 
-                var netCharge     =  parseFloat(fixedCharge + (amount  * percentCharge / 100));
-                var netAmount     =  (amount + netCharge).toFixed(2);
+                var netCharge           =  parseFloat(fixedCharge + (amount  * percentCharge / 100));
 
+                var netAmount           =  (amount + netCharge);
+                var netAmountInBase     =  (netAmount/rate);
+
+                var methodExchangeRate  = parseFloat(method.currency.exchange_rate)
+
+                var finalAmount         =  netAmountInBase*methodExchangeRate;
+
+                var exchangeRate        =  exchange_rate(method.currency)
+       
                 var list  =  `<li class="list-group-item" aria-current="true">
                                         <h5>
                                             {{translate("Deposit Details")}}
@@ -154,26 +169,51 @@
                                     {{translate("Limit")}}
                                 </p>
                                 <h6>
-                                    {{$currencySymbol}}${method.minimum_amount} - {{$currencySymbol}}${method.maximum_amount}
+                                    ${method.currency.symbol}${method.minimum_amount} -  ${method.currency.symbol}${method.maximum_amount}
 
                                 </h6>
                             </li>
                             <li class="list-group-item">
                                 <p> {{translate("Charge")}}</p>
-                                <h6>{{$currencySymbol}}${netCharge}  ( {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
+                                <h6> {{$currencySymbol}}${netCharge}  (  {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
                             </li>
 
                             <li class="list-group-item">
-                                <p> {{translate("Final amount")}}</p>
+                                <p> {{translate("Amount with charge")}}</p>
+                                <h6> {{$currencySymbol}}${netAmount}</h6>
+                            </li>
+
+                            <li class="list-group-item">
+                                <p> {{translate("Exchange rate")}}</p>
+                                <h6> {{$currencySymbol}}1 = ${method.currency.symbol}${exchangeRate}</h6>
+                            </li>
+                           
+                           
+
+                            <li class="list-group-item">
+                                <p> {{translate("Payable amount")}}</p>
                                 <h6>
-                                    {{$currencySymbol}}${netAmount}
+                                    ${method.currency.symbol}${finalAmount.toFixed(4)} ({{base_currency()->symbol}}${netAmountInBase.toFixed(4)})
                                 </h6>
                             </li>
+                      
                             
                             `;
 
                 $('.deposit-details').removeClass('d-none');
                 $('.deposit-details').html(list)
+        }
+
+
+        function exchange_rate(currency){
+            var base    = "{{base_currency()}}";
+            var amount  = parseFloat({{base_currency()->exchange_rate}});
+            var  rate    = parseFloat({{$currency->exchange_rate}})
+
+            var exchangeRate = rate / (currency?currency.exchange_rate : rate);
+             amount       = 1 / exchangeRate;
+
+            return  amount.toFixed(2);
         }
  
        

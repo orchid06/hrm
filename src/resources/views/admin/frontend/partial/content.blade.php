@@ -10,7 +10,7 @@
             @if($k == 'images')
                 @foreach($content as $imK => $imV)
             
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="{{$imK}}">
                                 {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>

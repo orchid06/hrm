@@ -106,11 +106,11 @@ class HomeController extends Controller
                                                                         ->toArray()),
                     
                                      "monthly_income"             =>   sortByMonth(Subscription::date()
-                                                                            ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
-                                                                            ->whereYear('created_at', '=',date("Y"))
-                                                                            ->groupBy('months')
-                                                                            ->pluck('total', 'months')
-                                                                            ->toArray(),true)
+                                                                        ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
+                                                                        ->whereYear('created_at', '=',date("Y"))
+                                                                        ->groupBy('months')
+                                                                        ->pluck('total', 'months')
+                                                                        ->toArray(),true)
 
         ];
 
@@ -166,15 +166,8 @@ class HomeController extends Controller
                                                         ->filter(["user:username",'trx_type'])
                                                         ->date()               
                                                         ->latest()
-                                                        ->take(8)
+                                                        ->take(7)
                                                         ->get();
-
-
-
-
-
-
-
 
         return $data;
 

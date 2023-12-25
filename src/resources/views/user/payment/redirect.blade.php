@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ site_settings("site_title") }}</title>
+    <title>{{@site_settings("user_site_name",site_settings('site_name'))}} {{site_settings('title_separator')}} {{translate('Payment')}}</title>
 </head>
 
 <body>
