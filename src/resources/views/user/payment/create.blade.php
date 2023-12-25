@@ -16,12 +16,12 @@
 <div class="row">
     <div class="col-xl-7 col-lg-10 mx-auto">
       <div
-        class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+        class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>
           <h4>
                {{translate(Arr::get($meta_data,'title'))}}
           </h4>
-       
+
         </div>
 
         <div>
@@ -41,7 +41,7 @@
                         <small class="text-danger">*</small>
                     </label>
 
-                    <select name="method_id" class="form-select deposit-method" 
+                    <select name="method_id" class="form-select deposit-method"
                         id="method_id">
 
                         <option value="">
@@ -53,7 +53,7 @@
                         <option data-method ="{{$method}}" {{old("method_id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
                             {{$method->name}}
                         </option>
-                            
+
                         @endforeach
 
                     </select>
@@ -71,9 +71,9 @@
                     </div>
                 </div>
 
-                <ul class="deposit-details list-group mt-4 d-none">
+                <ul class="payment-details deposit-details list-group mt-4 d-none">
 
-                
+
                 </ul>
 
                 <div class="mt-4">
@@ -102,7 +102,7 @@
         "use strict";
 
         $(".deposit-method").select2({
-           
+
         });
 
         $(document).on("change",'.deposit-method',function(e){
@@ -110,7 +110,7 @@
             var method =  JSON.parse($(this).find(':selected').attr('data-method'));
             var amount = parseFloat($('#amount').val());
 
-            
+
             if(method && amount){
                 deopositCal(method,amount)
             }
@@ -119,19 +119,19 @@
 
 
         $(document).on("keyup",'#amount',function(e){
-                 
+
             var methodId = $(".deposit-method").val()
             var amount = parseFloat($(this).val());
             if(methodId && amount){
 
                 var method =  JSON.parse($('.deposit-method').find(':selected').attr('data-method'));
-              
+
                 deopositCal(method,amount)
             }
             else{
                 $('.deposit-details').addClass('d-none');
                 if(!methodId){
-        
+
                     toastr("{{translate('Select a method first')}}",'danger')
                 }
 
@@ -141,7 +141,7 @@
 
 
         function deopositCal(method , amount){
-                  
+
 
                 var rate                =  parseFloat('{{$fromRate}}')
                 var fixedCharge         =  parseFloat(method.fixed_charge);
@@ -157,13 +157,13 @@
                 var finalAmount         =  netAmountInBase*methodExchangeRate;
 
                 var exchangeRate        =  exchange_rate(method.currency)
-       
+
                 var list  =  `<li class="list-group-item" aria-current="true">
                                         <h5>
                                             {{translate("Deposit Details")}}
                                         </h5>
                                 </li>`;
-                
+
                     list += `<li class="list-group-item">
                                 <p>
                                     {{translate("Limit")}}
@@ -187,8 +187,8 @@
                                 <p> {{translate("Exchange rate")}}</p>
                                 <h6> {{$currencySymbol}}1 = ${method.currency.symbol}${exchangeRate}</h6>
                             </li>
-                           
-                           
+
+
 
                             <li class="list-group-item">
                                 <p> {{translate("Payable amount")}}</p>
@@ -196,8 +196,8 @@
                                     ${method.currency.symbol}${finalAmount.toFixed(4)} ({{base_currency()->symbol}}${netAmountInBase.toFixed(4)})
                                 </h6>
                             </li>
-                      
-                            
+
+
                             `;
 
                 $('.deposit-details').removeClass('d-none');
@@ -215,8 +215,8 @@
 
             return  amount.toFixed(2);
         }
- 
-       
+
+
 
 	})(jQuery);
 </script>

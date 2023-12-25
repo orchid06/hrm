@@ -13,7 +13,7 @@
                 {{Arr::get($counter,'pending',0)}}
             </h3>
             <h5 class="title">
-               {{translate("Pending Ticket")}}  
+               {{translate("Pending Ticket")}}
             </h5>
             <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::PENDING->value])}}" class="i-btn btn--sm btn--outline">
               {{translate("View All")}}
@@ -92,7 +92,7 @@
                         @endif
                     </div>
                 @endif
-               
+
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,21 +145,21 @@
                                     <i class="las la-sliders-h"></i>
                                 </button>
                             </form>
-                        </div>  
-                    </div>  
+                        </div>
+                    </div>
                     <div class="ms-3">
                         <a href="{{ route('admin.ticket.list') }}" class="i-btn btn--sm danger">
                                 <i class="las la-sync"></i>
                         </a>
                     </div>
                 </div>
-            
+
                 </div>
                 </div>
         <div class="table-container position-relative">
 
             @include('admin.partials.loader')
-            
+
             <table >
                 <thead>
                     <tr>
@@ -199,10 +199,10 @@
                 <tbody>
 
                     @forelse($tickets as $ticket)
-               
+
                             <tr>
                                 <td data-label="#">
-                           
+
                                     {{$loop->iteration}}
                                 </td>
                                 <td data-label="{{translate('Ticket Number')}}">
@@ -242,7 +242,7 @@
                                         <a  href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
 
                                         @if(check_permission('delete_ticket') )
-                                          
+
                                         <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
                                             <i class="las la-trash-alt"></i></a>
 
@@ -251,7 +251,7 @@
                                     </div>
                                 </td>
                            </tr>
-        
+
                         @empty
 
                         <tr>
@@ -264,10 +264,10 @@
             </table>
         </div>
 
-    
+
         <div class="Paginations">
             {{ $tickets->links() }}
-        
+
         </div>
     </div>
 </div>
@@ -277,7 +277,7 @@
 @section('modal')
 
     @include('modal.delete_modal')
-  
+
 @endsection
 
 @push('script-include')
@@ -286,7 +286,7 @@
 
 @push('script-push')
 <script>
-	(function($){   
+	(function($){
 
         $(".select2").select2({
             placeholder:"{{translate('Select Status')}}",
@@ -303,8 +303,8 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
-         
-    
+
+
 
 
 	})(jQuery);

@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{csrf_token()}}" />
- 
+
     <title>{{@site_settings("site_name")}} {{site_settings('title_separator')}} {{@translate($title)}}</title>
 
     <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}">
@@ -77,13 +77,13 @@
         window.onload = function () {
 
           $('.table-loader').addClass("d-none");
-         
+
 
         }
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {
-        
+
             const id = $(this).attr('data-id')
             const key = $(this).attr('data-key')
             var column = ($(this).attr('data-column'))
@@ -100,7 +100,7 @@
             }
             updateStatus(route, data)
         })
-        
+
         // update status method
         function updateStatus(route, data) {
             var responseStatus;
@@ -117,7 +117,7 @@
                         if(response.reload){
                             location.reload()
                         }
-                    } 
+                    }
                 },
                 error: function (error) {
                     if(error && error.responseJSON){
@@ -145,7 +145,7 @@
             readNotification(href,id)
             e.preventDefault()
         })
-            
+
         // read Notification
         function readNotification(href,id){
             $.ajax({
@@ -169,7 +169,7 @@
 
 
 
-        
+
         /** delete ,restore , bulk action */
 
 
@@ -208,7 +208,7 @@
                          src = "{{asset('assets/images/restore.gif')}}";
                     }
                 }
-            
+
             }
 
             $(".bulk-warning-image").attr("src",src)
@@ -234,7 +234,7 @@
 
         //restore event start
         $(document).on('click', ".restore-item", function (e) {
-            
+
             e.preventDefault();
             var href = $(this).attr('data-href');
 
@@ -250,12 +250,12 @@
         })
 
 
-   
+
 
 
         // update seettings
         $(document).on('submit','.settingsForm',function(e){
-            
+
                 var data =   new FormData(this)
                 var route = "{{route('admin.setting.store')}}"
                 if($(this).attr('data-route')){
@@ -306,18 +306,24 @@
             $(".Paginations").addClass('d-none')
         }
 
+        // Summer note
+        $(document).on("click", ".close", function (e) {
+            $(this).closest(".modal").modal("hide");
+        });
 
-   
+        $(document).on('click', '.note-btn.dropdown-toggle', function (e) {
+            var $clickedDropdown = $(this).next();
+            $('.note-dropdown-menu.show').not($clickedDropdown).removeClass('show');
+            $clickedDropdown.toggleClass('show');
+            e.stopPropagation();
+        });
 
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.note-btn.dropdown-toggle').length) {
+                $(".note-dropdown-menu").removeClass("show");
+            }
+        });
 
-
-
-
-
-
-
-
-        
 
     })(jQuery);
 

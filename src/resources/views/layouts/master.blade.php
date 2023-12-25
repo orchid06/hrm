@@ -293,6 +293,25 @@
         })
 
 
+        // Summer note
+        $(document).on("click", ".close", function (e) {
+            $(this).closest(".modal").modal("hide");
+        });
+
+        $(document).on('click', '.note-btn.dropdown-toggle', function (e) {
+
+            var $clickedDropdown = $(this).next();
+            $('.note-dropdown-menu.show').not($clickedDropdown).removeClass('show');
+            $clickedDropdown.toggleClass('show');
+            e.stopPropagation();
+
+        });
+
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.note-btn.dropdown-toggle').length) {
+                $(".note-dropdown-menu").removeClass("show");
+            }
+        });
 
     </script>
 
