@@ -6,16 +6,12 @@
 
 @section('content')
 
-
-<div class="row">
-    <div class="col-xl-12 col-lg-12 mx-auto">
+<div>
       <div
         class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
-        <div>
-            <h4>
-                {{translate(Arr::get($meta_data,'title'))}}
-            </h4>
-        </div>
+        <h4>
+            {{translate(Arr::get($meta_data,'title'))}}
+        </h4>
 
         <div>
           <button
@@ -29,13 +25,14 @@
           </button>
         </div>
       </div>
+
       <div class="collapse filterTwo mb-3" id="tableFilter">
         <div class="i-card-md">
           <div class="card-body">
             <div class="search-action-area p-0">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
-                 
+
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                     </div>
@@ -73,19 +70,15 @@
       </div>
 
       <div class="table-accordion">
-
         @if($reports->count() > 0)
             <div class="accordion" id="wordReports">
-
                 @forelse($reports as $report)
-
                     <div class="accordion-item">
                         <div class="accordion-header">
                             <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                                 aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                <div class="row align-items-center w-100 gy-2">
-
-                                    <div class="col">
+                                <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                    <div class="col-lg-2 col-sm-4 col-12">
                                         <div class="table-accordion-header transfer-by">
                                             <span class="icon-btn icon-btn-sm info circle">
                                                 <i class="bi bi-arrow-up-left"></i>
@@ -99,30 +92,35 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="col text-center">
+                                    <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-center text-start">
                                         <div class="table-accordion-header">
                                             <h6>
                                                 {{translate("Expired In")}}
                                             </h6>
-                                            @if($report->expired_at)
-                                            {{ get_date_time($report->expired_at) }}
-                                            @else
-                                                {{translate("N/A")}}
-                                            @endif
+
+                                            <p>
+                                                @if($report->expired_at)
+                                                {{ get_date_time($report->expired_at) }}
+                                                @else
+                                                    {{translate("N/A")}}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
 
-                                    <div class="col text-sm-center">
+                                    <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
                                         <div class="table-accordion-header">
                                             <h6>
                                                 {{translate("Package")}}
                                             </h6>
-                                            {{@$report->package->title}}
+
+                                            <p>
+                                                {{@$report->package->title}}
+                                            </p>
                                         </div>
                                     </div>
 
-                                    <div class="col text-sm-center">
+                                    <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
                                         <div class="table-accordion-header">
                                             <h6>
                                                 {{translate("Status")}}
@@ -131,33 +129,35 @@
                                         </div>
                                     </div>
 
-                                    <div class="col text-sm-center">
+                                    <div class="col-lg-2 col-sm-4 col-6 text-sm-center text-end">
                                         <div class="table-accordion-header">
                                             <h6>
                                                 {{translate("Payment Amount")}}
                                             </h6>
-                                            {{@num_format(
-                                                number : $report->payment_amount??0,
-                                                calC   : true
-                                            )}}
+                                            <p>
+                                                {{@num_format(
+                                                    number : $report->payment_amount??0,
+                                                    calC   : true
+                                                )}}
+                                            </p>
                                         </div>
                                     </div>
 
-
-                                    <div class="col text-sm-center">
+                                    <div class="col-lg-2 col-sm-4 col-6 text-sm-end text-start">
                                         <div class="table-accordion-header">
                                             <h6>
                                                 {{translate("Date")}}
                                             </h6>
-                                            @if($report->created_at)
-                                                {{ get_date_time($report->created_at) }}
-                                            @else
-                                                {{translate("N/A")}}
-                                            @endif
+
+                                            <p>
+                                                @if($report->created_at)
+                                                    {{ get_date_time($report->created_at) }}
+                                                @else
+                                                    {{translate("N/A")}}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -181,8 +181,8 @@
                                             "Carried Post Balnace"     => $report->remaining_post_balance,
                                         ];
                                     @endphp
-                                   
-                                    
+
+
                                    @foreach ($informations  as  $key => $val)
 
                                         <li class="list-group-item">
@@ -195,32 +195,25 @@
                                         </li>
 
                                    @endforeach
-                                 
-                    
+
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                 @empty
                 @endforelse
-
            </div>
         @else
              @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
         @endif
-
-      
- 
-    
       </div>
 
-      
-        <div class="Paginations">
+      <div class="Paginations">
 
             {{ $reports->links() }}
-        
-        </div>
-    </div>
+
+      </div>
 </div>
 
 
@@ -239,7 +232,7 @@
         "use strict";
 
         $(".package").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
