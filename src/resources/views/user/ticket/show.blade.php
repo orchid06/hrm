@@ -41,53 +41,54 @@
                         $files = $ticket->file;
                     @endphp
                 </div>
-            </div>
-        </div>
 
-        <div class="discussion-continer mt-4">
-            <div class="i-card-md">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        {{ translate('Ticket Message') }}
-                    </h4>
-                </div>
-                
-                <div class="card-body">
-                    @forelse($messages    as $message)
-                        @php
-                            $imgUrl = imageUrl(@$ticket->user->file,"profile,user",true);
-                            if ($message->admin_id) {
-
-                                $imgUrl = imageUrl($message->admin->file,"profile,admin",true);;
-                            }
-                        @endphp
-                        <div class="message-item d-flex justify-content-between align-items-start">
-                            <div class="d-flex flex-grow-1">
-                                <div class="author-image me-3">
-                                    <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
-                                </div>
-
-                                <div class="author-content flex-grow-1">
-                                    <div class="mesg-meta mb-1">
-                                        <h6>
-                                            @if ($message->admin_id)
-                                                {{ $message->admin?->name }}
-                                            @else
-                                                {{ $ticket->user?->name }}
-                                            @endif
-                                        </h6>
-                                        <small> {{ diff_for_humans($message->created_at) }}</small>
-                                    </div>
-                                    <div class="mesg-body">
-                                        @php echo $message->message  @endphp
-                                    </div>
-                                </div>
-                            </div>
-
+                <div class="discussion-continer mt-5">
+                    <div class="i-card-md">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                {{ translate('Ticket Message') }}
+                            </h4>
                         </div>
-                    @empty
-                        @include('admin.partials.not_found')
-                    @endforelse
+
+                        <div class="card-body">
+                            <div class="message-wrapper" data-simplebar>
+                                @forelse($messages  as $message)
+                                    @php
+                                        $imgUrl = imageUrl(@$ticket->user->file,"profile,user",true);
+                                        if ($message->admin_id) {
+
+                                            $imgUrl = imageUrl($message->admin->file,"profile,admin",true);;
+                                        }
+                                    @endphp
+
+                                        <div class="message-item d-flex justify-content-between align-items-start">
+                                            <div class="author-image me-3">
+                                                <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
+                                            </div>
+
+                                            <div class="author-content flex-grow-1">
+                                                <div class="mesg-meta mb-1">
+                                                    <h6>
+                                                        @if ($message->admin_id)
+                                                            {{ $message->admin?->name }}
+                                                        @else
+                                                            {{ $ticket->user?->name }}
+                                                        @endif
+                                                    </h6>
+                                                    <small> {{ diff_for_humans($message->created_at) }}</small>
+                                                </div>
+                                                <div class="mesg-body">
+                                                    @php echo $message->message  @endphp
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                @empty
+                                    @include('admin.partials.not_found')
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,45 +180,35 @@
 
 
         @if ($files && $files->count()  > 0)
-            <div class="i-card-md mb-30">
-                <div class="card--header">
+            <div class="i-card-md mt-4">
+                <div class="card-header">
                     <h4 class="card-title">
                         {{ translate('Files') }}
                     </h4>
                 </div>
 
                 <div class="card-body">
+                    <div class="ticket-attach">
+                        @foreach ($files as $file)
+                            <form action="{{ route('user.ticket.file.download') }}" method="post">
+                                <input hidden type="text" name="id" value="{{ $file->id }}">
 
-                    @foreach ($files as $file)
-                        <form action="{{ route('user.ticket.file.download') }}" method="post">
-                            <input hidden type="text" name="id" value="{{ $file->id }}">
+                                @csrf
+                                <div class="attach-item d-flex gap-4 justify-content-between align-items-center">
+                                    <h6 class="file-info">
+                                        {{ translate('File-') . $loop->index + 1 }}
+                                    </h6>
 
-                            @csrf
-                            <div class="attach-item d-flex gap-4 justify-content-between align-items-center  mb-3">
-                                <div class="file-info">
-                                    {{ translate('File-') . $loop->index + 1 }}
-                                </div>
-
-
-                                <div class="d-flex gap-2">
-
-                                    <button type="submit" class="download-btn">
-                                        <i class="bi bi-download"></i>
-
-                                        <span class="tooltip">
-                                            {{ translate('Download') }}
-                                        </span>
-                                    </button>
-
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="icon-btn icon-btn-md info circle download-btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title=" {{ translate('Download')}}">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
-
-
-                            </div>
-                        </form>
-                    @endforeach
-
-
+                            </form>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         @endif

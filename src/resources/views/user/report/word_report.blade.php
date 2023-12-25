@@ -8,33 +8,40 @@
 
 
 <div class="row">
-    <div class="col-xl-12 col-lg-12 mx-auto">
-      <div class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
-        <div>
+    <div class="col-xl-8 mx-auto">
+      <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}
             </h4>
-        </div>
 
-        <div>
-          <button
-            class="icon-btn icon-btn-lg info circle"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#tableFilter"
-            aria-expanded="false"
-            aria-controls="tableFilter">
-            <i class="bi bi-funnel"></i>
-          </button>
-        </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end">
+                    @if( 0 < $genarated_words)
+                        <h6> {{translate("Total Words")}}
+                            <span class="ms-2 i-badge capsuled danger">{{truncate_price($genarated_words,0)}}</span>
+                        </h6>
+                    @endif
+                </div>
+
+            <button
+                class="icon-btn icon-btn-lg info circle"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#tableFilter"
+                aria-expanded="false"
+                aria-controls="tableFilter">
+                <i class="bi bi-funnel"></i>
+            </button>
+            </div>
       </div>
+
       <div class="collapse filterTwo mb-3" id="tableFilter">
         <div class="i-card-md">
           <div class="card-body">
             <div class="search-action-area p-0">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
-                 
+
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                     </div>
@@ -73,52 +80,51 @@
                 @forelse($reports as $report)
                     <div class="accordion-item">
                         <div class="accordion-header">
-                        <div
-                            class="accordion-button collapsed"
-                            role="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{$report->id}}"
-                            aria-expanded="false"
-                            aria-controls="collapse{{$report->id}}">
-                            <div class="row align-items-center w-100 gy-2">
+                            <div
+                                class="accordion-button collapsed"
+                                role="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{$report->id}}"
+                                aria-expanded="false"
+                                aria-controls="collapse{{$report->id}}">
+                                <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                    <div class="col-md-4">
+                                        <div class="table-accordion-header transfer-by">
+                                            <span class="icon-btn icon-btn-sm info circle">
+                                                <i class="bi bi-arrow-up-left"></i>
+                                            </span>
+                                            <div>
+                                                <h6>
+                                                    {{translate("Template")}}
+                                                </h6>
+                                                <p>{{$report->template->name}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                
-                                <div class="col">
-                                    <div class="table-accordion-header transfer-by">
-                                        <span class="icon-btn icon-btn-sm info circle">
-                                            <i class="bi bi-arrow-up-left"></i>
-                                        </span>
-                                        <div>
+                                    <div class="col-md-4 col-6 text-sm-center">
+                                        <div class="table-accordion-header">
                                             <h6>
-                                                {{translate("Template")}}
+                                                {{translate("Generated On")}}
                                             </h6>
-                                            <p>{{$report->template->name}}</p>
+                                            <p>
+                                                {{ get_date_time($report->created_at) }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-6 text-end">
+                                        <div class="table-accordion-header">
+                                            <h6>
+                                                {{translate("Words")}}
+                                            </h6>
+                                            <span class="i-badge capsuled info">
+                                                {{$report->total_words}}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <div class="col text-sm-center">
-                                    <div class="table-accordion-header">
-                                    <h6>
-                                        {{translate("Generated On")}}
-                                    </h6>
-                                    {{ get_date_time($report->created_at) }}
-                                    </div>
-                                </div>
-
-                                <div class="col text-center">
-                                    <div class="table-accordion-header">
-                                        <h6>
-                                            {{translate("Words")}}
-                                        </h6>
-                                        <span class="i-badge capsuled info">
-                                            {{$report->total_words}}
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
                         </div>
 
                         <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
@@ -133,7 +139,7 @@
                                         {{$report->content}}
                                         </p>
                                     </li>
-                                        
+
                                     @foreach ($report->open_ai_usage as $key => $val )
 
                                         <li class="list-group-item">
@@ -144,10 +150,10 @@
                                                 {{$val}}
                                             </p>
                                         </li>
-                                            
+
                                     @endforeach
-                                
-                    
+
+
                                 </ul>
                             </div>
                         </div>
@@ -161,15 +167,10 @@
         @endif
       </div>
 
-        <div class="mt-3 text-end">
-                @if( 0 < $genarated_words)
-                    {{translate("Total Words")}} <span class="ms-2 i-badge capsuled info"> {{truncate_price($genarated_words,0)}} </span>
-                @endif
-        </div>
+      <div class="Paginations">
+        {{ $reports->links() }}
+      </div>
 
-        <div class="Paginations">
-            {{ $reports->links() }}
-        </div>
     </div>
 </div>
 
@@ -197,11 +198,11 @@
                         <div class="col-lg-12">
                             <div class="form-inner">
                                 <label for="content" class="form-label" >
-                                    {{translate('Genarated Content')}} 
+                                    {{translate('Genarated Content')}}
                                 </label>
 
                                 <textarea disabled name="content" id="content" cols="30" rows="4"></textarea>
-                                
+
                             </div>
 
                         </div>
@@ -209,7 +210,7 @@
                         <div class="col-lg-12">
 
                             <ul class="list-group list-group-flush" id="additionalInfo">
-                                
+
                             </ul>
 
                         </div>
@@ -221,9 +222,9 @@
                     <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-                    
+
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -242,16 +243,16 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         });
-        
+
         flatpickr("#datePicker", {
             dateFormat: "Y-m-d",
             mode: "range",
         });
 
 
-       
+
 
 	})(jQuery);
 </script>

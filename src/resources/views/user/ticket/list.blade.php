@@ -3,8 +3,7 @@
     <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
-<div class="row">
-    <div class="col-12">
+    <div>
         <div class="i-card-md">
           <div class="card-header">
             <h4 class="card-title">
@@ -72,102 +71,107 @@
             </div>
           </div>
 
-          <div class="card-body px-0">
-            <div class="table-container">
-              <table>
-                <thead>
-                    <tr>
-                        <th scope="col">
-                           #
-                        </th>
-                       <th scope="col">
-                            {{translate("Ticket Number")}}
-                       </th>
-
-                       <th scope="col">
-                           {{translate("Subject")}}
-                       </th>
-
-                       <th scope="col">
-                           {{translate("Status")}}
-                       </th>
-                       <th scope="col">
-                           {{translate("Priority")}}
-                       </th>
-
-                       <th scope="col">
-                           {{translate("Creation Time")}}
-                       </th>
-
-                       <th scope="col">
-                           {{translate("Options")}}
-                       </th>
-                   </tr>
-                </thead>
-                    <tbody>
-
-                        @forelse($tickets as $ticket)
-
+            <div class="card-body px-0">
+                <div class="table-container">
+                <table>
+                    <thead>
                         <tr>
-                            <td data-label="#">
+                            <th scope="col">
+                            #
+                            </th>
+                        <th scope="col">
+                                {{translate("Ticket Number")}}
+                        </th>
 
-                                {{$loop->iteration}}
-                            </td>
-                            <td data-label="{{translate('Ticket Number')}}">
-                                <a href="{{route('user.ticket.show',$ticket->ticket_number)}}">
-                                    {{$ticket->ticket_number}}
-                                </a>
-                            </td>
+                        <th scope="col">
+                            {{translate("Subject")}}
+                        </th>
 
-                            <td data-label="{{translate('Subject')}}">
-                                {{limit_words($ticket->subject,15)}}
-                            </td>
+                        <th scope="col">
+                            {{translate("Status")}}
+                        </th>
+                        <th scope="col">
+                            {{translate("Priority")}}
+                        </th>
 
+                        <th scope="col">
+                            {{translate("Creation Time")}}
+                        </th>
 
-                            <td data-label="{{translate('Status')}}">
-                                @php echo ticket_status($ticket->status) @endphp
+                        <th scope="col">
+                            {{translate("Options")}}
+                        </th>
+                    </tr>
+                    </thead>
+                        <tbody>
 
-                            </td>
+                            @forelse($tickets as $ticket)
 
-                            <td data-label="{{translate('Priority')}}">
-                                @php echo priority_status($ticket->priority) @endphp
-                            </td>
-
-                            <td data-label="{{translate('Creation Time')}}">
-                                {{get_date_time($ticket->created_at)}}
-                            </td>
-                            <td data-label="{{translate('Options')}}">
-                                <div class="table-action">
-                                    <a
-                                        href="{{route('user.ticket.show',[$ticket->ticket_number])}}"
-                                        class="icon-btn icon-btn-sm info">
-                                        <i class="bi bi-eye-fill"></i>
-                                   </a>
-
-                                    <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
-                                        class="icon-btn icon-btn-sm danger delete-item">
-                                        <i class="bi bi-trash"></i>
-                                   </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        @empty
                             <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found')
+                                <td data-label="#">
+
+                                    {{$loop->iteration}}
+                                </td>
+                                <td data-label="{{translate('Ticket Number')}}">
+                                    <a href="{{route('user.ticket.show',$ticket->ticket_number)}}">
+                                        {{$ticket->ticket_number}}
+                                    </a>
+                                </td>
+
+                                <td data-label="{{translate('Subject')}}">
+                                    {{limit_words($ticket->subject,15)}}
+                                </td>
+
+
+                                <td data-label="{{translate('Status')}}">
+                                    @php echo ticket_status($ticket->status) @endphp
+
+                                </td>
+
+                                <td data-label="{{translate('Priority')}}">
+                                    @php echo priority_status($ticket->priority) @endphp
+                                </td>
+
+                                <td data-label="{{translate('Creation Time')}}">
+                                    {{get_date_time($ticket->created_at)}}
+                                </td>
+                                <td data-label="{{translate('Options')}}">
+                                    <div class="table-action">
+                                        <a
+                                            href="{{route('user.ticket.show',[$ticket->ticket_number])}}"
+                                            class="icon-btn icon-btn-sm info">
+                                            <i class="bi bi-eye-fill"></i>
+                                    </a>
+
+                                        <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
+                                            class="icon-btn icon-btn-sm danger delete-item">
+                                            <i class="bi bi-trash"></i>
+                                    </a>
+                                    </div>
                                 </td>
                             </tr>
-                        @endforelse
+
+                            @empty
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found')
+                                    </td>
+                                </tr>
+                            @endforelse
 
 
-                    </tbody>
-              </table>
+                        </tbody>
+                </table>
+                </div>
             </div>
-          </div>
+
+        </div>
+
+        <div class="Paginations">
+            {{ $tickets->links() }}
         </div>
     </div>
-</div>
+
 @endsection
 
 
