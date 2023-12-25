@@ -195,6 +195,7 @@
         });
     }
 
+
     if (filterBtn) {
         filterBtn.addEventListener('click', function(event) {
             filterDropdown.classList.toggle('show');
