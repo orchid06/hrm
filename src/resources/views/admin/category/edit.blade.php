@@ -89,7 +89,7 @@
                             
 
                             <div class="col-lg-6">
-                                <div class=" form-inner">
+                                <div class="form-inner">
                                     <label  for="slug">
                                         {{translate('Slug')}} 
                                     </label>

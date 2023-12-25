@@ -42,7 +42,7 @@
                   <h5 class="title">
                     {{translate("Subscription Packages")}}
                   </h5>
-                  <a href="{{route("admin.subscription.package.list")}}" class="i-btn btn--sm btn--outline">
+                  <a href="{{route('admin.subscription.package.list')}}" class="i-btn btn--sm btn--outline">
                         {{translate("View All")}}
                   </a>
                 </div>
@@ -63,7 +63,7 @@
               <h5 class="title">
                 {{translate("Total Users")}}
               </h5>
-              <a href="{{route("admin.user.list")}}" class="i-btn btn--sm btn--outline">
+              <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--outline">
                 {{translate("View All")}}
               </a>
             </div>
@@ -118,7 +118,7 @@
               <h5 class="title">
                 {{translate("Total Visitors")}}
               </h5>
-              <a href="{{route("admin.security.ip.list")}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
+              <a href="{{route('admin.security.ip.list')}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
               <div class="icon">
@@ -370,7 +370,7 @@
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
 
-                                        <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                     </div>
                                 </td>

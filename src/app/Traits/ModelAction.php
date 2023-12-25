@@ -32,7 +32,9 @@ trait ModelAction
             $data = Arr::get($modelData,'model',null)::where(Arr::get($modelData,'find_by','uid'),Arr::get($request,'id',''))
                    ->when(Arr::get($modelData,'recycle',false) , function($q){
                       return $q->withTrashed();
-                   })
+                   })->when(Arr::get($modelData,'user_id',null) , function($q) use($modelData){
+                         return $q->where('user_id',Arr::get($modelData,'user_id'));
+                    })
                    ->firstOrfail();
             $data->{Arr::get($request,'column','status')} =  Arr::get($request,'status',null);
             $data->save();

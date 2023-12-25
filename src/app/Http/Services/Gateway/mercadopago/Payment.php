@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 
 class Payment
 {
-    const SANDBOX = true;
+    const SANDBOX = false;
 
     public static function paymentData(PaymentLog $log)
     {
@@ -46,12 +46,13 @@ class Payment
         $response = CurlService::curlPostRequestWithHeaders($url, $headers, $postParam);
         $response = json_decode($response);
 
+
         $send['preference']  =  $log->trx_code;
         $send['view']        = 'user.payment.mercado';
         
                 
-        $response['error']   = true;
-        $response['message'] = translate("Invalid Request");
+        $send['error']   = true;
+        $send['message'] = translate("Invalid Request");
 
         if(isset($response->auto_return) && $response->auto_return == 'approved') {
 
@@ -77,7 +78,7 @@ class Payment
         $data['status']       = 'error';
         $data['message']      = translate('Transaction failed.');
         $data['redirect']     = route('user.home');
-        $data['gw_response']  = $request->all();
+        $data['gw_response']  = $paymentData;
         $status               = DepositStatus::value('FAILED',true);
 
         if (isset($paymentData->status) && $paymentData->status == 'approved') {

@@ -19,7 +19,7 @@
               <div class="auth-content">
                 <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
 
-                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,"user_site_logo",true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
                 </a>
                 <h2>
@@ -33,7 +33,7 @@
                   @csrf
 
                     <div class="auth-input">
-                        <input required type="text" name="email"  placeholder="{{translate("Enter email")}}" />
+                        <input required type="text" name="email"  placeholder="{{translate('Enter email')}}" />
                         <span class="auth-input-icon">
                             <i class="bi bi-envelope"></i>
                         </span>

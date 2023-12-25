@@ -232,7 +232,7 @@
 
                                             @if(check_permission('delete_package') && $package->is_free !=  App\Enums\StatusEnum::true->status())
                                               
-                                                <a href="javascript:void(0);"    data-href="{{route('admin.subscription.package.destroy',$package->id)}}" class=" pointer delete-item icon-btn danger">
+                                                <a href="javascript:void(0);"    data-href="{{route('admin.subscription.package.destroy',$package->id)}}" class="pointer delete-item icon-btn danger">
                                                      <i class="las la-trash-alt"></i>
                                                 </a>
 

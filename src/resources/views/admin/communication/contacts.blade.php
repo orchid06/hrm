@@ -42,7 +42,7 @@
                             <form action="{{route(Route::currentRouteName())}}" method="get">
 
                                 <div class="form-inner">
-                                        <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by name , email or phone')}}">
+                                        <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name , email or phone')}}">
                                 </div>
 
                                 <button class="i-btn btn--sm info">
@@ -98,27 +98,27 @@
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate("Name")}}">
+                                <td data-label='{{translate("Name")}}'>
                                      {{$contact->name}}
                                 </td>
-                                <td data-label="{{translate("Email")}}">
+                                <td data-label='{{translate("Email")}}'>
                                      {{$contact->email}}
                                 </td>
-                                <td data-label="{{translate("address")}}">
+                                <td data-label='{{translate("address")}}'>
                                      {{$contact->address}}
                                 </td>
 
 
-                                <td data-label="{{translate("Options")}}">
+                                <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
 
                                         @if(check_permission('update_frontend'))
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Show")}}"  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Show')}}"  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Send Mail")}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Send Mail')}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
 
                                         @else

@@ -51,12 +51,13 @@ class Payment
 
 
         $result = json_decode($result);
+
         if (@$result->error == '') {
             $send['redirect']     = true;
             $send['redirect_url'] = $result->data->hosted_url;
         } else {
             $send['error']        = true;
-            $send['message']      = 'Some problem ocurred with api.';
+            $send['message']      = @$result->error->message??'Some problem ocurred with api.';
         }
 
         return json_encode($send);
@@ -67,11 +68,12 @@ class Payment
         $data['status']      = 'error';
         $data['message']     = translate('Unable to Process.');
         $data['redirect']    = route('user.home');
-        $data['gw_response'] = $request->all();
+
         $status              = DepositStatus::value('FAILED',true);
 
         $postdata    = file_get_contents("php://input");
         $res         = json_decode($postdata);
+        $data['gw_response'] =       $res  ;
         $gateway     = ($depositLog->method->parameters);
         $headers     = apache_request_headers();
         $headers     = json_decode(json_encode($headers),true);

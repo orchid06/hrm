@@ -231,7 +231,7 @@
                                                 @endif
 
                                                 @if(check_permission('delete_category'))
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class=" pointer delete-item icon-btn danger">
+                                                    <a href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @endif

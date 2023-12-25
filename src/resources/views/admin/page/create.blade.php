@@ -5,8 +5,6 @@
 @endpush
 @section('content')
 
-
-
    <form action="{{route('admin.page.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <div class="row g-4">

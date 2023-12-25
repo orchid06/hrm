@@ -18,12 +18,13 @@ class Payment
         $siteName          = site_settings('site_name');
         $gateway           = ($log->method->parameters);
         $hashSequence      = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
+
         $hashVarsSeq       = explode('|', $hashSequence);
         $hash_string       = '';
         $send['val'] = [
             'key'              => $gateway->merchant_key ?? '',
             'txnid'            => $log->trx_code,
-            'amount'           => round($log->final_amount,2),
+            'amount'           => (int)round($log->final_amount,2),
             'firstname'        => optional($log->user)->username ,
             'email'            => optional($log->user)->email ?? '',
             'productinfo'      => $log->trx_code ?? 'Order',
@@ -31,16 +32,19 @@ class Payment
             'furl'             => route('failed'),
             'service_provider' => $siteName ,
         ];
+
         foreach ($hashVarsSeq as $hash_var) {
             $hash_string .= $send['val'][$hash_var] ?? '';
             $hash_string .= '|';
         }
-        $hash_string .= $gateway->salt ?? '';
+       
+        $hash_string .= $gateway->salt;
 
         $send['val']['hash'] = strtolower(hash('sha512', $hash_string));
+
+
         $send['view']        = 'user.payment.redirect';
         $send['method']      = 'post';
-        //$send['url'] = 'https://test.payu.in/_payment'; //test 
         $send['url']         = 'https://secure.payu.in/_payment';
         return json_encode($send);
     }

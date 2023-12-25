@@ -16,7 +16,7 @@
                                 {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>
                             </label> 
 
-                            <input  data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class=" preview" >
+                            <input  data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class="preview" >
 
                             <div class="mt-2 image-preview-section frontend-section-image">
 

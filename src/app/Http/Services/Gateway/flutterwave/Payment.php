@@ -45,7 +45,9 @@ class Payment
             );
 
             $response = CurlService::curlPostRequestWithHeaders($url, $headers, $postParam);
+
             $response = json_decode($response);
+            $data['gw_response']  = $response ;
             if ($response->data->status == "successful" && $response->data->chargecode == "00" && round($log->final_amount) == $response->data->amount && $log->method->currency->code == $response->data->currency) {
 
                 $data['status']   = 'success';

@@ -127,7 +127,7 @@
 
                                                 @if(check_permission('delete_content'))
 
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class=" pointer delete-item icon-btn danger">
+                                                    <a href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
 
@@ -245,8 +245,6 @@
 	(function($){
        	"use strict";
 
-
-
         $(".select2").select2({
             placeholder:"{{translate('Select Category')}}",
         })
@@ -262,16 +260,6 @@
         $(document).on('click','.create',function(e){
             $('.ai-section').fadeToggle(1000).toggleClass('d-none');;
         });
-
-
-
-
-
-
-
-
-
-
 	})(jQuery);
 </script>
 @endpush

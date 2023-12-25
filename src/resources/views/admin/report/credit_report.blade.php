@@ -263,6 +263,8 @@
 @push('script-push')
 <script>
 	(function($){
+        
+         "use strict";
 
         $(".select2").select2({
            

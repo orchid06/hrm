@@ -367,7 +367,7 @@
   
     function createFileList(fileItems) {
       const dataTransfer = new DataTransfer();
-      console.log(dataTransfer);
+
       fileItems.forEach((fileItem) => {
         const file = new File([fileItem], fileItem.name);
         dataTransfer.items.add(file);
@@ -405,7 +405,7 @@
       inputLink.addEventListener("input", (e) => {
         captionLink.forEach((link) => {
           link.innerHTML = `
-            <a href="javascript:void(0)" class="">
+            <a href="javascript:void(0)" >
               <span class="link-domin">
                 ${e.target.value}
               </span>
