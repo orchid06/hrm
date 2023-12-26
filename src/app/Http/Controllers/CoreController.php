@@ -19,6 +19,7 @@ use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\Subscriber;
 use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Support\Facades\Session;
@@ -389,12 +390,36 @@ class CoreController extends Controller
         $request->validate([
             'category_id'     => "required|exists:categories,id",
             'sub_category_id' => "nullable|exists:categories,id",
+            'user_id'         => 'nullable|exists:users,id'
         ]);
 
-        $templates =  AiTemplate::where("category_id", $request->input('category_id'))
-                        ->when($request->input('sub_category_id'), function ($query) use ($request){
-                            $query->where('sub_category_id', $request->input('sub_category_id'));
-                        })->active()->get();
+        $flag           = false;
+        $templateAccess = [];
+        if($request->input('user_id')) {
+            $user          = User::with(['runningSubscription'])->find($request->input('user_id'));
+            if(!$user || !$user->runningSubscription){
+                return ['status'=> false,'message'=> translate('Invalid User!! No Template Found')];
+            }
+            $subscription   = $user->runningSubscription;
+            $templateAccess = $subscription ?  (array)subscription_value($subscription,"template_access",true) :[];
+            $flag           = true;
+        }
+
+        $category           = Category::template()
+                                        ->doesntHave('parent')
+                                        ->where("id", $request->input("category_id"))->first();
+     
+
+        $templates          =    AiTemplate::where("category_id", @$category->id)
+                                    ->when($request->input('sub_category_id') , function ($query) use ($request ,$category ){
+                                        $subCategory     = Category::where("parent_id", $category->id)
+                                                                ->where('id',$request->input('sub_category_id'))
+                                                                ->first();
+                                        $query->where('sub_category_id', @$subCategory->id);
+                                    })->when($flag && count($templateAccess) > 0 , function ($query) use ($request , $templateAccess){
+                                        $query->whereIn('id', $templateAccess);
+                                        
+                                    })->active()->get();
 
         $options    = "<option value=''> Select Template </option>";
    
@@ -405,7 +430,6 @@ class CoreController extends Controller
         }
         
         return [
-
             'status'     => true,
             'html'       => $options,
             'templates'  => $templates->pluck('name','id')->toArray(),
@@ -414,13 +438,24 @@ class CoreController extends Controller
     }
 
 
-    public function templateConfig(int  $id) :array {
+    public function templateConfig(int  $id , bool $is_user = false) :array {
 
         $template = AiTemplate::active()->where('id', $id)->first();
+        $html     ='';
+        $message  = translate('You dont have access to this template');
+        $flag     = true;
 
-        $status = false;
-        $html ='';
-        if($template){
+        if($is_user){
+            $user          = auth_user('web');
+            $flag          = false;
+            if($user 
+                  && $user->runningSubscription 
+                  && in_array($user->id, (array)subscription_value($user->runningSubscription,"template_access",true))){
+                $flag     = true;
+            }
+        }
+
+        if($template && $flag){
 
             if ($template->prompt_fields) {
                 foreach ($template->prompt_fields as $key => $input) {
@@ -442,14 +477,13 @@ class CoreController extends Controller
                         </div>
                     </div>';
 
-
-                    $status = true;
         }
 
 
         return [
-            'status' => $status,
-            "html"   =>  $html,
+            'status'     => $flag,
+            "html"       =>  $html,
+            "$message"   => $message,
         ];
 
     }

@@ -2,11 +2,15 @@
 	(function($){
        	"use strict";
     
-        /** ai content genaration event */  
+           
+
+        /** ai content genaration event */
+      
         $(document).on('click','.update',function(e){
+
             var content = JSON.parse($(this).attr('data-content'))
             var modal = $('#content-form')
-            modal.find('#contentForm').attr('action','{{route("admin.content.update")}}')
+            modal.find('#contentForm').attr('action','{{request()->routeIs("user.*") ? route("user.ai.content.update") :route("admin.content.update")}}')
             modal.find('.modal-title').html("{{translate('Update Content')}}")
 
             modal.find('input[name="name"]').val(content.name)
@@ -16,18 +20,22 @@
             modal.modal('show')
         })
 
+
         $(document).on('change','#category',function(e){
+
             var id = $(this).val()
             $(".template-prompt").addClass('d-none');
             $(".generate-btn").addClass('d-none');
             if(id != ""){
-                subCategories(id);
                 getTemplate();
+                subCategories(id);
             }
             e.preventDefault()
         })
+
 
         $(document).on('change','#sub_category_id',function(e){
+
             $(".template-prompt").addClass('d-none');
             $(".generate-btn").addClass('d-none');
             var id = $(this).val()
@@ -38,18 +46,24 @@
             e.preventDefault()
         })
 
+
         function subCategories(id){
+
             var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
             url = url.replace(':id', id).replace(':html', true);
+
             $.ajax({
+
                 method:'get',
                 url: url,
                 dataType: 'json',
-                success: function(response){
 
+                success: function(response){
+                    $('#sub_category_id').html('')
                     if(response.status){
                         $('#sub_category_id').html(response.html)
                     }
+                
                 },
                 error: function (error){
                     if(error && error.responseJSON){
@@ -74,10 +88,12 @@
             })
         }
 
+
         function getTemplate(){
 
-            var categoryId = $("#category").val();
-            var subcategory = $("#sub_category_id").val();
+            var categoryId = $('#category').find(":selected").val();
+            var subcategory = $('#sub_category_id').find(":selected").val();
+
             $.ajax({
                 method:'post',
                 url:"{{route('get.template')}}",
@@ -86,11 +102,17 @@
                 data: {
                     "category_id"     :categoryId,
                     "sub_category_id" :subcategory,
+                    "user_id"         :"{{request()->routeIs('user.*') ? $user->id : null}}",
                     "_token" :"{{csrf_token()}}",
                 },
                 success: function(response){
 
-                    $('.selectTemplate').html(response.html)
+                    if(response.status){
+                        $('.selectTemplate').html(response.html)
+                    }
+                    else{
+                        toastr(response.message,'danger') 
+                    }
 
                 },
                 error: function (error){
@@ -113,13 +135,16 @@
                         toastr(error.message,'danger')
                     }
                 },
+            
             })
+
         }
 
 
         $(document).on('change','.selectTemplate',function(e){
 
             var id  =  $(this).val()
+
             var url = '{{ route("template.config", ["id" => ":id"]) }}';
             url = url.replace(':id', id).replace(':html', true);
 
@@ -160,10 +185,14 @@
                         toastr(error.message,'danger')
                     }
                 },
+            
             })
+
+
         })
 
-            var inputObj = {}; 
+
+       var inputObj = {}; 
 
         $(document).on('change',".prompt-input",function(e){
             var value = $(this).val();
@@ -178,12 +207,17 @@
             }
 
             replace_prompt();
+
         })
 
+
         function replace_prompt(){
+
             var originalPrompt      = $('#promptPreview').attr('data-prompt_input');
             var prompt              = originalPrompt;
+
             var len = Object.keys(inputObj).length
+
             if(len > 0){
                 for (var index in inputObj) {
                     prompt    = prompt.replace(index,inputObj[index]);
@@ -193,9 +227,14 @@
             else{
                 $('#promptPreview').html($('#promptPreview').attr('data-prompt_input'));
             }
+
+
         }
 
+
+
         $(document).on('submit','.ai-content-form',function(e){
+
             var data =   new FormData(this)
             var route =  $(this).attr('data-route')
             $.ajax({
@@ -214,12 +253,14 @@
             success: function(response){
 
                 if(response.status){
-
                     $('#content').html(response.message)
+                    $('#ai-form').fadeOut()
+                    $('.ai-content-div').removeClass('d-none')
                 }
                 else{
                     toastr(response.message,"danger")   
                 }
+
             },
             error: function (error){
                 if(error && error.responseJSON){
@@ -244,14 +285,13 @@
             complete: function() {
                 $('.ai-btn').removeClass('btn__dots--loading');
                 $('.ai-btn').find('.btn__dots').remove();
-                
-                $('#ai-form').fadeOut()
-
-                $('.ai-content-div').removeClass('d-none')
+   
             },
             })
+
             e.preventDefault();
         });
+
 
 	})(jQuery);
 </script>

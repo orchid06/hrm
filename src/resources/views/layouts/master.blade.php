@@ -103,6 +103,68 @@
 
     <script>
       "use strict";
+
+      @if(request()->routeIs('user.*'))
+
+         // update status event start
+         $(document).on('click', '.status-update', function (e) {
+
+            const id = $(this).attr('data-id')
+            const key = $(this).attr('data-key')
+            var column = ($(this).attr('data-column'))
+            var route = ($(this).attr('data-route'))
+            var modelName = ($(this).attr('data-model'))
+            var status = ($(this).attr('data-status'))
+            const data = {
+                'id': id,
+                'model': modelName,
+                'column': column,
+                'status': status,
+                'key': key,
+                "_token" :"{{csrf_token()}}",
+            }
+            updateStatus(route, data)
+            })
+
+            // update status method
+            function updateStatus(route, data) {
+            var responseStatus;
+            $.ajax({
+                method: 'POST',
+                url: route,
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+
+                    if (response) {
+                        responseStatus = response.status? "success" :"danger"
+                        toastr(response.message,responseStatus)
+                        if(response.reload){
+                            location.reload()
+                        }
+                    }
+                },
+                error: function (error) {
+                    if(error && error.responseJSON){
+                        if(error.responseJSON.errors){
+                            for (let i in error.responseJSON.errors) {
+                                toastr(error.responseJSON.errors[i][0],'danger')
+                            }
+                        }
+                        else{
+                            toastr( error.responseJSON.error,'danger')
+                        }
+                    }
+                    else{
+                        toastr(error.message,'danger')
+                    }
+                }
+            })
+            }
+      @endif
+
+
+
       function social_share(url, title, w, h) {
           var dualScreenLeft =
             window.screenLeft != undefined ? window.screenLeft : screen.left;

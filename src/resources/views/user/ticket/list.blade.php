@@ -108,49 +108,49 @@
 
                             @forelse($tickets as $ticket)
 
-                            <tr>
-                                <td data-label="#">
+                                <tr>
+                                    <td data-label="#">
 
-                                    {{$loop->iteration}}
-                                </td>
-                                <td data-label="{{translate('Ticket Number')}}">
-                                    <a href="{{route('user.ticket.show',$ticket->ticket_number)}}">
-                                        {{$ticket->ticket_number}}
-                                    </a>
-                                </td>
+                                        {{$loop->iteration}}
+                                    </td>
+                                    <td data-label="{{translate('Ticket Number')}}">
+                                        <a href="{{route('user.ticket.show',$ticket->ticket_number)}}">
+                                            {{$ticket->ticket_number}}
+                                        </a>
+                                    </td>
 
-                                <td data-label="{{translate('Subject')}}">
-                                    {{limit_words($ticket->subject,15)}}
-                                </td>
+                                    <td data-label="{{translate('Subject')}}">
+                                        {{limit_words($ticket->subject,15)}}
+                                    </td>
 
 
-                                <td data-label="{{translate('Status')}}">
-                                    @php echo ticket_status($ticket->status) @endphp
+                                    <td data-label="{{translate('Status')}}">
+                                        @php echo ticket_status($ticket->status) @endphp
 
-                                </td>
+                                    </td>
 
-                                <td data-label="{{translate('Priority')}}">
-                                    @php echo priority_status($ticket->priority) @endphp
-                                </td>
+                                    <td data-label="{{translate('Priority')}}">
+                                        @php echo priority_status($ticket->priority) @endphp
+                                    </td>
 
-                                <td data-label="{{translate('Creation Time')}}">
-                                    {{get_date_time($ticket->created_at)}}
-                                </td>
-                                <td data-label="{{translate('Options')}}">
-                                    <div class="table-action">
-                                        <a
-                                            href="{{route('user.ticket.show',[$ticket->ticket_number])}}"
-                                            class="icon-btn icon-btn-sm info">
-                                            <i class="bi bi-eye-fill"></i>
-                                    </a>
+                                    <td data-label="{{translate('Creation Time')}}">
+                                        {{get_date_time($ticket->created_at)}}
+                                    </td>
+                                    <td data-label="{{translate('Options')}}">
+                                        <div class="table-action">
+                                            <a
+                                                href="{{route('user.ticket.show',[$ticket->ticket_number])}}"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
 
-                                        <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
-                                            class="icon-btn icon-btn-sm danger delete-item">
-                                            <i class="bi bi-trash"></i>
-                                    </a>
-                                    </div>
-                                </td>
-                            </tr>
+                                            <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
 
                             @empty
                                 <tr>

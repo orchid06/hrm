@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 
-
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
