@@ -2,7 +2,6 @@
 @section('content')
 
 <div class="i-card-md">
-  
     <div class="card-body">
         <form action="{{route('admin.role.update')}}" class="add-listing-form" method="post">
             @csrf
@@ -16,7 +15,6 @@
                         <input name="name" placeholder="{{translate('Enter Role Name')}}" id="name"value="{{$role->name}}"  required   type="text">
                     </div>
                 </div>
-
                 <div class="col-12">
                     <label  class="pointer">
                         {{translate('Permissions')}} 
@@ -24,11 +22,8 @@
                     </label>
                 </div>
                 @php
-       
                   $oldPermissions = (array)$role->permissions;
-               
                 @endphp
-        
                 @foreach (config('settings')['role_permissions'] as $key=>$permissions)
                     <div class="col-xl-6">
                         <div class="p-3 border rounded-1">                  
@@ -60,17 +55,14 @@
                                     </div>
                                 @endforeach
                             </div>
-                            
                         </div>
                     </div>
                 @endforeach
-
                 <div class="col-12">
                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                         {{translate("Update")}}
                     </button>
                 </div>
-
             </div>
         </form>
     </div>

@@ -5,7 +5,6 @@
 @endpush
 
 @section('content')
-
 <div class="row g-4">
 	<div class="col-xl-8">
 		<div class="i-card-md">  
@@ -23,14 +22,12 @@
                         </label>
                         <textarea class="summernote " name="site_settings[default_mail_template]" id="body" cols="30" rows="10">@php echo site_settings("default_mail_template") @endphp</textarea>
                     </div> 
-
                     <div class="form-inner">
                         <label for="smsBody">
                             {{translate('Sms Body')}} <small class="text-danger">*</small>
                         </label>
                         <textarea class="form-control form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template") @endphp</textarea>
                     </div> 
-                    
                     <div>
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
@@ -40,7 +37,6 @@
             </div>
 		</div>
 	</div>
-
     <div class="col-xl-4">
         <div class="i-card-md">
             <div class="card--header">
@@ -48,7 +44,6 @@
                     {{translate('Template Key')}}
                 </h4>
             </div> 
-
             <div class="card-body">
                 <div class="text-center d-flex gap-2 flex-column">
                     @foreach(Arr::get(config('settings'),"default_template_code" ,[]) as $key => $value)
@@ -64,7 +59,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('script-include')

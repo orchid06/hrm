@@ -2,7 +2,6 @@
 @section('content')
 
 <div class="i-card-md">
-  
     <div class="card-body">
         <form action="{{route('admin.role.store')}}" class="role-form" method="post">
             @csrf
@@ -15,16 +14,12 @@
                         <input name="name" placeholder="{{translate('Enter Role Name')}}" id="name" value="{{old('name')}}" required   type="text">
                     </div>
                 </div>
-
                 <div class="col-12">
                     <label for="checkAll"  class="pointer">
                         {{translate('Permissions')}} 
                     </label>
-
                     <input class="check-role  form-check-input me-1" id="checkAll" type="checkbox" value="all_role">
-
                 </div>
-                
                 @foreach (config('settings')['role_permissions'] as $key=>$permissions)
                     <div class="col-xl-6">                     
                         <div class="p-3 border rounded-1">
@@ -59,13 +54,11 @@
                         </div>                   
                     </div>
                 @endforeach
-
                 <div class="col-12">
                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                         {{translate("Submit")}}
                     </button>
                 </div>
-
             </div>
         </form>
     </div>
@@ -91,8 +84,8 @@
              checkebox_event(".module-permission",'.check-role');
         })
 
-
 	})(jQuery);
+    
 </script>
 @endpush
 

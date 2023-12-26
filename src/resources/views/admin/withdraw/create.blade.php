@@ -1,57 +1,40 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="i-card-md">
-      
         <div class="card-body">
             <form action="{{route('admin.withdraw.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="row">
-                    
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="name" class="form-label" >
                                 {{translate('Name')}} <small class="text-danger">*</small>
                             </label>
                             <input required type="text" placeholder="{{translate('Enter Name')}}" id="name" name="name" value="{{old('name')}}">
-
-
                         </div>
                     </div>
-            
-              
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="duration" class="form-label">
                                 {{translate('Duration')}} <small class="text-danger">* </small>
                             </label>
-                
                             <div class="input-group mb-3">
-
                                 <input required type="number"  placeholder="{{translate('Enter Processing Time')}}" id="duration" name="duration" value="{{old('duration')}}" class="form-control" >
-
                                 <span class="input-group-text"> {{translate("Hours")}} </span>
                             </div>
-
-
                         </div>
                     </div>
-
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="minimum_amount" class="form-label">
                                 {{translate('Minimum Amount')}} <small class="text-danger">* </small>
                             </label>
-
                             <div class="input-group mb-3">
-
                                 <input required type="number" step="any"  placeholder="{{translate('Enter Minimum Amount')}}" id="minimum_amount" name="minimum_amount" value="{{old('minimum_amount')}}" class="form-control" >
                                 <span class="input-group-text"> {{(base_currency()->code)}} </span>
                             </div>
-    
                         </div>
                     </div>
-
-
                      <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="maximum_amount" class="form-label">
@@ -63,8 +46,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="fixed_charge" class="form-label">
@@ -79,7 +60,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="percent_charge" class="form-label">
@@ -92,22 +72,16 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <div class="form-inner">
                             <label for="image">
                                 {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['withdraw_method']['size']}})</small>
                             </label>
-                        
                             <input data-size = "{{config('settings')['file_path']['withdraw_method']['size']}}" id="image" name="image" type="file" class="preview" >
-    
                             <div class="mt-2 image-preview-section">
-                    
                             </div>
                         </div>                     
                     </div>
-
-
                     <div class="col-12">
                         <div class="form-inner">
                             <label for="description">
@@ -116,23 +90,18 @@
                             <textarea  placeholder="{{translate('Enter Description Notes')}}" name="description" id="description" cols="3" rows="3">{{old("description")}}</textarea> 
                         </div>
                     </div>
-
                     <div class="col-12 mb-20">
                         <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Field')}}</a>
                     </div>  
-
                     <div class="col-12">
                         <div class="addedField form-inner">  
                         </div>
                     </div>
-
-
                     <div class="col-12">
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
-
                 </div>
             </form>
         </div>

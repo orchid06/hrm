@@ -5,7 +5,6 @@
 @endpush
 
 @section('content')
-
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -74,31 +73,23 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-            
                 <table>
                     <thead>
                         <tr>
                             <th scope="col">
                                 #
                             </th>
-
                             <th scope="col">
                                 {{translate('Date')}}
                             </th>
-                           
-
                             <th scope="col">
                                 {{translate('User')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Method')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Trx Code')}}
                             </th>
@@ -108,84 +99,59 @@
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-                
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse($reports as $report)
-  
                                 <tr>
                                     <td data-label="#">
-                                       
                                         {{$loop->iteration}}
                                     </td>
-
                                     <td data-label='{{translate("Date")}}'>
                                         {{ get_date_time($report->created_at) }}
                                     </td>
-                           
-
                                     <td data-label='{{translate("User")}}'>
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
-
                                     <td data-label='{{translate("Payment Method")}}'>
-                                     
                                         {{$report->method->name}}
-                                        
                                     </td>
-                                    
                                     <td  data-label='{{translate("Trx Code")}}'>
                                           {{$report->trx_code}}
                                     </td>
-
                                     <td  data-label='{{translate("Final Amount")}}'>
                                           {{num_format($report->final_amount,@$report->method->currency)}}
                                     </td>
                                     <td  data-label='{{translate("Status")}}'>
-                                         
                                         @php echo  payment_status($report->status)  @endphp
                                     </td>
-
-                       
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-
                                             <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
-
                                         </div>
                                     </td>
                                </tr>
-                         
                             @empty
-
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>
                         @endforelse
-                 
                     </tbody>
                 </table>
             </div>
-            
-      
             <div class="Paginations">
                 {{ $reports->links() }}
             </div>
         </div>
     </div>
-
 @endsection
-
-
 
 @push('script-include')
    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>

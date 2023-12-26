@@ -5,7 +5,6 @@
 @endpush
 
 @section('content')
-
     <div class="row g-3 mb-4">
         <div class="col-xl-9 col-lg-8">
             <div class="i-card-md">
@@ -15,7 +14,6 @@
                     </h4>
                 </div>
                 <div class="card-body">
-
                     <div class="ticket-conversation">
                             @if ($ticket->status == App\Enums\TicketStatus::CLOSED->value)
                                 <div class="text-center">
@@ -38,13 +36,10 @@
                                 </div>
                             </form>
                         @endif
-
                         @php
                             $messages = $ticket->messages;
                             $files = $ticket->file;
                         @endphp
-
-                      
                         <div class="discussion-continer">
                             <div class="i-card-md">
                                 <div class="card--header px-0">
@@ -66,7 +61,6 @@
                                                 <div class="author-image me-3">
                                                     <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
                                                 </div>
-
                                                 <div class="author-content flex-grow-1">
                                                     <div class="mesg-meta mb-1">
                                                         <h6>
@@ -108,15 +102,11 @@
                                     @endforelse
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-xl-3 col-lg-4">
             <div class="i-card-md mb-30">
                 <div class="card--header">
@@ -124,31 +114,26 @@
                         {{ translate('Ticket Details') }}
                     </h4>
                 </div>
-
                 <div class="card-body">
                     <div class="ticket-dtable">
                         <table>
                             <tbody>
-
                                 <tr>
                                     <td>{{ translate('Ticket Id') }} :</td>
                                     <td>
                                         {{ $ticket->ticket_number }}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td>{{ translate('Subject') }} :</td>
                                     <td>
                                         {{ $ticket->subject }}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td> {{ translate('Creation Time') }} :</td>
                                     <td id="c-date"> {{ get_date_time($ticket->created_at) }}</td>
                                 </tr>
-
                                 <tr>
                                     <td>{{ translate('Status') }} :</td>
                                     <td>
@@ -162,7 +147,6 @@
                                         </select>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td>{{ translate('Priority') }} :</td>
                                     <td>
@@ -176,20 +160,17 @@
                                         </select>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
             <div class="i-card-md mb-30">
                 <div class="card--header">
                     <h4 class="card-title">
                         {{ translate('Custom Data') }}
                     </h4>
                 </div>
-
                 <div class="card-body">
                     <div class="ticket-dtable">
                         <table>
@@ -215,10 +196,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
-
-
-          
+            </div>          
             @if ($files && $files->count()  > 0)
                 <div class="i-card-md mb-30">
                     <div class="card--header">
@@ -226,23 +204,16 @@
                             {{ translate('Files') }}
                         </h4>
                     </div>
-
                     <div class="card-body">
-
                         @foreach ($files as $file)
                             <form action="{{ route('admin.ticket.file.download') }}" method="post">
                                 <input hidden type="text" name="id" value="{{ $file->id }}">
-
                                 @csrf
                                 <div class="attach-item d-flex gap-4 justify-content-between align-items-center  mb-3">
                                     <div class="file-info">
                                         {{ translate('File-') . $loop->index + 1 }}
                                     </div>
-
-
                                     <div class="d-flex gap-2">
-
-
                                         <button type="submit" class="download-btn">
                                             <i class="las la-download"></i>
 
@@ -250,7 +221,6 @@
                                                 {{ translate('Download') }}
                                             </span>
                                         </button>
-
                                         <a href="javascript:void(0);"
                                             data-href="{{route('admin.ticket.destroy.file',$file->id)}}"
                                             class="pointer download-btn delete-item icon-btn danger">
@@ -259,31 +229,20 @@
                                                 {{ translate('Delete') }}
                                             </span>
                                         </a>
-
-
                                     </div>
-
-
                                 </div>
                             </form>
                         @endforeach
-
-
                     </div>
                 </div>
             @endif
-
         </div>
-
-
     </div>
-
     <form id="statusUpdate" action="{{ route('admin.ticket.update') }}" method="post">
         @csrf
         <input hidden name="id" value="{{ $ticket->id }}" type="text">
         <input hidden name="key" value="" id="key" type="text">
         <input hidden name="status" value="status" id="inputStatus" type="text">
-
     </form>
 
 @endsection
@@ -307,7 +266,6 @@
             $(".select2").select2({
                 placeholder: "{{ translate('Select Status') }}",
             })
-
             $(document).on('change', '.update-status', function(e) {
                 var val = $(this).val()
                 var key = $(this).attr('name')

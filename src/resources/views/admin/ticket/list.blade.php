@@ -24,7 +24,6 @@
           </div>
         </div>
     </div>
-
     <div class="col">
       <div class="i-card-sm style-2 danger">
         <div class="card-info">
@@ -41,7 +40,6 @@
         </div>
       </div>
     </div>
-
     <div class="col">
         <div class="i-card-sm style-2 info">
           <div class="card-info">
@@ -58,7 +56,6 @@
           </div>
         </div>
     </div>
-
     <div class="col">
       <div class="i-card-sm style-2 success">
         <div class="card-info">
@@ -76,7 +73,6 @@
       </div>
     </div>
 </div>
-
 <div class="i-card-md">
     <div class="card-body">
         <div class="search-action-area">
@@ -92,7 +88,6 @@
                         @endif
                     </div>
                 @endif
-
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
                         <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,11 +98,9 @@
                                 <div class="form-inner">
                                     <input type="text" id="datePicker" name="date" value="{{ request()->input('date') }}" placeholder="{{ translate('Filter by date') }}">
                                 </div>
-
                                 <div class="form-inner">
                                     <input type="text" name="ticket_number" value="{{ request()->input('ticket_number') }}" placeholder="{{ translate('Enter Ticket Number') }}">
                                 </div>
-
                                 <div class="form-inner">
                                     <select name="user" id="user" class="user">
                                         <option value="">{{ translate('Select User') }}</option>
@@ -118,7 +111,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-inner">
                                     <select name="status" class="select2" id="status">
                                         <option value="">{{ translate('Select Status') }}</option>
@@ -129,7 +121,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-inner">
                                     <select name="priority" class="select-priority">
                                         <option value="">{{ translate('Select Priority') }}</option>
@@ -140,7 +131,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <button class="i-btn btn--sm info w-100">
                                     <i class="las la-sliders-h"></i>
                                 </button>
@@ -153,13 +143,10 @@
                         </a>
                     </div>
                 </div>
-
-                </div>
-                </div>
+            </div>
+        </div>
         <div class="table-container position-relative">
-
             @include('admin.partials.loader')
-
             <table >
                 <thead>
                     <tr>
@@ -169,37 +156,28 @@
                        <th scope="col">
                             {{translate("Ticket Number")}}
                        </th>
-
                        <th scope="col">
                             {{translate("User")}}
                        </th>
-
-
                        <th scope="col">
                            {{translate("Subject")}}
                        </th>
-
                        <th scope="col">
                            {{translate("Status")}}
                        </th>
                        <th scope="col">
                            {{translate("Priority")}}
                        </th>
-
                        <th scope="col">
                            {{translate("Creation Time")}}
                        </th>
-
                        <th scope="col">
                            {{translate("Options")}}
                        </th>
                    </tr>
                 </thead>
-
                 <tbody>
-
                     @forelse($tickets as $ticket)
-
                             <tr>
                                 <td data-label="#">
 
@@ -210,50 +188,35 @@
                                         {{$ticket->ticket_number}}
                                     </a>
                                 </td>
-
-
                                 <td data-label="{{translate('User')}}">
                                     <a href="{{route('admin.user.show', $ticket->user->uid)}}">
                                        {{$ticket->user?->name}}
                                     </a>
                                 </td>
-
-
                                 <td data-label="{{translate('Subject')}}">
                                     {{limit_words($ticket->subject,15)}}
                                 </td>
-
-
                                 <td data-label="{{translate('Status')}}">
                                     @php echo ticket_status($ticket->status) @endphp
 
                                 </td>
-
                                 <td data-label="{{translate('Priority')}}">
                                     @php echo priority_status($ticket->priority) @endphp
                                 </td>
-
                                 <td data-label="{{translate('Creation Time')}}">
                                     {{get_date_time($ticket->created_at)}}
                                 </td>
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-
                                         <a  href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
-
                                         @if(check_permission('delete_ticket') )
-
                                         <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
                                             <i class="las la-trash-alt"></i></a>
-
                                         @endif
-
                                     </div>
                                 </td>
                            </tr>
-
                         @empty
-
                         <tr>
                             <td class="border-bottom-0" colspan="90">
                                 @include('admin.partials.not_found')
@@ -263,8 +226,6 @@
                 </tbody>
             </table>
         </div>
-
-
         <div class="Paginations">
             {{ $tickets->links() }}
 
@@ -275,9 +236,7 @@
 @endsection
 
 @section('modal')
-
     @include('modal.delete_modal')
-
 @endsection
 
 @push('script-include')
@@ -303,9 +262,6 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
-
-
-
 
 	})(jQuery);
 </script>

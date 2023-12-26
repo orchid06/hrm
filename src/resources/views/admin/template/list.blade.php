@@ -4,13 +4,11 @@
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
-           
                 <div class="d-flex justify-content-md-end justify-content-start">
                     <div class="search-area">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
                             <div class="form-inner">
                                 <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name or subject')}}">
-
                             </div>
                             <button class="i-btn btn--sm info">
                                 <i class="las la-sliders-h"></i>
@@ -21,9 +19,7 @@
                         </form>
                     </div>
                 </div>
-
             </div>
-
             <div class="table-container">
                 <table>
                     <thead>
@@ -34,55 +30,43 @@
                             <th scope="col">
                                 {{translate('Name')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Subject')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Updated By')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse($templates as $template)
-                       
-                                <tr>
-                                    <td data-label="#">
-                                  
-                                        {{$loop->iteration}}
-                                    </td>
-                                    <td data-label="{{translate('Name')}}">
-                                        {{$template->name}}
-                                    </td>
-
-                                    <td data-label="{{translate('Subject')}}">
-                                        {{ limit_words($template->subject,20)}}
-                                    </td>
-
-                                    <td data-label="{{translate('Updated By')}}">
-                                        <span class="i-badge capsuled info">
-                                            {{$template->updatedBy->username}}
-                                        </span>
-                                    </td>
-
-                                 
-                                    <td data-label="{{translate('Options')}}">
-                                        <div class="table-action">
-                                            @if(check_permission('update_template'))
-                                               <a  href="{{route('admin.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
-                                               
-                                            @else
-                                                {{translate('N/A')}}
-                                            @endif
-
-                                        </div>
-                                    </td>
+                            <tr>
+                                <td data-label="#">
+                                    {{$loop->iteration}}
+                                </td>
+                                <td data-label="{{translate('Name')}}">
+                                    {{$template->name}}
+                                </td>
+                                <td data-label="{{translate('Subject')}}">
+                                    {{ limit_words($template->subject,20)}}
+                                </td>
+                                <td data-label="{{translate('Updated By')}}">
+                                    <span class="i-badge capsuled info">
+                                        {{$template->updatedBy->username}}
+                                    </span>
+                                </td>
+                                <td data-label="{{translate('Options')}}">
+                                    <div class="table-action">
+                                        @if(check_permission('update_template'))
+                                           <a  href="{{route('admin.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                        @else
+                                            {{translate('N/A')}}
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
                  
                         @empty
@@ -95,7 +79,6 @@
                     </tbody>
                 </table>
             </div>
-            
             <div class="Paginations">
                 {{ $templates->links() }}
             </div>
