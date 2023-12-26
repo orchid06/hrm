@@ -30,7 +30,7 @@ class Payment
         $data['status']      = 'error';
         $data['message']     = translate('Invalid amount.');
         $data['redirect']    = route('user.home');
-        $data['gw_response'] = $request->all();
+
         $status              = DepositStatus::value('FAILED',true);
 
 
@@ -44,7 +44,7 @@ class Payment
         ];
         $response     = CurlService::curlGetRequestWithHeaders($url, $headers);
         $paymentData  = json_decode($response, true);
-
+        $data['gw_response'] = $paymentData;
         
         if (isset($paymentData['status']) && $paymentData['status'] == 'COMPLETED') {
 

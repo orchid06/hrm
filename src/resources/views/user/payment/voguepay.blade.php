@@ -11,9 +11,9 @@
         <div class="col-md-6">
             <div class="i-card-md ">
                 <div class="card-header">
-                    <h5 class="card-title">
+                    <h4 class="card-title">
                          {{@$log->method->name}}
-                    </h5>
+                    </h4>
                 </div>
                 <div class="card-body">
                     <ul class="list-group text-center">

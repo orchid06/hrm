@@ -123,14 +123,14 @@ class User extends Authenticatable
 
     public function referral() :BelongsTo{
 
-        return  $this->belongsTo(User::class,"referral_id");
+        return  $this->belongsTo(User::class,"referral_id",'id');
     }
 
 
     
     public function affilateUser() :HasMany{
 
-        return  $this->hasMany(User::class,"referral_id");
+        return  $this->hasMany(User::class,"referral_id",'id');
     }
 
     public function otp() : MorphMany{

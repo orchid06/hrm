@@ -171,7 +171,7 @@
 
                                 <a data-id ="{{$appearance_element->id}}"  data-files ="{{collect($files)}}" href="javascript:void(0)" data-appearance ="{{collect($appearance_element->value)}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
-                                <a href="javascript:void(0);"    data-href="{{route('admin.appearance.destroy',$appearance_element->id)}}" class=" pointer delete-item icon-btn danger">
+                                <a href="javascript:void(0);"    data-href="{{route('admin.appearance.destroy',$appearance_element->id)}}" class="pointer delete-item icon-btn danger">
                                     <i class="las la-trash-alt"></i>
                                 </a>
                             @else

@@ -187,6 +187,26 @@
                 </span>
                 </a>
           </li>
+
+
+          <li class="sidemenu-item">
+              <a href="{{route("user.ticket.list")}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? "active" :""}}">
+                <div
+                    class="sidemenu-icon"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="{{translate('Ai Contents')}}">
+                    <i class="bi bi-robot"></i>
+                </div>
+
+                <span class="d-lg-none">
+                    {{translate("Ai Contents")}}
+                </span>
+              </a>
+          </li>
+
+
         </ul>
       </div>
     </div>

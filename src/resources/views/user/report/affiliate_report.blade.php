@@ -10,73 +10,76 @@
 @endphp
 <div class="row">
     <div class="col-xl-12 col-lg-12 mx-auto">
-        <div
-        class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
-        <div>
-            <h4>
-                {{translate(Arr::get($meta_data,'title'))}}
-            </h4>
-        </div>
+        <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+            <div>
+                <h4>
+                    {{translate(Arr::get($meta_data,'title'))}}
+                </h4>
+            </div>
 
-        <div>
-            <button
-            class="icon-btn icon-btn-lg info circle"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#tableFilter"
-            aria-expanded="false"
-            aria-controls="tableFilter">
-            <i class="bi bi-funnel"></i>
-            </button>
-        </div>
+            <div>
+                <button
+                class="icon-btn icon-btn-lg info circle"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#tableFilter"
+                aria-expanded="false"
+                aria-controls="tableFilter">
+                <i class="bi bi-funnel"></i>
+                </button>
+            </div>
         </div>
 
         <div class="collapse filterTwo mb-3" id="tableFilter">
-        <div class="i-card-md">
-            <div class="card-body">
-            <div class="search-action-area p-0">
-                <div class="search-area">
-                <form action="{{route(Route::currentRouteName())}}">
+            <div class="i-card-md">
+                <div class="card-body">
+                <div class="search-action-area p-0">
+                    <div class="search-area">
+                    <form action="{{route(Route::currentRouteName())}}">
 
-                    <div class="form-inner">
-                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                    </div>
-
-                    @if($user->affilateUser)
                         <div class="form-inner">
-                            <select name="referral" id="referral" class="referral">
-                                <option value="">
-                                    {{translate('Select User')}}
-                                </option>
-
-                                @foreach($user->affilateUser as $user)
-                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                </option>
-                                @endforeach
-                            </select>
+                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                         </div>
-                    @endif
 
-                    <div class="form-inner">
-                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+
+                        @if($user->affilateUser)
+                            <div class="form-inner">
+                                <select name="referral" id="referral" class="referral">
+                                    <option value="">
+                                        {{translate('Select User')}}
+                                    </option>
+
+                                    @foreach($user->affilateUser as $affilateUser)
+                                    <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
+
+                        <div class="form-inner">
+                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+                        </div>
+
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="i-btn primary btn--lg">
+                                <i class="bi bi-search"></i>
+                            </button>
+
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </a>
+                        </div>
+                    </form>
                     </div>
-
-
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="i-btn primary btn--lg">
-                            <i class="bi bi-search"></i>
-                        </button>
-
-                        <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </a>
-                    </div>
-                </form>
+                </div>
                 </div>
             </div>
-            </div>
         </div>
-        </div>
+
+
+  
 
         <div class="mt-3 text-end">
             {{translate("Total Affiliate Users")}} <span class="ms-2 i-badge capsuled info"> {{ $user->affilateUser->count()}} </span>

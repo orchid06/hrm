@@ -144,13 +144,13 @@
 
                                                   @if(check_permission('update_method'))
 
-                                                    <a href="{{route('admin.paymentMethod.edit',['uid' => $method->uid , 'type' => request()->route('type')])}}" class=" icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a href="{{route('admin.paymentMethod.edit',['uid' => $method->uid , 'type' => request()->route('type')])}}" class="icon-btn warning"><i class="las la-pen"></i></a>
 
                                                   @endif
 
                                                   @if(check_permission('delete_method') && request()->route('type') == 'manual')
                                                   
-                                                     <a href="javascript:void(0);" data-href="{{route('admin.paymentMethod.destroy',$method->id)}}" class=" pointer delete-item icon-btn danger">
+                                                     <a href="javascript:void(0);" data-href="{{route('admin.paymentMethod.destroy',$method->id)}}" class="pointer delete-item icon-btn danger">
     
                                                       <i class="las la-trash-alt"></i></a>
                                                   @endif

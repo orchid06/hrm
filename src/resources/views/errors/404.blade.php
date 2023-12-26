@@ -7,7 +7,7 @@
         <p>{{@translate('Whoops...Page Not Found:')}}</p>
 
         <div class="mt-lg-5 mt-4 d-flex align-items-center justify-content-center">
-            <a href="javascript:void(0)" class="i-btn btn--primary btn--lg capsuled">
+            <a href="{{route('home')}}" class="i-btn btn--primary btn--lg capsuled">
                {{@translate('Back To Home Page')}}
             </a>
         </div>

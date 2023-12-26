@@ -37,8 +37,9 @@ class Payment
         $response = json_decode($response);
 
 
-        $response['error']   = true;
-        $response['message'] = translate("Invalid Request");
+
+        $send['error']   = true;
+        $send['message'] = @$response->message?? translate("Invalid Request");
 
         if ($response->success) {
             $send['redirect']     = true;

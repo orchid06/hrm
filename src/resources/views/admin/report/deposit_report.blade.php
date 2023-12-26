@@ -57,7 +57,7 @@
                                     </select>
                                 </div>
                                 <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
+                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
                                 </div>
                                 <button class="i-btn btn--sm info w-100">
                                     <i class="las la-sliders-h"></i>
@@ -157,7 +157,7 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                         </div>
                                     </td>
@@ -194,6 +194,8 @@
 @push('script-push')
 <script>
 	(function($){
+
+        "use strict";
 
         $(".select2").select2({
            

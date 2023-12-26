@@ -37,7 +37,10 @@ class DepositController extends Controller
         return view('user.payment.create',[
 
             'meta_data'  => $this->metaData(['title'=> translate("Make Deposit")]),
-            'methods'    => PaymentMethod::with(['file','currency'])->active()->get(),
+            'methods'    => PaymentMethod::with(['file','currency'])
+                              ->active()
+                              ->orderBy('serial_id','asc')
+                              ->get(),
   
         ]);
 
@@ -97,6 +100,7 @@ class DepositController extends Controller
      */
     public function depositConfirm(PaymentLog $depositLog) :mixed {
 
+
         $metaData = [
             'title' => 'Pay With '.$depositLog->method->name
         ];
@@ -114,6 +118,8 @@ class DepositController extends Controller
                 'meta_data'  => $this->metaData($metaData),
             ]);
         }
+
+
 
         try {
             $gatewayService  = 'App\\Http\\Services\\Gateway\\'.$depositLog->method->code.'\\Payment';
@@ -203,7 +209,7 @@ class DepositController extends Controller
 
         $this->validate($request, $rules);
 
-        $this->userService->saveCustomInfo($request , $depositLog , $depositLog->method->parameters,'custom_data');
+        $this->userService->saveCustomInfo($request , $depositLog , $depositLog->method->parameters,'custom_data','payment');
 
         session()->forget('trx_code');
 

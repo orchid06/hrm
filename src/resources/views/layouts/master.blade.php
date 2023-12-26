@@ -218,7 +218,7 @@
 
           var route = $(this).attr('data-route')
 
-          console.log(route)
+   
 
           $.ajax({
                 method:'get',

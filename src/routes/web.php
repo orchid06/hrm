@@ -4,6 +4,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CommunicationsController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\User\AiController;
 use App\Http\Controllers\User\Auth\AuthorizationController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
@@ -109,7 +110,6 @@ use Illuminate\Support\Facades\Route;
 
                 Route::get('/request','depositCreate')->name('create'); 
                 Route::any('/process','process')->name('process');
-                Route::any('/confirm','confirm')->name('confirm');
                 Route::any('/manual/confirm','manualPay')->name('manual');
                 
             });
@@ -121,13 +121,9 @@ use Illuminate\Support\Facades\Route;
 
                 # withdraw route
                 Route::prefix("/withdraw")->name('withdraw.')->group(function(){
-
                     Route::get('/request','withdrawCreate')->name('create'); 
-
                     Route::post('/request/process','withdrawProcess')->name('request.process');
-                   
                     Route::get('/preview/{trx}','withdrawPreview')->name('preview');
-
                     Route::post('/request/submit','withdrawRequest')->name('request.submit');
                 });
 
@@ -135,11 +131,19 @@ use Illuminate\Support\Facades\Route;
 
                 #kyc route
                 Route::prefix("/kyc")->name('kyc.')->withoutMiddleware(['kyc'])->group(function(){
-
                     Route::get('form','kycForm')->name('form');
                     Route::post('apply','kycApplication')->name('apply');
                 });
 
+            });
+
+            #ai conent route
+            Route::controller(AiController::class)->prefix("/ai-content")->name('ai.content.')->group(function(){
+
+                Route::get('/list', 'list')->name('list');
+                Route::post('/update','update')->name('update');
+                Route::post('/update/status','updateStatus')->name('update.status');
+                Route::get('/destroy/{id}','destroy')->name('destroy');
 
             });
         

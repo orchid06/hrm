@@ -94,7 +94,7 @@
                                                         {{k2t($key)." section"}}
                                                     </p>
 
-                                                    <a href="javascript:void(0)" class=" i-btn btn--sm danger ms-auto section-remove">
+                                                    <a href="javascript:void(0)" class="i-btn btn--sm danger ms-auto section-remove">
                                                         <i class="las la-times-circle"></i>
                                                     </a>
 
@@ -136,7 +136,7 @@
                                             <p>
                                                 {{k2t(Arr::get($appearance,'name',""))}}
                                             </p>
-                                            <a href="javascript:void(0)" class=" i-btn btn--sm danger ms-auto section-remove">
+                                            <a href="javascript:void(0)" class="i-btn btn--sm danger ms-auto section-remove">
                                                 <i class="las la-times-circle"></i>
                                             </a>
                                             <a href='{{route("admin.appearance.list",$key)}}' class="i-btn btn--sm success cog-section ms-auto">

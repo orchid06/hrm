@@ -263,7 +263,7 @@
                 success: function(response){
 
                     var sub_category =  "{{$template->sub_category_id}}";
-                    console.log(sub_category )
+             
                     var options = '<option  value="" > {{translate("Select Sub category")}} </option>';
                     var attribute = '';
 
