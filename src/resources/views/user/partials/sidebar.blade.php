@@ -18,7 +18,7 @@
               <div
                 class="sidemenu-icon"
                 data-bs-toggle="tooltip"
-                data-bs-placement="top"
+                data-bs-placement="right"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="{{translate("Dashboard")}}">
                 <i class="bi bi-grid-1x2"></i>
@@ -41,7 +41,7 @@
               <div
                 class="sidemenu-icon"
                 data-bs-toggle="tooltip"
-                data-bs-placement="top"
+                data-bs-placement="right"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="{{translate("Reports")}}">
                 <i class="bi bi-graph-up"></i>
@@ -205,6 +205,7 @@
                 </span>
               </a>
           </li>
+
 
         </ul>
       </div>

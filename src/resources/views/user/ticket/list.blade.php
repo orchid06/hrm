@@ -9,6 +9,7 @@
             <h4 class="card-title">
                 {{translate(Arr::get($meta_data,'title'))}}
             </h4>
+            
             <div class="d-flex align-items-center gap-2">
               <a   href="{{route('user.ticket.create')}}" class="i-btn primary btn--sm capsuled">
                 <i class="bi bi-plus-lg"></i>
