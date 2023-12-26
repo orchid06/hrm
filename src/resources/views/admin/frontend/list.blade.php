@@ -6,9 +6,7 @@
 @section('content')
 
     <div class="i-card-md">
-
         <div class="card-body">
-
             @if(@$appearance->content)
                 <div class="mb-5">
                     @include('admin.frontend.partial.content')
@@ -18,23 +16,16 @@
             @if(@$appearance->element)
                 @include('admin.frontend.partial.element')
             @endif
-
         </div>
-
     </div>
-
 @endsection
-
 
 @section('modal')
     @include('modal.delete_modal')
-
     @if(@$appearance->element)
-
         <div class="modal fade" id="sectionSave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sectionSave"   aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
                 <div class="modal-content">
-
                     <div class="modal-header">
                         <h5 class="modal-title">
                             {{translate('Save '.k2t(request()->route("key"))." Item")}}
@@ -43,100 +34,73 @@
                             <i class="las la-times"></i>
                         </button>
                     </div>
-
                     <form class="builder-form" action="{{route('admin.appearance.update')}}"  method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
-
                                 <input type="hidden" name="id">
                                 <input type="hidden" name="type" value="element">
                                 <input type="hidden" name="key" value='{{request()->route("key")}}'>
 
                                 @foreach($appearance->element as $k => $content)
-                                    
                                    @if($k != 'modal')
                                         @if($k == 'images')
                                             @foreach($content as $imK => $imV)
-                                        
                                                 <div class="col-lg-12">
                                                     <div class="form-inner">
                                                         <label for="{{$imK}}">
                                                             {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>
                                                         </label> 
-
                                                         <input   data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class="preview">
-                
                                                         <div class="mt-2 image-preview-section modal-file-{{$loop->index}}">
-
                                                         </div>                      
-                                                                        
                                                     </div>
                                                 </div>
 
                                             @endforeach
                                         @elseif($k == 'select' )
-
                                             @foreach($content as $k => $v)
-                                        
-                                                    <div class="col-lg-12">
-                                                        <div class="form-inner">
-                                                            <label for="{{$k}}">
-                                                                {{translate(k2t($k))}} 
-                                                            </label>
-
-                                                            <select name="select_input[{{$k}}]" id="{{$k}}">
-                                                                <option value="">{{translate("Select Option")}}</option>
-                                                                @foreach (explode(',',$v) as  $val)
-
-                                                                    <option {{@$appearance_content->value->select_input->{$k} == $val? "selected" :""}}  value="{{$val}}">
-
-                                                                        @if($val == App\Enums\StatusEnum::true->status())
-                                                                               {{ucfirst('Active')}}
-                                                                        @elseif($val == App\Enums\StatusEnum::false->status())
-                                                                                 {{ucfirst('Inctive')}}
-                                                                        @else
-                                                                                {{ucfirst($v)}}
-                                                                        @endif
-                                                                    </option>
-                                                                    
-                                                                @endforeach
-                                                            </select>
-
-                                                        </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-inner">
+                                                        <label for="{{$k}}">
+                                                            {{translate(k2t($k))}} 
+                                                        </label>
+                                                        <select name="select_input[{{$k}}]" id="{{$k}}">
+                                                            <option value="">{{translate("Select Option")}}</option>
+                                                            @foreach (explode(',',$v) as  $val)
+                                                                <option {{@$appearance_content->value->select_input->{$k} == $val? "selected" :""}}  value="{{$val}}">
+                                                                    @if($val == App\Enums\StatusEnum::true->status())
+                                                                           {{ucfirst('Active')}}
+                                                                    @elseif($val == App\Enums\StatusEnum::false->status())
+                                                                             {{ucfirst('Inctive')}}
+                                                                    @else
+                                                                            {{ucfirst($v)}}
+                                                                    @endif
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-
+                                                </div>
                                             @endforeach
 
                                         @else
-                                     
                                             <div class="col-lg-12">
                                                 <div class="form-inner">
-
                                                     <label for="{{$k}}">
                                                         {{translate(k2t($k))}} <small class="text-danger">*</small>
                                                     </label> 
-
                                                     @if($content == 'textarea' || $content == 'textarea-editor')
-                                                    
-                                                            <textarea  placeholder="{{translate(k2t($k))}}"   @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10"></textarea>
+                                                        <textarea  placeholder="{{translate(k2t($k))}}"   @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10"></textarea>
                                                     @else
-                              
-
-                                                            <input value="" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="{{$k}}">
-                                                    
+                                                        <input value="" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="{{$k}}">
                                                     @endif
                                                 </div>
-
                                             </div>
-
                                         @endif
                                     @endif
                                 @endforeach
-
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                                 {{translate("Close")}}
@@ -150,12 +114,7 @@
             </div>
         </div>
     @endif
-
-
 @endsection
-
-
-
 
 @push('script-include')
 
@@ -219,7 +178,6 @@
                                                 ['insert', ['picture', 'link', 'video']],
                                                 ['view', ['codeview']],
                                                 ],
-                                               
                                         });
 
                                 } else {
@@ -238,7 +196,6 @@
                                     });
                                 }
                             }
-                     
                         }
                   }
              
@@ -249,18 +206,12 @@
                          $(`.modal-file-${i}`).html(img)
                       }
                   }
-
                   modal.modal('show');
-
-
              });
 
-
-      
             $('.icon-picker').iconpicker({
                title: "{{translate('Search Here !!')}}",
             });
-
 
             $(document).on('click','.section-search-btn',function(){
 
@@ -281,10 +232,6 @@
                     }, 1000);
                    
             });
-
-
-
-
 
 	})(jQuery);
 </script>

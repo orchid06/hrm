@@ -10,28 +10,25 @@
 @endphp
 
 <section class="inner-banner">
-      <div class="container">
-        <div class="row align-items-center gy-4">
-          <div class="col-lg-6">
-            <div class="inner-banner-content">
-              <h2>{{@$contactSection->value->banner_title}}</h2>
-
-              <p>
-                {{@$contactSection->value->banner_description}}
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="w-75 mx-auto">
-              <img src="{{imageUrl(@$file,'frontend',true,@get_appearance()->contact_us->content->images->image->size)}}" alt="{{@$file->name}}" />
-            </div>
-          </div>
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-6">
+        <div class="inner-banner-content">
+          <h2>{{@$contactSection->value->banner_title}}</h2>
+          <p>
+            {{@$contactSection->value->banner_description}}
+          </p>
         </div>
       </div>
-
-      <div class="primary-shade"></div>
-      <div class="banner-texture"></div>
+      <div class="col-lg-6">
+        <div class="w-75 mx-auto">
+          <img src="{{imageUrl(@$file,'frontend',true,@get_appearance()->contact_us->content->images->image->size)}}" alt="{{@$file->name}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="primary-shade"></div>
+  <div class="banner-texture"></div>
 </section>
 
 <section class="contact pb-110">
@@ -45,7 +42,6 @@
               {{@$contactSection->value->section_description}}
             </p>
           </div>
-
           <ul class="contact-list">
             <li>
               <span><i class="bi bi-envelope-open"></i></span>
@@ -55,30 +51,23 @@
                 </a>
               </div>
             </li>
-
             <li>
               <span><i class="bi bi-telephone"></i></span>
               <div>
                 <a href="tel:{{site_settings('phone')}}"> {{site_settings("phone")}}</a>
               </div>
             </li>
-
             <li>
               <span><i class="bi bi-geo-alt"></i></span>
               <div>
                 <a href="javascript:void(0)"> {{site_settings("address")}}</a>
               </div>
             </li>
-
           </ul>
-
-
         </div>
       </div>
-
       <div class="col-lg-7">
         <form action="{{route('contact.store')}}" class="contact-form ms-xl-5 gs_reveal fromRight" method="post">
-
           @csrf
           <h4>  {{$contactSection->value->section_title}}</h4>
           <div class="row gx-4 gy-5 mt-4">
@@ -97,7 +86,6 @@
                 </label>
               </div>
             </div>
-
             <div class="col-lg-6">
               <div class="form__group field">
                 <input
@@ -113,7 +101,6 @@
                 </label>
               </div>
             </div>
-
             <div class="col-12">
               <div class="form__group field">
                 <input
@@ -129,7 +116,6 @@
                 </label>
               </div>
             </div>
-
             <div class="col-12">
               <div class="form__group field">
                 <input
@@ -146,16 +132,14 @@
                 </label>
               </div>
             </div>
-
             <div class="col-12">
               <div class="form__group field">
-                <textarea            placeholder="{{translate('Message')}}" required  class="form__field" id="message" name="message">{{old('message')}}</textarea>
+                <textarea placeholder="{{translate('Message')}}" required  class="form__field" id="message" name="message">{{old('message')}}</textarea>
                   <label class="form__label" for="message">
                      {{translate("Write your Message")}}
                   </label>
               </div>
             </div>
-
             <div class="col-12">
               <button  class="i-btn btn--primary-outline btn--lg capsuled">
                     {{translate("Send Message")}}
@@ -168,8 +152,7 @@
   </div>
 
   <div class="existing-customer">
-    <div
-      class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div>
         <h5> {{@$contactSection->value->support_title}}</h5>
         <p>
@@ -183,7 +166,6 @@
       </a>
     </div>
   </div>
-
 </section>
 
 

@@ -29,7 +29,6 @@ class PackageController extends Controller
      */
     public function __construct(){
         //check permissions middleware
-
         $this->middleware(['permissions:view_package'])->only(['list','selectSearch']);
         $this->middleware(['permissions:create_package'])->only(['store','create']);
         $this->middleware(['permissions:update_package'])->only(['updateStatus','update','edit','bulk','configuration']);
@@ -66,9 +65,10 @@ class PackageController extends Controller
 
         $searchData   = $request->input("term");
 
-        $users        =  AiTemplate::default()->active()->where('name','LIKE',  '%' . $searchData. '%')
-                            ->orWhere('slug','LIKE',  '%' . $searchData. '%')
-                            ->select('id as id','name as text')
+        $users        =  AiTemplate::default()->active()->where(function ($query) use($searchData) {
+                                $query->where('name','LIKE',  '%' . $searchData. '%')
+                                ->orWhere('slug','LIKE',  '%' . $searchData. '%');
+                            })->select('id as id','name as text')
                             ->latest()
                             ->simplePaginate(paginateNumber());
         $pages = true;
@@ -81,6 +81,7 @@ class PackageController extends Controller
             "more"     => $pages
           )
         );
+        
         return response()->json($results);
     }
 

@@ -81,7 +81,6 @@
                                     <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                                         aria-expanded="false" aria-controls="collapse{{$report->id}}">
                                         <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
-
                                             <div class="col-lg-3 col-sm-4 col-12">
                                                 <div class="table-accordion-header transfer-by">
                                                     <span class="icon-btn icon-btn-sm info circle">
@@ -139,7 +138,6 @@
                                                     </p>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +145,6 @@
                                 <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-
 
                                             <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
                                             <li class="list-group-item">{{ translate('Charge') }} :
@@ -160,14 +157,14 @@
 
                                             <li class="list-group-item">{{ translate('Date') }} : {{ diff_for_humans($report->created_at) }}
                                             </li>
-                                            <li class="list-group-item">{{ translate('Status') }} :     @php echo   withdraw_status($report->status)  @endphp
+                                            <li class="list-group-item">{{ translate('Status') }} :  @php echo   withdraw_status($report->status)  @endphp
                                             </li>
 
                                             <li class="list-group-item">{{ translate('Feedback') }} :
                                                 {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
 
                                             @foreach ($report->custom_data as $k => $v)
-                                                <li class="list-group-item">{{ translate(ucfirst($k)) }} :
+                                                <li class="list-group-item">{{ translate(ucfirst($k)) }} : 
                                                     @if ($v->type == 'file')
                                                         @php
                                                             $file = $report
@@ -177,8 +174,10 @@
 
                                                         @endphp
 
-                                                        <img src='{{imageUrl($file,"withdraw",true)}}'
-                                                            alt="{{ @$file->name }}">
+                                                        <div class="report-img">
+                                                            <img src='{{imageUrl($file,"withdraw",true)}}'
+                                                                alt="{{ @$file->name }}">
+                                                        </div>
                                                     @else
                                                         {{ $v->field_name }}
                                                     @endif
@@ -200,10 +199,9 @@
       </div>
 
       <div class="Paginations">
-
-            {{ $reports->links() }}
-
+        {{ $reports->links() }}
       </div>
+
     </div>
 @endsection
 

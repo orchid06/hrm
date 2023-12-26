@@ -5,9 +5,7 @@
 		<ol class="breadcrumb m-0">
 			@if(@$breadcrumbs)
 				@foreach($breadcrumbs as $text => $url)
-
 					<li class='breadcrumb-item {{$url? "active" :""}}'>
-					
 						@if($url) 
 							  	@php
 								  if (is_string($url) && app('router')->has($url)) {
@@ -25,4 +23,4 @@
 			@endif
 		</ol>
 	</div>
-  </div>
+ </div>

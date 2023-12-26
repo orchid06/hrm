@@ -4,12 +4,10 @@
 @endpush
 @section('content')
 
-
     <form action="{{route('admin.ai.template.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <div class="row g-4">
-            <input type="text" hidden name="id" value="{{$template->id}}">
-     
+            <input type="text" hidden name="id" value="{{$template->id}}">     
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">
@@ -17,7 +15,6 @@
                             {{translate('Basic Information')}}
                         </h4>
                     </div> 
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -25,27 +22,17 @@
                                     <label for="Name"> 
                                         {{translate('Name')}} <small class="text-danger">*</small>
                                     </label>
-
                                     <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value="{{$template->name}}">
-
-                                   
-                                
                                 </div>
                             </div>
-                        
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="slug"> 
                                         {{translate('slug')}} 
                                     </label>
-
                                     <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value="{{$template->slug}}">       
-                                    
-                                  
                                 </div>
                             </div>
-
-                             
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="category"> 
@@ -63,8 +50,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="sub_category"> 
@@ -75,37 +60,26 @@
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="Icon"> 
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
-
                                     <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value="{{$template->icon}}" type="text" name="icon" id="Icon">
-                                
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="description"> 
                                         {{translate('Short Description')}}  <span class="text-danger">*</span>
                                     </label>
-
                                     <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{$template->description}}</textarea>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>            
                 </div>
             </div>
-
-
-
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">
@@ -113,18 +87,13 @@
                             {{translate('Prompt Information')}}
                         </h4>
                     </div> 
-
                     <div class="card-body">
                         <div class="row">
-
                             <div class="col-12 mb-20">
                                 <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Field')}}</a>
                             </div>  
-
                            <div class="col-12">
                                 <div class="addedField form-inner"> 
-                                    
-            
                                     @foreach ($template->prompt_fields as $k => $v)    
                                          @php
                                            $counter = rand(200,500);
@@ -140,30 +109,22 @@
                                                             @if($v->type == 'text') selected @endif>{{translate('Input Text')}}</option>
                                                     <option value="textarea"
                                                             @if($v->type == 'textarea') selected @endif>{{translate('Textarea')}}</option>
-                                                   
                                                 </select>
-                
                                                 <select name="validation[]" class="form-control">
                                                     <option value="required"
                                                             @if($v->validation == 'required') selected @endif>{{translate('Required')}}</option>
                                                     <option value="nullable"
                                                             @if($v->validation == 'nullable') selected @endif>{{translate('Optional')}}</option>
                                                 </select>
-                
                                                 <span data-counter = {{ $counter }} class="input-group-text pointer delete-option  ">
-                                                    
                                                         <i class="las  la-times-circle"></i>
-                                                    
                                                 </span>
                                             </div>
                                         </div>
                                     @endforeach                           
-                               
                                 </div>
                            </div>
-
                             <div class="col-lg-12">
-
                                 <div class="mb-4 input-hint d-none">
                                     <label>{{ translate('Input Variables') }}</label>
                                     <div class="input-var">
@@ -179,10 +140,7 @@
 
                                 </div>
                             </div>
-
-
                             <div class="col-12">
-                              
                                 <div class="form-inner ">
                                     <label class="me-2">
                                         {{translate("Is Default")}}
@@ -193,22 +151,17 @@
                                             {{translate($v == 1 ? "Yes" : "No")}}
                                         </label>
                                     @endforeach
-
                                 </div>
                             </div>
-                        
-
                             <div class="col-12 ">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>
                             </div>
-
                         </div>
                     </div>            
                 </div>
             </div>
-
         </div>
    </form>
 
@@ -217,8 +170,6 @@
     <script src="{{asset('assets/global/js/bootstrapicon-iconpicker.js')}}"></script>
     @include('partials.ai_template_script');
 @endpush
-
-
 
 @push('script-push')
 <script>
@@ -245,7 +196,7 @@
                 if(id != ''){
                     subCategories(id);
                 }
-        
+
                 e.preventDefault()
             })
 
@@ -255,15 +206,13 @@
                 url = url.replace(':id', id);
 
                 $.ajax({
-
                 method:'get',
                 url: url,
                 dataType: 'json',
 
                 success: function(response){
-
                     var sub_category =  "{{$template->sub_category_id}}";
-             
+                    console.log(sub_category )
                     var options = '<option  value="" > {{translate("Select Sub category")}} </option>';
                     var attribute = '';
 
@@ -301,7 +250,6 @@
                 },
              })
             }
-
 
 	})(jQuery);
 </script>

@@ -19,7 +19,6 @@
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                       
                                         @if(check_permission('update_language'))
 											@foreach(App\Enums\StatusEnum::toArray() as $k => $v)
 												<li>
@@ -30,7 +29,6 @@
                                     </ul>
                                 </div>
                             @endif
-                      
 							@if(check_permission('create_language'))
 								<div class="action">
 									<button type="button" data-bs-toggle="modal" data-bs-target="#addLanguage" class="i-btn btn--sm success">
@@ -38,7 +36,6 @@
 									</button>
 								</div>
 							@endif
-      
 						</div>
 					@endif
 					<div class="col-md-6 d-flex justify-content-end">
@@ -88,10 +85,8 @@
 							</th>
 						</tr>
 					</thead>
-
 					<tbody>
 						@forelse ( $languages as $language)
-                          
 							    <tr>
 									<td data-label="#">
 										@if(check_permission('create_language') || check_permission('update_language') || check_permission('delete_language'))
@@ -127,55 +122,38 @@
 											<label class="form-check-label" for="status-switch-{{$language->id}}"></label>
 										</div>
 									</td>
-
-
 									<td data-label='{{translate("Created by")}}'>
 										<span class="i-badge capsuled info">
 											{{$language->createdBy->username}}
 										</span>
-
 									</td>
 									<td data-label='{{translate(
 									"Updated By")}}'>
-
 										<span class="i-badge capsuled success">
 											{{$language->updatedBy->username}}
 										</span>
-
 									</td>
-
-
 									<td data-label='{{translate("Options")}}'>
 										<div class="table-action">
-
 											@if(check_permission('update_language') ||  check_permission('translate_language') || check_permission('delete_language') )
-											
 												@if(check_permission('update_language') && $language->is_default != App\Enums\StatusEnum::true->status())
 													<a href="{{route('admin.language.make.default',$language->uid)}}" class="icon-btn info">
 														<i class="las la-star"></i>
 													</a>
 												@endif
-
 												@if(check_permission('translate_language'))
 													<a href="{{route('admin.language.translate',$language->code)}}" class="pointer icon-btn success"><i class="las la-language"></i></a>
 												@endif
-
-
 												@if(check_permission('delete_language') && $language->code !='en' && $language->is_default != App\Enums\StatusEnum::true->status() && session()->get('locale') != $language->code   )
-										
 														<a href="javascript:void(0);" data-href="{{route('admin.language.destroy',$language->uid)}}" class="pointer delete-item icon-btn danger ">
 														<i class="las la-trash-alt"></i></a>
-												
 												@endif
 											@else
-
 												{{translate('N/A')}}
-
 											@endif
 										</div>
 									</td>
 							   </tr>
-                          
 						@empty
 							<tr>
 								<td class="border-bottom-0" colspan="90">
@@ -186,7 +164,6 @@
 					</tbody>
 				</table>
 			</div>
-
 			<div class="Paginations">
 				{{ $languages->links() }}
 			</div>
@@ -194,56 +171,49 @@
 	</div>
 @endsection
 
-
 @section('modal')
-
-
-
-<div class="modal fade modal-md" id="addLanguage" tabindex="-1" aria-labelledby="addLanguage"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" >
-				{{translate('Add New Language')}}
-			</h5>
-			<button class="close-btn" data-bs-dismiss="modal">
-				<i class="las la-times"></i>
-			</button>
-		</div>
-		<form action="{{route('admin.language.store')}}" method="post" class="add-listing-form">
-			@csrf
-			<div class="modal-body">
-				<div class="form-inner">
-					<label for="name">{{translate('Name')}}  <small class="text-danger" >*</small></label>
-					<select required class="select2" name="name" id="name" >
-						@foreach ($countryCodes as $codes)
-							<option value="{{$codes['name']}}//{{$codes['isoAlpha2']}}">
-							{{$codes['name']}}
-							</option>
-					    @endforeach
-					</select>
+<div class="modal fade modal-md" id="addLanguage" tabindex="-1" aria-labelledby="addLanguage" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		    <div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" >
+						{{translate('Add New Language')}}
+					</h5>
+					<button class="close-btn" data-bs-dismiss="modal">
+						<i class="las la-times"></i>
+					</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
-					{{translate("Close")}}
-				</button>
-				<button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-					{{translate("Submit")}}
-				</button>
-			</div>
-	    </form>
-    </div>
-  </div>
+				<form action="{{route('admin.language.store')}}" method="post" class="add-listing-form">
+					@csrf
+					<div class="modal-body">
+						<div class="form-inner">
+							<label for="name">{{translate('Name')}}  <small class="text-danger" >*</small></label>
+							<select required class="select2" name="name" id="name" >
+								@foreach ($countryCodes as $codes)
+									<option value="{{$codes['name']}}//{{$codes['isoAlpha2']}}">
+									{{$codes['name']}}
+									</option>
+							    @endforeach
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+							{{translate("Close")}}
+						</button>
+						<button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+							{{translate("Submit")}}
+						</button>
+					</div>
+			    </form>
+		    </div>
+	  </div>
 </div>
-
 
 @include('modal.delete_modal')
 @include('modal.bulk_modal')
 
 @endsection
-
 
 @push('script-push')
 <script>

@@ -10,7 +10,7 @@
 
             var content = JSON.parse($(this).attr('data-content'))
             var modal = $('#content-form')
-            modal.find('#contentForm').attr('action','{{route("admin.content.update")}}')
+            modal.find('#contentForm').attr('action','{{request()->routeIs("user.*") ? route("user.ai.content.update") :route("admin.content.update")}}')
             modal.find('.modal-title').html("{{translate('Update Content')}}")
 
             modal.find('input[name="name"]').val(content.name)
@@ -27,8 +27,8 @@
             $(".template-prompt").addClass('d-none');
             $(".generate-btn").addClass('d-none');
             if(id != ""){
-                subCategories(id);
                 getTemplate();
+                subCategories(id);
             }
             e.preventDefault()
         })
@@ -59,7 +59,7 @@
                 dataType: 'json',
 
                 success: function(response){
-
+                    $('#sub_category_id').html('')
                     if(response.status){
                         $('#sub_category_id').html(response.html)
                     }
@@ -91,8 +91,8 @@
 
         function getTemplate(){
 
-            var categoryId = $("#category").val();
-            var subcategory = $("#sub_category_id").val();
+            var categoryId = $('#category').find(":selected").val();
+            var subcategory = $('#sub_category_id').find(":selected").val();
 
             $.ajax({
                 method:'post',
@@ -102,11 +102,17 @@
                 data: {
                     "category_id"     :categoryId,
                     "sub_category_id" :subcategory,
+                    "user_id"         :"{{request()->routeIs('user.*') ? $user->id : null}}",
                     "_token" :"{{csrf_token()}}",
                 },
                 success: function(response){
 
-                    $('.selectTemplate').html(response.html)
+                    if(response.status){
+                        $('.selectTemplate').html(response.html)
+                    }
+                    else{
+                        toastr(response.message,'danger') 
+                    }
 
                 },
                 error: function (error){
@@ -131,7 +137,6 @@
                 },
             
             })
-
 
         }
 
@@ -187,7 +192,7 @@
         })
 
 
-            var inputObj = {}; 
+       var inputObj = {}; 
 
         $(document).on('change',".prompt-input",function(e){
             var value = $(this).val();
@@ -248,8 +253,9 @@
             success: function(response){
 
                 if(response.status){
-
                     $('#content').html(response.message)
+                    $('#ai-form').fadeOut()
+                    $('.ai-content-div').removeClass('d-none')
                 }
                 else{
                     toastr(response.message,"danger")   
@@ -279,11 +285,7 @@
             complete: function() {
                 $('.ai-btn').removeClass('btn__dots--loading');
                 $('.ai-btn').find('.btn__dots').remove();
-                
-                $('#ai-form').fadeOut()
-
-                $('.ai-content-div').removeClass('d-none')
-
+   
             },
             })
 

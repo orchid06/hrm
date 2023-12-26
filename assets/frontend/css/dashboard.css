@@ -5955,6 +5955,9 @@ select {
   align-items: center;
   border-color: var(--border-light);
 }
+.table-accordion .list-group .list-group-item .report-img {
+  max-width: 100px;
+}
 
 .table-accordion .list-group .list-group-item .title {
   font-size: 15px;

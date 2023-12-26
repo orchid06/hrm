@@ -81,11 +81,14 @@ class AiService
 
 
     public function setRules(Request $request) :array{
-
+       
+     
         $rules = [
             "language"         => ['required',"exists:languages,name"],
             "id"               => ['required',"exists:ai_templates,id"],
-            "max_result"       => ['nullable',"numeric",'gt:0','max:5000'],
+            "max_result"       => [ Rule::requiredIf(function () use ($request) {
+                                            return request()->routeIs('user.*');
+                                    }),"nullable","numeric",'gt:0','max:5000'],
             "ai_creativity"    => ['nullable',Rule::in(array_values(Arr::get(config('settings'),'default_creativity',[])))],
             "content_tone"     => ['nullable',Rule::in(Arr::get(config('settings'),'ai_default_tone',[]))],
             "custom"           => ['nullable','array']
@@ -208,11 +211,10 @@ class AiService
 
             if(isset($chat_results['choices'][0]['message']['content'])){
 
-
-
                 $realContent                   = $chat_results['choices'][0]['message']['content'];
                 $content                       = str_replace(["\r\n", "\r", "\n"] ,"<br>",$realContent); 
                 $usage                         = $chat_results['usage'];
+          
                 $usage['model']                = $chat_results['model'];
                 $usage['genarated_tokens']     = count(explode(' ', ($content)));
     
@@ -229,18 +231,20 @@ class AiService
                     $templateLog->save();
 
                     if(request()->routeIs("user.*")){
-                        $token = (int) Arr::get($usage , "runningSubscription" ,0);
+                        $token = (int) Arr::get($usage , "completion_tokens" ,0);
                         $user  = auth_user('web');
                         $this->generateCreditLog(
                             user        : auth_user('web'),
                             trxType     : Transaction::$MINUS,
-                            balance     : (int) $usage['genarated_tokens'],
+                            balance     : (int) $token,
                             postBalance : (int)$user->runningSubscription->remaining_word_balance,
                             details     : $token ." word generated using (".@$templateLog->template->name . ") Template",
                             remark      : t2k("word_credit"),
                         );
 
-                        if(@$user->runningSubscription->remaining_word_balance != PlanDuration::UNLIMITED->value ) {
+                        $userToken      = @$user->runningSubscription->remaining_word_balance;
+
+                        if(@$userToken != PlanDuration::UNLIMITED->value  && $userToken > 0) {
                             $user->runningSubscription->decrement('remaining_word_balance',$token);
                         }
                     }
