@@ -1,18 +1,19 @@
 @extends('layouts.master')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-xl-6 col-lg-8 col-md-10">
             <div class="i-card-md ">
                 <div class="card-header">
                     <h4 class="card-title">
                         {{@$log->method->name}}
                    </h4>
-                
+
                 </div>
+
                 <div class="card-body">
                     <div class="row align-items-center">
-                       
-                        <div class="col-md-7">
+
+                        <div class="col-12">
                             <ul class="list-group text-center">
                                 <li class="list-group-item d-flex justify-content-between primary-bg ">
                                    {{translate('You have to pay ')}}:
@@ -20,7 +21,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between primary-bg ">
                                    {{translate('You will get ')}}:
-                    
+
                                     <strong>{{num_format($log->amount,$log->currency)}}</strong>
                                 </li>
                             </ul>

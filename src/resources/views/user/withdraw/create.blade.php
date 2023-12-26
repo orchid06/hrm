@@ -150,7 +150,7 @@
                     var netCharge     =  parseFloat(fixedCharge + (amount  * percentCharge / 100));
                     var netAmount     =  (amount + netCharge);
 
-                    var list  =  `<li class="list-group-item" aria-current="true">
+                    var list  =  `<li class="list-group-item active" aria-current="true">
                                             <h5>
                                                 {{translate("Withdraw Details")}}
                                             </h5>

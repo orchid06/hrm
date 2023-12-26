@@ -110,7 +110,44 @@
   font-size: 18px;
 }
 
-
-.pointer{
+.pointer {
   cursor: pointer !important;
+}
+
+/* Summer Note */
+.note-editor .note-toolbar .note-dropdown-menu,
+.note-popover .popover-content .note-dropdown-menu {
+  top: 115%;
+}
+
+.note-modal {
+    z-index:1070 !important;
+}
+.note-modal .form-group {
+  margin-bottom: 15px;
+}
+
+.note-dropdown-menu.dropdown-menu {
+  border: 1px solid var(--color-primary-light) !important;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.note-modal .close {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 50%;
+  font-size: 20px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  transition: 0.3s ease;
+}
+
+
+body.modal-open .header{
+  z-index: -1;
+}
+body.modal-open .aside{
+  z-index: -1;
 }

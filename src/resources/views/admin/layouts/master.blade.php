@@ -75,15 +75,12 @@
         })
 
         window.onload = function () {
-
           $('.table-loader').addClass("d-none");
-
 
         }
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {
-
             const id = $(this).attr('data-id')
             const key = $(this).attr('data-key')
             var column = ($(this).attr('data-column'))
@@ -137,7 +134,6 @@
             })
         }
 
-
         // read notification
         $(document).on('click','.read-notification',function(e){
             var href = $(this).attr('data-href')
@@ -167,11 +163,7 @@
                 });
         }
 
-
-
-
         /** delete ,restore , bulk action */
-
 
         $(document).on('click','.bulk-action-btn' ,function(e){
 
@@ -189,8 +181,6 @@
             $("#bulkActionForm").submit()
 
         });
-
-
 
         $(document).on('click','.bulk-action-modal',function(e){
             var type = $(this).attr("data-type");
@@ -215,7 +205,6 @@
             var modal = $('#bulkActionModal')
             modal.modal('show')
         })
-
 
         //delete event start
         $(document).on('click', ".delete-item", function (e) {
@@ -248,10 +237,6 @@
             $(".warning-message").html(message)
             $("#actionModal").modal("show");
         })
-
-
-
-
 
         // update seettings
         $(document).on('submit','.settingsForm',function(e){

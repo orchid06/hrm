@@ -218,7 +218,7 @@
 
           var route = $(this).attr('data-route')
 
-   
+
 
           $.ajax({
                 method:'get',
@@ -312,6 +312,7 @@
                 $(".note-dropdown-menu").removeClass("show");
             }
         });
+
 
     </script>
 

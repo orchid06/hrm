@@ -135,182 +135,188 @@
 
               <div class="profile-tab-content">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="personal-details" role="tabpanel">
+                    <div class="tab-pane fade show active" id="personal-details" role="tabpanel">
                         <div class="i-card-md">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    {{translate("Profile")}}
+                                    {{translate("User Info")}}
                                 </h4>
 
-                                <button class="i-btn warning btn--sm capsuled" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    <i class="bi bi-shield-lock"></i>
-                                    {{translate("Change Password")}}
-                                </button>
+                                <div class="tab-4">
+                                    <ul class="nav" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="account-details-tab" data-bs-toggle="tab" data-bs-target="#account-details" type="button" role="tab" aria-controls="account-details" aria-selected="true">
+                                                {{translate("User Details")}}
+                                            </button>
+                                        </li>
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false">
+                                                 {{translate("Update Password")}}
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <div class="card-body">
-                                <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row g-4">
-                                        <div class="col-lg-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="name">
-                                                    {{translate("Name")}}
-                                                </label>
-                                                <input type="text" name="name" value="{{$user->name}}" id="name" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="Username">
-                                                    {{translate("Username")}} <small class="text-danger">*</small>
-                                                </label>
-                                                <input type="text" name="username" value="{{$user->username}}" id="Username" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-inner mb-0">
-                                                <label for="email">
-                                                    {{translate("email")}} <small class="text-danger">*</small>
-                                                </label>
-                                                <input type="text" name="email" value="{{$user->email}}" id="email" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="form-inner mb-0">
-
-                                            <label for="country">
-                                                {{translate('Country')}}
-                                            </label>
-
-                                                <select name="country_id" id="country">
-                                                    <option value="">
-                                                        {{translate('Select Country')}}
-                                                    </option>
-                                                    @foreach (get_countries() as $country )
-                                                        <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
-                                                            {{$country->name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="form-inner mb-0">
-                                                <label for="phone">
-                                                    {{translate("Phone")}}
-                                                </label>
-                                                <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-inner mb-0">
-                                                <label for="image">
-                                                    {{translate("Image")}}
-                                                </label>
-
-                                                <div>
-                                                    <label for="image" class="feedback-file">
-                                                        <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
-                                                        <span><i class="bi bi-image"></i>
-                                                            {{translate("Select image")}}
-                                                        </span>
-                                                    </label>
-
-                                                    <div class="image-preview-section">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="account-details" role="tabpanel" aria-labelledby="account-details-tab" tabindex="0">
+                                        <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row g-4">
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="name">
+                                                            {{translate("Name")}}
+                                                        </label>
+                                                        <input type="text" name="name" value="{{$user->name}}" id="name" />
                                                     </div>
                                                 </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="Username">
+                                                            {{translate("Username")}} <small class="text-danger">*</small>
+                                                        </label>
+                                                        <input type="text" name="username" value="{{$user->username}}" id="Username" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="email">
+                                                            {{translate("email")}} <small class="text-danger">*</small>
+                                                        </label>
+                                                        <input type="text" name="email" value="{{$user->email}}" id="email" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+
+                                                    <label for="country">
+                                                        {{translate('Country')}}
+                                                    </label>
+
+                                                        <select name="country_id" id="country">
+                                                            <option value="">
+                                                                {{translate('Select Country')}}
+                                                            </option>
+                                                            @foreach (get_countries() as $country )
+                                                                <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
+                                                                    {{$country->name}}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="phone">
+                                                            {{translate("Phone")}}
+                                                        </label>
+                                                        <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="image">
+                                                            {{translate("Image")}}
+                                                        </label>
+
+                                                        <div>
+                                                            <label for="image" class="feedback-file">
+                                                                <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
+                                                                <span><i class="bi bi-image"></i>
+                                                                    {{translate("Select image")}}
+                                                                </span>
+                                                            </label>
+
+                                                            <div class="image-preview-section">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @if(site_settings('auto_subscription') == App\Enums\StatusEnum::true->status())
+
+                                                <div class="col-12">
+                                                    <div class="form-inner">
+                                                        <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
+                                                        <label for="auto_subscription" class="form-check-label me-3">
+                                                            {{translate('Auto Subscription')}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                @endif
+
+                                                <div class="col-12">
+                                                    <button
+                                                        type="submit"
+                                                        class="i-btn btn--primary btn--lg capsuled">
+                                                        {{translate("Update")}}
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        @if(site_settings('auto_subscription') == App\Enums\StatusEnum::true->status())
-
-                                         <div class="col-12">
-                                             <div class="form-inner">
-                                                <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
-                                                <label for="auto_subscription" class="form-check-label me-3">
-                                                     {{translate('Auto Subscription')}}
-                                                </label>
-                                             </div>
-                                         </div>
-
-                                        @endif
-
-                                        <div class="col-12">
-                                            <button
-                                                type="submit"
-                                                class="i-btn btn--primary btn--lg capsuled">
-                                                {{translate("Update")}}
-                                            </button>
-                                        </div>
+                                        </form>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
 
-                        <div class="collapse mt-4" id="collapseExample">
-                            <div class="i-card-md">
-                                <div class="card-header">
-                                    <h4 class="card-title">
-                                        {{translate("Change Password")}}
-                                    </h4>
-                                </div>
+                                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
+                                        <form action="{{route('user.password.update')}}"  method="post">
+                                            @csrf
+                                            <div class="row g-4">
+                                                <div class="col-12">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="current-password">
+                                                            {{translate("Current Password")}} <small class="text-danger">*</small>
+                                                        </label>
+                                                        <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
+                                                    </div>
+                                                </div>
 
-                                <div class="card-body">
-                                    <form action="{{route('user.password.update')}}"  method="post">
-                                        @csrf
-                                        <div class="row g-4">
-                                            <div class="col-12">
-                                                <div class="form-inner mb-0">
-                                                    <label for="current-password">
-                                                        {{translate("Current Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="new-password">
+                                                            {{translate("New Password")}} <small class="text-danger">*</small>
+                                                        </label>
+                                                        <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-inner mb-0">
+                                                        <label for="confirm-password">
+                                                            {{translate("Confirm Password")}} <small class="text-danger">*</small>
+                                                        </label>
+                                                        <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <button
+                                                        type="submit"
+                                                        class="i-btn btn--primary btn--lg capsuled">
+
+                                                        {{translate(
+                                                            "Update Password"
+                                                        )}}
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="new-password">
-                                                        {{translate("New Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="confirm-password">
-                                                        {{translate("Confirm Password")}} <small class="text-danger">*</small>
-                                                    </label>
-                                                    <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <button
-                                                    type="submit"
-                                                    class="i-btn btn--primary btn--lg capsuled">
-
-                                                    {{translate(
-                                                        "Update Password"
-                                                    )}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
-                        <div class="tab-pane" id="affiliate-configuration" role="tabpanel">
+                        <div class="tab-pane fade" id="affiliate-configuration" role="tabpanel">
                             <div class="i-card-md">
                                 <div class="card-header">
                                     <h4 class="card-title">
@@ -368,12 +374,22 @@
                     @endif
 
                     @if($user->runningSubscription)
-                        <div class="tab-pane" id="plan-tab" role="tabpanel">
+                        <div class="tab-pane fade" id="plan-tab" role="tabpanel">
                             <div class="i-card-md">
                                 <div class="card-header">
 
-                                    <h4 class="card-title">
-                                        {{translate('Current Plan')}}
+                                    <h4 class="card-title d-flex align-items-center gap-2">
+                                           <div class="dot-spinner">
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                                <div class="dot-spinner__dot"></div>
+                                            </div>
+                                          {{translate('Current Plan')}}
                                     </h4>
 
                                 </div>
@@ -387,17 +403,16 @@
                                                     src="{{asset('assets/images/current-plan.gif')}}"
                                                     alt="current-plan.gif"/>
                                                 </div>
-                                                <h5>
+                                                <h5 class="mb-2">
                                                     {{@$user->runningSubscription->package->title}}
                                                 </h5>
 
-                                                <span>{{translate("Expire date")}}:
+                                                <small>{{translate("Expire date")}}:
                                                 {{@$user->runningSubscription->expired_at ? get_date_time($user->runningSubscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
 
-                                                </span>
+                                                </small>
                                             </div>
                                         </div>
-
 
                                         <div class="col-xl-6 col-lg-12 col-md-6">
                                             <div class="permissions">
@@ -433,9 +448,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
 
 @endsection
 
