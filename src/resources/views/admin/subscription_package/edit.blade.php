@@ -75,11 +75,9 @@
                                 </option>
 
                                 @foreach ($templates as $id => $name)
-
                                     <option    selected value="{{$id }}">
                                         {{$name}}
                                     </option>
-                     
                                 @endforeach
                             </select>
                         </div>

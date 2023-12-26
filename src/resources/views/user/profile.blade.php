@@ -407,13 +407,12 @@
                                             <ul class="list-group">
 
 
-                                                @foreach (plan_configuration( @$user->runningSubscription->package) as $configKey => $configVal )
+                                                @foreach (plan_configuration(@$user->runningSubscription->package) as $configKey => $configVal )
 
                                                     <li class="list-group-item">
                                                         <i class="fa fa-check text-success"></i>
                                                         {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
                                                     </li>
-
 
                                                 @endforeach
 

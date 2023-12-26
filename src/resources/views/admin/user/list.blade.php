@@ -124,7 +124,7 @@
 
                     <tbody>
 
-                        @forelse($users as $user)
+                        @forelse($users  as $user)
 
                             <tr>
                                 <td data-label="#">
@@ -140,7 +140,7 @@
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->subscriptions->count() > 0)
                                        
-                                            <small class=" i-badge success">{{@$user->subscriptions->first()->package->title}}</small>
+                                            <small class="i-badge success">{{@$user->subscriptions->first()->package->title}}</small>
                                         @endif
 
                                     </div>
@@ -152,7 +152,7 @@
                                         {{$user->email}} 
                                     </div>
 
-                                    <span class=" i-badge success">{{$user->phone}}</span>
+                                    <span class="i-badge success">{{$user->phone}}</span>
                                 </td>
 
                                 <td  data-label="{{translate('Country')}}">

@@ -53,8 +53,7 @@
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
     <script  src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
-    <script src="{{asset('assets/global/js/pusher.min.js')}}"></script>
-    <script src="{{asset('assets/global/js/push.js')}}"></script>
+
 
     @include('partials.notify')
     @stack('script-include')

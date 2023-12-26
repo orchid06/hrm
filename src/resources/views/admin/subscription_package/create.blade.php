@@ -15,8 +15,6 @@
 
                                 <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value="{{old('title')}}">
 
-                            
-                            
                             </div>
                         </div>
 
