@@ -1,9 +1,7 @@
 <script>
 	(function($){
        	"use strict";
-    
             var counter =  0;
-
             $(document).on('click','#addNew',function () {
                 counter+=1;
                 var form = `
@@ -32,9 +30,7 @@
                 $('.addedField').append(form)
             });
 
-
             $(document).on('click', '.delete-option', function () {
-
                 var index  = $(this).attr('data-counter');
                 if (inputObj.hasOwnProperty(index)) {
                         delete inputObj[index];
@@ -45,9 +41,7 @@
             });
 
             var inputObj = {}; 
-
             $(document).on('change', '.field-name', function () {
-
                 var value = $(this).val().toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '_').replace(
                 /^-+|-+$/g, '');
                 var index  = $(this).attr('data-counter');
@@ -60,13 +54,10 @@
                     inputObj[index] = value;
                 }
                 set_hint();
-
             });
 
             function set_hint(){
-
                 var len = Object.keys(inputObj).length
-
                 if(len > 0){
                     $('.input-hint').removeClass('d-none');
 
@@ -86,7 +77,6 @@
                     $(".input-var").html('');
                     $('.input-hint').addClass('d-none');
                 }
-      
             }
             
             $(document).on('click', '.custom-key', function (e) {

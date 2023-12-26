@@ -15,7 +15,6 @@
                             {{translate('Basic Information')}}
                         </h4>
                     </div> 
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -27,19 +26,14 @@
 
                                 </div>
                             </div>
-                        
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="slug"> 
                                         {{translate('slug')}} 
                                     </label>
-
-
                                     <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>       
-
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="category"> 
@@ -57,7 +51,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="sub_category"> 
@@ -70,8 +63,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="Icon"> 
@@ -80,7 +71,6 @@
                                     <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="description"> 
@@ -93,7 +83,6 @@
                     </div>            
                 </div>
             </div>
-
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">
@@ -101,44 +90,30 @@
                             {{translate('Prompt Information')}}
                         </h4>
                     </div> 
-
                     <div class="card-body">
                         <div class="row">
-
                             <div class="col-12 mb-20">
                                 <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Field')}}</a>
                             </div>  
-
                            <div class="col-12">
                                 <div class="addedField form-inner">  
-                                    
                                 </div>
                            </div>
-
                             <div class="col-lg-12">
-
                                 <div class="mb-4 input-hint d-none">
                                     <label>{{ translate('Input Variables') }}</label>
                                     <div class="input-var">
                                     </div>
                                     <small>{{ translate('Click on variable to set the user input of it in your prompts')}}</small>
                                 </div>
-
-                      
                                 <div class="form-inner">
-
                                     <label for="customPrompt"> 
                                         {{translate('Prompt')}} <small class="text-danger">*</small>
                                     </label>
-
                                     <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}</textarea>
-
                                 </div>
                             </div>
-
-
                             <div class="col-12">
-                              
                                 <div class="form-inner ">
                                     <label class="me-2">
                                         {{translate("Is Default")}}
@@ -149,22 +124,17 @@
                                             {{translate($v == 1 ? "Yes" : "No")}}
                                         </label>
                                     @endforeach
-
                                 </div>
                             </div>
-                        
-
                             <div class="col-12 ">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>
                             </div>
-
                         </div>
                     </div>            
                 </div>
             </div>
-
         </div>
    </form>
 
@@ -174,75 +144,71 @@
     @include('partials.ai_template_script');
 @endpush
 
-
 @push('script-push')
-<script>
-	(function($){
-       	"use strict";
-    
-            $(".select2").select2({
-			   placeholder:"{{translate('Select Category')}}",
-	     	})
-            $(".sub_category_id").select2({
-			   placeholder:"{{translate('Select Sub Category')}}",
-	     	})
+    <script>
+    	(function($){
+           	"use strict";
+        
+                $(".select2").select2({
+    			   placeholder:"{{translate('Select Category')}}",
+    	     	})
+                $(".sub_category_id").select2({
+    			   placeholder:"{{translate('Select Sub Category')}}",
+    	     	})
 
-            $('.icon-picker').iconpicker({
-               title: "{{translate('Search Here !!')}}",
-            });
-
-
- 
-            $(document).on('change','#category',function(e){
-
-                 var id = $(this).val()
-                subCategories(id);
-                e.preventDefault()
-            })
+                $('.icon-picker').iconpicker({
+                   title: "{{translate('Search Here !!')}}",
+                });
 
 
-            function subCategories(id){
+                $(document).on('change','#category',function(e){
 
-                var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
-                url = url.replace(':id', id).replace(':html', true);
+                     var id = $(this).val()
+                    subCategories(id);
+                    e.preventDefault()
+                })
 
-                $.ajax({
+                function subCategories(id){
 
-                    method:'get',
-                    url: url,
-                    dataType: 'json',
-                
-                    success: function(response){
+                    var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
+                    url = url.replace(':id', id).replace(':html', true);
 
-                        if(response.status){
-                            $('#sub_category_id').html(response.html)
-                        }
+                    $.ajax({
+
+                        method:'get',
+                        url: url,
+                        dataType: 'json',
                     
-                    },
-                    error: function (error){
-                        if(error && error.responseJSON){
-                            if(error.responseJSON.errors){
-                                for (let i in error.responseJSON.errors) {
-                                    toastr(error.responseJSON.errors[i][0],'danger')
+                        success: function(response){
+
+                            if(response.status){
+                                $('#sub_category_id').html(response.html)
+                            }
+                        
+                        },
+                        error: function (error){
+                            if(error && error.responseJSON){
+                                if(error.responseJSON.errors){
+                                    for (let i in error.responseJSON.errors) {
+                                        toastr(error.responseJSON.errors[i][0],'danger')
+                                    }
+                                }
+                                else{
+                                    if((error.responseJSON.message)){
+                                        toastr(error.responseJSON.message,'danger')
+                                    }
+                                    else{
+                                        toastr( error.responseJSON.error,'danger')
+                                    }
                                 }
                             }
                             else{
-                                if((error.responseJSON.message)){
-                                    toastr(error.responseJSON.message,'danger')
-                                }
-                                else{
-                                    toastr( error.responseJSON.error,'danger')
-                                }
+                                toastr(error.message,'danger')
                             }
-                        }
-                        else{
-                            toastr(error.message,'danger')
-                        }
-                    },
-		    	})
-            }
-
-        
-	})(jQuery);
-</script>
+                        },
+    		    	})
+                }
+                
+    	})(jQuery);
+    </script>
 @endpush

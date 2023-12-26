@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 	<div class="i-card-md">
-
 		<div class="card-body">
 			<div class="search-action-area">
 				<div class="row g-4">
@@ -14,7 +13,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="table-container">
 				<table id="transaltionTable">
 					<thead>
@@ -32,11 +30,8 @@
 							</th>
 						</tr>
 					</thead>
-
 					<tbody>
-
 						@forelse ($translations as $translate)
-
 							<tr>
 								<td data-label="#">
 									{{$loop->iteration}}
@@ -44,17 +39,13 @@
 								<td data-label='{{translate("Key")}}'>
 									{{limit_words($translate->value,20)}}
 								</td>
-
 								<td data-label='{{translate("Value")}}'>
 									<div class="form-inner">
 										<input  id="lang-key-value-{{ $loop->iteration }}" name='translate[{{$translate->key }}]' value="{{ $translate->value }}" type="text">
 									</div>
 								</td>
-
 								<td data-label='{{translate("Options")}}'>
 									<div class="table-action">
-
-
 										<a href="javascript:void(0)" data-translate-id ="{{$translate->id}}" data-id ="{{$loop->iteration}}"  title="save" class="translate icon-btn success"><i class="las la-save"></i></a>
 
 										@if(check_permission('delete_language'))
@@ -74,17 +65,13 @@
 					</tbody>
 				</table>
 			</div>
-
 			<div class="Paginations">
-				
 					{{ $translations->links() }}
-			
 			</div>
 		</div>
 	</div>
 
 @endsection
-
 
 @section('modal')
     @include('modal.delete_modal')
@@ -147,6 +134,7 @@
 		  })
         }
 	})(jQuery);
+
 </script>
 @endpush
 

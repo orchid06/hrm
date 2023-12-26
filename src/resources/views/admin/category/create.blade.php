@@ -21,7 +21,6 @@
                             {{translate('Basic Information')}}
                         </h4>
                     </div>
-                
                     <div class="card-body">
                         <div class="row">                        
                             <div class="col-lg-12">
@@ -36,17 +35,14 @@
                                                    
                                                    {{$code}}
                                                     
-                                                   
                                                 </span>
                                             </button>
                                         </li>
                                     @endforeach
                                 </ul>
-
                                 <div id="titleTab" class="tab-content">
-
                                     @foreach($sortedArray as $code)
-                                        <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} ' id="lang-tab-content-{{$code}}" role="tabpanel">                                       
+                                        <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} ' id="lang-tab-content-{{$code}}" role="tabpanel">                           
                                             <div class="form-inner">                                               
                                                 <label  for="{{$code}}-input">
                                                     {{translate('Title')}} 
@@ -59,83 +55,56 @@
                                                 @php
                                                     $lang_code =  strtolower($code)
                                                 @endphp
-   
                                                 <input id="{{$code}}-input" type="text" name="title[{{strtolower($code)}}]"   placeholder='{{translate("Enter Title")}}'
                                                     value='{{old("title.$lang_code")}}'>
-
-
                                             </div>                                                                         
                                         </div>
                                     @endforeach
-                                    
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
-                                        
                                 <div class="form-inner">
                                     <label  for="slug">
                                         {{translate('Slug')}} 
                                     </label>
-                                
                                     <input type="text" name="slug" id="slug"  placeholder='{{translate("Enter Slug")}}'
-                                        value='{{old("slug")}}'>  
-                                                                                           
+                                        value='{{old("slug")}}'>                                              
                                 </div>                                                                         
-                        
-                                    
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="Icon"> 
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
-
                                     <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
-                                
                                 </div>
                             </div>
-
-
-                            <div class="col-lg-12">
-                                        
+                            <div class="col-lg-12">      
                                 <div class="form-inner">
                                     <label  for="parent_id">
                                         {{translate('Parent Id')}} 
                                     </label>
-                            
                                     <select name="parent_id" id="parent_id">
                                         <option value="">
                                             {{translate("Select Parent Category")}}
                                         </option>
-
                                         @foreach ($categories as  $parentCategory)
                                             <option {{old('parent_id') ==  $parentCategory->id ? "selected" :""}} value="{{$parentCategory->id}}">
                                                   {{$parentCategory->title}}
                                             </option>
                                         @endforeach
-                                    </select>
-                                                                                           
+                                    </select>                                                   
                                 </div>                                                                         
-                        
-                                    
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="description"> 
                                         {{translate('Short Description')}} 
                                     </label>
-
                                     <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{old("description")}}</textarea>
-
                                 </div>
                             </div>
-
-
                             <div class="col-12">
-                              
                                 <div class="form-inner ">
                                     <label class="me-2">
                                         {{translate("Display In")}}
@@ -149,23 +118,16 @@
                                             {{translate($k)}}
                                         </label>
                                     @endforeach
-
                                 </div>
                             </div>
-
-
                             <div class="col-12">
                                 <div class="form-inner ">
-                                    
                                     <input id="is_feature" {{old("is_feature") ==  App\Enums\StatusEnum::true->status() ? "checked" :""}} value="{{App\Enums\StatusEnum::true->status()}}" class="form-check-input" name="is_feature" type="checkbox">
                                     <label for="is_feature" class="form-check-label me-2">
                                         {{translate("Feature")}}
                                     </label>
-                                
                                 </div>
                             </div>
-
-
                             <div class="col-12 ">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
@@ -175,19 +137,14 @@
                     </div>           
                 </div>
             </div>
-            
             @includeWhen(@site_settings('site_seo') == App\Enums\StatusEnum::true->status(),'admin.partials.seo')
         </div>        
    </form>
-
 @endsection
-
-
 
 @push('script-include')
     <script src="{{asset('assets/global/js/bootstrapicon-iconpicker.js')}}"></script>
 @endpush
-
 
 @push('script-push')
 <script>
@@ -207,9 +164,6 @@
             $('#parent_id').select2({
 
             });
-
-
-
 
 	})(jQuery);
 </script>

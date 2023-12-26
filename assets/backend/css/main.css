@@ -1436,7 +1436,8 @@ table.dataTable.no-footer {
 .list-group .list-group-item {
     color: var(--text-primary);
     border: 1px solid var(--color-border);
-    padding: 15px 15px
+    padding: 15px 15px;
+    border-radius: 3px
 }
 
 .list-group .list-group-item.read-notification {
@@ -1459,6 +1460,10 @@ table.dataTable.no-footer {
 .list-group-item-action:focus,
 .list-group-item-action:hover {
     background-color: var(--site-bg)
+}
+
+.list-group-flush>.list-group-item:last-child {
+    border-bottom-width: 1px !important
 }
 
 .note-toolbar {
@@ -5698,3 +5703,4 @@ ul.inbox-list li .col-mail-2 .date {
     align-items: center
 }
 
+/*# sourceMappingURL=main.css.map */

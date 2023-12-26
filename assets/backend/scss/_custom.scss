@@ -260,6 +260,7 @@ table.dataTable.no-footer {
         color: $text-primary;
         border: 1px solid $color-border;
         padding: 15px 15px;
+        border-radius: 3px;
         &.read-notification {
             border-radius: 4px;
         }
@@ -283,6 +284,9 @@ table.dataTable.no-footer {
             background-color: var(--site-bg);
         }
     }
+}
+.list-group-flush > .list-group-item:last-child {
+    border-bottom-width: 1px !important;
 }
 
 .note-toolbar {

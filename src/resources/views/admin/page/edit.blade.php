@@ -4,7 +4,6 @@
   <link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
 @endpush
 @section('content')
-
     <form action="{{route('admin.page.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <input hidden type="text" id="id" name="id" value="{{$page->id}}">
@@ -19,56 +18,36 @@
                            {{translate('Basic Information')}}
                        </h4>
                    </div>
-               
                    <div class="card-body">
                        <div class="row">                        
-                           <div class="col-lg-6">
-                               
-                                                   
-                                   <div class="form-inner">                              
-                                       <label class="form-label" for="title">
-                                           {{translate('Title')}}
-                                           <span class="text-danger">*</span>
-                                       </label>
-                                       
-                               
-                                       <input type="text" name="title" id="title" placeholder='{{translate("Enter Title")}}'
-                                           value="{{$page->title}}" required>        
-                                                                                           
-                                   </div>                                                                         
-                                                        
-                               
+                           <div class="col-lg-6">                          
+                               <div class="form-inner">                              
+                                   <label class="form-label" for="title">
+                                       {{translate('Title')}}
+                                       <span class="text-danger">*</span>
+                                   </label>
+                                   <input type="text" name="title" id="title" placeholder='{{translate("Enter Title")}}'
+                                       value="{{$page->title}}" required>                                                    
+                               </div>                                                                         
                            </div>
-
                            <div class="col-lg-6">
-         
                                <div class="form-inner">                                              
                                    <label class="form-label" for="slug">
                                        {{translate('Slug')}}
                                    </label>
-                           
                                    <input type="text" name="slug" id="slug"   placeholder='{{translate("Enter Slug")}}'
                                        value="{{$page->slug}}">
-
-                                      
-                                           
                                </div>                                                                    
-
                            </div>
-
-                           <div class="col-12">
-                                        
+                           <div class="col-12">     
                                <div class="form-inner">                                             
-                                       <label class="form-label" for="description">
-                                           {{translate('Description')}}
-                                               <span class="text-danger">*</span>
-                                       </label>
-
-                                       <textarea id="description" class="summernote" name="description"  cols="30" rows="10">{{$page->description}}</textarea>                                               
+                                   <label class="form-label" for="description">
+                                       {{translate('Description')}}
+                                           <span class="text-danger">*</span>
+                                   </label>
+                                   <textarea id="description" class="summernote" name="description"  cols="30" rows="10">{{$page->description}}</textarea>                                               
                                </div>                                                                        
-                                   
                            </div>
-
                            <div class="col-12">
                                <div class="form-inner">
                                    <label for="serial_id"> 
@@ -77,29 +56,19 @@
                                    <input type="number" name="serial_id" value="{{$page->serial_id}}" >
                                </div>
                            </div>
-               
-                          
                            <div class="col-12">
                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                    {{translate("Submit")}}
                                </button>
                            </div>
-
                        </div>
                    </div>
-           
                </div>
            </div>
-
            @includeWhen(@site_settings('site_seo') == App\Enums\StatusEnum::true->status(),'admin.partials.seo',['model' =>$page])
-
-            
        </div>   
-        
     </form>
-
 @endsection
-
 
 @push('script-include')
 
@@ -107,7 +76,6 @@
 <script src="{{asset('assets/global/js/editor.init.js')}}"></script>
 
 @endpush
-
 
 @push('script-push')
 <script>
