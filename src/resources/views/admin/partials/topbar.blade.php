@@ -8,14 +8,12 @@
         </button>
       </div>
     </div>
-
     <div class="d-flex align-items-center gap-lg-3 gap-2">
       <div class="header-icon d-flex">
         <div class="btn-icon fullscreen-btn ripple-dark" data-anim="ripple">
           <i class="las la-expand"></i>
         </div>
       </div>
-
       <div class="header-icon d-flex">
         <div class="btn-icon ripple-dark" data-anim="ripple">
            <a href="{{route('admin.setting.cache.clear')}}">
@@ -23,7 +21,6 @@
            </a>
         </div>
       </div>
-
       <div class="header-icon">
         <div class="btn-icon ripple-dark" data-anim="ripple">
            <a target="_blank" href="{{url('/')}}">
@@ -31,7 +28,6 @@
            </a>
         </div>
       </div>
-
       @if(site_settings('database_notifications') ==  App\Enums\StatusEnum::true->status() && check_permission('view_notification'))
           @php
                $notifications = \App\Models\Notification::where('notificationable_type','App\Models\Admin')
@@ -100,30 +96,27 @@
             </div>
           </div>
       @endif
-
-
        <!-- currency switcher -->
        <div class="header-icon">
-          <div class="lang-dropdown">
-            <div class="btn-icon btn--text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              {{session()->get('currency')?->code}}
-            </div>
-            @if(site_currencies() && !site_currencies()->isEmpty())
-              <div class="dropdown-menu dropdown-menu-end">
-                <ul>
-                    @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-                      <li>
-                        <a href="{{route('currency.change',$currency->code)}}">
-                          {{$currency->code}}
-                        </a>
-                      </li>
-                    @endforeach
-                </ul>
-              </div>
-            @endif
+        <div class="lang-dropdown">
+          <div class="btn-icon btn--text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            {{session()->get('currency')?->code}}
           </div>
+          @if(site_currencies() && !site_currencies()->isEmpty())
+            <div class="dropdown-menu dropdown-menu-end">
+              <ul>
+                @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+                  <li>
+                    <a href="{{route('currency.change',$currency->code)}}">
+                      {{$currency->code}}
+                    </a>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+        </div>
       </div>
-      
       <!-- language switcher -->
       <div class="header-icon">
         @php
@@ -151,8 +144,6 @@
           @endif
         </div>
       </div>
-
-
      <!-- profile -->
       <div class="header-icon">
         <div class="profile-dropdown">

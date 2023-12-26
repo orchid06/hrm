@@ -78,7 +78,7 @@
 <script>
   "use strict";
 
-        $(".select2").select2({
-        });
+    $(".select2").select2({
+    });
 </script>
 @endpush

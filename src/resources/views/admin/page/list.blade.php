@@ -25,7 +25,7 @@
                                                 </button>
                                             </li>
                                         @endif
-                                          
+
                                         @if(check_permission('update_page'))
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
@@ -46,14 +46,11 @@
                                     </div>
                                 </div>
                             @endif
-
-                           
                         </div>
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-
                                 <div class="form-inner">
                                     <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by title')}}">
                                 </div>
@@ -68,8 +65,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="table-container  position-relative">
                 @include('admin.partials.loader')
                 <table >
@@ -86,107 +81,88 @@
                             <th scope="col">
                                 {{translate('Created By')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Header Presence')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Footer Presence')}}
                             </th>
-                   
-
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         @forelse($pages as $page)
-      
-                                <tr>
-                                    <td data-label="#">
-                                        @if(check_permission('create_page') || check_permission('update_page') || check_permission('delete_page'))
-                                            <input type="checkbox" value="{{$page->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$page->id}}" />
-                                        @endif
-                                        {{$loop->iteration}}
-                                    </td>
-
-                                    <td data-label='{{translate("Title")}}'>
-
-                                        {{($page->title)}}
-
-                                    </td>
-
-
-                                    <td data-label='{{translate("Created By")}}'>
-                                        <span class="i-badge capsuled info">
-                                            {{$page->createdBy->name}}
-                                        </span>
-                                    </td>
-
-                                    <td data-label='{{translate("Status")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="status"
-                                                data-route="{{ route('admin.page.update.status') }}"
-                                                data-status="{{ $page->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$page->uid}}" {{$page->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-{{$page->id}}" >
-                                            <label class="form-check-label" for="status-switch-{{$page->id}}"></label>
-                                        </div>
-                                    </td>
-                                    <td data-label='{{translate("Header visibility")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="show_in_header"
-                                                data-route="{{ route('admin.page.update.status') }}"
-                                                data-status="{{ $page->show_in_header == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$page->uid}}" {{$page->show_in_header ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-{{$page->id}}" >
-                                            <label class="form-check-label" for="status-switch-header-{{$page->id}}"></label>
-                                        </div>
-                                    </td>
-                                    <td data-label='{{translate("Footer visibility")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="show_in_footer"
-                                                data-route="{{ route('admin.page.update.status') }}"
-                                                data-status="{{ $page->show_in_footer == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$page->uid}}" {{$page->show_in_footer ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-{{$page->id}}" >
-                                            <label class="form-check-label" for="status-switch-footer-{{$page->id}}"></label>
-                                        </div>
-                                    </td>
-
-
-                                    <td data-label='{{translate("Options")}}'>
-                                        <div class="table-action">
-                                            @if(check_permission('update_page') || check_permission('delete_page') )
-
-                                                @if(check_permission('update_page'))
-                                                    <a  href="{{route('admin.page.edit',$page->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
-                                                @endif
-
-                                                @if(check_permission('delete_page'))
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class=" pointer delete-item icon-btn danger">
-                                                        <i class="las la-trash-alt"></i>
-                                                    </a>
-                                                @endif
-                                            @else
-                                                {{translate('N/A')}}
+                            <tr>
+                                <td data-label="#">
+                                    @if(check_permission('create_page') || check_permission('update_page') || check_permission('delete_page'))
+                                        <input type="checkbox" value="{{$page->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$page->id}}" />
+                                    @endif
+                                    {{$loop->iteration}}
+                                </td>
+                                <td data-label='{{translate("Title")}}'>
+                                    {{($page->title)}}
+                                </td>
+                                <td data-label='{{translate("Created By")}}'>
+                                    <span class="i-badge capsuled info">
+                                        {{$page->createdBy->name}}
+                                    </span>
+                                </td>
+                                <td data-label='{{translate("Status")}}'>
+                                    <div class="form-check form-switch switch-center">
+                                        <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            data-column="status"
+                                            data-route="{{ route('admin.page.update.status') }}"
+                                            data-status="{{ $page->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                            data-id="{{$page->uid}}" {{$page->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                        id="status-switch-{{$page->id}}" >
+                                        <label class="form-check-label" for="status-switch-{{$page->id}}"></label>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Header visibility")}}'>
+                                    <div class="form-check form-switch switch-center">
+                                        <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            data-column="show_in_header"
+                                            data-route="{{ route('admin.page.update.status') }}"
+                                            data-status="{{ $page->show_in_header == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                            data-id="{{$page->uid}}" {{$page->show_in_header ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                        id="status-switch-{{$page->id}}" >
+                                        <label class="form-check-label" for="status-switch-header-{{$page->id}}"></label>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Footer visibility")}}'>
+                                    <div class="form-check form-switch switch-center">
+                                        <input {{!check_permission("update_page") ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            data-column="show_in_footer"
+                                            data-route="{{ route('admin.page.update.status') }}"
+                                            data-status="{{ $page->show_in_footer == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                            data-id="{{$page->uid}}" {{$page->show_in_footer ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                        id="status-switch-{{$page->id}}" >
+                                        <label class="form-check-label" for="status-switch-footer-{{$page->id}}"></label>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Options")}}'>
+                                    <div class="table-action">
+                                        @if(check_permission('update_page') || check_permission('delete_page') )
+                                            @if(check_permission('update_page'))
+                                                <a  href="{{route('admin.page.edit',$page->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
 
-                                        </div>
-                                    </td>
+                                            @if(check_permission('delete_page'))
+                                                <a href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <i class="las la-trash-alt"></i>
+                                                </a>
+                                            @endif
+                                        @else
+                                            {{translate('N/A')}}
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
-               
                         @empty
                             <tr class="border-bottom-0">
                                 <td class="border-bottom-0" colspan="90">
@@ -197,23 +173,16 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="Paginations">
-
                     {{ $pages->links() }}
-             
             </div>
         </div>
     </div>
 @endsection
 @section('modal')
 
-
 @include('modal.delete_modal')
-
 @include('modal.bulk_modal')
-
-
 @endsection
 
 

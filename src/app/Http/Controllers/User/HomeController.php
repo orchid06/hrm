@@ -19,6 +19,8 @@ use Illuminate\View\View;
 use Illuminate\Validation\Rules\Password;
 use App\Traits\Fileable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+
 class HomeController extends Controller
 {
 
@@ -90,6 +92,8 @@ class HomeController extends Controller
             "country_id"         => ['nullable',"exists:countries,id"],
             'phone'              => ['unique:users,phone,'.$this->user->id],
             'email'              => ['email','required','unique:users,email,'.$this->user->id],
+            'auto_subscription'  => ['nullable', Rule::in(StatusEnum::toArray())],
+
             "image"              => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]
         ]);
 
@@ -101,6 +105,8 @@ class HomeController extends Controller
         $user->address              =  $request->input('address',[]);
         $user->password             =  $request->input('password');
         $user->country_id           =  $request->input('country_id');
+        $user->auto_subscription    =  $request->input('auto_subscription')?? StatusEnum::false->status();
+
         $user->save();
 
          if($request->hasFile('image')){

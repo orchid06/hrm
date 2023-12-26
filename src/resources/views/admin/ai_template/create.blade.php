@@ -145,70 +145,70 @@
 @endpush
 
 @push('script-push')
-<script>
-	(function($){
-       	"use strict";
-    
-            $(".select2").select2({
-			   placeholder:"{{translate('Select Category')}}",
-	     	})
-            $(".sub_category_id").select2({
-			   placeholder:"{{translate('Select Sub Category')}}",
-	     	})
+    <script>
+    	(function($){
+           	"use strict";
+        
+                $(".select2").select2({
+    			   placeholder:"{{translate('Select Category')}}",
+    	     	})
+                $(".sub_category_id").select2({
+    			   placeholder:"{{translate('Select Sub Category')}}",
+    	     	})
 
-            $('.icon-picker').iconpicker({
-               title: "{{translate('Search Here !!')}}",
-            });
+                $('.icon-picker').iconpicker({
+                   title: "{{translate('Search Here !!')}}",
+                });
 
 
-            $(document).on('change','#category',function(e){
+                $(document).on('change','#category',function(e){
 
-                 var id = $(this).val()
-                subCategories(id);
-                e.preventDefault()
-            })
+                     var id = $(this).val()
+                    subCategories(id);
+                    e.preventDefault()
+                })
 
-            function subCategories(id){
+                function subCategories(id){
 
-                var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
-                url = url.replace(':id', id).replace(':html', true);
+                    var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
+                    url = url.replace(':id', id).replace(':html', true);
 
-                $.ajax({
+                    $.ajax({
 
-                    method:'get',
-                    url: url,
-                    dataType: 'json',
-                
-                    success: function(response){
-
-                        if(response.status){
-                            $('#sub_category_id').html(response.html)
-                        }
+                        method:'get',
+                        url: url,
+                        dataType: 'json',
                     
-                    },
-                    error: function (error){
-                        if(error && error.responseJSON){
-                            if(error.responseJSON.errors){
-                                for (let i in error.responseJSON.errors) {
-                                    toastr(error.responseJSON.errors[i][0],'danger')
+                        success: function(response){
+
+                            if(response.status){
+                                $('#sub_category_id').html(response.html)
+                            }
+                        
+                        },
+                        error: function (error){
+                            if(error && error.responseJSON){
+                                if(error.responseJSON.errors){
+                                    for (let i in error.responseJSON.errors) {
+                                        toastr(error.responseJSON.errors[i][0],'danger')
+                                    }
+                                }
+                                else{
+                                    if((error.responseJSON.message)){
+                                        toastr(error.responseJSON.message,'danger')
+                                    }
+                                    else{
+                                        toastr( error.responseJSON.error,'danger')
+                                    }
                                 }
                             }
                             else{
-                                if((error.responseJSON.message)){
-                                    toastr(error.responseJSON.message,'danger')
-                                }
-                                else{
-                                    toastr( error.responseJSON.error,'danger')
-                                }
+                                toastr(error.message,'danger')
                             }
-                        }
-                        else{
-                            toastr(error.message,'danger')
-                        }
-                    },
-		    	})
-            }
-            
-	})(jQuery);
-</script>
+                        },
+    		    	})
+                }
+                
+    	})(jQuery);
+    </script>
 @endpush

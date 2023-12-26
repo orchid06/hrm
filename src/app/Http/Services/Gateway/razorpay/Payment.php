@@ -15,12 +15,15 @@ class Payment
 {
     public static function paymentData(PaymentLog $log) :string
     {
+   
         $gateway          = ($log->method->parameters);
         $api_key          = $gateway->key_id ?? '';
         $api_secret       = $gateway->key_secret ?? '';
         $razorPayApi      = new Api($api_key, $api_secret);
+
         $finalAmount      = round($log->final_amount * 100, 2);
         $gatewayCurrency  =  $log->method->currency->code;
+
         $trx = $log->trx_code;
         $razorOrder = $razorPayApi->order->create(
             array(
@@ -30,6 +33,7 @@ class Payment
                 'payment_capture' => '0'
             )
         );
+
 
         $val['key']             = $api_key;
         $val['amount']          = $finalAmount;
@@ -50,6 +54,8 @@ class Payment
         $send['custom']       = $trx;
         $send['checkout_js']  = "https://checkout.razorpay.com/v1/checkout.js";
         $send['view']         = 'user.payment.razorpay';
+
+        
         return json_encode($send);
     }
 

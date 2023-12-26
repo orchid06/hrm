@@ -4,7 +4,6 @@
 
         <div class="row g-4 position-relative">
             @include('admin.partials.loader')
-
             <div class="col-xl-7">
                 <form data-route="{{route('admin.ai.template.content.generate')}}" class="ai-content-form" enctype="multipart/form-data" method="post">
                     @csrf
@@ -29,7 +28,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="col-xl-5">
                 <div class="i-card-md">
                     <div class="card--header">
@@ -37,7 +35,6 @@
                             {{translate("Content Section")}}
                         </h4>
                     </div> 
-
                     <div class="card-body">
                         <div class="row">
                             <form data-route="{{route('admin.content.store')}}" class="content-form" enctype="multipart/form-data" method="post">
@@ -49,49 +46,38 @@
                                             </label>
 
                                             <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value="">
-
                                          
                                         </div>
                                 </div>
-
                                 <div class="col-lg-12">
                                     <div class="form-inner">
                                         <label for="Content"> 
                                             {{translate('Content')}} <small class="text-danger">*</small>
                                         </label>
-
                                         <textarea placeholder='{{translate("Enter Your Content")}}' name="content" id="content" cols="30" rows="10"></textarea>
-
                                     </div>
                                 </div>
-
                                 <div class="col-12">
                                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Save")}}
                                     </button>
                                 </div>
                             </form>
-                        
                         </div>
                     </div>            
                 </div>
             </div>
-            
         </div>
-   
 
 @endsection
-
-
 
 @push('script-push')
 <script>
 	(function($){
        	"use strict";
     
-
         $(".select2").select2({
-           
+
         })
 
         $(document).on('submit','.ai-content-form',function(e){
@@ -149,8 +135,6 @@
 
 			e.preventDefault();
 		});
-
-
 
         $(document).on('submit','.content-form',function(e){
 
@@ -225,7 +209,6 @@
             }
             
             replace_prompt();
-
         })
 
 
@@ -245,8 +228,6 @@
             else{
                 $('#promptPreview').html($('#promptPreview').attr('data-prompt_input'));
             }
-
-
         }
           
 	})(jQuery);

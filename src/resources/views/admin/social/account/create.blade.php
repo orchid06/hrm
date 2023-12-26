@@ -49,7 +49,7 @@
                                                 <button class='nav-link  
                                                 {{$loop->index == 0 ? "active" :""}}
                                                 ' id="lang-tab-{{t2k($k)}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{t2k($k)}}" type="button" role="tab" aria-controls="lang-tab-content-{{t2k($k)}}" aria-selected="true">
-                                                    <img class="lang-img me-2 rounded w-30" src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{t2k($k)}}" height="18">
+                                                    <img class="lang-img me-2 rounded w-30" src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}" height="18">
                                                     <span class="align-middle">
                                                     
                                                     {{ucfirst(strtolower(k2t($k)))}}
@@ -96,7 +96,7 @@
                                                         </label>
 
                                                         <input  id="accessToken" type="text" name="page_id"   placeholder='{{translate("Enter Page Id")}}'
-                                                            value="{{old("page_id")}}">
+                                                            value="{{old('page_id')}}">
 
                                                     </div>  
 
@@ -107,7 +107,7 @@
                                                         </label>
 
                                                         <input  id="accessToken" type="text" name="group_id"   placeholder='{{translate("Enter Page Id")}}'
-                                                            value="{{old("group_id")}}">
+                                                            value="{{old('group_id')}}">
 
                                                     </div>  
 
@@ -119,8 +119,8 @@
                                                                 {{translate(k2t($key))}}  <span class="text-danger">*</span>
                                                             </label>
 
-                                                            <input required id="{{$key}}" type="text" name="{{$key}}"   placeholder=' {{translate(k2t($key))}}'
-                                                                value="{{old("access_token")}}">
+                                                        <input required id="{{$key}}" type="text" name="{{$key}}"   placeholder=' {{translate(k2t($key))}}'
+                                                                value="{{old('access_token')}}">
 
                                                         </div>   
                                                          
@@ -134,7 +134,7 @@
 
                                                       <div class="d-flex gap-2 justify-content-center">
                                                      
-                                                            <a href="{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}" class="i-btn btn--sm info">
+                                                            <a href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--sm info">
                                                                 <i class="las la-user-alt me-1"></i>   {{translate('Connect Profile')}}
                                                             </a>
                                                       </div>

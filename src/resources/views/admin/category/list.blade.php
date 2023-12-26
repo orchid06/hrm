@@ -25,7 +25,7 @@
                                                 </button>
                                             </li>
                                         @endif
-                                       
+
                                         @if(check_permission('update_category'))
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
@@ -43,7 +43,6 @@
                                                 </li>
                                             @endforeach
 
-                                            
                                         @endif
                                     </ul>
                                 </div>
@@ -57,7 +56,6 @@
                                 </div>
                             @endif
                                
-                     
                         </div>
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
@@ -80,7 +78,6 @@
 
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-
                 <table >
                     <thead>
                         <tr>
@@ -108,31 +105,23 @@
                             <th scope="col">
                                 {{translate('Template')}}
                             </th>
-
-                
                             <th scope="col">
                                 {{translate('Created By')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-
-
                             <th scope="col">
                                 {{translate('Feature')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
 
                         @forelse($categories as $category)
-
                                 <tr>
                                     <td data-label="#">
                                         @if(check_permission('create_category') || check_permission('update_category') || check_permission('delete_category'))
@@ -143,16 +132,12 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-
                                     <td data-label='{{translate("Title")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
-                         
                                              <i class="@php echo @$category->icon  @endphp" ></i>
-
                                             <p>	  
                                                 {{($category->title)}}
                                             </p>
-
                                         </div>
                                     </td>
 
@@ -169,11 +154,9 @@
                                                 {{$category->parent->title}}
                                             </a>
                                         </td>
-
                                     @endif
 
                                     <td data-label='{{translate("Template")}}'>
-
                                         @php
                                           $count =  $category->templates_count;
 
@@ -190,15 +173,11 @@
                                            {{translate('No of template')}} ({{$count}})
                                          </a>
                                     </td>
-
-          
-            
                                     <td data-label='{{translate("Created By")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$category->createdBy->name}}
                                         </span>
                                     </td>
-
                                     <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_category') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -221,7 +200,6 @@
                                             <label class="form-check-label" for="status-switch-feature-{{$category->id}}"></label>
                                         </div>
                                     </td>
-
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_category') || check_permission('delete_category') )
@@ -231,7 +209,7 @@
                                                 @endif
 
                                                 @if(check_permission('delete_category'))
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class=" pointer delete-item icon-btn danger">
+                                                    <a href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @endif
@@ -253,7 +231,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="Paginations">
                     {{ $categories->links() }}
             </div>

@@ -27,12 +27,10 @@
                                                     <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
                                                 </li>
                                             @endforeach
-
                                         @endif
                                     </ul>
                                 </div>
                             @endif
-                        
                             @if(check_permission('create_ai_template'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
@@ -42,7 +40,6 @@
                                     </div>
                                 </div>
                             @endif
-
                         </div>
                     @endif
 
@@ -56,7 +53,6 @@
                                @if(request()->routeIs("admin.ai.template.default"))
                                  <input hidden name="default" value="{{App\Enums\StatusEnum::true->status()}}"  type="text">
                                @endif
-
                                 <div class="form-inner">
                                     <select name="status" id="status" class="select2">
                                         <option value="">
@@ -67,8 +63,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-
                                 <div class="form-inner">
                                     <select name="category" id="categoryFilter" class="select2">
                                         <option value="">
@@ -80,23 +74,18 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-
                                 <div class="form-inner">
                                     <select  name="subCategory" id="sub_category_id" class="sub_category_id" >
                                         <option value="">
                                             {{translate("Select One")}}
                                         </option>
-
                                         @foreach($subCategories as $subCategory)
                                             <option  {{$subCategory->slug ==   request()->input('subCategory') ? 'selected' :""}} 
                                                 value="{{$subCategory->slug}}"> {{$subCategory->title}}
                                            </option>
                                         @endforeach
-
                                     </select>
                                 </div>
-
                                 <div class="form-inner">
                                     <select name="user" id="user" class="select2">
                                         <option value="">
@@ -109,11 +98,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
                                 <div class="form-inner">
                                     <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
                                 </div>
-
                                 <button class="i-btn btn--sm info w-100">
                                     <i class="las la-sliders-h"></i>
                                 </button>
@@ -128,11 +115,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-
                 <table >
                     <thead>
                         <tr>
@@ -144,27 +128,21 @@
                             <th scope="col">
                                 {{translate('Name')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Total Word Generated')}}
                             </th>
-                            
                             <th scope="col">
                                 {{translate('Category')}}
                             </th>
                             <th scope="col">
                                 {{translate('Sub Category')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('User')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-
-
                             <th scope="col">
                                 {{translate('Default')}}
                             </th>
@@ -177,7 +155,6 @@
 
                     <tbody>
                         @forelse($templates as $template)
-  
                                 <tr>
                                     <td data-label="#">
                                         @if(check_permission('create_ai_template') || check_permission('update_ai_template') || check_permission('delete_ai_template'))
@@ -185,26 +162,21 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-
                                     <td data-label='{{translate("Title")}}'>
                                         <div class="user-meta-info d-flex align-items-center gap-2">
                                             <i class="@php echo $template->icon @endphp " ></i>
                                             <p>	 {{$template->name}}</p>
                                         </div>
                                     </td>
-
                                     <td  data-label='{{translate("No of word")}}'>
                                         <span class="ms-5 i-badge capsuled success">
                                             {{$template->templateUsages->sum("total_words")}}
                                         </span>
                                     </td>
-
                                     <td data-label='{{translate("Category")}}'>
                                         {{@($template->category->title)}}
                                     </td>
-
                                     <td data-label='{{translate("Category")}}'>
-
                                         @php
                                            $subCategory = translate('N/A');
                                            if($template->subCategory && $template->subCategory->parent_id ==   $template->category?->id ){
@@ -213,13 +185,11 @@
                                         @endphp
                                         {{@$subCategory}}
                                     </td>
-
                                     <td data-label='{{translate("User")}}'>
                                         <span class="i-badge capsuled info">
                                             {{$template->user->name}}
                                         </span>
                                     </td>
-
                                     <td data-label='{{translate("Status")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_ai_template') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -231,7 +201,6 @@
                                             <label class="form-check-label" for="status-switch-{{$template->id}}"></label>
                                         </div>
                                     </td>
-
                                     <td data-label='{{translate("Default")}}'>
                                         <div class="form-check form-switch switch-center">
                                             <input {{!check_permission('update_ai_template') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -243,12 +212,9 @@
                                             <label class="form-check-label" for="status-switch-default-{{$template->id}}"></label>
                                         </div>
                                     </td>
-
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_ai_template') || check_permission('delete_ai_template') )
-
-
                                                 @if(check_permission('update_ai_template') )
                                                     <a  href="{{route('admin.ai.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                                 @endif
@@ -256,7 +222,6 @@
                                                 @if(check_permission('delete_ai_template') && $template->is_default == App\Enums\StatusEnum::false->status() )
                               
                                                         <a href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
-
                                                         <i class="las la-trash-alt"></i></a>
                                                    
                                                 @endif
@@ -267,9 +232,7 @@
                                         </div>
                                     </td>
                                </tr>
-                         
                             @empty
-
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Templates found!!"])
@@ -279,11 +242,8 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="Paginations">
-
                     {{ $templates->links() }}
-                
             </div>
         </div>
     </div>
@@ -294,7 +254,6 @@
     @include('modal.delete_modal')
 @endsection
 
-
 @push('script-push')
 <script>
 	(function($){
@@ -302,7 +261,6 @@
         $(".select2").select2({
            
         })
-
 
         $(".sub_category_id").select2({
             placeholder:"{{translate('Select Sub Category')}}",

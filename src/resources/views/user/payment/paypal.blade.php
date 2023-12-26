@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    {{-- <section class="bg-light-1">
+    <section class="bg-light-1">
         <div class="container">
             <div class="dashboard-content">
                 <div class="row pt-110">
@@ -14,7 +14,8 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
+  
 @endsection
 
 
@@ -23,7 +24,8 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{$data->cleint_id}}">
 </script>
 <script>
-    paypal.Buttons({
+    "use strict";
+        paypal.Buttons({
         createOrder: function (data, actions) {
             return actions.order.create({
                 purchase_units: [

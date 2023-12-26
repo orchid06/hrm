@@ -2030,6 +2030,7 @@ select {
 .header {
   width: 100%;
   position: fixed;
+  isolation: isolate;
   z-index: 100;
   top: 0;
   left: 0;
@@ -3763,7 +3764,7 @@ select {
   overflow-y: auto;
   overflow-x: hidden;
 }
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .main .main-wrapper {
     padding: 30px 20px 20px;
   }
@@ -5358,9 +5359,7 @@ select {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  gap: 10px;
 }
 .payment-details .list-group-item.active {
   background-color: var(--color-primary-soft);
@@ -5373,8 +5372,12 @@ select {
 .payment-details .list-group-item > p {
   color: var(--text-secondary);
   font-size: 15px;
+  flex: 0 0 30%;
 }
-
+.payment-details .list-group-item > h6 {
+  font-size: 15px;
+  font-weight: 700;
+}
 .profile-wrapper .profile-content {
   position: relative;
   z-index: 1;
@@ -5773,16 +5776,22 @@ select {
 .table-accordion .accordion-item .accordion-button {
   background: var(--color-white);
   color: var(--text-primary);
-  padding: 15px 35px 15px 15px;
+  padding: 15px 50px 15px 25px;
   position: relative;
   -webkit-transition: 0.4s ease-in;
   transition: 0.4s ease-in;
   line-height: 1.6;
 }
-@media (max-width: 576px) {
+@media (max-width: 991px) {
   .table-accordion .accordion-item .accordion-button {
     font-size: 16px;
-    padding: 10px 30px 10px 10px;
+    padding: 15px 30px 15px 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .table-accordion .accordion-item .accordion-button {
+    padding: 15px !important;
   }
 }
 .table-accordion .accordion-item .accordion-button:hover {
@@ -5810,7 +5819,7 @@ select {
   font-family: bootstrap-icons !important;
   content: "\f64d";
   position: absolute;
-  right: 15px;
+  right: 25px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -5836,9 +5845,19 @@ select {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
+@media (max-width: 991px) {
+  .table-accordion .accordion-item .accordion-button::after {
+    right: 15px;
+  }
+}
+
 @media (max-width: 576px) {
   .table-accordion .accordion-item .accordion-button::after {
-    right: 10px;
+    top: 15px !important;
+    transform: unset;
+  }
+  .table-accordion .accordion-item .accordion-button:not(.collapsed)::after {
+    transform: unset !important;
   }
 }
 .table-accordion .accordion-item .accordion-button:not(.collapsed)::after {
@@ -5886,50 +5905,47 @@ select {
   p {
   font-size: 12px;
 }
+
 .table-accordion .accordion-item .accordion-button .table-accordion-header h6 {
   font-size: 14px;
   margin-bottom: 6px;
   font-weight: 700;
 }
+
 @media (max-width: 576px) {
   .table-accordion
     .accordion-item
     .accordion-button
     .table-accordion-header
     h6 {
-    font-size: 13px;
-    margin-bottom: 0;
+    margin-bottom: 3px;
   }
 }
+
 .table-accordion .accordion-item .accordion-button .table-accordion-header > p {
-  font-size: 13px;
+  font-size: 14px;
 }
-@media (max-width: 576px) {
-  .table-accordion
-    .accordion-item
-    .accordion-button
-    .table-accordion-header
-    > p {
-    font-size: 12px;
-  }
-}
+
 .table-accordion .accordion-item .accordion-body {
   font-weight: 400;
   font-size: 16px;
   line-height: 30px;
   border-top: none;
   text-align: left;
-  padding: 10px 20px;
+  padding: 10px 30px;
   background-color: var(--color-white);
 }
-@media (max-width: 576px) {
+
+@media (max-width: 991px) {
   .table-accordion .accordion-item .accordion-body {
-    padding: 10px;
+    padding: 15px;
   }
 }
+
 .table-accordion .accordion-item:last-of-type .accordion-collapse {
   overflow: hidden;
 }
+
 .table-accordion .list-group .list-group-item {
   background-color: transparent;
   padding: 10px 0;
@@ -5941,12 +5957,20 @@ select {
   align-items: center;
   border-color: var(--border-light);
 }
+
 .table-accordion .list-group .list-group-item .title {
   font-size: 15px;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 30%;
   flex: 0 0 30%;
 }
+
+@media (max-width: 767.98px) {
+  .table-accordion .list-group .list-group-item .title {
+    flex: 0 0 35%;
+  }
+}
+
 .table-accordion .list-group .list-group-item .value {
   font-size: 14px;
 }
@@ -6054,7 +6078,7 @@ select {
 
 /* ==========Summer note Customize========== */
 .modal.show .modal-dialog {
-    height: auto !important;
+  height: auto !important;
 }
 .note-toolbar {
   justify-content: flex-start !important;
@@ -6087,4 +6111,162 @@ select {
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent;
+}
+
+/* ============Support Ticket============ */
+.discussion-continer .i-card-md {
+  background-color: var(--site-bg);
+}
+
+.message-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-height: 300px;
+  height: 100%;
+  overflow-y: auto;
+}
+.message-wrapper .message-item:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.message-item .author-image {
+  flex: 0 0 30px;
+}
+
+.mesg-meta h6 {
+  font-size: 14px;
+  line-height: 1.2;
+}
+.mesg-meta small {
+  font-size: 11px;
+}
+.discussion-continer .mesg-body {
+  margin-top: 3px;
+}
+.mesg-body p {
+  font-size: 14px;
+}
+.mesg-body .mesg-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mesg-body .mesg-action .attach-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mesg-body .mesg-action .attach-file a {
+  border: 1px solid var(--color-primary);
+  border-radius: 2px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.mesg-body .mesg-action .attach-file a span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  max-width: 150px;
+}
+.mesg-body .mesg-action .attach-file a span small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.mesg-body .mesg-action .attach-file a div {
+  background-color: var(--color-primary);
+  padding: 0 10px;
+  color: var(--color-white);
+}
+
+.mesg-body .mesg-action .attach-file a div i {
+  font-size: 18px;
+}
+.reply-mesg {
+  margin-top: 15px;
+}
+
+.give-replay {
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+.give-replay textarea {
+  width: 100%;
+  padding: 15px;
+  resize: none;
+  border: none;
+}
+.ticket-conversation .give-replay .give-replay-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ticket-conversation .give-replay .give-replay-action input,
+.ticket-conversation .give-replay .give-replay-action textarea {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.ticket-dtable table {
+  max-width: 100%;
+  width: 100%;
+}
+.ticket-dtable table tr:not(:last-child) {
+  border-bottom: 1px dashed var(--border-light);
+}
+.ticket-dtable table tr td {
+  font-size: 14px;
+  padding: 12px;
+}
+.ticket-dtable table tr td:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 576px) {
+  .ticket-dtable table tr td {
+    padding: 10px;
+  }
+}
+.ticket-attach > form:not(:last-child) .attach-item {
+  border-bottom: 1px dashed var(--border-light);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+/* ===============No Data===============  */
+.nodata-wrapper {
+  max-width: 180px;
+  width: 100%;
+}
+
+/* Summer Note */
+.note-editor .note-toolbar .note-dropdown-menu,
+.note-popover .popover-content .note-dropdown-menu {
+  top: 115%;
+}
+
+.note-modal .form-group {
+  margin-bottom: 15px;
+}
+
+.note-dropdown-menu.dropdown-menu {
+  border: 1px solid var(--color-primary-light) !important;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

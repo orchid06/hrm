@@ -27,7 +27,7 @@
                         <li class="list-group-item">{{ translate('Charge') }} :
                             {{num_format($report->charge,@$report->currency)}}
                         </li>
-                        <li class="list-group-item">{{ translate('Rate') }}:{{num_format($report->charge,@base_currency())}}</li>
+                        <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>
                         <li class="list-group-item">{{ translate('Final Amount') }} :
                             {{num_format($report->final_amount,@$report->method->currency)}}
                         </li>
@@ -170,6 +170,8 @@
 @push('script-push')
 <script>
 	(function($){
+
+        "use strict";
 
         $(document).on('click','.update',function(e){
 

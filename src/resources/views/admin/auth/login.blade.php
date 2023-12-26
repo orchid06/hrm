@@ -50,7 +50,6 @@
                         <div class="col-12">
                             <button type="submit" class="i-btn btn--primary btn--lg w-100">{{translate("Sign In")}}</button>
                         </div>
-
                     </div>
                 </form>
             </div>

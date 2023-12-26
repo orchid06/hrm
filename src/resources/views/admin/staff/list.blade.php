@@ -203,7 +203,7 @@
                                         @if(check_permission('update_staff') ||  check_permission('delete_staff'))
 
                                             @if(check_permission('update_staff') && request()->routeIs('admin.staff.list'))
-                                                <a target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class=" icon-btn success"><i class="las la-sign-in-alt"></i></a>
+                                                <a target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class="icon-btn success"><i class="las la-sign-in-alt"></i></a>
 
                                                 <a  href="javascript:void(0);" data-uid ="{{$staff->uid}}" class="passwordUpdate   icon-btn warning"><i class="las la-key"></i></a>
 
@@ -215,7 +215,7 @@
 
                                                 @if(request()->routeIs('admin.staff.recycle.list'))
                                                 
-                                                    <a href="javascript:void(0);" data-href="{{route('admin.staff.restore',$staff->uid)}}" class=" pointer restore-item icon-btn success">
+                                                    <a href="javascript:void(0);" data-href="{{route('admin.staff.restore',$staff->uid)}}" class="pointer restore-item icon-btn success">
                                                         <i class="las la-sync"></i>
                                                     </a>
                                                 @endif
@@ -226,7 +226,7 @@
                                             
                                                 @endphp
 
-                                                <a href="javascript:void(0);"    data-href="{{$destoryRoute}}" class=" pointer delete-item icon-btn danger">
+                                                <a href="javascript:void(0);"    data-href="{{$destoryRoute}}" class="pointer delete-item icon-btn danger">
 													<i class="las la-trash-alt"></i>
                                                 </a>
                                                 

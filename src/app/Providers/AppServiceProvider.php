@@ -72,6 +72,25 @@ class AppServiceProvider extends ServiceProvider
                                           ->get(),
                 ]);
             });
+
+
+
+
+            view()->composer('frontend.partials.header', function ($view)  {
+                
+                $view->with([
+                    'menus'      => Menu::active()
+                                              ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Header->value ])
+                                              ->get(),
+
+                    'pages'      => Page::active()
+                                          ->header()
+                                          ->get(),
+                    'platforms'  => get_platform()->where("status",StatusEnum::true->status())
+                ]);
+            });
+
+
             view()->composer('frontend.partials.footer', function ($view)  {
                 
                 $view->with([

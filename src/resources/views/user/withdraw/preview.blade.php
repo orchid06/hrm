@@ -20,10 +20,10 @@
      
             </div>
 
-            <form action="{{route("user.withdraw.request.submit")}}" method="POST" class="mt-5" enctype="multipart/form-data">
+            <form action="{{route("user.withdraw.request.submit")}}" method="post" class="mt-5" enctype="multipart/form-data">
 
                 @csrf
-              <input type="text" name="amount" value="{{($amount)}}">
+              <input type="hidden" name="amount" value="{{($amount)}}">
 
               <div class="row g-4">
 
@@ -154,7 +154,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 
 @endsection

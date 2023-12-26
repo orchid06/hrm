@@ -17,73 +17,67 @@
                     </form>
                     @if(check_permission('delete_report') )
                         <div class="col-md-6 d-flex justify-content-start">
-                     
                             <div class="i-dropdown bulk-action d-none">
                                 <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="las la-cogs fs-15"></i>
                                 </button>
-
                                 <ul class="dropdown-menu">
-                                    
                                     <li>
                                         <button data-message='{{translate("Are you sure you want to remove these record permanently?")}}' data-type ='{{request()->routeIs("admin.staff.recycle.list") ? "force_delete" :"delete"}}'   class="dropdown-item bulk-action-modal">
                                             {{translate("Delete")}}
                                         </button>
                                     </li>
-
                                 </ul>
-
                             </div>
-                
                         </div>
                     @endif
             
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                                <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="las la-filter"></i>
-                                </button>
-                                <div class="filter-dropdown">
-                                    <form action="{{route(Route::currentRouteName())}}" method="get">
-                                        <div class="form-inner">
-                                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                                        </div>
-                                        <div class="form-inner">
-                                            <select name="user" id="user" class="user">
-                                                <option value="">
-                                                    {{translate('Select User')}}
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="las la-filter"></i>
+                            </button>
+                            <div class="filter-dropdown">
+                                <form action="{{route(Route::currentRouteName())}}" method="get">
+                                    <div class="form-inner">
+                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="user" id="user" class="user">
+                                            <option value="">
+                                                {{translate('Select User')}}
+                                            </option>
+                        
+                                            @foreach(system_users() as $user)
+                                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
                                                 </option>
-                            
-                                                @foreach(system_users() as $user)
-                                                    <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-inner">
-                                            <select name="type" id="trx-ype" class="type">
-                                                <option value="">
-                                                    {{translate('Select type')}}
-                                                </option>
-                                                <option {{ App\Models\Transaction::$PLUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$PLUS}}">{{translate("Plus")}}</option>
-                                                <option {{ App\Models\Transaction::$MINUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$MINUS}}">{{translate("Minus")}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-inner">
-                                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
-                                        </div>
-                                        <button class="i-btn btn--sm info w-100">
-                                            <i class="las la-sliders-h"></i>
-                                        </button>
-                                    </form>
-                                </div>  
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="type" id="trx-ype" class="type">
+                                            <option value="">
+                                                {{translate('Select type')}}
+                                            </option>
+                                            <option {{ App\Models\Transaction::$PLUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$PLUS}}">{{translate("Plus")}}</option>
+                                            <option {{ App\Models\Transaction::$MINUS == request()->input('type') ? 'selected' :""  }} value="{{App\Models\Transaction::$MINUS}}">{{translate("Minus")}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                                    </div>
+                                    <button class="i-btn btn--sm info w-100">
+                                        <i class="las la-sliders-h"></i>
+                                    </button>
+                                </form>
                             </div>  
-                            <div class="ms-3">
-                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                                    <i class="las la-sync"></i>
-                                </a>
-                            </div> 
-                        </div>
+                        </div>  
+                        <div class="ms-3">
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                            </a>
+                        </div> 
+                    </div>
                 </div>
             </div>
 
@@ -211,9 +205,7 @@
       
 
             <div class="Paginations">
-
                     {{ $reports->links() }}
-                
             </div>
         </div>
     </div>
@@ -226,7 +218,6 @@
     <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h5 class="modal-title">
                         {{translate('Report Information')}}
@@ -235,26 +226,18 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
-
                         <div class="col-lg-12">
                             <div class="content">
-                             
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
-
 @endsection
-
 
 @push('script-include')
    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
@@ -263,6 +246,8 @@
 @push('script-push')
 <script>
 	(function($){
+        
+         "use strict";
 
         $(".select2").select2({
            
@@ -279,7 +264,6 @@
             mode: "range",
         });
 
-
         $(document).on('click','.show-info',function(e){
 
             var modal = $('#report-info');
@@ -289,7 +273,6 @@
             $('.content').html(report.details)
 
             modal.modal('show')
-
         });
 
 	})(jQuery);

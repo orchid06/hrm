@@ -7,18 +7,14 @@
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
-
                 <div class="row g-4">
-
                     <form hidden id="bulkActionForm" action='{{route("admin.contact.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-
                     <div class="col-md-6 d-flex justify-content-start">
-
                         @if(check_permission('update_frontend') )
                             <div class="i-dropdown bulk-action d-none">
                                 <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,18 +29,14 @@
                                 </ul>
                             </div>
                         @endif
-
                        
                     </div>
-              
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-
                                 <div class="form-inner">
-                                        <input name="search" value="{{request()->input("search")}}" type="search" placeholder="{{translate('Search by name , email or phone')}}">
+                                        <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name , email or phone')}}">
                                 </div>
-
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
@@ -54,11 +46,8 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
-       
             </div>
-
             <div class="table-container">
                 <table>
                     <thead>
@@ -87,7 +76,6 @@
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
 
                         @forelse($contacts as $contact)
@@ -98,33 +86,30 @@
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate("Name")}}">
+                                <td data-label='{{translate("Name")}}'>
                                      {{$contact->name}}
                                 </td>
-                                <td data-label="{{translate("Email")}}">
+                                <td data-label='{{translate("Email")}}'>
                                      {{$contact->email}}
                                 </td>
-                                <td data-label="{{translate("address")}}">
+                                <td data-label='{{translate("address")}}'>
                                      {{$contact->address}}
                                 </td>
-
-
-                                <td data-label="{{translate("Options")}}">
+                                <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
 
                                         @if(check_permission('update_frontend'))
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Show")}}"  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Show')}}"  href="javascript:void(0);" data-message="{{$contact->message}}"  class="showMessage fs-15 icon-btn success"><i class="las la-eye"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Send Mail")}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Send Mail')}}"  href="javascript:void(0);" data-email="{{$contact->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
 
-                                            <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
+                                            <a data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.contact.destroy',$contact->uid)}}" class="delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
 
                                         @else
                                             {{translate('N/A')}}
                                         @endif
-
 
                                     </div>
                                 </td>
@@ -139,7 +124,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="pagination">
                 {{ $contacts->links() }}
             </div>
@@ -167,13 +151,11 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <form action="{{route('admin.send.mail')}}" id="updateModalForm" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" name="email" id="email" class="form-control" >
                         <div class="row">
-
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="message">
@@ -185,7 +167,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -199,12 +180,10 @@
         </div>
     </div>
 
-
     <!-- show modal -->
     <div class="modal fade" id="showMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="showMessage" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h5 class="modal-icon" >
                         {{translate('Message')}}
@@ -213,26 +192,19 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-
                              <div class="message-show">
-
                              </div>
-
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-
                 </div>
-
             </div>
         </div>
     </div>

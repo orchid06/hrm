@@ -2,7 +2,6 @@
 @section('content')
 
     <div class="i-card-md">
-       
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
@@ -27,7 +26,6 @@
                                                 </button>
                                             </li>
                                         @endif
-                                          
                                         @if(check_permission('update_article'))
 
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
@@ -35,7 +33,6 @@
                                                     <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
                                                 </li>
                                             @endforeach
-
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
                                                     <button type="button" name="bulk_status" data-type ="is_feature" value="{{$v}}" class="dropdown-item bulk-action-btn" > 
@@ -43,12 +40,10 @@
                                                     </button>
                                                 </li>
                                             @endforeach
-
                                         @endif
                                     </ul>
                                 </div>
                             @endif
-                        
                             @if(check_permission('create_article'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
@@ -58,12 +53,10 @@
                                     </div>
                                 </div>
                             @endif
-
                         </div>
                     @endif
 
                     <div class="col-md-6 d-flex justify-content-end">
-
                         <div class="filter-wrapper">
                             <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="las la-filter"></i>
@@ -80,8 +73,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-
                                     <div class="form-inner">
                                         <select name="category" id="category" class="select2">
                                             <option value="">
@@ -96,7 +87,6 @@
                                     <div class="form-inner">
                                         <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
                                     </div>
-
                                     <button class="i-btn btn--sm info w-100">
                                         <i class="las la-sliders-h"></i>
                                     </button>
@@ -114,7 +104,6 @@
 
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-                
                 <table >
                     <thead>
                         <tr>
@@ -126,111 +115,93 @@
                             <th scope="col">
                                 {{translate('Title')}}
                             </th>
-                            
                             <th scope="col">
                                 {{translate('Category')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Created By')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-
-
                             <th scope="col">
                                 {{translate('Feature')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse($articles as $article)
   
-                                <tr>
-                                    <td data-label="#">
-                                        @if(check_permission('create_article') || check_permission('update_article') || check_permission('delete_article'))
-                                            <input type="checkbox" value="{{$article->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$article->id}}" />
-                                        @endif
-                                        {{$loop->iteration}}
-                                    </td>
+                            <tr>
+                                <td data-label="#">
+                                    @if(check_permission('create_article') || check_permission('update_article') || check_permission('delete_article'))
+                                        <input type="checkbox" value="{{$article->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$article->id}}" />
+                                    @endif
+                                    {{$loop->iteration}}
+                                </td>
 
-                                    <td data-label='{{translate("Title")}}'>
-                                        <div class="user-meta-info d-flex align-items-center gap-2">
-                                            <img class="rounded-circle avatar-sm" src='{{imageUrl(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
+                                <td data-label='{{translate("Title")}}'>
+                                    <div class="user-meta-info d-flex align-items-center gap-2">
+                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
 
-                                            <p>	 {{$article->title}}</p>
-                                        </div>
-                                    </td>
+                                        <p>	 {{$article->title}}</p>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Category")}}'>
+                                    {{@($article->category->title)}}
+                                </td>
+                                <td data-label='{{translate("Created by")}}'>
+                                    <span class="i-badge capsuled info">
+                                        {{$article->createdBy->name}}
+                                    </span>
+                                </td>
+                                <td data-label='{{translate("Status")}}'>
+                                    <div class="form-check form-switch switch-center">
+                                        <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            data-column="status"
+                                            data-route="{{ route('admin.article.update.status') }}"
+                                            data-status="{{ $article->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                            data-id="{{$article->uid}}" {{$article->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                        id="status-switch-{{$article->id}}" >
+                                        <label class="form-check-label" for="status-switch-{{$article->id}}"></label>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Feature")}}'>
+                                    <div class="form-check form-switch switch-center">
+                                        <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                            data-column="is_feature"
+                                            data-route="{{ route('admin.article.update.status') }}"
+                                            data-status="{{ $article->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                            data-id="{{$article->uid}}" {{$article->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                        id="status-switch-feature-{{$article->id}}" >
+                                        <label class="form-check-label" for="status-switch-feature-{{$article->id}}"></label>
+                                    </div>
+                                </td>
+                                <td data-label='{{translate("Options")}}'>
+                                    <div class="table-action">
+                                        @if(check_permission('update_article') || check_permission('delete_article') )
 
-
-
-                                    <td data-label='{{translate("Category")}}'>
-                                        {{@($article->category->title)}}
-                                    </td>
-
-                                    <td data-label='{{translate("Created by")}}'>
-                                        <span class="i-badge capsuled info">
-                                            {{$article->createdBy->name}}
-                                        </span>
-                                    </td>
-
-                                    <td data-label='{{translate("Status")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="status"
-                                                data-route="{{ route('admin.article.update.status') }}"
-                                                data-status="{{ $article->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$article->uid}}" {{$article->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-{{$article->id}}" >
-                                            <label class="form-check-label" for="status-switch-{{$article->id}}"></label>
-                                        </div>
-                                    </td>
-
-                                    <td data-label='{{translate("Feature")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="is_feature"
-                                                data-route="{{ route('admin.article.update.status') }}"
-                                                data-status="{{ $article->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$article->uid}}" {{$article->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-feature-{{$article->id}}" >
-                                            <label class="form-check-label" for="status-switch-feature-{{$article->id}}"></label>
-                                        </div>
-                                    </td>
-
-                                    <td data-label='{{translate("Options")}}'>
-                                        <div class="table-action">
-                                            @if(check_permission('update_article') || check_permission('delete_article') )
-
-
-                                                @if(check_permission('update_article') )
-                                                    <a  href="{{route('admin.article.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
-                                                @endif
-
-                                                @if(check_permission('delete_article'))
-                              
-                                                        <a href="javascript:void(0);" data-href="{{route('admin.article.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
-
-                                                        <i class="las la-trash-alt"></i></a>
-                                                   
-                                                @endif
-                                            @else
-                                                {{translate('N/A')}}
+                                            @if(check_permission('update_article') )
+                                                <a  href="{{route('admin.article.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
+                                            @if(check_permission('delete_article'))
+                          
+                                                    <a href="javascript:void(0);" data-href="{{route('admin.article.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
 
-                                        </div>
-                                    </td>
-                               </tr>
-                         
+                                                    <i class="las la-trash-alt"></i></a>
+                                               
+                                            @endif
+                                        @else
+                                            {{translate('N/A')}}
+                                        @endif
+                                    </div>
+                                </td>
+                           </tr>
+
                             @empty
-
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Articles found!!"])
@@ -240,11 +211,8 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="Paginations">
-
                     {{ $articles->links() }}
-                
             </div>
         </div>
     </div>
@@ -262,6 +230,8 @@
 @push('script-push')
 <script>
 	(function($){
+
+         "use strict";
 
         $(".select2").select2({
            

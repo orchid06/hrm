@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Gateway\coinbase;
+namespace App\Http\Services\Gateway\coingate;
 
 use App\Enums\DepositStatus;
 use App\Http\Services\UserService;
@@ -8,7 +8,7 @@ use App\Models\PaymentLog;
 use Illuminate\Http\Request;
 use CoinGate\CoinGate;
 use CoinGate\Merchant\Order;
-
+use App\Http\Services\CurlService;
 class Payment
 {
     public static function paymentData(PaymentLog $log) :string {
@@ -17,7 +17,7 @@ class Payment
 
         try {
             CoinGate::config(array(
-                'environment' => 'live', // sandbox OR live
+                'environment' => 'live', 
                 'auth_token'  => $gateway->api_key
             ));
         } catch (\Exception $e) {
@@ -35,7 +35,7 @@ class Payment
             'price_currency'   => $log->method->currency->code,
             'receive_currency' => $log->method->currency->code,
             'callback_url'     => route('ipn',[$log->trx_code]),
-            'cancel_url'       => route('cancel'),
+            'cancel_url'       => route('failed'),
             'success_url'      => route('success'),
             'title'            => 'Deposit to ' . $siteName,
             'token'            => $log->trx_code
@@ -67,26 +67,22 @@ class Payment
         $data['gw_response'] = $request->all();
         $status              = DepositStatus::value('FAILED',true);
 
-        $postdata    = file_get_contents("php://input");
-        $res         = json_decode($postdata);
-        $gateway     = ($depositLog->method->parameters);
-        $headers     = apache_request_headers();
-        $headers     = json_decode(json_encode($headers),true);
-        $sentSign    = $headers['X-Cc-Webhook-Signature'];
-        
-        $sig         = hash_hmac('sha256', $postdata, $gateway->webhook_secret);
 
-        if ($sentSign == $sig && $res->event->type == 'charge:confirmed') {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $url = 'https://api.coingate.com/v2/ips-v4';
 
-            $data['status']   = 'success';
-            $data['message']  = trans('default.deposit_success');
-            $status           = DepositStatus::value('PAID',true);
-            
+        $response = CurlService::curlContent($url);
+        $data['gw_response']  =    $response;
+        if (strpos($response, $ip) !== false) {
+            if ($_POST['status'] == 'paid' && $_POST['price_amount'] == round($depositLog->final_amount,2) ) {
+                $data['status']   = 'success';
+                $data['message']  = trans('default.deposit_success');
+                $status           = DepositStatus::value('PAID',true);
+            }
         }
 
+
         UserService::updateDepositLog($depositLog,$status,$data);
-
-
         return $data;
     
        

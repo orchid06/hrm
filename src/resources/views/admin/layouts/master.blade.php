@@ -6,9 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{csrf_token()}}" />
- 
     <title>{{@site_settings("site_name")}} {{site_settings('title_separator')}} {{@translate($title)}}</title>
-
     <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}">
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -21,15 +19,12 @@
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/custom.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/custom.css')}}" rel="stylesheet" type="text/css" />
-
     @include('partials.theme')
     @stack('style-include')
     @stack('styles')
 
   </head>
-
   <body>
-
     @include('admin.partials.topbar')
     <div class="dashboard-wrapper">
         @include('admin.partials.sidebar')
@@ -40,7 +35,6 @@
             @yield('content')
         </div>
     </div>
-
     @yield("modal")
 
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
@@ -77,13 +71,13 @@
         window.onload = function () {
 
           $('.table-loader').addClass("d-none");
-         
+
 
         }
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {
-        
+
             const id = $(this).attr('data-id')
             const key = $(this).attr('data-key')
             var column = ($(this).attr('data-column'))
@@ -100,7 +94,7 @@
             }
             updateStatus(route, data)
         })
-        
+
         // update status method
         function updateStatus(route, data) {
             var responseStatus;
@@ -117,7 +111,7 @@
                         if(response.reload){
                             location.reload()
                         }
-                    } 
+                    }
                 },
                 error: function (error) {
                     if(error && error.responseJSON){
@@ -145,7 +139,7 @@
             readNotification(href,id)
             e.preventDefault()
         })
-            
+
         // read Notification
         function readNotification(href,id){
             $.ajax({
@@ -168,10 +162,7 @@
         }
 
 
-
-        
         /** delete ,restore , bulk action */
-
 
         $(document).on('click','.bulk-action-btn' ,function(e){
 
@@ -190,15 +181,11 @@
 
         });
 
-
-
         $(document).on('click','.bulk-action-modal',function(e){
             var type = $(this).attr("data-type");
             var src = "{{asset('assets/images/trash-bin.gif')}}";
-
             $('.bulk-btn').html('{{translate("Delete")}}')
             if(type){
-
                 if(type != "delete"){
                     $('.bulk-btn').attr("data-type",type)
                     $('.bulk-btn').val(type)
@@ -208,14 +195,12 @@
                          src = "{{asset('assets/images/restore.gif')}}";
                     }
                 }
-            
             }
 
             $(".bulk-warning-image").attr("src",src)
             var modal = $('#bulkActionModal')
             modal.modal('show')
         })
-
 
         //delete event start
         $(document).on('click', ".delete-item", function (e) {
@@ -234,7 +219,7 @@
 
         //restore event start
         $(document).on('click', ".restore-item", function (e) {
-            
+
             e.preventDefault();
             var href = $(this).attr('data-href');
 
@@ -249,13 +234,9 @@
             $("#actionModal").modal("show");
         })
 
-
-   
-
-
         // update seettings
         $(document).on('submit','.settingsForm',function(e){
-            
+
                 var data =   new FormData(this)
                 var route = "{{route('admin.setting.store')}}"
                 if($(this).attr('data-route')){
@@ -301,28 +282,29 @@
             e.preventDefault();
         });
 
-
         if (!$(".Paginations").find("nav").length > 0) {
             $(".Paginations").addClass('d-none')
         }
 
+        // Summer note
+        $(document).on("click", ".close", function (e) {
+            $(this).closest(".modal").modal("hide");
+        });
 
-   
+        $(document).on('click', '.note-btn.dropdown-toggle', function (e) {
+            var $clickedDropdown = $(this).next();
+            $('.note-dropdown-menu.show').not($clickedDropdown).removeClass('show');
+            $clickedDropdown.toggleClass('show');
+            e.stopPropagation();
+        });
 
-
-
-
-
-
-
-
-
-        
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.note-btn.dropdown-toggle').length) {
+                $(".note-dropdown-menu").removeClass("show");
+            }
+        });
 
     })(jQuery);
-
     </script>
-
   </body>
-
 </html>

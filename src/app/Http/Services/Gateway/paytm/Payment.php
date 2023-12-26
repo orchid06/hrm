@@ -41,10 +41,11 @@ class Payment
         $val['CALLBACK_URL'] = route('ipn',$log->trx_code);
         $val['CHECKSUMHASH'] = $checkSumHash;
 
-        $send['val'] = $val;
-        $send['view'] = 'user.payment.redirect';
+        $send['val']    = $val;
+        $send['view']   = 'user.payment.redirect';
         $send['method'] = 'post';
-        $send['url'] = $log->transaction_url . "?order. $log->trx_code;
+        $send['url']    = $gateway->transaction_url . "?order=". $log->trx_code;
+
 
         return json_encode($send);
     }

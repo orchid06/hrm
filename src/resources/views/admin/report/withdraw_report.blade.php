@@ -150,7 +150,7 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.withdraw.report.details',$report->id)}}"  class=" fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.withdraw.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                         </div>
                                     </td>
@@ -189,6 +189,8 @@
 @push('script-push')
 <script>
 	(function($){
+
+        "use strict";
 
         $(".select2").select2({
            

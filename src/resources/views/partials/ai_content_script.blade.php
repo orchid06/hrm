@@ -2,12 +2,8 @@
 	(function($){
        	"use strict";
     
-           
-
-        /** ai content genaration event */
-      
+        /** ai content genaration event */  
         $(document).on('click','.update',function(e){
-
             var content = JSON.parse($(this).attr('data-content'))
             var modal = $('#content-form')
             modal.find('#contentForm').attr('action','{{route("admin.content.update")}}')
@@ -20,9 +16,7 @@
             modal.modal('show')
         })
 
-
         $(document).on('change','#category',function(e){
-
             var id = $(this).val()
             $(".template-prompt").addClass('d-none');
             $(".generate-btn").addClass('d-none');
@@ -33,9 +27,7 @@
             e.preventDefault()
         })
 
-
         $(document).on('change','#sub_category_id',function(e){
-
             $(".template-prompt").addClass('d-none');
             $(".generate-btn").addClass('d-none');
             var id = $(this).val()
@@ -46,24 +38,18 @@
             e.preventDefault()
         })
 
-
         function subCategories(id){
-
             var url = '{{ route("get.subcategories", ["category_id" => ":id", "html" => ":html"]) }}';
             url = url.replace(':id', id).replace(':html', true);
-
             $.ajax({
-
                 method:'get',
                 url: url,
                 dataType: 'json',
-
                 success: function(response){
 
                     if(response.status){
                         $('#sub_category_id').html(response.html)
                     }
-                
                 },
                 error: function (error){
                     if(error && error.responseJSON){
@@ -88,12 +74,10 @@
             })
         }
 
-
         function getTemplate(){
 
             var categoryId = $("#category").val();
             var subcategory = $("#sub_category_id").val();
-
             $.ajax({
                 method:'post',
                 url:"{{route('get.template')}}",
@@ -129,17 +113,13 @@
                         toastr(error.message,'danger')
                     }
                 },
-            
             })
-
-
         }
 
 
         $(document).on('change','.selectTemplate',function(e){
 
             var id  =  $(this).val()
-
             var url = '{{ route("template.config", ["id" => ":id"]) }}';
             url = url.replace(':id', id).replace(':html', true);
 
@@ -180,12 +160,8 @@
                         toastr(error.message,'danger')
                     }
                 },
-            
             })
-
-
         })
-
 
             var inputObj = {}; 
 
@@ -202,17 +178,12 @@
             }
 
             replace_prompt();
-
         })
 
-
         function replace_prompt(){
-
             var originalPrompt      = $('#promptPreview').attr('data-prompt_input');
             var prompt              = originalPrompt;
-
             var len = Object.keys(inputObj).length
-
             if(len > 0){
                 for (var index in inputObj) {
                     prompt    = prompt.replace(index,inputObj[index]);
@@ -222,14 +193,9 @@
             else{
                 $('#promptPreview').html($('#promptPreview').attr('data-prompt_input'));
             }
-
-
         }
 
-
-
         $(document).on('submit','.ai-content-form',function(e){
-
             var data =   new FormData(this)
             var route =  $(this).attr('data-route')
             $.ajax({
@@ -254,7 +220,6 @@
                 else{
                     toastr(response.message,"danger")   
                 }
-
             },
             error: function (error){
                 if(error && error.responseJSON){
@@ -283,13 +248,10 @@
                 $('#ai-form').fadeOut()
 
                 $('.ai-content-div').removeClass('d-none')
-
             },
             })
-
             e.preventDefault();
         });
-
 
 	})(jQuery);
 </script>

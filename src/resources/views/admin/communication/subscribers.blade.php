@@ -7,16 +7,13 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-
                     <form hidden id="bulkActionForm" action='{{route("admin.subscriber.bulk")}}' method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-
                     <div class="col-md-6 d-flex justify-content-start">
-
                         @if(check_permission('update_frontend') )
                             <div class="i-dropdown bulk-action d-none">
                                 <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,14 +28,12 @@
                                 </ul>
                             </div>
                         @endif
-
                         <div class="action">
                             <button type="button"  data-bs-toggle="modal" data-bs-target="#sendMailToAll" class="i-btn btn--sm success">
                                 <i class="las la-paper-plane me-1"></i>  {{translate('Send Mail')}}
                             </button>
                         </div>
                     </div>
-              
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
@@ -54,13 +49,10 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-
                 <table >
                     <thead>
                         <tr>
@@ -81,11 +73,8 @@
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         @forelse($subscribers as $subscriber)
-
                                 <tr>
                                     <td data-label="#">
                                         @if(check_permission('update_frontend'))
@@ -93,35 +82,25 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-
-
                                     <td data-label='{{translate("Email")}}'>
                                         {{$subscriber->email}}
                                     </td>
-                                  
                                     <td data-label='{{translate("Time")}}'>
                                         {{diff_for_humans($subscriber->created_at)}}
                                     </td>
-                                  
-            
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-
                                             @if(check_permission('update_frontend'))
                                                 <a data-toggle="tooltip" data-placement="top" title="{{translate("Send mail")}}" href="javascript:void(0);" data-email="{{$subscriber->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
 
                                                 <a data-toggle="tooltip" data-placement="top" title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.subscriber.destroy',$subscriber->uid)}}" class="delete-item icon-btn danger">
-
                                                     <i class="las la-trash-alt"></i></a>
-
                                             @else
                                                 {{translate('N/A')}}
                                             @endif
-
                                         </div>
                                     </td>
                                 </tr>
-                          
                             @empty
                                 <tr>
                                     <td class="border-bottom-0" colspan="90">
@@ -132,7 +111,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="Paginations">
                     {{ $subscribers->links() }}
             </div>
@@ -146,8 +124,6 @@
 
     @include('modal.bulk_modal')
 
-
-
       <!-- send mail modal -->
     <div class="modal fade" id="sendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendMailModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -160,13 +136,11 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <form action="{{route('admin.send.mail')}}" id="updateModalForm" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" name="email" id="email" class="form-control" >
                         <div class="row">
-
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="message">
@@ -178,7 +152,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -191,7 +164,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="sendMailToAll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendMailToAll" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -203,13 +175,10 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <form action="{{route('admin.send.mail.all')}}"  method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-
                         <div class="row">
-
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="message">
@@ -221,7 +190,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -234,16 +202,12 @@
             </div>
         </div>
     </div>
-
-
 @endsection
-
 
 @push('script-include')
     <script src="{{asset('assets/global/js/summernote.min.js')}}"></script>
     <script src="{{asset('assets/global/js/editor.init.js')}}"></script>
 @endpush
-
 
 @push('script-push')
 <script>

@@ -153,6 +153,8 @@
 <script>
 	(function($){
 
+        "use strict";
+
         $(document).on('click','.update',function(e){
 
             var status =($(this).attr('data-status'))

@@ -176,7 +176,7 @@
                     <input type="hidden" name="id" value="{{ $user->id }}">
 
                     <div class="form-inner mb-2">
-                        <label for="Subscription"  class=" mb-2">
+                        <label for="Subscription"  class="mb-2">
                             {{ translate('Running Subscription') }} <span class="text-danger">*</span>
                         </label>
                         <select required class="select2" name="package_id" id="Subscription" >
