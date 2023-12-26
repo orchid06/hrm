@@ -20,6 +20,7 @@ use App\Models\Core\Translation;
 use App\Models\Country;
 use App\Models\MediaPlatform;
 use App\Models\Package;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
@@ -1053,7 +1054,7 @@ use Illuminate\Database\Eloquent\Collection;
          $profile         = $plan->social_access->profile; 
          $post            = $plan->social_access->post; 
          $wordToken       = $plan->ai_configuration->word_limit; 
-         $templates       = count((array)@$plan->ai_configuration->template_access); 
+         $templates       = count((array)@$plan->template_access); 
 
          $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
          $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
@@ -1072,8 +1073,9 @@ use Illuminate\Database\Eloquent\Collection;
          }
 
          $config['word_token']               = $wordToken != -1 ? $wordToken : PlanDuration::keyVal($wordToken);
+
          if(0 < $templates){
-            $config['prebuilt_ai_templates'] = count((array)@$plan->ai_configuration->template_access);
+            $config['prebuilt_ai_templates'] = $templates;
          }
 
 
@@ -1081,6 +1083,20 @@ use Illuminate\Database\Eloquent\Collection;
 
       }
    }
+
+   if (!function_exists('subscription_value')){
+
+      function subscription_value(Subscription $subscription ,string $key , bool $package = false) : mixed {
+
+           if($package){
+             return  @$subscription->package->{$key};
+           }
+           return @$subscription->{$key};
+      }
+
+
+   }
+
 
 
 

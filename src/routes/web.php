@@ -142,8 +142,12 @@ use Illuminate\Support\Facades\Route;
 
                 Route::get('/list', 'list')->name('list');
                 Route::post('/update','update')->name('update');
+                Route::post('/store','store')->name('store');
                 Route::post('/update/status','updateStatus')->name('update.status');
                 Route::get('/destroy/{id}','destroy')->name('destroy');
+
+
+                Route::post('/generate', 'generate')->name('generate');
 
             });
         

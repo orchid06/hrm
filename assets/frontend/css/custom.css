@@ -114,3 +114,68 @@
 .pointer{
   cursor: pointer !important;
 }
+
+
+@keyframes stretch {
+  0% {
+      transform: scale(0.5);
+      background-color: #aaa
+  }
+
+  50% {
+      background-color: #ccc
+  }
+
+  100% {
+      transform: scale(1);
+      background-color: #fff
+  }
+}
+
+.ai-btn {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-width: 160px !important
+}
+
+.ai-btn.btn__dots--loading .btn__dots {
+  display: flex;
+  margin-left: 5px
+}
+
+.ai-btn.btn__dots--loading .btn__dots i {
+  animation-direction: alternate;
+  animation-duration: .5s;
+  animation-fill-mode: none;
+  animation-iteration-count: infinite;
+  animation-name: stretch;
+  animation-play-state: running;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 10px;
+  margin: 0 1px;
+  width: 10px;
+  animation-delay: .1s;
+  margin: 0 5px
+}
+
+.ai-btn.btn__dots--loading .btn__dots i:first-child {
+  animation-delay: 0s;
+  margin: 0
+}
+
+.ai-btn.btn__dots--loading .btn__dots i:last-child {
+  animation-delay: .2s;
+  margin: 0
+}
+
+.ai-btn i {
+  font-weight: normal
+}
+
+.ai-btn .btn__dots {
+  display: none
+}

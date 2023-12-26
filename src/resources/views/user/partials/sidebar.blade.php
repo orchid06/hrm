@@ -190,7 +190,7 @@
 
 
           <li class="sidemenu-item">
-              <a href="{{route("user.ticket.list")}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? "active" :""}}">
+              <a href="{{route("user.ai.content.list")}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? "active" :""}}">
                 <div
                     class="sidemenu-icon"
                     data-bs-toggle="tooltip"

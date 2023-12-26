@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 
-
     <div class="i-card-md">
         <div class="card-body">
                 <div class="search-action-area">
@@ -165,8 +164,6 @@
     </div>
 
 
-
-  
 @endsection
 @section('modal')
     @include('modal.delete_modal')
@@ -232,7 +229,6 @@
             </div>
         </div>
     </div>
-
 
 @endsection
 
