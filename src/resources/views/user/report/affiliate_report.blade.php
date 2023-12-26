@@ -19,7 +19,7 @@
 
             <div class="d-flex align-items-center gap-3">
                 <div class="text-end">
-                    {{translate("Total Affiliate Users")}} <span class="ms-2 i-badge capsuled info"> {{ $user->affilateUser->count()}} </span>
+                    {{translate("Total Affiliate Users")}} <span class="ms-2 i-badge capsuled danger"> {{ $user->affilateUser->count()}} </span>
                 </div>
 
                 <button

@@ -1524,7 +1524,6 @@
 .search-action-area .search-area .form-inner textarea {
   width: 100%;
   min-width: 180px;
-  padding-left: 30px;
 }
 @media (max-width: 991px) {
   .search-action-area .search-area .form-inner input,
@@ -1652,15 +1651,7 @@
   z-index: 1;
   background-color: transparent;
 }
-.form-inner input[type="date"]::after,
-.form-inner textarea[type="date"]::after {
-  content: "\f1e2";
-  position: absolute;
-  right: 15px;
-  top: 55%;
-  font-family: "Bootstrap-icons";
-  z-index: 9;
-}
+
 .form-inner .radio-buttons-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3759,9 +3750,8 @@ select {
 }
 .main .main-wrapper {
   padding: 50px 40px 30px;
-  min-height: calc(100dvh - 70px);
+  min-height: calc(100dvh - 95px);
   height: 100%;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 @media (max-width: 1199px) {
@@ -5977,18 +5967,22 @@ select {
 }
 
 /* ==========Paginations========== */
-.Paginations {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-}
 
 @media (max-width: 576px) {
   .Paginations {
     justify-content: flex-start;
   }
+  .Paginations nav {
+    margin-top: 35px;
+  }
+}
+
+.Paginations nav {
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Paginations nav ul {
@@ -6303,4 +6297,121 @@ select {
   color: var(--color-primary-text);
 }
 
+/* =============Ai Content Accordion============= */
+.faq-wrap .accordion-item {
+  margin-bottom: 20px !important;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 24px 0px,
+    var(--color-primary-light) 0px 0px 0px 1px;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+}
 
+.faq-wrap .accordion-item:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.faq-wrap .accordion-item .accordion-button {
+  font-weight: 600;
+  font-size: 16px;
+  background: var(--white);
+  color: var(--text-primary);
+  padding: 15px 65px 15px 15px;
+  position: relative;
+  transition: 0.4s ease-in;
+  line-height: 1.6;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button {
+    font-size: 16px;
+    padding: 15px 55px 15px 15px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:hover {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-button:focus {
+  z-index: unset;
+  border-color: unset;
+  outline: 0;
+  background: var(--white);
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+}
+
+.faq-wrap .accordion-item .accordion-button::after {
+  flex-shrink: 0;
+  width: unset;
+  height: unset;
+  margin-left: auto;
+  background-image: none;
+  background-repeat: unset;
+  background-size: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f128";
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: unset;
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button::after {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed)::after {
+  background-image: none;
+  transform: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f148";
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed) {
+  box-shadow: unset;
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-button:is(.collapsed) {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-body {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  border-top: none;
+  text-align: left;
+  padding: 15px 25px 25px;
+  background-color: var(--color-white);
+}
+
+.faq-wrap .accordion-item:last-of-type .accordion-collapse {
+  overflow: hidden;
+}

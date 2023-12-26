@@ -14,12 +14,12 @@
                         <h4 class="card-title">
                             {{translate('Basic Information')}}
                         </h4>
-                    </div> 
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="Name"> 
+                                    <label for="Name">
                                         {{translate('Name')}} <small class="text-danger">*</small>
                                     </label>
                                     <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value='{{old("name")}}'>
@@ -28,15 +28,15 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="slug"> 
-                                        {{translate('slug')}} 
+                                    <label for="slug">
+                                        {{translate('slug')}}
                                     </label>
-                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>       
+                                    <input placeholder="{{translate('Enter Slug')}}" id="slug"  type="text" name="slug" value='{{old("slug")}}'>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="category"> 
+                                    <label for="category">
                                         {{translate('Category')}} <small class="text-danger">*</small>
                                     </label>
                                     <select required name="category_id" id="category" class="select2" >
@@ -53,8 +53,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="sub_category"> 
-                                        {{translate('Sub Category')}} 
+                                    <label for="sub_category">
+                                        {{translate('Sub Category')}}
                                     </label>
                                     <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
                                         <option value="" >
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-inner">
-                                    <label for="Icon"> 
+                                    <label for="Icon">
                                         {{translate('Icon')}} <span class="text-danger">*</span>
                                     </label>
                                     <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
@@ -73,30 +73,31 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-inner">
-                                    <label for="description"> 
+                                    <label for="description">
                                         {{translate('Short Description')}}  <span class="text-danger">*</span>
                                     </label>
                                     <textarea  placeholder='{{translate("Enter Short Description")}}' name="description" id="description" cols="30" rows="2">{{old("description")}}</textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>            
+                    </div>
                 </div>
             </div>
+
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">
                         <h4 class="card-title">
                             {{translate('Prompt Information')}}
                         </h4>
-                    </div> 
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mb-20">
                                 <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Field')}}</a>
-                            </div>  
+                            </div>
                            <div class="col-12">
-                                <div class="addedField form-inner">  
+                                <div class="addedField form-inner">
                                 </div>
                            </div>
                             <div class="col-lg-12">
@@ -107,7 +108,7 @@
                                     <small>{{ translate('Click on variable to set the user input of it in your prompts')}}</small>
                                 </div>
                                 <div class="form-inner">
-                                    <label for="customPrompt"> 
+                                    <label for="customPrompt">
                                         {{translate('Prompt')}} <small class="text-danger">*</small>
                                     </label>
                                     <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}</textarea>
@@ -132,7 +133,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>            
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,7 +149,7 @@
     <script>
     	(function($){
            	"use strict";
-        
+
                 $(".select2").select2({
     			   placeholder:"{{translate('Select Category')}}",
     	     	})
@@ -178,13 +179,13 @@
                         method:'get',
                         url: url,
                         dataType: 'json',
-                    
+
                         success: function(response){
 
                             if(response.status){
                                 $('#sub_category_id').html(response.html)
                             }
-                        
+
                         },
                         error: function (error){
                             if(error && error.responseJSON){
@@ -208,7 +209,7 @@
                         },
     		    	})
                 }
-                
+
     	})(jQuery);
     </script>
 @endpush
