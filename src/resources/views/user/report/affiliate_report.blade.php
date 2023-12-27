@@ -37,47 +37,47 @@
         <div class="collapse filterTwo mb-3" id="tableFilter">
             <div class="i-card-md">
                 <div class="card-body">
-                <div class="search-action-area p-0">
-                    <div class="search-area">
-                    <form action="{{route(Route::currentRouteName())}}">
+                    <div class="search-action-area p-0">
+                        <div class="search-area">
+                        <form action="{{route(Route::currentRouteName())}}">
 
-                        <div class="form-inner">
-                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                        </div>
-
-
-                        @if($user->affilateUser)
                             <div class="form-inner">
-                                <select name="referral" id="referral" class="referral">
-                                    <option value="">
-                                        {{translate('Select User')}}
-                                    </option>
-
-                                    @foreach($user->affilateUser as $affilateUser)
-                                    <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                             </div>
-                        @endif
 
-                        <div class="form-inner">
-                            <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+
+                            @if($user->affilateUser)
+                                <div class="form-inner">
+                                    <select name="referral" id="referral" class="referral">
+                                        <option value="">
+                                            {{translate('Select User')}}
+                                        </option>
+
+                                        @foreach($user->affilateUser as $affilateUser)
+                                        <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            <div class="form-inner">
+                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+                            </div>
+
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="i-btn primary btn--lg">
+                                    <i class="bi bi-search"></i>
+                                </button>
+
+                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </a>
+                            </div>
+                        </form>
                         </div>
-
-
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg">
-                                <i class="bi bi-search"></i>
-                            </button>
-
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
-                        </div>
-                    </form>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -170,7 +170,13 @@
                                 <div class="accordion-body">
                                     <ul class="list-group list-group-flush">
 
-                                        <li class="list-group-item">{{ translate('Note') }} :   {{($report->note)}}</li>
+                                        <li class="list-group-item">
+                                            <span class="i-badge-solid warning fs-6 ">
+                                                {{ translate('Note') }}
+                                            </span>
+
+                                            <p>{{($report->note)}}</p>
+                                        </li>
 
                                     </ul>
                                 </div>

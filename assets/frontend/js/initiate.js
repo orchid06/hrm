@@ -10,13 +10,12 @@
   );
 
 
-
   // Post Slider
   const postSlider = document.querySelector(".post-slider");
   if (postSlider) {
     new Swiper(postSlider, {
       slidesPerView: 2,
-      spaceBetween: 20,
+      spaceBetween: 25,
       loop: true,
       autoplay: {
         delay: 3500,

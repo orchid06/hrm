@@ -114,14 +114,15 @@
   cursor: pointer !important;
 }
 
-/* Summer Note */
+
+/* =============Summer Note Customize Start============= */
 .note-editor .note-toolbar .note-dropdown-menu,
 .note-popover .popover-content .note-dropdown-menu {
   top: 115%;
 }
 
 .note-modal {
-    z-index:1070 !important;
+  z-index: 1070 !important;
 }
 .note-modal .form-group {
   margin-bottom: 15px;
@@ -143,28 +144,59 @@
   color: var(--color-primary);
   transition: 0.3s ease;
 }
-
-body.modal-open .header{
-  z-index: -1;
+.note-editor .note-editable > ul {
+  list-style: disc !important;
+  list-style-position: inside !important;
 }
-body.modal-open .aside{
-  z-index: -1;
+.note-editor .note-editable > ul > li,
+.note-editor .note-editable > ol > li {
+  list-style-type: unset !important;
 }
 
+.note-editor .note-editable > ol {
+  list-style: decimal !important;
+  list-style-position: inside !important;
+}
+
+.note-modal .btn.note-btn-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.note-modal .btn:disabled,
+.note-modal fieldset:disabled .btn {
+  color: var(--color-primary-text) !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  opacity: 1 !important;
+}
+
+.note-editor .note-dropdown-menu .dropdown-item:focus,
+.note-editor .note-dropdown-menu .dropdown-item:hover {
+  color: var(--text-primary) !important;
+  background-color: var(--site-bg) !important;
+}
+
+.note-editor .note-dropdown-menu .dropdown-item.active,
+.note-editor .note-dropdown-menu .dropdown-item:active {
+  color: var(--color-primary-text) !important;
+  background-color: var(--color-primary) !important;
+}
+
+/* =============Summer Note Customize End============= */
 
 @keyframes stretch {
   0% {
-      transform: scale(0.5);
-      background-color: #aaa
+    transform: scale(0.5);
+    background-color: #aaa;
   }
 
   50% {
-      background-color: #ccc
+    background-color: #ccc;
   }
 
   100% {
-      transform: scale(1);
-      background-color: #fff
+    transform: scale(1);
+    background-color: #fff;
   }
 }
 
@@ -173,17 +205,17 @@ body.modal-open .aside{
   cursor: pointer;
   display: inline-flex;
   justify-content: center;
-  min-width: 160px !important
+  min-width: 160px !important;
 }
 
 .ai-btn.btn__dots--loading .btn__dots {
   display: flex;
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 .ai-btn.btn__dots--loading .btn__dots i {
   animation-direction: alternate;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-fill-mode: none;
   animation-iteration-count: infinite;
   animation-name: stretch;
@@ -194,24 +226,24 @@ body.modal-open .aside{
   height: 10px;
   margin: 0 1px;
   width: 10px;
-  animation-delay: .1s;
-  margin: 0 5px
+  animation-delay: 0.1s;
+  margin: 0 5px;
 }
 
 .ai-btn.btn__dots--loading .btn__dots i:first-child {
   animation-delay: 0s;
-  margin: 0
+  margin: 0;
 }
 
 .ai-btn.btn__dots--loading .btn__dots i:last-child {
-  animation-delay: .2s;
-  margin: 0
+  animation-delay: 0.2s;
+  margin: 0;
 }
 
 .ai-btn i {
-  font-weight: normal
+  font-weight: normal;
 }
 
 .ai-btn .btn__dots {
-  display: none
+  display: none;
 }

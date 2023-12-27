@@ -21,7 +21,7 @@
         <div class="card-body">
             <form action="{{route('user.ticket.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div class="row g-4">
                     @foreach($ticket_fields as $ticket_field)
                     @php
@@ -75,7 +75,7 @@
 
 
                     <div class="col-12">
-                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        <button type="submit" class="i-btn btn--md btn--primary capsuled" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>

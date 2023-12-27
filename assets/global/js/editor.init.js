@@ -5,6 +5,7 @@ $(document).ready(function() {
     $('.summernote').summernote({
         height: 300,
         placeholder: 'Start typing...',
+        dialogsInBody: true,
         toolbar: [
         ['style', ['bold', 'italic', 'underline', 'clear']],
         ['font', ['strikethrough', 'superscript', 'subscript']],

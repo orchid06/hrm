@@ -108,15 +108,24 @@
                                 <div class="accordion-body">
                                     <ul class="list-group list-group-flush">
                                         @foreach ($report->kyc_data as $k => $v)
-                                            <li class="list-group-item">{{ translate(k2t($k)) }} :
-                                                {{ $v }}
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate(k2t($k)) }}</h6>
+                                                <p class="value">
+                                                     {{ $v }}
+                                                </p>
                                             </li>
                                        @endforeach
 
                                         @foreach ($report->file as $file)
-                                            <li class="list-group-item">{{ translate(k2t($file->type)) }} :
-                                                <img src='{{imageUrl($file,"kyc",true)}}'
-                                                alt="{{ @$file->name }}">
+                                            <li class="list-group-item">
+                                                <h6 class="title">
+                                                    {{ translate(k2t($file->type)) }}
+                                                </h6>
+
+                                                <div class="report-img">
+                                                    <img src='{{imageUrl($file,"kyc",true)}}'
+                                                    alt="{{ @$file->name }}">
+                                                </div>
                                             </li>
                                         @endforeach
 

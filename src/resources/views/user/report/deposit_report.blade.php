@@ -36,7 +36,6 @@
             <div class="search-action-area p-0">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
-
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                     </div>
@@ -67,6 +66,7 @@
 
                         </select>
                     </div>
+
                     <div class="form-inner">
                         <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
                     </div>
@@ -162,19 +162,55 @@
                                 <div class="accordion-body">
                                     <ul class="list-group list-group-flush">
 
-                                        <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
-                                        <li class="list-group-item">{{ translate('Charge') }} :
-                                            {{num_format($report->charge,@$report->currency)}}
-                                        </li>
-                                        <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>                 <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>                                            <li class="list-group-item">{{ translate('Final Amount') }} :
-                                            {{num_format($report->final_amount,@$report->method->currency)}}
+                                        <li class="list-group-item">
+                                            <h6 class="title">{{ translate('Amount') }} </h6>
+
+                                            <p class="value">
+                                               {{num_format($report->amount,@$report->currency)}}
+                                            </p>
+
                                         </li>
 
-                                        <li class="list-group-item">{{ translate('Feedback') }} :
-                                            {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
+                                        <li class="list-group-item">
+                                            <h6 class="title">{{ translate('Charge') }} </h6>
+
+                                            <p class="value">
+                                                {{num_format($report->charge,@$report->currency)}}
+                                            </p>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <h6 class="title">{{ translate('Rate') }}</h6>
+
+                                            <p class="value">{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</p>
+
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <h6 class="title">{{ translate('Rate') }}</h6>
+
+                                            <p class="value">
+                                                {{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}
+                                            </p>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                           <h6 class="title">{{ translate('Final Amount') }} </h6>
+
+                                           <p class="value"> {{num_format($report->final_amount,@$report->method->currency)}}</p>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <h6 class="title">{{ translate('Feedback') }} </h6>
+                                            <p class="value">
+                                                {{ $report->feedback ? $report->feedback : translate('N/A') }}
+                                            </p>
+                                        </li>
 
                                         @foreach ($report->custom_data as $k => $v)
-                                            <li class="list-group-item">{{ translate(ucfirst($k)) }} :
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate(ucfirst($k)) }}</h6>
+
                                                 @if ($v->type == 'file')
                                                     @php
                                                         $file = $report
@@ -184,10 +220,14 @@
 
                                                     @endphp
 
-                                                    <img src='{{imageUrl($file,"payment",true)}}'
-                                                        alt="{{ @$file->name }}">
+                                                    <div class="report-img">
+                                                        <img src='{{imageUrl($file,"payment",true)}}'
+                                                            alt="{{ @$file->name }}">
+                                                    </div>
                                                 @else
-                                                    {{ $v->field_name }}
+                                                    <p class="value">
+                                                        {{ $v->field_name }}
+                                                    </p>
                                                 @endif
                                             </li>
                                         @endforeach

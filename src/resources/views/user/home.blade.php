@@ -5,7 +5,7 @@
       <div class="col-12">
         <div class="dash-intro">
           <div class="row align-items-center gx-4 gy-5">
-            <div class="col-xxl-4 col-xl-4">
+            <div class="col-xxl-4 col-xl-6">
               <div class="dash-intro-content">
                 <h3>Welcome, Scott Warner</h3>
                 <p>
@@ -76,7 +76,7 @@
         </div>
       </div>
 
-      <div class="col-xl-3 col-md-6">
+      <div class="col-xxl-3 col-md-6">
         <div class="i-card-md card-height-100 plan-upgrade-card">
           <div class="card-body plan-upgrade-body">
             <div class="existing-plan">
@@ -117,7 +117,7 @@
         </div>
       </div>
 
-      <div class="col-xl-3 col-md-6">
+      <div class="col-xxl-3 col-md-6">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">Connected Account</h4>
@@ -282,7 +282,7 @@
         </div>
       </div>
 
-      <div class="col-xl-6">
+      <div class="col-xxl-6">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">Latest Content Insights</h4>
@@ -529,7 +529,7 @@
         </div>
       </div>
 
-      <div class="col-xl-8">
+      <div class="col-xxl-8 col-xl-7">
         <div class="i-card-md">
           <div class="card-header">
             <h4 class="card-title">Insight</h4>
@@ -540,7 +540,7 @@
         </div>
       </div>
 
-      <div class="col-xl-4">
+      <div class="col-xxl-4 col-xl-5">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">Report post by type</h4>
@@ -1109,7 +1109,7 @@
         </div>
       </div>
 
-      <div class="col-xl-8">
+      <div class="col-xxl-8 col-xl-7">
         <div class="i-card-md">
           <div class="card-header">
             <h4 class="card-title">Earnings</h4>
@@ -1120,7 +1120,7 @@
         </div>
       </div>
 
-      <div class="col-xl-4">
+      <div class="col-xxl-4 col-xl-5">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">Report post by type</h4>
