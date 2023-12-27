@@ -21,13 +21,10 @@
                                 data-status='{{ site_settings('email_notifications') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                 data-route="{{ route('admin.setting.update.status') }}"
                                 id="email-notification">
-
                             <label class="form-check-label" for="email-notification"></label>
                         </div>
                     </div>
                 </li>
-
-
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-3 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Sms Notification') }}</h6>
@@ -49,8 +46,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li
                     class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
@@ -72,11 +67,7 @@
                         </div>
                     </div>
                 </li>
-
-
-
-                <li
-                    class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
+                <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Strong Password') }}</h6>
                         <p class="mb-0">
@@ -96,18 +87,13 @@
                         </div>
                     </div>
                </li>
-
-
-                
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-
                     <div>
                         <h6 class="mb-0">{{ translate('Slack Notification') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("This Module  Enable Slack Notifications") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -119,20 +105,14 @@
                             <label class="form-check-label" for="slack_notifications"></label>
                         </div>
                     </div>
-
                 </li>
-
-
-                  
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-
                     <div>
                         <h6 class="mb-0">{{ translate('Force Ssl') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("This Module  Enable Slack Notifications") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -144,19 +124,14 @@
                             <label class="form-check-label" for="force_ssl"></label>
                         </div>
                     </div>
-
                 </li>
-
-
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-
                     <div>
                         <h6 class="mb-0">{{ translate('Kyc Verification') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("This Module  Enable Browser Notifications") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -168,9 +143,7 @@
                             <label class="form-check-label" for="kyc_verification"></label>
                         </div>
                     </div>
-                    
                 </li>
-
                 <li
                     class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
@@ -190,8 +163,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li
                     class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
@@ -200,7 +171,6 @@
                             <small>{{ translate("Enabling this module activates system debugging mode, aiding in troubleshooting by providing detailed error messages to identify code issues.") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input {{ env('app_debug') ? 'checked' : '' }} type="checkbox"
@@ -211,7 +181,6 @@
                         </div>
                     </div>
                 </li>
-
                 <li
                     class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
@@ -220,7 +189,6 @@
                             <small>{{ translate("Enabling the module activates the User Register Module, indicating their interdependency for proper functioning.") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -234,8 +202,6 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Social Auth') }}</h6>
@@ -243,7 +209,6 @@
                             <small>{{ translate("It allows users to sign in or register using their social media accounts") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -257,8 +222,6 @@
                         </div>
                     </div>
                </li>
-
-
                <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Max Login Attempt Validation') }}</h6>
@@ -266,7 +229,6 @@
                             <small>{{ translate("It allows users to sign in or register using their social media accounts") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -280,17 +242,14 @@
                         </div>
                     </div>
                </li>
-
                 <li
                     class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-
                     <div>
                         <h6 class="mb-0">{{ translate('Email Verfication') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("When enabled, this module prompts users to verify their email addresses during registration by clicking a link or entering a code sent to their email.") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -304,7 +263,6 @@
                         </div>
                     </div>
                 </li>
-
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Seo Configuration') }}</h6>
@@ -312,7 +270,6 @@
                             <small>{{ translate("By activating this feature, the system will seamlessly handle the removal of expired links and subscriptions. Additionally, you have the flexibility to configure the time duration, in days, after which the system will automatically delete expired data. You can conveniently manage this functionality within the designated 'App Settings' section. ") }}</small>
                         </p>
                     </div>
-
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
                             <input
@@ -325,7 +282,6 @@
                         </div>
                     </div>
                 </li>
-
             </ul>
         </div>
     </div>

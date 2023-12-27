@@ -18,20 +18,17 @@
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                            @if(check_permission('update_withdraw'))
-                                            
-                                                @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                                    <li>
-                                                        <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
-                                                    </li>
-                                                @endforeach
-                                                
-                                            @endif
+                                        @if(check_permission('update_withdraw'))
+                                        
+                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
+                                                <li>
+                                                    <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
-                                    
                                 </div>
                             @endif
-            
                             @if(check_permission('create_withdraw'))
                                 <div class="action">
                                     <a href="{{route('admin.withdraw.create')}}" class="i-btn btn--sm success me-2 create">
@@ -39,14 +36,11 @@
                                     </a>
                                 </div>
                             @endif
-
                             @if(check_permission('update_withdraw'))
-
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#withdraw-config" class="i-btn btn--sm danger me-2 create">
                                     <i class="las la-cogs me-1"></i>  {{translate('Configuration')}}
                                 </button>
                             @endif
-
                         </div>
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
@@ -55,8 +49,6 @@
                                 <div class="form-inner">
                                     <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by name')}}">
                                 </div>
-
-
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
@@ -68,11 +60,8 @@
                     </div>
                 </div>
             </div>
-         
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-
                 <table>
                     <thead>
                         <tr>
@@ -88,10 +77,8 @@
                             <th scope="col">{{translate('Action')}}</th>
                         </tr>
                     </thead>
-                   
                     <tbody>
                         @forelse ($withdraws as $withdraw)
-                    
                             <tr>
                                 <td data-label="#">
                                     @if(check_permission('update_withdraw'))
@@ -108,12 +95,10 @@
                                         <p>	 {{$withdraw->name}}</p>
                                     </div>
                                 </td>
-                              
                                 <td data-label="{{translate('Charge')}}">
                                     {{num_format($withdraw->fixed_charge,base_currency())}} + {{$withdraw->percent_charge}} %
                                 </td>
                                 <td data-label="{{translate('Limit')}}">{{truncate_price($withdraw->minimum_amount)}} - {{truncate_price($withdraw->maximum_amount)}} {{base_currency()->code}}  </td>
-
                                 <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_withdraw') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -133,17 +118,14 @@
                                             @endif
                                             @if(check_permission('delete_withdraw'))
                                                 <a href="javascript:void(0);" data-href="{{route('admin.withdraw.destroy',$withdraw->uid)}}" class="pointer delete-item icon-btn danger">
-        
                                                     <i class="las la-trash-alt"></i></a>
                                             @endif
-
                                         @else
                                             {{translate('N/A')}}
                                         @endif
                                     </div>
                                 </td>
                             </tr>
-                        
                         @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
@@ -168,7 +150,6 @@
 <div class="modal fade" id="withdraw-config" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="withdraw-config"   aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h5 class="modal-title">
                     {{translate('Set withdraw Config')}}
@@ -177,13 +158,10 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-
             <form action="{{route('admin.withdraw.configuration')}}" id="withdrawForm" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-
-                     
                         <div class="col-lg-12">
                             <div class="form-inner">
                                 <label for="max_pending_withdraw" class="form-label" >
@@ -191,13 +169,10 @@
                                 </label>
 
                                 <input id="max_pending_withdraw" placeholder="{{translate('Enter number')}}" type="number" name="site_settings[max_pending_withdraw]" value="{{site_settings('max_pending_withdraw')}}">
-                             
                             </div>
                         </div>
-
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}

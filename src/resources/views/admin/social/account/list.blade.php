@@ -284,8 +284,5 @@
            
     });
 
-	   
-
-
 </script>
 @endpush
