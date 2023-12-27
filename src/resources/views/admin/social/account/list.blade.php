@@ -155,15 +155,12 @@
                                         <tr>
                                             <td data-label="#">
                                                 @if( check_permission('update_account') || check_permission('delete_account'))
-                                                    
-                                                        <input  type="checkbox" value="{{$account->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$account->id}}" />
-                                                    
+                                                    <input  type="checkbox" value="{{$account->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$account->id}}" />
                                                 @endif
                                                 {{$loop->iteration}}
                                             </td>
 
                                             <td data-label='{{translate("name")}}'>
-                                         
 
                                                 <div class="user-meta-info d-flex align-items-center gap-2">
                                                     <img class="rounded-circle avatar-sm"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">

@@ -511,9 +511,9 @@ class CoreController extends Controller
             return Socialite::driver($medium)->redirect();
         } catch (\Exception $ex) {
 
-                $message = strip_tags($ex->getMessage());
-                $message = preg_replace('/[^A-Za-z0-9\-]/', ' ', $message);
-
+            $message = strip_tags($ex->getMessage());
+            $message = preg_replace('/[^A-Za-z0-9\-]/', ' ', $message);
+            
             return back()->with('error',$message);
         }
 

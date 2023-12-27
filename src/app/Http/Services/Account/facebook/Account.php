@@ -35,8 +35,7 @@ class Account
         $apiVersion  = $platform->configuration->app_version;
         $api         = $baseApi."/".$apiVersion;
         $pageId      = Arr::get($request,'page_id', null);
-        $groupId      = Arr::get($request,'group_id', null);
-
+        $groupId     = Arr::get($request,'group_id', null);
         $response   = response_status(translate('Account Created'));
     
         try {
@@ -61,6 +60,7 @@ class Account
                 'access_token' =>   $token,
                 'fields'       =>   $fields
             ]);
+
             $apiResponse       = $apiResponse->json();
 
             if(isset($apiResponse['error'])) {
@@ -92,6 +92,7 @@ class Account
                 'token'      => $token,
                 'avatar'     => @$avatar ,
             ];
+
 
             $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value );
 
