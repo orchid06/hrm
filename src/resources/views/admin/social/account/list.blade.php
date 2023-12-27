@@ -143,11 +143,8 @@
 
                                     <th scope="col">{{translate('Connection Status')}}</th>
 
-            
-
-                                    @if(request()->input("platform") == 'facebook')
-                                       <th scope="col">{{translate('Account Type')}}</th>
-                                    @endif
+                                    <th scope="col">{{translate('Account Type')}}</th>
+                      
     
                                     <th scope="col">{{translate('Action')}}</th>
                                 </tr>

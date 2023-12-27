@@ -54,7 +54,8 @@ class TicketController extends Controller
                                   ->filter(['ticket_number',"status",'user:username','priority'])
                                   ->date()
                                   ->latest()
-                                  ->paginate(paginateNumber()),
+                                  ->paginate(paginateNumber())
+                                  ->appends(request()->all()),
             'counter'         => $this->counter(),
 
 

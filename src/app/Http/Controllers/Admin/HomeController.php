@@ -31,6 +31,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Traits\Fileable;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Http;
+
 class HomeController extends Controller
 {
  
@@ -61,7 +64,77 @@ class HomeController extends Controller
 
      public function getDashboardData() :array{
 
+        //    $fb = new \JanuSoftware\Facebook\Facebook([
+        //     'app_id' => '705395747786690',
+        //     'app_secret' => 'ea78e9fa5a2bd6e170107c75eb8bca42',
+        //     'default_graph_version' => 'v18.0',
+        //   ]);
+          
 
+        //        $response = $fb->get('/me?fields=id,name,picture','EAAKBjb75D8IBOyQQjMFJceloQ0TfknMZAEPOet7RPLWIHYZBvaKbIZB2DqHJTDZCjyrOMBBUOrfl2oFqZAiil0ruBeXbrDxdn2RMHENwbZBdTQojF81ngYqW2UJsZBgUGxzpjN422iSNHPLpYD7cp4zfX78plHGcIb9n5RKrzwdf6gBIZBCZCNCAAadyDBKhvqDuIZCNTGwHQzWZBZAV2FSqGZAYZARnvA3HjAPO0ClGJZAaucZD')->getDecodedBody();
+        //        $id = $response['id'];
+
+        //        $postData['access_token'] = "EAAKBjb75D8IBOyQQjMFJceloQ0TfknMZAEPOet7RPLWIHYZBvaKbIZB2DqHJTDZCjyrOMBBUOrfl2oFqZAiil0ruBeXbrDxdn2RMHENwbZBdTQojF81ngYqW2UJsZBgUGxzpjN422iSNHPLpYD7cp4zfX78plHGcIb9n5RKrzwdf6gBIZBCZCNCAAadyDBKhvqDuIZCNTGwHQzWZBZAV2FSqGZAYZARnvA3HjAPO0ClGJZAaucZD";
+        //        $postData['message'] ='test';
+
+        //        $response = Http::post("https://graph.facebook.com/v10.0/$id/feed", $postData);
+        //        @dd( $response->json() );
+
+        // $response = Http::get('https://graph.instagram.com/me', [
+        //     'fields' => 'id,username',
+        //     'access_token'=>'IGQWROeFhCXzZAsdUlNc20yMGpPUldWR2pFZAlhwRERZAemVPVmJ5azNuRnV3alg2eHdNNVQwR3pILWtib043cDRyRnhRbWsxeTVRMlo0aURGRjhLVldOY2Jvb2Vua1VoYVNaZAVZAPUzZAZAVUY3SktlN2ZAFQzBsMmhDcmsZD',
+        // ]);
+
+        
+        // // Decode the JSON response
+        // $data = $response->json();
+
+        // @dd($data);
+
+
+        // // Access the data as needed
+        // $id = $data['id'];
+
+
+        // $upload_params = [
+        //     'image_url' => imageUrl(@site_logo('favicon')->file,'favicon',true),
+        //     'caption' => 'test',
+        // ];
+
+        //  $fb = new \JanuSoftware\Facebook\Facebook([
+        //     'app_id' => '705395747786690',
+        //     'app_secret' => 'ea78e9fa5a2bd6e170107c75eb8bca42',
+        //     'default_graph_version' => 'v18.0',
+        //   ]);
+          
+
+        // // $endpoint = "/". $id."/media_publish";
+        //   $response = $fb->get('/me?fields=id,name,picture','EAAKBjb75D8IBOxnZAZCZCeZB4lYGhBJwQiPEqVPYoRcGavgD9BIJzeiv5GYq1lFrHQlgZAy7BeitHWjWc3ZCTg74V3KMLZBfbO9RyITusUvudfFq0WrfK0i1jO8JVIVBMESOyUocogaWX2Yd4QO5ezZBIFIZBJ3JLgChP4uceL6wiAnTfV1NMW5bB0ZB0rWT9wxXMxdgoHuW550DIUJvhtSizA1O6eYlZBDG3sIJ6mjThcqObELPDWBL5xijSpJ8OPSzNKkIBXlBwKuLhoZD')->getDecodedBody();
+
+
+
+        //   $endpoint = "/".$response['id']."/";
+
+        //   $endpoint .= "feed";
+        //   $params = ['message' =>'test'];
+        //         //   $data = $response->json();
+
+        //   $response = $fb->post( $endpoint, $params,"EAAKBjb75D8IBOxnZAZCZCeZB4lYGhBJwQiPEqVPYoRcGavgD9BIJzeiv5GYq1lFrHQlgZAy7BeitHWjWc3ZCTg74V3KMLZBfbO9RyITusUvudfFq0WrfK0i1jO8JVIVBMESOyUocogaWX2Yd4QO5ezZBIFIZBJ3JLgChP4uceL6wiAnTfV1NMW5bB0ZB0rWT9wxXMxdgoHuW550DIUJvhtSizA1O6eYlZBDG3sIJ6mjThcqObELPDWBL5xijSpJ8OPSzNKkIBXlBwKuLhoZD")->getDecodedBody();
+
+        //   @dd(   $response );
+        
+        //   $response = $fb->get('/me/accounts?fields=instagram_business_account,id,name,username,fan_count,link,is_verified,picture,access_token,category&limit=10000',"IGQWRNNU0wLUZAlOXJqSE1RWlg4elloeVFVbFJZAMEdxRzZAsT0xBOGQ2MUtHNTFWaTRQOGVhV3hIUnAyRW1Ub0tSLUt4aVVTbTRlU2xVdll3bFExZA1FVQmlERVp3N3BDbmktREg1NV8ySk5vVGxWeHFmTWpucUpFQUkZD");
+
+        
+
+        // $username = $data['username'];
+
+        // $data = $response->json();
+
+        // $response = Http::get("https://graph.instagram.com/v12.0/{$id}?fields=profile_picture&access_token=IGQWROOE51RnFZAUW9sYlJPVlZA5R0tFV195Ykl0UjloZAUpzdmV2TXhDVzF4Y1NBSUlmSE9KcjNHQ1d5dkhzQlp0cVlNcHk5cERUV1JTUjd2S2YyX0NFdzhLOG56UnVEWVpiMjdoRFFaRU1RbEp6MUJjWEF2TDNLSFEZD");
+
+        // $profileData = $response->json();
+        // @dd($profileData);
 
         $data['latest_log']               = PaymentLog::with(['user','method','method.currency','currency'])
                                                 ->date()               

@@ -46,7 +46,8 @@ class MenuController extends Controller
             'title'       => 'Manage Menu',
             'menus'       =>  Menu::search(['name'])->with(['createdBy'])
                              ->orderBy('serial_id')
-                            ->paginate(paginateNumber()),
+                            ->paginate(paginateNumber())
+                            ->appends(request()->all()),
             "serialId"    =>  $serialId,
         ]);
     }

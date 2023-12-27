@@ -82,7 +82,6 @@ class Account
                     break;
 
             }
-
             
             $accountInfo = [
                 'id'         => $identification ,
