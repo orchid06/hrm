@@ -1,21 +1,16 @@
 @extends('layouts.master')
 @section('content')
-    <section class="bg-light-1">
-        <div class="container">
-            <div class="dashboard-content">
-                <div class="row pt-110">
-                    <div class="col-lg-7 mx-auto">
-                        <div class="box secbg">
-                            <div class="box-body text-center">
-                                <div id="paypal-button-container"></div>
-                            </div>
-                        </div>
-                    </div>
+
+    <div class="row pt-110">
+        <div class="col-xl-6 col-lg-8 col-md-10 mx-auto">
+            <div class="box secbg">
+                <div class="box-body text-center">
+                    <div id="paypal-button-container"></div>
                 </div>
             </div>
         </div>
-    </section>
-  
+    </div>
+
 @endsection
 
 

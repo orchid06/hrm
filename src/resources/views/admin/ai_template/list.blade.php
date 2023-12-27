@@ -19,7 +19,7 @@
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                      
+
                                         @if(check_permission('update_ai_template'))
 
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
@@ -80,7 +80,7 @@
                                             {{translate("Select One")}}
                                         </option>
                                         @foreach($subCategories as $subCategory)
-                                            <option  {{$subCategory->slug ==   request()->input('subCategory') ? 'selected' :""}} 
+                                            <option  {{$subCategory->slug ==   request()->input('subCategory') ? 'selected' :""}}
                                                 value="{{$subCategory->slug}}"> {{$subCategory->title}}
                                            </option>
                                         @endforeach
@@ -91,7 +91,7 @@
                                         <option value="">
                                             {{translate('Select User')}}
                                         </option>
-                       
+
                                         @foreach(system_users() as $user)
                                            <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
                                           </option>
@@ -105,8 +105,8 @@
                                     <i class="las la-sliders-h"></i>
                                 </button>
                                 </form>
-                            </div>  
-                        </div>  
+                            </div>
+                        </div>
                         <div class="ms-3">
                             <a href="{{route('admin.ai.template.list')}}"  class="i-btn btn--sm danger">
                                 <i class="las la-sync"></i>
@@ -115,6 +115,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
                 <table >
@@ -125,6 +126,7 @@
                                     <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
                                 @endif#
                             </th>
+                            
                             <th scope="col">
                                 {{translate('Name')}}
                             </th>
@@ -220,10 +222,10 @@
                                                 @endif
 
                                                 @if(check_permission('delete_ai_template') && $template->is_default == App\Enums\StatusEnum::false->status() )
-                              
+
                                                         <a href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i></a>
-                                                   
+
                                                 @endif
                                             @else
                                                 {{translate('N/A')}}
@@ -242,8 +244,9 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="Paginations">
-                    {{ $templates->links() }}
+                {{ $templates->links() }}
             </div>
         </div>
     </div>
@@ -259,7 +262,7 @@
 	(function($){
 
         $(".select2").select2({
-           
+
         })
 
         $(".sub_category_id").select2({

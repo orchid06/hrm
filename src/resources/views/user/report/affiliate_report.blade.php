@@ -10,14 +10,18 @@
 @endphp
 <div class="row">
     <div class="col-xl-12 col-lg-12 mx-auto">
-        <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+        <div class="w-100 d-flex align-items-center justify-content-between flex-md-nowrap flex-wrap gap-lg-5 gap-3 mb-4">
             <div>
                 <h4>
                     {{translate(Arr::get($meta_data,'title'))}}
                 </h4>
             </div>
 
-            <div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end">
+                    {{translate("Total Affiliate Users")}} <span class="ms-2 i-badge capsuled danger"> {{ $user->affilateUser->count()}} </span>
+                </div>
+
                 <button
                 class="icon-btn icon-btn-lg info circle"
                 type="button"
@@ -76,13 +80,6 @@
                 </div>
                 </div>
             </div>
-        </div>
-
-
-  
-
-        <div class="mt-3 text-end">
-            {{translate("Total Affiliate Users")}} <span class="ms-2 i-badge capsuled info"> {{ $user->affilateUser->count()}} </span>
         </div>
 
         <div class="table-accordion">

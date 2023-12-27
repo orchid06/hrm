@@ -10,7 +10,7 @@
   --color-secondary-light: rgba(195, 250, 107, 0.1);
   --color-secondary-soft: #f1faec;
   --color-secondary-text: rgb(36 40 44);
-  --text-primary: rgb(36 40 44);
+  --text-primary: #24282c;
   --text-secondary: #545454;
   --text-light: #ebebeb;
   --border-light: #ebebeb;
@@ -82,8 +82,6 @@ li {
 
 body {
   height: 100%;
-  min-height: 100dvh;
-  max-height: 100%;
   line-height: 1.55;
   color: var(--text-secondary);
   background-color: var(--site-bg);

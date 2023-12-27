@@ -42,7 +42,10 @@ class PageController extends Controller
 
             'breadcrumbs'  =>  ['Home'=>'admin.home','Pages'=> null],
             'title'        =>  'Manage Page',
-            'pages'        =>  Page::search(['title'])->with(['createdBy'])->latest()->paginate(paginateNumber())
+            'pages'        =>  Page::search(['title'])->with(['createdBy'])
+                                 ->latest()
+                                 ->paginate(paginateNumber())
+                                 ->appends(request()->all()),
 
         ]);
     }

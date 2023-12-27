@@ -59,31 +59,27 @@ class AccountConfig
  
 		$cookies                = true;
 
-        $account                = SocialAccount::where('id', $this->identification)
-                                            ->orWhere('account_id',$this->username)
-                                            ->first();
-
  
-		if ($account){
-			$this->cache_data_id = $account->id;
-			$settings = json_decode( $account->account_information, true );
-			if ( ! empty( $settings ) && is_array( $settings ) )
-			{
-				$this->settings = $settings;
-			}
+		// if ($account){
+		// 	$this->cache_data_id = $account->id;
+		// 	$settings = json_decode( $account->account_information, true );
+		// 	if ( ! empty( $settings ) && is_array( $settings ) )
+		// 	{
+		// 		$this->settings = $settings;
+		// 	}
 
-			$cookies_arr = json_decode( $account->cookies, true );
+		// 	$cookies_arr = json_decode( $account->cookies, true );
 
-			foreach ( $cookies_arr as $cook )
-			{
-				if ( $cook[ 'Name' ] == 'mid' )
-				{
-					$this->mid = $cook[ 'Value' ];
-				}
-			}
+		// 	foreach ( $cookies_arr as $cook )
+		// 	{
+		// 		if ( $cook[ 'Name' ] == 'mid' )
+		// 		{
+		// 			$this->mid = $cook[ 'Value' ];
+		// 		}
+		// 	}
 
-			$cookies = is_array( $cookies_arr ) ? new CookieJar( FALSE, $cookies_arr ) : true;
-		}
+		// 	$cookies = is_array( $cookies_arr ) ? new CookieJar( FALSE, $cookies_arr ) : true;
+		// }
 
 		$this->initDefaultSettings();
 
@@ -148,7 +144,13 @@ class AccountConfig
 		}
 	}
 
-	public function login ()
+
+	/**
+	 *ig login
+	 *
+	 * @return void
+	 */
+	public function login () :array
 	{
 		$this->_sendPreLoginFlow();
 
@@ -179,9 +181,6 @@ class AccountConfig
 		}
 
 		$response = $this->checkChallenge( $response );
-
-		$this->need_to_save_data = true;
-
 		return $response;
 	}
 

@@ -2,31 +2,35 @@
 @section('content')
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-xl-6 col-lg-8 col-md-10">
         <div class="i-card-md ">
             <div class="card-header">
                 <h4 class="card-title">
                     {{@$log->method->name}}
                </h4>
-            
+
             </div>
             <div class="card-body">
                 <div class="row align-items-center">
-                   
-                    <div class="col-md-7">
-                        <ul class="list-group text-center">
-                            <li class="list-group-item d-flex justify-content-between primary-bg ">
-                               {{translate('You have to pay ')}}:
-                               <strong>{{num_format($log->final_amount,$log->method->currency)}}  </strong>
+                    <div class="col-12">
+                        <ul class="payment-details list-group">
+                            <li class="list-group-item">
+                                <p>
+                                    {{translate('You have to pay ')}}:
+                                </p>
+                               <h6>{{num_format($log->final_amount,$log->method->currency)}}  </h6>
+
                             </li>
-                            <li class="list-group-item d-flex justify-content-between primary-bg ">
-                               {{translate('You will get ')}}:
-                
-                                <strong>{{num_format($log->amount,$log->currency)}}</strong>
+                            <li class="list-group-item">
+                                <p>
+                                    {{translate('You will get ')}}:
+                                </p>
+
+                                <h6>{{num_format($log->amount,$log->currency)}}</h6>
                             </li>
                         </ul>
 
-            
+
                         <form action="{{$data->url}}" method="{{$data->method}}" class="form">
                             @csrf
                             <script src="{{$data->checkout_js}}"
@@ -37,7 +41,7 @@
                             <input type="hidden" custom="{{$data->custom}}" name="hidden">
                         </form>
 
-                    
+
                     </div>
                 </div>
             </div>

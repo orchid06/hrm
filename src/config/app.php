@@ -177,7 +177,7 @@ return [
 
         App\Providers\MailConfigServiceProvider::class,
         App\Providers\SocialLoginServiceProvider::class,
-
+        \SocialiteProviders\Manager\ServiceProvider::class,
 
     ])->toArray(),
 
