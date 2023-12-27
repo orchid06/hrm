@@ -994,16 +994,16 @@
   }
 }
 
-.mega-menu-wrapper .mega-menu-left .maga-menu-item.menu-feature ul li > a {
+.mega-menu-wrapper .mega-menu-left .maga-menu-item.menu-feature ul li > .menu-feature-item {
   display: flex;
   align-items: flex-start;
   gap: 15px;
-  padding: 10px 30px;
+  padding: 17px 30px;
   border-radius: 4px;
 }
 
 @media (max-width: 991px) {
-  .mega-menu-wrapper .mega-menu-left .maga-menu-item.menu-feature ul li > a {
+  .mega-menu-wrapper .mega-menu-left .maga-menu-item.menu-feature ul li > .menu-feature-item{
     padding: 10px 25px;
   }
 }
@@ -1013,7 +1013,7 @@
   .maga-menu-item.menu-feature
   ul
   li
-  > a:hover {
+  > .menu-feature-item:hover {
   background-color: var(--site-bg);
 }
 
@@ -1022,7 +1022,7 @@
   .maga-menu-item.menu-feature
   ul
   li
-  > a:hover
+  > .menu-feature-item:hover
   div
   h6 {
   color: var(--color-primary);
@@ -1033,7 +1033,7 @@
   .maga-menu-item.menu-feature
   ul
   li
-  > a
+  > .menu-feature-item
   > span {
   font-size: 24px;
   line-height: 1;
@@ -1045,7 +1045,7 @@
   .maga-menu-item.menu-feature
   ul
   li
-  > a
+  > .menu-feature-item
   div
   p {
   font-size: 14px;
@@ -1063,7 +1063,7 @@
   .maga-menu-item.menu-feature
   ul
   li
-  a:hover
+  .menu-feature-item:hover
   + .sub-mega-menu {
   opacity: 1;
   visibility: visible;
@@ -1081,7 +1081,7 @@
   width: 200%;
   height: 100%;
   background: var(--color-white);
-  transition: 0.1s;
+  transition: 0.3s ease-in-out;
   opacity: 0;
   visibility: hidden;
   padding: 40px 30px;
@@ -1258,7 +1258,7 @@
   .mega-menu-integra
   .menu-social-item
   .social-item-img {
-  flex: 0 0 40px;
+  flex: 0 0 45px;
   width: 100%;
 }
 

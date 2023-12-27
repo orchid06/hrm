@@ -1524,7 +1524,6 @@
 .search-action-area .search-area .form-inner textarea {
   width: 100%;
   min-width: 180px;
-  padding-left: 30px;
 }
 @media (max-width: 991px) {
   .search-action-area .search-area .form-inner input,
@@ -1652,15 +1651,7 @@
   z-index: 1;
   background-color: transparent;
 }
-.form-inner input[type="date"]::after,
-.form-inner textarea[type="date"]::after {
-  content: "\f1e2";
-  position: absolute;
-  right: 15px;
-  top: 55%;
-  font-family: "Bootstrap-icons";
-  z-index: 9;
-}
+
 .form-inner .radio-buttons-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2031,7 +2022,7 @@ select {
   width: 100%;
   position: fixed;
   isolation: isolate;
-  z-index: 100;
+  z-index: 3;
   top: 0;
   left: 0;
   background: var(--color-white);
@@ -3257,7 +3248,7 @@ select {
   height: calc(100dvh - 69px);
   background: var(--color-white);
   border-right: 1px solid var(--color-primary-light);
-  z-index: 99;
+  z-index: 2;
   -webkit-transition: unset;
   transition: unset;
 }
@@ -3719,7 +3710,7 @@ select {
     position: fixed;
     top: 70px;
     left: 0;
-    z-index: 95;
+    z-index: 1;
     width: 100%;
     height: 100%;
     background: rgb(0, 0, 0);
@@ -3747,10 +3738,10 @@ select {
 }
 
 .main {
-  position: relative;
-  z-index: 2;
   margin-left: 80px;
   margin-top: 70px;
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 991px) {
   .main {
@@ -3759,9 +3750,8 @@ select {
 }
 .main .main-wrapper {
   padding: 50px 40px 30px;
-  min-height: calc(100dvh - 70px);
+  min-height: calc(100dvh - 95px);
   height: 100%;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 @media (max-width: 1199px) {
@@ -3850,8 +3840,6 @@ select {
   text-align: center;
   gap: 20px;
   height: inherit;
-  position: relative;
-  z-index: 2;
 }
 .plan-upgrade-card .plan-upgrade-body .existing-plan {
   background-color: var(--color-secondary);
@@ -5712,7 +5700,7 @@ select {
   .profile-tab-content
   .current-plan
   .current-plan-img {
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 65%;
   width: 100%;
 }
@@ -5957,6 +5945,9 @@ select {
   align-items: center;
   border-color: var(--border-light);
 }
+.table-accordion .list-group .list-group-item .report-img {
+  max-width: 100px;
+}
 
 .table-accordion .list-group .list-group-item .title {
   font-size: 15px;
@@ -5976,18 +5967,22 @@ select {
 }
 
 /* ==========Paginations========== */
-.Paginations {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-}
 
 @media (max-width: 576px) {
   .Paginations {
     justify-content: flex-start;
   }
+  .Paginations nav {
+    margin-top: 35px;
+  }
+}
+
+.Paginations nav {
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Paginations nav ul {
@@ -6255,18 +6250,168 @@ select {
   width: 100%;
 }
 
-/* Summer Note */
-.note-editor .note-toolbar .note-dropdown-menu,
-.note-popover .popover-content .note-dropdown-menu {
-  top: 115%;
+/* Account information */
+.tab-4 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 60px;
+  overflow: hidden;
+  padding: 5px;
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-primary-light);
+}
+@media (max-width: 424.98px) {
+  .tab-4 {
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+@media (max-width: 424.98px) {
+  .tab-4 .nav .nav-item {
+    width: 100%;
+  }
+}
+.tab-4 .nav .nav-item .nav-link {
+  font-size: 15px;
+  color: var(--text-primary);
+  border-radius: 60px;
+  padding: 5px 15px;
+  line-height: 1.4;
+}
+@media (max-width: 576px) {
+  .tab-4 .nav .nav-item .nav-link {
+    font-size: 14px;
+    padding: 5px 12px;
+  }
+}
+@media (max-width: 424.98px) {
+  .tab-4 .nav .nav-item .nav-link {
+    width: 100%;
+    border-radius: 4px;
+    display: inline-block;
+  }
+}
+.tab-4 .nav .nav-item .nav-link.active {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
-.note-modal .form-group {
-  margin-bottom: 15px;
+/* =============Ai Content Accordion============= */
+.faq-wrap .accordion-item {
+  margin-bottom: 20px !important;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 24px 0px,
+    var(--color-primary-light) 0px 0px 0px 1px;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.note-dropdown-menu.dropdown-menu {
-  border: 1px solid var(--color-primary-light) !important;
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.faq-wrap .accordion-item:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.faq-wrap .accordion-item .accordion-button {
+  font-weight: 600;
+  font-size: 16px;
+  background: var(--white);
+  color: var(--text-primary);
+  padding: 15px 65px 15px 15px;
+  position: relative;
+  transition: 0.4s ease-in;
+  line-height: 1.6;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button {
+    font-size: 16px;
+    padding: 15px 55px 15px 15px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:hover {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-button:focus {
+  z-index: unset;
+  border-color: unset;
+  outline: 0;
+  background: var(--white);
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+}
+
+.faq-wrap .accordion-item .accordion-button::after {
+  flex-shrink: 0;
+  width: unset;
+  height: unset;
+  margin-left: auto;
+  background-image: none;
+  background-repeat: unset;
+  background-size: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f128";
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: unset;
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button::after {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed)::after {
+  background-image: none;
+  transform: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f148";
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed) {
+  box-shadow: unset;
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-button:is(.collapsed) {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-body {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  border-top: none;
+  text-align: left;
+  padding: 15px 25px 25px;
+  background-color: var(--color-white);
+}
+
+.faq-wrap .accordion-item:last-of-type .accordion-collapse {
+  overflow: hidden;
 }

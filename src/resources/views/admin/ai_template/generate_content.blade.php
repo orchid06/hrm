@@ -13,7 +13,7 @@
                             <h4 class="card-title">
                                 {{translate($template->name)}}
                             </h4>
-                        </div> 
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 @include('partials.prompt_content')
@@ -22,36 +22,38 @@
                                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Generate")}}
                                     </button>
-                                </div>    
+                                </div>
                             </div>
-                        </div>            
+                        </div>
                     </div>
                 </form>
             </div>
+
             <div class="col-xl-5">
                 <div class="i-card-md">
                     <div class="card--header">
                         <h4 class="card-title">
                             {{translate("Content Section")}}
                         </h4>
-                    </div> 
+                    </div>
+                    
                     <div class="card-body">
                         <div class="row">
                             <form data-route="{{route('admin.content.store')}}" class="content-form" enctype="multipart/form-data" method="post">
                                 @csrf
                                 <div class="col-lg-12">
                                         <div class="form-inner">
-                                            <label for="Name"> 
+                                            <label for="Name">
                                                 {{translate('Name')}} <small class="text-danger">*</small>
                                             </label>
 
                                             <input placeholder="{{translate('Enter name')}}" id="Name"  required type="text" name="name" value="">
-                                         
+
                                         </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-inner">
-                                        <label for="Content"> 
+                                        <label for="Content">
                                             {{translate('Content')}} <small class="text-danger">*</small>
                                         </label>
                                         <textarea placeholder='{{translate("Enter Your Content")}}' name="content" id="content" cols="30" rows="10"></textarea>
@@ -64,7 +66,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>            
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,7 +77,7 @@
 <script>
 	(function($){
        	"use strict";
-    
+
         $(".select2").select2({
 
         })
@@ -103,9 +105,9 @@
                         $('#content').html(response.message)
                     }
                     else{
-                        toastr(response.message,"danger")   
+                        toastr(response.message,"danger")
                     }
-	
+
 				},
 				error: function (error){
 					if(error && error.responseJSON){
@@ -129,7 +131,7 @@
 				},
                 complete: function() {
                     $(".content-loader").addClass('d-none');
-              
+
                 },
 			 })
 
@@ -156,10 +158,10 @@
 
                 if(response.status){
 
-                    toastr(response.message,"success") 
+                    toastr(response.message,"success")
                 }
                 else{
-                    toastr(response.message,"danger")   
+                    toastr(response.message,"danger")
                 }
 
             },
@@ -194,7 +196,7 @@
         });
 
 
-        var inputObj = {}; 
+        var inputObj = {};
 
         $(document).on('change',".prompt-input",function(e){
             var value = $(this).val();
@@ -207,7 +209,7 @@
             else{
                 inputObj[index] = value;
             }
-            
+
             replace_prompt();
         })
 
@@ -229,7 +231,7 @@
                 $('#promptPreview').html($('#promptPreview').attr('data-prompt_input'));
             }
         }
-          
+
 	})(jQuery);
 </script>
 @endpush
