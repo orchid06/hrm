@@ -4,15 +4,12 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-4">
-
                     <form hidden id="bulkActionForm" action="{{route('admin.user.bulk')}}" method="post">
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-
-
                     @if(check_permission('create_user') || check_permission('update_user') )
                         <div class="col-md-5 d-flex justify-content-start">
                             @if(check_permission('update_menu'))
@@ -21,7 +18,6 @@
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                    
                                         @if(check_permission('update_menu'))
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
@@ -32,7 +28,6 @@
                                     </ul>
                                 </div>
                             @endif
-
                             @if(check_permission('create_user'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
@@ -44,11 +39,9 @@
                             @endif 
                         </div>
                     @endif
-
                     <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-
                                 <div class="form-inner">
                                     <select name="country" id="filter_country" class="filter-country">
                                         <option value="">
@@ -60,30 +53,22 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-inner  ">
                                       <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
                                 </div>
-
-                                
-
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
-
                                 <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
                                     <i class="las la-sync"></i>
                                 </a>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-                
                 <table>
                     <thead>
                         <tr>
@@ -95,37 +80,28 @@
                             <th scope="col">
                                 {{translate('Name')}}
                             </th>
-
                             <th scope="col"  >
                                 {{translate('Email - Phone')}}
                             </th>
                             <th scope="col"  >
                                 {{translate('Country')}}
                             </th>
-
-
                             <th scope="col">
                                 {{translate('Balance')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Created By')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         @forelse($users  as $user)
-
                             <tr>
                                 <td data-label="#">
                                     @if( check_permission('update_user') )
@@ -133,7 +109,6 @@
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm"  src='{{imageUrl($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
@@ -142,41 +117,29 @@
                                        
                                             <small class="i-badge success">{{@$user->subscriptions->first()->package->title}}</small>
                                         @endif
-
                                     </div>
                                 </td>
-
                                 <td data-label='{{translate("Email - Phone")}}'>
-                                    
                                     <div class="d-block">
                                         {{$user->email}} 
                                     </div>
-
                                     <span class="i-badge success">{{$user->phone}}</span>
                                 </td>
-
                                 <td  data-label="{{translate('Country')}}">
                                     {{$user->country->name}}
                                 </td>
-
-                         
                                 <td data-label="{{translate('Balance')}}">
-                                    
                                     <span class="i-badge-solid primary"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
                                         {{num_format(
                                             number : $user->balance,
                                             calC   : true
                                     )}} @endif</span>
-                                   
                                 </td>
-
-                              
                                 <td data-label="{{translate('Created By')}}">
                                     <span class="i-badge capsuled info">
                                         {{$user->createdBy->name}}
                                     </span>
                                 </td>
-
                                 <td data-label="{{translate('Status')}}">
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_user') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -189,7 +152,6 @@
                                         <label class="form-check-label" for="status-switch-{{$user->id}}"></label>
                                     </div>
                                 </td>
-
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
@@ -218,18 +180,15 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="pagination">
                 {{ $users->links() }}
             </div>
         </div>
     </div>
 @endsection
+
 @section('modal')
-
-
     @include('modal.delete_modal')
-
     <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -241,7 +200,6 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <form action="{{route('admin.user.store')}}" id="storeModalForm" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
@@ -254,21 +212,17 @@
                                     <input type="text" name="name" id="Name"  required  placeholder="{{translate('Enter Name')}}"
                                         value="{{old('name')}}">
                                 </div>
-
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="username">
                                         {{translate('Username')}}
                                             <small class="text-danger">*</small>
                                     </label>
-
                                     <input type="text" name="username" id="username"  placeholder="{{translate('Enter User Name')}}"
                                         value="{{old('username')}}" required>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="email">
@@ -280,49 +234,38 @@
                                         value="{{old('email')}}" required>
                                 </div>
                             </div>
-
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="country">
                                         {{translate('Country')}}
                                     </label>
-
                                     <select name="country_id" id="country">
                                         <option value="">
                                             {{translate('Select Country')}}
                                         </option>
-
                                         @foreach ($countries as $country )
                                             <option {{old('country_id') == $country->id ? "selected" :""}} value="{{$country->id}}">
                                                  {{$country->name}}
                                             </option>
                                         @endforeach
                                     </select>
-
-
-             
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="phone">
                                         {{translate('Phone')}}
                                     </label>
-
                                     <input type="text" name="phone" id="phone" placeholder="{{translate('Enter Phone')}}"
                                         value="{{old('phone')}}" required>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="status">
                                         {{translate('Status')}}
                                             <small class="text-danger">*</small>
                                     </label>
-
                                     <select class="select2" name="status" id="status">
                                         @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
                                             <option {{old('status') == $value ? "selected" :"" }} value="{{$value}}">
@@ -331,23 +274,17 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="image">
                                         {{translate('Profile Image')}}
                                     </label>
                                     <input data-size = "{{config('settings')['file_path']['profile']['user']['size']}}" id="image" name="image" type="file" class="preview" >
-            
                                     <div class="mt-2 image-preview-section">
-                                        
                                     </div>
-
                                 </div>
                             </div>
-
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="password">
@@ -357,7 +294,6 @@
                                     <input placeholder="{{translate('Enter Password')}}" type="text" id="password"  name="password" value="{{old('password')}}">
                                 </div>
                             </div>
-                            
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="password_confirmation">
@@ -367,11 +303,8 @@
                                     <input placeholder="{{translate('Enter Confirm Password')}}" type="text" id="password_confirmation"  name="password_confirmation" value="{{old('password_confirmation')}}">
                                 </div>
                             </div>
-
-                
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -384,8 +317,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @push('script-push')

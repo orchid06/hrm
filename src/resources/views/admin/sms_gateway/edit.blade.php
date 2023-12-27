@@ -3,7 +3,6 @@
 @section('content')
 
 	<div class="i-card-md">
-		
 		<div class="card-body">
 			<form action="{{route('admin.smsGateway.update')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
 				@csrf
@@ -21,7 +20,6 @@
 							</div>
 						</div> 
 					@endforeach
-
 					<div class="col-12">
 						<button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
 							{{translate("Submit")}}

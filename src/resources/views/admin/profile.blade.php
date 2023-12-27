@@ -18,14 +18,12 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="i-card-md">
 		<div class="card--header">
 			<h4 class="card-title">
 				{{translate("Profile Info")}}
 			</h4>
 		</div>
-
 		<div class="card-body">
 			<ul class="nav nav-tabs style-1" role="tablist">
 				<li class="nav-item " role="presentation">
@@ -38,7 +36,6 @@
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade active show" id="profile-tab" role="tabpanel">
-
 					<form action='{{route("admin.profile.update")}}' class="account-form" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
@@ -49,7 +46,6 @@
 									id="username" name="username" value="{{$user->username}}" >
 								</div>
 							</div>
-
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="name">{{translate("Name")}}</label>
@@ -58,7 +54,6 @@
 									id="name" name="name" value="{{$user->name}}" >
 								</div>
 							</div>
-
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="email">
@@ -69,7 +64,6 @@
 									name="email"  value="{{$user->email}}"  >
 								</div>
 							</div>
-
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="phone">
@@ -78,22 +72,16 @@
 									<input type="number" name="phone" value="{{$user->phone}}" placeholder="Phone" id="phone">
 								</div>
 							</div>
-							
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="image">
 									   {{translate('Profile Image')}}
 									</label>
 									<input class="preview" data-size = "{{config('settings')['file_path']['profile']['admin']['size']}}" id="image" name="image" type="file">
-
-
 									<div class="mt-2 image-preview-section">
-                                        
                                     </div>
-
 								</div>
 							</div>
-
 							<div class="col-lg-12">
 								<button type="submit" class="i-btn btn--primary btn--lg">
 									{{translate("Submit")}}
@@ -101,10 +89,8 @@
 							</div>
 						</div>
 					</form>
-						
 				</div>
 				<div class="tab-pane fade " id="password-tab" role="tabpanel">
-
 					<form action="{{route('admin.password.update')}}" class="account-form" method="post">
 						@csrf
 						<div class="row">
@@ -117,7 +103,6 @@
 									id="currentPassword" name="current_password" placeholder="{{translate('Enter Current Pasdsword')}}" >
 								</div>
 							</div>
-
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="password">
@@ -127,7 +112,6 @@
 									id="password" name="password">
 								</div>
 							</div>
-
 							<div class="col-lg-6">
 								<div class="form-inner">
 									<label for="password_confirmation">
@@ -137,7 +121,6 @@
 									id="password_confirmation" name="password_confirmation" class="form-control">
 								</div>
 							</div>
-
 							<div class="col-12">
 								<button type="submit" class="i-btn btn--primary btn--lg">
 									{{translate("Submit")}}
@@ -145,10 +128,7 @@
 							</div>
 						</div>
 					</form>
-					
 				</div>
-				
-				
 			</div>
 		</div>
 	</div>

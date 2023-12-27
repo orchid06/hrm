@@ -80,12 +80,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-
-            
                 <table >
                     <thead>
                         <tr>
@@ -94,15 +90,12 @@
                                    <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
                                 @endif#
                             </th>
-
                             <th scope="col">
                                 {{translate('Date')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('User')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Trx Code')}}
                             </th>
@@ -115,16 +108,13 @@
                             <th scope="col">
                                 {{translate('Remark')}}
                             </th>
-                
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse($reports as $report)
-  
                                 <tr>
                                     <td data-label="#">
                                         @if( check_permission('delete_report'))
@@ -132,21 +122,17 @@
                                         @endif
                                         {{$loop->iteration}}
                                     </td>
-
                                     <td data-label="{{translate('Date')}}">
                                         {{ get_date_time($report->created_at) }}
                                     </td>
-
                                     <td data-label="{{translate('User')}}">
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
-                                    
                                     <td  data-label="{{translate('Trx Code')}}">
                                           {{$report->trx_code}}
                                     </td>
-
                                     <td  data-label="{{translate('Credit')}}">
                                         <span class='text--{{$report->type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
                                             <i class='las la-{{$report->type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}'></i>
@@ -157,7 +143,6 @@
                                             @endif
                                         </span>
                                     </td>
-
                                     <td  data-label='{{translate("Post Credit")}}'>
                                         @if(App\Enums\PlanDuration::value('UNLIMITED') == $report->post_balance)
                                            {{translate('Unlimited')}}
@@ -165,45 +150,32 @@
                                             {{$report->post_balance}}
                                         @endif
                                     </td>
-
                                     <td  data-label='{{translate("Remark")}}'>
-                                 
                                             {{k2t($report->remark)}}
-                         
                                     </td>
-
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-
                                             <a href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                             @if(check_permission('delete_report') )
                                                 <a href="javascript:void(0);" data-href="{{route('admin.credit.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
-                                                <i class="las la-trash-alt"></i></a>
-                                                   
+                                                <i class="las la-trash-alt"></i></a> 
                                             @else
                                                 {{translate('N/A')}}
                                             @endif
-
                                         </div>
                                     </td>
                                </tr>
-                         
                             @empty
-
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>
                         @endforelse
-                 
                     </tbody>
                 </table>
             </div>
-            
-      
-
             <div class="Paginations">
                     {{ $reports->links() }}
             </div>

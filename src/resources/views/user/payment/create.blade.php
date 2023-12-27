@@ -158,7 +158,7 @@
 
                 var exchangeRate        =  exchange_rate(method.currency)
 
-                var list  =  `<li class="list-group-item" aria-current="true">
+                var list  =  `<li class="list-group-item active" aria-current="true">
                                         <h5>
                                             {{translate("Deposit Details")}}
                                         </h5>

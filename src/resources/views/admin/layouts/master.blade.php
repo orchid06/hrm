@@ -68,15 +68,12 @@
         })
 
         window.onload = function () {
-
           $('.table-loader').addClass("d-none");
-
 
         }
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {
-
             const id = $(this).attr('data-id')
             const key = $(this).attr('data-key')
             var column = ($(this).attr('data-column'))
@@ -130,7 +127,6 @@
             })
         }
 
-
         // read notification
         $(document).on('click','.read-notification',function(e){
             var href = $(this).attr('data-href')
@@ -159,7 +155,6 @@
                     toastr(jqXHR.statusText, 'danger');
                 });
         }
-
 
         /** delete ,restore , bulk action */
 

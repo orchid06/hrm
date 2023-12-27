@@ -5,7 +5,6 @@
 @endpush
 
 @section('content')
-
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -60,35 +59,26 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-
-            
                 <table >
                     <thead>
                         <tr>
                             <th scope="col">
                                #
                             </th>
-
                             <th scope="col">
                                 {{translate('Trx Code')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Expired In')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('User')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Package')}}
                             </th>
-
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
@@ -103,20 +93,15 @@
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @forelse($reports as $report)
-  
                                 <tr>
                                     <td data-label="#">
-                                      
                                         {{$loop->iteration}}
                                     </td>
-
                                     <td  data-label="{{translate('Trx Code')}}">
                                         {{$report->trx_code}}
                                     </td>
-
                                     <td data-label="{{translate('Expired In')}}">
                                         @if($report->expired_at)
                                            {{ get_date_time($report->expired_at) }}
@@ -124,28 +109,23 @@
                                             {{translate("N/A")}}
                                         @endif
                                     </td>
-
                                     <td data-label='{{translate("User")}}'>
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
                                             {{$report->user->name}}
                                         </a>
                                     </td>
-
                                     <td data-label='{{translate("Package")}}'>
                                          {{@$report->package->title}}
                                     </td>
-
                                     <td data-label='{{translate("Status")}}'>
                                          @php echo subscription_status($report->status) @endphp
                                     </td>
-
                                     <td data-label='{{translate("Payment Info")}}'>
                                         {{@num_format(
                                             number : $report->payment_amount??0,
                                             calC   : true
                                         )}}
                                     </td>
-
                                     <td data-label='{{translate("Date")}}'>
                                         @if($report->created_at)
                                            {{ get_date_time($report->created_at) }}
@@ -153,10 +133,8 @@
                                             {{translate("N/A")}}
                                         @endif
                                     </td>
-
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-
                                             @php
                                                 $informations = [
 
@@ -175,32 +153,22 @@
 
                                             <a href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
-
                                             <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
-                                    
                                         </div>
                                     </td>
                                </tr>
-                         
                             @empty
-
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                 </td>
                             </tr>
                         @endforelse
-                 
                     </tbody>
                 </table>
             </div>
-            
-      
-
             <div class="Paginations">
-
                     {{ $reports->links() }}
-                
             </div>
         </div>
     </div>
@@ -208,11 +176,9 @@
 @endsection
 @section('modal')
 
-
     <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h5 class="modal-title">
                         {{translate('Subscription Information')}}
@@ -221,44 +187,30 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
-
                         <div class="col-lg-12">
                             <div class="form-inner">
                                 <label for="content" class="form-label" >
                                     {{translate('Note')}} 
                                 </label>
-
                                 <textarea disabled name="content" id="content" cols="30" rows="4"></textarea>
-                                
                             </div>
-
                         </div>
                         <div class="col-lg-12">
-
                             <ul class="list-group list-group-flush" id="additionalInfo">
-                                
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-                    
                 </div>
-                
             </div>
         </div>
     </div>
-
-
-
     <div class="modal fade" id="updatesubscription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updatesubscription" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -270,12 +222,10 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
                 <form action="{{route('admin.subscription.report.update')}}" id="updateModalForm" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id" class="form-control" >
-
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-inner">
@@ -283,19 +233,12 @@
                                         {{translate('Status')}}   <span class="text-danger">*</span>
                                     </label>
                                     <select class="form-select" name="status"  id="Status">
-
                                         @foreach ( App\Enums\SubscriptionStatus::toArray() as $k => $v )
-
                                            <option value="{{$v}}">{{$k}}</option>
-                                            
                                         @endforeach
-
                                     </select>
-
                                 </div>
                             </div>
-
-
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="expired_at">
@@ -305,7 +248,6 @@
                                     <input type="date" required name="expired_at" id="expired_at">
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="remarks">
@@ -315,11 +257,8 @@
                                        <textarea required placeholder='{{translate("Type Here ...")}}' name="remarks" id="remarks" cols="30" rows="5"></textarea>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -333,9 +272,7 @@
         </div>
     </div>
 
-
 @endsection
-
 
 @push('script-include')
    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
@@ -366,7 +303,6 @@
             dateFormat: "Y-m-d",
 
         });
-
 
         $(document).on('click','.show-info',function(e){
 

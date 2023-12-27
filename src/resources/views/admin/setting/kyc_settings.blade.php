@@ -6,24 +6,19 @@
 	$kycSettings     = !is_array(site_settings('kyc_settings',[])) ?  json_decode(site_settings('kyc_settings',[]),true) : [];
 @endphp
 
-
 <form data-route="{{route('admin.setting.kyc.store')}}"  class="settingsForm"  method="POST" enctype="multipart/form-data">
     @csrf
     <div class="i-card-md">
         <div class="card--header">
-       
-
             <div class="action">
                 <button id="add-kyc-option" class="i-btn btn--sm success">
                     <i class="las la-plus me-1"></i>   {{translate('Add More')}}
                 </button>
             </div>
         </div>
-
         <div class="card-body">
             <div class="row g-4">
                 <div class="col-12">
-
                     <div class="table-container">
                         <table class="align-middle">
                             <thead class="table-light ">
@@ -48,7 +43,6 @@
                                     </th>
                                 </tr>
                             </thead>
-
                             <tbody id="ticketField">
                                 @foreach ($kycSettings as $input)
                                 <tr>
@@ -57,7 +51,6 @@
                                             <input type="text" name="custom_inputs[{{$loop->index}}][labels]"  value="{{$input['labels']}}">
                                         </div>
                                     </td>
-
                                     <td data-label='{{translate("Type")}}'>
                                         <div class="form-inner mb-0">
 
@@ -76,7 +69,6 @@
 
                                         </div>
                                     </td>
-
                                     <td  data-label='{{translate("Required")}}' >
                                         <div class="form-inner mb-0">
                                             @if($input['default'] == App\Enums\StatusEnum::true->status() && $input['type'] != 'file' )
@@ -94,7 +86,6 @@
                                             @endif
                                         </div>
                                     </td>
-
                                     <td  data-label='{{translate("Placeholder")}}'>
                                         <div class="form-inner mb-0">
                                             <input type="text" name="custom_inputs[{{$loop->index}}][placeholder]"  value="{{$input['placeholder']}}">
@@ -102,9 +93,7 @@
                                         <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
                                         <input   type="hidden" name="custom_inputs[{{$loop->index}}][multiple]"  value="{{$input['multiple']}}">
                                         <input   type="hidden" name="custom_inputs[{{$loop->index}}][name]"  value="{{$input['name']}}">
-
                                     </td>
-
                                     <td data-label='{{translate("Option")}}'>
                                         @if($input['default'] == App\Enums\StatusEnum::true->status())
                                             {{translate('N/A')}}
@@ -119,10 +108,8 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
                     </div>
-
                     <div class="mt-20">
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
@@ -130,21 +117,16 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </form>
 @endsection
 
-
 @push('script-push')
-
 <script>
   "use strict";
 
-
         var count = "{{count($kycSettings)-1}}";
-
 		// add more kyc option
 		$(document).on('click','#add-kyc-option',function(e){
 			count++
@@ -166,7 +148,6 @@
                                     </select>
                                 </div>
 							</td>
-
 							<td data-label="{{translate("Required")}}">
                                 <div class="form-inner mb-0">
                                     <select class="form-select" name="custom_inputs[${count}][required]" >
@@ -175,7 +156,6 @@
                                     </select>
                                 </div>
 							</td>
-
 							<td data-label="{{translate("placeholder")}}">
                                 <div class="form-inner mb-0">
                                     <input placeholder="{{translate("Enter Placeholder")}}"  type="text" name="custom_inputs[${count}][placeholder]" >
@@ -184,7 +164,6 @@
                                     <input  type="hidden" name="custom_inputs[${count}][name]"  value="">
                                 </div>
 							</td>
-
 							<td data-label='{{translate("Option")}}'>
 							   <div >
                                     <a href="javascript:void(0);" class="pointer icon-btn danger delete-option">
@@ -198,14 +177,11 @@
 
 			e.preventDefault()
 		})
-
         //delete ticket options
 		$(document).on('click','.delete-option',function(e){
 			$(this).closest("tr").remove()
 			count--
 			e.preventDefault()
 		})
-
-
 </script>
 @endpush

@@ -40,7 +40,6 @@
                                 </div>
                             @endif
 
-                        
                             @if(check_permission('create_role'))
                                 <div class="d-flex justify-content-start">
                                     <div class="action">
@@ -50,7 +49,6 @@
                                     </div>
                                 </div>
                             @endif
-                         
 						</div>
 					@endif
                     <div class="col-xl-5 col-lg-7 col-md-6 d-flex justify-content-md-end justify-content-start">
@@ -58,14 +56,10 @@
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
                                       <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search by name or createdby or updatedby')}}">
-
                                 </div>
-                             
-
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
-
                                 <a href="{{route('admin.role.list')}}"  class="i-btn btn--sm danger">
                                     <i class="las la-sync"></i>
                                 </a>
@@ -74,11 +68,8 @@
                     </div>
                 </div>
             </div>
-
 			<div class="table-container position-relative">
-				 
 	            @include('admin.partials.loader')
-
 				<table>
 					<thead>
 						<tr>
@@ -107,89 +98,68 @@
 							</th>
 						</tr>
 					</thead>
-
 					<tbody>
 						@forelse($roles as $role)
-                    
-								<tr>
-									<td data-label="#">
-										@if( check_permission('update_role') || check_permission('delete_role'))
-											<input type="checkbox" value="{{$role->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$role->id}}" />
-										@endif
-										{{$loop->iteration}}
-									</td>
-
-									<td data-label='{{translate("name")}}'>
-										{{$role->name}}
-									</td>
-
-									<td data-label='{{translate("Status")}}'>
-										<div class="form-check form-switch switch-center">
-											<input {{!check_permission('update_role') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-												data-column="status"
-												data-route="{{ route('admin.role.update.status') }}"
-												data-status="{{ $role->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-												data-id="{{$role->uid}}" {{$role->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-											id="status-switch-{{$role->uid}}" >
-											<label class="form-check-label" for="status-switch-{{$role->uid}}"></label>
-										</div>
-									</td>
-
-									<td data-label='{{translate("Created By")}}'>
-										<span class="i-badge capsuled info">
-											{{$role->createdBy->username}}
-										</span>
-									</td>
-
-									<td data-label='{{translate("Updated by")}}'>
-										<span class="i-badge capsuled success">
-											{{$role->updatedBy->username}}
-										</span>
-
-									</td>
-
-
-									<td data-label='{{translate("Action")}}'>
-										<div class="table-action">
-
-											@if(check_permission('update_role') ||  check_permission('delete_role'))
-												@if(check_permission('update_role'))
-
-													<a href="{{route('admin.role.edit',$role->uid)}}" class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
-												@endif
-
-												@if(check_permission('delete_role'))
-
-													<a href="javascript:void(0);" data-href="{{route('admin.role.destroy',$role->uid)}}" class="pointer delete-item icon-btn danger">
-													<i class="las la-trash-alt"></i>
-												</a>
-												
-												@endif
-
-											@else
-												{{translate('N/A')}}
+							<tr>
+								<td data-label="#">
+									@if( check_permission('update_role') || check_permission('delete_role'))
+										<input type="checkbox" value="{{$role->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$role->id}}" />
+									@endif
+									{{$loop->iteration}}
+								</td>
+								<td data-label='{{translate("name")}}'>
+									{{$role->name}}
+								</td>
+								<td data-label='{{translate("Status")}}'>
+									<div class="form-check form-switch switch-center">
+										<input {{!check_permission('update_role') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+											data-column="status"
+											data-route="{{ route('admin.role.update.status') }}"
+											data-status="{{ $role->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+											data-id="{{$role->uid}}" {{$role->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+										id="status-switch-{{$role->uid}}" >
+										<label class="form-check-label" for="status-switch-{{$role->uid}}"></label>
+									</div>
+								</td>
+								<td data-label='{{translate("Created By")}}'>
+									<span class="i-badge capsuled info">
+										{{$role->createdBy->username}}
+									</span>
+								</td>
+								<td data-label='{{translate("Updated by")}}'>
+									<span class="i-badge capsuled success">
+										{{$role->updatedBy->username}}
+									</span>
+								</td>
+								<td data-label='{{translate("Action")}}'>
+									<div class="table-action">
+										@if(check_permission('update_role') ||  check_permission('delete_role'))
+											@if(check_permission('update_role'))
+												<a href="{{route('admin.role.edit',$role->uid)}}" class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 											@endif
-
-
-										</div>
-									</td>
-								</tr>
-                            
+											@if(check_permission('delete_role'))
+												<a href="javascript:void(0);" data-href="{{route('admin.role.destroy',$role->uid)}}" class="pointer delete-item icon-btn danger">
+												<i class="las la-trash-alt"></i>
+											</a>
+											@endif
+										@else
+											{{translate('N/A')}}
+										@endif
+									</div>
+								</td>
+							</tr>
 						@empty
-								<tr>
-									<td class="border-bottom-0" colspan="90">
-										@include('admin.partials.not_found',['custom_message' => "No Roles Found!!"])
-									</td>
-								</tr>
+							<tr>
+								<td class="border-bottom-0" colspan="90">
+									@include('admin.partials.not_found',['custom_message' => "No Roles Found!!"])
+								</td>
+							</tr>
 						@endforelse
 					</tbody>
 				</table>
 			</div>
-
 			<div class="Paginations">
-				
 				{{ $roles->links() }}
-				
 			</div>
 		</div>
 	</div>
