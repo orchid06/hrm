@@ -379,16 +379,16 @@
                                 <div class="card-header">
 
                                     <h4 class="card-title d-flex align-items-center gap-2">
-                                           <div class="dot-spinner">
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                                <div class="dot-spinner__dot"></div>
-                                            </div>
+                                           <span class="dot-spinner">
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                                <span class="dot-spinner__dot"></span>
+                                            </span>
                                           {{translate('Current Plan')}}
                                     </h4>
 

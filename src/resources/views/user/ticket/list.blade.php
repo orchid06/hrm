@@ -9,13 +9,13 @@
             <h4 class="card-title">
                 {{translate(Arr::get($meta_data,'title'))}}
             </h4>
-            
+
             <div class="d-flex align-items-center gap-2">
               <a   href="{{route('user.ticket.create')}}" class="i-btn primary btn--sm capsuled">
                 <i class="bi bi-plus-lg"></i>
                  {{translate('Create Ticket')}}
               </a>
-              <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"aria-expanded="false"
+              <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
                 aria-controls="tableFilter">
                 <i class="bi bi-funnel"></i>
               </button>
@@ -61,7 +61,7 @@
 
                     <div class="d-flex gap-2">
                         <button class="i-btn primary btn--lg">
-                        <i class="bi bi-search"></i>
+                            <i class="bi bi-search"></i>
                         </button>
                         <a href="{{ route('user.ticket.list') }}" class="i-btn danger btn--lg">
                             <i class="bi bi-arrow-repeat"></i>

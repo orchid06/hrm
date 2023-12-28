@@ -145,33 +145,58 @@
                                 <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Amount') }}</h6>
 
-                                            <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
-                                            <li class="list-group-item">{{ translate('Charge') }} :
-                                                {{num_format($report->charge,@$report->currency)}}
+                                                <p class="value">
+                                                    {{num_format($report->amount,@$report->currency)}}
+                                                </p>
                                             </li>
 
-                                            <li class="list-group-item">{{ translate('Final Amount') }} :
-                                                {{num_format($report->final_amount,@$report->currency)}}
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Charge') }}</h6>
+
+                                                <p class="value">
+                                                    {{num_format($report->charge,@$report->currency)}}
+                                                </p>
                                             </li>
 
-                                            <li class="list-group-item">{{ translate('Date') }} : {{ diff_for_humans($report->created_at) }}
-                                            </li>
-                                            <li class="list-group-item">{{ translate('Status') }} :  @php echo   withdraw_status($report->status)  @endphp
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Final Amount') }}</h6>
+
+                                                <p class="value">
+                                                    {{num_format($report->final_amount,@$report->currency)}}
+                                                </p>
                                             </li>
 
-                                            <li class="list-group-item">{{ translate('Feedback') }} :
-                                                {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Date') }}</h6>
+
+                                                <p class="value">{{ diff_for_humans($report->created_at) }}</p>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Status') }}</h6>
+                                                @php echo   withdraw_status($report->status)  @endphp
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <h6 class="title">{{ translate('Feedback') }}</h6>
+
+                                                <p class="value">
+                                                    {{ $report->feedback ? $report->feedback : translate('N/A') }}
+                                                 </p>
+                                            </li>
 
                                             @foreach ($report->custom_data as $k => $v)
-                                                <li class="list-group-item">{{ translate(ucfirst($k)) }} : 
+                                                <li class="list-group-item">
+                                                    <h6 class="title">{{ translate(ucfirst($k)) }}</h6>
                                                     @if ($v->type == 'file')
                                                         @php
                                                             $file = $report
                                                                 ->file
                                                                 ->where('type', $k)
                                                                 ->first();
-
                                                         @endphp
 
                                                         <div class="report-img">
@@ -179,7 +204,7 @@
                                                                 alt="{{ @$file->name }}">
                                                         </div>
                                                     @else
-                                                        {{ $v->field_name }}
+                                                        <p class="value">{{ $v->field_name }}</p>
                                                     @endif
                                                 </li>
                                             @endforeach

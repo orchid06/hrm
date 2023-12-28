@@ -336,3 +336,17 @@
 .note-modal .form-group {
   margin-bottom: 15px;
 }
+
+.note-editor .note-editable > ul {
+  list-style: disc !important;
+  list-style-position: inside !important;
+}
+.note-editor .note-editable > ul > li,
+.note-editor .note-editable > ol > li {
+  list-style-type: unset !important;
+}
+
+.note-editor .note-editable > ol {
+  list-style: decimal !important;
+  list-style-position: inside !important;
+}
