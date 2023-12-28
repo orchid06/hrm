@@ -145,14 +145,18 @@ class Account
             $apiResponse       = $apiResponse->json();
 
             if($account->account_type == AccountType::Page->value) {
-
+                $since = strtotime('-1 month');
+                $until = strtotime('now');
                 $insightApi = Http::get($baseApi."/".$apiVersion."/".$account->account_id."/insights/page_post_engagements", [
                                 'access_token' =>   $token,
+                                'since' => $since,
+                                'until' => $until,
                             ]);
 
                 $insightApiResponse       = $insightApi->json();
 
                 $insightData              = Arr::get($insightApiResponse,'data', []);
+
 
             }
 

@@ -551,9 +551,15 @@ class CoreController extends Controller
     public function handleAccountCallback(string $service) : RedirectResponse
     {
 
+        $platform  = $this->setConfig($service);
+
+        $account = Socialite::driver($service)->scopes(['user_profile', 'instagram_basic'])->stateless()->user();
+        @dd($account);
+
         try {
 
-            $platform  = $this->setConfig($service);
+      
+
             $guard = session()->get('guard');
 
             if(!$guard || !auth()->guard($guard)->check() ){
