@@ -991,7 +991,7 @@ button {
       grid-column: 1 / 4;
     }
     .setting-tab {
-      padding: 15px 0;
+      padding: 20px 0 !important; 
       background-color: $card-bg;
       border-radius: 4px;
       .nav {
@@ -1068,7 +1068,7 @@ button {
 }
 
 .setting-tab {
-  padding: 15px 0;
+  padding: 20px 0 !important;
   background-color: $card-bg;
   border-radius: 4px;
   .nav {
