@@ -70,7 +70,6 @@ class Currency extends Model
     }
 
 
-
     public function scopeDefault(Builder $query) :Builder{
        return $query->where("default",StatusEnum::true->status());
     }
