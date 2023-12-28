@@ -107,6 +107,33 @@ class SocialAccountController extends Controller
     }
 
 
+    // /**
+    //  * store a new account
+    //  *
+    //  * @return RedirectResponse
+    //  */
+    // public function reconnect(Request $request) :RedirectResponse{
+
+    //     $request->validate([
+    //         'id' => "required|exists:",
+    //     ]);
+
+    //     $platform = MediaPlatform::where('id',request()->input("platform_id"))
+    //                     ->active()
+    //                     ->integrated()
+    //                     ->firstOrfail();
+
+
+    //     $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
+
+    //     $service =  new  $class();
+
+    //     $response = $service->{$platform->slug}($platform,$request->except("_token"));
+    //     return back()->with($response);
+
+    // }
+
+
      /**
      * store a new account
      *
@@ -140,9 +167,6 @@ class SocialAccountController extends Controller
         
 
     }
-
-
-
 
     public function destroy(string $id) :RedirectResponse {
 

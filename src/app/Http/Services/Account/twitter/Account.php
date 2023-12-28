@@ -6,6 +6,7 @@ use App\Enums\ConnectionType;
 use App\Traits\AccoutManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
+use App\Models\SocialAccount;
 use Illuminate\Support\Arr;
 use Coderjerk\BirdElephant\BirdElephant;
 class Account
@@ -13,7 +14,6 @@ class Account
     
 
     use AccoutManager;
-
 
     public $twUrl ,$params ;
     public function __construct(){
@@ -41,12 +41,12 @@ class Account
 
         try {
 
-            $responseStatus  = response_status(translate('Api error'),'error');
-            $consumer_key    = Arr::get($request,'consumer_key',null);
-            $consumer_secret = Arr::get($request,'consumer_secret',null);
-            $access_token    = Arr::get($request,'access_token',null);
-            $token_secret    = Arr::get($request,'token_secret',null);
-            $bearer_token    = Arr::get($request,'bearer_token',null);
+                $responseStatus  = response_status(translate('Api error'),'error');
+                $consumer_key    = Arr::get($request,'consumer_key',null);
+                $consumer_secret = Arr::get($request,'consumer_secret',null);
+                $access_token    = Arr::get($request,'access_token',null);
+                $token_secret    = Arr::get($request,'token_secret',null);
+                $bearer_token    = Arr::get($request,'bearer_token',null);
             
                 $config = array(
                     'consumer_key'      => $consumer_key,
@@ -60,7 +60,7 @@ class Account
 
                 $response = $twitter->me()->myself([
                     'expansions' => 'pinned_tweet_id',
-                    'user.fields' => 'id,name,url,verified,username,profile_image_url'
+                    'user.fields' => 'id,name,url,verified,username,profile_image_url,auth_token'
                 ]);
 
                 if($response->data && $response->data->id){
@@ -81,6 +81,8 @@ class Account
 
 
     }
+
+
 
 
     
