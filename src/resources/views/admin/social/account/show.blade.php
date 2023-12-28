@@ -81,96 +81,76 @@
 
      </div>
 
-       {{-- @php
-          $datas =  [[
-                            "name" => "page_post_engagements",
-                            "period" => "day",
-                            "values" => [
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-24T08:00:00+0000"
-                                ],
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-25T08:00:00+0000"
-                                ]
-                            ],
-                            "title" => "Daily Post Engagements",
-                            "description" => "Daily: The number of times people have engaged with your posts through like, comments and shares and more.",
-                            "id" => "108324407609611/insights/page_post_engagements/day"
-                        ],
-                        [
-                            "name" => "page_post_engagements",
-                            "period" => "week",
-                            "values" => [
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-24T08:00:00+0000"
-                                ],
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-25T08:00:00+0000"
-                                ]
-                            ],
-                            "title" => "Weekly Post Engagements",
-                            "description" => "Weekly: The number of times people have engaged with your posts through like, comments and shares and more.",
-                            "id" => "108324407609611/insights/page_post_engagements/week"
-                        ]];
-       @endphp --}}
+
      @if( $account->account_type == App\Enums\AccountType::Page->value)
+
         <div class="i-card-md">
             <div class="card--header">
                 <h4 class="card-title">
                     {{translate('Page Insight Of')}}
-                    {{@$account->account_information->name}}
+                    {{@$account->account_information->name}} <small>({{translate("Last 30 days")}})</small>
                 </h4>
             </div>
 
             <div class="card-body">
                 <div class="row g-2">
-                    @forelse (Arr::get($response['response'] ,'page_insights', []) as  $data) 
-                            <div class="col-lg-3">
-                                <div class="i-card-sm post-card">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="post-meta d-flex justify-content-start align-items-center gap-2 mb-3">
-                        
-                                            <div class="insight-title">
-                                                   {{Arr::get($data ,'title', '')}}
+                    @forelse (Arr::get($response ,'page_insights', []) as  $data) 
+
+                           @if($data['period'] ==  'day')
+                                <div class="col-lg-12">
+                                    <div class="i-card-sm post-card">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="post-meta  gap-2 mb-3">
+                            
+                                                <div class="insight-title">
+                                                    {{Arr::get($data ,'title', '')}}
+                                                </div>
+                                                <div class="insight-details">
+
+                                                    <p>
+                                                        {{Arr::get($data ,'description', '')}} 
+                                                    </p>
+
+                                                </div>
+
                                             </div>
-                                            <div class="insight-details">
-
-                                                <p>
-                                                    {{Arr::get($data ,'description', '')}} 
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-                                        <span class="status i-badge info">
-                                            {{k2t(Arr::get($data ,'period', ''))}}   
-                                        </span>
-                                    </div>
-                                    <div class="post-details">
-                                        @foreach (Arr::get($data,'values',[]) as $engagement)
-
-                                            <p>
-                                                {{translate('Total Engagements')}} :: {{Arr::get( $engagement,'value',0)}}
-                                            </p>
-                                            <span>
-                                                @php
-                                                    $timestamp = Arr::get($engagement,'end_time',\Carbon\Carbon::now());
-                                                    $postDate = \Carbon\Carbon::parse($timestamp);
-                                                @endphp
-                                                {{translate('Date')}} : {{get_date_time($postDate)}}
+                                            <span class="status i-badge info">
+                                                {{k2t(Arr::get($data ,'period', ''))}}   
                                             </span>
+                                        </div>
+                                        <div class="post-details">
 
-                                        @endforeach
-                                       
+                                            <div class="i-card-md">
+                                                
+                                                <div class="card-body">
+                                                    <div class="row g-2">   
+                                                  
+                                                            @foreach (Arr::get($data,'values',[]) as $engagement)
+                                                                <div class="col-lg-3">
+                                                    
+                                                                    <div class="insight-info">
+                                                                        <p>
+                                                                            {{translate('Total Engagements')}} :: {{Arr::get( $engagement,'value',0)}}
+                                                                        </p>
+                                                                        <span>
+                                                                            @php
+                                                                                $timestamp = Arr::get($engagement,'end_time',\Carbon\Carbon::now());
+                                                                                $postDate = \Carbon\Carbon::parse($timestamp);
+                                                                            @endphp
+                                                                            {{translate('Date')}} : {{get_date_time($postDate)}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                            @endforeach
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
-
                                 </div>
-                            </div>
+                          @endif
                     @empty
                        @include('admin.partials.not_found')
                     @endforelse
