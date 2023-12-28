@@ -511,9 +511,9 @@ class CoreController extends Controller
             return Socialite::driver($medium)->redirect();
         } catch (\Exception $ex) {
 
-                $message = strip_tags($ex->getMessage());
-                $message = preg_replace('/[^A-Za-z0-9\-]/', ' ', $message);
-
+            $message = strip_tags($ex->getMessage());
+            $message = preg_replace('/[^A-Za-z0-9\-]/', ' ', $message);
+            
             return back()->with('error',$message);
         }
 
@@ -551,7 +551,6 @@ class CoreController extends Controller
     public function handleAccountCallback(string $service) : RedirectResponse
     {
 
-    
         try {
 
             $platform  = $this->setConfig($service);
@@ -564,7 +563,6 @@ class CoreController extends Controller
             
             $account = Socialite::driver($service)->stateless()->user();
 
-
             $id = Arr::get($account->attributes,'id',null);
             if(!$account || !$account->token || !$id ){
                 abort(403, "Unauthenticated user request");
@@ -576,13 +574,17 @@ class CoreController extends Controller
             }
             
             $accountInfo = [
-                'id'         => Arr::get($account->attributes,'email',null),
-                'account_id' => $id,
-                'name'       => Arr::get($account->attributes,'name',null),
-                'avatar'     => Arr::get($account->attributes,'avatar',null),
-                'email'      => Arr::get($account->attributes,'email',null),
-                'token'      => @$account->token,
-                'expiresIn'  => @$account->expiresIn,
+                'id'                => Arr::get($account->attributes,'email',null),
+                'account_id'        => $id,
+                'name'              => Arr::get($account->attributes,'name',null),
+                'avatar'            => Arr::get($account->attributes,'avatar',null),
+                'email'             => Arr::get($account->attributes,'email',null),
+                'token'             => @$account->token,
+                'token_secret'      => @$account->token_secret,
+                'consumer_key'      => @$account->consumer_key,
+                'consumer_secret'   => @$account->consumer_secret,
+                'bearer_token'      => @$account->bearer_token,
+                'expiresIn'         => @$account->expiresIn,
             ];
 
 

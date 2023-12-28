@@ -14,6 +14,17 @@
        }
        $connectionTypes = App\Enums\ConnectionType::toArray();
 
+       $platforms           = Arr::get(config('settings'),'platforms' ,[]);
+       $platformConfig      = Arr::get($platforms,$platform->slug ,null);
+
+       if(isset($platformConfig['unofficial'])){
+           Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
+       }
+
+       if(isset($platformConfig['official'])){
+           Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
+       }
+
        $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
 
     @endphp
@@ -34,6 +45,7 @@
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs style-1 justify-content-center" role="tablist">                                  
                                     @foreach( $connectionTypes as $k => $v)
+
                                         <li class="nav-item" role="presentation">
                                             <button class='nav-link  
                                             {{$loop->index == 0 ? "active" :""}}
@@ -46,11 +58,13 @@
                                                 </span>
                                             </button>
                                         </li>
+
                                     @endforeach
                                 </ul>
                                 <div id="{{$platform->slug}}" class="tab-content">
                                     @foreach($connectionTypes as $k => $v)
                                         <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} ' id="lang-tab-content-{{t2k($k)}}" role="tabpanel"> 
+
                                             @if( $v == App\Enums\ConnectionType::UNOFFICIAL->value)
                                                 <div class="form-inner">
                                                     <label  for="account_type">
@@ -67,6 +81,7 @@
                                             @endif
 
                                             @if($v == App\Enums\ConnectionType::UNOFFICIAL->value)
+
                                                 <div class="form-inner d-none page-id" >  
                                                     <label  for="page_id">
                                                         {{translate("Page Id")}}  <span class="text-danger">*</span>
@@ -109,9 +124,7 @@
                                                     @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                        {{trans("default.on_click_note")}}
                                                     @else
-
                                                        {{trans("default.tokenize_note")}}
-
                                                     @endif
                                                 </p>
                                             </div>                                                      

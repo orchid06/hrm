@@ -7,6 +7,7 @@ use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\StatusEnum;
 use App\Models\MediaPlatform;
+use App\Models\SocialAccount;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
@@ -35,8 +36,7 @@ class Account
         $apiVersion  = $platform->configuration->app_version;
         $api         = $baseApi."/".$apiVersion;
         $pageId      = Arr::get($request,'page_id', null);
-        $groupId      = Arr::get($request,'group_id', null);
-
+        $groupId     = Arr::get($request,'group_id', null);
         $response   = response_status(translate('Account Created'));
     
         try {
@@ -61,6 +61,7 @@ class Account
                 'access_token' =>   $token,
                 'fields'       =>   $fields
             ]);
+
             $apiResponse       = $apiResponse->json();
 
             if(isset($apiResponse['error'])) {
@@ -93,6 +94,7 @@ class Account
                 'avatar'     => @$avatar ,
             ];
 
+
             $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value );
 
 
@@ -105,6 +107,80 @@ class Account
         
     }
 
+
+
+    public function accoountDetails(SocialAccount $account) : array {
+
+
+        try {
+          
+            $baseApi     = $account->platform->configuration->graph_api_url;
+            $apiVersion  = $account->platform->configuration->app_version;
+            $api         = $baseApi."/".$apiVersion;
+            $token       = $account->account_information->token;
+            $insightData = [];
+
+            $fields = 'full_picture,type,caption,message,permalink_url,link,privacy,created_time';
+            switch ($account->account_type) {
+                case AccountType::Profile->value:
+                    $api =   $api."/me/feed";
+                    break;
+                case AccountType::Page->value:
+                    $fields = 'status_type,message,full_picture,created_time,permalink_url';
+                    $api    =  $api."/".$account->account_id."/feed";
+                    break;
+
+                case AccountType::Group->value:
+                    $api =   $api."/".$account->account_id."/feed";
+                break;
+            }
+
+
+            $apiResponse = Http::get( $api, [
+                'access_token' =>   $token,
+                'fields'       =>   $fields
+            
+            ]);
+
+            $apiResponse       = $apiResponse->json();
+
+            if($account->account_type == AccountType::Page->value) {
+
+                $insightApi = Http::get($baseApi."/".$apiVersion."/".$account->account_id."/insights/page_post_engagements", [
+                                'access_token' =>   $token,
+                            ]);
+
+                $insightApiResponse       = $insightApi->json();
+
+                $insightData              = Arr::get($insightApiResponse,'data', []);
+
+            }
+
+
+            if(isset($apiResponse['error'])) {
+                return [
+                    'status'  => false,
+                    'message' => $apiResponse['error']['message']
+                ];
+            }
+
+            return[
+                'status'        => true,
+                'response'      => $apiResponse,
+                'page_insights' => $insightData,
+            ];
+
+
+        } catch (\Exception $ex) {
+           return [
+               'status'  => false,
+               'message' => strip_tags($ex->getMessage())
+           ];
+        }
+    
+
+
+    }
 
 
 

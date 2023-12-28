@@ -7,15 +7,7 @@ use App\Traits\AccoutManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
-use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Psr7\MultipartStream;
-use phpseclib3\Crypt\PublicKeyLoader;
-use phpseclib3\Crypt\AES;
-use phpseclib3\Crypt\RSA;
-use JanuSoftware\Facebook\Authentication\AccessToken;
-use JanuSoftware\Facebook\Facades\Facebook;
+
 class Account
 {
     
@@ -29,10 +21,6 @@ class Account
     }
 
     
-
-
-
-     
     /**
      * Instagram account connecton
      *
@@ -53,8 +41,6 @@ class Account
             $config      = new AccountConfig($username , $password);
             $resposne    = $config->login();
 
-            @dd(    $resposne);
-       
             if(isset($resposne['logged_in_user'])){
                 $responseStatus   = response_status(translate('Account Created'));
                 $igUser  = $resposne['logged_in_user'];

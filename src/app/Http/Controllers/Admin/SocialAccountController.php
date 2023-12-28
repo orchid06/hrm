@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountRequest;
+use App\Http\Services\Account\facebook\Account;
 use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\SocialAccount;
@@ -39,7 +40,7 @@ class SocialAccountController extends Controller
 
             "title"           => translate("Social Account List"),
             'breadcrumbs'     => ['Home'=>'admin.home','Social Accounts'=> null],
-            'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform:slug','admin'])
+            'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform','admin'])
                                     ->filter(["status",'user:username','platform:slug'])
                                     ->latest()
                                     ->paginate(paginateNumber())
@@ -106,10 +107,43 @@ class SocialAccountController extends Controller
     }
 
 
-
-    /**
-     * destroy a ticket
+     /**
+     * store a new account
+     *
+     * @return RedirectResponse
      */
+    public function show(string $uid) :View | RedirectResponse{
+
+        $account  = SocialAccount::with(['platform'])
+                        ->where('uid',$uid)
+                        ->firstOrfail();
+
+        $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
+        $service  =  new  $class();
+
+        $response = $service->accoountDetails($account);
+
+        if(!$response['status']){
+            return redirect()->route('admin.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);
+        }
+
+        $route   = route('admin.social.account.list',['platform' => $account->platform->slug]);
+
+        return view('admin.social.account.show',[
+
+            "title"           => "Account Feeds",
+            'breadcrumbs'     => ['Home'=>'admin.home',"Accounts"=> $route,"Create" => null],
+            'response'        => $response,
+            'account'         => $account,
+
+        ]);
+        
+
+    }
+
+
+
+
     public function destroy(string $id) :RedirectResponse {
 
         $account  = SocialAccount::withCount(['posts'])->where('id',$id)->firstOrfail();
@@ -140,7 +174,6 @@ class SocialAccountController extends Controller
         ]);
 
 
-     
         return $this->changeStatus($request->except("_token"),[
             "model"    => new SocialAccount(),
         ]);

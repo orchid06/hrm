@@ -558,6 +558,9 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                     Route::post('/update/status','updateStatus')->name('update.status');
                     Route::post('/bulk/action','bulk')->name('bulk');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
+
+
+                    Route::get('/show/{uid}','show')->name('show');
      
                });
 

@@ -186,7 +186,7 @@ class AccountConfig
 
 	public function startChallenge ( $api_path )
 	{
-		sleep( 2 );
+		sleep( 1 );
 
 		$sendData = [
 			'choice'        => '1',

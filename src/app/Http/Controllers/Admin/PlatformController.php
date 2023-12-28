@@ -42,7 +42,7 @@ class PlatformController extends Controller
 
             'breadcrumbs'  => ['Home'=>'admin.home','Platforms'=> null],
             'title'        => 'Manage Platforms',
-            'platforms'    => MediaPlatform::search(['name'])->get()
+            'platforms'    => MediaPlatform::withCount(['accounts'])->search(['name'])->get()
         ]);
     }
 

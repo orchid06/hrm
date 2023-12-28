@@ -994,45 +994,78 @@ return [
     ],
 
 
+
+
+    /** platform configuration start */
+    
     "platforms" => [
 
-        'Facebook' => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-            'app_version'   => '#',
-            'graph_api_url'   => '#',
-            'group_url'   => 'https://www.facebook.com/groups',
+        'facebook' => [
+            'credential' => [
+                'client_id'     => '#',
+                'client_secret' => '#',
+                'app_version'   => '#',
+                'graph_api_url'   => '#',
+                'group_url'   => 'https://www.facebook.com/groups',
+            ],
+            'is_integrated' => StatusEnum::true->status(),
+            'view_option'   => StatusEnum::true->status(),
         ],
-        'Instagram' => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-            'app_version'   => '#',
-            'graph_api_url'   => '#'
-        ],
-        'Linkedin' => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-            'app_version'   => '#',
-            'graph_api_url'   => '#'
-        ],
-        'Youtube' => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-            'app_version'   => '#',
-            'graph_api_url'   => '#'
-        ],
-        'TikTok' => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-        ],
-        "Twitter" => [
-            'client_id'     => '#',
-            'client_secret' => '#',
-            'app_version'   => '#',
-            'graph_api_url'   => '#'
-        ]
-    ],
+        'instagram' => [
+           
+            'credential' => [
+                'client_id'     => '#',
+                'client_secret' => '#',
+            ],
 
+            'is_integrated' => StatusEnum::true->status(),
+            'view_option'   => StatusEnum::true->status(),
+            
+        ],
+
+        "twitter" => [
+
+            'credential' => [
+                'client_id'        => '#',
+                'client_secret'    => '#',
+                'app_version'      => '#',
+            ],
+            'is_integrated' => StatusEnum::true->status(),
+            'official'      => StatusEnum::false->status(),
+            'view_option'   => StatusEnum::true->status(),
+
+     
+        ],
+        
+        'linkedin' => [
+            'credential' => [
+                'client_id'        => '#',
+                'client_secret'    => '#',
+            ],
+            'is_integrated' => StatusEnum::true->status(),
+            'unofficial'    => StatusEnum::false->status(),
+        ],
+        'youtube' => [
+
+            'credential' => [
+                'client_id'     => '#',
+                'client_secret' => '#',
+                'app_version'   => '#',
+                'graph_api_url'   => '#'
+            ],
+            'is_integrated' => StatusEnum::false->status(),
+
+
+        ],
+        'tikTok' => [
+            'credential' => [
+                'client_id'        => '#',
+                'client_secret'    => '#',
+            ],
+            'is_integrated' => StatusEnum::false->status(),
+        ]
+  
+    ],
 
     "platforms_connetion_field" => [
 
@@ -1043,7 +1076,16 @@ return [
             "username",
             "password",
         ],
+        "twitter" => [
+            'consumer_key',
+            'consumer_secret',
+            'access_token',    
+            'token_secret' ,   
+            'bearer_token'   
+        ],
     ]
+
+    /** platform configuration end */
     
 
 

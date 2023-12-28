@@ -44,10 +44,22 @@ trait AccoutManager
 
         $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ,$is_official ) {
 
-                        $user = auth_user($guard);
+                        $user      = auth_user($guard);
                         $accountId = Arr::get($accountInfo,"id",null);
 
-                        $account = SocialAccount::firstOrNew(['account_id' => $accountId ,'platform_id' => $platform->id ]);
+                        $findBy = ['account_id' => $accountId ,'platform_id' => $platform->id ];
+
+                        switch ($guard) {
+                            case 'web':
+                                $findBy ['user_id'] = $user->id;
+                                break;
+                            case 'admin':
+                                $findBy ['admin_id'] = $user->id;
+                                break;
+                        }
+
+                        $account    = SocialAccount::firstOrNew($findBy);
+
                         $account->platform_id                 = $platform->id;
                         $account->name                        = Arr::get($accountInfo,'name');
                         $account->account_information         = $accountInfo;
