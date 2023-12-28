@@ -146,7 +146,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -171,7 +171,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -196,7 +196,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -221,7 +221,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -246,7 +246,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -271,7 +271,7 @@
                   <div class="channel-action">
                     <a
                       href="#"
-                      class="i-btn btn--primary-outline btn--sm capsuled"
+                      class="i-btn primary btn--sm capsuled"
                       >2 Profile
                     </a>
                   </div>
@@ -578,9 +578,6 @@
                 <form action="#">
                   <div class="form-inner">
                     <input type="search" placeholder="Your Query" />
-                    <div class="search-icon">
-                      <i class="bi bi-search"></i>
-                    </div>
                   </div>
 
                   <div class="form-inner">
@@ -1130,6 +1127,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
 @endsection

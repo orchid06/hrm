@@ -58,7 +58,7 @@
             </a>
           </div>
            <!-- languages -->
-          <div class="header-right-item">
+          <div class="header-right-item d-lg-flex d-none">
             <div class="dropdown lang">
                 <button
                   class="lang-btn dropdown-toggle"
@@ -90,7 +90,7 @@
           </div>
 
            <!-- currency -->
-          <div class="header-right-item">
+          <div class="header-right-item d-lg-flex d-none">
             <div class="dropdown currency">
                 <button
                     class="dropdown-toggle"
@@ -196,7 +196,7 @@
 
                 <li>
                   <div class="dropdown-menu-footer">
-                      <a href='{{route("user.notifications")}}'>
+                      <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
                         {{translate("View All")}}
                     </a>
                   </div>

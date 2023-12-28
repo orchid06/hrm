@@ -49,13 +49,13 @@
                   <div class="balance-action">
                     <a
                       href="{{route('user.deposit.create')}}"
-                      class="i-btn btn--primary btn--sm capsuled">
+                      class="i-btn btn--primary btn--md capsuled">
                       {{translate("Deposit")}}
                     </a>
 
                     <a
                       href="{{route('user.withdraw.create')}}"
-                      class="i-btn btn--secondary btn--sm capsuled">
+                      class="i-btn btn--secondary btn--md capsuled">
                       {{translate("Withdraw")}}
                     </a>
                   </div>
@@ -142,7 +142,7 @@
                                     {{translate("User Info")}}
                                 </h4>
 
-                                <div class="tab-4">
+                                <div class="capsuled-tab">
                                     <ul class="nav" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link active" id="account-details-tab" data-bs-toggle="tab" data-bs-target="#account-details" type="button" role="tab" aria-controls="account-details" aria-selected="true">

@@ -208,6 +208,64 @@
 
 
         </ul>
+
+
+        <div class="d-lg-none align-items-center justify-content-between w-100 d-flex">
+           <!-- currency -->
+            <div class="dropdown currency">
+                <button
+                    class="dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    >
+                    {{session()->get('currency')?->code}}
+                </button>
+
+                @if(site_currencies() && !site_currencies()->isEmpty())
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                    @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+
+                        <li>
+                            <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                        </li>
+                    @endforeach
+
+                    </ul>
+                @endif
+            </div>
+
+            <!-- Language -->
+            <div class="dropdown lang">
+                <button
+                  class="lang-btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false" >
+                  <span class="flag">
+                     <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
+
+                  </span>
+                </button>
+                @if(!$languages->isEmpty())
+                  <ul class="dropdown-menu dropdown-menu-end">
+
+                    @foreach($languages as $language)
+                      <li>
+                        <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                            <span class="flag">
+                                  <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                            </span>
+                            {{$language->name}}
+                        </a>
+                      </li>
+                    @endforeach
+
+                  </ul>
+                @endif
+            </div>
+        </div>
       </div>
     </div>
   </aside>
