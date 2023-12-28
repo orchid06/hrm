@@ -3,7 +3,7 @@
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
-                <div class="row g-4">
+                <div class="row g-3">
                     <form hidden id="bulkActionForm" action='{{route("admin.security.ip.bulk")}}' method="post">
                         @csrf
                         <input type="hidden" name="bulk_id" id="bulkid">
@@ -67,7 +67,7 @@
                                     <div class="form-inner">
                                         <input name="search" value="{{request()->input('search')}}" type="search" placeholder="{{translate('Search name or code')}}">
                                     </div>
-                                    <button class="i-btn btn--sm info w-100">
+                                    <button class="i-btn btn--md info w-100">
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>

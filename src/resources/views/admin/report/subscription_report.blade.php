@@ -45,7 +45,7 @@
                                     <div class="form-inner">
                                         <input type="text"  name="search" value="{{request()->input('search')}}" placeholder='{{translate("Search by transaction id")}}'>
                                     </div>
-                                    <button class="i-btn btn--sm info w-100">
+                                    <button class="i-btn btn--md info w-100">
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>

@@ -76,7 +76,7 @@
 <div class="i-card-md">
     <div class="card-body">
         <div class="search-action-area">
-            <div class="row g-4">
+            <div class="row g-3">
                 @if(check_permission('create_category'))
                     <div class="col-md-6 col-6 d-flex justify-content-start">
                         @if(check_permission('create_category'))
@@ -131,7 +131,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <button class="i-btn btn--sm info w-100">
+                                <button class="i-btn btn--md info w-100">
                                     <i class="las la-sliders-h"></i>
                                 </button>
                             </form>

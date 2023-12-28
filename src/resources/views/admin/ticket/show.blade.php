@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <div class="row g-3 mb-4">
+    <div class="row g-3 mb-3">
         <div class="col-xl-9 col-lg-8">
             <div class="i-card-md">
                 <div class="card--header">
@@ -246,7 +246,6 @@
     </form>
 
 @endsection
-
 
 @section('modal')
 

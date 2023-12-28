@@ -35,7 +35,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <small>
+                        <small class="text--primary">
                             {{translate("If enabled, user will get commission for each subscriptions of referred user. Otherwise only for the first subscription.
                             ")}}
                         </small>
