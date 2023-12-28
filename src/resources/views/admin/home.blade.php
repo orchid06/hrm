@@ -221,7 +221,7 @@
     </div>
   </div>
 </div>
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
     <div class="i-card-md">
       <div class="card--header">
@@ -229,7 +229,7 @@
            {{translate("Social Accounts")}} 
         </h4>
 
-        <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--success btn--outline">
+        <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary btn--outline">
            {{translate("View All")}}
         </a>
       </div>
@@ -272,7 +272,7 @@
            {{translate("Latest Deposits")}}
         </h4>
 
-        <a href="{{route('admin.deposit.report.list')}}" class="i-btn btn--sm btn--success btn--outline">
+        <a href="{{route('admin.deposit.report.list')}}" class="i-btn btn--sm btn--primary btn--outline">
           {{translate("View All")}}
        </a>
       </div>
@@ -470,14 +470,14 @@
     </div>
   </div>
 </div>
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
     <div class="i-card-md">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Plan In Subscription")}} 
         </h4>
-        <a href="{{route('admin.subscription.package.list')}}" class="i-btn btn--sm btn--success btn--outline">
+        <a href="{{route('admin.subscription.package.list')}}" class="i-btn btn--sm btn--primary btn--outline">
            {{translate("View All")}}
         </a>
       </div>
@@ -517,7 +517,7 @@
            {{translate("Latest Transaction")}}
         </h4>
 
-        <a href="{{route('admin.transaction.report.list')}}" class="i-btn btn--sm btn--success btn--outline">
+        <a href="{{route('admin.transaction.report.list')}}" class="i-btn btn--sm btn--primary btn--outline">
           {{translate("View All")}}
        </a>
       </div>

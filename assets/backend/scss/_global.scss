@@ -189,6 +189,11 @@ button,
   padding-bottom: 100px;
 }
 
+.text--primary{
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
 .i-badge {
   border-radius: 3px;
   display: inline-block;
@@ -991,18 +996,20 @@ button {
       border-radius: 4px;
       .nav {
         flex-direction: column;
-        gap: 5px;
+        gap: 8px;
         flex-wrap: nowrap;
         border-bottom: 0;
         .nav-item {
+          padding: 0 10px;
           .nav-link {
             border: none;
-            border-right: 3px solid transparent;
+            border-left: 3px solid transparent;
             color: $text-primary;
             border-radius: 0;
-            padding: 12px 16px;
+            padding: 10px 16px;
             font-size: 15px;
             font-weight: 400;
+            clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
             @include xxl-device {
               padding: 12px 14px;
             }
@@ -1029,6 +1036,7 @@ button {
               border-color: $color-primary;
               color: $text-primary;
               font-weight: 500;
+              clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
 
               i {
                 color: $color-primary;
@@ -1101,7 +1109,6 @@ button {
     top: unset;
   }
 }
-
 .modal-header{
   padding: 1rem 1.25rem !important;
 }

@@ -6,7 +6,7 @@
         @endphp
         <div class="card-body">
             <div class="search-action-area">
-                <div class="row g-4">
+                <div class="row g-3">
                     <form hidden id="bulkActionForm" action="{{route('admin.subscription.package.bulk')}}" method="post">
                         @csrf
                         <input type="hidden" name="bulk_id" id="bulkid">
