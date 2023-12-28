@@ -9,8 +9,8 @@
   </div>
   <div class="sidebar-menu-container" data-simplebar>
     <ul class="sidebar-menu">
-      <li class="sidebar-menu-title">  {{trans('default.home')}}</li>
         @if(check_permission('view_dashboard'))
+          <li class="sidebar-menu-title">  {{trans('default.home')}}</li>
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link {{sidebar_awake('admin.home')}}" data-anim="ripple" href='{{route("admin.home")}}' aria-expanded="false">
                     <span><i class="las la-home"></i></span>
@@ -94,81 +94,6 @@
           </li>
         @endif
 
-        <li class="sidebar-menu-title">
-          {{translate('Accounts and Content')}}
-        </li>
-
-        @if(check_permission('view_platform'))
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}}' data-anim="ripple" href="{{route('admin.platform.list')}}" aria-expanded="false">
-                <span><i class="lab la-buffer"></i></span>
-                <p>{{translate('Social Platforms')}}</p>
-            </a>
-          </li>
-        @endif
-
-        @if(check_permission('view_account'))
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.social.account.list")}}' data-anim="ripple" href="{{route('admin.social.account.list')}}" aria-expanded="false">
-                <span><i class="las la-hashtag"></i></span>
-                <p>{{translate('Social Accounts')}}</p>
-            </a>
-          </li>
-        @endif
-
-        @if(check_permission('view_ai_template'))          
-            <li class="sidebar-menu-item">
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#aiTemplate" role="button"
-                aria-expanded="false" aria-controls="aiTemplate">
-              <span><i class="las la-money-bill"></i></span>
-                <p>
-                  {{translate('Ai Templates')}}
-                </p>
-                <small >
-                    <i class="las la-angle-down"></i>
-                </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.ai.template.*'],'drop_down')}} " id="aiTemplate">
-                <ul class="sub-menu">
-                  <li class="sub-menu-item">
-                      <a  href='{{route("admin.ai.template.list")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.list","admin.ai.template.edit","admin.ai.template.create","admin.ai.template.content"])}} '>
-                        <span></span>
-                        <p>
-                          {{translate("Templates")}}
-                        </p>
-                      </a>
-                  </li>
-                  <li class="sub-menu-item">
-                    <a  href='{{route("admin.ai.template.default")}}'  class='sidebar-menu-link {{sidebar_awake("admin.ai.template.default")}}'>
-                        <span></span>
-                        <p>
-                          {{translate("Default Templates")}}
-                        </p>
-                    </a>
-                  </li>
-                  <li class="sub-menu-item">
-                    <a  href='{{route("admin.ai.template.categories")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.categories","admin.ai.template.category.create"])}}'>
-                      <span></span>
-                      <p>
-                        {{translate("Categories")}}
-                      </p>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-        @endif
-
-        @if(check_permission('view_content'))
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.content.*")}}'  href='{{route("admin.content.list")}}'>
-              <span><i class="las la-pager"></i></span>
-              <p>
-                {{translate('Ai Contents')}}
-              </p>
-            </a>
-          </li>
-        @endif
 
         @if(check_permission('view_package'))
           <li class="sidebar-menu-item">
@@ -204,10 +129,11 @@
             </div>
           </li>
         @endif
-        <li class="sidebar-menu-title">
-          {{translate('User , Reports & Support')}}
-        </li>
+
         @if(check_permission('view_user'))
+          <li class="sidebar-menu-title">
+            {{translate('User , Reports & Support')}}
+          </li>
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
               <span><i class="las la-user-friends"></i></span>
@@ -266,8 +192,6 @@
             </li>
         @endif
 
-    
-        <!-- reports  section -->
         @if(check_permission('view_report'))
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#report" role="button"
@@ -368,7 +292,102 @@
           </li>
         @endif
 
-        <!-- Frontend section  start  -->
+        @if(check_permission('view_account') || check_permission('view_platform')) 
+          <li class="sidebar-menu-title">
+            {{translate('Accounts and Content')}}
+          </li>
+
+            <li class="sidebar-menu-item">
+            
+              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialAccount" role="button"
+                aria-expanded="false" aria-controls="socialAccount">
+              <span><i class="las la-network-wired"></i></span>
+                <p>
+                  {{translate('Accounts and Posts ')}}
+                </p>
+                <small >
+                    <i class="las la-angle-down"></i>
+                </small>
+              </a>
+              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.platform.*','admin.social.account.*'],'drop_down')}} " id="socialAccount">
+                <ul class="sub-menu">
+                  @if(check_permission('view_platform'))
+                    <li class="sub-menu-item">
+                        <a  href='{{route("admin.platform.list")}}' class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}} '>
+                          <span></span>
+                          <p>{{translate('Social Platforms')}}</p>
+                        </a>
+                    </li>
+                  @endif
+                  @if(check_permission('view_account'))
+                    <li class="sub-menu-item">
+                      <a  href='{{route('admin.social.account.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
+                          <span></span>
+                          <p>{{translate('Social Accounts')}}</p>
+                      </a>
+                    </li>
+                  @endif
+
+               
+                </ul>
+              </div>
+            </li>
+        @endif
+
+        @if(check_permission('view_ai_template'))          
+            <li class="sidebar-menu-item">
+              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#aiTemplate" role="button"
+                aria-expanded="false" aria-controls="aiTemplate">
+              <span><i class="las la-money-bill"></i></span>
+                <p>
+                  {{translate('Ai Templates')}}
+                </p>
+                <small >
+                    <i class="las la-angle-down"></i>
+                </small>
+              </a>
+              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.ai.template.*'],'drop_down')}} " id="aiTemplate">
+                <ul class="sub-menu">
+                  <li class="sub-menu-item">
+                      <a  href='{{route("admin.ai.template.list")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.list","admin.ai.template.edit","admin.ai.template.create","admin.ai.template.content"])}} '>
+                        <span></span>
+                        <p>
+                          {{translate("Templates")}}
+                        </p>
+                      </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a  href='{{route("admin.ai.template.default")}}'  class='sidebar-menu-link {{sidebar_awake("admin.ai.template.default")}}'>
+                        <span></span>
+                        <p>
+                          {{translate("Default Templates")}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a  href='{{route("admin.ai.template.categories")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.categories","admin.ai.template.category.create"])}}'>
+                      <span></span>
+                      <p>
+                        {{translate("Categories")}}
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+        @endif
+
+        @if(check_permission('view_content'))
+          <li class="sidebar-menu-item">
+            <a class='sidebar-menu-link {{sidebar_awake("admin.content.*")}}'  href='{{route("admin.content.list")}}'>
+              <span><i class="las la-pager"></i></span>
+              <p>
+                {{translate('Ai Contents')}}
+              </p>
+            </a>
+          </li>
+        @endif
+
         <li class="sidebar-menu-title">
             {{translate('Website Appearance')}}
         </li>
@@ -462,7 +481,7 @@
             </div>
           </li>
         @endif
-       <!-- Frontend section  end -->
+
 
         @if(check_permission('view_frontend'))
 
@@ -500,7 +519,7 @@
             </li>
         @endif
 
-       <!-- settings  section -->
+
        @if(check_permission('view_settings'))
           <li class="sidebar-menu-title">
               {{translate('System Configuration')}}
@@ -517,7 +536,7 @@
                   <i class="las la-angle-down"></i>
                 </small>
             </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.setting.*'],'drop_down')}} " id="setting">
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.setting.*','admin.language.*'],'drop_down')}} " id="setting">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
                     <a class='sidebar-menu-link {{sidebar_awake("admin.setting.list")}}'  href='{{route("admin.setting.list")}}'>
@@ -535,6 +554,18 @@
                       </p>
                     </a>
                 </li>
+
+                @if(check_permission('view_language'))
+                  <li class="sub-menu-item">
+                      <a class='sidebar-menu-link {{sidebar_awake("admin.language.*")}}'  href='{{route("admin.language.list")}}'>
+                        <span></span>
+                        <p>
+                          {{translate('Languages')}}
+                        </p>
+                      </a>
+                  </li>
+                @endif
+
                 <li class="sub-menu-item">
                     <a class='sidebar-menu-link {{sidebar_awake("admin.setting.openAi")}}'  href='{{route("admin.setting.openAi")}}'>
                       <span></span>
@@ -654,93 +685,102 @@
         </li>
        @endif
 
-        @if(check_permission('view_withdraw'))
-          <li class="sidebar-menu-item">
-              <a class='sidebar-menu-link {{sidebar_awake(["admin.withdraw.list","admin.withdraw.edit"])}}' data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
-                  <span><i class="las la-dolly-flatbed"></i></span>
-                  <p>{{translate('Withdraw Method')}}</p>
-              </a>
-          </li>
-        @endif
-
-        @if(check_permission('view_template'))
-            <li class="sidebar-menu-item">
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#templates" role="button"
-                aria-expanded="false" aria-controls="templates">
-                <span><i class="las la-bell"></i></span>
-                  <p>
-                    {{translate('Notification Templates')}}
-                  </p>
-                  <small >
-                    <i class="las la-angle-down"></i>
-                  </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="templates">
-                <ul class="sub-menu">
-                  <li class="sub-menu-item">
-                      <a class='sidebar-menu-link {{sidebar_awake(["admin.template.list","admin.template.edit"])}}' href="{{route('admin.template.list')}}">
-                        <span></span>
-                          <p>
-                              {{translate('Notification Template')}}
-                          </p>
-                      </a>
-                  </li>
-                  <li class="sub-menu-item">
-                      <a class="sidebar-menu-link {{sidebar_awake('admin.template.global')}}" href="{{route('admin.template.global')}}">
-                        <span></span>
-                          <p>
-                              {{translate('Global Template')}}
-                          </p>
-                      </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-        @endif
-
-        @if(check_permission('view_gateway'))
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.mailGateway.*")}}'  href='{{route("admin.mailGateway.list")}}'>
-              <span><i class="las la-at"></i></span>
-              <p>
-                {{translate('Mail Gateway')}}
-              </p>
+      @if(check_permission('view_withdraw'))
+        <li class="sidebar-menu-item">
+            <a class='sidebar-menu-link {{sidebar_awake(["admin.withdraw.list","admin.withdraw.edit"])}}' data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
+                <span><i class="las la-dolly-flatbed"></i></span>
+                <p>{{translate('Withdraw Method')}}</p>
             </a>
-          </li>
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.smsGateway.*")}}'  href='{{route("admin.smsGateway.list")}}'>
-              <span><i class="las la-comment"></i></span>
-              <p>
-                {{translate('Sms Gateway')}}
-              </p>
-            </a>
-          </li>
-        @endif
+        </li>
+      @endif
 
-        @if(check_permission('view_language'))
+      @if(check_permission('view_template'))
           <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.language.*")}}'  href='{{route("admin.language.list")}}'>
-              <span><i class="las la-language"></i></span>
-              <p>
-                {{translate('Languages')}}
-              </p>
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#templates" role="button"
+              aria-expanded="false" aria-controls="templates">
+              <span><i class="las la-bell"></i></span>
+                <p>
+                  {{translate('Notification Templates')}}
+                </p>
+                <small >
+                  <i class="las la-angle-down"></i>
+                </small>
             </a>
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="templates">
+              <ul class="sub-menu">
+                <li class="sub-menu-item">
+                    <a class='sidebar-menu-link {{sidebar_awake(["admin.template.list","admin.template.edit"])}}' href="{{route('admin.template.list')}}">
+                      <span></span>
+                        <p>
+                            {{translate('Notification Template')}}
+                        </p>
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{sidebar_awake('admin.template.global')}}" href="{{route('admin.template.global')}}">
+                      <span></span>
+                        <p>
+                            {{translate('Global Template')}}
+                        </p>
+                    </a>
+                </li>
+              </ul>
+            </div>
           </li>
-        @endif
+      @endif
 
-        @if(check_permission('view_settings'))
-          <li class="sidebar-menu-title">
-              {{translate('Softwae Info')}}
-          </li>
+      
+      @if(check_permission('view_gateway'))
           <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.system.info")}}'  href='{{route("admin.setting.system.info")}}'>
-              <span><i class="lab la-accusoft"></i></span>
-              <p>
-                {{translate('Software Info')}}
-              </p>
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#notificationGateway" role="button"
+              aria-expanded="false" aria-controls="notificationGateway">
+              <span><i class="las la-cogs"></i></span>
+                <p>
+                  {{translate('Notification Gateway')}}
+                </p>
+                <small >
+                  <i class="las la-angle-down"></i>
+                </small>
             </a>
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.mailGateway.*','admin.smsGateway.*'],'drop_down')}} " id="notificationGateway">
+              <ul class="sub-menu">
+                <li class="sub-menu-item">
+                    <a class='sidebar-menu-link {{sidebar_awake("admin.mailGateway.*")}}' href="{{route("admin.mailGateway.list")}}">
+                      <span></span>
+                        <p>
+                          {{translate('Mail Gateway')}}
+                        </p>
+                    </a>
+                </li>
+                <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{sidebar_awake("admin.smsGateway.*")}}'" href="{{route("admin.smsGateway.list")}}">
+                      <span></span>
+                        <p>
+                          {{translate('Sms Gateway')}}
+                        </p>
+                    </a>
+                </li>
+              </ul>
+            </div>
           </li>
-        @endif
+      @endif
+
+    
+
+
+      @if(check_permission('view_settings'))
+        <li class="sidebar-menu-title">
+            {{translate('Softwae Info')}}
+        </li>
+        <li class="sidebar-menu-item">
+          <a class='sidebar-menu-link {{sidebar_awake("admin.setting.system.info")}}'  href='{{route("admin.setting.system.info")}}'>
+            <span><i class="lab la-accusoft"></i></span>
+            <p>
+              {{translate('Software Info')}}
+            </p>
+          </a>
+        </li>
+      @endif
     </ul>
   </div>
 </div>

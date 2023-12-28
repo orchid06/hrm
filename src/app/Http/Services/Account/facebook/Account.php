@@ -18,8 +18,6 @@ class Account
 
     use AccoutManager;
 
-
-    
     /**
      * Connet facebook account
      *
@@ -157,18 +155,19 @@ class Account
 
                 $insightData              = Arr::get($insightApiResponse,'data', []);
 
-
             }
 
 
             if(isset($apiResponse['error'])) {
+
+                $this->disConnectAccount($account);
                 return [
                     'status'  => false,
                     'message' => $apiResponse['error']['message']
                 ];
             }
 
-            return[
+            return [
                 'status'        => true,
                 'response'      => $apiResponse,
                 'page_insights' => $insightData,
@@ -176,6 +175,7 @@ class Account
 
 
         } catch (\Exception $ex) {
+         
            return [
                'status'  => false,
                'message' => strip_tags($ex->getMessage())

@@ -6,8 +6,10 @@ use App\Enums\ConnectionType;
 use App\Traits\AccoutManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
+use App\Models\SocialAccount;
+use Exception;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\Http;
 class Account
 {
     
@@ -66,6 +68,93 @@ class Account
 
     }
 
+    
+    public function accoountDetails(SocialAccount $account) : array {
+
+
+        try {
+
+ 
+            $baseApi     = $account->platform->configuration->graph_api_url;
+            $apiVersion  = $account->platform->configuration->app_version;
+            $api         = $baseApi."/".$apiVersion;
+            $token       = $account->account_information->token;
+            $userId     = $account->account_id;
+            $apiUrl =    $api."/".$userId."/media";
+            $fields = 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp';
+
+            $params = [
+                'fields' => $fields,
+                'access_token' => $token,
+            ];
+            
+            $response = Http::get($apiUrl, $params);
+            $apiResponse = $response->json();
+
+
+            if(isset($apiResponse['error'])) {
+
+                $this->disConnectAccount($account);
+                return [
+                    'status'  => false,
+                    'message' => $apiResponse['error']['message']
+                ];
+            }
+
+
+            $apiResponse  = $this->formatResponse($apiResponse);
+
+
+
+        
+            return[
+                'status'        => true,
+                'response'      => $apiResponse,
+            ];
+
+
+        } catch (\Exception $ex) {
+            
+           return [
+               'status'  => false,
+               'message' => strip_tags($ex->getMessage())
+           ];
+        }
+    
+
+
+    }
+
+    public function formatResponse(array $response) : array {
+
+        
+        $responseData = Arr::get($response,'data', []);
+
+        if(count($responseData) > 0) {
+
+            $formattedData = [];
+            foreach($responseData as $key => $value) {
+
+                $formattedData [] = [
+                    'status_type' => Arr::get($value,'media_type',null),
+                    'full_picture' => Arr::get($value,'media_url',null),
+                    'link' => Arr::get($value,'permalink',null),
+                    'created_time' => Arr::get($value,'timestamp',null),
+                ];
+
+            }
+
+            $response ['data'] = $formattedData;
+
+        }
+
+        return   $response;
+
+
+
+
+
+    }
 
     
 

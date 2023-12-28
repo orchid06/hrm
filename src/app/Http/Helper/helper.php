@@ -1007,6 +1007,27 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
+   if (!function_exists('account_connection_status')){
+		function account_connection_status(mixed  $status = null) :string
+		{
+
+   
+         $badges  = [
+            StatusEnum::true->status()         => "info",
+            StatusEnum::false->status()        => "danger",
+         ];
+         $statusText  = [
+            StatusEnum::true->status()         => "Connected",
+            StatusEnum::false->status()        => "Disconnected",
+         ];
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = Arr::get($statusText , $status , 'info');
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
    if (!function_exists('intrgration_status')){
 		function intrgration_status(mixed  $status = null) :string
 		{
@@ -1037,12 +1058,6 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-
-
-   
-
-
-   
    if (!function_exists('get_content')){
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
         

@@ -993,9 +993,6 @@ return [
         "text-curie-001"          => "Curie",
     ],
 
-
-
-
     /** platform configuration start */
     
     "platforms" => [
@@ -1016,6 +1013,8 @@ return [
             'credential' => [
                 'client_id'     => '#',
                 'client_secret' => '#',
+                'app_version'   => '#',
+                'graph_api_url'   => '#',
             ],
 
             'is_integrated' => StatusEnum::true->status(),
@@ -1032,7 +1031,6 @@ return [
             ],
             'is_integrated' => StatusEnum::true->status(),
             'official'      => StatusEnum::false->status(),
-            'view_option'   => StatusEnum::true->status(),
 
      
         ],

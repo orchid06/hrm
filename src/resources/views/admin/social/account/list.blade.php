@@ -150,6 +150,8 @@
 
                                     <th scope="col">{{translate('Connection Status')}}</th>
 
+                                    <th scope="col">{{translate('Connection Type')}}</th>
+
                                     <th scope="col">{{translate('Account Type')}}</th>
                       
     
@@ -217,8 +219,13 @@
                                                 @endif
 
                                             </td>
-        
+
                                             <td data-label='{{translate("Connection Status")}}'>
+
+                                                @php echo account_connection_status($account->is_connected) @endphp
+                                           </td>
+        
+                                            <td data-label='{{translate("Connection Type")}}'>
 
                                                 @php echo account_connection($account->is_official) @endphp
                                            </td>
@@ -236,14 +243,24 @@
                                                             $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
                                                             
                                                     @endphp
-        
-                                                    @if(isset($platformConfig['view_option']))
-                                                        <a  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+
+                                                    @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' )
+
+                                                        @php
+                                                           
+
+                                                        @endphp
+                                                        <a title="{{translate("Recnonect")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                         </a>
+                                                    @endif
+        
+                                                    @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
+                                                            <a  title="{{translate("Show")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                            </a>
                                                     @endif
                                                     @if(check_permission('delete_account') )
 
-                                                        <a href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                        <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                             <i class="las la-trash-alt"></i>
                                                         </a>
                                                     @else
@@ -276,9 +293,7 @@
                 </div>
 
             </div>
-        
-               
-           
+
         </div>
     </div>
 
