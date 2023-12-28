@@ -2028,3 +2028,12 @@ ul.inbox-list {
   line-height: 26px;
   color: var(--color-primary);
 }
+
+.update-icon{
+  svg{
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 60px;
+    fill: $color-primary;
+  }
+}

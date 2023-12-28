@@ -413,10 +413,6 @@ button {
     background-color: $color-primary;
     border: 1px solid $color-primary;
     color: $color-primary-text;
-
-    i{
-      font-size: 20px;
-    }
   }
 
   &.btn--primary-outline {
@@ -480,6 +476,10 @@ button {
   &.btn--lg {
     padding: 14px 22px;
     font-size: 15px;
+
+    i{
+      font-size: 20px;
+    }
   }
 }
 
