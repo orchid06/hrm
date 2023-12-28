@@ -233,6 +233,20 @@
     </div>
 </div>
 
+<h4 class="page-title mt-5">Update Your System</h4>
+<div class="i-card-md mt-3">
+    <div class="card--header">
+        <h4 class="card-title">Be Aware !!! Before Update</h4>
+    </div>
+    <div class="card-body">
+        <ul class="update-list">
+            <li><i class="bi bi-check2-square"></i>You must take backup from your server (files & database)</li>
+            <li><i class="bi bi-check2-square"></i>Make Sure You have stable internet connection</li>
+            <li><i class="bi bi-check2-square"></i>Do not close the tab while the process is running</li>
+        </ul>
+    </div>
+</div>
+
 @endsection
 
 @section('modal')

@@ -45,6 +45,7 @@
     <script src="{{asset('assets/global/js/main.js')}}"></script>
     <script  src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/isotope.pkgd.js')}}"></script>
     <script  src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 
