@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row g-3 mb-3">
-        <div class="col-xl-9 col-lg-8">
+        <div class="col-xl-8 col-lg-7">
             <div class="i-card-md">
                 <div class="card--header">
                     <h4 class="card-title">
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-4">
+        <div class="col-xl-4 col-lg-5">
             <div class="i-card-md mb-30">
                 <div class="card--header">
                     <h4 class="card-title">
@@ -115,54 +115,36 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <div class="ticket-dtable">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>{{ translate('Ticket Id') }} :</td>
-                                    <td>
-                                        {{ $ticket->ticket_number }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{{ translate('Subject') }} :</td>
-                                    <td>
-                                        {{ $ticket->subject }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> {{ translate('Creation Time') }} :</td>
-                                    <td id="c-date"> {{ get_date_time($ticket->created_at) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ translate('Status') }} :</td>
-                                    <td>
-                                        <select name="status" class="niceSelect w-100 update-status">
-                                            @foreach (App\Enums\TicketStatus::toArray() as $k => $v)
-                                                <option {{ $ticket->status == $v ? 'selected' : '' }}
-                                                    value="{{ $v }}">
-                                                    {{ ucfirst(strtolower($k)) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{{ translate('Priority') }} :</td>
-                                    <td>
-                                        <select name="priority" class="niceSelect w-100  update-status">
-                                            @foreach (App\Enums\PriorityStatus::toArray() as $k => $v)
-                                                <option {{ $ticket->priority == $v ? 'selected' : '' }}
-                                                    value="{{ $v }}">
-                                                    {{ ucfirst(strtolower($k)) }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <ul class="ticket-details-list">
+                        <li><span>{{ translate('Ticket Id') }} :</span><span>{{ $ticket->ticket_number }}</span></li>
+                        <li><span>{{ translate('Subject') }} :</span><span>{{ $ticket->subject }}</span></li>
+                        <li><span>{{ translate('Creation Time') }} :</span><span>{{ get_date_time($ticket->created_at) }}</span></li>
+                        <li><span>{{ translate('Status') }} :</span><span id="c-date">{{ get_date_time($ticket->created_at) }}</span></li>
+                        <li><span>{{ translate('Status') }} :</span>
+                            <span>
+                                <select name="status" class="niceSelect w-100 update-status">
+                                    @foreach (App\Enums\TicketStatus::toArray() as $k => $v)
+                                        <option {{ $ticket->status == $v ? 'selected' : '' }}
+                                            value="{{ $v }}">
+                                            {{ ucfirst(strtolower($k)) }} 
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </span>
+                        </li>
+                        <li><span>{{ translate('Priority') }} :</span>
+                            <span>
+                            <select name="priority" class="niceSelect w-100  update-status">
+                                @foreach (App\Enums\PriorityStatus::toArray() as $k => $v)
+                                    <option {{ $ticket->priority == $v ? 'selected' : '' }}
+                                        value="{{ $v }}">
+                                        {{ ucfirst(strtolower($k)) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            </span>
+                        </li>                
+                    </ul>
                 </div>
             </div>
             <div class="i-card-md mb-30">
@@ -172,29 +154,17 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <div class="ticket-dtable">
-                        <table>
-                            <tbody>
-                                @forelse($ticket->ticket_data as $k => $v)
-                                    @if ($k != 'description')
-                                        <tr>
-                                            <td>{{ ucfirst($k) }} :</td>
-                                            <td>
-                                                {{ $v }}
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @empty
-                                        <tr>
-                                            <td class="border-bottom-0" colspan="90">
-                                                @include('admin.partials.not_found')
-                                            </td>
-                                        </tr>
-                                @endforelse
 
-                            </tbody>
-                        </table>
-                    </div>
+                <ul class="ticket-details-list">
+                    @forelse($ticket->ticket_data as $k => $v)
+                        @if ($k != 'description')
+                            <li><span>{{ ucfirst($k) }} :</span><span>{{ $v }}</span></li>
+                        @endif
+                        @empty
+                        <li>@include('admin.partials.not_found')</li>
+                    @endforelse    
+                </ul>
+
                 </div>
             </div>          
             @if ($files && $files->count()  > 0)

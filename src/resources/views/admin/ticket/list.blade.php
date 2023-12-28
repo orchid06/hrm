@@ -264,7 +264,7 @@
                         <h4>v4.0.2</h4>
                         <p>2023-12-18 09:45:23</p>
                     </div>
-             </div>
+                </div>
                 <div class="mt-4 mb-4">
                     <label  for="image" class="feedback-file">
                         <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">

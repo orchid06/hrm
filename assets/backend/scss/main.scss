@@ -1946,7 +1946,9 @@ ul.inbox-list {
     font-size: 15px;
     margin-bottom: 8px;
     font-weight: 500;
-    &
+    &:last-child{
+      margin-bottom: 0px;
+    }
     i{
       color: $color-danger;
       font-size: 16px;
@@ -2031,9 +2033,44 @@ ul.inbox-list {
 
 .update-icon{
   svg{
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto 60px;
     fill: $color-primary;
+    animation: round 20s linear infinite;
+    border: 2px solid $color-primary;
+    padding: 20px;
+    border-radius: 50%;
+  }
+  @keyframes round {
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.ticket-details-list{
+  > li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    font-size: 15px;
+    border-bottom: 1px dashed $color-border;
+
+    span{
+      &:first-child{
+        color: $text-primary;
+        font-weight: 600;
+      }
+    }
+
+    &:last-child{
+      margin-bottom: 0;
+    }
   }
 }
