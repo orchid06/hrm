@@ -242,8 +242,39 @@
         <ul class="update-list">
             <li><i class="bi bi-check2-square"></i>You must take backup from your server (files & database)</li>
             <li><i class="bi bi-check2-square"></i>Make Sure You have stable internet connection</li>
-            <li><i class="bi bi-check2-square"></i>Do not close the tab while the process is running</li>
+            <li class="text-danger"><i class="bi bi-check2-square"></i>Do not close the tab while the process is running</li>
         </ul>
+    </div>
+</div>
+<div class="i-card-md mt-3">
+    <div class="card--header">
+        <h4 class="card-title">Update Application</h4>
+    </div>
+    <div class="card-body">
+        <div class="d-flex align-items-center flex-md-nowrap flex-wrap gap-3 mb-4">
+            <div class="version">
+                <span>Current Version</span>
+                <h4>v4.0.2</h4>
+                <p>2023-12-18 09:45:23</p>
+            </div>
+            <div class="version latest">
+                <span>Latest Version</span>
+                <h4>v4.0.2</h4>
+                <p>2023-12-18 09:45:23</p>
+            </div>
+        </div>
+        <button class="i-btn btn--lg btn--primary update-btn" type="submit">Update Now <i class="bi bi-arrow-repeat ms-2"></i></button>
+
+        <div class="mt-5">
+            <label  for="image" class="feedback-file">
+                <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
+                <span><i class="bi bi-file-zip"></i>
+                    {{translate("Update file")}}
+                </span>
+            </label>
+            <div class="image-preview-section">
+            </div>
+        </div>
     </div>
 </div>
 
