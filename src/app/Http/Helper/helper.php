@@ -1007,6 +1007,37 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
+   if (!function_exists('intrgration_status')){
+		function intrgration_status(mixed  $status = null) :string
+		{
+
+         $badges  = [
+            StatusEnum::true->status()         => "info",
+            StatusEnum::false->status()        => "danger",
+         ];
+         $statusText  = [
+            StatusEnum::true->status()         => "Yes",
+            StatusEnum::false->status()        => "No",
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = Arr::get($statusText , $status , 'info');
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
+   
+   if (!function_exists('get_default_img')){
+      function get_default_img() :string{
+         return asset('assets/images/default.jpg');
+
+      }
+   }
+
+
+
 
    
 

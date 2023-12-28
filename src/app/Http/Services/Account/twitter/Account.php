@@ -7,7 +7,7 @@ use App\Traits\AccoutManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
 use Illuminate\Support\Arr;
-
+use Coderjerk\BirdElephant\BirdElephant;
 class Account
 {
     
@@ -15,9 +15,15 @@ class Account
     use AccoutManager;
 
 
-    public $twUrl ;
+    public $twUrl ,$params ;
     public function __construct(){
-        $this->twUrl = "https://www.instagram.com/";
+        $this->twUrl = "https://twitter.com/";
+
+        $this->params = [
+            'expansions' => 'pinned_tweet_id',
+            'user.fields' => 'id,name,url,verified,username,profile_image_url'
+        ];
+
     }
 
     
@@ -29,33 +35,41 @@ class Account
      * @param string $guard
      * @return array
      */
-    public function instagram(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array{
+    public function twitter(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array{
 
-        $responseStatus   = response_status(translate('Invalid username or password'),'error');
+        $responseStatus   = response_status(translate('Authentication failed incorrect keys'),'error');
 
         try {
-            
-            // $username    = Arr::get($request,'username',null);
-            // $password    = Arr::get($request,'password',null);
-    
-            // $config      = new AccountConfig($username , $password);
-            // $resposne    = $config->login();
 
-            // if(isset($resposne['logged_in_user'])){
-            //     $responseStatus   = response_status(translate('Account Created'));
-            //     $igUser  = $resposne['logged_in_user'];
-            //     $accountInfo = [
-            //         'id'         => Arr::get($igUser,'pk',null), 
-            //         'account_id' => Arr::get($igUser,'pk',null), 
-            //         'username'   => Arr::get($igUser,'username',null),
-            //         'name'       => Arr::get($igUser,'username',null),
-            //         'password'   => $password,
-            //         'link'       => $this->igUrl.Arr::get($igUser,'username',null),
-            //         'avatar'     => Arr::get($igUser,'profile_pic_url',null) ,
-            //     ];
-    
-            //     $this->saveAccount($guard ,$platform , $accountInfo ,AccountType::Profile->value ,ConnectionType::UNOFFICIAL->value );
-            // }
+            $responseStatus  = response_status(translate('Api error'),'error');
+            $consumer_key    = Arr::get($request,'consumer_key',null);
+            $consumer_secret = Arr::get($request,'consumer_secret',null);
+            $access_token    = Arr::get($request,'access_token',null);
+            $token_secret    = Arr::get($request,'token_secret',null);
+            $bearer_token    = Arr::get($request,'bearer_token',null);
+            
+                $config = array(
+                    'consumer_key'      => $consumer_key,
+                    'consumer_secret'   => $consumer_secret,
+                    'bearer_token'      => $bearer_token,
+                    'token_identifier'  => $access_token,
+                    'token_secret'      => $token_secret  
+                );
+
+                $twitter = new BirdElephant($config);
+
+                $response = $twitter->me()->myself([
+                    'expansions' => 'pinned_tweet_id',
+                    'user.fields' => 'id,name,url,verified,username,profile_image_url'
+                ]);
+
+                if($response->data && $response->data->id){
+                    $responseStatus   = response_status(translate('Account Created'));
+                    $config           = array_merge($config , (array)$response->data);
+                    $config['link']   =  $this->twUrl.Arr::get($config,'username');
+                    $config['avatar'] = Arr::get($config,'profile_image_url');
+                    $response         = $this->saveAccount($guard,$platform,$config,AccountType::Profile->value ,ConnectionType::OFFICIAL->value);
+                }
 
 
         } catch (\Exception $ex) {

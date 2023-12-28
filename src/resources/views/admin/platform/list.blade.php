@@ -56,9 +56,10 @@
                                 @endif#
                             </th>
                             <th scope="col">{{translate('Name')}}</th>
+                            <th scope="col">{{translate('Total Accounts')}}</th>
                             <th scope="col">{{translate('Status')}}</th>
                             <th scope="col">{{translate('Feature')}}</th>
-                            <th scope="col">{{translate('Integrated')}}</th>
+                            <th scope="col">{{translate('Is integrated')}}</th>
                             <th scope="col">{{translate('Options')}}</th>
                         </tr>
                     </thead>
@@ -76,6 +77,14 @@
                                         <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
                                         <p>	 {{$platform->name}}</p>
                                     </div>
+                                </td>
+
+                                <td data-label='{{translate("Total Account")}}'>
+                                    <span class="i-badge capsuled success">
+                                        <a href="{{route('admin.social.account.list',['platform' => $platform->slug])}}">
+                                          {{translate("Total Accounts")}} {{$platform->accounts_count}}
+                                        </a>
+                                    </span>
                                 </td>
                                 <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">
@@ -99,23 +108,22 @@
                                         <label class="form-check-label" for="status-switch-feature-{{$platform->id}}"></label>
                                     </div>
                                 </td>
+
                                 <td data-label='{{translate("Integrated")}}'>
-                                    <div class="form-check form-switch switch-center">
-                                        <input {{!check_permission('update_platform') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                            data-column="is_integrated"
-                                            data-route="{{ route('admin.platform.update.status') }}"
-                                            data-status="{{ $platform->is_integrated == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                            data-id="{{$platform->uid}}" {{$platform->is_integrated ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-integrated-{{$platform->id}}" >
-                                        <label class="form-check-label" for="status-switch-integrated-{{$platform->id}}"></label>
-                                    </div>
+
+                                    @php  echo intrgration_status($platform->is_integrated)  @endphp
+                                
                                 </td>
+
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
                                         @if(check_permission('update_platform') )
+
+                                     
+
                                             @if(check_permission('update_platform'))
                                                @if($platform->is_integrated == App\Enums\StatusEnum::true->status())
-                                                <a  href="{{route('admin.social.account.create',['platform' => $platform->slug])}}" class="fs-15 icon-btn success"><i class="las la-plus"></i>
+                                                <a  href="{{route('admin.social.account.create',['platform' => $platform->slug])}}" class="fs-15 icon-btn info"><i class="las la-plus"></i>
                                                 </a>
                                                @endif
                                                 <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>

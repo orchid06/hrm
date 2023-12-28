@@ -23,7 +23,9 @@
                     @forelse ($platforms as $platform )
 
                         @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
-                            <li class="nav-item" role="presentation">
+                         
+
+                            <li class="alert border fade show alert-with-icon pointer  moveable-section">
                                 <a class="nav-link {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
                                  
                                     <div class="user-meta-info d-flex align-items-center gap-2">
@@ -32,7 +34,12 @@
                                         <p>	 {{$platform->name}}</p>
                                     </div>
                                 </a>
+                             
+                                <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
+                                </a>
                             </li>
+
+                     
                         @endif
 
 
@@ -224,6 +231,16 @@
                                         
                                             <td data-label='{{translate("Action")}}'>
                                                 <div class="table-action">
+                                                    @php
+                                                            $platforms           = Arr::get(config('settings'),'platforms' ,[]);
+                                                            $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
+                                                            
+                                                    @endphp
+        
+                                                    @if(isset($platformConfig['view_option']))
+                                                        <a  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                        </a>
+                                                    @endif
                                                     @if(check_permission('delete_account') )
 
                                                         <a href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
@@ -271,6 +288,52 @@
 @section('modal')
     @include('modal.delete_modal')
 
+
+    <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Update Configuration')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <form action="{{route('admin.platform.configuration.update')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <input   hidden name="id" type="text">
+                            <div class="col-lg-12" id ="configuration">
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-inner">
+                                    <label for="callbackUrl">
+                                        {{translate('Callback Url')}}
+                                    </label>
+                                    <div class="input-group">
+                                        <input id="callbackUrl"  readonly  type="text" class="form-control" >
+                                        <span class="input-group-text pointer copy-text pointer" data-type="modal"  data-text ='' ><i class="las la-copy"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('script-push')
@@ -280,6 +343,37 @@
    $(".user").select2({
            
     });
+
+    $(document).on('click','.update-config',function(e){
+
+        var config         = JSON.parse($(this).attr('data-config'));
+        var id             = JSON.parse($(this).attr('data-id'));
+        var callbackUrl    = ($(this).attr('data-callback'));
+        var modal          = $('#config-modal')
+        modal.find('input[name="id"]').val(id)
+        var html = "";
+        for(let i in config){
+            var withoutUnderscores =  i.replace(/_/g, ' ');
+            var convertedString = withoutUnderscores.replace(/\b\w/g, function (match) {
+                return match.toUpperCase();
+            });
+
+            html+= `<div class="form-inner">
+                                <label for="client_secret" class="form-label" >
+                                    ${convertedString}  <span  class="text-danger">*</span>
+                                </label>
+
+                            <input value="${config[i]}" required type="text" name="configuration[${i}]">
+                            </div>`;
+
+        }
+
+        $("#configuration").html(html)
+        $('#callbackUrl').val(callbackUrl)
+        $('.copy-text').attr('data-text',callbackUrl)
+        modal.modal('show')
+    })
+
 
 </script>
 @endpush
