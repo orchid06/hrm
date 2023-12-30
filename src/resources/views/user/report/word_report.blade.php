@@ -59,11 +59,11 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg">
+                            <button type="submit" class="i-btn primary btn--lg rounded">
                                 <i class="bi bi-search"></i>
                             </button>
 
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger rounded">
                                 <i class="bi bi-arrow-repeat"></i>
                             </a>
                     </div>
@@ -74,97 +74,101 @@
         </div>
       </div>
 
-      <div class="table-accordion">
-        @if($reports->count() > 0)
-            <div class="accordion" id="wordReports">
-                @forelse($reports as $report)
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div
-                                class="accordion-button collapsed"
-                                role="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapse{{$report->id}}"
-                                aria-expanded="false"
-                                aria-controls="collapse{{$report->id}}">
-                                <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
-                                    <div class="col-md-4">
-                                        <div class="table-accordion-header transfer-by">
-                                            <span class="icon-btn icon-btn-sm info circle">
-                                                <i class="bi bi-arrow-up-left"></i>
-                                            </span>
-                                            <div>
-                                                <h6>
-                                                    {{translate("Template")}}
-                                                </h6>
-                                                <p>{{$report->template->name}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+      <div class="i-card-md">
+            <div class="card-body p-0">
+                <div class="table-accordion">
+                  @if($reports->count() > 0)
+                      <div class="accordion" id="wordReports">
+                          @forelse($reports as $report)
+                              <div class="accordion-item">
+                                  <div class="accordion-header">
+                                      <div
+                                          class="accordion-button collapsed"
+                                          role="button"
+                                          data-bs-toggle="collapse"
+                                          data-bs-target="#collapse{{$report->id}}"
+                                          aria-expanded="false"
+                                          aria-controls="collapse{{$report->id}}">
+                                          <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                              <div class="col-md-4">
+                                                  <div class="table-accordion-header transfer-by">
+                                                      <span class="icon-btn icon-btn-sm info circle">
+                                                          <i class="bi bi-arrow-up-left"></i>
+                                                      </span>
+                                                      <div>
+                                                          <h6>
+                                                              {{translate("Template")}}
+                                                          </h6>
+                                                          <p>{{$report->template->name}}</p>
+                                                      </div>
+                                                  </div>
+                                              </div>
 
-                                    <div class="col-md-4 col-6 text-sm-center">
-                                        <div class="table-accordion-header">
-                                            <h6>
-                                                {{translate("Generated On")}}
-                                            </h6>
-                                            <p>
-                                                {{ get_date_time($report->created_at) }}
-                                            </p>
-                                        </div>
-                                    </div>
+                                              <div class="col-md-4 col-6 text-sm-center">
+                                                  <div class="table-accordion-header">
+                                                      <h6>
+                                                          {{translate("Generated On")}}
+                                                      </h6>
+                                                      <p>
+                                                          {{ get_date_time($report->created_at) }}
+                                                      </p>
+                                                  </div>
+                                              </div>
 
-                                    <div class="col-md-4 col-6 text-end">
-                                        <div class="table-accordion-header">
-                                            <h6>
-                                                {{translate("Words")}}
-                                            </h6>
-                                            <span class="i-badge capsuled info">
-                                                {{$report->total_words}}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                              <div class="col-md-4 col-6 text-end">
+                                                  <div class="table-accordion-header">
+                                                      <h6>
+                                                          {{translate("Words")}}
+                                                      </h6>
+                                                      <span class="i-badge capsuled info">
+                                                          {{$report->total_words}}
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
 
-                        <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
+                                  <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
+                                      <div class="accordion-body">
+                                          <ul class="list-group list-group-flush">
 
-                                    <li class="list-group-item">
-                                        <h6 class="title">
-                                            {{translate('Genarated Content')}}
-                                        </h6>
-                                        <p class="value">
-                                        {{$report->content}}
-                                        </p>
-                                    </li>
+                                              <li class="list-group-item">
+                                                  <h6 class="title">
+                                                      {{translate('Genarated Content')}}
+                                                  </h6>
+                                                  <p class="value">
+                                                  {{$report->content}}
+                                                  </p>
+                                              </li>
 
-                                    @foreach ($report->open_ai_usage as $key => $val )
+                                              @foreach ($report->open_ai_usage as $key => $val )
 
-                                        <li class="list-group-item">
-                                            <h6 class="title">
-                                                {{k2t($key)}}
-                                            </h6>
-                                            <p class="value">
-                                                {{$val}}
-                                            </p>
-                                        </li>
+                                                  <li class="list-group-item">
+                                                      <h6 class="title">
+                                                          {{k2t($key)}}
+                                                      </h6>
+                                                      <p class="value">
+                                                          {{$val}}
+                                                      </p>
+                                                  </li>
 
-                                    @endforeach
+                                              @endforeach
 
 
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @empty
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          @empty
 
-                @endforelse
-           </div>
-        @else
-          @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-        @endif
+                          @endforelse
+                     </div>
+                  @else
+                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                  @endif
+                </div>
+            </div>
       </div>
 
       <div class="Paginations">

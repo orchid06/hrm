@@ -51,221 +51,220 @@
         </nav>
 
         <div class="header-right">
-
-          <div class="header-right-item">
-            <a target="_blank" href="{{route('home')}}" class="home-link-btn ">
-                <i class="bi bi-globe-americas"></i>
-            </a>
-          </div>
-           <!-- languages -->
-          <div class="header-right-item d-lg-flex d-none">
-            <div class="dropdown lang">
-                <button
-                  class="lang-btn dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false" >
-                  <span class="flag">
-                     <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-
-                  </span>
-                </button>
-                @if(!$languages->isEmpty())
-                  <ul class="dropdown-menu dropdown-menu-end">
-
-                    @foreach($languages as $language)
-                      <li>
-                        <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                            <span class="flag">
-                                  <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                            </span>
-                            {{$language->name}}
-                        </a>
-                      </li>
-                    @endforeach
-
-                  </ul>
-                @endif
+            <div class="header-right-item">
+                <a target="_blank" href="{{route('home')}}" class="home-link-btn ">
+                    <i class="bi bi-globe-americas"></i>
+                </a>
             </div>
-          </div>
 
-           <!-- currency -->
-          <div class="header-right-item d-lg-flex d-none">
-            <div class="dropdown currency">
-                <button
-                    class="dropdown-toggle"
+            <!-- notifications -->
+            @php
+                $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
+                                ->where("notificationable_id",$user->id)
+                                ->unread()
+                                ->latest()
+                                ->take(8)
+                                ->get();
+                $notificationCount = $notifications->count();
+            @endphp
+
+            <div class="header-right-item">
+                <div class="dropdown noti-dropdown">
+
+                @if($notificationCount > 0)
+                    <a
+                    class="noti-dropdown-btn dropdown-toggle"
+                    href="javascript:void(0)"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-bell"></i>
+                    <span>{{$notificationCount}}</span>
+                    </a>
+
+                @endif
+
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li class="dropdown-menu-title">
+                    <h6>
+                        {{translate("Notifications")}}
+                    </h6>
+
+                        <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
+
+                    </li>
+
+                    <li>
+                    <div class="notification-items" data-simplebar>
+                        <div class="notification-item">
+
+                        <ul>
+                            @forelse($notifications as $notification)
+                                <li>
+                                <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
+                                    <div class="notify-icon">
+                                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+
+                                    </div>
+
+                                    <div class="notification-item-content">
+                                    <h5> {{$user->name}} <small>
+                                        {{diff_for_humans($notification->created_at)}}
+                                    </small></h5>
+                                    <p>
+                                        {{
+                                        limit_words(strip_tags($notification->message),50)
+                                        }}
+                                    </p>
+                                    </div>
+                                    <span><i class="las la-times"></i></span>
+                                </a>
+                                </li>
+                                @empty
+                                <li class="text-center mx-auto mb-2">
+                                <p>
+                                    {{translate("Nothing Found !!")}}
+                                </p>
+                                </li>
+                            @endforelse
+
+                        </ul>
+                        </div>
+                    </div>
+                    </li>
+
+                    <li>
+                    <div class="dropdown-menu-footer">
+                        <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
+                            {{translate("View All")}}
+                        </a>
+                    </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+
+            <!-- languages -->
+            <div class="header-right-item d-lg-flex d-none">
+                <div class="dropdown lang">
+                    <button
+                    class="lang-btn dropdown-toggle"
                     type="button"
                     data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    >
-                    {{session()->get('currency')?->code}}
-                </button>
+                    aria-expanded="false" >
+                    <span class="flag">
+                        <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
 
-                @if(site_currencies() && !site_currencies()->isEmpty())
+                    </span>
+                    </button>
+                    @if(!$languages->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
 
-                    @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-
+                        @foreach($languages as $language)
                         <li>
-                            <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                            <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                                <span class="flag">
+                                    <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                                </span>
+                                {{$language->name}}
+                            </a>
                         </li>
-                    @endforeach
+                        @endforeach
 
                     </ul>
-                @endif
-            </div>
-          </div>
-
-           <!-- notifications -->
-           @php
-
-             $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
-                              ->where("notificationable_id",$user->id)
-                              ->unread()
-                              ->latest()
-                              ->take(8)
-                              ->get();
-              $notificationCount = $notifications->count();
-           @endphp
-
-          <div class="header-right-item">
-            <div class="dropdown noti-dropdown">
-
-              @if($notificationCount > 0)
-                  <a
-                  class="noti-dropdown-btn dropdown-toggle"
-                  href="javascript:void(0)"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="bi bi-bell"></i>
-                  <span>{{$notificationCount}}</span>
-                </a>
-
-             @endif
-
-
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li class="dropdown-menu-title">
-                  <h6>
-                     {{translate("Notifications")}}
-                  </h6>
-
-                     <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
-
-                </li>
-
-                <li>
-                  <div class="notification-items" data-simplebar>
-                    <div class="notification-item">
-
-                      <ul>
-                        @forelse($notifications as $notification)
-                            <li>
-                              <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
-                                <div class="notify-icon">
-                                  <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
-
-                                </div>
-
-                                <div class="notification-item-content">
-                                  <h5> {{$user->name}} <small>
-                                    {{diff_for_humans($notification->created_at)}}
-                                  </small></h5>
-                                  <p>
-                                    {{
-                                      limit_words(strip_tags($notification->message),50)
-                                    }}
-                                  </p>
-                                </div>
-                                <span><i class="las la-times"></i></span>
-                              </a>
-                            </li>
-                            @empty
-                            <li class="text-center mx-auto mb-2">
-                              <p>
-                                {{translate("Nothing Found !!")}}
-                              </p>
-                            </li>
-                          @endforelse
-
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="dropdown-menu-footer">
-                      <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
-                        {{translate("View All")}}
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="header-right-item">
-            <div class="dropdown profile-dropdown">
-              <div
-                class="profile-btn dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                role="button">
-                <span class="profile-img">
-                  <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
-                </span>
-
-                <div class="balance">
-                  <p>
-                     {{translate("Balance")}}
-                  </p>
-                  <h6>
-                     {{num_format(number:$user->balance,calC:true)}}
-                  </h6>
+                    @endif
                 </div>
-              </div>
-
-              <div class="dropdown-menu dropdown-menu-end">
-                <ul>
-                  <li class="dropdown-menu-title">
-                    <h6>
-                        {{translate("Welcome")}}, <span class="user-name">
-                            {{$user->name}}
-                          </span>!
-                    </h6>
-                  </li>
-
-                  <li>
-                    <a href="{{route('user.profile')}}" class="dropdown-item"
-                      ><i class="bi bi-person"></i> {{translate("My Account")}}</a>
-                  </li>
-
-                  <li>
-                     <a href="{{route('user.deposit.create')}}" class="dropdown-item"><i class="bi bi-wallet"></i>
-
-                         {{translate("Deposit")}}
-                      </a>
-                  </li>
-
-                  <li>
-                    <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i>
-                        {{translate("Withdraw")}}
-                    </a>
-                  </li>
-
-
-
-                  <li class="dropdown-menu-footer">
-                    <a href="{{route('user.logout')}}">
-                      <i class="bi bi-box-arrow-left"></i>
-                        {{translate('Logout')}}
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
+
+            <!-- currency -->
+            <div class="header-right-item d-lg-flex d-none">
+                <div class="dropdown currency">
+                    <button
+                        class="dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        >
+                        {{session()->get('currency')?->code}}
+                    </button>
+
+                    @if(site_currencies() && !site_currencies()->isEmpty())
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                        @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+
+                            <li>
+                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                            </li>
+                        @endforeach
+
+                        </ul>
+                    @endif
+                </div>
+            </div>
+
+            <div class="header-right-item">
+                <div class="dropdown profile-dropdown">
+                <div
+                    class="profile-btn dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    role="button">
+                    <span class="profile-img">
+                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                    </span>
+
+                    <div class="balance">
+                    <p>
+                        {{translate("Balance")}}
+                    </p>
+                    <h6>
+                        {{num_format(number:$user->balance,calC:true)}}
+                    </h6>
+                    </div>
+                </div>
+
+                <div class="dropdown-menu dropdown-menu-end">
+                    <ul>
+                    <li class="dropdown-menu-title">
+                        <h6>
+                            {{translate("Welcome")}}, <span class="user-name">
+                                {{$user->name}}
+                            </span>!
+                        </h6>
+                    </li>
+
+                    <li>
+                        <a href="{{route('user.profile')}}" class="dropdown-item"
+                        ><i class="bi bi-person"></i> {{translate("My Account")}}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('user.deposit.create')}}" class="dropdown-item"><i class="bi bi-wallet"></i>
+
+                            {{translate("Deposit")}}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i>
+                            {{translate("Withdraw")}}
+                        </a>
+                    </li>
+
+
+
+                    <li class="dropdown-menu-footer">
+                        <a href="{{route('user.logout')}}">
+                        <i class="bi bi-box-arrow-left"></i>
+                            {{translate('Logout')}}
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
