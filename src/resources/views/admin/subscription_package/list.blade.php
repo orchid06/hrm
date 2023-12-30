@@ -137,8 +137,8 @@
                                       {{($package->affiliate_commission)}}%  
                                 </td>
                                 <td data-label="{{translate('Subscriptions - Earnings')}}">
-                                    <span class="i-badge capsuled success">
-                                        <a href="{{route('admin.subscription.report.list',['package' => $package->slug])}}">
+                                    <span>
+                                        <a class="i-badge capsuled success" href="{{route('admin.subscription.report.list',['package' => $package->slug])}}">
                                           {{translate("Total Subscription")}} {{$package->subscriptions_count}}
                                         </a>
                                     </span>

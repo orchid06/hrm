@@ -1934,16 +1934,143 @@ ul.inbox-list {
   }
 }
 
+.table-container{
+  .user-meta-info{
+    flex-wrap: nowrap !important;
+  }
+}
+
 // System Update Page
 .update-list{
   li{
     font-size: 15px;
     margin-bottom: 8px;
-    &
+    font-weight: 500;
+    &:last-child{
+      margin-bottom: 0px;
+    }
     i{
       color: $color-danger;
       font-size: 16px;
       margin-right: 5px;
+    }
+  }
+}
+
+.version{
+  padding: 35px;
+  text-align: center;
+  width: 50%;
+  border: 1px solid $color-border;
+
+  @include md-down-device{
+    width: 100%;
+    padding: 30px;
+  }
+
+  &.latest{
+    h4{
+      color: $color-success;
+    }
+  }
+
+  span{
+    display: inline-block;
+    font-size: 16px;
+    color: $text-primary;
+    margin-bottom: 20px;
+
+    @include md-down-device{
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+  }
+  h4{
+    font-size: 30px;
+    margin-bottom: 10px;
+
+    @include md-down-device{
+      font-size: 24px;
+    }
+  }
+  p{
+    margin-bottom: 0;
+    font-size: 14px;
+
+    @include md-down-device{
+      font-size: 13px;
+    }
+  }
+}
+
+.feedback-file {
+  cursor: pointer;
+  display: block;
+  border: 1px dashed var(--color-border);
+  background-color: var(--color-primary-soft);
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+.feedback-file:hover {
+  border-color: var(--color-primary);
+}
+.feedback-file > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+  padding: 40px;
+  background-color: $color-primary-light;
+  font-size: 18px;
+}
+.feedback-file > span i {
+  font-size: 26px;
+  line-height: 26px;
+  color: var(--color-primary);
+}
+
+.update-icon{
+  svg{
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 60px;
+    fill: $color-primary;
+    animation: round 20s linear infinite;
+    border: 2px solid $color-primary;
+    padding: 20px;
+    border-radius: 50%;
+  }
+  @keyframes round {
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.ticket-details-list{
+  > li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    font-size: 15px;
+    border-bottom: 1px dashed $color-border;
+
+    span{
+      &:first-child{
+        color: $text-primary;
+        font-weight: 600;
+      }
+    }
+
+    &:last-child{
+      margin-bottom: 0;
     }
   }
 }
