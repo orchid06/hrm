@@ -18,16 +18,16 @@ return new class extends Migration
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->string('title',155)->unique();
             $table->longText('content')->nullable();
+            $table->longText('link')->nullable();
             $table->longText('platform_response')->nullable();
             $table->enum('is_scheduled',[0,1])->default(0)->comment('No: 0, Yes: 1');
             $table->timestamp('schedule_time')->nullable();
             $table->mediumInteger("repeat_every")->default(0)->comment('In minutes');
             $table->timestamp('repeat_schedule_end_date')->nullable();
             $table->enum('is_draft',[0,1])->default(0)->comment('No: 0, Yes: 1');
-            $table->enum('status',[0,1])->default(0)->comment('No: 0, Yes: 1');
-            
+            $table->enum('status',[0,1,2,3])->comment('Pending: 0, Success: 1 ,Failed:2,Schedule:3');
+            $table->enum('post_type',[0])->comment('Feed: 0');
             $table->timestamps();
         });
     }

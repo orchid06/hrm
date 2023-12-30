@@ -231,14 +231,20 @@
                                                     @endphp
 
                                                     @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' )
-
                                                         @php
-                                                           
 
+                                                          $url          = 'javascript:void(0)';
+                                                          $connectionClass  =   true;
+                                                          if($account->platform->slug != 'facebook'){
+                                                              $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ]);
+                                                              $connectionClass  =   false;
+  
+                                                          }
+                                                
                                                         @endphp
-                                                        <a title="{{translate("Recnonect")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn danger"><i class="las la-plug"></i>
+                                                        <a data-account = "{{$account}}"; title="{{translate("Recnonect")}}"  href="{{$url}}" class=" {{$connectionClass ? "reconnect" : ""}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                         </a>
-                                                    @endif
+                                                     @endif
         
                                                     @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
                                                             <a  title="{{translate("Show")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
@@ -289,7 +295,6 @@
 @section('modal')
     @include('modal.delete_modal')
 
-
     <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
@@ -335,6 +340,41 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="reconnect-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reconnect-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Reconnect Account')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <form action="{{route('admin.social.account.reconnect')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <input   hidden name="id" type="text">
+                            <div class="col-lg-12" id ="accountConfig">
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script-push')
@@ -374,6 +414,31 @@
         $('.copy-text').attr('data-text',callbackUrl)
         modal.modal('show')
     })
+
+    $(document).on('click','.reconnect',function(e){
+
+        var account        = JSON.parse($(this).attr('data-account'));
+        var id             = account.id;
+     
+        var modal          = $('#reconnect-modal')
+        modal.find('input[name="id"]').val(id)
+        var html = "";
+
+        html+= `<div class="form-inner">
+                    <label for="token" class="form-label" >
+                        {{translate('Access Token')}}  <span  class="text-danger">*</span>
+                    </label>
+
+                   <input value="${account.account_information.token}" required type="text" name="access_token">
+                </div>`;
+
+        
+
+        $("#accountConfig").html(html)
+
+        modal.modal('show')
+    })
+
 
 
 </script>

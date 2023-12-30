@@ -170,6 +170,24 @@
                     </p>
                   </a>
                 </li>
+
+                <li class="sub-menu-item">
+                  <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.verfied")}}'  href='{{route("admin.user.kyc.verfied")}}'>
+                    <span></span>
+                    <p>
+                        {{translate('Kyc Verified')}}
+                    </p>
+                  </a>
+                </li>
+
+                <li class="sub-menu-item">
+                  <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.banned")}}'  href='{{route("admin.user.kyc.banned")}}'>
+                    <span></span>
+                    <p>
+                        {{translate('Kyc Banned')}}
+                    </p>
+                  </a>
+                </li>
               </ul>
             </div>
           </li>
@@ -303,7 +321,7 @@
                 aria-expanded="false" aria-controls="socialAccount">
               <span><i class="las la-network-wired"></i></span>
                 <p>
-                  {{translate('Accounts and Posts ')}}
+                  {{translate('Accounts')}}
                 </p>
                 <small >
                     <i class="las la-angle-down"></i>
@@ -315,24 +333,88 @@
                     <li class="sub-menu-item">
                         <a  href='{{route("admin.platform.list")}}' class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}} '>
                           <span></span>
-                          <p>{{translate('Social Platforms')}}</p>
+                          <p>{{translate('Platforms')}}</p>
                         </a>
                     </li>
                   @endif
+
                   @if(check_permission('view_account'))
                     <li class="sub-menu-item">
-                      <a  href='{{route('admin.social.account.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
-                          <span></span>
-                          <p>{{translate('Social Accounts')}}</p>
-                      </a>
+                        <a  href='{{route('admin.social.account.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
+                            <span></span>
+                            <p>{{translate('Accounts')}}</p>
+                        </a>
                     </li>
                   @endif
+
+
+                  {{-- @if(check_permission('view_account'))
+                    <li class="sub-menu-item">
+                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
+                            <span></span>
+                            <p>{{translate('Post')}}</p>
+                        </a>
+                    </li>
+                    <li class="sub-menu-item">
+                        <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
+                            <span></span>
+                            <p>{{translate('Create Post')}}</p>
+                        </a>
+                    </li>
+                  @endif --}}
 
                
                 </ul>
               </div>
             </li>
         @endif
+
+
+        @if(check_permission('view_account') || check_permission('view_platform')) 
+       
+          <li class="sidebar-menu-item">
+          
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
+              aria-expanded="false" aria-controls="socialFeed">
+            <span><i class="las la-photo-video"></i></i></span>
+              <p>
+                {{translate('Post Feed')}}
+              </p>
+              <small >
+                  <i class="las la-angle-down"></i>
+              </small>
+            </a>
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.social.post.*'],'drop_down')}} " id="socialFeed">
+              <ul class="sub-menu">
+          
+                @if(check_permission('view_account'))
+                  <li class="sub-menu-item">
+                      <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
+                          <span></span>
+                          <p>{{translate('All Post')}}</p>
+                      </a>
+                  </li>
+                  <li class="sub-menu-item">
+                      <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
+                          <span></span>
+                          <p>{{translate('Create New')}}</p>
+                      </a>
+                  </li>
+                @endif
+
+             
+              </ul>
+            </div>
+          </li>
+      @endif
+
+
+
+
+
+
+
+
 
         @if(check_permission('view_ai_template'))          
             <li class="sidebar-menu-item">

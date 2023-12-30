@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\AccountType;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountRequest;
@@ -18,12 +19,11 @@ use App\Traits\AccoutManager;
 class SocialAccountController extends Controller
 {
     use ModelAction , AccoutManager;
-    protected $ticketService ;
 
     public function __construct(){
 
         $this->middleware(['permissions:view_account'])->only(['list']);
-        $this->middleware(['permissions:create_account'])->only('create');
+        $this->middleware(['permissions:create_account'])->only('create','reconnect','store');
         $this->middleware(['permissions:update_account'])->only('updateStatus','bulk');
         $this->middleware(['permissions:delete_account'])->only('destroy');
     }
@@ -46,9 +46,6 @@ class SocialAccountController extends Controller
                                     ->paginate(paginateNumber())
                                     ->appends(request()->all()),
 
-
-
-    
         ]);
     }
 
@@ -107,31 +104,36 @@ class SocialAccountController extends Controller
     }
 
 
-    // /**
-    //  * store a new account
-    //  *
-    //  * @return RedirectResponse
-    //  */
-    // public function reconnect(Request $request) :RedirectResponse{
+    /**
+     * store a new account
+     *
+     * @return RedirectResponse
+     */
+    public function reconnect(Request $request) :RedirectResponse{
 
-    //     $request->validate([
-    //         'id' => "required|exists:",
-    //     ]);
+        $request->validate([
+            'id'           => "required|exists:social_accounts,id",
+            'access_token' => "required",
+        ]);
+        
 
-    //     $platform = MediaPlatform::where('id',request()->input("platform_id"))
-    //                     ->active()
-    //                     ->integrated()
-    //                     ->firstOrfail();
+        $account = SocialAccount::with('platform')->where("id",request()->input("id"))->firstOrfail();
 
+        $request->merge([
+            'account_type' => $account->account_type,
+            'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
+            'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
+        ]);
 
-    //     $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
+        
+       
+        $class   = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
 
-    //     $service =  new  $class();
+        $service =  new  $class();
 
-    //     $response = $service->{$platform->slug}($platform,$request->except("_token"));
-    //     return back()->with($response);
-
-    // }
+        $response = $service->{$account->platform->slug}($account->platform,$request->except("_token"));
+        return back()->with($response);
+    }
 
 
      /**
