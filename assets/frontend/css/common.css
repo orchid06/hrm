@@ -1,3 +1,7 @@
+.simplebar-scrollbar:before {
+  background: rgba(0, 0, 0, 0.55) !important;
+}
+
 .i-btn {
   display: flex;
   justify-content: center;
@@ -225,4 +229,601 @@
 
 .learn-more:hover .button-text {
   color: #fff;
+}
+
+/* ==================================================================
+                     Paginations Customizations Css
+===================================================================== */
+@media (max-width: 576px) {
+  .Paginations nav {
+    justify-content: flex-start;
+    margin-top: 35px;
+  }
+}
+
+.Paginations nav {
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Paginations nav ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.Paginations nav ul .page-item .page-link {
+  border: 1px solid var(--border-light);
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+@media (max-width: 576px) {
+  .Paginations nav ul .page-item .page-link {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+.Paginations nav ul .page-item .page-link > i {
+  font-size: 20px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.Paginations nav ul .page-item .page-link:hover {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+
+.Paginations nav ul .page-item .page-link:hover {
+  z-index: unset;
+  color: var(--color-primary-text);
+  background: var(--color-primary);
+  outline: 0;
+  box-shadow: none;
+}
+
+.Paginations nav ul .page-item.active .page-link {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+.Paginations nav ul .page-link:focus {
+  box-shadow: unset;
+}
+
+/* =======================No Data=======================  */
+.nodata-wrapper {
+  max-width: 180px;
+  width: 100%;
+}
+
+/* ==============================================================
+                    Plan Details Page
+================================================================= */
+.plan-tab {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: var(--color-primary-light);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.plan-tab > button {
+  padding: 11px 30px;
+  border-radius: 50px;
+  background: transparent;
+  line-height: 1;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+@media (max-width: 424.98px) {
+  .plan-tab > button {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+}
+
+.plan-tab > button:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.plan-tab > button.active {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .plan-detail .plan-detail-wrapper {
+    margin-top: -80px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .plan-detail .plan-detail-wrapper {
+    margin-top: -60px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .plan-detail .plan-detail-wrapper {
+    margin-top: -50px;
+  }
+}
+@media (max-width: 576px) {
+  .plan-detail .plan-detail-wrapper {
+    margin-top: -50px;
+  }
+}
+.plan-detail-card {
+  padding: 50px 40px 30px;
+  border-radius: 8px;
+  position: relative;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.plan-detail-card.recommend {
+  background: var(--color-white);
+}
+@media (max-width: 1199px) {
+  .plan-detail-card.recommend {
+    overflow: hidden;
+    border-color: var(--color-primary);
+  }
+}
+.plan-detail-card:hover {
+  background: var(--color-white);
+}
+@media (max-width: 991px) {
+  .plan-detail-card {
+    padding: 50px 20px 20px;
+  }
+}
+@media (max-width: 1199px) {
+  .plan-detail-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-primary-soft);
+  }
+  .plan-detail-card:hover {
+    border-color: var(--color-primary);
+  }
+}
+.plan-detail-card .recommend-content {
+  position: absolute;
+  width: 100%;
+  top: -55px;
+  left: 0;
+  text-align: center;
+  padding: 12px 0;
+  background: var(--color-white);
+  font-size: 20px;
+  border-radius: 8px 8px 0 0;
+  font-weight: 700;
+}
+.plan-detail-card .recommend-content p {
+  color: var(--color-primary);
+}
+@media (max-width: 1199px) {
+  .plan-detail-card .recommend-content {
+    width: 200px;
+    top: 25px;
+    right: -55px;
+    left: unset;
+    padding: 5px 0;
+    background: var(--color-primary);
+    font-size: 14px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .plan-detail-card .recommend-content p {
+    color: var(--color-primary-text);
+  }
+}
+.plan-detail-card .plan-detail-top > span {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.plan-detail-card .plan-detail-top > h4 {
+  font-weight: 700;
+  font-size: 48px;
+  margin-top: 5px;
+}
+.plan-detail-card .plan-detail-top > h4 > del {
+  font-size: 26px;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+.plan-detail-card .plan-detail-top > h4 span {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.plan-detail-card .plan-detail-top > p {
+  margin: 10px 0 15px;
+}
+.plan-detail-card .plan-detail-body {
+  margin-top: 30px;
+}
+.plan-detail-card .plan-detail-body > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.plan-detail-card .plan-detail-body > ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 15px;
+  line-height: 1;
+}
+.plan-detail-card .plan-detail-body > ul li span {
+  font-size: 20px;
+  color: var(--color-primary);
+}
+
+.payment_method {
+  padding: 15px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  text-align: center;
+}
+.payment_method:hover {
+  border-color: var(--color-primary-soft);
+}
+.payment_method .method-img {
+  width: 50%;
+  margin: 0 auto;
+}
+.payment_method .method-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.payment_method h5 {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.pay-card {
+  padding: 10px;
+}
+.pay-card .method-img {
+  width: 150px;
+  margin: 0 auto;
+}
+.pay-card .method-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.pay-card ul {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  display: grid;
+  gap: 10px;
+}
+.pay-card ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 10px;
+}
+.pay-card ul li p {
+  font-size: 14px;
+}
+
+.manual-pay-card .manual-pay-top h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .manual-pay-card .manual-pay-top h2 {
+    font-size: 36px;
+  }
+}
+@media (max-width: 767px) {
+  .manual-pay-card .manual-pay-top h2 {
+    font-size: 30px;
+  }
+}
+
+/* =========================================================
+              Faqs Section Start
+============================================================ */
+.faqs {
+  background: var(--color-white);
+}
+
+.faq-wrap .accordion-item {
+  margin-bottom: 20px !important;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 24px 0px,
+    var(--color-primary-light) 0px 0px 0px 1px;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-wrap .accordion-item:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.faq-wrap .accordion-item .accordion-button {
+  font-weight: 600;
+  font-size: 20px;
+  background: var(--white);
+  color: var(--text-primary);
+  font-family: var(--font-merriw);
+  padding: 20px 65px 20px 20px;
+  position: relative;
+  transition: 0.4s ease-in;
+  line-height: 1.6;
+}
+
+.faq-wrap .accordion-item .accordion-button i {
+  margin-right: 20px;
+  font-size: 22px;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button i {
+    margin-right: 15px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button {
+    font-size: 16px;
+    padding: 15px 55px 15px 15px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:hover {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-button:focus {
+  z-index: unset;
+  border-color: unset;
+  outline: 0;
+  background: var(--white);
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+}
+
+.faq-wrap .accordion-item .accordion-button::after {
+  flex-shrink: 0;
+  width: unset;
+  height: unset;
+  margin-left: auto;
+  background-image: none;
+  background-repeat: unset;
+  background-size: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f128";
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: unset;
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 576px) {
+  .faq-wrap .accordion-item .accordion-button::after {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed)::after {
+  background-image: none;
+  transform: unset;
+  font-family: bootstrap-icons !important;
+  content: "\f148";
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.faq-wrap .accordion-item .accordion-button:not(.collapsed) {
+  box-shadow: unset;
+  color: var(--color-dark);
+  box-shadow: 5px 2px 30px rgba(0, 0, 0, 0.06);
+  background: var(--color-primary-light);
+}
+
+.faq-wrap .accordion-item .accordion-body {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  border-top: none;
+  text-align: left;
+  padding: 25px;
+  background-color: var(--color-white);
+}
+
+.faq-wrap .accordion-item:last-of-type .accordion-collapse {
+  overflow: hidden;
+}
+
+/* =====================Ai content user dashboard===================== */
+.ai-section .faq-wrap .accordion-item .accordion-button:is(.collapsed) {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.ai-section .faq-wrap .accordion-item .accordion-button {
+  font-size: 16px;
+  padding: 15px 65px 15px 15px;
+}
+
+/* =============================Select2  Customize Start============================= */
+.select2.select2-container {
+  width: 100% !important;
+}
+.select2-container .select2-selection--single {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 45px;
+  line-height: 45px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.select2-container--default .select2-selection--single {
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  color: var(--text-secondary) !important;
+  line-height: 45px;
+  font-size: 15px;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 45px;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 26px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  width: 20px;
+}
+
+.select2.select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border: 1px solid var(--border-light) !important;
+}
+
+.select2-dropdown {
+  border: 1px solid var(--border-light) !important;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__placeholder {
+  color: var(--text-secondary) !important;
+}
+.select2-container--default
+  .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.select2-container--default .select2-results__option--selected {
+  background-color: var(--color-primary-soft);
+}
+
+/* ======================================================
+                 Custom Dropdown Css Start
+========================================================= */
+.dropdown .dropdown-toggle::after {
+  display: none;
+}
+.dropdown .dropdown-toggle.i-btn:hover {
+  text-decoration: unset;
+}
+
+.dropdown .dropdown-menu {
+  border: 1px solid var(--color-primary-light);
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.dropdown .dropdown-menu .dropdown-item {
+  padding: 10px 15px;
+  font-size: 14px !important;
+  line-height: 1.1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown .dropdown-menu .dropdown-item i {
+  font-size: 17px;
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover,
+.dropdown .dropdown-menu .dropdown-item:focus {
+  color: var(--text-primary);
+  background-color: var(--color-primary-light);
+}
+
+.dropdown .dropdown-menu .dropdown-item.active,
+.dropdown .dropdown-menu .dropdown-item:active {
+  color: var(--color-primary-text);
+  background-color: var(--color-primary);
 }

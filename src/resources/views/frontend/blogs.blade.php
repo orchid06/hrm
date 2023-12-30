@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <div class="pagination-wrapper">
+      <div class="Paginations">
            {{ $blogs->links() }}
       </div>
     </div>
