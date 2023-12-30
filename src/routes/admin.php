@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
+use App\Http\Controllers\Admin\SocialPostController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\TryCatch;
@@ -552,6 +553,24 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
 
                     Route::any('/list','list')->name('list');
                     Route::get('/create/{platform}','create')->name('create');
+                    Route::post('/store','store')->name('store');
+                    Route::post('/reconnect','reconnect')->name('reconnect');
+                    Route::get('/edit/{uid}','edit')->name('edit');
+                    Route::post('/update','update')->name('update');
+                    Route::post('/update/status','updateStatus')->name('update.status');
+                    Route::post('/bulk/action','bulk')->name('bulk');
+                    Route::get('/destroy/{id}','destroy')->name('destroy');
+
+                    Route::get('/show/{uid}','show')->name('show');
+     
+               });
+
+
+               #Post manager
+               Route::controller(SocialPostController::class)->name('post.')->prefix('post/')->group(function () {
+
+                    Route::any('/list','list')->name('list');
+                    Route::get('/create','create')->name('create');
                     Route::post('/store','store')->name('store');
                     Route::post('/reconnect','reconnect')->name('reconnect');
                     Route::get('/edit/{uid}','edit')->name('edit');

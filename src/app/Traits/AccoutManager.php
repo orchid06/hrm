@@ -138,6 +138,7 @@ trait AccoutManager
 
 
     public function disConnectAccount(SocialAccount $account) :void{
+        
         $account->is_connected = StatusEnum::false->status();
         $account->update();
 

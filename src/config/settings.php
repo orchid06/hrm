@@ -54,6 +54,14 @@ return [
             'delete_account',
         ],
 
+        
+        "social_post" => [
+            'view_post',
+            'create_post',
+            'update_post',
+            'delete_post',
+        ],
+
         "ticket" => [
             "view_ticket",
             "delete_ticket",
@@ -250,6 +258,9 @@ return [
         ],
         'withdraw' => [
             'path' => 'assets/images/global/withdraw',
+        ],
+        'post' => [
+            'path' => 'assets/images/global/post',
         ],
 
         'ticket' => [

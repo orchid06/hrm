@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 
-@push('style-include')
-    <link rel="stylesheet" href="{{asset('assets/global/css/bootstrapicons-iconpicker.css')}}">
-@endpush
 
 @section('content')
 
@@ -141,9 +138,7 @@
 
 @endsection
 
-@push('script-include')
-    <script src="{{asset('assets/global/js/bootstrapicon-iconpicker.js')}}"></script>
-@endpush
+
 
 @push('script-push')
 <script>

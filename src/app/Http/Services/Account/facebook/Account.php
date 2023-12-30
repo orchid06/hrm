@@ -8,6 +8,7 @@ use App\Enums\ConnectionType;
 use App\Enums\StatusEnum;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
+use App\Models\SocialPost;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
@@ -109,7 +110,6 @@ class Account
 
     public function accoountDetails(SocialAccount $account) : array {
 
-
         try {
           
             $baseApi     = $account->platform->configuration->graph_api_url;
@@ -187,6 +187,17 @@ class Account
     }
 
 
+
+    public function send(SocialPost $post) :array{
+
+         try {
+            //code...
+         } catch (\Exception $ex) {
+            //throw $th;
+         }
+
+        return [];
+    }
 
 
 
