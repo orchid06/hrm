@@ -54,6 +54,14 @@ return [
             'delete_account',
         ],
 
+        
+        "social_post" => [
+            'view_post',
+            'create_post',
+            'update_post',
+            'delete_post',
+        ],
+
         "ticket" => [
             "view_ticket",
             "delete_ticket",
@@ -250,6 +258,9 @@ return [
         ],
         'withdraw' => [
             'path' => 'assets/images/global/withdraw',
+        ],
+        'post' => [
+            'path' => 'assets/images/global/post',
         ],
 
         'ticket' => [
@@ -993,9 +1004,6 @@ return [
         "text-curie-001"          => "Curie",
     ],
 
-
-
-
     /** platform configuration start */
     
     "platforms" => [
@@ -1016,6 +1024,8 @@ return [
             'credential' => [
                 'client_id'     => '#',
                 'client_secret' => '#',
+                'app_version'   => '#',
+                'graph_api_url'   => '#',
             ],
 
             'is_integrated' => StatusEnum::true->status(),
@@ -1032,7 +1042,6 @@ return [
             ],
             'is_integrated' => StatusEnum::true->status(),
             'official'      => StatusEnum::false->status(),
-            'view_option'   => StatusEnum::true->status(),
 
      
         ],

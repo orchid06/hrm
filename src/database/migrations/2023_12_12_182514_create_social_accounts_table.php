@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('account_information')->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Disconnected: 0, Connected: 1');
             $table->enum('is_official',[0,1])->default(1)->comment('Yes: 1, No: 1');
+            $table->enum('is_connected',[0,1])->default(1)->comment('Yes: 1, No: 1');
             $table->enum('account_type',[0,1,2])->comment('Profile: 0, Page: 1 ,Group:2');
             $table->string('details',255)->nullable();
             $table->timestamps();

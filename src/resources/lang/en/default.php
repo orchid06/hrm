@@ -37,6 +37,9 @@ return [
 
     "register_page_title" => "Sign up Your Account",
     "deposit_success" => "Deposit successful! Your funds have been successfully added.",
+    "preview_text" => "Preview approximates how your content will display when
+    published. Tests and updates by social networks may affect
+    the final appearance. Report a difference you notice",
     
 
     /** site  title  */

@@ -17,40 +17,26 @@
 
         <div class="basic-setting-left">
             <div class="setting-tab sticky-side-div">
-
-                <ul class="nav nav-tabs" role="tablist">
-        
+                <ul class="nav nav-tabs gap-4 social-account-list" role="tablist">
                     @forelse ($platforms as $platform )
-
                         @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
-                         
-
-                            <li class="alert border fade show alert-with-icon pointer  moveable-section">
-                                <a class="nav-link {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
-                                 
+                            <li class="d-flex justify-content-between align-items-center gap-3 px-3">
+                                <a class="nav-link border-0 flex-grow-1 p-0 {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
 
                                         <p>	 {{$platform->name}}</p>
                                     </div>
                                 </a>
-                             
                                 <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
                                 </a>
                             </li>
-
-                     
                         @endif
-
-
                     @empty
-                      
                        <li class="text-center p-4">
                           {{translate("No Active Platform found")}}
                        </li>
-                        
                     @endforelse
-                    
                 </ul>
             </div>
         </div>
@@ -150,6 +136,8 @@
 
                                     <th scope="col">{{translate('Connection Status')}}</th>
 
+                                    <th scope="col">{{translate('Connection Type')}}</th>
+
                                     <th scope="col">{{translate('Account Type')}}</th>
                       
     
@@ -217,8 +205,13 @@
                                                 @endif
 
                                             </td>
-        
+
                                             <td data-label='{{translate("Connection Status")}}'>
+
+                                                @php echo account_connection_status($account->is_connected) @endphp
+                                           </td>
+        
+                                            <td data-label='{{translate("Connection Type")}}'>
 
                                                 @php echo account_connection($account->is_official) @endphp
                                            </td>
@@ -236,14 +229,30 @@
                                                             $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
                                                             
                                                     @endphp
-        
-                                                    @if(isset($platformConfig['view_option']))
-                                                        <a  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+
+                                                    @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' )
+                                                        @php
+
+                                                          $url          = 'javascript:void(0)';
+                                                          $connectionClass  =   true;
+                                                          if($account->platform->slug != 'facebook'){
+                                                              $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ]);
+                                                              $connectionClass  =   false;
+  
+                                                          }
+                                                
+                                                        @endphp
+                                                        <a data-account = "{{$account}}"; title="{{translate("Recnonect")}}"  href="{{$url}}" class=" {{$connectionClass ? "reconnect" : ""}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                         </a>
+                                                     @endif
+        
+                                                    @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
+                                                            <a  title="{{translate("Show")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                            </a>
                                                     @endif
                                                     @if(check_permission('delete_account') )
 
-                                                        <a href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                        <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                             <i class="las la-trash-alt"></i>
                                                         </a>
                                                     @else
@@ -276,9 +285,7 @@
                 </div>
 
             </div>
-        
-               
-           
+
         </div>
     </div>
 
@@ -287,7 +294,6 @@
 
 @section('modal')
     @include('modal.delete_modal')
-
 
     <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
@@ -334,6 +340,41 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="reconnect-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reconnect-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Reconnect Account')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <form action="{{route('admin.social.account.reconnect')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <input   hidden name="id" type="text">
+                            <div class="col-lg-12" id ="accountConfig">
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script-push')
@@ -373,6 +414,31 @@
         $('.copy-text').attr('data-text',callbackUrl)
         modal.modal('show')
     })
+
+    $(document).on('click','.reconnect',function(e){
+
+        var account        = JSON.parse($(this).attr('data-account'));
+        var id             = account.id;
+     
+        var modal          = $('#reconnect-modal')
+        modal.find('input[name="id"]').val(id)
+        var html = "";
+
+        html+= `<div class="form-inner">
+                    <label for="token" class="form-label" >
+                        {{translate('Access Token')}}  <span  class="text-danger">*</span>
+                    </label>
+
+                   <input value="${account.account_information.token}" required type="text" name="access_token">
+                </div>`;
+
+        
+
+        $("#accountConfig").html(html)
+
+        modal.modal('show')
+    })
+
 
 
 </script>

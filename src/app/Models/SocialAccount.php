@@ -89,6 +89,10 @@ class SocialAccount extends Model
     }
 
 
+    public function scopeConnected(Builder $q) :Builder{
+        return $q->where('is_connected',StatusEnum::false->status());
+    }
+
     
 
 

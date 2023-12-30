@@ -529,12 +529,10 @@ class CoreController extends Controller
      */
     public function setConfig(string $medium) :MediaPlatform{
 
-        $platform = MediaPlatform::where('slug',$medium)->first();
-
-        $credential["client_secret"] =  @$platform->configuration->client_secret;
-        $credential["client_id"]     =  @$platform->configuration->client_id;
-        $credential["redirect"]      =  url('account/'.$medium.'/callback');
-
+        $platform                     = MediaPlatform::where('slug',$medium)->first();
+        $credential["client_secret"]  = @$platform->configuration->client_secret;
+        $credential["client_id"]      = @$platform->configuration->client_id;
+        $credential["redirect"]       = url('account/'.$medium.'/callback');
 
         Config::set('services.'.$medium, $credential);
 
@@ -560,8 +558,8 @@ class CoreController extends Controller
                 abort(403, "Unauthenticated user request");
             }
 
-            
             $account = Socialite::driver($service)->stateless()->user();
+            
 
             $id = Arr::get($account->attributes,'id',null);
             if(!$account || !$account->token || !$id ){
@@ -572,10 +570,10 @@ class CoreController extends Controller
             if(!$identification){
                 $identification = $id;
             }
-            
+        
             $accountInfo = [
                 'id'                => Arr::get($account->attributes,'email',null),
-                'account_id'        => $id,
+                'account_id'        => $identification,
                 'name'              => Arr::get($account->attributes,'name',null),
                 'avatar'            => Arr::get($account->attributes,'avatar',null),
                 'email'             => Arr::get($account->attributes,'email',null),

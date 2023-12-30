@@ -45,7 +45,7 @@ trait AccoutManager
         $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ,$is_official ) {
 
                         $user      = auth_user($guard);
-                        $accountId = Arr::get($accountInfo,"id",null);
+                        $accountId = Arr::get($accountInfo,"account_id",null);
 
                         $findBy = ['account_id' => $accountId ,'platform_id' => $platform->id ];
 
@@ -64,6 +64,7 @@ trait AccoutManager
                         $account->name                        = Arr::get($accountInfo,'name');
                         $account->account_information         = $accountInfo;
                         $account->status                      = StatusEnum::true->status();
+                        $account->is_connected                = StatusEnum::true->status();
                         $account->account_type                = $account_type;
                         $account->is_official                 = $is_official;
 
@@ -135,5 +136,12 @@ trait AccoutManager
 
     }
 
+
+    public function disConnectAccount(SocialAccount $account) :void{
+        
+        $account->is_connected = StatusEnum::false->status();
+        $account->update();
+
+    }
 
 }

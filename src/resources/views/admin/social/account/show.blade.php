@@ -8,37 +8,44 @@
             </h4>
         </div>
 
+        @php
+                         
+            $graphValue = [];
+            $graphLabel = [];
+        @endphp
+
         <div class="card-body">
-            <div class="row g-2">
+            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 g-3 post-card-container">
                 @foreach (Arr::get($response['response'] ,'data', []) as  $data)
       
-                        <div class="col-lg-3">
+                        <div class="col post-card-wrap">
                             <div class="i-card-sm post-card">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="post-meta d-flex justify-content-start align-items-center gap-2 mb-3">
-                    
-                                        <div class="designation">
-                                                <div class="user-meta-info d-flex align-items-center gap-2">
-                                                        <img class="rounded-circle avatar-sm"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
-
-                                                        @if(@$account->account_information->link)
-                                                            <a target="_blank" href="{{@$account->account_information->link}}">
-                                                                <p>	{{ @$account->account_information->name}}</p>
-                                                            </a>
-                                                        @else
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                                    <div class="post-meta d-flex justify-content-start align-items-center gap-2">
+                                        <div class="user-meta-info d-flex align-items-center gap-2">
+                                            <div class="image">
+                                      
+                                                <img src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{@$account->account_information->avatar}}">
+                                            </div>
+                                            <div class="content">
+                                                @if(@$account->account_information->link)
+                                                        <a target="_blank" href="{{@$account->account_information->link}}">
                                                             <p>	{{ @$account->account_information->name}}</p>
-                                                        @endif
+                                                        </a>
+                                                    @else
+                                                        <p>	{{ @$account->account_information->name}}</p>
+                                                    @endif
+
+                                                    <span>
+                                                        @php
+                                                            $timestamp = Arr::get($data,'created_time',\Carbon\Carbon::now());
+                                                            $postDate = \Carbon\Carbon::parse($timestamp);
+                                                        @endphp
+                                                        {{diff_for_humans($postDate)}}
+                                                    </span>
                                                 </div>
-                                                        
-                                                <span>
-                                                    @php
-                                                        $timestamp = Arr::get($data,'created_time',\Carbon\Carbon::now());
-                                                        $postDate = \Carbon\Carbon::parse($timestamp);
-                                                    @endphp
-                                                    {{diff_for_humans($postDate)}}
-                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
                                     <span class="status i-badge info">
                                         @php
                                            $postTypeKey = $account->account_type == App\Enums\AccountType::Page->value ? 'status_type' :'type';
@@ -47,32 +54,29 @@
                                     </span>
                                 </div>
                                 <div class="post-details">
-                                        @if(isset($data['message']))
-                                            <p>
-                                                {{$data['message']}}
-                                            </p>
-                                        @endif
-                                        <div>
-                                            <img src="{{Arr::get($data,'full_picture',get_default_img())}}" alt="feed.jpg">
-                                        </div>
-                                  
+                                    @if(isset($data['message']))
+                                        <p class="mb-2">
+                                            {{$data['message']}}
+                                        </p>
+                                    @endif
+                                    <div class="post-image">
+               
+                                        <img src="{{Arr::get($data,'full_picture',get_default_img())}}" alt="feed.jpg">
+                                    </div>
                                 </div>
 
                                 <div class="post-link d-flex gap-2">
-
                                     @if(isset($data['permalink_url']))
-                                        <a class="icon-btn info" target="_blank" href="{{$data['permalink_url']}}">
-                                            {{k2t('permalink_url')}}
+                                        <a class="permalink" target="_blank" href="{{$data['permalink_url']}}">
+                                            {{k2t('permalink_url')}} 
                                         </a>
                                     @endif
-
                                     @if(isset($data['link']))
-                                       <a target="_blank" class="icon-btn success" href="{{$data['link']}}">
+                                       <a target="_blank" class="permalink" href="{{$data['link']}}">
                                           {{k2t('link')}}
                                        </a>
                                     @endif
                                 </div>
-
                             </div>
                         </div>
                 @endforeach
@@ -81,99 +85,39 @@
 
      </div>
 
-       {{-- @php
-          $datas =  [[
-                            "name" => "page_post_engagements",
-                            "period" => "day",
-                            "values" => [
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-24T08:00:00+0000"
-                                ],
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-25T08:00:00+0000"
-                                ]
-                            ],
-                            "title" => "Daily Post Engagements",
-                            "description" => "Daily: The number of times people have engaged with your posts through like, comments and shares and more.",
-                            "id" => "108324407609611/insights/page_post_engagements/day"
-                        ],
-                        [
-                            "name" => "page_post_engagements",
-                            "period" => "week",
-                            "values" => [
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-24T08:00:00+0000"
-                                ],
-                                [
-                                    "value" => 0,
-                                    "end_time" => "2023-12-25T08:00:00+0000"
-                                ]
-                            ],
-                            "title" => "Weekly Post Engagements",
-                            "description" => "Weekly: The number of times people have engaged with your posts through like, comments and shares and more.",
-                            "id" => "108324407609611/insights/page_post_engagements/week"
-                        ]];
-       @endphp --}}
+
      @if( $account->account_type == App\Enums\AccountType::Page->value)
+
         <div class="i-card-md">
             <div class="card--header">
                 <h4 class="card-title">
                     {{translate('Page Insight Of')}}
-                    {{@$account->account_information->name}}
+                    {{@$account->account_information->name}} <small>({{translate("Last 30 days")}})</small>
                 </h4>
             </div>
 
+            @php
+               $insightData         = Arr::get($response ,'page_insights', []);
+               $dailyInsight        = (Arr::get($insightData ,0, []));
+               $dailyInsightValues  = collect(Arr::get($dailyInsight,'values',[]));
+
+
+
+            @endphp
             <div class="card-body">
                 <div class="row g-2">
-                    @forelse (Arr::get($response['response'] ,'page_insights', []) as  $data) 
-                            <div class="col-lg-3">
-                                <div class="i-card-sm post-card">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="post-meta d-flex justify-content-start align-items-center gap-2 mb-3">
-                        
-                                            <div class="insight-title">
-                                                   {{Arr::get($data ,'title', '')}}
-                                            </div>
-                                            <div class="insight-details">
-
-                                                <p>
-                                                    {{Arr::get($data ,'description', '')}} 
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-                                        <span class="status i-badge info">
-                                            {{k2t(Arr::get($data ,'period', ''))}}   
-                                        </span>
-                                    </div>
-                                    <div class="post-details">
-                                        @foreach (Arr::get($data,'values',[]) as $engagement)
-
-                                            <p>
-                                                {{translate('Total Engagements')}} :: {{Arr::get( $engagement,'value',0)}}
-                                            </p>
-                                            <span>
-                                                @php
-                                                    $timestamp = Arr::get($engagement,'end_time',\Carbon\Carbon::now());
-                                                    $postDate = \Carbon\Carbon::parse($timestamp);
-                                                @endphp
-                                                {{translate('Date')}} : {{get_date_time($postDate)}}
-                                            </span>
-
-                                        @endforeach
-                                       
-                                    </div>
-
-
-                                </div>
-                            </div>
-                    @empty
-                       @include('admin.partials.not_found')
-                    @endforelse
+   
+                    @if(count($dailyInsightValues) > 0)
+                      @php
+                       $graphLabel =  $dailyInsightValues->pluck("end_time")->toArray();
+                       $graphValue =  $dailyInsightValues->pluck("value")->toArray();
+                      @endphp
+                        <div class="col-12">
+                            <div id="engagementReport" class="apex-chart"></div>
+                        </div>
+                    @else
+                        @include('admin.partials.not_found')
+                    @endif
                 </div>
         
             </div>
@@ -184,3 +128,61 @@
 
 
 
+@push('script-include')
+  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+@endpush
+
+@push('script-push')
+<script>
+  "use strict";
+
+
+  var accountValues =  @json( $graphValue );
+    var accountLabel =  @json($graphLabel);
+  var options = {
+      chart: {
+        height: 350,
+        type: "line",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      colors: ["{{site_settings('primary_color')}}"], 
+      series: [
+        {
+          name: "{{ translate('Total Engagement ') }}",
+          data: accountValues,
+        },
+      
+      ],
+      xaxis: {
+        categories: accountLabel,
+      },
+   
+      tooltip: {
+          shared: false,
+          intersect: true,
+         
+        },
+      markers: {
+        size: 6, 
+      },
+      stroke: {
+        width: [4, 4], 
+      },
+      legend: {
+        horizontalAlign: "left",
+        offsetX: 40,
+      },
+  };
+
+
+  var chart = new ApexCharts(document.querySelector("#engagementReport"), options);
+  chart.render();
+
+
+
+
+</script>
+@endpush
