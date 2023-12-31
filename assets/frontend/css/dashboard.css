@@ -598,6 +598,13 @@ body {
   animation-delay: calc(var(--spinner-speed) * -0.125);
 }
 
+.profile-tab-content .dot-spinner {
+  --spinner-size: 30px;
+}
+
+.profile-tab-content .dot-spinner .dot-spinner__dot::before {
+  background-color: var(--color-primary);
+}
 /* ========================Modal Custom Css======================== */
 .modal .modal-dialog.ai-modal {
   max-width: 85%;
@@ -2689,6 +2696,21 @@ select {
   overflow-y: auto;
 }
 
+.main-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+.main-wrapper::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+  border-left: 1px solid var(--color-primary-soft);
+
+}
+ 
+.main-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--border-light-two);
+  border-radius: 10px;
+}
+
 @media (max-width: 1199px) {
   .main .main-wrapper {
     padding: 30px 20px 20px;
@@ -4304,7 +4326,7 @@ select {
   .profile-tab-content
   .permissions
   h6 {
-  font-size: 16px;
+  font-size: 18px;
   padding: 12px 15px;
   background: var(--site-bg);
 }
@@ -4334,7 +4356,7 @@ select {
 }
 
 /* ==============================================================
-                   Collapseable Table Accordion Start
+                   CollapsibleTable Accordion Start
 ================================================================= */
 .table-accordion .accordion-item {
   background-color: var(--color-white);

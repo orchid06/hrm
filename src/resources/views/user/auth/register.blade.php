@@ -141,7 +141,7 @@
                     <input required type="checkbox" id="terms_condition" value="1" name="terms_condition" />
                     <label for="terms_condition">{{translate("By completing the registration process, you agree and accept our")}}
                     @if($termsPage)
-                        <a href="{{route('page',$termsPage->slug)}}"> {{$termsPage->title}}</a>
+                        <a href="{{route('page',$termsPage->slug)}}" class="text--primary"> {{$termsPage->title}}</a>
                     @endif
                     </label>
                 </div>

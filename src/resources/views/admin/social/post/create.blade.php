@@ -169,6 +169,12 @@
                   </div>
 
                   <div class="form-inner">
+                      <div class="selected-profile">
+                        <ul>
+                            <li></li>
+                        </ul>
+                      </div>
+
                       <label>
                         {{translate('Choose Profile')}}
                       </label>
@@ -543,7 +549,7 @@
                                         <label for="language">
                                             {{translate('Select input & output language')}} <small class="text-danger">*</small>
                                         </label>
-                                        
+
                                         <select name="language" class="language" id="language">
                                             @foreach ($languages as $language )
                                                 <option {{session()->get('locale') == $language->code ? "selected" :"" }} value="{{$language->name}}">
