@@ -51,9 +51,6 @@ class SocialAccountController extends Controller
 
     
 
-
-    
-
     /**
      * Create a new account
      *
@@ -150,7 +147,7 @@ class SocialAccountController extends Controller
         $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
         $service  =  new  $class();
 
-        $response = $service->accoountDetails($account);
+        $response = $service->accountDetails($account);
 
         if(!$response['status']){
             return redirect()->route('admin.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);

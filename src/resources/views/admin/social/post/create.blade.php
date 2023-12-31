@@ -535,7 +535,7 @@
                                             {{translate('Select input & output language')}} <small class="text-danger">*</small>
                                         </label>
                                         
-                                        <select name="language" class="select2" id="language">
+                                        <select name="language" class="language" id="language">
                                             @foreach ($languages as $language )
                                                 <option {{session()->get('locale') == $language->code ? "selected" :"" }} value="{{$language->name}}">
                                                     {{$language->name}}
@@ -583,7 +583,7 @@
                                                         <div class="form-inner">
                                                             <label for="ai_creativity" class="form-label">{{ translate('Ai Creativity Level') }}
                                                             <small class="text-danger" >*</small></label>
-                                                            <select class="select2" id="ai_creativity" name="ai_creativity" >
+                                                            <select class="ai_creativity" id="ai_creativity" name="ai_creativity" >
                                                                 <option  value="">
                                                                     {{translate("Select Creativity")}}
                                                                 </option>
@@ -597,7 +597,7 @@
                         
                                                         <div class="form-inner">
                                                             <label for="content_tone" class="form-label">{{ translate('Content Tone') }} <small class="text-danger" >*</small></label>
-                                                            <select  class="select2" id="content_tone" name="content_tone">
+                                                            <select  class="content_tone" id="content_tone" name="content_tone">
                                                                     <option value="">
                                                                         {{translate("Select Tone")}}
                                                                     </option>
@@ -707,9 +707,12 @@
         })
 
 
-
         $(".select2").select2({
             placeholder:"{{translate('Select Category')}}",
+            dropdownParent: $("#aiModal"),
+        })
+        $(".language").select2({
+            placeholder:"{{translate('Select Language')}}",
             dropdownParent: $("#aiModal"),
         })
 

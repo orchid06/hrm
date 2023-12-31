@@ -199,7 +199,7 @@ class UserController extends Controller
         try {
            
             DB::transaction(function() use ($id) {
-                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts'])
+                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts','posts','posts.file'])
                                 ->where('uid',$id)
                                 ->firstOrfail();
 
@@ -212,6 +212,14 @@ class UserController extends Controller
                 $user->creditLogs()->delete();
                 $user->templates()->delete();
                 $user->templateUsages()->delete();
+
+                if($user->post()->count() > 0){
+                    foreach(@$user->post as $post){
+                        $this->unlinkLogFile($post ,config("settings")['file_path']['post']['path']);
+                    }
+                  $user->post()->delete();
+                }
+
 
                 if($user->paymentLogs()->count() > 0){
                     foreach(@$user->paymentLogs as $log){
@@ -234,6 +242,7 @@ class UserController extends Controller
                     }
                     $user->tickets()->delete();
                 }
+                
 
                 if($user->kycLogs()->count() > 0) {
                     foreach(@$user->kycLogs as $kyc){

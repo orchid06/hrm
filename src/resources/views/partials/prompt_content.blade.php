@@ -165,7 +165,7 @@
     </div>
 
     <div class="i-card-md mt-4 d-none ai-content-div">
-        <div class="card--header">
+        <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
             <h4 class="card-title">
                 {{translate("Content")}}
             </h4>

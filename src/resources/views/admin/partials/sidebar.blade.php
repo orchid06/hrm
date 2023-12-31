@@ -19,6 +19,50 @@
             </li>
         @endif
 
+
+        @if(check_permission('view_post')) 
+          <li class="sidebar-menu-item">
+              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
+                aria-expanded="false" aria-controls="socialFeed">
+              <span><i class="las la-photo-video"></i></i></span>
+                <p>
+                  {{translate('Post Feed')}}
+                </p>
+                <small >
+                    <i class="las la-angle-down"></i>
+                </small>
+              </a>
+              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.social.post.*'],'drop_down')}} " id="socialFeed">
+                <ul class="sub-menu">
+            
+                  @if(check_permission('view_account'))
+
+                  <li class="sub-menu-item">
+                    <a  href='{{route('admin.social.post.analytics')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.analytics")}}'>
+                        <span></span>
+                        <p>{{translate('Analytics')}}</p>
+                    </a>
+                  </li>
+                    <li class="sub-menu-item">
+                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
+                            <span></span>
+                            <p>{{translate('All Post')}}</p>
+                        </a>
+                    </li>
+                    <li class="sub-menu-item">
+                        <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
+                            <span></span>
+                            <p>{{translate('Create New')}}</p>
+                        </a>
+                    </li>
+                  @endif
+
+              
+                </ul>
+              </div>
+          </li>
+        @endif
+
         @if( check_permission('view_role') ||  check_permission('view_staff') )
           <li class="sidebar-menu-item">
               <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#role_staff" role="button"
@@ -93,6 +137,8 @@
             </div>
           </li>
         @endif
+
+
 
 
         @if(check_permission('view_package'))
@@ -227,7 +273,7 @@
                   <i class="las la-angle-down"></i>
                 </small>
             </a>
-            <div class='side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*","admin.subscription.report.*","admin.payment.report.*","admin.transaction.report.*","admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*" ,"admin.affiliate.report.*"],"drop_down")}}' id="report">
+            <div class='side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*","admin.subscription.report.*","admin.payment.report.*","admin.transaction.report.*","admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*" ,"admin.affiliate.report.*","admin.kyc.report.*"],"drop_down")}}' id="report">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
                   <a  href='{{route("admin.template.report.list")}}'  class='sidebar-menu-link {{sidebar_awake("admin.template.report.list")}}'>
@@ -347,71 +393,11 @@
                     </li>
                   @endif
 
-
-                  {{-- @if(check_permission('view_account'))
-                    <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
-                            <span></span>
-                            <p>{{translate('Post')}}</p>
-                        </a>
-                    </li>
-                    <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
-                            <span></span>
-                            <p>{{translate('Create Post')}}</p>
-                        </a>
-                    </li>
-                  @endif --}}
-
                
                 </ul>
               </div>
             </li>
         @endif
-
-
-        @if(check_permission('view_account') || check_permission('view_platform')) 
-       
-          <li class="sidebar-menu-item">
-          
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
-              aria-expanded="false" aria-controls="socialFeed">
-            <span><i class="las la-photo-video"></i></i></span>
-              <p>
-                {{translate('Post Feed')}}
-              </p>
-              <small >
-                  <i class="las la-angle-down"></i>
-              </small>
-            </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.social.post.*'],'drop_down')}} " id="socialFeed">
-              <ul class="sub-menu">
-          
-                @if(check_permission('view_account'))
-                  <li class="sub-menu-item">
-                      <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
-                          <span></span>
-                          <p>{{translate('All Post')}}</p>
-                      </a>
-                  </li>
-                  <li class="sub-menu-item">
-                      <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
-                          <span></span>
-                          <p>{{translate('Create New')}}</p>
-                      </a>
-                  </li>
-                @endif
-
-             
-              </ul>
-            </div>
-          </li>
-      @endif
-
-
-
-
-
 
 
 

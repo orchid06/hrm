@@ -7,8 +7,10 @@ use App\Traits\AccoutManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
+use App\Models\SocialPost;
 use Illuminate\Support\Arr;
 use Coderjerk\BirdElephant\BirdElephant;
+use Illuminate\Support\Facades\Http;
 class Account
 {
     
@@ -82,6 +84,97 @@ class Account
 
     }
 
+
+
+    public function send(SocialPost $post) :array{
+
+        try {
+
+           $account           = $post->account;
+           $accountConnection = $this->accountDetails($post->account);
+
+
+           $isConnected       = Arr::get($accountConnection,'status', false);
+           $message           = translate("Gateway connection error");
+           $status            = false;
+
+           if($isConnected){
+               $message     = translate("Posted Successfully");
+               $status      = true;
+               $baseApi     = $account->platform->configuration->graph_api_url;
+               $apiVersion  = $account->platform->configuration->app_version;
+               $token       = $account->account_information->token;
+               $api         =  $baseApi .$apiVersion;
+
+               switch ($account->account_type) {
+                   case AccountType::Profile->value:
+                       $api =   $api."/me/feed";
+                       break;
+                   case AccountType::Page->value:
+                       $fields = 'status_type,message,full_picture,created_time,permalink_url';
+                       $api    =  $api."/".$account->account_id."/feed";
+                       break;
+   
+                   case AccountType::Group->value:
+                       $api =   $api."/".$account->account_id."/feed";
+                   break;
+               }
+   
+   
+               $params = array(
+                   'api'          => $api ,
+                   'access_token' => $token,
+               );
+               
+               if ($post->content) {
+                   $params['message'] = $post->content;
+               }
+               if ($post->link) {
+                   $params['link']    = $post->link;
+               }
+
+               if($post->file && $post->file->count() > 0){
+                   foreach ($post->file as $file) {
+                       $uploadParams = [
+                           'access_token'  => $token,
+                           'url'           => imageUrl($file,"post",true),
+                           'published'     => false,
+                       ];
+                       $uploadResponse = Http::post($baseApi . $apiVersion . "/me/photos", $uploadParams);
+                       $uploadData     = $uploadResponse->json();
+                       if (isset($uploadData['id'])) {
+                           $params['attached_media'][] = '{"media_fbid":"'.$uploadData['id'].'"}';
+                       }
+                   }
+               }
+
+               $response     = Http::post($params['api'], $params);
+               $gwResponse   = $response->json();
+
+
+               if(isset($gwResponse['error'])) {
+                   $status  = false;
+                   $message = $gwResponse['error']['message'];
+               }
+               else{
+                   $url = "https://fb.com/".$gwResponse['id'];
+               }
+
+           }
+
+           
+        } catch (\Exception $ex) {
+           $status  = false;
+           $message = strip_tags($ex->getMessage());
+        }
+
+        return [
+           'status'   => $status,
+           'response' => $message,
+           'url'      => @$url
+       ];
+
+   }
 
 
 
