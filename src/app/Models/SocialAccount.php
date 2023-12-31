@@ -70,7 +70,6 @@ class SocialAccount extends Model
     }
 
 
-
     /**
      * Get social post
      *
@@ -90,7 +89,7 @@ class SocialAccount extends Model
 
 
     public function scopeConnected(Builder $q) :Builder{
-        return $q->where('is_connected',StatusEnum::false->status());
+        return $q->where('is_connected',StatusEnum::true->status());
     }
 
     

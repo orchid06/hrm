@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Cookie\CookieJar;
+use Illuminate\Support\Facades\Artisan;
 
 trait AccoutManager
 {
@@ -99,10 +100,18 @@ trait AccoutManager
                     });
 
 
+        // Artisan::queue('queue:restart');
+
+
+        
+
+
         return [
             'status'  => true,
             'account' => $socialAccount
         ];
+
+
 
 
     }

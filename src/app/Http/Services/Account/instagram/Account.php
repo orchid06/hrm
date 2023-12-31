@@ -69,12 +69,12 @@ class Account
     }
 
     
-    public function accoountDetails(SocialAccount $account) : array {
+    public function accountDetails(SocialAccount $account) : array {
 
 
         try {
 
- 
+
             $baseApi     = $account->platform->configuration->graph_api_url;
             $apiVersion  = $account->platform->configuration->app_version;
             $api         = $baseApi."/".$apiVersion;
@@ -90,6 +90,7 @@ class Account
             
             $response = Http::get($apiUrl, $params);
             $apiResponse = $response->json();
+      
 
 
             if(isset($apiResponse['error'])) {
@@ -149,9 +150,6 @@ class Account
         }
 
         return   $response;
-
-
-
 
 
     }
