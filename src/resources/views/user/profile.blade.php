@@ -377,21 +377,20 @@
                         <div class="tab-pane fade" id="plan-tab" role="tabpanel">
                             <div class="i-card-md">
                                 <div class="card-header">
-
                                     <h4 class="card-title d-flex align-items-center gap-2">
-                                           <span class="dot-spinner">
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                                <span class="dot-spinner__dot"></span>
-                                            </span>
-                                          {{translate('Current Plan')}}
-                                    </h4>
+                                        <span class="dot-spinner">
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                            <span class="dot-spinner__dot"></span>
+                                        </span>
 
+                                        {{translate('Current Plan')}}
+                                    </h4>
                                 </div>
 
                                 <div class="card-body">

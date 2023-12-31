@@ -209,7 +209,8 @@
 
         </ul>
 
-
+        
+        <!-- Sidebar Bottom  -->
         <div class="d-lg-none align-items-center justify-content-between w-100 d-flex">
            <!-- currency -->
             <div class="dropdown currency">

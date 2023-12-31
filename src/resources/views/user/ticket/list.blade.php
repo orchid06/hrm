@@ -60,10 +60,10 @@
 
 
                     <div class="d-flex gap-2">
-                        <button class="i-btn primary btn--lg">
+                        <button class="i-btn primary btn--lg rounded">
                             <i class="bi bi-search"></i>
                         </button>
-                        <a href="{{ route('user.ticket.list') }}" class="i-btn danger btn--lg">
+                        <a href="{{ route('user.ticket.list') }}" class="i-btn danger btn--lg rounded">
                             <i class="bi bi-arrow-repeat"></i>
                         </a>
                     </div>

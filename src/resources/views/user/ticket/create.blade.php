@@ -17,7 +17,6 @@
         @endphp
 
 
-
         <div class="card-body">
             <form action="{{route('user.ticket.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -26,10 +25,10 @@
                     @foreach($ticket_fields as $ticket_field)
                     @php
                     if(isset($ticket_field['name'])){
-                            $field_name = $ticket_field['name'];
+                          $field_name = $ticket_field['name'];
                         }
                     @endphp
-                        <div class="col-lg-{{$ticket_field['type'] == 'textarea'  || $ticket_field['name'] == 'subject'  ? 12 :6}}">
+                        <div class="col-lg-{{$ticket_field['type'] == 'textarea' || $ticket_field['name'] == 'subject' ? 12 :6}}">
 
                             <div class="form-inner mb-0">
                                 <label for="{{$loop->index}}" class="form-label">
@@ -53,7 +52,6 @@
                         </div>
                     @endforeach
 
-
                     <div class="col-lg-6">
                         <div class="form-inner mb-0">
                             <label for="priority" class="form-label">
@@ -73,13 +71,11 @@
                         </div>
                     </div>
 
-
                     <div class="col-12">
-                        <button type="submit" class="i-btn btn--md btn--primary capsuled" data-anim="ripple">
+                        <button type="submit" class="i-btn btn--lg btn--primary capsuled">
                             {{translate("Submit")}}
                         </button>
                     </div>
-
                 </div>
             </form>
         </div>
