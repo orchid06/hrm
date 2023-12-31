@@ -20,7 +20,7 @@
                 <div class="row g-4">
                   <div class="col-lg-3 col-sm-6">
                     <div class="summary-card">
-                      <span>
+                      <span class="text--warning">
                         <i class="bi bi-hourglass-split"></i>
                       </span>
 
@@ -33,7 +33,7 @@
 
                   <div class="col-lg-3 col-sm-6">
                     <div class="summary-card">
-                      <span>
+                      <span class="text--success">
                         <i class="bi bi-calendar-check"></i>
                       </span>
 
@@ -46,8 +46,8 @@
 
                   <div class="col-lg-3 col-sm-6">
                     <div class="summary-card">
-                      <span>
-                        <i class="bi bi-calendar-x"></i>
+                      <span class="text--info">
+                       <i class="bi bi-calendar2-minus"></i>
                       </span>
 
                       <div>
@@ -59,7 +59,7 @@
 
                   <div class="col-lg-3 col-sm-6">
                     <div class="summary-card">
-                      <span>
+                      <span class="text--danger">
                         <i class="bi bi-journal-x"></i>
                       </span>
 

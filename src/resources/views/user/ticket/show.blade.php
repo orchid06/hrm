@@ -165,11 +165,11 @@
                                     </tr>
                                 @endif
                             @empty
-                                    <tr>
-                                        <td class="border-bottom-0" colspan="90">
-                                            @include('admin.partials.not_found')
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found')
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -212,7 +212,6 @@
                 </div>
             </div>
         @endif
-
     </div>
 </div>
 
