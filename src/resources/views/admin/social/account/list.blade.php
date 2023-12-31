@@ -101,8 +101,8 @@
                                                         </option>
                                     
                                                         @foreach(system_users() as $user)
-                                                        <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                                        </option>
+                                                            <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

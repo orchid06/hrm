@@ -560,7 +560,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                     Route::post('/update/status','updateStatus')->name('update.status');
                     Route::post('/bulk/action','bulk')->name('bulk');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
-
                     Route::get('/show/{uid}','show')->name('show');
      
                });
@@ -570,15 +569,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                Route::controller(SocialPostController::class)->name('post.')->prefix('post/')->group(function () {
 
                     Route::any('/list','list')->name('list');
+                    Route::any('/analytics/dashboard','analytics')->name('analytics');
                     Route::get('/create','create')->name('create');
                     Route::post('/store','store')->name('store');
-                    Route::post('/reconnect','reconnect')->name('reconnect');
-                    Route::get('/edit/{uid}','edit')->name('edit');
-                    Route::post('/update','update')->name('update');
-                    Route::post('/update/status','updateStatus')->name('update.status');
-                    Route::post('/bulk/action','bulk')->name('bulk');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
-
                     Route::get('/show/{uid}','show')->name('show');
      
                });

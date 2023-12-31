@@ -186,8 +186,7 @@ class AccountConfig
 
 	public function startChallenge ( $api_path )
 	{
-		sleep( 1 );
-
+		sleep(1);
 		$sendData = [
 			'choice'        => '1',
 			'_csrftoken'    => $this->getCsrfToken(),

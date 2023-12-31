@@ -212,7 +212,7 @@
        	"use strict";
 
         $(".select2").select2({
-            placeholder:"{{translate('Select Category')}}",
+            placeholder:"{{translate('Select Item')}}",
         })
 
         $(".selectTemplate").select2({

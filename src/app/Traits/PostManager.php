@@ -66,9 +66,6 @@ trait PostManager
                         $post->file()->save($image);
                     }
                 }
-                if($post->status ==  PostStatus::value('Pending',true)){
-                    SocialPostJob::dispatch($post);
-                }
             
             }
 
@@ -109,14 +106,17 @@ trait PostManager
 
         $account = $post->account;
 
-        $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
-        $service  =  new  $class();
+        $class        = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
+        $service      =  new  $class();
 
-        $response = $service->send($post);
-        
-        $status   = Arr::get($response, 'status');
-        $message  = Arr::get($response, 'message');
-        if(!$status && $post->user && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
+        $response     = $service->send($post);
+
+        $is_success   = Arr::get($response,'status' ,false);
+        $post->status =  strval($is_success ? PostStatus::value('Success') : PostStatus::value('Failed'));
+        $post->platform_response  = $response;
+        $post->save();
+
+        if(!$is_success && $post->user && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
             $user = $post->user;
             $this->generateCreditLog(
                 user        : $post->user,

@@ -204,7 +204,7 @@ class HomeController extends Controller
 
 
 
-        $data['earning_per_months'] = sortByMonth(PaymentLog::paid()->selectRaw("MONTHNAME(created_at) as months, SUM(amount + charge) as total")
+        $data['earning_per_months']     = sortByMonth(PaymentLog::paid()->selectRaw("MONTHNAME(created_at) as months, SUM(amount + charge) as total")
                                             ->whereYear('created_at', '=',date("Y"))
                                             ->groupBy('months')
                                             ->pluck('total', 'months')

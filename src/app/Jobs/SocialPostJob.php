@@ -14,13 +14,13 @@ class SocialPostJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels ,PostManager;
 
-    public $post;
+    public $id;
     /**
      * Create a new job instance.
      */
-    public function __construct(SocialPost $post)
+    public function __construct(int | string  $id)
     {
-        $this->post = $post;
+        $this->id = $id;
     }
 
     /**
@@ -28,6 +28,11 @@ class SocialPostJob implements ShouldQueue
      */
     public function handle(): void
     {
-       $this->publishPost($this->post);
+        $post = SocialPost::pending()->with(['user','admin','account','file','account.platform'])->find($this->id);
+
+        if($post){
+            $this->publishPost($post);
+        }
+      
     }
 }
