@@ -212,7 +212,6 @@ class HomeController extends Controller
         return view('user.notifications',[
             'meta_data'=> $this->metaData(['title'=>translate("Notifications")]),
             'notifications' => Notification::where('notificationable_type','App\Models\User')
-                                ->where("id", $request->input("id"))
                                 ->where("notificationable_id",$this->user->id)
                                 ->latest()
                                 ->paginate(paginateNumber())
