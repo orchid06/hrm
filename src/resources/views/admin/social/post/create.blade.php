@@ -172,22 +172,12 @@
                       <div class="selected-profile">
                         <ul>
                             <li>
-                                <div class="profile-item-meta">
-                                    <div class="profile-item-img">
-                                        <img class="rounded-circle avatar-md" src="https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-1/412602502_122121499742091777_7535954955459981640_n.jpg?stp=cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_eui2=AeHFh78m9lb5j9n-T_kgUyUBaw4VoyQUMzdrDhWjJBQzN81oIKxPDcEBkBeN2Q3DQMav-ZDa1_ym4hwan1gsqBtv&amp;_nc_ohc=kV4UdMUurKIAX9HquhP&amp;_nc_ht=scontent.fdac5-2.fna&amp;edm=AJdBtusEAAAA&amp;oh=00_AfA2tzpotDehTVOKx8zR-_u_ueEc-noSPwbxYQ2WH4HH6A&amp;oe=6591929E" alt="https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-1/412602502_122121499742091777_7535954955459981640_n.jpg?stp=cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_eui2=AeHFh78m9lb5j9n-T_kgUyUBaw4VoyQUMzdrDhWjJBQzN81oIKxPDcEBkBeN2Q3DQMav-ZDa1_ym4hwan1gsqBtv&amp;_nc_ohc=kV4UdMUurKIAX9HquhP&amp;_nc_ht=scontent.fdac5-2.fna&amp;edm=AJdBtusEAAAA&amp;oh=00_AfA2tzpotDehTVOKx8zR-_u_ueEc-noSPwbxYQ2WH4HH6A&amp;oe=6591929E">
-                                    </div>
+                                <div class="profile-item-img">
+                                    <img class="rounded-circle avatar-md" src="http://localhost/EngageHub/default/image/150x150" alt="">
 
-                                    <div>
-                                        <h6 class="account-name">
-                                            News today
-                                        </h6>
-
-                                        <a href="http://localhost/EngageHub/admin/social/account/create/facebook">
-                                            Facebook
-                                        </a>
-
-                                    </div>
+                                    <img src="" alt="">
                                 </div>
+
                             </li>
                         </ul>
                       </div>
