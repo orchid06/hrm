@@ -89,6 +89,7 @@
                             <th scope="col">{{translate('User')}}</th>
                             <th scope="col">{{translate('Admin')}}</th>
                             <th scope="col">{{translate('Schedule Time')}}</th>
+                            <th scope="col">{{translate('Send time')}}</th>
                             <th scope="col">{{translate('Status')}}</th>
                             <th scope="col">{{translate('Post Type')}}</th>
                             <th scope="col">{{translate('Options')}}</th>
@@ -141,8 +142,11 @@
                                     {{@$post->admin ? @$post->admin->name : translate('N/A')}}
                                 </td>
 
-                                <td data-label='{{translate("Admin")}}'>
+                                <td data-label='{{translate("Schedule time")}}'>
                                     {{@$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')}}
+                                </td>
+                                <td data-label='{{translate("Send time")}}'>
+                                    {{@$post->updated_at ? diff_for_humans($post->updated_at ) : translate('N/A')}}
                                 </td>
 
                                 <td data-label='{{translate("Status")}}'>
@@ -150,7 +154,7 @@
                                      @if( $post->platform_response && @$post->platform_response->response )
                                         <a href="javascript:void(0);" data-message="{{$post->platform_response->response }}" class="pointer show-info icon-btn danger">
                                             <i class="las la-info"></i></a>
-                                      @endif
+                                    @endif
 
 
                                 </td>

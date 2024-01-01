@@ -287,72 +287,83 @@
               <tbody>
                 @forelse (Arr::get($data,'latest_post',[]) as $post)
                 <tr>
-                    <td data-label="#">
-                        {{$loop->iteration}}
-                    </td>
-                    <td data-label='{{translate("Name")}}'>
-                        <div class="user-meta-info d-flex align-items-center gap-2">
-                            <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
-                            <p>	 {{$post->account->platform->name}}</p>
-                        </div>
-                    </td>
-                    <td data-label='{{translate("Account")}}'>
-                        <div class="user-meta-info d-flex align-items-center gap-2">
-                            <img class="rounded-circle avatar-sm"  src='{{@$post->account->account_information->avatar }}' alt="{{@$post->account->account_information->avatar}}">
+                  <td data-label="#">
+                      {{$loop->iteration}}
+                  </td>
+                  <td data-label='{{translate("Name")}}'>
+                      <div class="user-meta-info d-flex align-items-center gap-2">
+                          <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
+                          <p>	 {{$post->account->platform->name}}</p>
+                      </div>
+                     
+                  </td>
+                  <td data-label='{{translate("Account")}}'>
+                      <div class="user-meta-info d-flex align-items-center gap-2">
+                          <img class="rounded-circle avatar-sm"  src='{{@$post->account->account_information->avatar }}' alt="{{@$post->account->account_information->avatar}}">
 
-                            @if(@$post->account->account_information->link)
-                                <a target="_blank" href="{{@$post->account->account_information->link}}">
-                                    <p>	{{ @$post->account->account_information->name}}</p>
-                                </a>
-                            @else
-                                <p>	{{ @$post->account->account_information->name}}</p>
-                            @endif
-                
-                        </div>
-                    </td>
+                          @if(@$post->account->account_information->link)
+                              <a target="_blank" href="{{@$post->account->account_information->link}}">
+                                  <p>	{{ @$post->account->account_information->name}}</p>
+                              </a>
+                          @else
+                              <p>	{{ @$post->account->account_information->name}}</p>
+                          @endif
+                          @if( $post->platform_response && $post->platform_response->url )
+                          -  <span class="i-badge success"><a  title="{{translate("Show")}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                              </a>
+                          </span>
+                          @endif
+                      </div>
+                  </td>
 
-                    <td data-label='{{translate("User")}}'>
-                        @if($post->user )
-                            <a href="{{route('admin.user.show',$post->user->uid)}}">
-                                 {{ @$post->user->name }}
-                            </a>
-                        @else
-                            {{ translate('N/A')}}
+                  <td data-label='{{translate("User")}}'>
+                      @if($post->user )
+                          <a href="{{route('admin.user.show',$post->user->uid)}}">
+                               {{ @$post->user->name }}
+                          </a>
+                      @else
+                          {{ translate('N/A')}}
+                      @endif
+
+                  </td>
+
+                  <td data-label='{{translate("Admin")}}'>
+                      {{@$post->admin ? @$post->admin->name : translate('N/A')}}
+                  </td>
+
+                  <td data-label='{{translate("Admin")}}'>
+                      {{@$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')}}
+                  </td>
+
+                  <td data-label='{{translate("Status")}}'>
+                       @php echo post_status($post->status)   @endphp
+                       @if( $post->platform_response && @$post->platform_response->response )
+                          <a href="javascript:void(0);" data-message="{{$post->platform_response->response }}" class="pointer show-info icon-btn danger">
+                              <i class="las la-info"></i></a>
                         @endif
 
-                    </td>
 
-                    <td data-label='{{translate("Admin")}}'>
-                        {{@$post->admin ? @$post->admin->name : translate('N/A')}}
-                    </td>
+                  </td>
+                  <td data-label='{{translate("Type")}}'>
+                       @php echo post_type($post->post_type)   @endphp
+                  </td>
+                 
 
-                    <td data-label='{{translate("Admin")}}'>
-                        {{@$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')}}
-                    </td>
+                  <td data-label='{{translate("Action")}}'>
+                      <div class="table-action">
 
-                    <td data-label='{{translate("Status")}}'>
-                         @php echo post_status($post->status)   @endphp
-                    </td>
-                    <td data-label='{{translate("Type")}}'>
-                         @php echo post_type($post->post_type)   @endphp
-                    </td>
-                   
-
-                    <td data-label='{{translate("Action")}}'>
-                        <div class="table-action">
-
-                            <a  title="{{translate("Show")}}"  href="{{route('admin.social.post.show',["uid" => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
-                            </a>
-                            @if(check_permission('delete_post') )
-                                <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
-                                    <i class="las la-trash-alt"></i>
-                                </a>
-                            @else
-                                {{translate('N/A')}}
-                            @endif
-                        </div>
-                    </td>
-                </tr>
+                          <a  title="{{translate("Show")}}"  href="{{route('admin.social.post.show',["uid" => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                          </a>
+                          @if(check_permission('delete_post') )
+                              <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
+                                  <i class="las la-trash-alt"></i>
+                              </a>
+                          @else
+                              {{translate('N/A')}}
+                          @endif
+                      </div>
+                  </td>
+              </tr>
               @empty
                   <tr>
                       <td class="border-bottom-0" colspan="90">
@@ -373,6 +384,34 @@
 
 @endsection
 
+@section('modal')
+  @include('modal.delete_modal')
+
+  <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{translate('Response Message')}}
+                </h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+
 @push('script-include')
   <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
@@ -382,6 +421,18 @@
 <script>
   "use strict";
     /** account repots */
+
+    $(document).on('click','.show-info',function(e){
+
+      var modal = $('#report-info');
+
+      var report = $(this).attr('data-message')
+
+      $('.content').html(report)
+
+          modal.modal('show')
+    });
+
     var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
 
     var accountValues = [];

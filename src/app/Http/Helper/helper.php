@@ -1045,6 +1045,12 @@ use Illuminate\Database\Eloquent\Collection;
          
 		}
    }
+   if (!function_exists('get')) {
+      function get($name, $default = null) {
+          return request()->input($name, $default);
+      }
+  }
+  
 
 
 

@@ -181,10 +181,9 @@ class CoreController extends Controller
 
         $posts = SocialPost::whereIn('status',[strval(PostStatus::value('Pending',true)) ,strval(PostStatus::value('Schedule',true))])->cursor();
 
-
-
         foreach($posts->chunk(20) as $chunkPosts){
             foreach($chunkPosts as $post){
+                sleep(1);
                 if($post->schedule_time <= Carbon::now()){
                     $post->status = strval(PostStatus::value('Pending',true));
                     $post->save();
