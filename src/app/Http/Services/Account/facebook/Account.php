@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Account\facebook;
 
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\PostStatus;
@@ -18,7 +18,7 @@ class Account
 {
     
 
-    use AccoutManager;
+    use AccountManager;
 
     /**
      * Connet facebook account
@@ -31,13 +31,16 @@ class Account
     public function facebook(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array {
 
         $type        = Arr::get($request,'account_type');
+        
+        $accountId   = Arr::get($request,'account_id', null);
         $token       = Arr::get($request,'access_token');
         $baseApi     = $platform->configuration->graph_api_url;
         $apiVersion  = $platform->configuration->app_version;
         $api         = $baseApi."/".$apiVersion;
         $pageId      = Arr::get($request,'page_id', null);
         $groupId     = Arr::get($request,'group_id', null);
-        $response   = response_status(translate('Account Created'));
+        $response    = response_status(translate('Account Created'));
+
     
         try {
 
@@ -85,8 +88,8 @@ class Account
             }
             
             $accountInfo = [
-                'id'         => $identification ,
-                'account_id' => Arr::get($apiResponse,'id',null),
+                'id'         => Arr::get($apiResponse,'id',null) ,
+                'account_id' => $identification ,
                 'name'       => Arr::get($apiResponse,'name',null),
                 'link'       => Arr::get($apiResponse,'link',@$link),
                 'email'      => Arr::get($apiResponse,'email',null),
@@ -95,7 +98,7 @@ class Account
             ];
 
 
-            $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value );
+            $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value ,$accountId);
 
 
         } catch (\Exception $ex) {

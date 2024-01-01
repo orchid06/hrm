@@ -3,7 +3,7 @@
 namespace App\Http\Services\Account\instagram;
 
 use App\Enums\ConnectionType;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
@@ -15,7 +15,7 @@ class Account
 {
     
 
-    use AccoutManager;
+    use AccountManager;
 
     public $igUrl ;
     public function __construct(){
@@ -34,7 +34,6 @@ class Account
     public function instagram(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array{
 
         $responseStatus   = response_status(translate('Invalid username or password'),'error');
-
         try {
             
             $username    = Arr::get($request,'username',null);
@@ -164,7 +163,7 @@ class Account
             $accountConnection = $this->accountDetails($account);
 
             $isConnected       = Arr::get($accountConnection,'status', false);
-            $message           = translate("Account is not connected");
+            $message           = translate("Invalid access token");
             $status            = false;
             $token             = $account->account_information->token;
 

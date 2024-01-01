@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Support\Facades\Artisan;
 
-trait AccoutManager
+trait AccountManager
 {
 
 
@@ -41,15 +41,16 @@ trait AccoutManager
      * @param string $account_type
      * @return array
      */
-    protected function saveAccount(string $guard , MediaPlatform $platform , array $accountInfo, string  $account_type , string $is_official ) :array{
+    protected function saveAccount(string $guard , MediaPlatform $platform , array $accountInfo, string  $account_type , string $is_official , int | string  $dbId = null ) :array{
 
-        $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ,$is_official ) {
+        $socialAccount = DB::transaction(function() use ($guard,$platform,$accountInfo,$account_type ,$is_official ,$dbId ) {
 
                         $user      = auth_user($guard);
                         $accountId = Arr::get($accountInfo,"account_id",null);
 
                         $findBy = ['account_id' => $accountId ,'platform_id' => $platform->id ];
 
+             
                         switch ($guard) {
                             case 'web':
                                 $findBy ['user_id'] = $user->id;
@@ -59,7 +60,10 @@ trait AccoutManager
                                 break;
                         }
 
-                        $account    = SocialAccount::firstOrNew($findBy);
+                
+
+                        $account = $dbId ? SocialAccount::find($dbId) : SocialAccount::firstOrNew($findBy);
+
 
                         $account->platform_id                 = $platform->id;
                         $account->name                        = Arr::get($accountInfo,'name');
@@ -81,11 +85,12 @@ trait AccoutManager
                         
                         $account->save();
 
-                        if($account->user_id){
+                        if($account->user_id && !$dbId){
 
                             $this->generateCreditLog(
                                 user        : $user,
                                 trxType     : Transaction::$MINUS,
+                                balance     : 1,
                                 postBalance : (int)$user->runningSubscription->total_profile,
                                 details     :  'A new '. $platform->name .' Account Created',
                                 remark      : t2k("profile_credit"),

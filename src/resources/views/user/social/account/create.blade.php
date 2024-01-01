@@ -1,4 +1,5 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
+@section('content')
 
 
 @section('content')
@@ -9,8 +10,8 @@
        if($platform->slug != 'facebook' ){
            Arr::forget($accountTypes,['Group','Page']);
        }
-       $connectionTypes = App\Enums\ConnectionType::toArray();
 
+       $connectionTypes     = App\Enums\ConnectionType::toArray();
        $platforms           = Arr::get(config('settings'),'platforms' ,[]);
        $platformConfig      = Arr::get($platforms,$platform->slug ,null);
 
@@ -21,12 +22,11 @@
        if(isset($platformConfig['official'])){
            Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
        }
-
        $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
 
     @endphp
  
-    <form action="{{route('admin.social.account.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
+    <form action="{{route('user.social.account.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <input hidden name="platform_id" value="{{$platform->id}}">
         <div class="row g-4">
@@ -38,6 +38,10 @@
                         </h4>
                     </div>
                     <div class="card-body">
+                        <a href="{{route('user.social.account.list',['platform' => $platform->slug])}}">
+
+                              {{translate("View Accounts")}}
+                        </a>
                         <div class="row">      
                             <div class="col-lg-12">
                                 <ul class="nav nav-tabs style-1 justify-content-center" role="tablist">                                  
@@ -90,7 +94,7 @@
                                                     <label  for="group_id">
                                                         {{translate("Group Id")}}  <span class="text-danger">*</span>
                                                     </label>
-                                                    <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter Group Id")}}'
+                                                    <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter group id")}}'
                                                         value="{{old('group_id')}}">
                                                 </div>  
                                                  @foreach ($inputs as $key )
@@ -106,7 +110,7 @@
                                             <div class="text-center mt-4">
                                                 @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                   <div class="d-flex gap-2 justify-content-center">
-                                                        <a href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--sm info">
+                                                        <a href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--sm info">
                                                             <i class="las la-user-alt me-1"></i>   {{translate('Connect Profile')}}
                                                         </a>
                                                   </div>
@@ -137,7 +141,6 @@
    </form>
 
 @endsection
-
 
 
 @push('script-push')

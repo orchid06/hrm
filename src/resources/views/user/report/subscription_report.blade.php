@@ -175,13 +175,11 @@
                                                 "Ai Word Balnace"          => $report->word_balance,
                                                 "Remaining Word Balance"   => $report->remaining_word_balance,
                                                 "Carried Word Balnace"     => $report->carried_word_balance,
-
                                                 "Total Social Profile"     => $report->total_profile,
                                                 "Carried Profile Balnace"  => $report->carried_profile,
-
                                                 "Social Post Balnace"      => $report->post_balance,
-                                                "Remaining Post Balance"   => $report->carried_post_balance,
-                                                "Carried Post Balnace"     => $report->remaining_post_balance,
+                                                "Remaining Post Balance"   => $report->remaining_post_balance,
+                                                "Carried Post Balnace"     => $report->carried_post_balance,
                                             ];
                                         @endphp
 

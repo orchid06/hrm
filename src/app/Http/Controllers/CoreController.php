@@ -41,13 +41,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 use App\Traits\PostManager;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 class CoreController extends Controller
 {
 
 
 
-    use AccoutManager ,PostManager;
+    use AccountManager ,PostManager;
     
      
     /**

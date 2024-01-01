@@ -19,14 +19,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 use App\Traits\PostManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class SocialPostController extends Controller
 {
-    use ModelAction , AccoutManager ,PostManager;
+    use ModelAction , AccountManager ,PostManager;
 
     public function __construct(){
 

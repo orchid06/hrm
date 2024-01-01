@@ -15,9 +15,28 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 class SocialAccountController extends Controller
 {
+
+
+    use ModelAction , AccountManager;
+
+    protected  $user ,$subscription , $accessPlatforms ,$remainingProfile;
+
+     
+    public function __construct(){
+        
+
+        $this->middleware(function ($request, $next) {
+            $this->user                   = auth_user('web');
+            $this->subscription           = $this->user->runningSubscription;
+            $this->accessPlatforms        = (array) ($this->subscription ? @$this->subscription->package->social_access->platform_access : []);
+
+            $this->remainingProfile       = (int) ($this->subscription ? @$this->subscription->total_profile : 0);
+            return $next($request);
+        });
+    }
     
     /**
      * Social account list
@@ -26,13 +45,23 @@ class SocialAccountController extends Controller
      */
     public function list() :View{
 
+
+        if(request()->input('platform',null)){
+            $platform = MediaPlatform::whereIn('id',(array)$this->accessPlatforms)
+                         ->where('slug', request()->input('platform'))
+                         ->firstOrfail();
+        }
+
         return view('user.social.account.list',[
 
-            'accounts'  => SocialAccount::with(['user','subscription','subscription.package','platform','admin'])
-                                ->filter(["status",'user:username','platform:slug'])
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
+            'meta_data'       => $this->metaData(['title'=> translate("Social Accounts")]),
+
+            'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform'])
+                                    ->where("user_id",$this->user->id)
+                                    ->filter(["status",'platform:slug'])
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all()),
 
         ]);
     }
@@ -42,23 +71,34 @@ class SocialAccountController extends Controller
     /**
      * Create a new account
      *
-     * @return View
+     * @return View | RedirectResponse
      */
-    public function create(string $slug) :View{
+    public function create(string $slug) :View | RedirectResponse{
 
 
-        $platform = MediaPlatform::with(['file'])->active()
-                        ->integrated()
-                        ->where('slug', $slug)
-                        ->firstOrfail();
+        if($this->checkSubscriptionProfile()){
+
+            $platform = MediaPlatform::with(['file'])
+                            ->whereIn('id',(array)$this->accessPlatforms)
+                            ->active()
+                            ->integrated()
+                            ->where('slug', $slug)
+                            ->firstOrfail();
 
 
-        return view('user.social.account.create',[
+            return view('user.social.account.create',[
 
-            "title"           =>  "Create ".$platform->name. " Account",
-            'platform'        => $platform,
+                'meta_data'       => $this->metaData(['title'=>  "Create ".$platform->name. " Account"]),
+                'platform'        => $platform,
 
-        ]);
+            ]);
+        }
+
+        return redirect()->route("user.social.account.list")->with("error", translate("Unable to create a new account: Insufficient subscription balance. Please recharge to proceed with the account creation process. Thank you"));
+    }
+
+    public function checkSubscriptionProfile() :bool{
+        return $this->remainingProfile > 0 ? true : false;
     }
 
 
@@ -69,18 +109,22 @@ class SocialAccountController extends Controller
      */
     public function store(AccountRequest $request) :RedirectResponse{
 
+        $response  = response_status(translate("Unable to create a new account: Insufficient subscription balance. Please recharge to proceed with the account creation process. Thank you"),'error');
+        if($this->checkSubscriptionProfile()){
+                $platform = MediaPlatform::where('id',request()->input("platform_id"))
+                                ->whereIn('id',(array)$this->accessPlatforms)
+                                ->active()
+                                ->integrated()
+                                ->firstOrfail();
 
-        $platform = MediaPlatform::where('id',request()->input("platform_id"))
-                        ->active()
-                        ->integrated()
-                        ->firstOrfail();
 
+                $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
 
-        $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
+                $service =  new  $class();
 
-        $service =  new  $class();
+                $response = $service->{$platform->slug}($platform,$request->except("_token"),'web');
+        }
 
-        $response = $service->{$platform->slug}($platform,$request->except("_token"));
         return back()->with($response);
         
 
@@ -99,27 +143,33 @@ class SocialAccountController extends Controller
             'access_token' => "required",
         ]);
         
+        $account  = SocialAccount::with('platform')
+                    ->where('user_id',$this->user->id)
+                    ->where("id",request()->input("id"))
+                    ->where('subscription_id', @$this->subscription?->id)
+                    ->first();
 
-        $account = SocialAccount::with('platform')->where("id",request()->input("id"))->firstOrfail();
+        $response = response_status(translate('This account doesnot belongs to your current subscription'),'error');
 
-        $request->merge([
-            'account_type' => $account->account_type,
-            'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
-            'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
-        ]);
+        if($account){
+            $request->merge([
+                'account_id'   => $account->id,
+                'account_type' => $account->account_type,
+                'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
+                'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
+            ]);
+    
+            $class   = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
+            $service =  new  $class();
+            $response = $service->{$account->platform->slug}($account->platform,$request->except("_token"),'web');
+        }
 
-        
-       
-        $class   = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
-
-        $service =  new  $class();
-
-        $response = $service->{$account->platform->slug}($account->platform,$request->except("_token"));
+     
         return back()->with($response);
     }
 
 
-     /**
+    /**
      * store a new account
      *
      * @return RedirectResponse
@@ -128,6 +178,7 @@ class SocialAccountController extends Controller
 
         $account  = SocialAccount::with(['platform'])
                         ->where('uid',$uid)
+                        ->where('user_id',$this->user->id)
                         ->firstOrfail();
 
         $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
@@ -139,10 +190,9 @@ class SocialAccountController extends Controller
             return redirect()->route('user.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);
         }
 
-
         return view('user.social.account.show',[
 
-            "title"           => "Account Feeds",
+            'meta_data'       => $this->metaData(['title'=>  "Account Feeds"]),
             'response'        => $response,
             'account'         => $account,
 
@@ -153,7 +203,10 @@ class SocialAccountController extends Controller
 
     public function destroy(string $id) :RedirectResponse {
 
-        $account  = SocialAccount::withCount(['posts'])->where('id',$id)->firstOrfail();
+        $account  = SocialAccount::withCount(['posts'])
+                      ->where('user_id',$this->user->id)
+                      ->where('id',$id)->firstOrfail();
+
         $response =  response_status('Can not be deleted!! item has related data','error');
         if(1  > $account->posts_count){
             $account->delete();
@@ -174,10 +227,22 @@ class SocialAccountController extends Controller
      */
     public function updateStatus(Request $request) :string{
 
+        $account  = SocialAccount::with('platform')
+                        ->where('user_id',$this->user->id)
+                        ->where("uid",request()->input("id"))
+                        ->where('subscription_id', @$this->subscription?->id)
+                        ->first();
+        if(!$account){
+            return json_encode([
+                'status'  => false,
+                'message' => translate('This account doesnot belongs to your current subscription')
+            ]);
+        }
+
         $request->validate([
             'id'      => 'required|exists:social_accounts,uid',
             'status'  => ['required',Rule::in(StatusEnum::toArray())],
-            'column'  => ['required',Rule::in(['status','is_feature','is_integrated'])],
+            'column'  => ['required',Rule::in(['status'])],
         ]);
 
 

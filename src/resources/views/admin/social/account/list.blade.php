@@ -230,7 +230,7 @@
                                                             
                                                     @endphp
 
-                                                    @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' )
+                                                    @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' &&  !$account->user_id)
                                                         @php
 
                                                           $url          = 'javascript:void(0)';
