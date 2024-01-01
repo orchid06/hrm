@@ -571,16 +571,75 @@
 
 /* =====================Choose Profile For Postings===================== */
 
+.selected-profile {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selected-profile-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--color-primary-light);
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 4px;
+  line-height: 1.1;
+  transition: 0.3s ease-in-out;
+}
+.selected-profile-item:hover {
+  border-color: var(--color-primary);
+}
+.selected-profile-item > p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selected-profile-item > p > span {
+  font-size: 14px;
+  line-height: 1;
+}
+.selected-profile-item > p > span:hover {
+  color: var(--color-danger);
+}
+.channel-icon {
+  width: 18px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .channel-icon.facebook {
+  color: #316ff6;
+}
+
+.channel-icon.linkedin {
+  color: #0a66c2;
+}
+
+.channel-icon.twitter {
+  color: #1da1f2;
+}
+
+.channel-icon.instagram {
+  color: #bc1888;
+} */
 
 .choose-profile-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 45px;
+  min-height: 45px;
+  max-height: 100px;
+  overflow-y: auto;
   line-height: 1.1;
-  padding-inline: 12px;
   border: 1px solid var(--color-border);
   border-radius: 4px;
+  padding: 12px;
 }
 .choose-profile-btn[aria-expanded="true"] > span {
   transform: rotate(-180deg);
@@ -593,7 +652,7 @@
   align-items: center;
   gap: 8px;
 }
-.choose-profile-left i {
+.choose-profile-left > span {
   font-size: 18px;
 }
 .choose-profile-btn > span {
