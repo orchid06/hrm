@@ -63,6 +63,46 @@
           </li>
         @endif
 
+        
+        @if(check_permission('view_account') || check_permission('view_platform')) 
+            <li class="sidebar-menu-item">
+            
+              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialAccount" role="button"
+                aria-expanded="false" aria-controls="socialAccount">
+              <span><i class="las la-network-wired"></i></span>
+                <p>
+                  {{translate('Accounts')}}
+                </p>
+                <small >
+                    <i class="las la-angle-down"></i>
+                </small>
+              </a>
+              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.platform.*','admin.social.account.*'],'drop_down')}} " id="socialAccount">
+                <ul class="sub-menu">
+                  @if(check_permission('view_platform'))
+                    <li class="sub-menu-item">
+                        <a  href='{{route("admin.platform.list")}}' class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}} '>
+                          <span></span>
+                          <p>{{translate('Platforms')}}</p>
+                        </a>
+                    </li>
+                  @endif
+
+                  @if(check_permission('view_account'))
+                    <li class="sub-menu-item">
+                        <a  href='{{route('admin.social.account.list',['platform' => 'facebook'])}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
+                            <span></span>
+                            <p>{{translate('Accounts')}}</p>
+                        </a>
+                    </li>
+                  @endif
+
+               
+                </ul>
+              </div>
+            </li>
+        @endif
+
         @if( check_permission('view_role') ||  check_permission('view_staff') )
           <li class="sidebar-menu-item">
               <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#role_staff" role="button"
@@ -356,53 +396,14 @@
           </li>
         @endif
 
-        @if(check_permission('view_account') || check_permission('view_platform')) 
+
+
+
+
+        @if(check_permission('view_ai_template'))  
           <li class="sidebar-menu-title">
-            {{translate('Accounts and Content')}}
-          </li>
-
-            <li class="sidebar-menu-item">
-            
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialAccount" role="button"
-                aria-expanded="false" aria-controls="socialAccount">
-              <span><i class="las la-network-wired"></i></span>
-                <p>
-                  {{translate('Accounts')}}
-                </p>
-                <small >
-                    <i class="las la-angle-down"></i>
-                </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.platform.*','admin.social.account.*'],'drop_down')}} " id="socialAccount">
-                <ul class="sub-menu">
-                  @if(check_permission('view_platform'))
-                    <li class="sub-menu-item">
-                        <a  href='{{route("admin.platform.list")}}' class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}} '>
-                          <span></span>
-                          <p>{{translate('Platforms')}}</p>
-                        </a>
-                    </li>
-                  @endif
-
-                  @if(check_permission('view_account'))
-                    <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.account.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
-                            <span></span>
-                            <p>{{translate('Accounts')}}</p>
-                        </a>
-                    </li>
-                  @endif
-
-               
-                </ul>
-              </div>
-            </li>
-        @endif
-
-
-
-
-        @if(check_permission('view_ai_template'))          
+              {{translate('AI Content')}}
+          </li>        
             <li class="sidebar-menu-item">
               <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#aiTemplate" role="button"
                 aria-expanded="false" aria-controls="aiTemplate">

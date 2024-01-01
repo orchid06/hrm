@@ -384,6 +384,34 @@
 
 @endsection
 
+@section('modal')
+  @include('modal.delete_modal')
+
+  <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{translate('Response Message')}}
+                </h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+
 @push('script-include')
   <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
@@ -393,6 +421,18 @@
 <script>
   "use strict";
     /** account repots */
+
+    $(document).on('click','.show-info',function(e){
+
+      var modal = $('#report-info');
+
+      var report = $(this).attr('data-message')
+
+      $('.content').html(report)
+
+          modal.modal('show')
+    });
+
     var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
 
     var accountValues = [];

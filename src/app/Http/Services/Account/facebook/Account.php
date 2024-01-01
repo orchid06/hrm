@@ -214,7 +214,6 @@ class Account
                         $api =   $api."/me/feed";
                         break;
                     case AccountType::Page->value:
-                        $fields = 'status_type,message,full_picture,created_time,permalink_url';
                         $api    =  $api."/".$account->account_id."/feed";
                         break;
     
@@ -258,17 +257,14 @@ class Account
 
                 $response     = Http::post($params['api'], $params);
                 $gwResponse   = $response->json();
+                $postId       = Arr::get($gwResponse,'id',null);
 
 
                 if(isset($gwResponse['error'])) {
                     $status  = false;
                     $message = $gwResponse['error']['message'];
                 }
-                else{
-                    $url = "https://fb.com/".$gwResponse['id'];
-                }
-
-
+                $url =   $postId  ?  "https://fb.com/".$postId : null;
 
             }
 
