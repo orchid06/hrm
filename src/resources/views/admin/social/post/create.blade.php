@@ -72,7 +72,7 @@
                               </ul>
           
                               <div class="dropdown-menu-footer">
-                                  <a href="{{route('admin.social.account.list')}}" class="i-btn btn--primary-outline btn--lg capsuled">
+                                  <a href="{{route('admin.social.account.list')}}" class="i-btn btn--primary-outline btn--lg">
                                       <i class="bi bi-plus-lg me-1"></i> 
                                       {{translate('Create New Account')}}
                                   </a>
@@ -235,7 +235,7 @@
                              {{translate("Send")}}
                             <i class="bi bi-send ms-1"></i>
                     </button>
-                    <button class="i-btn btn--primary btn--lg capsuled" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                    <button class="i-btn btn--primary btn--lg" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
                           aria-controls="schedule"
                           type="button">
                       {{translate("Schedule Post")}}
@@ -628,20 +628,14 @@
                     <div  class="content-form  d-none ai-content-div">
 
                         <div class="col-lg-12">
+                            <div class="buttons-area d-flex justify-content-end align-items-center">
+                              <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="delete-item icon-btn info copy-content"><i class="las la-copy"></i></button>
+                              <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="delete-item icon-btn success download-text"><i class="las la-download"></i></button>
+                            </div>
                             <div class="form-inner">
                                 <label for="content"> 
                                     {{translate("Content")}} <small class="text-danger">*</small>
                                 </label>
-                                 
-     
-                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="delete-item icon-btn info copy-content">
-                                        <i class="las la-copy"></i></button>
-
-                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="delete-item icon-btn success download-text">
-                                        <i class="las la-download"></i></button>
-
-                        
-
                                 <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
                             </div>
                         </div>

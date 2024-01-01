@@ -130,14 +130,16 @@
                 </tbody>
             </table>
         </div>
-         <div class="mt-3 text-end">
+         <div class="d-flex justify-content-between align-items-center flex-wrap">
+         <div class="mt-30 text-end pe-4">
             @if( 0 < $genarated_words)
-             {{translate("Total Words")}} <span class="ms-2 i-badge capsuled success"> {{truncate_price($genarated_words,0)}} </span>
+             {{translate("Total Words")}} <span class="ms-2 i-badge-solid capsuled primary"> {{truncate_price($genarated_words,0)}} </span>
             @endif
          </div>
         <div class="Paginations">
             {{ $reports->links() }}
         </div>
+         </div>
     </div>
 </div>
 

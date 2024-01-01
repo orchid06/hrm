@@ -6,66 +6,58 @@
 
 @section('content')
 
-
 <div class="row">
     <div class="col-xl-8 mx-auto">
       <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}
             </h4>
-
             <div class="d-flex align-items-center gap-3">
                 <div class="text-end">
                     @if( 0 < $genarated_words)
                         <h6> {{translate("Total Words")}}
-                            <span class="ms-2 i-badge capsuled danger">{{truncate_price($genarated_words,0)}}</span>
+                            <span class="ms-2 i-badge capsuled primary">{{truncate_price($genarated_words,0)}}</span>
                         </h6>
                     @endif
                 </div>
-
-            <button
-                class="icon-btn icon-btn-lg info circle"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#tableFilter"
-                aria-expanded="false"
-                aria-controls="tableFilter">
-                <i class="bi bi-funnel"></i>
-            </button>
+                <button
+                    class="icon-btn icon-btn-lg info circle"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#tableFilter"
+                    aria-expanded="false"
+                    aria-controls="tableFilter">
+                    <i class="bi bi-funnel"></i>
+                </button>
             </div>
       </div>
-
       <div class="collapse filterTwo mb-3" id="tableFilter">
         <div class="i-card-md">
           <div class="card-body">
             <div class="search-action-area p-0">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
-
                     <div class="form-inner">
                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                     </div>
-
                     <div class="form-inner">
-                            <select name="template" id="template" class="select2">
-                                <option value="">
-                                    {{translate('Select Template')}}
+                        <select name="template" id="template" class="select2">
+                            <option value="">
+                                {{translate('Select Template')}}
+                            </option>
+                            @foreach($templates as $template)
+                                <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
                                 </option>
-                                @foreach($templates as $template)
-                                    <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @endforeach
+                        </select>
                     </div>
-
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg">
-                                <i class="bi bi-search"></i>
-                            </button>
-
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
+                        <button type="submit" class="i-btn primary btn--lg">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
                     </div>
                 </form>
               </div>
@@ -73,7 +65,6 @@
           </div>
         </div>
       </div>
-
       <div class="table-accordion">
         @if($reports->count() > 0)
             <div class="accordion" id="wordReports">
@@ -101,7 +92,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-4 col-6 text-sm-center">
                                         <div class="table-accordion-header">
                                             <h6>
@@ -139,9 +129,7 @@
                                         {{$report->content}}
                                         </p>
                                     </li>
-
                                     @foreach ($report->open_ai_usage as $key => $val )
-
                                         <li class="list-group-item">
                                             <h6 class="title">
                                                 {{k2t($key)}}
@@ -150,30 +138,23 @@
                                                 {{$val}}
                                             </p>
                                         </li>
-
                                     @endforeach
-
-
                                 </ul>
                             </div>
                         </div>
                     </div>
                 @empty
-
                 @endforelse
            </div>
         @else
           @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
         @endif
       </div>
-
       <div class="Paginations">
         {{ $reports->links() }}
       </div>
-
     </div>
 </div>
-
 
 @endsection
 @section('modal')
@@ -181,7 +162,6 @@
     <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h5 class="modal-title">
                         {{translate('Report Information')}}
@@ -190,47 +170,31 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-
-
                 <div class="modal-body">
                     <div class="row">
-
                         <div class="col-lg-12">
                             <div class="form-inner">
                                 <label for="content" class="form-label" >
                                     {{translate('Genarated Content')}}
                                 </label>
-
                                 <textarea disabled name="content" id="content" cols="30" rows="4"></textarea>
-
                             </div>
-
                         </div>
-
                         <div class="col-lg-12">
-
                             <ul class="list-group list-group-flush" id="additionalInfo">
-
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-
                 </div>
-
             </div>
         </div>
     </div>
-
 @endsection
-
 
 @push('script-include')
    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
@@ -250,9 +214,6 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
-
-
-
 
 	})(jQuery);
 </script>
