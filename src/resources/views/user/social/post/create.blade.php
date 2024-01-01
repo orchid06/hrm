@@ -9,7 +9,7 @@
 @section('content')
 
 @php
-            $user           = auth_user('web');
+            $user = auth_user('web');
 @endphp
 
 <div class="compose-wrapper">
@@ -18,7 +18,7 @@
         <div class="row gy-4">
           <div class="col-xl-7">
             <div class="i-card-md">
-              <div class="card--header">
+              <div class="card-header">
                 <h4 class="card-title">
                   {{translate('Create your post')}}
                 </h4>
@@ -216,9 +216,9 @@
                                                                 {{$account->name}}
                                                             </h6>
 
-                                              
+
                                                               {{$account->platform->name}}
-                                                         
+
                                                         </div>
                                                     </div>
                                                     <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0" name="selected-profile" type="checkbox">
@@ -294,7 +294,7 @@
 
           <div class="col-xl-5">
             <div class="i-card-md social-preview">
-              <div class="card--header">
+              <div class="card-header">
                 <h4 class="card-title">
                   {{translate("Network Preview")}}
                 </h4>
