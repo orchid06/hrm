@@ -36,14 +36,15 @@ class SocialPostRequest extends FormRequest
                                             $query->where('admin_id', auth_user()->id);
                                         })
                                         ->when(request()->routeIs('user.*'), function ($query) use ($value) {
-                                                $query->where('user_id', auth_user('web')->id);
+                                                $query->where('user_id', auth_user('web')->id)
+                                                ->where('subscription_id', @auth_user('web')->runningSubscription?->id);
                                             })
                                         ->pluck('id')->toArray();
 
                                     foreach(request()->input('account_id',[]) as $id){
                                         
                                         if(!in_array($id, $accounts)) {
-                                            $fail(translate("Recaptcha validation failed"));
+                                            $fail(translate("Invalid account selected"));
                                             break;
                                         }
                                     }

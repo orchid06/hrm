@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Account\linkedin;
 
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 
 use App\Models\SocialPost;
 use Illuminate\Support\Facades\Http;
@@ -13,12 +13,7 @@ use GuzzleHttp\Client;
 class Account
 {
     
-
-    use AccoutManager;
-
-
-
-
+    use AccountManager;
 
     public function send(SocialPost $post) :array{
 
@@ -99,7 +94,6 @@ class Account
             'Accept' => 'application/json',
         ];
 
-        // Step 1: Register the image upload
         $response = Http::post($url, [
             'registerUploadRequest' => [
                 'recipes' => ['urn:li:digitalmediaRecipe:feedshare-image'],
@@ -109,7 +103,6 @@ class Account
 
         $uploadUrl = $response['value']['uploadMechanism']['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest']['uploadUrl'];
 
-        // Step 2: Upload the image
         $imageResponse = Http::put($uploadUrl, [
             'Content-Type' => 'application/octet-stream',
             'Authorization' => 'Bearer ' . $token ,

@@ -238,7 +238,9 @@ class UserService
 
             $price           = round($package->discount_price) > 0 ?  $package->discount_price :  $package->price;
         
-            $oldSubscription = $user->subscriptions?->first();
+            $oldSubscription = $user->runningSubscription;
+
+
     
             if($user->balance <   $price){
     
@@ -783,7 +785,7 @@ class UserService
      */
     public function inactiveSocialAccounts(Subscription $subscription, string $details = "Subscription Expired") :void{
 
-        SocialAccount::where('user_id',$subscription->user->id)->where('id',$subscription->id)->update([
+        SocialAccount::where('user_id',$subscription->user->id)->where('subscription_id',$subscription->id)->update([
             'status'  => StatusEnum::false->status(),
             'details' => $details,
         ]);

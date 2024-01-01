@@ -213,11 +213,11 @@ class UserController extends Controller
                 $user->templates()->delete();
                 $user->templateUsages()->delete();
 
-                if($user->post()->count() > 0){
+                if($user->posts()->count() > 0){
                     foreach(@$user->post as $post){
                         $this->unlinkLogFile($post ,config("settings")['file_path']['post']['path']);
                     }
-                  $user->post()->delete();
+                  $user->posts()->delete();
                 }
 
 

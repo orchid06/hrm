@@ -57,7 +57,6 @@ class RegisterController extends Controller
         try {
             
             if($request->has('referral_code')){
-                
                 $refferedBy = User::active()->where('referral_code',$request->input('referral_code'))->first();
             }
 

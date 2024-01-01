@@ -146,8 +146,8 @@
                                                     "Carried Profile Balnace"  => $report->carried_profile,
 
                                                     "Social Post Balnace"      => $report->post_balance,
-                                                    "Remaining Post Balance"   => $report->carried_post_balance,
-                                                    "Carried Post Balnace"     => $report->remaining_post_balance,
+                                                    "Remaining Post Balance"   => $report->remaining_post_balance,
+                                                    "Carried Post Balnace"     => $report->carried_post_balance,
                                                 ];
                                             @endphp
 

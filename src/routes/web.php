@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\SocialPostController;
+use App\Http\Controllers\User\SocialPostController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CommunicationsController;
 use App\Http\Controllers\CoreController;
@@ -198,6 +198,44 @@ use Illuminate\Support\Facades\Route;
                 });
     
             });
+
+
+                     #social account and post route
+
+
+         Route::name('social.')->prefix('social/')->group(function () {
+
+
+            #Account manager
+            Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
+
+                 Route::any('/list','list')->name('list');
+                 Route::get('/create/{platform}','create')->name('create');
+                 Route::post('/store','store')->name('store');
+                 Route::post('/reconnect','reconnect')->name('reconnect');
+                 Route::get('/edit/{uid}','edit')->name('edit');
+                 Route::post('/update','update')->name('update');
+                 Route::post('/update/status','updateStatus')->name('update.status');
+                 Route::post('/bulk/action','bulk')->name('bulk');
+                 Route::get('/destroy/{id}','destroy')->name('destroy');
+                 Route::get('/show/{uid}','show')->name('show');
+  
+            });
+
+
+            #Post manager
+            Route::controller(SocialPostController::class)->name('post.')->prefix('post/')->group(function () {
+
+                 Route::any('/list','list')->name('list');
+                 Route::any('/analytics/dashboard','analytics')->name('analytics');
+                 Route::get('/create','create')->name('create');
+                 Route::post('/store','store')->name('store');
+                 Route::get('/destroy/{id}','destroy')->name('destroy');
+                 Route::get('/show/{uid}','show')->name('show');
+  
+            });
+
+         });
     
         });
 
@@ -249,42 +287,7 @@ use Illuminate\Support\Facades\Route;
 
         });
 
-         #social account and post route
 
-
-         Route::name('social.')->prefix('social/')->group(function () {
-
-
-            #Account manager
-            Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
-
-                 Route::any('/list','list')->name('list');
-                 Route::get('/create/{platform}','create')->name('create');
-                 Route::post('/store','store')->name('store');
-                 Route::post('/reconnect','reconnect')->name('reconnect');
-                 Route::get('/edit/{uid}','edit')->name('edit');
-                 Route::post('/update','update')->name('update');
-                 Route::post('/update/status','updateStatus')->name('update.status');
-                 Route::post('/bulk/action','bulk')->name('bulk');
-                 Route::get('/destroy/{id}','destroy')->name('destroy');
-                 Route::get('/show/{uid}','show')->name('show');
-  
-            });
-
-
-            #Post manager
-            Route::controller(SocialPostController::class)->name('post.')->prefix('post/')->group(function () {
-
-                 Route::any('/list','list')->name('list');
-                 Route::any('/analytics/dashboard','analytics')->name('analytics');
-                 Route::get('/create','create')->name('create');
-                 Route::post('/store','store')->name('store');
-                 Route::get('/destroy/{id}','destroy')->name('destroy');
-                 Route::get('/show/{uid}','show')->name('show');
-  
-            });
-
-       });
 
 
 

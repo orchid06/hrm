@@ -44,7 +44,7 @@
                     </a>
                   </li>
                     <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.list")}}'>
+                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake(["admin.social.post.list","admin.social.post.show"])}}'>
                             <span></span>
                             <p>{{translate('All Post')}}</p>
                         </a>

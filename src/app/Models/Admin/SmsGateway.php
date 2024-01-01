@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Support\Str;
 class SmsGateway extends Model
 {
     use HasFactory , Filterable;
@@ -22,6 +22,10 @@ class SmsGateway extends Model
     protected static function booted(){
         static::updating(function(Model $model) {
             $model->updated_by = auth_user()?->id;
+        });
+
+        static::creating(function (Model $model) {
+            $model->uid        = Str::uuid();
         });
 
     }

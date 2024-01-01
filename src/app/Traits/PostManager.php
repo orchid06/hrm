@@ -39,7 +39,7 @@ trait PostManager
                 $post                     = new SocialPost();
                 $post->account_id         = $accountId;
                 $post->subscription_id    = $user ? $user->runningSubscription->id : null;
-                $post->subscription_id    = $user ? $user->id : null;
+                $post->user_id            = $user ? $user->id : null;
                 $post->admin_id           = $admin ? $admin->id : null;
                 $post->content            = Arr::get($request,"text", []);
                 $post->link               = Arr::get($request,"link", []);
@@ -121,6 +121,7 @@ trait PostManager
             $this->generateCreditLog(
                 user        : $post->user,
                 trxType     : Transaction::$PLUS,
+                balance     : 1,
                 postBalance : (int)$user->runningSubscription->remaining_post_balance,
                 details     : 'Failed to post in '.$account->name." 1 Credit return to user post balance",
                 remark      : t2k("post_balance"),

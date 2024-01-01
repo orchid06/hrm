@@ -3,7 +3,7 @@
 namespace App\Http\Services\Account\twitter;
 
 use App\Enums\ConnectionType;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 use App\Enums\AccountType;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
@@ -18,7 +18,7 @@ class Account
 {
     
 
-    use AccoutManager;
+    use AccountManager;
 
     public $twUrl ,$params ;
     public function __construct(){
@@ -42,9 +42,12 @@ class Account
      */
     public function twitter(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array{
 
+
         $responseStatus   = response_status(translate('Authentication failed incorrect keys'),'error');
 
         try {
+
+                $accountId   = Arr::get($request,'account_id', null);
 
                 $responseStatus  = response_status(translate('Api error'),'error');
                 $consumer_key    = Arr::get($request,'consumer_key',null);
@@ -61,24 +64,30 @@ class Account
                     'token_secret'      => $token_secret  
                 );
 
+    
                 $twitter = new BirdElephant($config);
 
                 $response = $twitter->me()->myself([
-                    'expansions' => 'pinned_tweet_id',
-                    'user.fields' => 'id,name,url,verified,username,profile_image_url,auth_token'
+                    'expansions'  => 'pinned_tweet_id',
+                    'user.fields' => 'id,name,url,verified,username,profile_image_url'
                 ]);
-
+                
                 if($response->data && $response->data->id){
-                    $responseStatus   = response_status(translate('Account Created'));
-                    $config           = array_merge($config , (array)$response->data);
-                    $config['link']   =  $this->twUrl.Arr::get($config,'username');
-                    $config['avatar'] = Arr::get($config,'profile_image_url');
-                    $response         = $this->saveAccount($guard,$platform,$config,AccountType::Profile->value ,ConnectionType::OFFICIAL->value);
+                    $responseStatus       = response_status(translate('Account Created'));
+                    $config               = array_merge($config , (array)$response->data);
+    
+                    $config['link']       =  $this->twUrl.Arr::get($config,'username');
+                    $config['avatar']     = Arr::get($config,'profile_image_url');
+
+                    $config['account_id'] =  Arr::get($config,'id');
+
+                    $response         = $this->saveAccount($guard,$platform,$config,AccountType::Profile->value ,ConnectionType::OFFICIAL->value ,$accountId);
                 }
+              
 
 
         } catch (\Exception $ex) {
-            $responseStatus   = response_status(strip_tags($ex->getMessage()),'error');
+           
         }
 
       
