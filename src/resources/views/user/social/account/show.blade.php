@@ -107,17 +107,15 @@
             <div class="card-body">
                 <div class="row g-2">
    
-                    @if(count($dailyInsightValues) > 0)
-                      @php
-                       $graphLabel =  $dailyInsightValues->pluck("end_time")->toArray();
-                       $graphValue =  $dailyInsightValues->pluck("value")->toArray();
-                      @endphp
+
+                        @php
+                            $graphLabel =  $dailyInsightValues->pluck("end_time")->toArray();
+                            $graphValue =  $dailyInsightValues->pluck("value")->toArray();
+                        @endphp
                         <div class="col-12">
                             <div id="engagementReport" class="apex-chart"></div>
                         </div>
-                    @else
-                        @include('admin.partials.not_found')
-                    @endif
+            
                 </div>
         
             </div>
@@ -137,52 +135,47 @@
 <script>
   "use strict";
 
-
-  var accountValues =  @json( $graphValue );
+    var accountValues =  @json( $graphValue );
     var accountLabel =  @json($graphLabel);
-  var options = {
-      chart: {
-        height: 350,
-        type: "line",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["{{site_settings('primary_color')}}"], 
-      series: [
-        {
-          name: "{{ translate('Total Engagement ') }}",
-          data: accountValues,
+    var options = {
+        chart: {
+            height: 350,
+            type: "line",
         },
-      
-      ],
-      xaxis: {
-        categories: accountLabel,
-      },
-   
-      tooltip: {
-          shared: false,
-          intersect: true,
-         
+        dataLabels: {
+            enabled: false,
         },
-      markers: {
-        size: 6, 
-      },
-      stroke: {
-        width: [4, 4], 
-      },
-      legend: {
-        horizontalAlign: "left",
-        offsetX: 40,
-      },
-  };
+        colors: ["{{site_settings('primary_color')}}"], 
+        series: [
+            {
+            name: "{{ translate('Total Engagement ') }}",
+            data: accountValues,
+            },
+        
+        ],
+        xaxis: {
+            categories: accountLabel,
+        },
+    
+        tooltip: {
+            shared: false,
+            intersect: true,
+            
+            },
+        markers: {
+            size: 6, 
+        },
+        stroke: {
+            width: [4, 4], 
+        },
+        legend: {
+            horizontalAlign: "left",
+            offsetX: 40,
+        },
+    };
 
-
-  var chart = new ApexCharts(document.querySelector("#engagementReport"), options);
-  chart.render();
-
-
-
+    var chart = new ApexCharts(document.querySelector("#engagementReport"), options);
+    chart.render();
 
 </script>
 @endpush
