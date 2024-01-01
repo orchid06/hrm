@@ -169,24 +169,20 @@
                   </div>
 
                   <div class="form-inner">
-                      <div class="selected-profile">
-                        <ul>
-                            <li></li>
-                        </ul>
-                      </div>
-
                       <label>
                         {{translate('Choose Profile')}}
                       </label>
 
-                        <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
-                              <div class="choose-profile-left">
-                                  <i class="bi bi-person-badge"></i>
-                                  {{translate("Select a profile")}}
-                              </div>
+                    <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                            <div class="choose-profile-left">
+                                <i class="bi bi-person-badge"></i>
+                                {{translate("Select a profile")}}
+                            </div>
 
-                              <span><i class="bi bi-chevron-down"></i></span>
-                        </div>
+                            <ul class="selected-profile"></ul>
+
+                            <span><i class="bi bi-chevron-down"></i></span>
+                    </div>
 
                        <div class="collapse mt-2" id="selectProfile">
                            <div class="choose-profile-body">
@@ -198,29 +194,33 @@
                               </div>
 
                               <ul class="profile-list mt-3" data-simplebar>
-                                    @foreach ($accounts as $account )
-                                            <li class="profile-item">
-                                                <label for="{{$account->id}}">
-                                                    <div class="profile-item-meta">
-                                                        <div class="profile-item-img">
-                                                            <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
-                                                        </div>
+                                    @foreach ($accounts as $account)
 
-                                                        <div>
-                                                            <h6 class="account-name">
-                                                                {{$account->name}}
-                                                            </h6>
-
-                                                            <a href="{{route('admin.social.account.create',['platform' => $account->platform->slug])}}">
-                                                                {{$account->platform->name}}
-                                                            </a>
-
-                                                        </div>
+                                        <li class="profile-item">
+                                            <label for="account-{{$account->id}}">
+                                                <div class="profile-item-meta">
+                                                    <div class="profile-item-img">
+                                                        <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
                                                     </div>
-                                                    <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0" name="selected-profile" type="checkbox">
-                                                </label>
-                                            </li>
 
+                                                    <div>
+                                                        <h6 class="account-name">
+                                                            {{$account->name}}
+                                                        </h6>
+
+                                                        <a href="{{route('admin.social.account.create',['platform' => $account->platform->slug])}}">
+                                                            {{$account->platform->name}}
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+                                                <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" data-id="{{$account->id}}" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0 check_account" name="selected-profile" type="checkbox"
+                                                data-account_name="{{$account->name}}" data-platform_name="{{$account->platform->name}}"
+                                                data-image="{{imageUrl(@$account->platform->file,"platform",true)}}">
+
+                                            </label>
+                                        </li>
                                     @endforeach
                               </ul>
 
@@ -692,12 +692,6 @@
 	(function($){
        	"use strict";
 
-
-        $(".choose-profile .dropdown-menu").on("click", function (e) {
-                e.stopPropagation();
-        });
-
-
         $(document).on('keyup','#searchProfile',function(e){
             e.preventDefault()
             var value = $(this).val().toLowerCase();
@@ -707,7 +701,6 @@
             });
 
             e.preventDefault();
-
         })
 
         $(document).on('change','#predefined',function(e){
@@ -721,11 +714,11 @@
 
         })
 
-
         $(".select2").select2({
             placeholder:"{{translate('Select Category')}}",
             dropdownParent: $("#aiModal"),
         })
+
         $(".language").select2({
             placeholder:"{{translate('Select Language')}}",
             dropdownParent: $("#aiModal"),
@@ -735,14 +728,13 @@
             placeholder:"{{translate('Select Template')}}",
             dropdownParent: $("#aiModal"),
         })
+
         $(".sub_category_id").select2({
             placeholder:"{{translate('Select Sub Category')}}",
             dropdownParent: $("#aiModal"),
         })
 
-
         $(document).on('click','.copy-content',function(e){
-
             var textarea = document.getElementById('content');
             textarea.select();
             document.execCommand('copy');
@@ -771,9 +763,43 @@
             enableTime: true,
         });
 
+        $(document).on('click','.check_account',function(e) {
+
+            var accountName = $(this).attr('data-account_name');
+            var platformName = $(this).attr('data-platform_name');
+            var image =  $(this).attr('data-image');
+            $(".choose-profile-left").remove();
+
+            var id = $(this).attr('data-id');
+
+
+            var html = `<li class="selected-profile-item">
+                <span class="channel-icon">
+                    <img src="${image}" alt="google" border="0">
+                </span>
+
+                <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
+            </li>`;
 
 
 
+            $(".selected-profile").append(html);
+
+
+
+        });
+
+
+
+        $(document).on('click','.account_remove',function(e) {
+
+            var remove_id = $(this).attr('data-id');
+
+            $(`#account-${remove_id}`).prop('checked', false);
+
+            $(this).parent().parent().remove();
+
+        });
 
 	})(jQuery);
 
