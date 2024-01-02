@@ -29,7 +29,7 @@
     <div class="dashboard-wrapper">
         @include('admin.partials.sidebar')
         <div class="main-content">
-            @if(!request()->routeIs('admin.home'))
+            @if(!request()->routeIs('admin.home') && !request()->routeIs('admin.social.post.analytics'))
                 @include('admin.partials.breadcrumb')
             @endif
             @yield('content')

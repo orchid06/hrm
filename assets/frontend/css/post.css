@@ -19,6 +19,7 @@
     flex-wrap: wrap;
     gap: 10px;
   }
+
   @media (max-width: 767px) {
     .pre-tab-list .nav {
       -webkit-box-orient: horizontal;
@@ -166,6 +167,7 @@
     position: relative;
     overflow: hidden;
   }
+  
   .social-preview-body .social-caption .caption-imgs .caption-img .overlay {
     position: absolute;
     width: 100%;

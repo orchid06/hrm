@@ -18,9 +18,15 @@ class MailGateway extends Model
     protected $casts = [
         'credential' => 'object',
     ];
+
+    
     protected static function booted(){
         static::updating(function(Model $model) {
             $model->updated_by = auth_user()?->id;
+        });
+
+        static::creating(function (Model $model) {
+            $model->uid        = Str::uuid();
         });
     }
 

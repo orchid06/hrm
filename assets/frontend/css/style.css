@@ -1383,7 +1383,7 @@
   .header .sidebar .sidebar-overlay {
     position: absolute;
     background-color: var(--color-dark);
-    opacity: 0.2;
+    opacity: 0.4;
     inset: 0;
     z-index: -1;
     width: 100%;
@@ -3820,6 +3820,12 @@
   padding: 25px;
   border: 1px solid var(--color-primary-light);
   margin-bottom: 40px;
+}
+
+@media (max-width: 587px) {
+  .blog-details .blog-newsletter {
+    padding: 20px;
+  }
 }
 
 .blog-details .blog-newsletter h4 {

@@ -21,66 +21,6 @@
 
               <div class="card-body">
                 <div class="caption-wrapper">
-
-                  <div class="form-inner">
-                      <div class="dropdown choose-profile w-100">
-                          <div class="dropdown-toggle choose-profile-btn w-100" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <div class="choose-profile-left">
-                                  <i class="bi bi-person-badge"></i> 
-                                  {{translate("Select a profile")}}
-                              </div>
-          
-                              <span><i class="bi bi-chevron-down"></i></span>
-                          </div>
-          
-                          <div class="dropdown-menu w-100">
-                              <div class="px-2">
-                                  <div class="input-group">
-                                      <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
-                                  
-                                  </div>
-                              </div>
-      
-                                  <ul class="profile-list mt-3" data-simplebar>
-
-                                      @foreach ($accounts as $account )
-                                              <li class="profile-item">
-                                                  <label for="{{$account->id}}">
-                                                      <div class="profile-item-meta">
-                                                          <div class="profile-item-img">
-                                                              <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
-                                                          </div>
-                      
-                                                          <div>
-                                                              <h6 class="account-name">
-                                                                  {{$account->name}}
-                                                              </h6>
-                                                              <span>
-                                                                  <a href="{{route('admin.social.account.create',['platform' => $account->platform->slug])}}">
-                                                                      {{$account->platform->name}}
-                                                                  </a>
-                                                              </span>
-                                                          </div>
-                                                      </div>
-                                                      <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0" name="selected-profile" type="checkbox">
-                                                  </label>
-                                              </li>
-                                          
-                                      @endforeach
-                                    
-        
-                              </ul>
-          
-                              <div class="dropdown-menu-footer">
-                                  <a href="{{route('admin.social.account.list')}}" class="i-btn btn--primary-outline btn--lg">
-                                      <i class="bi bi-plus-lg me-1"></i> 
-                                      {{translate('Create New Account')}}
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-          
                   <div class="form-inner">
                     <div class="compose-body mb-3">
                       <textarea name="text"
@@ -92,7 +32,7 @@
 
                       <div class="compose-body-bottom">
                           <div class="caption-action">
-                          
+
                               <div class="action-item i-badge info" data-bs-toggle="collapse" data-bs-target="#hashtag"
                               aria-expanded="false"
                               aria-controls="hashtag"
@@ -130,7 +70,7 @@
                                           {{$content->name}}
                                       </option>
                                   @endforeach
-    
+
                             </select>
                           </div>
                         </div>
@@ -224,49 +164,124 @@
                           name="link"
                           value="{{old('link')}}"
                           class="form-control"/>
-                          <span class="input-group-text text-primary"><i class="bi bi-link-45deg"></i></span>
+                          <span class="input-group-text"><i class="bi bi-link-45deg fs-4"></i></span>
                     </div>
                   </div>
 
-                  <div
-                    class="d-flex align-items-end flex-wrap gap-md-4 gap-3 mt-5">
+                  <div class="form-inner">
+                      <label>
+                        {{translate('Choose Profile')}}
+                      </label>
 
-                    <button type="submit" class="i-btn btn--lg btn--primary btn--outline">
-                             {{translate("Send")}}
-                            <i class="bi bi-send ms-1"></i>
-                    </button>
-                    <button class="i-btn btn--primary btn--lg" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
-                          aria-controls="schedule"
-                          type="button">
-                      {{translate("Schedule Post")}}
-                      <i class="bi bi-plus-lg ms-1"></i>
-                    </button>
+                    <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                            <div class="choose-profile-left">
+                                <i class="bi bi-person-badge"></i>
+                                {{translate("Select a profile")}}
+                            </div>
+
+                            <ul class="selected-profile"></ul>
+
+                            <span><i class="bi bi-chevron-down"></i></span>
+                    </div>
+
+                       <div class="collapse mt-2" id="selectProfile">
+                           <div class="choose-profile-body">
+                              <div class="px-3">
+                                  <div class="input-group">
+                                      <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
+
+                                  </div>
+                              </div>
+
+                              <ul class="profile-list mt-3" data-simplebar>
+                                    @foreach ($accounts as $account)
+
+                                        <li class="profile-item">
+                                            <label for="account-{{$account->id}}">
+                                                <div class="profile-item-meta">
+                                                    <div class="profile-item-img">
+                                                        <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
+                                                    </div>
+
+                                                    <div>
+                                                        <h6 class="account-name">
+                                                            {{$account->name}}
+                                                        </h6>
+
+                                                        <a href="{{route('admin.social.account.create',['platform' => $account->platform->slug])}}">
+                                                            {{$account->platform->name}}
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+                                                <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" data-id="{{$account->id}}" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0 check_account" name="selected-profile" type="checkbox"
+                                                data-account_name="{{$account->name}}" data-platform_name="{{$account->platform->name}}"
+                                                data-image="{{imageUrl(@$account->platform->file,"platform",true)}}">
+
+                                            </label>
+                                        </li>
+                                    @endforeach
+                              </ul>
+
+                              <div class="choose-profile-footer">
+                                  <a href="{{route('admin.social.account.list')}}" class="i-btn btn--md btn--primary btn--outline">
+                                      <i class="bi bi-plus-lg me-1"></i>
+                                      {{translate('Create New Account')}}
+                                  </a>
+
+                                    <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                                         <i class="bi bi-x-lg"></i>
+                                    </button>
+                              </div>
+                           </div>
+                       </div>
 
                   </div>
 
-                  <div class="collapse mt-2" id="schedule">
-                    <div class="schedule-body">
-                      <div class="schedule-content">
-                      
-                          <div class="row g-4 align-items-end">
-                            <div class="col-md-8">
-                              <div class="form-inner mb-0">
-                                <label for="schedule_date">
-                                    {{translate("Set Date & Time")}}
-                                </label>
-                                <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
-                                  name="schedule_date"
-                                  value="{{old("schedule_date")}}"
-                                  id="schedule_date"/>
+                  <div class="form-inner mt-5 mb-0">
+                      <div
+                        class="d-flex align-items-end flex-wrap gap-md-4 gap-3">
+
+                        <button type="submit" class="i-btn btn--lg btn--primary btn--outline">
+                                 {{translate("Post Now")}}
+                                <i class="bi bi-send ms-2"></i>
+                        </button>
+
+                        <button class="i-btn btn--primary btn--lg" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                              aria-controls="schedule"
+                              type="button">
+                          {{translate("Schedule Post")}}
+                          <i class="bi bi-plus-lg ms-2"></i>
+                        </button>
+                      </div>
+
+                      <div class="collapse mt-3" id="schedule">
+                        <div class="schedule-body">
+                            <div class="schedule-content">
+                              <div class="row g-4 align-items-end">
+                                <div class="col-xl-8 col-md-9">
+                                  <div class="form-inner mb-0">
+                                    <label for="schedule_date">
+                                        {{translate("Set Date & Time")}}
+                                    </label>
+                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
+                                      name="schedule_date"
+                                      value="{{old("schedule_date")}}"
+                                      id="schedule_date"/>
+                                  </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-3">
+                                      <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                                      aria-controls="schedule">
+                                        <i class="bi bi-x-lg fs-5"></i>
+                                    </button>
+                                </div>
                               </div>
                             </div>
-                    
-                          </div>
                         </div>
-                  
-
-                  
-                    </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -327,7 +342,7 @@
                                   </a>
                                 </h6>
                                 @php
-            
+
                                     $currentDate   = Carbon\Carbon::now();
                                     $formattedDate = $currentDate->format('M j');
 
@@ -358,7 +373,7 @@
                               <div class="caption-imgs"></div>
 
                               <div class="caption-link"></div>
-                            
+
                                   <div class="caption-action">
                                     @if($platform->slug == 'facebook')
                                           <div class="caption-action-item">
@@ -382,11 +397,11 @@
                                           <div class="caption-action-item">
                                               <i class="las la-heart"></i>
                                           </div>
-              
+
                                           <div class="caption-action-item">
                                             <i class="las la-comment"></i>
                                           </div>
-              
+
                                           <div class="caption-action-item">
                                               <i class="lab la-telegram-plane"></i>
                                           </div>
@@ -396,11 +411,11 @@
                                           <div class="caption-action-item">
                                               <i class="las la-comment"></i>
                                           </div>
-              
+
                                           <div class="caption-action-item">
                                             <i class="las la-retweet"></i>
                                           </div>
-              
+
                                           <div class="caption-action-item">
                                             <i class="las la-heart"></i>
                                           </div>
@@ -412,19 +427,19 @@
                                           <i class="las la-thumbs-up"></i>
                                           <span>  {{translate("Like")}}</span>
                                         </div>
-            
+
                                         <div class="caption-action-item">
                                           <i class="las la-sms"></i>
                                           <span>
                                             {{translate("Comment")}}
                                           </span>
                                         </div>
-            
+
                                         <div class="caption-action-item">
                                           <i class="las la-retweet"></i>
                                           <span>{{translate("Repost")}}</span>
                                         </div>
-            
+
                                         <div class="caption-action-item">
                                           <i class="lab la-telegram-plane"></i>
                                           <span>
@@ -436,7 +451,7 @@
                                       @endif
 
                                   </div>
-                          
+
                             </div>
                           </div>
                         </div>
@@ -468,11 +483,11 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            
+
                 @php
                     $generateRoute = route('admin.ai.template.content.generate');
                     $iconClass  = "las la-question-circle";
-                                                    
+
                     if(request()->routeIs('user.*')){
                         $generateRoute  =  route('user.ai.content.generate');
                         $iconClass      = "bi bi-info-circle";
@@ -484,10 +499,10 @@
                     <form id="ai-form" data-route="{{$generateRoute}}" class="ai-content-form">
                         @csrf
                         <div class="row">
-        
+
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="category"> 
+                                    <label for="category">
                                         {{translate('Category')}} <small class="text-danger">*</small>
                                     </label>
                                     <select required name="category_id" id="category" class="select2" >
@@ -502,11 +517,11 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="sub_category"> 
-                                        {{translate('Sub Category')}} 
+                                    <label for="sub_category">
+                                        {{translate('Sub Category')}}
                                     </label>
                                     <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
                                         <option value="" >
@@ -515,27 +530,27 @@
                                     </select>
                                 </div>
                             </div>
-        
-        
+
+
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="templates">
                                             {{translate("Templates")}}
                                     </label>
                                     <select name="id" class="selectTemplate" id="templates">
-        
-                                        
+
+
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="col-lg-6">
                                     <div class="form-inner">
-                                        <label for="language"> 
+                                        <label for="language">
                                             {{translate('Select input & output language')}} <small class="text-danger">*</small>
                                         </label>
-                                        
-                                        <select name="language" class="select2" id="language">
+
+                                        <select name="language" class="language" id="language">
                                             @foreach ($languages as $language )
                                                 <option {{session()->get('locale') == $language->code ? "selected" :"" }} value="{{$language->name}}">
                                                     {{$language->name}}
@@ -545,14 +560,14 @@
                                     </div>
                             </div>
                         </div>
-        
+
                         <div class="row d-none template-prompt">
-                        
+
                         </div>
-        
+
                         <div class="row">
                             <div class="col-lg-12">
-        
+
                                 <div class="faq-wrap style-2">
                                         <div class="accordion" id="advanceOption">
                                             <div class="accordion-item">
@@ -564,7 +579,7 @@
                                                     data-bs-target="#advanceAcc"
                                                     aria-expanded="true"
                                                     aria-controls="advanceAcc">
-                                                        {{translate("Advance Options")}} 
+                                                        {{translate("Advance Options")}}
                                                         <i title="{{translate('Browse More Fields')}}" class="ms-1 {{$iconClass}}"></i>
                                                     </button>
                                                 </h2>
@@ -579,11 +594,11 @@
                                                             </label>
                                                             <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result"  value='{{old("max_result")}}' >
                                                         </div>
-                        
+
                                                         <div class="form-inner">
                                                             <label for="ai_creativity" class="form-label">{{ translate('Ai Creativity Level') }}
                                                             <small class="text-danger" >*</small></label>
-                                                            <select class="select2" id="ai_creativity" name="ai_creativity" >
+                                                            <select class="ai_creativity" id="ai_creativity" name="ai_creativity" >
                                                                 <option  value="">
                                                                     {{translate("Select Creativity")}}
                                                                 </option>
@@ -594,10 +609,10 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                        
+
                                                         <div class="form-inner">
                                                             <label for="content_tone" class="form-label">{{ translate('Content Tone') }} <small class="text-danger" >*</small></label>
-                                                            <select  class="select2" id="content_tone" name="content_tone">
+                                                            <select  class="content_tone" id="content_tone" name="content_tone">
                                                                     <option value="">
                                                                         {{translate("Select Tone")}}
                                                                     </option>
@@ -613,29 +628,35 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </div>
-        
-                            <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">                         
+
+                            <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
                                 <button type="submit" class="ai-btn i-btn btn--primary btn--lg">
                                     {{translate("Generate")}}
                                 </button>
                             </div>
-        
+
                         </div>
                     </form>
 
                     <div  class="content-form  d-none ai-content-div">
 
                         <div class="col-lg-12">
-                            <div class="buttons-area d-flex justify-content-end align-items-center">
-                              <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="delete-item icon-btn info copy-content"><i class="las la-copy"></i></button>
-                              <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="delete-item icon-btn success download-text"><i class="las la-download"></i></button>
-                            </div>
                             <div class="form-inner">
-                                <label for="content"> 
+                                <label for="content">
                                     {{translate("Content")}} <small class="text-danger">*</small>
                                 </label>
+
+
+                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="delete-item icon-btn info copy-content">
+                                        <i class="las la-copy"></i></button>
+
+                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="delete-item icon-btn success download-text">
+                                        <i class="las la-download"></i></button>
+
+
+
                                 <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
                             </div>
                         </div>
@@ -649,7 +670,7 @@
                     <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-    
+
                 </div>
 
         </div>
@@ -671,22 +692,15 @@
 	(function($){
        	"use strict";
 
-
-        $(".choose-profile .dropdown-menu").on("click", function (e) {
-                e.stopPropagation();
-        });
-
-
         $(document).on('keyup','#searchProfile',function(e){
             e.preventDefault()
             var value = $(this).val().toLowerCase();
-           
+
             $(".profile-item").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
 
             e.preventDefault();
-
         })
 
         $(document).on('change','#predefined',function(e){
@@ -694,16 +708,19 @@
             var value = $(this).val();
             $("#inputText").val(value)
             $(".caption-text").html(value)
-           
+
 
             e.preventDefault();
 
         })
 
-
-
         $(".select2").select2({
             placeholder:"{{translate('Select Category')}}",
+            dropdownParent: $("#aiModal"),
+        })
+
+        $(".language").select2({
+            placeholder:"{{translate('Select Language')}}",
             dropdownParent: $("#aiModal"),
         })
 
@@ -711,14 +728,13 @@
             placeholder:"{{translate('Select Template')}}",
             dropdownParent: $("#aiModal"),
         })
+
         $(".sub_category_id").select2({
             placeholder:"{{translate('Select Sub Category')}}",
             dropdownParent: $("#aiModal"),
         })
 
-        
         $(document).on('click','.copy-content',function(e){
-
             var textarea = document.getElementById('content');
             textarea.select();
             document.execCommand('copy');
@@ -734,10 +750,10 @@
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
             link.download = 'downloaded_content.html';
-    
+
             document.body.appendChild(link);
             link.click();
-        
+
             document.body.removeChild(link);
 
         });
@@ -747,11 +763,45 @@
             enableTime: true,
         });
 
+        $(document).on('click','.check_account',function(e) {
+
+            var accountName = $(this).attr('data-account_name');
+            var platformName = $(this).attr('data-platform_name');
+            var image =  $(this).attr('data-image');
+            $(".choose-profile-left").remove();
+
+            var id = $(this).attr('data-id');
+
+
+            var html = `<li class="selected-profile-item">
+                <span class="channel-icon">
+                    <img src="${image}" alt="google" border="0">
+                </span>
+
+                <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
+            </li>`;
 
 
 
+            $(".selected-profile").append(html);
+
+
+
+        });
+
+
+
+        $(document).on('click','.account_remove',function(e) {
+
+            var remove_id = $(this).attr('data-id');
+
+            $(`#account-${remove_id}`).prop('checked', false);
+
+            $(this).parent().parent().remove();
+
+        });
 
 	})(jQuery);
-    
+
 </script>
 @endpush

@@ -469,8 +469,8 @@ body {
 
 /* ================Dot Spinner Loader Start================ */
 .dot-spinner {
-  --uib-size: 20px;
-  --uib-speed: 0.9s;
+  --spinner-size: 20px;
+  --spinner-speed: 0.9s;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -481,8 +481,8 @@ body {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  height: var(--uib-size);
-  width: var(--uib-size);
+  height: var(--spinner-size);
+  width: var(--spinner-size);
 }
 .dot-spinner .dot-spinner__dot {
   position: absolute;
@@ -509,9 +509,9 @@ body {
   -webkit-transform: scale(0);
   transform: scale(0);
   opacity: 0.5;
-  -webkit-animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out
+  -webkit-animation: pulse0112 calc(var(--spinner-speed) * 1.111) ease-in-out
     infinite;
-  animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
+  animation: pulse0112 calc(var(--spinner-speed) * 1.111) ease-in-out infinite;
   -webkit-box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
   box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
 }
@@ -546,58 +546,65 @@ body {
   transform: rotate(45deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(2)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.875);
-  animation-delay: calc(var(--uib-speed) * -0.875);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.875);
+  animation-delay: calc(var(--spinner-speed) * -0.875);
 }
 .dot-spinner .dot-spinner__dot:nth-child(3) {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(3)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.75);
-  animation-delay: calc(var(--uib-speed) * -0.75);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.75);
+  animation-delay: calc(var(--spinner-speed) * -0.75);
 }
 .dot-spinner .dot-spinner__dot:nth-child(4) {
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(4)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.625);
-  animation-delay: calc(var(--uib-speed) * -0.625);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.625);
+  animation-delay: calc(var(--spinner-speed) * -0.625);
 }
 .dot-spinner .dot-spinner__dot:nth-child(5) {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(5)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.5);
-  animation-delay: calc(var(--uib-speed) * -0.5);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.5);
+  animation-delay: calc(var(--spinner-speed) * -0.5);
 }
 .dot-spinner .dot-spinner__dot:nth-child(6) {
   -webkit-transform: rotate(225deg);
   transform: rotate(225deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(6)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.375);
-  animation-delay: calc(var(--uib-speed) * -0.375);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.375);
+  animation-delay: calc(var(--spinner-speed) * -0.375);
 }
 .dot-spinner .dot-spinner__dot:nth-child(7) {
   -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(7)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.25);
-  animation-delay: calc(var(--uib-speed) * -0.25);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.25);
+  animation-delay: calc(var(--spinner-speed) * -0.25);
 }
 .dot-spinner .dot-spinner__dot:nth-child(8) {
   -webkit-transform: rotate(315deg);
   transform: rotate(315deg);
 }
 .dot-spinner .dot-spinner__dot:nth-child(8)::before {
-  -webkit-animation-delay: calc(var(--uib-speed) * -0.125);
-  animation-delay: calc(var(--uib-speed) * -0.125);
+  -webkit-animation-delay: calc(var(--spinner-speed) * -0.125);
+  animation-delay: calc(var(--spinner-speed) * -0.125);
 }
 
+.profile-tab-content .dot-spinner {
+  --spinner-size: 30px;
+}
+
+.profile-tab-content .dot-spinner .dot-spinner__dot::before {
+  background-color: var(--color-primary);
+}
 /* ========================Modal Custom Css======================== */
 .modal .modal-dialog.ai-modal {
   max-width: 85%;
@@ -771,7 +778,7 @@ body {
   }
 }
 .i-card-md .card-header .card-title {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text-primary);
   font-weight: 700;
 }
@@ -1650,8 +1657,7 @@ select {
   font-weight: 700;
 }
 .noti-dropdown .dropdown-menu .notification-items {
-  padding: 15px 0 0;
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
 }
 .noti-dropdown .dropdown-menu .notification-items .notification-item {
@@ -1695,7 +1701,7 @@ select {
   align-items: flex-start;
   gap: 10px;
   padding: 12px 15px;
-  border-bottom: 1px solid var(--color-primary-light);
+  border-bottom: 1px dashed var(--border-light);
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   position: relative;
@@ -1707,7 +1713,7 @@ select {
   ul
   li
   a:hover {
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-primary-light);
 }
 .noti-dropdown
   .dropdown-menu
@@ -1721,6 +1727,7 @@ select {
   -ms-flex: 0 0 30px;
   flex: 0 0 30px;
   width: 100%;
+  aspect-ratio: 1/1;
 }
 .noti-dropdown
   .dropdown-menu
@@ -2687,6 +2694,20 @@ select {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.main-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-wrapper::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+  border-left: 1px solid var(--color-primary-soft);
+}
+
+.main-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--border-light-two);
+  border-radius: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -3993,6 +4014,7 @@ select {
   border-radius: 50%;
   overflow: hidden;
   border: 5px solid var(--color-white);
+  background-color: var(--color-white);
   position: relative;
   z-index: 1;
 }
@@ -4303,7 +4325,7 @@ select {
   .profile-tab-content
   .permissions
   h6 {
-  font-size: 16px;
+  font-size: 18px;
   padding: 12px 15px;
   background: var(--site-bg);
 }
@@ -4333,7 +4355,7 @@ select {
 }
 
 /* ==============================================================
-                   Collapseable Table Accordion Start
+                   CollapsibleTable Accordion Start
 ================================================================= */
 .table-accordion .accordion-item {
   background-color: var(--color-white);
@@ -4481,7 +4503,7 @@ select {
 
 .table-accordion .accordion-item .accordion-button .table-accordion-header h6 {
   font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   font-weight: 700;
 }
 
@@ -4636,7 +4658,7 @@ select {
 .message-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  max-height: 300px;
+  max-height: 400px;
   height: 100%;
   overflow-y: auto;
 }
@@ -4811,4 +4833,51 @@ select {
 .capsuled-tab .nav .nav-item .nav-link.active {
   background: var(--color-primary);
   color: var(--color-primary-text);
+}
+
+/* ======Social Account====== */
+.social-account-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.social-account-list .nav-link {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  transition: 0.3s ease-in-out;
+  border-right: 2px solid transparent;
+  border-radius: 0;
+}
+
+.social-account-list .nav-link:hover,
+.social-account-list .nav-link:focus {
+  background-color: var(--site-bg);
+  border-color: var(--color-primary);
+}
+
+.social-account-list .nav-link.active {
+  background-color: var(--site-bg);
+  border-color: var(--color-primary);
+}
+
+/* ============Connect Profile tab============ */
+.connect-profile-tab .nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.connect-profile-tab .nav-tabs .nav-link {
+  color: var(--text-primary) !important;
+  border: none;
+  border-bottom: 2px solid transparent !important;
+}
+
+.connect-profile-tab .nav-tabs .nav-link.active {
+  color: var(--color-primary);
+  border: none;
+  border-color: var(--color-primary) !important;
 }

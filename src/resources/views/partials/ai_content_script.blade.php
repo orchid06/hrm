@@ -2,8 +2,7 @@
 	(function($){
        	"use strict";
     
-           
-
+        
         /** ai content genaration event */
       
         $(document).on('click','.update',function(e){

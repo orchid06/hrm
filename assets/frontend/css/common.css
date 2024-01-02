@@ -42,7 +42,7 @@
 .i-btn.btn--secondary {
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
-  color: var(--color-secondary-text);
+  color: var(--color-white);
 }
 
 .i-btn.btn--primary-outline {
@@ -309,8 +309,13 @@
 
 /* =======================No Data=======================  */
 .nodata-wrapper {
-  max-width: 180px;
+  max-width: 170px;
   width: 100%;
+  padding: 40px 0;
+}
+.nodata-wrapper >h5{
+  font-weight: 700;
+  font-size: 18px;
 }
 
 /* ==============================================================

@@ -1,7 +1,6 @@
 <aside class="aside">
 
       @php
-
         $user = auth_user('web');
       @endphp
     <div class="side-content">
@@ -160,6 +159,84 @@
             </a>
           </li>
 
+
+          <li class="sidemenu-item">
+            <a href="javascript:void(0)" class="sidemenu-link
+             @if(request()->routeIs('user.social.post.*'))
+                 active
+             @endif">
+              <div
+                class="sidemenu-icon"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="{{translate("Post Feed")}}">
+                 <i class="bi bi-stickies"></i>
+                
+              </div>
+              <span class="d-lg-none">
+                 {{translate("Post Feed")}}
+              </span>
+            </a>
+
+            <div class="side-menu-dropdown">
+              <div class="menu-dropdown-header">
+                <h6>
+                   {{translate("Social Posts")}}
+                </h6>
+              </div>
+
+              <ul class="sub-menu">
+
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? "active" :""}}" href="{{route('user.social.post.create')}}">
+                        <span>
+                            <i class="bi bi-plus"></i>
+                        </span>
+                        <p>
+                           {{translate('Create New')}}
+                        </p>
+                    </a>
+                  </li>
+                  <li class="sub-menu-item">
+                    <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? "active" :""}}" href="{{route('user.social.post.list')}}">
+                        <span>
+                          <i class="bi bi-newspaper"></i>
+                        </span>
+                        <p>
+                           {{translate('All Post')}}
+                        </p>
+                    </a>
+                  </li>
+
+              
+
+        
+
+
+
+
+              </ul>
+            </div>
+          </li>
+
+          <li class="sidemenu-item">
+            <a href="{{route("user.social.account.list")}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? "active" :""}}">
+              <div
+                class="sidemenu-icon"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="{{translate("Social Accounts")}}">
+                <i class="bi bi-person-fill-gear"></i>
+              </div>
+
+              <span class="d-lg-none">
+                 {{translate("Social Accounts")}}
+              </span>
+            </a>
+          </li>
+
           <li class="sidemenu-item">
               <a href="{{route("user.plan")}}" class="sidemenu-link  {{request()->routeIs('user.plan') ? "active" :""}}">
                 <div class="sidemenu-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="{{translate("Plans")}}">
@@ -188,7 +265,6 @@
                 </a>
           </li>
 
-
           <li class="sidemenu-item">
               <a href="{{route("user.ai.content.list")}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? "active" :""}}">
                 <div
@@ -206,12 +282,12 @@
               </a>
           </li>
 
-
         </ul>
 
-
+        
+      
         <div class="d-lg-none align-items-center justify-content-between w-100 d-flex">
-           <!-- currency -->
+       
             <div class="dropdown currency">
                 <button
                     class="dropdown-toggle"
@@ -266,6 +342,7 @@
                 @endif
             </div>
         </div>
+
       </div>
     </div>
   </aside>

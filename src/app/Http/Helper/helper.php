@@ -4,6 +4,8 @@ use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\DepositStatus;
 use App\Enums\PlanDuration;
+use App\Enums\PostStatus;
+use App\Enums\PostType;
 use App\Enums\PriorityStatus;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
@@ -1005,6 +1007,51 @@ use Illuminate\Database\Eloquent\Collection;
          
 		}
    }
+
+
+   if (!function_exists('post_status')){
+		function post_status(mixed  $status) :string
+		{
+
+         $badges  = [
+            
+            PostStatus::Schedule->value       => "warning",
+            PostStatus::Failed->value         => "danger",
+            PostStatus::Success->value        => "success",
+            PostStatus::Pending->value        => "info",
+      
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(PostStatus::toArray()) ,$status , 'Pending')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
+   if (!function_exists('post_type')){
+		function post_type(mixed  $status) :string
+		{
+
+         $badges  = [
+
+            PostType::Feed->value        => "info",
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(PostType::toArray()) ,$status , 'Pending')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+   if (!function_exists('get')) {
+      function get($name, $default = null) {
+          return request()->input($name, $default);
+      }
+  }
+  
+
 
 
    if (!function_exists('account_connection_status')){
