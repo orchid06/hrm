@@ -48,26 +48,14 @@
         <div class="col-xxl-9 col-lg-8">
             <div class="basic-setting-right">
                 <div class="i-card-md">
-                    {{-- <div class="card-header">
+                    <div class="card-header">
                         <h4 class="card-title">
                             {{translate(Arr::get($meta_data, 'title'))}}
                         </h4>
-                    </div> --}}
+                    </div>
 
                     <div class="card-body px-0 pt-0">
                         @if(request()->input("platform"))
-                            {{-- <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <a href="{{route('user.social.account.create',['platform' => request()->input('platform')])}}" class="i-btn primary btn--sm capsuled create">
-                                        <i class="bi bi-plus-lg"></i>  {{translate('Add New')}}
-                                    </a>
-
-                                    <form action="">
-                                        <div class="form-inner " >
-                                            <input  id="" type="text"    placeholder='{{translate("Search")}}'
-                                                >
-                                        </div>
-                                    </form>
-                            </div> --}}
 
                             <div class="search-action-area mb-4">
                                 <div class="row g-4">
@@ -233,7 +221,7 @@
                                 {{ $accounts->links() }}
                             </div>
                         @else
-                            <div class="text-center">
+                            <div class="text-center pt-4">
                                 {{translate("No Active Platform Selected")}}
                             </div>
                         @endif

@@ -5,7 +5,9 @@ body {
 .container-wrapper {
   padding: 0 4% !important;
 }
-
+.cursor-none {
+  cursor: none !important;
+}
 /* ====================Icon Btns Design Start==================== */
 .icon-btn {
   display: -webkit-box;
@@ -1374,8 +1376,8 @@ select {
 .mobile-menu-btn {
   font-size: 20px;
   color: var(--color-white);
-  line-height: 38px;
-  width: 38px;
+  line-height: 42px;
+  width: 42px;
   aspect-ratio: 1/1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1842,6 +1844,43 @@ select {
   border-radius: 50px;
   color: var(--text-secondary);
 }
+
+@media (max-width: 575.98px) {
+  .mobile-menu-btn {
+    line-height: 38px;
+    width: 38px;
+  }
+  .header-right {
+    gap: 15px;
+  }
+  .currency .dropdown-toggle {
+    padding: 0 10px;
+    font-size: 13px;
+    height: 38px;
+  }
+
+  .home-link-btn {
+    font-size: 22px;
+  }
+
+  .noti-dropdown .noti-dropdown-btn {
+    font-size: 22px;
+  }
+  .lang .flag {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 22px;
+    flex: 0 0 22px;
+    width: 22px;
+  }
+
+  .profile-dropdown .profile-btn {
+    padding: 0 8px 0 8px;
+    height: 38px;
+  }
+  .profile-dropdown .profile-btn .profile-img {
+    width: 22px !important;
+  }
+}
 .profile-dropdown .profile-btn .profile-img {
   width: 25px;
   aspect-ratio: 1/1;
@@ -2225,6 +2264,16 @@ select {
   flex-direction: column;
   justify-content: space-between;
   gap: 30px;
+}
+ .sidemenu-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.sidemenu-wrapper::-webkit-scrollbar-track {
+  background-color: var(--site-bg);
+}
+.sidemenu-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--border-light-two);
+  border-radius: 10px;
 }
 @media (max-width: 576px) {
   .aside .side-content .sidemenu-wrapper {
@@ -2826,7 +2875,7 @@ select {
   }
 }
 .plan-upgrade-card .plan-upgrade-body .plan-upgrade-img {
-  max-width: 75%;
+  max-width: 55%;
   margin: 0 auto;
 }
 .plan-upgrade-card .plan-upgrade-bg {
@@ -4561,8 +4610,8 @@ select {
   font-size: 14px;
   font-weight: 700;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 25%;
-  flex: 0 0 25%;
+  -ms-flex: 0 0 30%;
+  flex: 0 0 30%;
   position: relative;
 }
 .table-accordion .list-group .list-group-item .title::after {
@@ -4575,7 +4624,7 @@ select {
 
 @media (max-width: 991.98px) {
   .table-accordion .list-group .list-group-item .title {
-    flex: 0 0 35%;
+    flex: 0 0 45%;
   }
 }
 
@@ -4611,9 +4660,6 @@ select {
 }
 
 /* ==========Summer note Customize========== */
-.modal.show .modal-dialog {
-  height: auto !important;
-}
 
 .note-toolbar {
   justify-content: flex-start !important;
@@ -4880,4 +4926,58 @@ select {
   color: var(--color-primary);
   border: none;
   border-color: var(--color-primary) !important;
+}
+
+/* ===========Post Details=========== */
+.post-detail-list {
+  gap: 10px;
+}
+
+.post-detail-list .list-group-item {
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  padding: 12px 15px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.post-detail-list .list-group-item .title {
+  flex: 0 0 20%;
+  position: relative;
+}
+
+.post-detail-list .list-group-item .title::after {
+  content: ":";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.post-detail-list .list-group-item .post__link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.post-detail-list.list-group-flush > .list-group-item:last-child {
+  border-bottom-width: 1px !important;
+}
+.post-detail-list .post-detail-img {
+  max-width: 120px;
+}
+
+@media (max-width: 767px) {
+  .post-detail-list .list-group-item .title {
+    flex: 0 0 35%;
+  }
+
+  .post-detail-list .post-detail-img {
+    max-width: 50px;
+  }
 }

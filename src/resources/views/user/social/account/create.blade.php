@@ -37,8 +37,10 @@
                         </h4>
 
                         <div>
-                            <a class="i-btn btn--primary btn--md capsuled" href="{{route('user.social.account.list',['platform' => $platform->slug])}}">
+                            <a class="i-btn btn--md capsuled info" href="{{route('user.social.account.list',['platform' => $platform->slug])}}">
                                 {{translate("View Accounts")}}
+
+                                <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
                     </div>
@@ -112,16 +114,18 @@
                                             @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                 <div class="d-flex gap-2 justify-content-center">
                                                     <a href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--primary btn--lg capsuled">
-                                                        <i class="las la-user-alt me-1"></i>   {{translate('Connect Profile')}}
+                                                      {{translate('Connect Profile')}}
+                                                        <i class="bi bi-link-45deg"></i>
                                                     </a>
                                                 </div>
                                             @else
                                                 <button type="submit"  class="i-btn btn--primary btn--lg capsuled">
-                                                    <i class="bi bi-link-45deg"></i>   {{translate('Connect')}}
+                                                    {{translate('Connect')}}
+                                                     <i class="bi bi-link-45deg"></i>
                                                 </button>
                                             @endif
                                         </div>
-                                        <div class="p-4 mt-4">
+                                        <div class="p-4 mt-4 bg-danger-soft">
                                             <p><span class="i-badge-solid danger me-2">{{translate("note")}}  :</span>
                                                 @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                     {{trans("default.on_click_note")}}
