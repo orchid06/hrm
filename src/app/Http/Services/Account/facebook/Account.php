@@ -2,9 +2,10 @@
 
 namespace App\Http\Services\Account\facebook;
 
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
+use App\Enums\PostStatus;
 use App\Enums\StatusEnum;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
@@ -17,7 +18,7 @@ class Account
 {
     
 
-    use AccoutManager;
+    use AccountManager;
 
     /**
      * Connet facebook account
@@ -30,13 +31,16 @@ class Account
     public function facebook(MediaPlatform $platform ,  array $request , string $guard = 'admin') :array {
 
         $type        = Arr::get($request,'account_type');
+        
+        $accountId   = Arr::get($request,'account_id', null);
         $token       = Arr::get($request,'access_token');
         $baseApi     = $platform->configuration->graph_api_url;
         $apiVersion  = $platform->configuration->app_version;
         $api         = $baseApi."/".$apiVersion;
         $pageId      = Arr::get($request,'page_id', null);
         $groupId     = Arr::get($request,'group_id', null);
-        $response   = response_status(translate('Account Created'));
+        $response    = response_status(translate('Account Created'));
+
     
         try {
 
@@ -84,8 +88,8 @@ class Account
             }
             
             $accountInfo = [
-                'id'         => $identification ,
-                'account_id' => Arr::get($apiResponse,'id',null),
+                'id'         => Arr::get($apiResponse,'id',null) ,
+                'account_id' => $identification ,
                 'name'       => Arr::get($apiResponse,'name',null),
                 'link'       => Arr::get($apiResponse,'link',@$link),
                 'email'      => Arr::get($apiResponse,'email',null),
@@ -94,7 +98,7 @@ class Account
             ];
 
 
-            $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value );
+            $this->saveAccount($guard ,$platform , $accountInfo ,$type ,ConnectionType::OFFICIAL->value ,$accountId);
 
 
         } catch (\Exception $ex) {
@@ -108,7 +112,7 @@ class Account
 
 
 
-    public function accoountDetails(SocialAccount $account) : array {
+    public function accountDetails(SocialAccount $account) : array {
 
         try {
           
@@ -191,17 +195,95 @@ class Account
     public function send(SocialPost $post) :array{
 
          try {
-            //code...
+
+            $account           = $post->account;
+            $accountConnection = $this->accountDetails($post->account);
+
+
+            $isConnected       = Arr::get($accountConnection,'status', false);
+            $message           = translate("Gateway connection error");
+            $status            = false;
+
+            if($isConnected){
+                $message     = translate("Posted Successfully");
+                $status      = true;
+                $baseApi     = $account->platform->configuration->graph_api_url;
+                $apiVersion  = $account->platform->configuration->app_version;
+                $token       = $account->account_information->token;
+                $api         =  $baseApi .$apiVersion;
+
+                switch ($account->account_type) {
+                    case AccountType::Profile->value:
+                        $api =   $api."/me/feed";
+                        break;
+                    case AccountType::Page->value:
+                        $api    =  $api."/".$account->account_id."/feed";
+                        break;
+    
+                    case AccountType::Group->value:
+                        $api =   $api."/".$account->account_id."/feed";
+                    break;
+                }
+    
+    
+                $params = array(
+                    'api'          => $api ,
+                    'access_token' => $token,
+                );
+                
+                if ($post->content) {
+                    $params['message'] = $post->content;
+                }
+                if ($post->link) {
+                    $params['link']    = $post->link;
+                }
+
+                if($post->file && $post->file->count() > 0){
+
+                    foreach ($post->file as $file) {
+
+                        $uploadParams = [
+                            'access_token'  => $token,
+                            'url'           => imageUrl($file,"post",true),
+                            'published'     => false,
+                        ];
+        
+                        $uploadResponse = Http::post($baseApi . $apiVersion . "/me/photos", $uploadParams);
+                        $uploadData     = $uploadResponse->json();
+
+                        if (isset($uploadData['id'])) {
+                            $params['attached_media'][] = '{"media_fbid":"'.$uploadData['id'].'"}';
+                        }
+              
+                    }
+                }
+
+                $response     = Http::post($params['api'], $params);
+                $gwResponse   = $response->json();
+                $postId       = Arr::get($gwResponse,'id',null);
+
+
+                if(isset($gwResponse['error'])) {
+                    $status  = false;
+                    $message = $gwResponse['error']['message'];
+                }
+                $url =   $postId  ?  "https://fb.com/".$postId : null;
+
+            }
+
+            
          } catch (\Exception $ex) {
-            //throw $th;
+            $status  = false;
+            $message = strip_tags($ex->getMessage());
          }
 
-        return [];
+         return [
+            'status'   => $status,
+            'response' => $message,
+            'url'      => @$url
+        ];
+
     }
 
 
-
-
-
-   
 }

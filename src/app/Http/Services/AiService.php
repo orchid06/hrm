@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\ModelAction;
 use Illuminate\Validation\Rule;
 use Orhanerday\OpenAi\OpenAi;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 class AiService
 {
 
-    use  ModelAction ,AccoutManager;
+    use  ModelAction ,AccountManager;
 
 
 
@@ -249,7 +249,7 @@ class AiService
                         }
                     }
                     
-  
+
 
                 });
 

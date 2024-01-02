@@ -28,7 +28,7 @@
                 </div>
           </div>
 
-            <div class="card-body px-0">
+          <div class="card-body px-0">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -90,7 +90,7 @@
                             </tbody>
                     </table>
                 </div>
-            </div>
+          </div>
         </div>
 
         <div class="Paginations">
@@ -176,7 +176,7 @@
         "use strict";
 
         $(".select2").select2({
-            placeholder:"{{translate('Select Category')}}",
+            placeholder:"{{translate('Select Item')}}",
         })
 
         $(".selectTemplate").select2({

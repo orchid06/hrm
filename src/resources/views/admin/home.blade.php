@@ -670,6 +670,8 @@
           pattern: {
             enabled: true,
           },
+          colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+
         },
         states: {
           hover: {
@@ -703,7 +705,8 @@
       dataLabels: {
         enabled: false,
       },
-      colors: ["{{site_settings('primary_color')}}", "{{site_settings('secondary_color')}}"], 
+      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+
       series: [
         {
           name: "{{ translate('Subscriptions') }}",
@@ -778,7 +781,7 @@
       dataLabels: {
         enabled: false,
       },
-      colors: ["{{site_settings('primary_color')}}", "{{site_settings('secondary_color')}}","#029768"], 
+      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
       series: [
         {
           name: "{{ translate('Subscriptions Income') }}",
@@ -866,6 +869,8 @@
         pattern: {
           enabled: true,
         },
+        colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+
       },
       states: {
         hover: {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
+use App\Enums\PostStatus;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Http\Services\UserService;
@@ -17,6 +18,7 @@ use App\Models\AiTemplate;
 use App\Models\Core\Language;
 use App\Models\MediaPlatform;
 use App\Models\Package;
+use App\Models\SocialPost;
 use App\Models\Subscriber;
 use App\Models\Subscription;
 use App\Models\User;
@@ -38,14 +40,14 @@ use Illuminate\Support\Facades\Config;
 
 use Illuminate\Support\Facades\Route;
 
-
-use App\Traits\AccoutManager;
+use App\Traits\PostManager;
+use App\Traits\AccountManager;
 class CoreController extends Controller
 {
 
 
 
-    use AccoutManager;
+    use AccountManager ,PostManager;
     
      
     /**
@@ -150,104 +152,150 @@ class CoreController extends Controller
         return back()->with(response_status("Cache Clean Successfully"));
     }
 
+    /**
+     * Process cron job
+     *
+     * @return Void
+     */
     public function cron() :Void{
 
-
-        $userService = new UserService();
-        try {
-      
-            $subscriptions = Subscription::with(['user','package'])
-                                ->running()
-                                ->expired()
-                                ->cursor();
-
-            foreach($subscriptions as $subscription){
-
-                $subscription->update([
-                    'status'     => SubscriptionStatus::value('Expired', true),
-                    'expired_at' => date('Y-m-d'),
-                ]);
-
-
-                // inactive  user profile
-                $userService->inactiveSocialAccounts($subscription);
-
-                $code = [
-                    'time'    => Carbon::now(),
-                    'name'    => $subscription->package->title,
-                    'link'    => route('user.subscription.report.list'),
-                    'reason'  => translate("Auto renewal package does not exist"),
-                ];
-            
-
-                $notificationTypes =  [
-                    "database_notifications"  => "App\Http\Utility\SendNotification",
-                    "email_notifications"     => "App\Jobs\SendMailJob",
-                    "sms_notifications"       => "App\Jobs\SendSmsJob",
-                ];
-
-                foreach( $notificationTypes as $type => $key){
-
-                     if(notify($type)){
-                        if($type == "database_notifications"){
-                            $key::database_notifications($subscription->user,"SUBSCRIPTION_EXPIRED",$code,Arr::get( $code , "link", null));
-                        }
-                        else{
-                            $key::dispatch($subscription->user,'SUBSCRIPTION_EXPIRED',$code);
-                        }
-                     }
-                }
-
-                // Auto-renewal 
-                if($subscription->user &&  $subscription->user->auto_subscription == StatusEnum::true->status()){
-
-                    $getPackageId       = site_settings("auto_subscription_package");
-                    if(site_settings('auto_subscription') == StatusEnum::true->status() && $subscription->user->auto_subscription_by){
-                        $getPackageId   =  $subscription->user->auto_subscription_by;
-                    }
-
-                    $package = Package::where('id',$getPackageId)->first();
-
-                    $flag = 1;
-                    if($package){
-                        $userService       =  new UserService();
-                        $response          =  $userService->createSubscription($subscription->user , $package ,translate("Auto Subscription renewal"));
-                        $code ['reason']   = Arr::get($response, 'message' ,translate("Auto renewal package doesnot exists"));
-                        if(isset($response['status']) && $response['status']){
-                            $flag = 0;
-                        }
-
-                    }
-                    if($flag == 1){
-                        foreach( $notificationTypes as $type => $key){
-                            if(notify($type)){
-                               if($type == "database_notifications"){
-                                   $key::database_notifications($subscription->user,"SUBSCRIPTION_FAILED",$code,Arr::get( $code , "link", null));
-                               }
-                               else{
-                                   $key::dispatch($subscription->user,'SUBSCRIPTION_FAILED',$code);
-                               }
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        // try {
+            $this->handleSchedulePost();
+            $this->handleExpireSubscriptions();
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
 
         session()->put('last_corn_run',Carbon::now());
 
     }
 
 
+
+    /**
+     * Handle schedule post
+     *
+     * @return void
+     */
+    public function handleSchedulePost() :void{
+
+        $posts = SocialPost::whereIn('status',[strval(PostStatus::value('Pending',true)) ,strval(PostStatus::value('Schedule',true))])->cursor();
+
+        foreach($posts->chunk(20) as $chunkPosts){
+            foreach($chunkPosts as $post){
+                sleep(1);
+                if($post->schedule_time <= Carbon::now()){
+                    $post->status = strval(PostStatus::value('Pending',true));
+                    $post->save();
+                }
+                if($post->status ==  strval(PostStatus::value('Pending',true))){
+                    $this->publishPost($post);
+                }
+            }
+        }
+
+
+
+
+    }
+
+    /**
+     * Handle expire subscriptions
+     *
+     *  @return void
+     */
+    public function handleExpireSubscriptions() :void{
+
+        $userService   = new UserService();
+        $subscriptions = Subscription::with(['user','package'])
+                            ->running()
+                            ->expired()
+                            ->cursor();
+
+        foreach($subscriptions as $subscription){
+
+            $subscription->update([
+                'status'     => SubscriptionStatus::value('Expired', true),
+                'expired_at' => date('Y-m-d'),
+            ]);
+
+
+            // inactive  user profile
+            $userService->inactiveSocialAccounts($subscription);
+
+            $code = [
+                'time'    => Carbon::now(),
+                'name'    => $subscription->package->title,
+                'link'    => route('user.subscription.report.list'),
+                'reason'  => translate("Auto renewal package does not exist"),
+            ];
+        
+
+            $notificationTypes =  [
+                "database_notifications"  => "App\Http\Utility\SendNotification",
+                "email_notifications"     => "App\Jobs\SendMailJob",
+                "sms_notifications"       => "App\Jobs\SendSmsJob",
+            ];
+
+            foreach( $notificationTypes as $type => $key){
+
+                 if(notify($type)){
+                    if($type == "database_notifications"){
+                        $key::database_notifications($subscription->user,"SUBSCRIPTION_EXPIRED",$code,Arr::get( $code , "link", null));
+                    }
+                    else{
+                        $key::dispatch($subscription->user,'SUBSCRIPTION_EXPIRED',$code);
+                    }
+                 }
+            }
+
+            // Auto-renewal 
+            if($subscription->user &&  $subscription->user->auto_subscription == StatusEnum::true->status()){
+
+                $getPackageId       = site_settings("auto_subscription_package");
+                if(site_settings('auto_subscription') == StatusEnum::true->status() && $subscription->user->auto_subscription_by){
+                    $getPackageId   =  $subscription->user->auto_subscription_by;
+                }
+
+                $package = Package::where('id',$getPackageId)->first();
+
+                $flag = 1;
+                if($package){
+                    $userService       =  new UserService();
+                    $response          =  $userService->createSubscription($subscription->user , $package ,translate("Auto Subscription renewal"));
+                    $code ['reason']   = Arr::get($response, 'message' ,translate("Auto renewal package doesnot exists"));
+                    if(isset($response['status']) && $response['status']){
+                        $flag = 0;
+                    }
+
+                }
+                if($flag == 1){
+                    foreach( $notificationTypes as $type => $key){
+                        if(notify($type)){
+                           if($type == "database_notifications"){
+                               $key::database_notifications($subscription->user,"SUBSCRIPTION_FAILED",$code,Arr::get( $code , "link", null));
+                           }
+                           else{
+                               $key::dispatch($subscription->user,'SUBSCRIPTION_FAILED',$code);
+                           }
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+
+
     /** security control */
-
-
     public function security() :View{
 
         if(site_settings('dos_prevent') == StatusEnum::true->status() && !session()->has('dos_captcha')){
@@ -572,7 +620,7 @@ class CoreController extends Controller
             }
         
             $accountInfo = [
-                'id'                => Arr::get($account->attributes,'email',null),
+                'id'                => @$account->id,
                 'account_id'        => $identification,
                 'name'              => Arr::get($account->attributes,'name',null),
                 'avatar'            => Arr::get($account->attributes,'avatar',null),

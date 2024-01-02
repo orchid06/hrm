@@ -126,7 +126,7 @@
                                     <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
                                 @endif#
                             </th>
-                            
+
                             <th scope="col">
                                 {{translate('Name')}}
                             </th>
@@ -250,7 +250,6 @@
             </div>
         </div>
     </div>
-
 
 @endsection
 @section('modal')

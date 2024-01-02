@@ -57,11 +57,11 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg">
+                            <button type="submit" class="i-btn primary btn--lg rounded">
                                 <i class="bi bi-search"></i>
                             </button>
 
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger rounded">
                                 <i class="bi bi-arrow-repeat"></i>
                             </a>
                     </div>
@@ -72,156 +72,161 @@
         </div>
       </div>
 
-      <div class="table-accordion">
-                @if($reports->count() > 0)
-                    <div class="accordion" id="wordReports">
-                        @forelse($reports as $report)
-                            <div class="accordion-item">
-                                <div class="accordion-header">
-                                    <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
-                                        aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                        <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
-                                            <div class="col-lg-3 col-sm-4 col-12">
-                                                <div class="table-accordion-header transfer-by">
-                                                    <span class="icon-btn icon-btn-sm info circle">
-                                                        <i class="bi bi-arrow-up-left"></i>
-                                                    </span>
-                                                    <div>
-                                                        <h6>
-                                                            {{translate("Trx Code")}}
-                                                        </h6>
-                                                        <p> {{$report->trx_code}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+        <div class="i-card-md">
+            <div class="card-body p-0">
+                <div class="table-accordion">
+                          @if($reports->count() > 0)
+                              <div class="accordion" id="wordReports">
+                                  @forelse($reports as $report)
+                                      <div class="accordion-item">
+                                          <div class="accordion-header">
+                                              <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
+                                                  aria-expanded="false" aria-controls="collapse{{$report->id}}">
+                                                  <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                                      <div class="col-lg-3 col-sm-4 col-12">
+                                                          <div class="table-accordion-header transfer-by">
+                                                              <span class="icon-btn icon-btn-sm info circle">
+                                                                  <i class="bi bi-arrow-up-left"></i>
+                                                              </span>
+                                                              <div>
+                                                                  <h6>
+                                                                      {{translate("Trx Code")}}
+                                                                  </h6>
+                                                                  <p> {{$report->trx_code}}</p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
 
-                                            <div class="col-lg-3 col-sm-4 col-6 text-lg-center text-sm-center text-start">
-                                                <div class="table-accordion-header">
-                                                    <h6>
-                                                        {{translate("Method")}}
-                                                    </h6>
+                                                      <div class="col-lg-3 col-sm-4 col-6 text-lg-center text-sm-center text-start">
+                                                          <div class="table-accordion-header">
+                                                              <h6>
+                                                                  {{translate("Method")}}
+                                                              </h6>
 
-                                                    <p>
-                                                        {{$report->method->name}}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                                              <p>
+                                                                  {{$report->method->name}}
+                                                              </p>
+                                                          </div>
+                                                      </div>
 
-                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
-                                                <div class="table-accordion-header">
-                                                    <h6>
-                                                        {{translate("Final Amount")}}
-                                                    </h6>
+                                                      <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
+                                                          <div class="table-accordion-header">
+                                                              <h6>
+                                                                  {{translate("Final Amount")}}
+                                                              </h6>
 
-                                                    <p>
-                                                        {{num_format($report->final_amount,@$report->currency)}}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                                              <p>
+                                                                  {{num_format($report->final_amount,@$report->currency)}}
+                                                              </p>
+                                                          </div>
+                                                      </div>
 
-                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
-                                                <div class="table-accordion-header">
-                                                    <h6>
-                                                        {{translate("Status")}}
-                                                    </h6>
-                                                    @php echo  withdraw_status($report->status)  @endphp
-                                                </div>
-                                            </div>
+                                                      <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
+                                                          <div class="table-accordion-header">
+                                                              <h6>
+                                                                  {{translate("Status")}}
+                                                              </h6>
+                                                              @php echo  withdraw_status($report->status)  @endphp
+                                                          </div>
+                                                      </div>
 
-                                            <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
-                                                <div class="table-accordion-header">
-                                                    <h6>
-                                                        {{translate("Date")}}
-                                                    </h6>
-                                                    <p>
-                                                        {{ get_date_time($report->created_at) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                      <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
+                                                          <div class="table-accordion-header">
+                                                              <h6>
+                                                                  {{translate("Date")}}
+                                                              </h6>
+                                                              <p>
+                                                                  {{ get_date_time($report->created_at) }}
+                                                              </p>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
 
-                                <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
-                                    <div class="accordion-body">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Amount') }}</h6>
+                                          <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
+                                              <div class="accordion-body">
+                                                  <ul class="list-group list-group-flush">
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Amount') }}</h6>
 
-                                                <p class="value">
-                                                    {{num_format($report->amount,@$report->currency)}}
-                                                </p>
-                                            </li>
+                                                          <p class="value">
+                                                              {{num_format($report->amount,@$report->currency)}}
+                                                          </p>
+                                                      </li>
 
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Charge') }}</h6>
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Charge') }}</h6>
 
-                                                <p class="value">
-                                                    {{num_format($report->charge,@$report->currency)}}
-                                                </p>
-                                            </li>
+                                                          <p class="value">
+                                                              {{num_format($report->charge,@$report->currency)}}
+                                                          </p>
+                                                      </li>
 
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Final Amount') }}</h6>
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Final Amount') }}</h6>
 
-                                                <p class="value">
-                                                    {{num_format($report->final_amount,@$report->currency)}}
-                                                </p>
-                                            </li>
+                                                          <p class="value">
+                                                              {{num_format($report->final_amount,@$report->currency)}}
+                                                          </p>
+                                                      </li>
 
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Date') }}</h6>
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Date') }}</h6>
 
-                                                <p class="value">{{ diff_for_humans($report->created_at) }}</p>
-                                            </li>
+                                                          <p class="value">{{ diff_for_humans($report->created_at) }}</p>
+                                                      </li>
 
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Status') }}</h6>
-                                                @php echo   withdraw_status($report->status)  @endphp
-                                            </li>
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Status') }}</h6>
+                                                          @php echo   withdraw_status($report->status)  @endphp
+                                                      </li>
 
-                                            <li class="list-group-item">
-                                                <h6 class="title">{{ translate('Feedback') }}</h6>
+                                                      <li class="list-group-item">
+                                                          <h6 class="title">{{ translate('Feedback') }}</h6>
 
-                                                <p class="value">
-                                                    {{ $report->feedback ? $report->feedback : translate('N/A') }}
-                                                 </p>
-                                            </li>
+                                                          <p class="value">
+                                                              {{ $report->feedback ? $report->feedback : translate('N/A') }}
+                                                           </p>
+                                                      </li>
 
-                                            @foreach ($report->custom_data as $k => $v)
-                                                <li class="list-group-item">
-                                                    <h6 class="title">{{ translate(ucfirst($k)) }}</h6>
-                                                    @if ($v->type == 'file')
-                                                        @php
-                                                            $file = $report
-                                                                ->file
-                                                                ->where('type', $k)
-                                                                ->first();
-                                                        @endphp
+                                                      @foreach ($report->custom_data as $k => $v)
+                                                          <li class="list-group-item">
+                                                              <h6 class="title">{{ translate(ucfirst($k)) }}</h6>
+                                                              @if ($v->type == 'file')
+                                                                  @php
+                                                                      $file = $report
+                                                                          ->file
+                                                                          ->where('type', $k)
+                                                                          ->first();
+                                                                  @endphp
 
-                                                        <div class="report-img">
-                                                            <img src='{{imageUrl($file,"withdraw",true)}}'
-                                                                alt="{{ @$file->name }}">
-                                                        </div>
-                                                    @else
-                                                        <p class="value">{{ $v->field_name }}</p>
-                                                    @endif
-                                                </li>
-                                            @endforeach
+                                                                  <div class="report-img">
+                                                                      <img src='{{imageUrl($file,"withdraw",true)}}'
+                                                                          alt="{{ @$file->name }}">
+                                                                  </div>
+                                                              @else
+                                                                  <p class="value">{{ $v->field_name }}</p>
+                                                              @endif
+                                                          </li>
+                                                      @endforeach
 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                        @endforelse
+                                                  </ul>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  @empty
+                                  @endforelse
+
+                          </div>
+                          @else
+                              @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                          @endif
 
                 </div>
-                @else
-                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                @endif
+            </div>
+        </div>
 
-      </div>
 
       <div class="Paginations">
         {{ $reports->links() }}

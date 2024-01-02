@@ -39,7 +39,7 @@ trait PostManager
                 $post                     = new SocialPost();
                 $post->account_id         = $accountId;
                 $post->subscription_id    = $user ? $user->runningSubscription->id : null;
-                $post->subscription_id    = $user ? $user->id : null;
+                $post->user_id            = $user ? $user->id : null;
                 $post->admin_id           = $admin ? $admin->id : null;
                 $post->content            = Arr::get($request,"text", []);
                 $post->link               = Arr::get($request,"link", []);
@@ -66,9 +66,6 @@ trait PostManager
                         $post->file()->save($image);
                     }
                 }
-                if($post->status ==  PostStatus::value('Pending',true)){
-                    SocialPostJob::dispatch($post);
-                }
             
             }
 
@@ -79,7 +76,7 @@ trait PostManager
                     trxType     : Transaction::$MINUS,
                     balance     : $totalPost,
                     postBalance : (int)$user->runningSubscription->remaining_post_balance,
-                    details     : count($accounts) . 'social post created',
+                    details     : count($accounts) . ' social post created',
                     remark      : t2k("post_balance"),
                 );
                 if( (int)$user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
@@ -109,18 +106,22 @@ trait PostManager
 
         $account = $post->account;
 
-        $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
-        $service  =  new  $class();
+        $class        = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
+        $service      =  new  $class();
 
-        $response = $service->send($post);
-        
-        $status   = Arr::get($response, 'status');
-        $message  = Arr::get($response, 'message');
-        if(!$status && $post->user && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
+        $response     = $service->send($post);
+
+        $is_success   = Arr::get($response,'status' ,false);
+        $post->status =  strval($is_success ? PostStatus::value('Success') : PostStatus::value('Failed'));
+        $post->platform_response  = $response;
+        $post->save();
+
+        if(!$is_success && $post->user && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
             $user = $post->user;
             $this->generateCreditLog(
                 user        : $post->user,
                 trxType     : Transaction::$PLUS,
+                balance     : 1,
                 postBalance : (int)$user->runningSubscription->remaining_post_balance,
                 details     : 'Failed to post in '.$account->name." 1 Credit return to user post balance",
                 remark      : t2k("post_balance"),

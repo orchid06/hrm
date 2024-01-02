@@ -15,10 +15,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Traits\AccoutManager;
+use App\Traits\AccountManager;
 class SocialAccountController extends Controller
 {
-    use ModelAction , AccoutManager;
+    use ModelAction , AccountManager;
 
     public function __construct(){
 
@@ -48,9 +48,6 @@ class SocialAccountController extends Controller
 
         ]);
     }
-
-    
-
 
     
 
@@ -121,6 +118,7 @@ class SocialAccountController extends Controller
 
         $request->merge([
             'account_type' => $account->account_type,
+            'account_id'   => $account->id,
             'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
             'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
         ]);
@@ -131,7 +129,7 @@ class SocialAccountController extends Controller
 
         $service =  new  $class();
 
-        $response = $service->{$account->platform->slug}($account->platform,$request->except("_token"));
+        $response = $service->{$account->platform->slug}($account->platform,$request->except("_token"),'admin');
         return back()->with($response);
     }
 
@@ -150,7 +148,7 @@ class SocialAccountController extends Controller
         $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
         $service  =  new  $class();
 
-        $response = $service->accoountDetails($account);
+        $response = $service->accountDetails($account);
 
         if(!$response['status']){
             return redirect()->route('admin.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);

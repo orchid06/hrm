@@ -279,6 +279,18 @@ class User extends Authenticatable
 
 
 
+    /**
+     * Get all of social post
+     *
+     * @return HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(SocialPost::class, 'user_id');
+    }
+
+
+
 
     
     /**

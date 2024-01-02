@@ -34,7 +34,7 @@ class AiController extends Controller
             $subscription           = $this->user->runningSubscription;
             $templateAccess         = $subscription ? (array)subscription_value($subscription,"template_access",true) :[];
             $this->templates        = AiTemplate::whereIn('id',$templateAccess)->get();
-            $this->remainingToken  = $subscription ? $subscription->remaining_word_balance : 0;
+            $this->remainingToken   = $subscription ? $subscription->remaining_word_balance : 0;
 
             return $next($request);
         });

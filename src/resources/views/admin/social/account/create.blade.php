@@ -83,14 +83,14 @@
                                                     <label  for="page_id">
                                                         {{translate("Page Id")}}  <span class="text-danger">*</span>
                                                     </label>
-                                                    <input  id="accessToken" type="text" name="page_id"   placeholder='{{translate("Enter Page Id")}}'
+                                                    <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page Id")}}'
                                                         value="{{old('page_id')}}">
                                                 </div>  
                                                 <div class="form-inner d-none  group-id">  
                                                     <label  for="group_id">
                                                         {{translate("Group Id")}}  <span class="text-danger">*</span>
                                                     </label>
-                                                    <input  id="accessToken" type="text" name="group_id"   placeholder='{{translate("Enter Page Id")}}'
+                                                    <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter Group Id")}}'
                                                         value="{{old('group_id')}}">
                                                 </div>  
                                                  @foreach ($inputs as $key )

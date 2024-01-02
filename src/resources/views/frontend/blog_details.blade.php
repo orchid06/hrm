@@ -67,22 +67,22 @@
         </div>
 
         <div class="col-lg-4">
-          <div class="blog-newsletter">
-            <h4>{{@$newsLetter->value->title}}</h4>
-            <p>
-                {{@$newsLetter->value->description}}
-            </p>
+            <div class="blog-newsletter">
+              <h4>{{@$newsLetter->value->title}}</h4>
+              <p>
+                  {{@$newsLetter->value->description}}
+              </p>
 
-            <form action="{{route('subscribe')}}" method="post">
+              <form action="{{route('subscribe')}}" method="post">
 
-                @csrf
-                <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate('Enter your email')}}" />
+                  @csrf
+                  <input name="email" value="{{old('email')}}" type="email" placeholder="{{translate('Enter your email')}}" />
 
-              <button class="i-btn btn--secondary btn--lg capsuled w-100">
-                {{translate("Subscribe")}}
-              </button>
-            </form>
-          </div>
+                <button class="i-btn btn--secondary btn--lg capsuled w-100">
+                  {{translate("Subscribe")}}
+                </button>
+              </form>
+            </div>
 
           <div class="resources sticky-item">
                 <h4>

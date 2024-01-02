@@ -2,11 +2,7 @@
 
 namespace App\Http\Services\Account\instagram;
 
-use App\Traits\AccoutManager;
-use App\Enums\AccountType;
-use App\Models\MediaPlatform;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Psr7\MultipartStream;
@@ -16,8 +12,6 @@ use phpseclib3\Crypt\RSA;
 
 use App\Models\SocialAccount;
 
-// include get_module_dir( __DIR__ , 'Libraries/vendor/autoload.php');
-// include get_module_dir( __DIR__ , 'Libraries/FFmpeg.php');
 class AccountConfig
 {
 	const DEVICE_STRING    = '26/8.0.0; 640dpi; 1440x2560; samsung; SM-G935F; hero2lte; samsungexynos8890';
@@ -60,27 +54,6 @@ class AccountConfig
 		$cookies                = true;
 
  
-		// if ($account){
-		// 	$this->cache_data_id = $account->id;
-		// 	$settings = json_decode( $account->account_information, true );
-		// 	if ( ! empty( $settings ) && is_array( $settings ) )
-		// 	{
-		// 		$this->settings = $settings;
-		// 	}
-
-		// 	$cookies_arr = json_decode( $account->cookies, true );
-
-		// 	foreach ( $cookies_arr as $cook )
-		// 	{
-		// 		if ( $cook[ 'Name' ] == 'mid' )
-		// 		{
-		// 			$this->mid = $cook[ 'Value' ];
-		// 		}
-		// 	}
-
-		// 	$cookies = is_array( $cookies_arr ) ? new CookieJar( FALSE, $cookies_arr ) : true;
-		// }
-
 		$this->initDefaultSettings();
 
 		if ( empty( $this->getSettings( 'advertising_id' ) ) )
@@ -113,40 +86,11 @@ class AccountConfig
 		] );
 	}
 
-	public function __destruct ()
-	{
-		$this->emptyTmpFile($this->tmpFiles);
-
-		if ( $this->need_to_save_data )
-		{
-			if ( ! is_null( $this->cache_data_id ) )
-			{
-
-				// db_update(TB_ACCOUNT_SESSIONS, [
-				// 	'settings' => json_encode( $this->settings ),
-				// 	'cookies'  => json_encode( $this->getCookies() ),
-				// 	'last_modified' => time()
-				// ],[
-				// 	'id' => $this->cache_data_id
-				// ]);
-			}
-			else
-			{
-				// db_insert(TB_ACCOUNT_SESSIONS, [
-				// 	'settings' => json_encode( $this->settings ),
-				// 	'cookies'  => json_encode( $this->getCookies() ),
-				// 	'team_id' => $this->team_id,
-				// 	'social_network' => 'instagram',
-				// 	'username' => $this->username,
-				// 	'last_modified' => time()
-				// ]);
-			}
-		}
-	}
+	
 
 
 	/**
-	 *ig login
+	 * ig login
 	 *
 	 * @return void
 	 */
@@ -186,8 +130,7 @@ class AccountConfig
 
 	public function startChallenge ( $api_path )
 	{
-		sleep( 1 );
-
+		sleep(1);
 		$sendData = [
 			'choice'        => '1',
 			'_csrftoken'    => $this->getCsrfToken(),
@@ -302,7 +245,7 @@ class AccountConfig
 		try
 		{
 
-            @dd($this->client);
+
 			$response = (string) $this->client->get( 'https://i.instagram.com/api/v1/accounts/current_user/', [
 				'edit' => true
 			] )->getBody();
@@ -320,11 +263,13 @@ class AccountConfig
 
 	public function uploadPhoto ( $account_id, $photo, $caption, $link = '', $target = 'timeline', $instagramPinThePost = 0 )
 	{
+
 		$uploadId = $this->createUploadId();
 
 		$uploadIgPhoto = $this->uploadIgPhoto( $uploadId, $photo );
 
-		$result = $this->configurePhoto( $photo, $caption, $uploadId, $link, $target );
+
+		$result = $this->configurePhoto( $photo, $caption, $uploadId,$photo, $target );
 
 		if ( isset( $result[ 'status' ] ) && $result[ 'status' ] == 'fail' )
 		{
@@ -336,11 +281,14 @@ class AccountConfig
 			$this->pinPost( $result[ 'media' ][ 'pk' ] );
 		}
 
-		return [
+		$response =  [
 			'status' => 'ok',
 			'code'   => isset( $result[ 'media' ][ 'code' ] ) ? strip_tags( $result[ 'media' ][ 'code' ] ) : '?',
 			'id'     => isset( $result[ 'media' ][ 'id' ] ) ? strip_tags( $result[ 'media' ][ 'id' ] ) : '?'
 		];
+
+		return $response;
+
 	}
 
 	public function uploadCarouselItem ( $photo )
@@ -356,21 +304,37 @@ class AccountConfig
 			'upload_id'           => $uploadId,
 		];
 
+
+		$imageContent = @file_get_contents($photo);
+
+		if ($imageContent !== false) {
+			$fileSize = strlen($imageContent);
+		}
+
+
+		  $headers =  [
+			'X-Requested-With'           => 'XMLHttpRequest',
+			'X-CSRFToken'                => csrf_token(),
+			'X-Instagram-Rupload-Params' => json_encode( $params ),
+			'X-Entity-Name'              => 'feed_' . $uploadId,
+			'X-Entity-Length'            => $fileSize,
+			'Offset'                     => '0',
+			'Content-Length'             => $fileSize, 
+		  ];
+
+
+
+
 		try
 		{
 			$response = (string) $this->client->post( 'https://www.instagram.com/rupload_igphoto/fb_uploader_' . $uploadId, [
-				'headers' => [
-					'X-Requested-With'           => 'XMLHttpRequest',
-					'X-CSRFToken'                => $this->getCsrfToken(),
-					'X-Instagram-Rupload-Params' => json_encode( $params ),
-					'X-Entity-Name'              => 'feed_' . $uploadId,
-					'X-Entity-Length'            => filesize( $photo ),
-					'Offset'                     => '0'
-				],
+				'headers' =>  $headers,
 				'body'    => fopen( $photo, 'r' )
 			] )->getBody();
 			$result   = json_decode( $response, true );
-			if ( $result[ 'status' ] == 'fail' )
+
+	
+			if ( isset($result[ 'status' ]) && $result[ 'status' ]== 'fail' )
 			{
 				return [
 					'status'    => 'error',
@@ -403,15 +367,17 @@ class AccountConfig
 		foreach ( $photos as $photo )
 		{
 			$response = $this->uploadCarouselItem( $photo );
-			if ( $response[ 'status' ] === "ok" )
+			if ( @$response[ 'status' ] === "ok" )
 			{
 				$body[ "children_metadata" ][] = [
 					"upload_id" => $response[ 'upload_id' ]
 				];
 			}
-			else
-			{
-				return $response; // when fail
+			else{
+				return [
+					'message' => 'Invalid Images'
+				];
+
 			}
 		}
 
@@ -466,83 +432,7 @@ class AccountConfig
 		}
 	}
 
-	public function uploadVideo ( $account_id, $video, $caption, $link, $target = 'timeline', $instagramPinThePost = 0 )
-	{
-		$video_info = $this->renderVideo($video, $target);
 
-		
-		$uploadId = $this->createUploadId();
-
-		$uploadIgVideo  = $this->uploadIgVideo( $uploadId, $video_info, $target );
-		$uploadThumbail = $this->uploadIgPhoto( $uploadId, $video_info[ 'thumbnail' ] );
-
-		$result = $this->configureVideo( $video_info, $caption, $uploadId, $link, $target );
-
-		if ( isset( $result[ 'status' ] ) && $result[ 'status' ] == 'fail' )
-		{
-			throw new \Exception( ! empty( $result[ 'message' ] ) && is_string( $result[ 'message' ] ) ? strip_tags( $result[ 'message' ] ) : 'Error!' );
-		}
-
-		if ( $result[ 'media' ][ 'pk' ] )
-		{
-			$this->pinPost( $result[ 'media' ][ 'pk' ] );
-		}
-
-		return [
-			'status' => 'ok',
-			'code'     => isset( $result[ 'media' ][ 'code' ] ) ? strip_tags( $result[ 'media' ][ 'code' ] ) : '?',
-			'id'    => isset( $result[ 'media' ][ 'id' ] ) ? strip_tags( $result[ 'media' ][ 'id' ] ) : '?'
-		];
-	}
-
-	public function updateBioLink ( $url )
-	{
-		try
-		{
-			$userBio = (string) $this->client->get( 'https://i.instagram.com/api/v1/accounts/current_user/?edit=true' )->getBody();
-			$userBio = json_decode( $userBio, true );
-		}
-		catch (\Exception $e )
-		{
-			$userBio = [];
-		}
-
-		if ( empty( $userBio ) || empty( $userBio[ 'user' ] ) )
-		{
-			return FALSE;
-		}
-
-		$userBio = $userBio[ 'user' ];
-
-		if ( ! empty( $userBio[ 'external_url' ] ) && $url == $userBio[ 'external_url' ] )
-		{
-			return true;
-		}
-
-		$sendData = [
-			'external_url' => $url,
-			'username'     => empty( $userBio[ 'username' ] ) ? '' : $userBio[ 'username' ],
-			'biography'    => empty( $userBio[ 'biography' ] ) ? '' : $userBio[ 'biography' ],
-			'phone_number' => empty( $userBio[ 'phone_number' ] ) ? '' : $userBio[ 'phone_number' ],
-			'email'        => empty( $userBio[ 'email' ] ) ? '' : $userBio[ 'email' ],
-			'first_name'   => empty( $userBio[ 'full_name' ] ) ? '' : $userBio[ 'full_name' ]
-		];
-
-		try
-		{
-			$response = (string) $this->client->post( 'https://i.instagram.com/api/v1/accounts/edit_profile/', [
-				'form_params' => $this->signData( $sendData )
-			] )->getBody();
-
-			$response = json_decode( $response, true );
-		}
-		catch (\Exception $e )
-		{
-			$response = [];
-		}
-
-		return ! empty( $response ) && ! empty( $response[ 'user' ] );
-	}
 
 	public function pinPost ( $postID )
 	{
@@ -564,124 +454,8 @@ class AccountConfig
 		}
 	}
 
-	public function getMediaInfo ( $mediaId )
-	{
-		$url = 'https://i.instagram.com/api/v1/media/' . $mediaId . '/info/';
 
-		$request = (string) $this->client->get( $url )->getBody();
-
-		return json_decode( $request, true );
-	}
-
-	private function emptyTmpFile(){
-		$tmpFiles = $this->tmpFiles;
-		if(!empty($tmpFiles)){
-			foreach ($tmpFiles as $tmpFile) {
-				if(file_exists($tmpFile)){
-					unlink($tmpFile);
-				}
-			}
-		}
-	}
-
-	private function renderVideo ( $video_path, $target )
-	{
-		if ( @exec( 'echo EXEC' ) !== 'EXEC' )
-		{
-			throw new \Exception( __('exec() function have to be enabled to share videos on Instagram.') );
-		}
-		
-		$details = FFmpeg::videoDetails( $video_path );
-
-		$width       = $details[ 'width' ];
-		$height      = $details[ 'height' ];
-		$duration    = (int) $details[ 'duration' ];
-		$video_codec = (int) $details[ 'video_codec' ];
-		$audio_codec = (int) $details[ 'audio_codec' ];
-
-		$maxDuration = ( $target == 'story' ? 15 : 60 ) - 0.1;
-		$minDuration = ( $target == 'story' ? 1 : 3 );
-
-		if ( $duration < $minDuration )
-		{
-			throw new Exception( 'Video is too short!' );
-		}
-
-		$ratio1 = $width / $height;
-
-		if ( $ratio1 > self::MAX_ASPECT_RATIO )
-		{
-			$newWidth  = (int) ( $height * self::MAX_ASPECT_RATIO );
-			$newHeight = $height;
-			$cropVideo = true;
-		}
-		else if ( $ratio1 < self::MIN_ASPECT_RATIO )
-		{
-			$newWidth  = $width;
-			$newHeight = (int) ( $width / self::MIN_ASPECT_RATIO );
-			$cropVideo = true;
-		}
-		else
-		{
-			$newWidth  = $width;
-			$newHeight = $height;
-			$cropVideo = FALSE;
-		}
-
-		$x = abs( $width - $newWidth ) / 2;
-		$y = abs( $height - $newHeight ) / 2;
-
-		$video_new_path = TMPPATH() . uniqid( 'sp_' ) . '.mp4';
-		$this->tmpFiles[] = $video_new_path;
-		$thumbnail = TMPPATH() . uniqid( 'sp_' ) . '.jpg';
-		$this->tmpFiles[] = $thumbnail;
-
-		$ffmpeg = FFmpeg::factory();
-
-		$outputFilters = [
-			'-metadata:s:v rotate=""',
-			'-f mp4',
-			'-c:v libx264 -preset fast -crf 24'
-		];
-
-		if ( $audio_codec !== 'aac' )
-		{
-			if ( $ffmpeg->hasLibFdkAac() )
-			{
-				$outputFilters[] = '-c:a libfdk_aac -vbr 4';
-			}
-			else
-			{
-				$outputFilters[] = '-strict -2 -c:a aac -b:a 96k';
-			}
-		}
-		else
-		{
-			$outputFilters[] = '-c:a copy';
-		}
-
-		if ( $duration > $maxDuration )
-		{
-			$outputFilters[] = sprintf( '-t %.2F', $maxDuration );
-		}
-
-		$command = sprintf( '-y -i %s -vf %s %s %s', FFmpeg::escape( $video_path ), FFmpeg::escape( sprintf( 'crop=w=%d:h=%d:x=%d:y=%d', $newWidth, $newHeight, $x, $y ) ), implode( ' ', $outputFilters ), FFmpeg::escape( $video_new_path ) );
-		$commandForThumbnail = sprintf( '-y -i %s -f mjpeg -vframes 1 -ss 00:00:00.000 %s', FFmpeg::escape( $video_path ), FFmpeg::escape( $thumbnail ) );
-
-		$ffmpegOutput          = $ffmpeg->run( $command );
-		$ffmpegOutputThumbnail = $ffmpeg->run( $commandForThumbnail );
-
-		return [
-			'width'       => $width,
-			'height'      => $height,
-			'duration'    => $duration,
-			'audio_codec' => $audio_codec,
-			'vudie_codec' => $video_codec,
-			'path'        => $video_new_path,
-			'thumbnail'   => $thumbnail
-		];
-	}
-
+	
 	private function checkChallenge ( $response )
 	{
 		if ( $response[ 'status' ] == 'fail' && isset( $response[ 'challenge' ] ) && is_array( $response[ 'challenge' ] ) )
@@ -755,7 +529,7 @@ class AccountConfig
 
 	private function getCsrfToken ()
 	{
-		return $this->getCookie( 'csrftoken' );
+		return csrf_token();
 	}
 
 	private function _sendPreLoginFlow ()
@@ -848,10 +622,6 @@ class AccountConfig
 			$sendData[ '_csrftoken' ] = $this->getCsrfToken();
 		}
 
-		if ( $prelogin )
-		{
-			//$request->setNeedsAuth(false);
-		}
 		else
 		{
 			$sendData[ '_uuid' ] = $this->getSettings( 'uuid' );
@@ -887,10 +657,7 @@ class AccountConfig
 			$sendData[ '_csrftoken' ] = $this->getCsrfToken();
 		}
 
-		if ( $prelogin )
-		{
-			//$request->setNeedsAuth(false);
-		}
+	
 		else
 		{
 			$sendData[ '_uuid' ] = $this->getSettings( 'uuid' );
@@ -1116,29 +883,19 @@ class AccountConfig
 
 	private function validatePhoto ( $photo )
 	{
-        if (empty($photo) || !is_file($photo)) {
-            throw new \InvalidArgumentException(sprintf('The photo file "%s" does not exist on disk.', $photo));
-        }
-
-        $filesize = filesize($photo);
-        if ($filesize < 1) {
-            throw new \InvalidArgumentException(sprintf(
-                'The photo file "%s" is empty.',
-                $photo
-            ));
-        }
-
         $result = @getimagesize($photo);
         if ($result === false) {
             throw new \InvalidArgumentException(sprintf('The photo file "%s" is not a valid image.', $photo));
         }
-        list($width, $height, $type) = $result;
+		list($width, $height, $type) =  $result;
 
-        return [
+        $response =  [
         	'width' => $width,
         	'height' => $height,
         	'type' => $type
         ];
+
+	    return $response;
 	}
 
 	private function uploadIgPhoto ( $uploadId, $photo )
@@ -1162,8 +919,13 @@ class AccountConfig
 		$entity_name = sprintf( '%s_%d_%d', $uploadId, 0, $this->hashCode( basename( $photo ) ) );
 		$endpoint    = 'https://i.instagram.com/rupload_igphoto/' . $entity_name;
 
-		try
-		{
+		// try
+		// {
+			$imageContent = @file_get_contents($photo);
+
+			if ($imageContent !== false) {
+				$fileSize = strlen($imageContent);
+			}
 			$response = (string) $this->client->post( $endpoint, [
 				'headers' => [
 					'X_FB_PHOTO_WATERFALL_ID'    => $this->generateUUID(),
@@ -1172,18 +934,19 @@ class AccountConfig
 					'X-Instagram-Rupload-Params' => json_encode( $this->reorderByHashCode( $params ) ),
 					'X-Entity-Type'              => 'image/jpeg',
 					'X-Entity-Name'              => $entity_name,
-					'X-Entity-Length'            => filesize( $photo ),
+					'X-Entity-Length'            => $fileSize ,
+					'Content-Length'             => $fileSize, 
 					'Offset'                     => '0'
 				],
 				'body'    => fopen( $photo, 'r' )
 			] )->getBody();
 
 			$response = json_decode( $response, true );
-		}
-		catch (\Exception $e )
-		{
-			$response = [];
-		}
+		// }
+		// catch (\Exception $e )
+		// {
+		// 	$response = [];
+		// }
 
 		return $response;
 	}
@@ -1488,26 +1251,6 @@ class AccountConfig
 		return $response;
 	}
 
-	private function uploadIgVideo ( $uploadId, $video, $target = 'timeline' )
-	{
-		$uploadMethod = static::RESUMABLE_UPLOAD;
-
-		if ( $target == 'story' || $video[ 'duration' ] > 10 )
-		{
-			$uploadMethod = static::SEGMENTED_UPLOAD;
-		}
-
-		if ( $uploadMethod === static::RESUMABLE_UPLOAD )
-		{
-			$response = $this->uploadIgVideoResumableMethod( $uploadId, $video, $target );
-		}
-		else
-		{
-			$response = $this->uploadIgVideoSegmentedMethod( $uploadId, $video, $target );
-		}
-
-		return $response;
-	}
 
 	private function uploadIgVideoResumableMethod ( $uploadId, $video, $target )
 	{
@@ -1563,308 +1306,15 @@ class AccountConfig
 		return $response;
 	}
 
-	private function uploadIgVideoSegmentedMethod ( $uploadId, $video, $target )
-	{
-		$videoSegments = $this->splitVideoSegments( $video, $target );
 
-		$params = [
-			'upload_id'                => $uploadId,
-			'retry_context'            => json_encode( [
-				'num_step_auto_retry'   => 0,
-				'num_reupload'          => 0,
-				'num_step_manual_retry' => 0
-			] ),
-			'xsharing_user_ids'        => '[]',
-			'upload_media_height'      => (string) $video[ 'height' ],
-			'upload_media_width'       => (string) $video[ 'width' ],
-			'upload_media_duration_ms' => (string) $video[ 'duration' ] * 1000,
-			'media_type'               => '2',
-			'potential_share_types'    => json_encode( [ 'not supported type' ] ),
-		];
 
-		if ( $target == 'story' )
-		{
-			$params[ 'for_album' ] = '1';
-		}
 
-		if( $target == 'reel' )
-		{
-			$params[ 'is_clips_video' ] = '1';
-		}
-
-		try
-		{
-			$startRequest = $this->client->post( 'https://i.instagram.com/rupload_igvideo/' . $this->generateUUID() . '?segmented=true&phase=start', [
-				'headers' => [
-					'X-Instagram-Rupload-Params' => json_encode( $this->reorderByHashCode( $params ) )
-				]
-			] )->getBody();
-
-			$startRequest = json_decode( $startRequest, true );
-		}
-		catch (\Exception $e )
-		{
-			throw $e;
-		}
-
-		$streamId = $startRequest[ 'stream_id' ];
-
-		$offset      = 0;
-		$waterfallId = $this->createUploadId();
-
-		foreach ( $videoSegments as $segment )
-		{
-			$segmentSize = filesize( $segment );
-			$isAudio     = preg_match( '/audio\.mp4$/', $segment );
-
-			$headers = [
-				'Segment-Start-Offset'       => $offset,
-				'Segment-Type'               => $isAudio ? 1 : 2,
-				'Stream-Id'                  => $streamId,
-				'X_FB_VIDEO_WATERFALL_ID'    => $waterfallId,
-				'X-Instagram-Rupload-Params' => json_encode( $this->reorderByHashCode( $params ) )
-			];
-
-			$entity_name = md5( $segment ) . '-0-' . $segmentSize;
-
-			try
-			{
-				$getOffset = $this->client->get( 'https://i.instagram.com/rupload_igvideo/' . $entity_name . '?segmented=true&phase=transfer', [
-					'headers' => $headers
-				] )->getBody();
-
-				$getOffset = json_decode( $getOffset, true );
-
-				$headers[ 'X-Entity-Type' ]   = 'video/mp4';
-				$headers[ 'X-Entity-Name' ]   = $entity_name;
-				$headers[ 'X-Entity-Length' ] = $segmentSize;
-				$headers[ 'Offset' ]          = isset( $getOffset[ 'offset' ] ) ? (int) $getOffset[ 'offset' ] : 0;
-
-				$this->client->post( 'https://i.instagram.com/rupload_igvideo/' . $entity_name . '?segmented=true&phase=transfer', [
-					'headers' => $headers,
-					'body'    => fopen( $segment, 'r' ),
-				] )->getBody();
-			}
-			catch (\Exception $e )
-			{
-				throw $e;
-			}
-
-			$offset += $segmentSize;
-		}
-
-		try
-		{
-			$startRequest = $this->client->post( 'https://i.instagram.com/rupload_igvideo/' . $this->generateUUID() . '?segmented=true&phase=end', [
-				'headers' => [
-					'Stream-Id'                  => $streamId,
-					'X-Instagram-Rupload-Params' => json_encode( $this->reorderByHashCode( $params ) )
-				]
-			] )->getBody();
- 
-			$startRequest = json_decode( $startRequest, true );
-		}
-		catch ( \Exception $e )
-		{
-			throw $e;
-		}
-
-		return [];
-	}
-
-	private function splitVideoSegments ( $video, $target )
-	{
-		$segmentTime = $target == 'story' ? 2 : 5;
-		$segmentId   = md5( $video[ 'path' ] );
-
-		$segmentsPath         = TMPPATH() . 'sp_' . $segmentId . '_%03d.mp4';
-		$segmentsPathForAudio = TMPPATH() . 'sp_' . $segmentId . '_audio.mp4';
-		$this->tmpFiles[] = $segmentsPath;
-		$this->tmpFiles[] = $segmentsPathForAudio;
-
-		$ffmpeg = FFmpeg::factory();
-
-		try
-		{
-			$ffmpeg->run( sprintf( '-i %s -c:v copy -an -dn -sn -f segment -segment_time %d -segment_format mp4 %s', FFmpeg::escape( $video[ 'path' ] ), $segmentTime, FFmpeg::escape( $segmentsPath ) ) );
-
-			if ( $video[ 'audio_codec' ] !== NULL )
-			{
-				$commandCopy = '-c:a copy';
-
-		        if ($video[ 'audio_codec' ] !== 'aac') {
-		            if ($ffmpeg->hasLibFdkAac()) {
-		                $commandCopy = '-c:a libfdk_aac -vbr 4';
-		            } else {
-		                $commandCopy = '-strict -2 -c:a aac -b:a 96k';
-		            }
-		        }
-
-				$ffmpeg->run( sprintf( '-i %s %s -c:v libx264 -preset fast -crf 24 -metadata:s:v rotate="" -f mp4 %s', FFmpeg::escape( $video[ 'path' ] ), $commandCopy, FFmpeg::escape( $segmentsPathForAudio ) ) );
-			}
-		}
-		catch ( \RuntimeException $e )
-		{
-			// Find segments for removing them after finish
-			$this->findSegments( $segmentId );
-			throw $e;
-		}
-
-		return $this->findSegments( $segmentId );
-	}
-
-	private function findSegments ( $segmentId )
-	{
-		$segmentsPath      = TMPPATH() . 'sp_' . $segmentId . '_*.mp4';
-		$segmentsPathAudio = TMPPATH() . 'sp_' . $segmentId . '_audio.mp4';
-		$this->tmpFiles[] = $segmentsPathAudio;
-
-		$result = glob( $segmentsPath );
-
-		if ( is_file( $segmentsPathAudio ) )
-		{
-			$result[] = $segmentsPathAudio;
-		}
-
-		foreach ( $result as $file_path )
-		{
-			$this->tmpFiles[] = $file_path;
-		}
-
-		return $result;
-	}
-
-	private function configureVideo ( $video, $caption, $uploadId, $link = '', $target = 'timeline' )
-	{
-		$date = date( 'Y:m:d H:i:s' );
-
-		$sendData = [
-			'supported_capabilities_new' => json_encode( [
-				[
-					'name'  => 'SUPPORTED_SDK_VERSIONS',
-					'value' => '13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,25.0,26.0,27.0,28.0,29.0,30.0,31.0,32.0,33.0,34.0,35.0,36.0,37.0,38.0,39.0,40.0,41.0,42.0,43.0,44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0,52.0,53.0,54.0,55.0,56.0,57.0,58.0,59.0,60.0,61.0,62.0,63.0,64.0,65.0,66.0,67.0,68.0,69.0'
-				],
-				[ 'name' => 'FACE_TRACKER_VERSION', 'value' => '12' ],
-				[ 'name' => 'segmentation', 'value' => 'segmentation_enabled' ],
-				[ 'name' => 'COMPRESSION', 'value' => 'ETC2_COMPRESSION' ],
-				[ 'name' => 'world_tracker', 'value' => 'world_tracker_enabled' ],
-				[ 'name' => 'gyroscope', 'value' => 'gyroscope_enabled' ]
-			] ),
-			'video_result'               => '',
-			'upload_id'                  => $uploadId,
-			'poster_frame_index'         => 0,
-			'length'                     => round( $video[ 'duration' ], 1 ),
-			'audio_muted'                => FALSE,
-			'filter_type'                => 0,
-			'source_type'                => 4,
-			'device'                     => [
-				'manufacturer'    => $this->getDeviceParam( 'manufacturer' ),
-				'model'           => $this->getDeviceParam( 'model' ),
-				'android_version' => $this->getDeviceParam( 'androidVersion' ),
-				'android_release' => $this->getDeviceParam( 'androidRelease' ),
-			],
-			'extra'                      => [
-				'source_width'  => $video[ 'width' ],
-				'source_height' => $video[ 'height' ],
-			],
-			'_csrftoken'                 => $this->getCsrfToken(),
-			'_uid'                       => $this->getSettings( 'account_id' ),
-			'_uuid'                      => $this->getSettings( 'uuid' ),
-			'caption'                    => $caption
-		];
-
-		switch ( $target )
-		{
-			case 'story':
-				$endpoint = 'media/configure_to_story/';
-
-				$sendData[ 'configure_mode' ]            = 1;
-				$sendData[ 'story_media_creation_date' ] = time() - mt_rand( 10, 20 );
-				$sendData[ 'client_shared_at' ]          = time() - mt_rand( 3, 10 );
-				$sendData[ 'client_timestamp' ]          = time();
-
-				if ( ! empty( $link ) )
-				{
-					$sendData[ 'story_cta' ] = '[{"links":[{"linkType": 1, "webUri":' . json_encode( $link ) . ', "androidClass": "", "package": "", "deeplinkUri": "", "callToActionTitle": "", "redirectUri": null, "leadGenFormId": "", "igUserId": "", "appInstallObjectiveInvalidationBehavior": null}]}]';
-				}
-				break;
-			default:
-				$endpoint = 'media/configure/';
-
-				$sendData[ 'caption' ] = $caption;
-		}
-
-		try
-		{
-			$response = (string) $this->client->post( 'https://i.instagram.com/api/v1/' . $endpoint . '?video=1', [
-				'form_params' => $this->signData( $sendData )
-			] )->getBody();
-
-			$response = json_decode( $response, true );
-		}
-		catch (\Exception $e )
-		{
-			$response = [];
-		}
-
-		return $response;
-	}
 
 	private function createUploadId ()
 	{
 		return number_format( round( microtime( true ) * 1000 ), 0, '', '' );
 	}
 
-	public function writeComment ( $comment, $mediaId )
-	{
-		$data = [
-			"_uuid"             => $this->getSettings( 'uuid' ),
-			"device_id"         => $this->getSettings( 'device_id' ),
-			"delivery_class"    => "organic",
-			"feed_position"     => "0",
-			"container_module"  => "self_comments_v2_feed_contextual_self_profile", // "comments_v2",
-			"comment_text"      => $comment,
-			'idempotence_token' => $this->generateUUID()
-		];
-
-		$endpoint = sprintf( "https://i.instagram.com/api/v1/media/%s/comment/", $mediaId );
-
-		try
-		{
-			$response = (string) $this->client->post( $endpoint, [
-				"form_params" => $this->signData( $data )
-			] )->getBody();
-
-			$response = json_decode( $response, true );
-		}
-		catch (\Exception $e )
-		{
-			$response = [];
-		}
-
-		if ( isset( $response[ 'status' ] ) )
-		{
-			if ( $response[ 'status' ] != 'ok' && isset( $response[ 'message' ] ) )
-			{
-				return [
-					'error' => $response[ 'message' ]
-				];
-			}
-			else if ( $response[ 'status' ] == 'ok' )
-			{
-				if ( isset( $response[ 'comment' ] ) && isset( $response[ 'comment' ][ 'pk' ] ) )
-				{
-					return [
-						'id' => $response[ 'comment' ][ 'pk' ]
-					];
-				}
-			}
-		}
-
-		return [
-			'error' => __( 'Unknown error' )
-		];
-	}
 
 	private function getPublicKeys ()
 	{
@@ -1880,7 +1330,7 @@ class AccountConfig
 		{
 			if ( method_exists( $e, 'getResponse' ) )
 			{
-				$response = $e->getResponse();
+				$response = @$e->getResponse();
 
 				if ( is_null( $response ) )
 				{
@@ -1916,7 +1366,7 @@ class AccountConfig
 		$time = time();
 
 		$rsa          = PublicKeyLoader::loadPublicKey( base64_decode( $publicKey ) );
-		$rsa          = $rsa->withPadding( RSA::ENCRYPTION_PKCS1 );
+		$rsa          = @$rsa->withPadding( RSA::ENCRYPTION_PKCS1 );
 		$encryptedRSA = $rsa->encrypt( $key );
 
 		$aes = new AES( 'gcm' );

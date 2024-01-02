@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section('content')
 
-      @php
+    @php
 
-          $planSection   = get_content("content_plan")->first();
-      @endphp
+        $planSection   = get_content("content_plan")->first();
+    @endphp
 
     <div class="inner-banner">
         <div class="container">
@@ -49,12 +49,12 @@
             <div class="tab-content" id="tab-plans">
                 @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
                     <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
-      
+
                       @php
                         $purchasePlans = $plans->where('duration',$value);
                       @endphp
-      
-      
+
+
                       <div class="plan-detail-wrapper">
                         <div class="row gy-4 gx-4">
                           @forelse ($purchasePlans as  $plan)
@@ -65,12 +65,12 @@
                                           {{translate("Recommended")}}
                                       </p></div>
                                   @endif
-      
+
                                   <div class="plan-detail-top">
                                     <span>
                                         {{$plan->title}}
                                     </span>
-      
+
                                     <h4>  @if($plan->discount_price > 0) <del>
                                       {{num_format( number : $plan->price,decimal:0,
                                                   calC:true)}}</del> {{num_format( number : $plan->discount_price,decimal:0,
@@ -79,15 +79,15 @@
                                     <p>
                                       {{$plan->description}}
                                     </p>
-      
+
                                     <a href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--secondary btn--lg capsuled w-100">
                                       {{translate("Subscribe")}}
                                     </a>
                                   </div>
-      
+
                                   <div class="plan-detail-body">
                                       <ul>
-      
+
                                         @foreach (plan_configuration( $plan) as $configKey => $configVal )
                                             <li>
                                               <span>
@@ -96,19 +96,19 @@
                                               <p> {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}</p>
                                             </li>
                                         @endforeach
-      
+
                                       </ul>
                                   </div>
                                 </div>
                               </div>
                           @empty
-      
+
                             <div class="col-12 justify-content-center text-center">
                                 @include("frontend.partials.not_found")
                             </div>
-      
+
                           @endforelse
-      
+
                         </div>
                       </div>
                     </div>

@@ -4,7 +4,6 @@
 @endpush
 @section('content')
 
-
     <form action="{{route('admin.ai.template.store')}}" class="add-listing-form" enctype="multipart/form-data" method="post">
         @csrf
         <div class="row g-4">
@@ -96,24 +95,30 @@
                             <div class="col-12 mb-20">
                                 <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add New Field')}}</a>
                             </div>
-                           <div class="col-12">
+
+                            <div class="col-12">
                                 <div class="addedField form-inner">
                                 </div>
-                           </div>
-                            <div class="col-lg-12">
+                            </div>
+
+                            <div class="col-12">
                                 <div class="mb-4 input-hint d-none">
                                     <label>{{ translate('Input Variables') }}</label>
                                     <div class="input-var">
                                     </div>
                                     <small>{{ translate('Click on variable to set the user input of it in your prompts')}}</small>
                                 </div>
+
                                 <div class="form-inner">
                                     <label for="customPrompt">
                                         {{translate('Prompt')}} <small class="text-danger">*</small>
                                     </label>
-                                    <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}</textarea>
+
+                                    <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}
+                                    </textarea>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="form-inner ">
                                     <label class="me-2">
@@ -127,6 +132,7 @@
                                     @endforeach
                                 </div>
                             </div>
+
                             <div class="col-12 ">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}

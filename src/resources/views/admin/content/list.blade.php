@@ -28,19 +28,19 @@
                                             </li>
                                        @endif
                                         @if(check_permission('update_content'))
-                                        
+
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
                                                     <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
                                                 </li>
                                             @endforeach
-                                            
+
                                         @endif
                                   </ul>
-                                
+
                             </div>
                          @endif
-                   
+
                         @if(check_permission('create_content'))
                             <button type="button" class="i-btn btn--sm success me-2 create">
                                 <i class="las la-plus me-1"></i>  {{translate('Add New')}}
@@ -65,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
                 <table>
@@ -85,9 +86,9 @@
                             <tr>
                                 <td data-label="#">
                                     @if( check_permission('update_content') || check_permission('delete_content'))
-                                       
+
                                            <input  type="checkbox" value="{{$content->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$content->id}}" />
-                                        
+
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
@@ -109,7 +110,7 @@
                                     <div class="table-action">
                                         @if(check_permission('update_content') || check_permission('delete_content') )
                                             @if(check_permission('update_content'))
-                                         
+
                                                 <a  href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
 
                                             @endif
@@ -136,12 +137,14 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="Paginations">
                 {{ $contents->links() }}
             </div>
         </div>
     </div>
-    <div  class="ai-section d-none">
+
+    <div class="ai-section d-none">
         @include('partials.prompt_content',['content_route' => route("admin.content.store")])
     </div>
 
@@ -209,7 +212,7 @@
        	"use strict";
 
         $(".select2").select2({
-            placeholder:"{{translate('Select Category')}}",
+            placeholder:"{{translate('Select Item')}}",
         })
 
         $(".selectTemplate").select2({
