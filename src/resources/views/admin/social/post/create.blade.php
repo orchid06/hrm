@@ -771,17 +771,9 @@
             var platformName = $(this).attr('data-platform_name');
             var image =  $(this).attr('data-image');
 
-            // $(".choose-profile-left").remove();
-
-              if ($('.selected-profile-item').length > 0) {
-                    $(".selected-profile").addClass('mb-2');
-              }else{
-                 $(".selected-profile").removeClass('mb-2');
-              }
-
             var id = $(this).attr('data-id');
 
-            var html = `<li class="selected-profile-item">
+            var html = `<li id="list-account-${id}" class="selected-profile-item">
                 <span class="channel-icon">
                     <img src="${image}" alt="google" border="0">
                 </span>
@@ -789,18 +781,27 @@
                 <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
             </li>`;
 
-            $(".selected-profile").append(html);
+            if ($(this).is(':checked')) {
+               $(".selected-profile").append(html);
+            }else{
+                $(`#list-account-${id}`).remove()
+            }
+
+            if ($(".selected-profile").children().length >= 0) {
+                $(".selected-profile").addClass('mb-2');
+            }else{
+                $(".selected-profile").removeClass('mb-2');
+            }
 
         });
 
 
         $(document).on('click','.account_remove',function(e) {
-            var remove_id = $(this).attr('data-id');
-            $(`#account-${remove_id}`).prop('checked', false);
-
-            $(this).parent().parent().remove();
-
+                var remove_id = $(this).attr('data-id');
+                  $(`#account-${remove_id}`).prop('checked', false);
+                $(this).parent().parent().remove();
         });
+
 
 	})(jQuery);
 

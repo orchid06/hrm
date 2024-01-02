@@ -784,6 +784,12 @@ body {
   color: var(--text-primary);
   font-weight: 700;
 }
+
+@media (max-width: 575.98px) {
+  .i-card-md .card-header .card-title {
+    font-size: 20px;
+  }
+}
 .i-card-md .card-body {
   padding: 25px;
 }
@@ -2265,7 +2271,7 @@ select {
   justify-content: space-between;
   gap: 30px;
 }
- .sidemenu-wrapper::-webkit-scrollbar {
+.sidemenu-wrapper::-webkit-scrollbar {
   width: 5px;
 }
 .sidemenu-wrapper::-webkit-scrollbar-track {
