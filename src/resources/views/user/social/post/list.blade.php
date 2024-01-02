@@ -145,8 +145,6 @@
                                         <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('user.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
                                             <i class="bi bi-trash"></i>
                                         </a>
-                           
-                               
                                     </div>
                                 </td>
                             </tr>

@@ -126,8 +126,22 @@ class SocialPostController extends Controller
      * @return RedirectResponse
      */
     public function store(SocialPostRequest $request) :RedirectResponse{
+        
         $status   = false ;
         $message  = translate("Unable to create a new post: Insufficient subscription balance. Please recharge to proceed with the post creation process. Thank you");
+        $schedule = false;
+        if($this->subscription->package){
+            $package = $this->subscription->package;
+            if(@$package->social_access->schedule_post == StatusEnum::true->status()){
+                $schedule = true;
+            }
+        }
+        if($request->input("schedule_date") && !$schedule ){
+            $request->merge([
+                'schedule_date' => null
+            ]);
+        }
+
         if($this->checkRemainingPost()){
             $status   = true ;
             $response = $this->savePost( request : $request->except(['_token']) ,user  : $this->user);
