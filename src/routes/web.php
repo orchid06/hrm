@@ -43,17 +43,17 @@ use Illuminate\Support\Facades\Route;
                 Route::post('/authenticate', 'authenticate')->name('authenticate');
             });
 
-        
+
             #Register route
             Route::controller(RegisterController::class)->group(function () {
 
                 Route::get('/register/{referral_code?}', 'create')->name('register');
                 Route::post('/register/store', 'store')->name('register.store');
-    
+
             });
 
             #otp autorization route
-            Route::controller(AuthorizationController::class)->group(function () { 
+            Route::controller(AuthorizationController::class)->group(function () {
 
                 Route::get('/otp-verification', 'otpVerification')->name('otp.verification');
                 Route::get('/email-verification', 'otpVerification')->name('email.verification')->withoutMiddleware(['guest:web']);
@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Route;
             });
 
 
-    
+
             #password route
             Route::controller(NewPasswordController::class)->name('password.')->group(function () {
 
@@ -72,13 +72,13 @@ use Illuminate\Support\Facades\Route;
                 Route::post('password/verify/code','verifyCode')->name('verify.code');
                 Route::get('password/reset', 'resetPassword')->name('reset');
                 Route::post('password/update', 'updatePassword')->name('update');
-                
+
             });
 
 
             #SOCIAL LOGIN CONTROLLER
             Route::controller(SocialAuthController::class)->name('social.')->group(function () {
-                
+
                 Route::get('login/{medium}', 'redirectToOauth')->name('login');
                 Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
             });
@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\Route;
 
            #home & profile route
             Route::controller(HomeController::class)->group(function(){
-                
+
                 Route::any('dashboard','home')->name('home');
                 Route::get('profile','profile')->name('profile');
                 Route::post('profile/update','profileUpdate')->name('profile.update');
@@ -109,10 +109,10 @@ use Illuminate\Support\Facades\Route;
             #payment route
             Route::controller(DepositController::class)->prefix('/deposit')->name('deposit.')->group(function(){
 
-                Route::get('/request','depositCreate')->name('create'); 
+                Route::get('/request','depositCreate')->name('create');
                 Route::any('/process','process')->name('process');
                 Route::any('/manual/confirm','manualPay')->name('manual');
-                
+
             });
 
             #basic user route
@@ -122,7 +122,7 @@ use Illuminate\Support\Facades\Route;
 
                 # withdraw route
                 Route::prefix("/withdraw")->name('withdraw.')->group(function(){
-                    Route::get('/request','withdrawCreate')->name('create'); 
+                    Route::get('/request','withdrawCreate')->name('create');
                     Route::post('/request/process','withdrawProcess')->name('request.process');
                     Route::get('/preview/{trx}','withdrawPreview')->name('preview');
                     Route::post('/request/submit','withdrawRequest')->name('request.submit');
@@ -151,10 +151,10 @@ use Illuminate\Support\Facades\Route;
                 Route::post('/generate', 'generate')->name('generate');
 
             });
-        
+
              # support route
             Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
-                
+
                 Route::any('/list','list')->name('list');
                 Route::get('/create','create')->name('create');
                 Route::post('/store','store')->name('store');
@@ -196,7 +196,7 @@ use Illuminate\Support\Facades\Route;
                 Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
                     Route::get('/','transactionReport')->name('list');
                 });
-    
+
             });
 
 
@@ -219,7 +219,7 @@ use Illuminate\Support\Facades\Route;
                  Route::post('/bulk/action','bulk')->name('bulk');
                  Route::get('/destroy/{id}','destroy')->name('destroy');
                  Route::get('/show/{uid}','show')->name('show');
-  
+
             });
 
 
@@ -232,11 +232,11 @@ use Illuminate\Support\Facades\Route;
                  Route::post('/store','store')->name('store');
                  Route::get('/destroy/{id}','destroy')->name('destroy');
                  Route::get('/show/{uid}','show')->name('show');
-  
+
             });
 
          });
-    
+
         });
 
 
@@ -265,7 +265,7 @@ use Illuminate\Support\Facades\Route;
 
         #CORE CONTROLER
         Route::controller(CoreController::class)->group(function () {
-            
+
             Route::get('/cron/run','cron')->name('cron.run');
             Route::get('/webhook','webhook')->name('webhook');
             Route::get('/language/change/{code?}','languageChange')->name('language.change');
@@ -291,7 +291,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-       
+
     });
 
     Route::get('/error/{message?}', function (?string $message = null) {
