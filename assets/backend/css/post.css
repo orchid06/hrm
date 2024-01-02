@@ -569,8 +569,8 @@
   gap: 10px;
 }
 
-/* =====================Choose Profile For Postings===================== */
 
+/* =====================Choose Profile For Postings===================== */
 .selected-profile {
   display: flex;
   align-items: center;
@@ -613,21 +613,6 @@
   align-items: center;
   justify-content: center;
 }
-/* .channel-icon.facebook {
-  color: #316ff6;
-}
-
-.channel-icon.linkedin {
-  color: #0a66c2;
-}
-
-.channel-icon.twitter {
-  color: #1da1f2;
-}
-
-.channel-icon.instagram {
-  color: #bc1888;
-} */
 
 .choose-profile-btn {
   display: flex;

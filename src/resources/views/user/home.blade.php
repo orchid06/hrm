@@ -12,7 +12,7 @@
        $remainingPost          = $subscription ? $subscription->remaining_post_balance : 0;
        $totalPlatforms         = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
 
-      
+
        $subscriptionDetails =  [
                                   'Remaining Word'    => $remainingToken,
                                   'Remaining Profile' => $remainingProfile,
@@ -31,17 +31,16 @@
       <div class="col-12">
         <div class="dash-intro">
           <div class="row align-items-center gx-4 gy-5">
-            <div class="col-xxl-4 col-xl-6">
+            <div class="col-xxl-3 col-xl-6">
               <div class="dash-intro-content">
                 <h3>{{translate("Welcome")}}, {{$user->name }}</h3>
-             
               </div>
             </div>
 
-            <div class="col-xxl-8">
+            <div class="col-xxl-9">
               <div class="posting-summary">
-                <div class="row g-4">
-                  <div class="col-lg-3 col-sm-6">
+                <div class="row g-3">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--info">
                         <i class="bi bi-border-all"></i>
@@ -58,7 +57,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--success">
                         <i class="bi bi-calendar-check"></i>
@@ -71,7 +70,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--warning">
                         <i class="bi bi-clock-history"></i>
@@ -84,7 +83,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--success">
                          <i class="bi bi-check-all"></i>
@@ -97,8 +96,7 @@
                     </div>
                   </div>
 
-
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--danger">
                         <i class="bi bi-journal-x"></i>
@@ -112,8 +110,7 @@
                     </div>
                   </div>
 
-
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--info">
                         <i class="bi bi-person-gear"></i>
@@ -126,8 +123,8 @@
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="col-lg-3 col-sm-6">
+
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--success">
                         <i class="bi bi-person-check-fill"></i>
@@ -140,8 +137,8 @@
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="col-lg-3 col-sm-6">
+
+                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                     <div class="summary-card">
                       <span class="text--danger">
                         <i class="bi bi-person-exclamation"></i>
@@ -154,7 +151,6 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -165,7 +161,7 @@
       <div class="col-xxl-3 col-md-6">
         <div class="i-card-md card-height-100 plan-upgrade-card">
           <div class="card-body plan-upgrade-body">
-   
+
               <div class="existing-plan">
                 <div class="dot-spinner">
                   <div class="dot-spinner__dot"></div>
@@ -183,7 +179,7 @@
                     {{translate('No subscription')}}
                 @endif
               </div>
-      
+
             <h3>
                {{trans('default.dashboard_plan_title')}}
             </h3>
@@ -206,7 +202,7 @@
             </div>
           </div>
 
-         
+
 
         </div>
       </div>
@@ -243,7 +239,7 @@
                       </div>
 
                       <div class="channel-action">
-                        <span class="i-btn primary btn--sm capsuled">
+                        <span class="i-badge-solid success">
                           {{$total}} {{translate("Profiles")}}
                         </span>
                       </div>
@@ -261,9 +257,22 @@
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">
+               {{translate("Social Post")}}
+            </h4>
+          </div>
+          <div class="card-body">
+            <div id="postReport"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-4">
+        <div class="i-card-md card-height-100">
+          <div class="card-header">
+            <h4 class="card-title">
                {{translate("Subscription Specification")}}
             </h4>
-   
+
           </div>
 
           <div class="card-body">
@@ -276,39 +285,25 @@
                        </div>
                     </div>
                 </div>
-            
+
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-6">
-        <div class="i-card-md">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Social Post")}}
-            </h4>
-          </div>
-          <div class="card-body">
-            <div id="postReport"></div>
-          </div>
-        </div>
-      </div>
-
-    
-      <div class="col-6">
-        <div class="i-card-md">
+      <div class="col-xxl-8">
+        <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">
                {{translate("Latest Transaction Log")}}
             </h4>
-      
           </div>
+
           <div class="card-body px-0">
             <div class="table-accordion">
               @php
                 $reports = Arr::get($data,'latest_transactiions',null);
-    
+
               @endphp
               @if($reports &&    $reports->count() > 0)
                   <div class="accordion" id="wordReports">
@@ -317,7 +312,7 @@
                               <div class="accordion-header">
                                   <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                                       aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                      <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                      <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                           <div class="col-lg-3 col-sm-4 col-12">
                                               <div class="table-accordion-header transfer-by">
                                                   <span class="icon-btn icon-btn-sm info circle">
@@ -413,31 +408,35 @@
               @endif
 
             </div>
-        
+
           </div>
         </div>
       </div>
+
       <div class="col-12">
-        <div class="i-card-md">
+        <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">
                {{translate("Latest Subscription Log")}}
             </h4>
-      
+
           </div>
+
           <div class="card-body px-0">
             <div class="table-accordion">
               @php
                 $reports = Arr::get($data,'subscription_log',null);
-    
+
               @endphp
-              @if($reports &&    $reports->count() > 0)
+
+              @if($reports && $reports->count() > 0)
+                <div class="accordion" id="wordReports-2">
                 @forelse($reports as $report)
                   <div class="accordion-item">
                       <div class="accordion-header">
                           <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                               aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                              <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                              <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                   <div class="col-lg-2 col-sm-4 col-12">
                                       <div class="table-accordion-header transfer-by">
                                           <span class="icon-btn icon-btn-sm info circle">
@@ -522,10 +521,9 @@
                           </div>
                       </div>
 
-                      <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
+                      <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports-2">
                           <div class="accordion-body">
                               <ul class="list-group list-group-flush">
-
                                   @php
                                       $informations = [
 
@@ -540,7 +538,6 @@
                                       ];
                                   @endphp
 
-
                                   @foreach ($informations  as  $key => $val)
 
                                       <li class="list-group-item">
@@ -553,26 +550,22 @@
                                       </li>
 
                                   @endforeach
-
-
                               </ul>
                           </div>
                       </div>
                   </div>
                 @empty
                 @endforelse
+                </div>
               @else
                   @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
               @endif
 
             </div>
-        
+
           </div>
         </div>
       </div>
-
-      
-
     </div>
 
 @endsection
@@ -592,13 +585,17 @@
 
   var options = {
           series:subscriptionValues,
-          chart: {
-          width: 380,
-          type: 'donut',
-        },
-        colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+            chart: {
+                type: "donut",
+                width: "100%",
+            },
+        colors: [
+        "var(--color-primary)",
+        "var(--color-secondary)",
+        "var(--color-warning)",
+        "var(--color-info)",
+        "var(--color-danger)"],
         labels: subscriptionLabel,
-
         plotOptions: {
           pie: {
             startAngle: -90,
@@ -608,9 +605,6 @@
         dataLabels: {
           enabled: false
         },
-        fill: {
-          type: 'gradient',
-        },
 
         responsive: [{
           breakpoint: 480,
@@ -618,11 +612,12 @@
             chart: {
               width: 200
             },
-            legend: {
-              position: 'bottom'
-            }
           }
-        }]
+        }],
+
+        legend: {
+            position: 'bottom'
+        }
         };
 
         var chart = new ApexCharts(document.querySelector("#subscriptionChart"), options);
@@ -644,13 +639,18 @@
     var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
     var options = {
       chart: {
-        height: 350,
+        height: 380,
         type: "line",
       },
       dataLabels: {
         enabled: false,
       },
-      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+        colors: [
+        "var(--color-primary)",
+        "var(--color-secondary)",
+        "var(--color-warning)",
+        "var(--color-info)",
+        "var(--color-danger)"],
       series: [
         {
           name: "{{ translate('Total Post') }}",
@@ -658,44 +658,44 @@
         },
         {
           name: "{{ translate('Pending Post') }}",
-          data: pendigPost, 
+          data: pendigPost,
         },
         {
           name: "{{ translate('Success Post') }}",
-          data: successPost, 
+          data: successPost,
         },
         {
           name: "{{ translate('Schedule Post') }}",
-          data: schedulePost, 
+          data: schedulePost,
         },
         {
           name: "{{ translate('Failed Post') }}",
-          data: failedPost, 
+          data: failedPost,
         },
       ],
       xaxis: {
         categories: monthlyLabel,
       },
-  
+
       tooltip: {
           shared: false,
           intersect: true,
           y: {
             formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-              return parseInt(value); 
+              return parseInt(value);
             }
           }
-        
+
         },
       markers: {
-        size: 6, 
+        size: 6,
       },
       stroke: {
-        width: [4, 4], 
+        width: [4, 4],
       },
       legend: {
-        horizontalAlign: "left",
-        offsetX: 40,
+        horizontalAlign: "center",
+        offsetY: 5,
       },
     };
 

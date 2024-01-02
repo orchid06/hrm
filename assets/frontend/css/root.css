@@ -6,10 +6,12 @@
   --color-primary-light: rgba(16, 163, 126, 0.1);
   --color-primary-soft: #e4f5f0;
   --color-primary-text: #fff;
+
   --color-secondary: #c2fa6b;
   --color-secondary-light: rgba(195, 250, 107, 0.1);
   --color-secondary-soft: #f1faec;
   --color-secondary-text: rgb(36 40 44);
+
   --text-primary: #24282c;
   --text-secondary: #545454;
   --text-light: #ebebeb;
@@ -145,6 +147,48 @@ figure {
   color: var(--color-dark) !important;
 }
 
+/* ==================Bg Colors================== */
+.bg-primary-solid {
+  background-color: var(--color-primary);
+}
+.bg-primary-soft {
+  background-color: var(--color-primary-soft);
+}
+
+.bg-secondary-solid {
+  background-color: var(--color-secondary);
+}
+.bg-secondary-soft {
+  background-color: var(--color-secondary-soft);
+}
+
+.bg-warning-solid {
+  background-color: var(--color-warning);
+}
+.bg-warning-soft {
+  background-color: var(--color-warning-soft);
+}
+
+.bg-info-solid {
+  background-color: var(--color-info);
+}
+.bg-info-soft {
+  background-color: var(--color-info-soft);
+}
+
+.bg-danger-solid {
+  background-color: var(--color-danger);
+}
+.bg-danger-soft {
+  background-color: var(--color-danger-soft);
+}
+
+.bg-success-solid {
+  background-color: var(--color-success);
+}
+.bg-success-soft {
+  background-color: var(--color-success-soft);
+}
 /* ========Padding Spacing========*/
 .pt-90 {
   padding-top: 90px;
