@@ -781,14 +781,9 @@
                 <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
             </li>`;
 
-
-
             $(".selected-profile").append(html);
 
-
-
         });
-
 
 
         $(document).on('click','.account_remove',function(e) {
