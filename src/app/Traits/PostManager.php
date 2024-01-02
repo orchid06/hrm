@@ -76,7 +76,7 @@ trait PostManager
                     trxType     : Transaction::$MINUS,
                     balance     : $totalPost,
                     postBalance : (int)$user->runningSubscription->remaining_post_balance,
-                    details     : count($accounts) . 'social post created',
+                    details     : count($accounts) . ' social post created',
                     remark      : t2k("post_balance"),
                 );
                 if( (int)$user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
