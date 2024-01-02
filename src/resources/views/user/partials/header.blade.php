@@ -146,7 +146,7 @@
             </div>
 
             <!-- languages -->
-            <div class="header-right-item d-lg-flex d-none">
+            <div class="header-right-item">
                 <div class="dropdown lang">
                     <button
                     class="lang-btn dropdown-toggle"
@@ -178,7 +178,7 @@
             </div>
 
             <!-- currency -->
-            <div class="header-right-item d-lg-flex d-none">
+            <div class="header-right-item">
                 <div class="dropdown currency">
                     <button
                         class="dropdown-toggle"
@@ -215,7 +215,7 @@
                     <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
                     </span>
 
-                    <div class="balance">
+                    <div class="balance d-none d-sm-block">
                     <p>
                         {{translate("Balance")}}
                     </p>
@@ -227,40 +227,48 @@
 
                 <div class="dropdown-menu dropdown-menu-end">
                     <ul>
-                    <li class="dropdown-menu-title">
-                        <h6>
-                            {{translate("Welcome")}}, <span class="user-name">
-                                {{$user->name}}
-                            </span>!
-                        </h6>
-                    </li>
+                        <li class="dropdown-menu-title">
+                            <h6>
+                                {{translate("Welcome")}}, <span class="user-name">
+                                    {{$user->name}}
+                                </span>!
+                            </h6>
 
-                    <li>
-                        <a href="{{route('user.profile')}}" class="dropdown-item"
-                        ><i class="bi bi-person"></i> {{translate("My Account")}}</a>
-                    </li>
+                            <div class="balance mt-2 d-block d-sm-none">
+                                <p>
+                                    {{translate("Balance")}}
+                                </p>
+                                
+                                <h6>
+                                    {{num_format(number:$user->balance,calC:true)}}
+                                </h6>
+                            </div>
+                        </li>
 
-                    <li>
-                        <a href="{{route('user.deposit.create')}}" class="dropdown-item"><i class="bi bi-wallet"></i>
+                        <li>
+                            <a href="{{route('user.profile')}}" class="dropdown-item"
+                            ><i class="bi bi-person"></i> {{translate("My Account")}}</a>
+                        </li>
 
-                            {{translate("Deposit")}}
-                        </a>
-                    </li>
+                        <li>
+                            <a href="{{route('user.deposit.create')}}" class="dropdown-item"><i class="bi bi-wallet"></i>
 
-                    <li>
-                        <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i>
-                            {{translate("Withdraw")}}
-                        </a>
-                    </li>
+                                {{translate("Deposit")}}
+                            </a>
+                        </li>
 
+                        <li>
+                            <a href="{{route('user.withdraw.create')}}" class="dropdown-item"><i class="bi bi-layer-backward"></i>
+                                {{translate("Withdraw")}}
+                            </a>
+                        </li>
 
-
-                    <li class="dropdown-menu-footer">
-                        <a href="{{route('user.logout')}}">
-                        <i class="bi bi-box-arrow-left"></i>
-                            {{translate('Logout')}}
-                        </a>
-                    </li>
+                        <li class="dropdown-menu-footer">
+                            <a href="{{route('user.logout')}}">
+                            <i class="bi bi-box-arrow-left"></i>
+                                {{translate('Logout')}}
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 </div>

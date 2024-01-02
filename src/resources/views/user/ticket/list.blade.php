@@ -15,7 +15,7 @@
                 <i class="bi bi-plus-lg"></i>
                  {{translate('Create Ticket')}}
               </a>
-              <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
+              <button class="icon-btn icon-btn-lg bg-info-solid text--light circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
                 aria-controls="tableFilter">
                 <i class="bi bi-funnel"></i>
               </button>
@@ -58,7 +58,6 @@
                         </select>
                     </div>
 
-
                     <div class="d-flex gap-2">
                         <button class="i-btn primary btn--lg rounded">
                             <i class="bi bi-search"></i>
@@ -72,7 +71,7 @@
             </div>
           </div>
 
-            <div class="card-body px-0">
+          <div class="card-body px-0">
                 <div class="table-container">
                 <table>
                     <thead>
@@ -164,7 +163,7 @@
                         </tbody>
                 </table>
                 </div>
-            </div>
+          </div>
 
         </div>
 

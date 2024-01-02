@@ -80,7 +80,7 @@
                             <div class="accordion-header">
                                 <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
                                     aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                    <div class="row align-items-center w-100 gy-3 gx-sm-3 gx-0">
+                                    <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                         <div class="col-lg-2 col-sm-4 col-12">
                                             <div class="table-accordion-header transfer-by">
                                                 <span class="icon-btn icon-btn-sm info circle">

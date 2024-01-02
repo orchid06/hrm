@@ -714,6 +714,15 @@
   padding: 15px 65px 15px 15px;
 }
 
+.modal-aiwrap.faq-wrap .accordion-item .accordion-button:is(.collapsed) {
+  color: var(--color-dark);
+  background: var(--color-primary-light);
+}
+
+.modal-aiwrap.faq-wrap .accordion-item .accordion-button {
+  font-size: 16px;
+  padding: 15px 65px 15px 15px;
+}
 /* =============================Select2  Customize Start============================= */
 .select2.select2-container {
   width: 100% !important;
