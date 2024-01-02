@@ -213,9 +213,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-3 text-end">
+            <div class="mt-3 text-center fw-semibold">
                 @if( 0 < $earings)
-                 {{translate("Total Earnings")}} <span class="i-badge capsuled success ms-2"> {{@num_format(
+                 {{translate("Total Earnings")}} <span class="i-badge-solid primary capsuled ms-2"> {{@num_format(
                     number : $earings??0,
                     calC   : true
                   )}} </span>
@@ -249,7 +249,7 @@
                                 data-key='subscription_carry_forword'   data-status='{{ site_settings('subscription_carry_forword') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                 data-route="{{ route('admin.setting.update.status') }}" class="form-check-input status-update" id="subscription_carry_forword" type="checkbox">
                                 <label for="subscription_carry_forword" class="form-check-label" >
-                                    <b> {{translate("Balance Carry Forward")}} : </b>
+                                    <b class="text--primary"> {{translate("Balance Carry Forward")}} : </b>
                                     {{translate("Remaining balance from active package(only for active) will be added to next package balance. This service is applicable for same package !!")}}
                                 </label>
                               </div>
@@ -260,7 +260,7 @@
                               data-key='auto_subscription'   data-status='{{ site_settings('auto_subscription') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                               data-route="{{ route('admin.setting.update.status') }}" class="form-check-input status-update" id="auto_subscription" type="checkbox">
                               <label for="auto_subscription" class="form-check-label" >
-                                  <b> {{translate("Allow user to configure Auto Subscription")}} : </b>
+                                  <b class="text--primary"> {{translate("Allow user to configure Auto Subscription")}} : </b>
                                   {{translate("if enable, user can configure auto subscription settings!!")}}
                               </label>
                             </div>

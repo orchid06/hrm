@@ -203,4 +203,117 @@
     });
   }
 
+  // application installer 
+
+//   $(document).ready(function(){
+
+//     var current = 1;
+//     var steps = $("fieldset").length;
+
+// setProgressBar(current);
+
+// $(".next, .previous").click(function () {
+//     var action = $(this).hasClass("next") ? 1 : -1;
+//     var current_fs = $(this).parent();
+//     var next_fs = action === 1 ? current_fs.next() : current_fs.prev();
+
+//     if (action === 1) {
+//         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+//     } else {
+//         $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+//     }
+
+//     next_fs.show();
+//     current_fs.animate({
+//         opacity: 0
+//     }, {
+//         step: function (now) {
+//             var opacity = 1 - now;
+//             current_fs.css({
+//                 'display': 'none',
+//                 'position': 'relative'
+//             });
+//             next_fs.css({
+//                 'opacity': opacity
+//             });
+//         },
+//         duration: 500
+//     });
+
+//     setProgressBar(current += action);
+// });
+
+// function setProgressBar(curStep) {
+//     var percent = (100 / steps) * curStep;
+//     $(".progress-bar").css("width", percent + "%");
+// }
+
+// $(".submit").click(function () {
+//     return false;
+// });
+// });
+
+$(document).ready(function(){
+  var current = 1;
+  var steps = $("fieldset").length;
+
+  setProgressBar(current);
+
+  console.log(setProgressBar(current));
+
+  $(".next, .previous").click(function () {
+      var action = $(this).hasClass("next") ? 1 : -1;
+      var current_fs = $(this).parent();
+      var next_fs = action === 1 ? current_fs.next() : current_fs.prev();
+
+      var multistepField = $('multistepField');
+
+      if(multistepField){
+      
+        $(".substep-content").addClass("active");
+      }
+
+      $("#progressbar li").eq($("fieldset").index(action === 1 ? next_fs : current_fs)).toggleClass("active");
+
+      next_fs.show();
+      current_fs.animate({ opacity: 0 }, { step: function (now) {
+          var opacity = 1 - now;
+          current_fs.css({ 'display': 'none', 'position': 'relative' });
+          next_fs.css({ 'opacity': opacity });
+      }, duration: 500 });
+      setProgressBar(current += action);
+  });
+
+  function setProgressBar(curStep) {
+      $(".progress-bar").css("width", (100 / steps) * curStep + "%");
+  }
+
+  $(".submit").click(function () {
+      return false;
+  });
+});
+
+
+var fieldSet = document.querySelectorAll('fieldset');
+
+fieldSet.forEach(function(field) {
+  var navTabs = field.querySelector('.nav-js');
+  var actionButton = field.querySelector('.action-button');
+  var actionButtonPrev = field.querySelector('.action-button-previous');
+
+  if (navTabs !== null) {
+    actionButton.disabled = true;
+    actionButtonPrev.disabled = true;
+
+    actionButton.style.opacity = '0.3';
+    actionButtonPrev.style.opacity = '0.3';
+
+    var lastTab = navTabs.querySelector("#lastTab");
+    lastTab.addEventListener("click", () => {
+      actionButton.disabled = false;
+      actionButtonPrev.disabled = false;
+    });
+  }
+});
+
 })();

@@ -2,7 +2,7 @@
 :root {
   --font-primary: 'Outfit', sans-serif;
   --color-primary: #644bff;
-  --color-primary-light: rgba(90, 15, 245, 0.1);
+  --color-primary-light: rgba(90, 15, 245, 0.08);
   --color-primary-light-2: rgba(90, 15, 245, 0.2);
   --color-primary-text: #ffffff;
 
@@ -258,6 +258,14 @@ button,
       color: $color-info;
       &:hover {
         background-color: $color-info;
+        color: $color-white;
+      }
+    }
+    .primary {
+      background-color: $color-primary-light;
+      color: $color-primary;
+      &:hover {
+        background-color: $color-primary;
         color: $color-white;
       }
     }

@@ -2074,3 +2074,402 @@ ul.inbox-list {
     }
   }
 }
+
+.installer-wrapper{
+  border: 1px solid $color-border;
+  padding: 30px;
+  border-radius: 8px;
+
+  .tab-content{
+    width: 100%;
+  }
+
+  @include md-down-device{
+    padding: 15px;
+  }
+  #msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+  }
+
+  #msform fieldset {
+      background: white;
+      border: 0 none;
+      border-radius: 0.5rem;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0;
+      padding-bottom: 20px;
+      position: relative;
+  }
+
+  .form-inner{
+    margin-bottom: 12px;
+
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  label{
+    margin-bottom: 3px;
+    font-size: 13px;
+  }
+  h6{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    @include md-down-device{
+      margin-bottom: 3px;
+    }
+  }
+
+  #msform fieldset:not(:first-of-type) {
+      display: none;
+  }
+
+  #msform input,
+  #msform textarea {
+      padding: 7px 15px 7px 15px;
+      border: 1px solid $color-primary-light-2;
+      border-radius: 0px;
+      margin-top: 2px;
+      width: 100%;
+      box-sizing: border-box;
+      color: $text-primary;
+      font-size: 16px;
+      letter-spacing: 1px;
+      background-color: transparent;
+
+      @include md-down-device{
+        padding: 6px 12px 6px 12px;
+      }
+  }
+
+  #msform input:focus,
+  #msform textarea:focus {
+      -moz-box-shadow: none !important;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+      border: 1px solid $color-primary;
+      outline-width: 0;
+  }
+
+  #msform .action-button {
+      width: 100px;
+      background: $color-primary;
+      font-weight: bold;
+      color: white;
+      border: 0 none;
+      border-radius: 0px;
+      cursor: pointer;
+      padding: 10px 5px;
+      float: right;
+  }
+
+  #msform .action-button:hover,
+  #msform .action-button:focus {
+      background-color: #311B92;
+  }
+
+  #msform .action-button-previous {
+      width: 100px;
+      background: #616161;
+      font-weight: bold;
+      color: white;
+      border: 0 none;
+      border-radius: 0px;
+      cursor: pointer;
+      padding: 10px 5px;
+      float: right;
+      margin-right: 5px;
+  }
+
+  #msform .action-button-previous:hover,
+  #msform .action-button-previous:focus {
+      background-color: #000000;
+  }
+
+  .card {
+      z-index: 0;
+      border: none;
+      position: relative;
+  }
+
+  .fs-title {
+      font-size: 18px;
+      font-weight: 600 !important;
+      color: $text-primary;
+      margin-bottom: 20px;
+      font-weight: normal;
+      text-align: left;
+  }
+
+  .steps {
+      font-size: 18px;
+      font-weight: 600 !important;
+      color: $text-secondary;
+      margin-bottom: 10px;
+      font-weight: normal;
+      text-align: right;
+
+      @include md-down-device{
+        font-size: 16px;
+      }
+  }
+
+  .fieldlabels {
+      color: gray;
+      text-align: left;
+  }
+
+  #progressbar {
+      margin-bottom: 10px;
+      overflow: hidden;
+      color: lightgrey;
+      z-index: 9;
+      position: relative;
+  }
+
+  #progressbar .active {
+      color: $color-primary;
+  }
+
+  #progressbar li {
+      list-style-type: none;
+      font-size: 14px;
+      width: 20%;
+      float: left;
+      position: relative;
+      font-weight: 400;
+
+      @include md-down-device{
+        font-size: 11px;
+      }
+  }
+
+  #progressbar #account:before {
+      font-family: "Bootstrap-icons";
+      content: "\F422";
+  }
+
+  #progressbar #personal:before {
+    font-family: "Bootstrap-icons";
+    content: "\F8BE";
+  }
+
+  #progressbar #payment:before {
+    font-family: "Bootstrap-icons";
+    content: "\F537";
+  }
+  #progressbar #payment2:before {
+    font-family: "Bootstrap-icons";
+    content: "\F3E2";
+  }
+
+  #progressbar #confirm:before {
+    font-family: "Bootstrap-icons";
+      content: "\F225";
+  }
+
+  #progressbar li:before {
+    width: 35px;
+    height: 35px;
+    line-height: 31px;
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    background: #d3d3d3;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+  }
+
+  #progressbar li:after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: lightgray;
+      position: absolute;
+      left: 0;
+      top: 16px;
+      z-index: -1;
+
+      @include md-down-device{
+        top: 17px;
+      }
+  }
+
+  #progressbar li.active:before,
+  #progressbar li.active:after {
+      background: $color-primary;
+  }
+
+  .progress {
+      height: 6px;
+      transform: translateY(-62px);
+      z-index: -1;
+
+      @include md-down-device{
+        transform: translateY(-55px);
+        height: 3px;
+      }
+  }
+
+  .progress-bar {
+      background-color: $color-primary;
+  }
+
+  .fit-image {
+      width: 100%;
+      object-fit: cover;
+  }
+
+
+  .substep{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    li{
+    &.active{
+      color: var(--color-primary);
+    }
+    }
+  }
+
+  .substep-content{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+}
+
+.checkmark-wrapper {
+  width: 100px;
+  margin:  0 auto 25px;
+  @include md-down-device{
+    width: 70px;
+  }
+ 
+  .checkmark {
+    stroke: $color-primary;
+    stroke-dashoffset: 745.74853515625;
+    stroke-dasharray: 745.74853515625;
+    animation: dash 2s ease-out forwards infinite;
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 745.74853515625;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+.tab-pane{
+  text-align: left;
+}
+.app-info-box{
+  background-color: $color-primary-light;
+  padding: 25px;
+  margin-bottom: 30px;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+
+  h4{
+    font-size: 22px;
+    @include md-down-device{
+      font-size: 16px;
+    }
+  }
+
+  @include md-down-device{
+    padding: 15px 10px;
+  }
+  p{
+    font-size: 16px;
+    margin-bottom: 5px;
+
+    @include md-down-device{
+      font-size: 14px;
+    }
+  }
+  .permission-list{
+    width: 100%;
+    li{
+      font-size: 15px;
+      margin-bottom: 12px;
+      padding: 0 15px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $color-border;
+
+      @include md-down-device{
+        font-size: 14px;
+      }
+
+      &:first-child{
+        background-color: $color-primary;
+        color: $color-white;
+        padding: 12px 15px;
+
+        span{
+          color: $color-white !important;
+        }
+      }
+
+      span{
+        display: inline-block;
+        &:last-child{
+          color: $color-success;
+        }
+
+        i{
+          font-size: 17px;
+          vertical-align: middle;
+        }
+      }
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .permission-list-two{
+    width: 100%;
+    li{
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $color-border;
+      padding: 12px 15px;
+
+      span{
+        display: inline-block;
+        &:last-child{
+          color: $color-success;
+        }
+
+        i{
+          font-size: 17px;
+          vertical-align: middle;
+        }
+      }
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}

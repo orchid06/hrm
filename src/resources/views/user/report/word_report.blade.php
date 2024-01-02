@@ -256,13 +256,8 @@
         });
 
 
-
-
 	})(jQuery);
 </script>
 @endpush
-
-
-
 
 
