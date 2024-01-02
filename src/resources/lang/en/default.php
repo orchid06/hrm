@@ -40,6 +40,7 @@ return [
     "preview_text" => "Preview approximates how your content will display when
     published. Tests and updates by social networks may affect
     the final appearance. Report a difference you notice",
+    'dashboard_plan_title' => 'Try our all new Enviroment with Pro Plan',
     
 
     /** site  title  */

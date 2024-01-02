@@ -70,7 +70,6 @@ class SocialPostRequest extends FormRequest
             'files.*' => ['nullable','image'],
             'schedule_date' => ['nullable','date','after:now'],
 
-
         ];
 
 
