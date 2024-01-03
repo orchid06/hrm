@@ -58,17 +58,17 @@
                 </div>
 
                 <ul class="sub-menu">
-
                     <li class="sub-menu-item">
                         <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? "active" :""}}" href="{{route('user.social.post.create')}}">
                             <span>
-                                <i class="bi bi-plus"></i>
+                                <i class="bi bi-pencil-square"></i>
                             </span>
                             <p>
-                            {{translate('Create New')}}
+                            {{translate('Create Post')}}
                             </p>
                         </a>
                     </li>
+
                     <li class="sub-menu-item">
                         <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? "active" :""}}" href="{{route('user.social.post.list')}}">
                             <span>
@@ -79,14 +79,6 @@
                             </p>
                         </a>
                     </li>
-
-
-
-
-
-
-
-
                 </ul>
                 </div>
             </li>
