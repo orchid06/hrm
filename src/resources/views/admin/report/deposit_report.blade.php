@@ -15,65 +15,67 @@
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">
-                               <div class="form-inner">
-                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                                </div>
-                                <div class="form-inner">
-                                    <select name="status" id="status" class="status">
-                                        <option value="">
-                                            {{translate('Select status')}}
-                                        </option>
-                                        @foreach(App\Enums\DepositStatus::toArray() as $k => $v)
-                                            <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
-                                                {{ucfirst(t2k($k))}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <select name="user" id="user" class="user">
-                                        <option value="">
-                                            {{translate('Select User')}}
-                                        </option>
-                                        @foreach(system_users() as $user)
-                                            <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <select name="method_id" id="method_id" class="select2">
-                                        <option value="">
-                                            {{translate('Select Method')}}
-                                        </option>
+                                <form action="{{route(Route::currentRouteName())}}" method="get">
+                                    <div class="form-inner">
+                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="status" id="status" class="status">
+                                            <option value="">
+                                                {{translate('Select status')}}
+                                            </option>
+                                            @foreach(App\Enums\DepositStatus::toArray() as $k => $v)
+                                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
+                                                    {{ucfirst(t2k($k))}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="user" id="user" class="user">
+                                            <option value="">
+                                                {{translate('Select User')}}
+                                            </option>
+                                            @foreach(system_users() as $user)
+                                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="method_id" id="method_id" class="select2">
+                                            <option value="">
+                                                {{translate('Select Method')}}
+                                            </option>
 
-                                        @foreach($methods as $method)
-                                            <option  {{$method->id ==   request()->input('method_id') ? 'selected' :""}} value="{{$method->id}}"> {{$method->name}}
-                                        </option>
-                                        @endforeach
-                            
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
-                                </div>
-                                <button class="i-btn btn--md info w-100">
-                                    <i class="las la-sliders-h"></i>
-                                </button>
-                            </form>
-                                </div>  
+                                            @foreach($methods as $method)
+                                                <option  {{$method->id ==   request()->input('method_id') ? 'selected' :""}} value="{{$method->id}}"> {{$method->name}}
+                                            </option>
+                                            @endforeach
+                                
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                                    </div>
+                                    <button class="i-btn btn--md info w-100">
+                                        <i class="las la-sliders-h"></i>
+                                    </button>
+                                </form>
                             </div>  
-                            <div class="ms-3">
-                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                                    <i class="las la-sync"></i>
-                                </a>
-                            </div> 
+                        </div>
+
+
+                        <div class="ms-3">
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                            </a>
+                        </div> 
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="table-container position-relative">
+
+                <div class="table-container position-relative">
                 @include('admin.partials.loader')
                 <table>
                     <thead>
@@ -149,8 +151,10 @@
             <div class="Paginations">
                 {{ $reports->links() }}
             </div>
+            </div>
+            
         </div>
-    </div>
+  
 @endsection
 
 @push('script-include')

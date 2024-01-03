@@ -1889,9 +1889,12 @@ ul.inbox-list {
   padding: 15px;
   .user-meta-info{
     .image{
-      width: 40px;
+  
       img{
         border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #eee;
       }
     }
     .content{
@@ -1912,6 +1915,9 @@ ul.inbox-list {
   }
   .post-details{
     margin-bottom: 20px;
+    p{
+      word-break: break-all;
+    }
   }
   .post-image{
     img{
@@ -2529,5 +2535,21 @@ ul.inbox-list {
         margin-bottom: 0;
       }
     }
+  }
+}
+
+// Page Maintain
+.maintain-content{
+  text-align: left;
+  h2{
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+  h3{
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+  p{
+    margin-bottom: 30px;
   }
 }

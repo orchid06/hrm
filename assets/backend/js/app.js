@@ -211,8 +211,6 @@ $(document).ready(function(){
 
   setProgressBar(current);
 
-  console.log(setProgressBar(current));
-
   $(".next, .previous").click(function () {
       var action = $(this).hasClass("next") ? 1 : -1;
       var current_fs = $(this).parent();
