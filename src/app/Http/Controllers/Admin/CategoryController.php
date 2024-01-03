@@ -176,11 +176,13 @@ class CategoryController extends Controller
      */
     public function destroy(string | int $id) :RedirectResponse{
 
-        $category  = Category::withCount(['articles','templates','childrens'])->where('id',$id)->firstOrfail();
+        $category  = Category::withoutGlobalScope('autoload')
+        ->with(['translations'])->withCount(['articles','templates','childrens'])->where('id',$id)->firstOrfail();
 
         $response =  response_status('Can not be deleted!! item has related data','error');
         if(1  > $category->articles_count &&  1  > $category->templates_count &&  1  > $category->childrens_count ){
             $category->delete();
+            @$category->translations()->delete();
             $response =  response_status('Item deleted succesfully');
 
         }

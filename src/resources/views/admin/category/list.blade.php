@@ -18,14 +18,7 @@
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        @if(check_permission('delete_category'))
-                                            <li>
-                                                <button data-type="delete"  class="dropdown-item bulk-action-modal">
-                                                    {{translate("Delete")}}
-                                                </button>
-                                            </li>
-                                        @endif
-
+                                       
                                         @if(check_permission('update_category'))
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
@@ -242,7 +235,6 @@
 
     @include('modal.delete_modal')
 
-    @include('modal.bulk_modal')
 
 @endsection
 

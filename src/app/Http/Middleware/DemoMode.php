@@ -19,7 +19,7 @@ class DemoMode
     {
         try {
             $ignoreRouteList = ['admin.setting.update.status'];
-            if(env('APP_MODE') == 'demo'){ 
+            if(strtolower(env('APP_MODE')) == 'demo'){ 
                 if(!in_array(Route::currentRouteName(),$ignoreRouteList)){
         
                     if(request()->routeIs("*.update*")  || request()->routeIs("*.destroy*") || request()->routeIs("*.delete*") || request()->routeIs("*.bulk*") ||  request()->routeIs("*.send*") ){

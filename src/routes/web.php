@@ -200,7 +200,7 @@ use Illuminate\Support\Facades\Route;
             });
 
 
-                     #social account and post route
+         #social account and post route
 
 
          Route::name('social.')->prefix('social/')->group(function () {
