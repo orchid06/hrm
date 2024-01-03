@@ -797,7 +797,6 @@
         $(document).on('click','.account_remove',function(e) {
             var remove_id = $(this).attr('data-id');
             $(`#account-${remove_id}`).prop('checked', false);
-
             $(this).parent().parent().remove();
 
         });
