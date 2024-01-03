@@ -2,14 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap");
 :root {
   --font-primary: "Cabin", sans-serif;
-  --color-primary: #10a37f;
+  --color-primary: rgb(166, 108, 255);
   --color-primary-light: rgba(16, 163, 126, 0.1);
-  --color-primary-soft: #e4f5f0;
+  --color-primary-soft: rgb(244, 237, 255);
   --color-primary-text: #fff;
-
-  --color-secondary: #c2fa6b;
-  --color-secondary-light: rgba(195, 250, 107, 0.1);
-  --color-secondary-soft: #f1faec;
+  --color-secondary: rgb(0, 169, 255);
+  --color-secondary-light: rgba(0, 169, 255, 0.1);
+  --color-secondary-soft: #ecf9ff;
   --color-secondary-text: rgb(36 40 44);
 
   --text-primary: #24282c;
@@ -22,7 +21,7 @@
   --color-gray-1: #eff2f7;
   --color-dark: #222222;
   --color-dark-2: #1d1d1d;
-  --site-bg: #f6fbfa;
+  --site-bg: rgba(166, 108, 255, 0.07);
   --sidebar-bg: #fff;
   --footer-bg: #020202;
 

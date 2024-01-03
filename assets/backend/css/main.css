@@ -2,9 +2,9 @@
 
 :root {
     --font-primary: "Outfit", sans-serif;
-    --color-primary: #644bff;
-    --color-primary-light: rgba(90, 15, 245, 0.08);
-    --color-primary-light-2: rgba(90, 15, 245, 0.2);
+    --color-primary: rgb(166, 108, 255);
+    --color-primary-light: rgba(166, 108, 255, 0.08);
+    --color-primary-light-2: rgba(166, 108, 255, 0.2);
     --color-primary-text: #ffffff;
     --text-primary: #15192c;
     --text-secondary: #898989;
@@ -14,7 +14,7 @@
     --color-white: #fff;
     --color-gray-1: #eff2f7;
     --color-dark: #152130;
-    --site-bg: #f3f3f9;
+    --site-bg: rgba(166, 108, 255, 0.03);
     --card-bg: #fff;
     --topbar-bg: #fff;
     --sidebar-bg: #fff;
@@ -1091,13 +1091,13 @@ button {
 
 .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link:hover {
     background-color: var(--color-primary-light);
-    border-color: var(--color-primary)
+    border-color: var(--color-primary);
 }
 
 .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link.active {
     background-color: var(--color-primary-light);
     border-color: var(--color-primary);
-    color: var(--text-primary);
+    color: var(--color-primary) !important;
     font-weight: 500;
     -webkit-clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
     clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)
@@ -5273,7 +5273,7 @@ ul.inbox-list li .col-mail-2 .date {
 }
 
 .chat-wrapper .chat-info .chat-tab-container .chat-tab-item .chat-contact li .chat-list-item .chat-list-meta {
-    flex: 1 1 auto
+     flex: 1 1 auto
 }
 
 .chat-wrapper .chat-info .chat-tab-container .chat-tab-item .chat-contact li .chat-list-item .chat-list-meta h6 {

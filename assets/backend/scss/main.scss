@@ -2080,6 +2080,66 @@ ul.inbox-list {
   padding: 30px;
   border-radius: 8px;
 
+  h2{
+    font-size: 1.75rem;
+    margin-bottom: 6px;
+  }
+
+  &.installer-two{
+    background-color: rgba(0, 0, 0,0.03);
+
+    .app-info-box{
+      background-color: $color-white;
+      .permission-list li:first-child {
+        background-color: rgb(53, 89, 224);
+      }
+    }
+
+    #progressbar li.active {
+      color: rgb(53, 89, 224);
+    }
+
+    #progressbar li:before {
+      width: 40px;
+      height: 40px;
+      line-height: 36px;
+      display: block;
+      font-size: 17px;
+      color: #fff;
+      background: #d3d3d3;
+      border-radius: 50%;
+      margin: 0 auto 10px auto;
+      padding: 2px;
+    }
+    #progressbar li:after {
+      top: 21px;
+    }
+    #progressbar li.active:before {
+      background: rgb(53, 89, 224);
+      color: $color-white;
+    }
+    #progressbar li.active:after {
+      background: rgb(53, 89, 224);
+    }
+    .progress-bar {
+      background-color: rgb(53, 89, 224);
+    }
+    .checkmark-wrapper .checkmark {
+      stroke: $color-success;
+    }
+  .nav-tabs.style-4 .nav-link.active {
+    background-color: rgb(53, 89, 224);
+    color: var(--color-white);
+    transition: .3s ease;
+  }
+  .nav-tabs.style-4 .nav-link::after {
+    background-color: rgb(53, 89, 224);
+  }
+  #msform .action-button {
+      background: $color-success;
+  }
+}
+
   .tab-content{
     width: 100%;
   }
@@ -2090,11 +2150,11 @@ ul.inbox-list {
   #msform {
     text-align: center;
     position: relative;
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
   #msform fieldset {
-      background: white;
+      background: transparent;
       border: 0 none;
       border-radius: 0.5rem;
       box-sizing: border-box;
@@ -2139,9 +2199,8 @@ ul.inbox-list {
       box-sizing: border-box;
       color: $text-primary;
       font-size: 16px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       background-color: transparent;
-
       @include md-down-device{
         padding: 6px 12px 6px 12px;
       }
@@ -2170,7 +2229,7 @@ ul.inbox-list {
 
   #msform .action-button:hover,
   #msform .action-button:focus {
-      background-color: #311B92;
+      background-color: $color-success;
   }
 
   #msform .action-button-previous {
@@ -2293,7 +2352,7 @@ ul.inbox-list {
       background: lightgray;
       position: absolute;
       left: 0;
-      top: 16px;
+      top: 17px;
       z-index: -1;
 
       @include md-down-device{
@@ -2325,7 +2384,6 @@ ul.inbox-list {
       width: 100%;
       object-fit: cover;
   }
-
 
   .substep{
     display: flex;

@@ -190,7 +190,6 @@ select {
     color: var(--text-secondary);
 }
 
-
 input[type="color"] {
     background-color: transparent;
     outline: none;
@@ -210,7 +209,6 @@ input[type="checkbox"] {
     padding: 0;
     display: inline-block;
     cursor: pointer;
-
     &:focus {
         box-shadow: none;
     }
