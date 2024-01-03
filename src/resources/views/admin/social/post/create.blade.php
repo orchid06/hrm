@@ -14,9 +14,9 @@
           <div class="col-xl-7">
             <div class="i-card-md">
               <div class="card--header">
-                <h4 class="card-title">
-                  {{translate('Create your post')}}
-                </h4>
+                    <h4 class="card-title">
+                    {{translate('Create your post')}}
+                    </h4>
               </div>
 
               <div class="card-body">
@@ -173,16 +173,18 @@
                         {{translate('Choose Profile')}}
                       </label>
 
-                    <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
-                            <div class="choose-profile-left">
-                                <i class="bi bi-person-badge"></i>
-                                {{translate("Select a profile")}}
-                            </div>
+                       <ul class="selected-profile"></ul>
 
-                            <ul class="selected-profile"></ul>
+                        <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                                <div class="choose-profile-left">
+                                    <i class="bi bi-person-badge"></i>
+                                    {{translate("Select a profile")}}
+                                </div>
 
-                            <span><i class="bi bi-chevron-down"></i></span>
-                    </div>
+                                <span>
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                        </div>
 
                        <div class="collapse mt-2" id="selectProfile">
                            <div class="choose-profile-body">
@@ -473,7 +475,7 @@
 
 
 <div class="modal fade" id="aiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="aiModal"   aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -763,15 +765,21 @@
             enableTime: true,
         });
 
-        $(document).on('click','.check_account',function(e) {
 
+        $(document).on('click','.check_account',function(e) {
             var accountName = $(this).attr('data-account_name');
             var platformName = $(this).attr('data-platform_name');
             var image =  $(this).attr('data-image');
-            $(".choose-profile-left").remove();
+
+            // $(".choose-profile-left").remove();
+
+              if ($('.selected-profile-item').length > 0) {
+                    $(".selected-profile").addClass('mb-2');
+              }else{
+                 $(".selected-profile").removeClass('mb-2');
+              }
 
             var id = $(this).attr('data-id');
-
 
             var html = `<li class="selected-profile-item">
                 <span class="channel-icon">
@@ -782,13 +790,11 @@
             </li>`;
 
             $(".selected-profile").append(html);
-            
 
         });
 
 
         $(document).on('click','.account_remove',function(e) {
-
             var remove_id = $(this).attr('data-id');
             $(`#account-${remove_id}`).prop('checked', false);
             $(this).parent().parent().remove();
