@@ -83,74 +83,75 @@
       </div>
 
       <div class="blog-slider-wrapper ms-0">
-        <div class="row gx-4 gy-xl-5 gy-4 justify-content-center">
+        <div class="row gx-4 gy-xl-5 gy-4">
                 @forelse($blogs  as $blog)
                     <div class="col-lg-4 col-md-6">
                         <div class="blog-item fade-item">
-                        <div class="blog-img">
-                            <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
+                            <div class="blog-img">
+                                <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
 
-                            <div class="blog-card__pop">
-                            <span class="shape shape-left">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="120"
-                                height="120"
-                                viewBox="0 0 120 120"
-                                fill="none"
-                                >
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                />
-                                </svg>
-                            </span>
-                            <a href="{{route('blog.details',$blog->slug)}}">
-                                <i class="bi bi-arrow-up-right"></i>
-                            </a>
-                            <span class="shape shape-right">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="120"
-                                height="120"
-                                viewBox="0 0 120 120"
-                                fill="none"
-                                >
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                />
-                                </svg>
-                            </span>
-                            </div>
-                        </div>
-
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                            <span>{{get_date_time($blog->created_at,"F j, Y")}}</span>
-                            <span> {{get_date_time($blog->created_at," g a")}}</span>
+                                <div class="blog-card__pop">
+                                <span class="shape shape-left">
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="120"
+                                    height="120"
+                                    viewBox="0 0 120 120"
+                                    fill="none"
+                                    >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
+                                    />
+                                    </svg>
+                                </span>
+                                <a href="{{route('blog.details',$blog->slug)}}">
+                                    <i class="bi bi-arrow-up-right"></i>
+                                </a>
+                                <span class="shape shape-right">
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="120"
+                                    height="120"
+                                    viewBox="0 0 120 120"
+                                    fill="none"
+                                    >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
+                                    />
+                                    </svg>
+                                </span>
+                                </div>
                             </div>
 
-                            <a href="{{route('blog.details',$blog->slug)}}" class="blog-title">
-                                <h4>
-                                    {{limit_words($blog->title,28)}}
-                                </h4>
-                            </a>
+                            <div class="blog-content">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                    <div class="blog-meta">
+                                        <span>{{get_date_time($blog->created_at,"F j, Y")}}</span>
+                                        <span> {{get_date_time($blog->created_at," g a")}}</span>
+                                    </div>
 
-                            <ul class="blog-tags">
-                                 <li><a href="{{route('blog',['category' =>$blog->category->slug ])}}">  {{$blog->category->title}}</a></li>
-                            </ul>
-                        </div>
+                                    <ul class="blog-tags mt-0">
+                                        <li><a href="{{route('blog',['category' =>$blog->category->slug ])}}">  {{$blog->category->title}}</a></li>
+                                    </ul>
+
+                                </div>
+
+                                <a href="{{route('blog.details',$blog->slug)}}" class="blog-title">
+                                    <h4>
+                                        {{limit_words($blog->title,28)}}
+                                    </h4>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @empty
-
                    <div class="col-12 justify-content-center text-center">
                        @include("frontend.partials.not_found")
                    </div>
-
                 @endforelse
 
         </div>
@@ -160,7 +161,7 @@
            {{ $blogs->links() }}
       </div>
     </div>
-  </section>
+</section>
 
 
   @include('frontend.partials.page_section')

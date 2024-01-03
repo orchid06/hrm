@@ -12,29 +12,30 @@
       <div class="row align-items-center gy-4">
         <div class="col-lg-8 mx-auto">
           <div class="inner-banner-content text-center">
-            <h2>{{@$planSection->value->title}}</h2>
-            <p>
-                {{@$planSection->value->description}}
-            </p>
-            <div class="mt-5 d-flex justify-content-center">
-              <div class="nav plan-tab" role="tablist">
-                @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-                    <button
-                        class="nav-link {{$loop->index  == 0 ? 'active' :''}}"
-                        id="{{$key}}-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#{{$key}}"
-                        type="button"
-                        role="tab"
-                        aria-controls="{{$key}}"
-                        aria-selected="true">
-                        {{
-                            ucfirst(strtolower($key))
-                        }}
-                    </button>
-                @endforeach
-              </div>
-            </div>
+                <h2>{{@$planSection->value->title}}</h2>
+                <p>
+                    {{@$planSection->value->description}}
+                </p>
+
+                <div class="mt-5 d-flex justify-content-center">
+                <div class="nav plan-tab" role="tablist">
+                    @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
+                        <button
+                            class="nav-link {{$loop->index  == 0 ? 'active' :''}}"
+                            id="{{$key}}-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#{{$key}}"
+                            type="button"
+                            role="tab"
+                            aria-controls="{{$key}}"
+                            aria-selected="true">
+                            {{
+                                ucfirst(strtolower($key))
+                            }}
+                        </button>
+                    @endforeach
+                </div>
+                </div>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@
                           </a>
                         </div>
                         <div class="plan-detail-body">
-                          <ul>
+                          <ul class="mb-0">
                             @foreach (plan_configuration( $plan) as $configKey => $configVal )
                               <li>
                                 <span>
