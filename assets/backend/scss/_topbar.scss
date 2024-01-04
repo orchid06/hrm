@@ -208,6 +208,10 @@
           align-items: center;
           justify-content: center;
           z-index: 1;
+          @include md-down-device{
+            width: 12px;
+            height: 12px;
+          }
         }
         .dropdown-menu {
           width: 320px;
