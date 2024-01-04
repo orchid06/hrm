@@ -58,7 +58,7 @@ class SocialAccountController extends Controller
 
             'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform'])
                                     ->where("user_id",$this->user->id)
-                                    ->filter(["status",'platform:slug'])
+                                    ->filter(["status",'platform:slug','name'])
                                     ->latest()
                                     ->paginate(paginateNumber())
                                     ->appends(request()->all()),

@@ -847,9 +847,9 @@ return [
         '101NEX' => [
             "name" => "Nexmo",
             "credential" => ([
-                'api_key' => "#",
-                'api_secret' => "#",
-                'sender_id' => "#"
+                'api_key' => "@@",
+                'api_secret' => "@@",
+                'sender_id' => "@@"
             ]),
             'default' => StatusEnum::true->status()
         ],
@@ -857,24 +857,24 @@ return [
         '104INFO' => [
             "name" => "InfoBip",
             "credential" => ([
-                'sender_id' => "#",
-                'infobip_api_key' => "#",
-                'infobip_base_url' => "#"
+                'sender_id' => "@@",
+                'infobip_api_key' => "@@",
+                'infobip_base_url' => "@@"
             ])
 
         ],
         '102TWI' => [
             "name" => "Twilio",
             "credential" => ([
-                'account_sid' => "#",
-                'auth_token' => "#",
-                'from_number' => "#"
+                'account_sid' => "@@",
+                'auth_token' => "@@",
+                'from_number' => "@@"
             ])
         ],
         '103BIRD' => [
             "name" => "Message Bird",
             "credential" => ([
-                'access_key' => "#",
+                'access_key' => "@@",
 
             ])
         ]
@@ -885,15 +885,15 @@ return [
         '101SMTP' => [
             "name" => "SMTP",
             "credential" => ([
-                'driver' => "#",
-                'host' => "#",
-                'port' => "#",
-                'encryption' => "#",
-                'username' => "#",
-                'password' => "#",
+                'driver' => "@@",
+                'host' => "@@",
+                'port' => "@@",
+                'encryption' => "@@",
+                'username' => "@@",
+                'password' => "@@",
                 "from" => [
-                    "address" => "#",
-                    "name" => "#",
+                    "address" => "@@",
+                    "name" => "@@",
                 ]
             ]),
             'default' => StatusEnum::true->status()
@@ -906,10 +906,10 @@ return [
         '102SENDGRID' => [
             "name" => "SendGrid Api",
             "credential" => ([
-                'app_key' => "#",
+                'app_key' => "@@",
                 "from" => [
-                    "address" => "#",
-                    "name" => "#",
+                    "address" => "@@",
+                    "name" => "@@",
                 ]
 
             ])
@@ -1010,10 +1010,10 @@ return [
 
         'facebook' => [
             'credential' => [
-                'client_id'     => '#',
-                'client_secret' => '#',
-                'app_version'   => '#',
-                'graph_api_url'   => '#',
+                'client_id'     => '@@',
+                'client_secret' => '@@',
+                'app_version'   => '@@',
+                'graph_api_url'   => '@@',
                 'group_url'   => 'https://www.facebook.com/groups',
             ],
             'is_integrated' => StatusEnum::true->status(),
@@ -1022,10 +1022,10 @@ return [
         'instagram' => [
            
             'credential' => [
-                'client_id'     => '#',
-                'client_secret' => '#',
-                'app_version'   => '#',
-                'graph_api_url'   => '#',
+                'client_id'     => '@@',
+                'client_secret' => '@@',
+                'app_version'   => '@@',
+                'graph_api_url'   => '@@',
             ],
 
             'is_integrated' => StatusEnum::true->status(),
@@ -1036,9 +1036,9 @@ return [
         "twitter" => [
 
             'credential' => [
-                'client_id'        => '#',
-                'client_secret'    => '#',
-                'app_version'      => '#',
+                'client_id'        => '@@',
+                'client_secret'    => '@@',
+                'app_version'      => '@@',
             ],
             'is_integrated' => StatusEnum::true->status(),
             'official'      => StatusEnum::false->status(),
@@ -1048,8 +1048,8 @@ return [
         
         'linkedin' => [
             'credential' => [
-                'client_id'        => '#',
-                'client_secret'    => '#',
+                'client_id'        => '@@',
+                'client_secret'    => '@@',
             ],
             'is_integrated' => StatusEnum::true->status(),
             'unofficial'    => StatusEnum::false->status(),
@@ -1057,10 +1057,10 @@ return [
         'youtube' => [
 
             'credential' => [
-                'client_id'     => '#',
-                'client_secret' => '#',
-                'app_version'   => '#',
-                'graph_api_url'   => '#'
+                'client_id'     => '@@',
+                'client_secret' => '@@',
+                'app_version'   => '@@',
+                'graph_api_url'   => '@@'
             ],
             'is_integrated' => StatusEnum::false->status(),
 
@@ -1068,8 +1068,8 @@ return [
         ],
         'tikTok' => [
             'credential' => [
-                'client_id'        => '#',
-                'client_secret'    => '#',
+                'client_id'        => '@@',
+                'client_secret'    => '@@',
             ],
             'is_integrated' => StatusEnum::false->status(),
         ]

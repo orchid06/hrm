@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
 use App\Http\Controllers\Admin\SocialPostController;
+use App\Http\Controllers\SystemUpdateController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\TryCatch;
@@ -578,6 +579,28 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                });
 
           });
+
+
+
+          /** system update */
+
+
+          Route::controller(SystemUpdateController::class)->name('system.')->prefix('system/')->group(function () {
+
+               Route::any('/update/init','init')->name('update.init');
+               Route::post('/update','update')->name('update');
+    
+
+          });
+
+
+     
+
+
+
+
+
+          
 
 
 

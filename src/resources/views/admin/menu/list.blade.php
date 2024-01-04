@@ -158,7 +158,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label class="form-label" for="name">
                                         {{translate('Name')}} 

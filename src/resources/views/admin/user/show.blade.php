@@ -88,7 +88,7 @@
     </div>
 </div>
 <div class="row g-4 mb-4">
-    <div class="col-6">
+    <div class="col-lg-6">
         <button type="button"   class="i-btn btn--sm success deposit-balance">
             <i class="las la-plus me-1"></i>  {{translate('Deposit')}}
         </button>
@@ -247,7 +247,7 @@
                             </div>
 
                             @foreach (['city','state','postal_code','address'] as $address_key )
-                                <div class="col-6">
+                                <div class="col-lg-6">
                                     <div class="form-inner">
                                         <label for="{{$address_key}}">
                                             {{k2t($address_key)}}
@@ -257,7 +257,7 @@
                                 </div> 
                             @endforeach
 
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="image">
                                         {{translate('Profile Image')}}
@@ -285,23 +285,31 @@
                                     <input type="text" id="password_confirmation" name="password_confirmation"   placeholder="{{translate('Enter Confrim Password')}}" >
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-xl-7 col-lg-12">
                                 <div class="form-inner">
-                                    <input id="email_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->email_verified_at ? "checked" :""}} class="form-check-input me-1" name="email_verified" type="checkbox"   >
-                                    <label for="email_verified" class="form-check-label me-3">
-                                         {{translate('Email Verified')}}
-                                    </label>
-                                    <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
-                                    <label for="auto_subscription" class="form-check-label me-3">
-                                         {{translate('Auto Subscription')}}
-                                    </label>
-                                    <input id="is_kyc_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->is_kyc_verified ? "checked" :""}} class="form-check-input me-1" name="is_kyc_verified" type="checkbox"   >
-                                    <label for="is_kyc_verified" class="form-check-label me-3">
-                                         {{translate('Kyc Verified')}}
-                                    </label>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <input id="email_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->email_verified_at ? "checked" :""}} class="form-check-input me-1" name="email_verified" type="checkbox"   >
+                                            <label for="email_verified" class="form-check-label me-3">
+                                                {{translate('Email Verified')}}
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
+                                            <label for="auto_subscription" class="form-check-label me-3">
+                                                {{translate('Auto Subscription')}}
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input id="is_kyc_verified" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->is_kyc_verified ? "checked" :""}} class="form-check-input me-1" name="is_kyc_verified" type="checkbox"   >
+                                            <label for="is_kyc_verified" class="form-check-label me-3">
+                                                {{translate('Kyc Verified')}}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-12">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}
                                 </button>

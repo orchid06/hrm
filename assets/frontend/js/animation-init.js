@@ -110,7 +110,7 @@
         gsap.to(batch, {
           autoAlpha: 1,
           duration: 0.3,
-          stagger: 0.1,
+          stagger: 0.5,
           overwrite: true,
         }),
       onLeave: (batch) =>

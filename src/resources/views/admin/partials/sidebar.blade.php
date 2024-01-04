@@ -6,7 +6,9 @@
         src='{{imageUrl(@site_logo("site_logo")->file,"site_logo",true)}}'
         alt="{{@site_logo('site_logo')->file->name}}" />
     </a>
+
   </div>
+
   <div class="sidebar-menu-container" data-simplebar>
     <ul class="sidebar-menu">
         @if(check_permission('view_dashboard'))
@@ -24,7 +26,7 @@
           <li class="sidebar-menu-item">
               <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
                 aria-expanded="false" aria-controls="socialFeed">
-              <span><i class="las la-photo-video"></i></i></span>
+              <span><i class="las la-photo-video"></i></span>
                 <p>
                   {{translate('Post Feed')}}
                 </p>
@@ -834,22 +836,40 @@
           </li>
       @endif
 
-    
-
-
+  
       @if(check_permission('view_settings'))
         <li class="sidebar-menu-title">
             {{translate('Softwae Info')}}
         </li>
         <li class="sidebar-menu-item">
-          <a class='sidebar-menu-link {{sidebar_awake("admin.setting.system.info")}}'  href='{{route("admin.setting.system.info")}}'>
-            <span><i class="lab la-accusoft"></i></span>
+            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.system.info")}}'  href='{{route("admin.setting.system.info")}}'>
+              <span><i class="lab la-accusoft"></i></span>
+              <p>
+                {{translate('Software Info')}}
+              </p>
+            </a>
+        </li>
+
+
+        <li class="sidebar-menu-item">
+          <a class='sidebar-menu-link {{sidebar_awake("admin.system.update.init")}}'  href='{{route("admin.system.update.init")}}'>
+            <span><i class="las la-tools"></i></span>
             <p>
-              {{translate('Software Info')}}
+              {{translate('System Update')}}
+
+
+              <span class="i-badge danger">
+        
+                   {{translate('V')}}{{site_settings("app_version",1.1)}}
+          
+              </span>
             </p>
           </a>
-        </li>
+      </li>
+
+
       @endif
+
     </ul>
   </div>
 </div>

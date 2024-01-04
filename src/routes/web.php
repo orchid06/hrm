@@ -17,6 +17,7 @@ use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\SocialAccountController;
 use App\Http\Controllers\User\TicketController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -30,8 +31,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    $globalMiddleware = ['sanitizer','https',"dos.security"];
+    try {
+        DB::connection()->getPdo();
+        if(DB::connection()->getDatabaseName()){
+            array_push($globalMiddleware,"throttle:refresh");
+        }
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
 
-    Route::middleware(['sanitizer',"throttle:refresh" ,"https" ,"dos.security"])->group(function (){
+    Route::middleware($globalMiddleware)->group(function (){
 
         #guest user route
         Route::middleware(['guest:web'])->name('auth.')->group(function () {
