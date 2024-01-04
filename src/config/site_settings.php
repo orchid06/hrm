@@ -7,10 +7,10 @@ use Predis\Response\Status;
 return [
 
     "site_name"      => "quick_pack",
-    "logo_icon"      => "#",
-    "site_logo"      => "#",
-    "user_site_logo" => "#",
-    "favicon"        => "#",
+    "logo_icon"      => "@@",
+    "site_logo"      => "@@",
+    "user_site_logo" => "@@",
+    "favicon"        => "@@",
     "phone"          => "0xxxxxxxx",
     "address"        => "",
 
@@ -58,8 +58,8 @@ return [
     "thousands_separator"           => ",",
     "price_format"                  => StatusEnum::false->status(),
     "truncate_after"                => 1000,
-    "slack_channel"                 => "#",
-    "slack_web_hook_url"            => "#",
+    "slack_channel"                 => "@@",
+    "slack_web_hook_url"            => "@@",
     "time_zone"                     => null,
     "site_seo"                      => StatusEnum::false->status(),
     "app_debug"                     => StatusEnum::false->status(),
@@ -113,36 +113,36 @@ return [
     'max_file_size'   => 20000,
     "max_file_upload" => 4,
     'aws_s3' => json_encode( [
-        's3_key' => '#',
-        's3_secret' => '#',
-        's3_region' => '#',
-        's3_bucket' => '#',
+        's3_key' => '@@',
+        's3_secret' => '@@',
+        's3_region' => '@@',
+        's3_bucket' => '@@',
 
     ]),
 
     'ftp' => json_encode( [
-        'host'      => '#',
-        'port'      => '#',
-        'user_name' => '#',
-        'password'  => '#',
+        'host'      => '@@',
+        'port'      => '@@',
+        'user_name' => '@@',
+        'password'  => '@@',
         'root'      => '/',
     ]),
 
     'pusher_settings' => json_encode( [
-        'app_id'      => '#',
-        'app_key'     => '#',
-        'app_secret'  => '#',
-        'app_cluster' => '#',
-        'chanel'      => '#',
-        'event'       => '#',
+        'app_id'      => '@@',
+        'app_key'     => '@@',
+        'app_secret'  => '@@',
+        'app_cluster' => '@@',
+        'chanel'      => '@@',
+        'event'       => '@@',
     ]),
 
     'database_notifications'    => StatusEnum::false->status(),
     'cookie'                    => StatusEnum::false->status(),
     'cookie_text'               => "demo cookie_text",
-    'google_map_key'            => "#",
+    'google_map_key'            => "@@",
     'geo_location'              => "map_base",
-    'sentry_dns'                => "#",
+    'sentry_dns'                => "@@",
     'login_attempt_validation'  =>  StatusEnum::false->status(),
     "max_login_attemtps"        => 5,
 
@@ -170,9 +170,9 @@ return [
     "dos_security"           => "captcha",
 
     "google_ads"                   => StatusEnum::false->status(),
-    'google_adsense_publisher_id'  => "#",
+    'google_adsense_publisher_id'  => "@@",
     "google_analytics"             => StatusEnum::false->status(),
-    'google_analytics_tracking_id' => "#",
+    'google_analytics_tracking_id' => "@@",
     
     'breadcrumbs'                  => StatusEnum::true->status(),
 
@@ -191,16 +191,16 @@ return [
     "ai_result_length"      => 20,
     "ai_bad_words"          => null,
     "open_ai_model"         => null,
-    "open_ai_secret"        => "#",
+    "open_ai_secret"        => "@@",
     "ai_key_usage"          => StatusEnum::false->status(),
-    "rand_api_key"          => "#",
+    "rand_api_key"          => "@@",
 
     "subscription_carry_forword" => StatusEnum::false->status(),
     "auto_subscription"          => StatusEnum::false->status(),
     "auto_subscription_package"  => null,
 
     "signup_bonus"          => null,
-    "webhook_api_key"       => "#",
+    "webhook_api_key"       => "@@",
     "kyc_settings"          => json_encode(
     [
         [

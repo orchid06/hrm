@@ -36,17 +36,19 @@ class RouteServiceProvider extends ServiceProvider
       
         
         $this->routes(function () {
+
+            Route::middleware('web')
+            ->group(base_path('routes/installer.php'));
+
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
-
 
             Route::middleware('web')
                 ->group(base_path('routes/payment.php'));
 
             Route::middleware('web')
                 ->group(base_path('routes/admin.php'));
-
                 Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
@@ -60,7 +62,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting() :void
     {
 
+
         try {
+            
             $hitLimit = site_settings('api_route_rate_limit');
 
             RateLimiter::for('api', function (Request $request) use($hitLimit) {
@@ -101,8 +105,6 @@ class RouteServiceProvider extends ServiceProvider
 
 
         } catch (\Throwable $th) {
-
-       
         }
 
     }

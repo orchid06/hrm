@@ -68,17 +68,20 @@
 
                                     <div class="col-xl-5 offset-xl-3 col-md-8">
                                         <div class="search-area">
-                                            <form action="#" method="get">
+                                            <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                                                <input type="hidden" name="platform" value="{{request()->input('platform')}}">
 
                                                 <div class="form-inner">
-                                                    <input type="text" id="datePicker" name="date" value="" placeholder="Filter By Date" class="flatpickr-input" readonly="readonly">
+                                                    <input placeholder="{{translate('Search by name')}}" type="search" name="name" value="{{request()->input('value')}}">
+
                                                 </div>
 
                                                 <div class="d-flex gap-2">
                                                     <button class="i-btn primary btn--lg rounded">
                                                         <i class="bi bi-search"></i>
                                                     </button>
-                                                    <a href="#" class="i-btn danger btn--lg rounded">
+                                                    <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg rounded">
                                                         <i class="bi bi-arrow-repeat"></i>
                                                     </a>
                                                 </div>
