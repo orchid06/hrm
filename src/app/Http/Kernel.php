@@ -14,6 +14,7 @@ use App\Http\Middleware\Permissions;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\Sanitization;
 use App\Http\Middleware\SecurityMiddleware;
+use App\Http\Middleware\SoftwareVerification;
 
 class Kernel extends HttpKernel
 {
@@ -32,6 +33,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
     ];
 
 
@@ -50,7 +52,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             LanguageMiddleware::class,
-            CurrencySwitcher::class
+            CurrencySwitcher::class,
+            SoftwareVerification::class,
         
         ],
 

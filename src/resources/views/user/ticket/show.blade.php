@@ -214,8 +214,6 @@
         @endif
     </div>
 </div>
-
-
 @endsection
 
 @push('script-include')

@@ -94,8 +94,8 @@
 
         $(".selec2").select2({
             placeholder:"{{translate('Select Priority')}}",
-
         })
+        
 	})(jQuery);
 </script>
 @endpush

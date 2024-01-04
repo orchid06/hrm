@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\StatusEnum;
 use Closure;
 use Illuminate\Http\Request;
-use Predis\Response\Status;
 use Symfony\Component\HttpFoundation\Response;
 
-class HttpsMiddleware
+class SoftwareVerification
 {
     /**
      * Handle an incoming request.
@@ -17,15 +15,7 @@ class HttpsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        try {
-            if(site_settings('force_ssl') == StatusEnum::true->status() && $request->secure()){
-                return redirect()->secure($request->getPathInfo());
-            }
-            return $next($request);
-            
-        } catch (\Throwable $th) {
-         
-        }
+
         return $next($request);
     }
 }
