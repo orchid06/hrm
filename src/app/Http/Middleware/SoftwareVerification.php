@@ -16,6 +16,11 @@ class SoftwareVerification
     public function handle(Request $request, Closure $next): Response
     {
 
+        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
+        if (!file_exists($logFile)) {
+             return redirect()->route('install.init');
+        } 
+
         return $next($request);
     }
 }

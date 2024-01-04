@@ -138,7 +138,12 @@ class InstallerController extends Controller
     public function accountSetup(Request $request) :View |RedirectResponse
     {
         try {
+
+            optimize_clear();
+          
             $this->_dbMigrate();
+            
+
             $request->validate([
                 'username' => 'required|max:155',
                 'email'    => 'required|email|max:155',
