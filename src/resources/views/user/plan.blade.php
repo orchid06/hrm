@@ -86,7 +86,7 @@
                                   </div>
 
                                   <div class="plan-detail-body">
-                                      <ul>
+                                      <ul class="mb-0">
 
                                         @foreach (plan_configuration( $plan) as $configKey => $configVal )
                                             <li>

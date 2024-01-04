@@ -197,7 +197,6 @@
 
                               <ul class="profile-list mt-3" data-simplebar>
                                     @foreach ($accounts as $account)
-
                                         <li class="profile-item">
                                             <label for="account-{{$account->id}}">
                                                 <div class="profile-item-meta">
@@ -219,8 +218,8 @@
 
                                                 <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" data-id="{{$account->id}}" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0 check_account" name="selected-profile" type="checkbox"
                                                 data-account_name="{{$account->name}}" data-platform_name="{{$account->platform->name}}"
-                                                data-image="{{imageUrl(@$account->platform->file,"platform",true)}}">
-
+                                                data-platform_image="{{imageUrl(@$account->platform->file,"platform",true)}}"
+                                                data-profile_image = "{{@$account->account_information->avatar}}">
                                             </label>
                                         </li>
                                     @endforeach
@@ -767,16 +766,23 @@
 
 
         $(document).on('click','.check_account',function(e) {
-            var accountName = $(this).attr('data-account_name');
-            var platformName = $(this).attr('data-platform_name');
-            var image =  $(this).attr('data-image');
+            var accountName    = $(this).attr('data-account_name');
+            var platformName   = $(this).attr('data-platform_name');
+            var platform_image = $(this).attr('data-platform_image');
+            var profile_image  = $(this).attr('data-profile_image');
 
             var id = $(this).attr('data-id');
 
             var html = `<li id="list-account-${id}" class="selected-profile-item">
-                <span class="channel-icon">
-                    <img src="${image}" alt="google" border="0">
-                </span>
+                <div class="post-profile">
+                    <div class="post-profile-img">
+                        <img src="${profile_image}" alt="${profile_image}">
+                    </div>
+
+                    <span class="channel-icon">
+                        <img src="${platform_image}" alt="${platform_image}">
+                    </span>
+                </div>
 
                 <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
             </li>`;
@@ -794,7 +800,6 @@
             }
 
         });
-
 
         $(document).on('click','.account_remove',function(e) {
 

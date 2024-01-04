@@ -20,7 +20,7 @@
                  {{@$bannerContent->value->description}}
              </p>
              <div
-               class="d-flex align-items-center justify-content-center flex-wrap gap-lg-5 gap-4 mt-5">
+               class="banner-actions mt-5">
                <a href="{{url($bannerContent->value->button_left_url)}}" class="i-btn btn--primary btn--lg capsuled">
                     {{@$bannerContent->value->button_left_name}}
                </a>

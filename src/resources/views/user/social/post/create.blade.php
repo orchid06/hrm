@@ -189,43 +189,50 @@
                                     {{translate('Choose Profile')}}
                                 </label>
 
+                                 <ul class="selected-profile"></ul>
+
                                 <div class="choose-profile-btn w-100" role="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
                                     <div class="choose-profile-left">
                                         <i class="bi bi-person-badge"></i>
                                         {{translate("Select a profile")}}
                                     </div>
-                                    <span><i class="bi bi-chevron-down"></i></span>
+
+                                    <span>
+                                        <i class="bi bi-chevron-down"></i>
+                                    </span>
                                 </div>
 
                                 <div class="collapse mt-2" id="selectProfile">
                                     <div class="choose-profile-body">
                                         <div class="px-3">
-                                                <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
+                                            <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
                                         </div>
 
                                         <ul class="profile-list mt-3" data-simplebar>
-                                                @foreach ($accounts as $account )
-                                                    <li class="profile-item">
-                                                        <label for="{{$account->id}}">
-                                                            <div class="profile-item-meta">
-                                                                <div class="profile-item-img">
-                                                                    <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
-                                                                </div>
-
-                                                                <div>
-                                                                    <h6 class="account-name">
-                                                                        {{$account->name}}
-                                                                    </h6>
-
-
-                                                                    {{$account->platform->name}}
-
-                                                                </div>
+                                            @foreach ($accounts as $account )
+                                                <li class="profile-item">
+                                                    <label for="account-{{$account->id}}">
+                                                        <div class="profile-item-meta">
+                                                            <div class="profile-item-img">
+                                                                <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
                                                             </div>
-                                                            <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0" name="selected-profile" type="checkbox">
-                                                        </label>
-                                                    </li>
-                                                @endforeach
+
+                                                            <div>
+                                                                <h6 class="account-name">
+                                                                    {{$account->name}}
+                                                                </h6>
+                                                                {{$account->platform->name}}
+                                                            </div>
+                                                        </div>
+
+                                                        <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input check_account mt-0" name="selected-profile" type="checkbox"
+                                                        data-id="{{$account->id}}"
+                                                        data-account_name="{{$account->name}}"
+                                                        data-platform_image="{{imageUrl(@$account->platform->file,"platform",true)}}"
+                                                        data-profile_image = "{{@$account->account_information->avatar}}">
+                                                    </label>
+                                                </li>
+                                            @endforeach
                                         </ul>
 
                                         <div class="choose-profile-footer">
@@ -754,8 +761,52 @@
             enableTime: true,
         });
 
+        // Choose Profiles
+        $(document).on('click','.check_account',function(e) {
+            var accountName = $(this).attr('data-account_name');
+            var platformName = $(this).attr('data-platform_name');
+            var profile_image =  $(this).attr('data-profile_image');
+            var platform_image =  $(this).attr('data-platform_image');
+
+            var id = $(this).attr('data-id');
+
+            var html = `<li id="list-account-${id}" class="selected-profile-item">
+                <div class="post-profile">
+                    <div class="post-profile-img">
+                        <img src="${profile_image}" alt="${profile_image}">
+                    </div>
+
+                    <span class="channel-icon">
+                        <img src="${platform_image}" alt="${platform_image}">
+                    </span>
+                </div>
 
 
+                <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
+            </li>`;
+
+
+            if ($(this).is(':checked')) {
+               $(".selected-profile").append(html);
+            }else{
+                $(`#list-account-${id}`).remove()
+            }
+
+
+            if ($(".selected-profile").children().length >= 0) {
+                $(".selected-profile").addClass('mb-2');
+            }else{
+                $(".selected-profile").removeClass('mb-2');
+            }
+
+        });
+
+        $(document).on('click','.account_remove',function(e) {
+            var remove_id = $(this).attr('data-id');
+            $(`#account-${remove_id}`).prop('checked', false);
+            $(this).parent().parent().remove();
+
+        });
 
 
 	})(jQuery);
