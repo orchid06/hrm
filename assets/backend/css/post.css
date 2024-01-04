@@ -654,15 +654,6 @@
 .selected-profile-item > p > span:hover {
   color: var(--color-danger);
 }
-.channel-icon {
-  width: 18px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .choose-profile-btn {
   display: flex;
