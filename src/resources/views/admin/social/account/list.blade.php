@@ -19,7 +19,7 @@
                 <ul class="nav nav-tabs gap-4 social-account-list" role="tablist">
                     @forelse ($platforms as $platform )
                         @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
-                            <li class="d-flex nav-item justify-content-between align-items-center gap-3 px-3">
+                            <li class="d-flex nav-item justify-content-between align-items-center gap-md-3 gap-1 px-3">
                                 <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
                                 </a>
                                 <a class="nav-link border-0 flex-grow-1 {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >

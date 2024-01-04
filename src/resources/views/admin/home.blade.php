@@ -190,7 +190,7 @@
         </h4>
       </div>
       <div class="card-body">
-          <div class="row g-0 text-center mb-5">
+          <div class="row g-2 text-center mb-5">
           
             <div class="col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
@@ -235,7 +235,7 @@
       </div>
       <div class="card-body">
         <div id="accountReport" class="apex-chart"></div>
-        <div class="row g-0 text-center">
+        <div class="row g-2 text-center">
           
           <!--end col-->
           <div class="col-sm-6">
@@ -386,7 +386,7 @@
         </h4>
       </div>
       <div class="card-body">
-        <div class="row g-0 mb-4">
+        <div class="row g-2 mb-4">
           <div class="col-sm-4">
             <div class="p-3 border text-center border-dashed border-start-0">
               <h5 class="mb-1">
@@ -483,7 +483,7 @@
       </div>
       <div class="card-body">
         <div id="planReport" class="apex-chart"></div>
-        <div class="row g-0 text-center">
+        <div class="row g-2 text-center">
           <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1">

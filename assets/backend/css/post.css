@@ -735,7 +735,9 @@
   flex: 0 0 40px;
   width: 40px;
   height: 40px;
+  border: 1px solid #eee;
   overflow: hidden;
+  border-radius: 50%;
 }
 .profile-item-meta h6 {
   font-size: 14px;

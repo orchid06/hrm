@@ -1,9 +1,11 @@
 <header class="header">
   @php
-      $lang = $languages->where('code',session()->get('locale'));
-      $code = count($lang)!=0 ? $lang->first()->code:"en";
-      $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
+      $lang       = $languages->where('code',session()->get('locale'));
+      $code       = count($lang)!=0 ? $lang->first()->code:"en";
+      $languages  = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
+      $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
   @endphp
+
 
     <div class="header-container">
         <div class="d-flex align-items-center gap-3">
@@ -246,10 +248,11 @@
                         aria-expanded="false">
                         {{session()->get('currency')?->code}}
                     </button>
+    
 
-                    @if(site_currencies() && !site_currencies()->isEmpty())
+                    @if($currencies->count() > 0)
                         <ul class="dropdown-menu dropdown-menu-end">
-                            @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+                            @foreach($currencies as $currency)
                                 <li>
                                     <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
                                 </li>
