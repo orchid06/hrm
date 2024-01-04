@@ -18,8 +18,6 @@ trait InstallerManager
 
    
 
-
-
     public function is_installed() :bool{
         return false;
     }
@@ -321,9 +319,6 @@ trait InstallerManager
             ['key'    => "envato_username"],
             ['value'  => env('ENVATO_USERNAME')]
         );
-
-        
-   
 
     }
 
