@@ -70,9 +70,9 @@
                     <li class="menu-item">
                         <a href="javascript:void(0)" class="menu-link">
                         {{@$megaMenu->value->title}}
-                        <div class="menu-link-icon">
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
+                            <div class="menu-link-icon">
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
                         </a>
 
                         <div class="mega-menu container-lg px-0">
@@ -132,16 +132,14 @@
                                                     <div class="mega-menu-integra">
 
                                                         @forelse ($platforms   as  $platform)
-                                                        <a href="#" class="menu-social-item">
+                                                        <a href="{{route('user.social.post.create')}}" class="menu-social-item">
                                                             <div class="social-item-img">
-                                                            <img
-                                                            src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                            alt="{{@$platform->file->name}}"
-                                                            loading="lazy" />
+                                                               <img src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                                                 alt="{{@$platform->file->name}}" loading="lazy" />
                                                             </div>
                                                             <div>
-                                                            <h6> {{$platform->name}}</h6>
-                                                            <p>     {{$platform->description}}</p>
+                                                                <h6> {{$platform->name}}</h6>
+                                                                <p>     {{$platform->description}}</p>
                                                             </div>
                                                         </a>
                                                         @empty
@@ -216,47 +214,44 @@
         <div class="nav-right d-flex jsutify-content-end align-items-center gap-sm-3 gap-2">
             <div class="lang">
                 <div class="dropdown">
-                <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="flag">
-                        <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-                    </span>
-                </button>
+                    <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="flag">
+                            <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
+                        </span>
+                    </button>
 
-                @if(!$languages->isEmpty())
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        @foreach($languages as $language)
-                            <li>
-                            <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                                <span class="flag">
-                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                                </span>
-                                {{$language->name}}
-                            </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+                    @if(!$languages->isEmpty())
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @foreach($languages as $language)
+                                <li>
+                                    <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                                        <span class="flag">
+                                                <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                                        </span>
+                                        {{$language->name}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
 
             <div class="currency">
-                    <button
-                        class="dropdown-toggle"
+                    <button class="dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        >
+                        aria-expanded="false">
                         {{session()->get('currency')?->code}}
                     </button>
 
                     @if(site_currencies() && !site_currencies()->isEmpty())
                         <ul class="dropdown-menu dropdown-menu-end">
-                        @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-                            <li>
-                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
-                            </li>
-                        @endforeach
-
+                            @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
+                                <li>
+                                    <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     @endif
             </div>
@@ -282,8 +277,8 @@
                             </li>
 
                             <li>
-                                <a href="{{route('user.profile')}}" class="dropdown-item" >
-                                    <i class="bi bi-person"></i> {{translate('Profile')}}
+                                <a href="{{route('user.home')}}" class="dropdown-item" >
+                                    <i class="bi bi-person"></i> {{translate('Home')}}
                                 </a>
                             </li>
 

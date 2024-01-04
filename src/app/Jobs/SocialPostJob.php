@@ -29,7 +29,6 @@ class SocialPostJob implements ShouldQueue
     public function handle(): void
     {
         $post = SocialPost::pending()->with(['user','admin','account','file','account.platform'])->find($this->id);
-
         if($post){
             $this->publishPost($post);
         }

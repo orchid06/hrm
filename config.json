@@ -1,0 +1,18 @@
+{
+  "version": "1.3",
+  "release_date": "10/17/2023",
+  "migrations": {
+       "1.2":[
+        "database/migrations/2023_12_17_104245_add_column_to_prioritxies.php",
+        "database/migrations/2023_12_17_121249_add_column_to_admins.php",
+        "database/migrations/2023_12_17_121756_add_column_to_support_messages.php",
+        "database/migrations/2023_12_18_104510_create_visitors_table.php"
+       ],
+       "1.3":[
+        "database/migrations/2023_12_17_104245_add_column_to_priorities.php",
+        "database/migrations/2023_12_17_121249_add_column_to_admins.php",
+        "database/migrations/2023_12_17_121756_add_column_to_support_messages.php",
+        "database/migrations/2023_12_18_104510_create_visitors_table.php"
+       ]
+  }
+}

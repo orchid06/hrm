@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             // PageSeeder::class,
             // TemplateSeeder::class,
 
-            PlatformSeeder::class,
+            // PlatformSeeder::class,
 
 
         ]);

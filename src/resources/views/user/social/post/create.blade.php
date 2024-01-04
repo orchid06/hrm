@@ -634,18 +634,21 @@
 
                     <div class="content-form  d-none ai-content-div">
                         <div class="form-inner">
-                            <label for="content">
-                                {{translate("Content")}} <small class="text-danger">*</small>
-                            </label>
+               
+                               
+                             <div class="d-flex gap-2 align-items-center mb-2">
+                                
+                                    <label for="content">
+                                        {{translate("Content")}} <small class="text-danger">*</small>
+                                    </label>
+                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="icon-btn icon-btn-sm success copy-content">
+                                        <i class="bi bi-clipboard-check"></i>
+                                    </button>
 
-
-                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="delete-item icon-btn info copy-content">
-                                <i class="las la-copy"></i>
-                            </button>
-
-                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="delete-item icon-btn success download-text">
-                                <i class="las la-download"></i>
-                            </button>
+                                    <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}" class="icon-btn icon-btn-sm info download-text">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                             </div>
 
                             <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
                         </div>

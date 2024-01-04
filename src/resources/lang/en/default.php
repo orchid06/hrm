@@ -41,9 +41,15 @@ return [
     published. Tests and updates by social networks may affect
     the final appearance. Report a difference you notice",
     'dashboard_plan_title' => 'Try our all new Enviroment with Pro Plan',
+    'system_update_title'  => 'Be Aware !!! Before Update',
+    'update_note'          => ' <li><i class="bi bi-check2-square"></i>You must take backup from your server (files & database)</li>
+    <li><i class="bi bi-check2-square"></i>Make Sure You have stable internet connection</li>
+    <li class="text-danger"><i class="bi bi-check2-square"></i>Do not close the tab while the process is running</li>',
     
 
     /** site  title  */
+
+    "already_installed" => "Already Installed",
     "blogs"     => 'Blogs',
     "feedback"  => 'Feedback',
     "contact"  =>  'Contacts',
@@ -55,7 +61,51 @@ return [
     "verify_email"    =>   'Verify Your email',
     "user_dashboard"    =>   'User dashboard',
     "on_click_note" => "Please be advised that the token obtained through the 'onclick' event for establishing a connection has a limited expiration time and will expire shortly. Kindly take note of this time constraint to ensure a timely and effective usage of the token.",
-    "tokenize_note" => "Extend the token expiry for uninterrupted posting. This optimization allows for a smoother workflow without the need for frequent regeneration. For inquiries or assistance, reach out anytime. Thank you for your cooperation in enhancing our operational efficiency."
+    "tokenize_note" => "Extend the token expiry for uninterrupted posting. This optimization allows for a smoother workflow without the need for frequent regeneration. For inquiries or assistance, reach out anytime. Thank you for your cooperation in enhancing our operational efficiency.",
+
+
+
+
+
+
+
+    /** installer  default lang */
+
+    "insaller_title" => "EngageHub Installer",
+    "insaller_subtitle" => "Please proceed step by step with proper data according to instructions",
+
+    'btn_next' => "Next",
+    'btn_previous' => "Previous",
+    
+    /** init step */
+    'init_title' => "Required Database Information",
+    "init_note" => "Before starting the installation process please collect this
+    information. Without this information, you won’t be able to complete the installation process",
+    'init_dbname' => "Database Name",
+    'init_dbpassword' => "Database Password",
+    'init_dbusername' => "Database Username",
+    'init_dbhost' => "Database Host",
+
+    /** requirment and permission step */
+
+    'requirments_title' => " Verify Requirments & File Permissions",
+
+    /** envato verification route */
+
+
+    'envato_verification_title' => "Update Purchase Information",
+    "envato_verification_note" => "rovide your username of codecanyon & the purchase code"
+
+
+
+
+
+
+
+
+
+
+
 
 
 
