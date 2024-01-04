@@ -22,7 +22,7 @@
                             <li class="d-flex nav-item justify-content-between align-items-center gap-md-3 gap-1 px-3">
                                 <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
                                 </a>
-                                <a class="nav-link border-0 flex-grow-1 {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
+                                <a class="nav-link border-0 flex-grow-1 {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
 
@@ -214,17 +214,17 @@
                                                           }
                                                 
                                                         @endphp
-                                                        <a data-account = "{{$account}}"; title="{{translate("Recnonect")}}"  href="{{$url}}" class=" {{$connectionClass ? "reconnect" : ""}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
+                                                        <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                         </a>
                                                      @endif
         
                                                     @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                            <a  title="{{translate("Show")}}"  href="{{route('admin.social.account.show',["uid" => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                            <a  title="{{translate('Show')}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                                             </a>
                                                     @endif
                                                     @if(check_permission('delete_account') )
 
-                                                        <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                        <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                             <i class="las la-trash-alt"></i>
                                                         </a>
                                                     @else

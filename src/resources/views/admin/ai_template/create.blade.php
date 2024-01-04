@@ -114,8 +114,7 @@
                                         {{translate('Prompt')}} <small class="text-danger">*</small>
                                     </label>
 
-                                    <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}
-                                    </textarea>
+                                    <textarea  placeholder='{{translate("Enter Prompt")}}' name="custom_prompt" id="customPrompt" cols="30" rows="2">{{old("custom_prompt")}}</textarea>
                                 </div>
                             </div>
 
@@ -154,7 +153,9 @@
 @push('script-push')
     <script>
     	(function($){
-           	"use strict";
+            
+           	  
+              "use strict";
 
                 $(".select2").select2({
     			   placeholder:"{{translate('Select Category')}}",

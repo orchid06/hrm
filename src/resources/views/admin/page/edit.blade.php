@@ -81,6 +81,7 @@
 <script>
 	(function($){
        	"use strict";
+        
         $(".selectMeta").select2({
             placeholder:"{{translate('Enter Keywords')}}",
             tags: true,

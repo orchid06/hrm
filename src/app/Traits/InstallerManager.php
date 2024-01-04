@@ -18,8 +18,6 @@ trait InstallerManager
 
    
 
-
-
     public function is_installed() :bool{
         return false;
     }
@@ -303,27 +301,16 @@ trait InstallerManager
     public function _systemInstalled() :void {
 
         $version = Arr::get(config("installer.core"),'appVersion',null);
-        Setting::updateOrInsert(
-            ['key'    => "app_version"],
-            ['value'  => $version]
-        );
-        Setting::updateOrInsert(
-            ['key'    => "system_installed_at"],
-            ['value'  => Carbon::now()]
-        );
-
-        Setting::updateOrInsert(
-            ['key'    => "purchase_key"],
-            ['value'  => env('PURCHASE_KEY')]
-        );
+        $data = [
+            ['key' => "app_version", 'value' => $version],
+            ['key' => "system_installed_at", 'value' => Carbon::now()],
+            ['key' => "purchase_key", 'value' => config('app.purchase_key')],
+            ['key' => "envato_username", 'value' => config('app.envato_username')],
+        ];
         
-        Setting::updateOrInsert(
-            ['key'    => "envato_username"],
-            ['value'  => env('ENVATO_USERNAME')]
-        );
-
-        
-   
+        foreach ($data as $item) {
+            Setting::updateOrInsert(['key' => $item['key']], $item);
+        }
 
     }
 

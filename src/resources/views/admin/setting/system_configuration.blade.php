@@ -51,7 +51,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Database Notifications') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate('Enable this module for notifications on database events (e.g., New Ticket Generation, New Messages) to users, agents, and administrators.') }}</small>
+                            <small>{{ translate('Enable this module for notifications on database events (e.g., New Ticket Generation, New Messages) to users, and administrators.') }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -71,7 +71,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Strong Password') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate('Enable this module for notifications on database events (e.g., New Ticket Generation, New Messages) to users, agents, and administrators.') }}</small>
+                            <small>{{ translate('Activating this module enhances password security through robust validation. Your commitment to enabling this feature strengthens our overall system integrity.') }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -91,7 +91,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Slack Notification') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("This Module  Enable Slack Notifications") }}</small>
+                            <small>{{ translate("Enabling this module ensures the activation of Slack notifications, enhancing real-time communication and fostering seamless collaboration within our professional environment") }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -106,11 +106,12 @@
                         </div>
                     </div>
                 </li>
+
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Force Ssl') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("This Module  Enable Slack Notifications") }}</small>
+                            <small>{{ translate("Enabling this feature mandates the use of HTTPS for your site.") }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -125,11 +126,33 @@
                         </div>
                     </div>
                 </li>
+
+
+                <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-0">{{ translate('Maintenance Mode') }}</h6>
+                        <p class="mb-0">
+                            <small>{{ translate("Enabling this feature initiates the site maintenance mode, ensuring a smooth transition to maintenance status for necessary updates and improvements") }}</small>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-switch form-switch-md" dir="ltr">
+                            <input
+                                {{ site_settings('maintenance_mode') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }}
+                                type="checkbox" class="form-check-input status-update"
+                                data-key='maintenance_mode'
+                                data-status='{{ site_settings('maintenance_mode') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
+                                data-route="{{ route('admin.setting.update.status') }}" id="maintenance_mode">
+                            <label class="form-check-label" for="maintenance_mode"></label>
+                        </div>
+                    </div>
+                </li>
+
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0">{{ translate('Kyc Verification') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("This Module  Enable Browser Notifications") }}</small>
+                            <small>{{ translate("Activating this feature enables the user KYC verification module, enhancing security and regulatory compliance for a more robust and reliable system") }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -149,7 +172,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Cookie Activation') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("Enabling this module activates the Accept Cookie prompt, allowing personalized user tracking with small files on their computer") }}</small>
+                            <small>{{ translate("Enable or disable the use of cookies for user sessions and tracking purposes.") }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -226,7 +249,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Max Login Attempt Validation') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("It allows users to sign in or register using their social media accounts") }}</small>
+                            <small>{{ translate("Enabling this feature implements maximum login attempts validation, enhancing security by preventing unauthorized access through controlled login attempts for user accounts") }}</small>
                         </p>
                     </div>
                     <div class="form-group">
@@ -267,7 +290,7 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Seo Configuration') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("By activating this feature, the system will seamlessly handle the removal of expired links and subscriptions. Additionally, you have the flexibility to configure the time duration, in days, after which the system will automatically delete expired data. You can conveniently manage this functionality within the designated 'App Settings' section. ") }}</small>
+                            <small>{{ translate("Enabling this feature activates SEO functionalities, optimizing online visibility and enhancing search engine performance for improved digital presence and accessibility") }}</small>
                         </p>
                     </div>
                     <div class="form-group">

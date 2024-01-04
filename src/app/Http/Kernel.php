@@ -9,6 +9,7 @@ use App\Http\Middleware\DemoMode;
 use App\Http\Middleware\HttpsMiddleware;
 use App\Http\Middleware\KycMiddleware;
 use App\Http\Middleware\LanguageMiddleware;
+use App\Http\Middleware\MaintenanceMode;
 use App\Http\Middleware\Permissions;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -100,6 +101,7 @@ class Kernel extends HttpKernel
         'https' => HttpsMiddleware::class,
         'dos.security' => SecurityMiddleware::class,
         'kyc' => KycMiddleware::class,
+        'maintenance.mode' => MaintenanceMode::class
         
     ];
 }

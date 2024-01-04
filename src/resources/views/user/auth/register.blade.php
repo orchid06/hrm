@@ -23,7 +23,7 @@
 
     $countries            = get_countries();
 
-    $termsPage            =  App\Models\Admin\Page::active()
+    $termsPage            = App\Models\Admin\Page::active()
                                    ->where('slug',"terms-and-conditions")
                                    ->first();
 

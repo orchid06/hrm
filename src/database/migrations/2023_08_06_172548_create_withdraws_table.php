@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->string('name')->unique();
+            $table->string('name',191)->unique();
             $table->integer('duration')->comment('Hours');
             $table->double('minimum_amount',10,5);
             $table->double('maximum_amount',10,5);
