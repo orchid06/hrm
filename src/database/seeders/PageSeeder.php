@@ -6,7 +6,6 @@ use App\Enums\StatusEnum;
 use App\Models\Admin\Page;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class PageSeeder extends Seeder
 {
@@ -26,13 +25,11 @@ class PageSeeder extends Seeder
         foreach($pages as $index => $key){
             if(!in_array($key ,$keys )){
 
-                $faker = Faker::create();
-
                 Page::create([
                     "serial_id"      => $index,
                     "title"          => k2t($key),
                     "slug"           => $key,
-                    'description'    => $faker->paragraphs(2, true),
+                    'description'    => 'description',
                     'show_in_footer' => StatusEnum::true->status(),
 
                 ]);
