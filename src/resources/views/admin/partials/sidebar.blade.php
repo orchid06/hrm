@@ -26,7 +26,7 @@
           <li class="sidebar-menu-item">
               <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
                 aria-expanded="false" aria-controls="socialFeed">
-              <span><i class="las la-photo-video"></i></i></span>
+              <span><i class="las la-photo-video"></i></span>
                 <p>
                   {{translate('Post Feed')}}
                 </p>

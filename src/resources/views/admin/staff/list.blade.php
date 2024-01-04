@@ -98,11 +98,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-container position-relative">
-
                 @include('admin.partials.loader')
-
                 <table>
                     <thead>
                         <tr>

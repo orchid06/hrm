@@ -192,7 +192,7 @@
       <div class="card-body">
           <div class="row g-0 text-center mb-5">
           
-            <div class="col-6 col-sm-6">
+            <div class="col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1">
                         <span>
@@ -205,7 +205,7 @@
                 </div>
             </div>
             <!--end col-->
-            <div class="col-6 col-sm-6">
+            <div class="col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data['subscription_reports'],"total_income",0)}}
@@ -238,7 +238,7 @@
         <div class="row g-0 text-center">
           
           <!--end col-->
-          <div class="col-6 col-sm-6">
+          <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1">
                       <span>
@@ -251,7 +251,7 @@
               </div>
           </div>
           <!--end col-->
-          <div class="col-6 col-sm-6">
+          <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1"><span>
                     {{Arr::get($data['account_repot'],"inactive_account",0)}}
@@ -484,7 +484,7 @@
       <div class="card-body">
         <div id="planReport" class="apex-chart"></div>
         <div class="row g-0 text-center">
-          <div class="col-6 col-sm-6">
+          <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1">
                       <span>
@@ -496,7 +496,7 @@
                   </p>
               </div>
           </div>
-          <div class="col-6 col-sm-6">
+          <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1"><span>
                     {{Arr::get($data['subscription_reports'],"total_subscriptions",0)}}

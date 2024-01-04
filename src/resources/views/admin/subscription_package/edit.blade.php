@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="open_ai_model">
                                 {{translate("Template Access")}} 
@@ -111,7 +111,7 @@
                                         data-bs-parent="#advanceOption">
                                         <div class="accordion-body">
                                             <div class="row align-items-center">
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner">
                                                         <label for="platform_access">
                                                             {{translate("Platform Access")}} <small class="text-danger" >*</small>
@@ -128,7 +128,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner">
                                                         <label for="profile"
                                                         class="form-label">{{ translate('Total Profile') }}
@@ -138,7 +138,7 @@
                                                         value="{{@$package->social_access->profile}}" name="social_access[profile]" id="profile" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner">
                                                         <label for="post"
                                                         class="form-label">{{ translate('Total Post') }}
@@ -148,7 +148,7 @@
                                                         value="{{@$package->social_access->post}}" name="social_access[post]" id="post" placeholder="{{translate('Total Post')}}" required   >
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner mb-1 d-flex align-items-center gap-2">
                                                         <input @if(@$package->social_access->webhook_access && $package->social_access->webhook_access == App\Enums\StatusEnum::true->status() ) checked  @endif   id="webhook_access" value="{{App\Enums\StatusEnum::true->status()}}"  class="form-check-input" name="social_access[webhook_access]" type="checkbox"   >
                                                         <label for="webhook_access" class="form-check-label me-3 mb-0">
@@ -186,7 +186,7 @@
                                         data-bs-parent="#advanceOption">
                                         <div class="accordion-body">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner">
                                                         <label for="open_ai_model">
                                                             {{translate("Ai Model")}} 
@@ -205,7 +205,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-lg-6">
                                                     <div class="form-inner">
                                                         <label for="word_limit"
                                                         class="form-label">{{ translate('No. Of Words') }}
