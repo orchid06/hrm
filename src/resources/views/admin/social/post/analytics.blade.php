@@ -153,7 +153,7 @@
       </div>
       <div class="card-body">
         <div id="platformReport" class="apex-chart"></div>
-        <div class="row g-0 text-center">
+        <div class="row g-2 text-center">
           
           <div class="col-6 col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
@@ -190,7 +190,7 @@
         </h4>
       </div>
       <div class="card-body">
-          <div class="row row-cols-lg-5 g-0 text-center mb-5">
+          <div class="row row-cols-lg-5 row-cols-md-5 row-cols-sm-2 row-cols-2 g-2 text-center mb-5">
           
             <div class="col">
                 <div class="p-3 border border-dashed border-start-0">

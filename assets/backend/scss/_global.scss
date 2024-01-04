@@ -579,7 +579,7 @@ button {
   }
 
   button{
-    width: 40px;
+    width: 45px;
     background-color: $color-primary-light;
     border-radius: 0 5px 5px 0;
     @include transition-4;
@@ -1025,6 +1025,10 @@ button {
             @include xxl-device {
               padding: 12px 14px;
             }
+            @include md-down-device(){
+              padding: 7px 12px;
+            }
+
             [dir="rtl"] & {
               border-left: unset;
               border-right: 3px solid transparent;
@@ -1046,7 +1050,7 @@ button {
             &.active {
               background-color: $color-primary-light;
               border-color: $color-primary;
-              color: $text-primary;
+              color: $color-primary;
               font-weight: 500;
               clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
 
