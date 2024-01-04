@@ -585,7 +585,7 @@ button {
 }
 
 .date-search button {
-    width: 40px;
+    width: 45px;
     background-color: var(--color-primary-light);
     border-radius: 0 5px 5px 0;
     transition: .4s ease
@@ -1072,6 +1072,12 @@ button {
     }
 }
 
+@media(max-width: 767px) {
+    .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link {
+        padding: 7px 12px
+    }
+}
+
 [dir=rtl] .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link {
     border-left: unset;
     border-right: 3px solid rgba(0, 0, 0, 0)
@@ -1097,7 +1103,7 @@ button {
 .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link.active {
     background-color: var(--color-primary-light);
     border-color: var(--color-primary);
-    color: var(--text-primary);
+    color: var(--color-primary);
     font-weight: 500;
     -webkit-clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
     clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)
@@ -1422,7 +1428,8 @@ table.dataTable.no-footer {
 
 .note-btn-group .note-btn {
     background-color: var(--site-bg);
-    color: var(--text-primary)
+    color: var(--text-primary);
+
 }
 
 .note-btn-group .note-btn.dropdown-toggle::after {
@@ -1788,7 +1795,7 @@ table.dataTable.no-footer {
     line-height: 1;
     position: relative;
     padding-bottom: 6px;
-    line-height: 1.25
+    line-height: 1.4
 }
 
 .i-card-md>.card--header .card-title::after {
@@ -2114,7 +2121,7 @@ table tbody tr:hover {
 }
 
 table th {
-    padding: 13px 15px;
+    padding: 13px 20px;
     text-align: left;
     white-space: nowrap;
     font-size: 15px;
@@ -3192,6 +3199,13 @@ textarea {
     align-items: center;
     justify-content: center;
     z-index: 1
+}
+
+@media(max-width: 767px) {
+    .header .header-container .header-icon .notification-dropdown>span {
+        width: 12px;
+        height: 12px
+    }
 }
 
 .header .header-container .header-icon .notification-dropdown .dropdown-menu {
@@ -5835,7 +5849,7 @@ ul.inbox-list li .col-mail-2 .date {
 .version {
     padding: 35px;
     text-align: center;
-    width: 50%;
+    width: 100%;
     border: 1px solid var(--color-border)
 }
 
