@@ -75,7 +75,7 @@ class Currency extends Model
     }
 
     public function scopeRegular(Builder $query) :Builder{
-        return $query->where("default",StatusEnum::false->status());
+        return $query->where("default",StatusEnum::false->status())->orWhere('default',null);
     }
 
     public function scopeActive(Builder $query) :Builder{

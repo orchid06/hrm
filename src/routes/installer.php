@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Route;
         Route::post('/purchase-code/verification','codeVerification')->name('purchase.code.verification');
         Route::get('/db-setup','dbSetup')->name('db.setup');
         Route::post('/db-store','dbStore')->name('db.store');
+        Route::get('account/config','accountConfig')->name('account.config');
+        Route::post('account-setup','accountSetup')->name('account.setup');
+        Route::get('setup-finished','setupFinished')->name('setup.finished');
 
-        Route::get('/step3/{message?}','step3')->name('step3');
-        Route::get('/step4','step4')->name('step4');
-        Route::get('/step5','step5')->name('step5');
-
-        Route::post('/database_installation','database_installation')->name('database');
-        Route::post('purchase_code', 'purchase_code')->name('purchase.code');
-        Route::post('system_settings', 'system_settings')->name('system_settings');
    });
 
+
+   Route::fallback(function () {
+    return redirect('/');
+  });
 
 

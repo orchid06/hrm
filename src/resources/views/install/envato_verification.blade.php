@@ -4,7 +4,7 @@
 
 
     <div class="progress-bar">
-        <div class="init">
+        <div class="envato-verification">
             
         </div>
     </div>

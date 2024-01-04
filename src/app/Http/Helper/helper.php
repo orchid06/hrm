@@ -1138,21 +1138,27 @@ use Illuminate\Database\Eloquent\Collection;
       function plan_configuration(Package $plan ) : array {
 
 
-         $accessedPlatforms =    implode(",",get_platform($plan->social_access->platform_access)
-                                 ->pluck('name')
-                                 ->toArray());
+         $accessedPlatforms =   @$plan->social_access->platform_access 
+                                  ? implode(",",get_platform(@$plan->social_access->platform_access)
+                                      ->pluck('name')
+                                      ->toArray())
+                                    :null;
+                               
         
          $config          =  [];
 
-         $profile         = $plan->social_access->profile; 
-         $post            = $plan->social_access->post; 
-         $wordToken       = $plan->ai_configuration->word_limit; 
+         $profile         = (int)@$plan->social_access->profile; 
+         $post            = (int)@$plan->social_access->post; 
+         $wordToken       = (int)@$plan->ai_configuration->word_limit; 
          $templates       = count((array)@$plan->template_access); 
 
          $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
          $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
 
-         $config['platform_access']    =  $accessedPlatforms;
+         if($accessedPlatforms ){
+            $config['platform_access']    =  $accessedPlatforms;
+         }
+   
          
          if(@($plan->social_access->schedule_post) ==  StatusEnum::true->status()){
             $config['schedule_posting']   = true;
