@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('name',155)->nullable();
-            $table->account_id('name',155)->nullable();
+            $table->string('account_id',191)->nullable();
             $table->text('account_information')->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Disconnected: 0, Connected: 1');
             $table->enum('is_official',[0,1])->default(1)->comment('Yes: 1, No: 1');

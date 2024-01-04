@@ -67,8 +67,6 @@ return [
 
 
 
-
-
     /** installer  default lang */
 
     "insaller_title" => "EngageHub Installer",
@@ -91,10 +89,18 @@ return [
     'requirments_title' => " Verify Requirments & File Permissions",
 
     /** envato verification route */
-
-
     'envato_verification_title' => "Update Purchase Information",
-    "envato_verification_note" => "rovide your username of codecanyon & the purchase code"
+    "envato_verification_note" => "rovide your username of codecanyon & the purchase code",
+
+    /** db setup */
+
+    'dbsetup_title' => "Update Database Information",
+
+    /** system setup */
+
+    'account_setup_title' => "Setup your admin account",
+    'finished_note' => "Application has been installed successfully!",
+
 
 
 

@@ -17,7 +17,7 @@ class PlatformSeeder extends Seeder
     {
 
 
-        @DD('CALLED');
+
         
         $existsPlatform = MediaPlatform::pluck('slug')->toArray();
         $platforms      = Arr::get(config('settings'),'platforms' ,[]);

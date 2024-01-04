@@ -116,11 +116,11 @@ class CurrencyController extends Controller
     public function destroy(string | int $id) :RedirectResponse{
 
         $currency = Currency::withCount(['gateway','withdraws','transactions','deposits'])
-        ->regular()
-        ->when(session('currency') , function($q){
-            return $q->where("code","!=",session('currency')->code);
-        })
-        ->where('id', $id)->firstOrFail();
+                        ->regular()
+                        ->when(session('currency') , function($q){
+                            return $q->where("code","!=",session('currency')->code);
+                        })
+                        ->where('id', $id)->firstOrFail();
         $response =  response_status('Can not be deleted!! item has related data','error');
 
         if(1  > $currency->gateway_count && 1  > $currency->withdraws_count && 1  > $currency->transactions_count && 1  > $currency->deposits_count ){

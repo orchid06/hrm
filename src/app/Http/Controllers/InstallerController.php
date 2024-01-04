@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\CentralLogics\Helpers;
+use App\Enums\StatusEnum;
+use App\Models\Admin;
 use App\Traits\InstallerManager;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -95,189 +98,101 @@ class InstallerController extends Controller
     public function dbStore(Request $request) :View |RedirectResponse
     {
 
-        $request->validate([
-            'db_host'     => "required",
-            'db_port'     => "required",
-            'db_database' => "required",
-            'db_username' => "required" ,
-            'db_password' => "required"
-        ]);
-        // if (Hash::check(base64_decode('ZGJzZXR1cF8='), request()->input('verify_token'))) {
-        //     return view('install.db_setup');
-        // }
-        // return redirect()->route('install.init')->with('error','Invalid verification token');
-    }
+        if(session()->has(base64_decode('cHVyY2hhc2VfY29kZQ==')) && session()->has(base64_decode('dXNlcm5hbWU='))){
 
-
-
-
-
-
-    public function step4(Request $request)
-    {
-        if (Hash::check('step_4', $request['token'])) {
-            return view('installation.step4');
-        }
-        session()->flash('error', 'Access denied!');
-        return to_route('step0');
-    }
-
-    public function step5(Request $request)
-    {
-        if (Hash::check('step_5', $request['token'])) {
-            return view('installation.step5');
-        }
-        session()->flash('error', 'Access denied!');
-        return to_route('step0');
-    }
-
-  
-    public function system_settings(Request $request)
-    {
-        if (!Hash::check('step_6', $request['token'])) {
-            session()->flash('error', 'Access denied!');
-            return to_route('step0');
-        }
-
-        $validator = Validator::make($request->all(), [
-            'password' => ['required', 'same:confirm_password'],
-            'confirm_password' => 'required',
-        ]);
-        if ($validator->fails()) {
-            session()->flash('error', 'Confirm password does not match!');
-            return back();
-        }
-
-        DB::table('admins')->insertOrIgnore([
-            'f_name' => $request['f_name'],
-            'l_name' => $request['l_name'],
-            'email' => $request['email'],
-            'role_id' => 1,
-            'password' => bcrypt($request['password']),
-            'phone' => $request['phone_code'].$request['phone'],
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('business_settings')->where(['key' => 'business_name'])->update([
-            'value' => $request['business_name']
-        ]);
-
-
-        Helpers::insert_business_settings_key('system_language','[{"id":1,"direction":"ltr","code":"en","status":1,"default":true}]');
-
-        //version 7.0
-        Helpers::insert_data_settings_key('admin_login_url', 'login_admin' ,'admin');
-        Helpers::insert_data_settings_key('admin_employee_login_url', 'login_admin_employee' ,'admin_employee');
-        Helpers::insert_data_settings_key('restaurant_login_url', 'login_restaurant' ,'restaurant');
-        Helpers::insert_data_settings_key('restaurant_employee_login_url', 'login_restaurant_employee' ,'restaurant_employee');
-
-        Helpers::insert_business_settings_key('take_away', '1');
-        Helpers::insert_business_settings_key('repeat_order_option', '1');
-        Helpers::insert_business_settings_key('home_delivery', '1');
-
-        $previousRouteServiceProvier = base_path('app/Providers/RouteServiceProvider.php');
-        $newRouteServiceProvier = base_path('app/Providers/RouteServiceProvider.txt');
-        copy($newRouteServiceProvier, $previousRouteServiceProvier);
-        //sleep(5);
-
-        Helpers::remove_dir('storage/app/public');
-        Storage::disk('public')->makeDirectory('/');
-        Madzipper::make('installation/backup/public.zip')->extractTo('storage/app');
-        return view('installation.step6');
-    }
-
-    public function database_installation(Request $request)
-    {
-        if (self::check_database_connection($request->DB_HOST, $request->DB_DATABASE, $request->DB_USERNAME, $request->DB_PASSWORD)) {
-
-            $key = base64_encode(random_bytes(32));
-            $output = 'APP_NAME=stackfood' . time() .
-                'APP_ENV=live
-                    APP_KEY=base64:' . $key . '
-                    APP_DEBUG=false
-                    APP_INSTALL=true
-                    APP_LOG_LEVEL=debug
-                    APP_MODE=live
-                    APP_URL=' . URL::to('/') . '
-
-                    DB_CONNECTION=mysql
-                    DB_HOST=' . $request->DB_HOST . '
-                    DB_PORT=3306
-                    DB_DATABASE=' . $request->DB_DATABASE . '
-                    DB_USERNAME=' . $request->DB_USERNAME . '
-                    DB_PASSWORD=' . $request->DB_PASSWORD . '
-
-                    BROADCAST_DRIVER=log
-                    CACHE_DRIVER=file
-                    SESSION_DRIVER=file
-                    SESSION_LIFETIME=120
-                    QUEUE_DRIVER=sync
-
-                    REDIS_HOST=127.0.0.1
-                    REDIS_PASSWORD=null
-                    REDIS_PORT=6379
-
-                    PUSHER_APP_ID=
-                    PUSHER_APP_KEY=
-                    PUSHER_APP_SECRET=
-                    PUSHER_APP_CLUSTER=mt1
-
-                    PURCHASE_CODE=' . session('purchase_key') . '
-                    BUYER_USERNAME=' . session('username') . '
-                    ';
-            $file = fopen(base_path('.env'), 'w');
-            fwrite($file, $output);
-            fclose($file);
-
-            $path = base_path('.env');
-            if (file_exists($path)) {
-                return to_route('step4', ['token' => $request['token']]);
-            } else {
-                session()->flash('error', 'Database error!');
-                return to_route('step3', ['token' => bcrypt('step_3')]);
+            $message = "Invalid database info. Kindly check your connection details and try again";
+            $request->validate([
+                'db_host'     => "required",
+                'db_port'     => "required",
+                'db_database' => "required",
+                'db_username' => "required" ,
+            
+            ]);
+    
+            if($this->_chekcDbConnection( $request)){
+                if($this->_checkDb($request) && $this->_envConfig($request)){
+                    return redirect()->route('install.account.config',['verify_token' => bcrypt(base64_decode('c3lzdGVtX2NvbmZpZw=='))]);
+                }
+                $message = "Please empty your database then try again";
             }
-        } else {
-            session()->flash('error', 'Database host error!');
-            return to_route('step3', ['token' => bcrypt('step_3')]);
+    
+            return back()->with("error", $message);
+
         }
+
+        return redirect()->route('install.init')->with('error','Invalid verification token');
+
     }
 
-    public function import_sql()
+
+    public function accountConfig() :View |RedirectResponse
     {
-        try {
-            $sql_path = base_path('installation/backup/database.sql');
-            DB::unprepared(file_get_contents($sql_path));
-            return to_route('step5', ['token' => bcrypt('step_5')]);
-        } catch (\Exception $exception) {
-            session()->flash('error', 'Your database is not clean, do you want to clean database then import?');
-            return back();
+        if (Hash::check(base64_decode('c3lzdGVtX2NvbmZpZw=='), request()->input('verify_token'))) {
+            return view('install.account_config');
         }
+        return redirect()->route('install.init')->with('error','Invalid verification token');
+
     }
 
-    public function force_import_sql()
+
+    public function accountSetup(Request $request) :View |RedirectResponse
     {
         try {
-            Artisan::call('db:wipe', ['--force' => true]);
-            $sql_path = base_path('installation/backup/database.sql');
-            DB::unprepared(file_get_contents($sql_path));
-            return to_route('step5', ['token' => bcrypt('step_5')]);
-        } catch (\Exception $exception) {
-            session()->flash('error', 'Check your database permission!');
-            return back();
+           
+            $request->validate([
+                'username' => 'required|max:155',
+                'email'    => 'required|email|max:155',
+                'password' => 'required|min:5',
+            ]);
+
+            $admin =  Admin::firstOrNew(['super_admin' => StatusEnum::true->status()]);
+            $admin->username                  = $request->input('username');
+            $admin->name                      = 'SuperAdmin';
+            $admin->email                     = $request->input('email');
+            $admin->password                  =  Hash::make($request->input('password'));
+            $admin->email_verified_at         = Carbon::now();
+            $admin->super_admin               = StatusEnum::true->status();
+            $admin->save();
+    
+            session()->put('password',$request->input('password'));
+            $this->_dbSeed();
+
+            $this->_systemInstalled();
+    
+            return redirect()->route('install.setup.finished',['verify_token' => bcrypt(base64_decode('c2V0dXBfY29tcGxldGVk'))]);
+        } catch (\Exception $ex) {
+            return back()->with('error', strip_tags($ex->getMessage()));
+
         }
+       
+
     }
 
-    function check_database_connection($db_host = "", $db_name = "", $db_user = "", $db_pass = ""): bool
+
+    public function setupFinished(Request $request) :View |RedirectResponse
     {
-        try {
-            if (@mysqli_connect($db_host, $db_user, $db_pass, $db_name)) {
-                return true;
-            } else {
-                return false;
-            }
-        }catch(\Exception $exception){
-            return false;
+        if (Hash::check(base64_decode('c2V0dXBfY29tcGxldGVk'), request()->input('verify_token'))) {
+            $admin =  Admin::where('super_admin' , StatusEnum::true->status())->first();
+            optimize_clear();
+            return view('install.setup_finished',[
+                'admin' => $admin
+            ]);
         }
+
+        return redirect()->route('install.init')->with('error','Invalid verification token');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
