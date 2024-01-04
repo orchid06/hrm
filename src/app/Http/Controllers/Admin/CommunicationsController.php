@@ -136,23 +136,30 @@ class CommunicationsController extends Controller
     public function sendMailSubscriber(Request $request) :RedirectResponse{
 
         $subscribers = Subscriber::latest()->cursor();
+        if($subscribers->count() > 0){
  
-        foreach($subscribers->chunk(20) as $chunkSubscribers){
+            foreach($subscribers->chunk(20) as $chunkSubscribers){
 
-            foreach($chunkSubscribers as $subscriber){
-                $templateCode = [
-                 
-                    'name'     =>  $subscriber->email,
-                    'email'    => $subscriber->email,
-                    "message"  => $request->input('message')
-                ];
-    
-                SendMailJob::dispatch((object) $templateCode,'CONTACT_REPLY',$templateCode);
+                foreach($chunkSubscribers as $subscriber){
+                    $templateCode = [
+                    
+                        'name'     =>  $subscriber->email,
+                        'email'    => $subscriber->email,
+                        "message"  => $request->input('message')
+                    ];
+        
+                    SendMailJob::dispatch((object) $templateCode,'CONTACT_REPLY',$templateCode);
+                }
             }
+
+            return back()->with(response_status("Email Successfully Sent to Subscribers","success" ));
+
         }
+
+        return back()->with(response_status("No subscribers found","error" ));
+
      
  
-         return back()->with(response_status("Email Successfully Sent to Subscribers","success" ));
      }
 
 

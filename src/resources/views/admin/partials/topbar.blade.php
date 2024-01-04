@@ -1,5 +1,8 @@
 
 <header class="header">
+  @php
+            $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
+  @endphp
   <div class="header-container">
     <div class="d-flex align-items-center gap-lg-3 gap-2">
       <div class="header-icon">
@@ -102,7 +105,7 @@
           <div class="btn-icon btn--text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{session()->get('currency')?->code}}
           </div>
-          @if(site_currencies() && !site_currencies()->isEmpty())
+          @if($currencies->count() > 0)
             <div class="dropdown-menu dropdown-menu-end">
               <ul>
                 @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)

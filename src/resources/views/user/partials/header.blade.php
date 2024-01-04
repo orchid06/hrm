@@ -4,6 +4,7 @@
         $code = count($lang)!=0 ? $lang->first()->code:"en";
         $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
         $user = auth_user('web');
+        $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
     @endphp
 
     <div class="container-fluid px-0">
@@ -102,30 +103,30 @@
                         <ul>
                             @forelse($notifications as $notification)
                                 <li>
-                                <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
-                                    <div class="notify-icon">
-                                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                                    <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
+                                        <div class="notify-icon">
+                                        <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
 
-                                    </div>
+                                        </div>
 
-                                    <div class="notification-item-content">
-                                    <h5> {{$user->name}} <small>
-                                        {{diff_for_humans($notification->created_at)}}
-                                    </small></h5>
-                                    <p>
-                                        {{
-                                        limit_words(strip_tags($notification->message),50)
-                                        }}
-                                    </p>
-                                    </div>
-                                    <span><i class="las la-times"></i></span>
-                                </a>
+                                        <div class="notification-item-content">
+                                        <h5> {{$user->name}} <small>
+                                            {{diff_for_humans($notification->created_at)}}
+                                        </small></h5>
+                                        <p>
+                                            {{
+                                            limit_words(strip_tags($notification->message),50)
+                                            }}
+                                        </p>
+                                        </div>
+                                        <span><i class="las la-times"></i></span>
+                                    </a>
                                 </li>
                                 @empty
                                 <li class="text-center mx-auto mb-2">
-                                <p>
-                                    {{translate("Nothing Found !!")}}
-                                </p>
+                                    <p>
+                                        {{translate("Nothing Found !!")}}
+                                    </p>
                                 </li>
                             @endforelse
 
@@ -149,14 +150,14 @@
             <div class="header-right-item">
                 <div class="dropdown lang">
                     <button
-                    class="lang-btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false" >
-                    <span class="flag">
-                        <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
+                        class="lang-btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false" >
+                        <span class="flag">
+                            <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
 
-                    </span>
+                        </span>
                     </button>
                     @if(!$languages->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -189,15 +190,14 @@
                         {{session()->get('currency')?->code}}
                     </button>
 
-                    @if(site_currencies() && !site_currencies()->isEmpty())
+                    @if($currencies->count() > 0)
                         <ul class="dropdown-menu dropdown-menu-end">
 
-                        @foreach(site_currencies()->where("code",'!=',session()->get('currency')->code) as $currency)
-
-                            <li>
-                                <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
-                            </li>
-                        @endforeach
+                            @foreach($currencies as $currency)
+                                <li>
+                                    <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
+                                </li>
+                            @endforeach
 
                         </ul>
                     @endif

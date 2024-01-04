@@ -648,6 +648,21 @@ class CoreController extends Controller
     }
 
 
+
+
+    public  function maintenanceMode() :View | RedirectResponse{
+
+        if(site_settings('maintenance_mode') == (StatusEnum::false)->status() ){
+            return redirect()->route('home');
+        }
+        $title = translate('Maintenance Mode');
+        return view('maintenance_mode', [
+            'title'=> $title,
+        ]);
+
+     }
+
+
     
 
 

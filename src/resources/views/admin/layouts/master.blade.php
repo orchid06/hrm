@@ -37,15 +37,16 @@
     </div>
     @yield("modal")
 
+
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/global/js/simplebar.min.js')}}"></script>
-    <script  src="{{asset('assets/global/js/dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/dataTables.min.js')}}"></script>
     <script src="{{asset('assets/backend/js/app.js')}}"></script>
     <script src="{{asset('assets/global/js/main.js')}}"></script>
-    <script  src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
-    <script  src="{{asset('assets/global/js/toastify-js.js')}}"></script>
+    <script src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 
 

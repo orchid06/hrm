@@ -80,7 +80,7 @@
                                 </td>
 
                                 <td data-label='{{translate("Total Account")}}'>
-                                    <span class="#">
+                                    <span>
                                         <a class="i-badge capsuled success" href="{{route('admin.social.account.list',['platform' => $platform->slug])}}">
                                           {{translate("Total Accounts")}} {{$platform->accounts_count}}
                                         </a>

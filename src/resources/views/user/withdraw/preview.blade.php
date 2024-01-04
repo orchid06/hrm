@@ -18,7 +18,7 @@
               <h2>{{translate('Please follow the instruction below')}}</h2>
             </div>
 
-            <form action="{{route("user.withdraw.request.submit")}}" method="post" class="mt-5" enctype="multipart/form-data">
+            <form action="{{route('user.withdraw.request.submit')}}" method="post" class="mt-5" enctype="multipart/form-data">
 
                 @csrf
               <input type="hidden" name="amount" value="{{($amount)}}">

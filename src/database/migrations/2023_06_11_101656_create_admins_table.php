@@ -17,10 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
-            $table->string('username',255)->unique();
+            $table->string('username',191)->unique();
             $table->string('name',100)->nullable();
             $table->string('phone',255)->nullable();
-            $table->string('email',255)->unique();
+            $table->string('email',191)->unique();
             $table->longText('notification_settings')->nullable();
             $table->longText('permissions')->nullable();
             $table->longText('address')->nullable();

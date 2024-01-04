@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-    $globalMiddleware = ['sanitizer','https',"dos.security"];
+    $globalMiddleware = ['sanitizer','https',"dos.security",'maintenance.mode'];
     try {
         DB::connection()->getPdo();
         if(DB::connection()->getDatabaseName()){
@@ -299,9 +299,6 @@ use Illuminate\Support\Facades\DB;
 
 
 
-
-
-
     });
 
     Route::get('/error/{message?}', function (?string $message = null) {
@@ -323,6 +320,9 @@ use Illuminate\Support\Facades\DB;
 
     });
 
+
+
+    Route::get('/maintenance-mode', [CoreController::class, 'maintenanceMode'])->name('maintenance.mode')->middleware(['sanitizer']);
 
 
 

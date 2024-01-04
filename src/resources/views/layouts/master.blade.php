@@ -64,7 +64,7 @@
     @endif
     <main class="main" id="main">
          @if(request()->routeIs('user.*'))
-            <section class="main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "px-0 pt-0" :"" }}">
+            <section class='main-wrapper {{request()->routeIs("user.plan") || request()->routeIs("user.profile") ? "px-0 pt-0" :"" }}'>
                 @yield('content')
             </section>
          @else

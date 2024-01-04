@@ -268,7 +268,7 @@
                                     </label>
                                     <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
                                       name="schedule_date"
-                                      value="{{old("schedule_date")}}"
+                                      value="{{old('schedule_date')}}"
                                       id="schedule_date"/>
                                   </div>
                                 </div>
@@ -314,7 +314,7 @@
                             aria-selected="false"
                             tabindex="-1">
                               <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
-                                <img src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{imageUrl(@$platform->file,"platform",true)}}"/>
+                                <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
                               </div>
                           </a>
                         @endforeach

@@ -24,7 +24,7 @@
                                 @forelse ($platforms as $platform )
                                     @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
                                         <li class="nav-item">
-                                            <a class="nav-link {{$platform->slug == request()->input("platform") ? "active" :""}}"  href="{{route('user.social.account.list',['platform' => $platform->slug])}}" >
+                                            <a class="nav-link {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('user.social.account.list',['platform' => $platform->slug])}}" >
                                                 <div class="user-meta-info d-flex align-items-center gap-2">
                                                     <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
 
@@ -188,17 +188,17 @@
                                                               }
 
                                                             @endphp
-                                                            <a data-account = "{{$account}}"; title="{{translate("Recnonect")}}"  href="{{$url}}" class=" {{$connectionClass ? "reconnect" : ""}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
+                                                            <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
                                                             </a>
                                                          @endif
 
                                                         @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                                <a  title="{{translate("Show")}}"  href="{{route('user.social.account.show',["uid" => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
+                                                                <a  title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
                                                                 </a>
                                                         @endif
                                                         @if(check_permission('delete_account') )
 
-                                                            <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
+                                                            <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
                                                                 <i class="bi bi-trash"></i>
                                                             </a>
                                                         @else

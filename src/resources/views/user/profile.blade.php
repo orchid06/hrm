@@ -68,7 +68,7 @@
                 <h3>{{@$content->value->title}}</h3>
 
                 <a
-                  href="{{route("user.plan")}}"
+                  href="{{route('user.plan')}}"
                   class="i-btn btn--primary btn--lg capsuled">
                     {{translate("Upgrade Now")}}
                 </a>
@@ -336,7 +336,7 @@
                                                     </label>
 
                                                     <div class="input-group">
-                                                        <input placeholder="{{translate("Referral Code")}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
+                                                        <input placeholder="{{translate('Referral Code')}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
                                                         <span class="input-group-text danger pointer code-generate"><i class="bi bi-arrow-repeat"></i>
                                                         </span>
                                                     </div>
@@ -454,6 +454,8 @@
 @push('script-push')
 <script>
 	(function($){
+        
+        "use strict";
 
         $(".select2").select2({
             placeholder:"{{translate('Select Item')}}",

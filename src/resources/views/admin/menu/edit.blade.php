@@ -141,7 +141,8 @@
 @push('script-push')
 <script>
 	(function($){
-       	"use strict";
+        
+       	   "use strict";
 
            $(".dropable-section").sortable({
                 group: 'no-drop',
