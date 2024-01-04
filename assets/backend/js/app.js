@@ -186,21 +186,38 @@
   const filterBtn = document.querySelector(".filter-btn");
   const filterDropdown = document.querySelector(".filter-dropdown");
 
-  if (filterDropdown) {
-    filterDropdown.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
+  const dropdownOverlay = document.createElement("div");
+  dropdownOverlay.classList.add("dropdownOverlay");
 
   if (filterBtn) {
-    filterBtn.addEventListener("click", function (event) {
-      filterDropdown.classList.toggle("show");
-      event.stopPropagation();
-    });
-
-    window.addEventListener("click", function () {
-      filterDropdown.classList.remove("show"); // Close dropdown when clicking outside
+    filterBtn.addEventListener("click", () => {
+      if (filterDropdown.classList.contains("show")) {
+        filterBtn.style.cssText = "";
+        filterDropdown.style.cssText = "";
+        filterDropdown.classList.remove("show");
+        const isDropdownOverlay = document.querySelector(".dropdownOverlay");
+        if (isDropdownOverlay) {
+          isDropdownOverlay.remove();
+        }
+      } else {
+        filterBtn.style.cssText = "position:relative; z-index:210";
+        filterDropdown.style.cssText = "z-index:210;";
+        filterDropdown.classList.add("show");
+        const isDropdownOverlay = document.querySelector(".dropdownOverlay");
+        if (!isDropdownOverlay) {
+          document.body.appendChild(dropdownOverlay);
+        }
+      }
     });
   }
+
+  document.body.addEventListener("click", function (e) {
+    if (e.target.classList.contains("dropdownOverlay")) {
+      e.target.remove();
+      filterBtn.style.cssText = "";
+      filterDropdown.style.cssText = "";
+      filterDropdown.classList.remove("show");
+    }
+  });
 
 })();

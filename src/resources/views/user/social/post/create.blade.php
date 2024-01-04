@@ -177,7 +177,6 @@
                                     placeholder="Enter link"
                                     name="link"
                                     id="link"
-                                    name="link"
                                     value="{{old('link')}}"
                                     class="form-control"/>
                                     <span class="input-group-text bg-primary-soft text--primary"><i class="bi bi-link-45deg fs-4"></i></span>
@@ -212,18 +211,18 @@
                                             @foreach ($accounts as $account )
                                                 <li class="profile-item">
                                                     <label for="account-{{$account->id}}">
-                                                        <div class="profile-item-meta">
-                                                            <div class="profile-item-img">
+                                                        <span class="profile-item-meta">
+                                                            <span class="profile-item-img">
                                                                 <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
-                                                            </div>
+                                                            </span>
 
-                                                            <div>
-                                                                <h6 class="account-name">
+                                                            <span class="d-flex flex-column">
+                                                                <small class="account-name">
                                                                     {{$account->name}}
-                                                                </h6>
-                                                                {{$account->platform->name}}
-                                                            </div>
-                                                        </div>
+                                                                </small>
+                                                                <small>{{$account->platform->name}}</small>
+                                                            </span>
+                                                        </span>
 
                                                         <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input check_account mt-0" name="selected-profile" type="checkbox"
                                                         data-id="{{$account->id}}"
@@ -320,7 +319,7 @@
                             <div class="nav" role="tablist" id="preview-tab" aria-orientation="horizontal">
 
                                 @foreach ($platforms as $platform )
-                                <a class="nav-link pre-tab-item {{$loop->index ==  0 ? 'active' :''}}" id="{{$platform->slug}}-tab" data-bs-toggle="pill"href="#{{$platform->slug}}" role="tab" aria-controls="{{$platform->slug}}"
+                                <a class="nav-link pre-tab-item {{$loop->index ==  0 ? 'active' :''}}" id="{{$platform->slug}}-tab" data-bs-toggle="pill" href="#{{$platform->slug}}" role="tab" aria-controls="{{$platform->slug}}"
                                     aria-selected="false"
                                     tabindex="-1">
                                     <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
@@ -336,12 +335,13 @@
                         <div class="col-md-10">
                             <div class="tab-content" id="preview-tabContent">
                                 @foreach ($platforms as $platform )
-                                    <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel" aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
+                                    <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel"    aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
                                         <div class="social-preview-body {{$platform->slug}}">
                                             <div class="social-auth">
                                                 <div class="profile-img">
                                                     <img
                                                     src="{{get_default_img()}}"
+
                                                     alt="{{get_default_img()}}"/>
                                                 </div>
 
@@ -525,7 +525,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner mb-0">
-                                    <label for="sub_category">
+                                    <label for="sub_category_id">
                                         {{translate('Sub Category')}}
                                     </label>
                                     <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
@@ -594,7 +594,7 @@
                                                                 <span class="text-danger">*</span>
                                                             @endif
                                                         </label>
-                                                        <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result"  value='{{old("max_result")}}' >
+                                                        <input placeholder="{{translate('Enter number')}}" type="number" id="max_result" min="1" name="max_result"  value='{{old("max_result")}}' >
                                                     </div>
 
                                                     <div class="form-inner">
@@ -641,11 +641,9 @@
 
                     <div class="content-form  d-none ai-content-div">
                         <div class="form-inner">
-               
-                               
-                             <div class="d-flex gap-2 align-items-center mb-2">
-                                
-                                    <label for="content">
+                             <div class="d-flex gap-2 align-items-center mb-3">
+
+                                    <label for="content" class="mb-0">
                                         {{translate("Content")}} <small class="text-danger">*</small>
                                     </label>
                                     <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}" class="icon-btn icon-btn-sm success copy-content">

@@ -90,9 +90,11 @@
                 @endif
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="filter-wrapper">
-                        <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                             <i class="las la-filter"></i>
                         </button>
+
+
                         <div class="filter-dropdown">
                             <form action="{{ route(Route::currentRouteName()) }}" method="get">
                                 <div class="form-inner">

@@ -3,7 +3,7 @@
       @php
            $generateRoute = route('admin.ai.template.content.generate');
            $iconClass  = "las la-question-circle";
-                                           
+
             if(request()->routeIs('user.*')){
                 $generateRoute  =  route('user.ai.content.generate');
                 $iconClass      = "bi bi-info-circle";
@@ -23,7 +23,7 @@
 
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="category"> 
+                            <label for="category">
                                 {{translate('Category')}} <small class="text-danger">*</small>
                             </label>
                             <select required name="category_id" id="category" class="select2" >
@@ -41,8 +41,8 @@
 
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="sub_category"> 
-                                {{translate('Sub Category')}} 
+                            <label for="sub_category_id">
+                                {{translate('Sub Category')}}
                             </label>
                             <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
                                 <option value="" >
@@ -60,17 +60,17 @@
                             </label>
                             <select name="id" class="selectTemplate" id="templates">
 
-                              
+
                             </select>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                            <div class="form-inner">
-                                <label for="language"> 
+                                <label for="language">
                                     {{translate('Select input & output language')}} <small class="text-danger">*</small>
                                 </label>
-                                
+
                                 <select name="language" class="select2" id="language">
                                     @foreach ($languages as $language )
                                         <option {{session()->get('locale') == $language->code ? "selected" :"" }} value="{{$language->name}}">
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="row d-none template-prompt">
-               
+
                 </div>
 
                 <div class="row">
@@ -100,7 +100,7 @@
                                             data-bs-target="#advanceAcc"
                                             aria-expanded="true"
                                             aria-controls="advanceAcc">
-                                                {{translate("Advance Options")}} 
+                                                {{translate("Advance Options")}}
                                                 <i title="{{translate('Browse More Fields')}}" class="ms-1 {{$iconClass}}"></i>
                                             </button>
                                         </h2>
@@ -113,9 +113,10 @@
                                                             <span class="text-danger">*</span>
                                                         @endif
                                                     </label>
-                                                    <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result"  value='{{old("max_result")}}' >
+                                                    <input placeholder="{{translate('Enter number')}}" type="number" min="1"
+                                                    id="max_result" name="max_result"  value='{{old("max_result")}}' >
                                                 </div>
-                
+
                                                 <div class="form-inner">
                                                     <label for="ai_creativity" class="form-label">{{ translate('Ai Creativity Level') }}
                                                     <small class="text-danger" >*</small></label>
@@ -130,7 +131,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                
+
                                                 <div class="form-inner">
                                                     <label for="content_tone" class="form-label">{{ translate('Content Tone') }} <small class="text-danger" >*</small></label>
                                                     <select  class="select2" id="content_tone" name="content_tone">
@@ -149,10 +150,10 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                     </div>
 
-                   <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">                         
+                   <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
                         <button type="submit" class="ai-btn i-btn btn--primary btn--lg">
                             {{translate("Generate")}}
                         </button>
@@ -161,7 +162,7 @@
                 </div>
             </form>
         </div>
-      
+
     </div>
 
     <div class="i-card-md mt-4 d-none ai-content-div">
@@ -169,7 +170,7 @@
             <h4 class="card-title">
                 {{translate("Content")}}
             </h4>
-        </div> 
+        </div>
 
         <div class="card-body">
             <div class="row">
@@ -177,7 +178,7 @@
                     @csrf
                    <div class="col-lg-12">
                         <div class="form-inner">
-                            <label for="Name"> 
+                            <label for="Name">
                                 {{translate('Name')}} <small class="text-danger">*</small>
                             </label>
                             <input placeholder="Enter name" id="Name" required="" type="text" name="name" value="">
@@ -186,7 +187,7 @@
 
                     <div class="col-lg-12">
                         <div class="form-inner">
-                            <label for="content"> 
+                            <label for="content">
                                 {{translate("Content")}} <small class="text-danger">*</small>
                             </label>
                             <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
@@ -200,7 +201,7 @@
                     </div>
                 </form>
             </div>
-        </div>            
+        </div>
     </div>
 
 </div>

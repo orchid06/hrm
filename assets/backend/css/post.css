@@ -630,7 +630,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 12px;
   background-color: var(--color-primary-light);
   border: 1px solid transparent;
   padding: 5px;

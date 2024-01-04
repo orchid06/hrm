@@ -726,8 +726,10 @@
   height: 40px;
   overflow: hidden;
 }
-.profile-item-meta h6 {
-  font-size: 14px;
+.profile-item-meta .account-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 .profile-item-meta a {
   font-size: 13px;
