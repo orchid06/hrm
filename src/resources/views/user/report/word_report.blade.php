@@ -8,7 +8,7 @@
 
 
 <div class="row">
-    <div class="col-xl-8 mx-auto">
+    <div class="col-xl-10 mx-auto">
       <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}

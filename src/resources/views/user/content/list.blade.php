@@ -21,7 +21,7 @@
                 </h4>
 
                 <div class="d-flex align-items-center gap-2">
-                    <a   href="javascript:void(0)" class="i-btn primary btn--sm capsuled create">
+                    <a href="#generateContent" class="i-btn primary btn--sm capsuled create">
                         <i class="bi bi-plus-lg"></i>
                         {{translate('Create New')}}
                     </a>
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div  class="ai-section d-none">
+    <div class="ai-section d-none" id="generateContent">
           @include('partials.prompt_content',['content_route' => route("user.ai.content.store")])
     </div>
 

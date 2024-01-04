@@ -18,7 +18,7 @@ class HttpsMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            if(site_settings('force_ssl') == StatusEnum::true->status() && !$request->secure()){
+            if(site_settings('force_ssl') == StatusEnum::true->status() && $request->secure()){
                 return redirect()->secure($request->getPathInfo());
             }
             return $next($request);

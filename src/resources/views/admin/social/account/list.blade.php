@@ -3,7 +3,6 @@
 @section('content')
 
 
-   
     @php
         
         $platforms = get_platform()
@@ -67,13 +66,11 @@
                                                 <ul class="dropdown-menu">
                                                   
                                                     @if(check_permission('update_account'))
-                                                    
                                                         @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                             <li>
                                                                 <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
                                                             </li>
                                                         @endforeach
-                                                        
                                                     @endif
 
                                                 </ul>
@@ -96,16 +93,9 @@
 
                                             <input type="hidden" name="platform" value="{{request()->input('platform')}}">
                                                 <div class="form-inner">
-                                                    <select name="user" id="user" class="user">
-                                                        <option value="">
-                                                            {{translate('Select User')}}
-                                                        </option>
-                                    
-                                                        @foreach(system_users() as $user)
-                                                            <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+
+                                                    <input placeholder="{{translate('Search by name')}}" type="search" name="name" value="{{request()->input('value')}}">
+                                                   
                                                 </div>
                                             <button class="i-btn btn--sm info">
                                                 <i class="las la-sliders-h"></i>
@@ -131,8 +121,7 @@
                                         @endif#
                                     </th>
                                     <th scope="col">{{translate('Account Info')}}</th>
-                                    <th scope="col">{{translate('User')}}</th>
-
+                                   
                                     <th scope="col">{{translate('Status')}}</th>
 
                                     <th scope="col">{{translate('Connection Status')}}</th>
@@ -171,24 +160,7 @@
                                         
                                                 </div>
                                             </td>
-
-
-                                            <td data-label='{{translate("User")}}'>
-                                                @if($account->user)
-                                                    <a href="{{route('admin.user.show',$account->user->uid)}}">
-                                                        {{$account->user->name}}
-                                                    </a>
-                                                @else
-                                                  
-                                                   {{translate('N/A')}}
-
-                                                @endif
-                                                
-                                            </td>
-
-
                                             <td data-label='{{translate("Status")}}'>
-
                                                 @if(!$account->user_id)
                                                     <div class="form-check form-switch switch-center">
                                                         <input {{!check_permission('update_account') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -222,7 +194,6 @@
                                                 @php echo account_type($account->account_type) @endphp
                                            </td>
 
-                                        
                                             <td data-label='{{translate("Action")}}'>
                                                 <div class="table-action">
                                                     @php

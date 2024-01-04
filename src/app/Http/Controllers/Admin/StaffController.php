@@ -96,7 +96,7 @@ class StaffController extends Controller
             }
         });
 
-        return  back()->with(response_status('Staff created sccessfully'));
+        return  back()->with(response_status('Staff created successfully'));
     }
 
 

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PostWebhookLog extends Model
 {
     use HasFactory;
+    
+    protected $guarded = [];
+
+    protected $casts = [
+        'webhook_response'  => 'object',
+    ];
+
 }

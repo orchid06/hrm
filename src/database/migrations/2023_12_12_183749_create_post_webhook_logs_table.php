@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('post_webhook_logs', function (Blueprint $table) {
             $table->id();
+            $table->string('uid',100)->index()->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->longText('webhook_response')->nullable();
             $table->timestamps();
         });
     }

@@ -1,9 +1,8 @@
 
 @php
-   $blogContent  = get_content("content_blog")->first();  
+   $blogContent  = get_content("content_blog")->first();
    $blogs        = App\Models\Article::active()->feature()->take(10)->get();
 @endphp
-
 
 <section class="blog pb-110">
       <div class="container-fluid wrapper-fluid">
@@ -31,11 +30,11 @@
             </div>
           </div>
 
-       
+
           <div class="col-xl-9 col-12">
             @if(0 <    $blogs->count())
                 <div class="blog-slider-wrapper">
-                  
+
                   <div class="blog-preview-next">
                     <div class="preview-next">
                       <button class="blog-button-prev">
@@ -94,35 +93,36 @@
                               </div>
 
                               <div class="blog-content">
-                                <div class="blog-meta">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                    <div class="blog-meta">
+                                        <span> {{get_date_time($blog->created_at,"F j, Y")}}
+                                        </span>
+                                        <span>
+                                            {{get_date_time($blog->created_at," g a")}}
+                                        </span>
+                                    </div>
 
-                                  <span> {{get_date_time($blog->created_at,"F j, Y")}}
-                                  </span>
-                                  <span> 
-                                    {{get_date_time($blog->created_at," g a")}}
-                                  </span>
+                                    <ul class="blog-tags mt-0">
+                                    <li>
+                                        <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
+                                            {{@$blog->category->title}}
+                                        </a>
+                                    </li>
+                                    </ul>
                                 </div>
+
 
                                 <a href="{{route('blog.details',$blog->slug)}}" class="blog-title">
                                     <h4>
                                         {{limit_words($blog->title,28)}}
                                     </h4>
                                 </a>
-
-                                <ul class="blog-tags">
-                                  <li>
-       
-                                    <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
-                                         {{@$blog->category->title}}
-                                    </a>
-                                  </li>
-                                </ul>
                               </div>
                             </div>
                           </div>
-                            
+
                         @endforeach
-                        
+
                     </div>
                   </div>
                 </div>

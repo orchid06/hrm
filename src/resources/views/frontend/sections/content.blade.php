@@ -10,9 +10,9 @@
       <div class="i-panel ai-assistant">
         <div class="ai-panel-content">
           <div class="container">
-            <div class="row align-items-center g-lg-5 g-0 overflow-hidden">
+            <div class="row align-items-center g-lg-5 g-4 overflow-hidden">
               <div class="col-lg-5 gs_reveal fromLeft">
-                <div class="section-title">
+                <div class="section-title mb-0">
                   <span>{{$contentSection->value->sub_title}}</span>
                   <h3 class="title-anim">
                       {{$contentSection->value->title}}
