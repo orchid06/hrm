@@ -37,7 +37,7 @@
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
@@ -58,7 +58,7 @@
                                                 {{translate('Select country')}}
                                             </option>
                                             @foreach($countries as $country)
-                                            <option  {{$country->id ==   request()->input('country_id') ? 'selected' :""}} value="{{$country->id}}">  
+                                            <option  {{$country->id ==   request()->input('country_id') ? 'selected' :""}} value="{{$country->id}}">
                                                 {{$country->name}}
                                             </option>
                                             @endforeach
@@ -71,7 +71,7 @@
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>
-                            </div>  
+                            </div>
                         </div>
                         <div class="ms-3">
                             <a href="{{route('admin.security.ip.list')}}"  class="i-btn btn--sm danger">
@@ -104,7 +104,7 @@
                                     @if( check_permission('update_security'))
 
                                         <input  type="checkbox" value="{{$ip->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$ip->id}}" />
-                                        
+
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
@@ -117,7 +117,7 @@
                                         {{$ip->country->name}}
                                     </span>
                                </td>
-                           
+
                                 <td data-label='{{translate("Blocked")}}'>
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_security') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -158,7 +158,7 @@
             </div>
         </div>
     </div>
-  
+
 @endsection
 @section('modal')
 
@@ -184,14 +184,14 @@
                     <div class="modal-body">
                         <div class="row">
 
-            
+
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="ipAddress" class="form-label" >
                                         {{translate('Ip address')}} <small class="text-danger">*</small>
                                     </label>
                                     <input required type="text" placeholder="{{translate('Ip')}}" id="ipAddress" name="ip_address" value="{{old('ip_address')}}">
-                                  
+
                                 </div>
                             </div>
 
@@ -212,7 +212,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                  
+
                                 </div>
 
                             </div>
@@ -262,14 +262,14 @@
                                     </label>
 
                                     <select name="country_id" id="updateCountry">
-             
+
                                         @foreach ($countries as $country )
                                             <option value="{{$country->id}}">
                                                  {{$country->name}}
                                             </option>
                                         @endforeach
                                     </select>
-                                  
+
                                 </div>
 
                             </div>
@@ -299,7 +299,7 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         })
 
         $("#country").select2({
@@ -315,7 +315,7 @@
             var ip = JSON.parse($(this).attr('data-ip'))
             var modal = $('#ip-form-update')
             modal.find('input[name="id"]').val(ip.id)
-            $('#updateCountry').val(`${ip.country_id}`); 
+            $('#updateCountry').val(`${ip.country_id}`);
             $('#updateCountry').trigger('change');
             modal.modal('show')
         })

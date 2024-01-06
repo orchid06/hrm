@@ -1060,8 +1060,8 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-input[type="number"]{
-  padding:6.5px 12px;
+input[type="number"] {
+  padding: 6.5px 12px;
 }
 
 .form-check-input:checked {
@@ -4028,6 +4028,12 @@ select {
   background: var(--site-bg);
   border: 1px solid var(--color-primary-soft);
   border-radius: 4px;
+}
+.user-meta-info .image {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
 }
 .post-card .content > h6 a {
   font-size: 16px;

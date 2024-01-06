@@ -18,7 +18,12 @@ trait InstallerManager
 
    
 
-    public function is_installed() :bool{
+    public function is_installed() :mixed{
+
+        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
+        if (file_exists($logFile)) {
+            return true;
+        }
         return false;
     }
 
@@ -219,16 +224,33 @@ trait InstallerManager
     
     public  function _checkDb(Request $request) :mixed {
 
-        return eval(base64_decode("CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgJHNlcnZlcm5hbWUgPSAkcmVxdWVzdC0+aW5wdXQoJ2RiX2hvc3QnKTsKICAgICAgICAgICAgJHVzZXJuYW1lICAgPSAkcmVxdWVzdC0+aW5wdXQoJ2RiX3VzZXJuYW1lJyk7CiAgICAgICAgICAgICRwYXNzd29yZCAgID0gJHJlcXVlc3QtPmlucHV0KCdkYl9wYXNzd29yZCcpOwogICAgICAgICAgICAkZGJuYW1lICAgICA9ICRyZXF1ZXN0LT5pbnB1dCgnZGJfZGF0YWJhc2UnKTsKICAgIAogICAgICAgICAgICAkY29ubiA9IG5ldyBcbXlzcWxpKCRzZXJ2ZXJuYW1lLCAkdXNlcm5hbWUsICRwYXNzd29yZCwgJGRibmFtZSk7CgogICAgICAgICAgICAkY29ubiAgID0gbmV3IFxteXNxbGkoJHNlcnZlcm5hbWUsICR1c2VybmFtZSwgJHBhc3N3b3JkLCAkZGJuYW1lKTsKICAgICAgICAgICAgJHJlc3VsdCA9ICRjb25uLT5xdWVyeSgiU0hPVyBUQUJMRVMiKTsKICAgICAgICAgICAgJGNvbm4tPmNsb3NlKCk7CiAgICAgICAgICAgIGlmICgkcmVzdWx0LT5udW1fcm93cyA+IDApIHsKICAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKICAgICAgICAgICAgfSAKICAgICAgICAgICAgcmV0dXJuIHRydWU7CgogICAgICAgIH0gY2F0Y2ggKEV4Y2VwdGlvbiAkZSkgewogICAgICAgICAgIHJldHVybiBmYWxzZTsKICAgICAgICB9Cgo="));
+        try {
+            $servername = $request->input('db_host');
+            $username   = $request->input('db_username');
+            $password   = $request->input('db_password');
+            $dbname     = $request->input('db_database');
+            $conn = new \mysqli($servername, $username, $password, $dbname);
 
-      
+            $conn   = new \mysqli($servername, $username, $password, $dbname);
+            $result = $conn->query("SHOW TABLES");
+            $conn->close();
+            if ($result->num_rows > 0) {
+                return false;
+            } 
+            return true;
+
+        } catch (Exception $e) {
+           return false;
+        }
     }
+
+    
     public  function _envConfig(Request $request) :mixed {
 
 
         try {
 
-   
+
             $key = base64_encode(random_bytes(32));
             $appName = config('installer.app_name');
             $output =
@@ -272,7 +294,6 @@ trait InstallerManager
     
             $path = base_path('.env');
             if (file_exists($path)) {
-                $this->_dbMigrate();
                 return true;
             }
     
@@ -289,7 +310,6 @@ trait InstallerManager
 
     public function _dbMigrate() :void{
         ini_set('max_execution_time', 0);
-
         Artisan::call('migrate:fresh', ['--force' => true]);
     }
     public function _dbSeed() :void{
@@ -304,14 +324,22 @@ trait InstallerManager
         $data = [
             ['key' => "app_version", 'value' => $version],
             ['key' => "system_installed_at", 'value' => Carbon::now()],
-            ['key' => "purchase_key", 'value' => config('app.purchase_key')],
-            ['key' => "envato_username", 'value' => config('app.envato_username')],
+            ['key' => "purchase_key", 'value' => env('PURCHASE_KEY')],
+            ['key' => "envato_username", 'value' => env('ENVATO_USERNAME')],
         ];
         
         foreach ($data as $item) {
             Setting::updateOrInsert(['key' => $item['key']], $item);
         }
 
+        $message ='PURCHASE_KEY:'.env('PURCHASE_KEY').'ENVATO_USERNAME:'.env('ENVATO_USERNAME')."INSTALLED_AT:".Carbon::now();
+
+        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
+
+        if (file_exists($logFile)) {
+            unlink($logFile);
+        } 
+        file_put_contents($logFile, $message);
     }
 
 

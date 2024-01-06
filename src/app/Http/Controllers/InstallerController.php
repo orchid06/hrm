@@ -27,7 +27,7 @@ class InstallerController extends Controller
     public function __construct(){
 
         $this->middleware(function ($request, $next) {
-            if($this->is_installed()){
+            if($this->is_installed() && !$request->routeIs('install.setup.finished')){
                 return redirect()->route('home')->with('success',trans('default.already_installed'));
             }
             return $next($request);
@@ -138,7 +138,12 @@ class InstallerController extends Controller
     public function accountSetup(Request $request) :View |RedirectResponse
     {
         try {
+
+            optimize_clear();
+          
             $this->_dbMigrate();
+            
+
             $request->validate([
                 'username' => 'required|max:155',
                 'email'    => 'required|email|max:155',

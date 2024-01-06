@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\InstallerController;
+use App\Http\Middleware\CurrencySwitcher;
+use App\Http\Middleware\LanguageMiddleware;
+use App\Http\Middleware\SoftwareVerification;
 use Illuminate\Support\Facades\Route;
 
 
-
-
     #Install er route
-    Route::controller(InstallerController::class)->prefix("/install")->name('install.')->group(function(){
+    Route::controller(InstallerController::class)->prefix("/install")->name('install.')
+     ->middleware(['sanitizer'])
+     ->withoutMiddleware([SoftwareVerification::class,LanguageMiddleware::class,CurrencySwitcher::class])->group(function(){
 
         Route::get('/','init')->name('init');
         Route::get('/requirement-verification','requirementVerification')->name('requirement.verification');

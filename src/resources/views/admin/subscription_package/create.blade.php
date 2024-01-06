@@ -3,19 +3,20 @@
 @section('content')
     <form action="{{route('admin.subscription.package.store')}}" class="add-listing-form" enctype="multipart/form-data" novalidate method="post">
         @csrf
-        <div class="i-card-md">              
+        <div class="i-card-md">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="title"> 
+                            <label for="title">
                                 {{translate('Title')}} <small class="text-danger">*</small>
                             </label>
                             <input placeholder="{{translate('Enter Title')}}" id="title"  required type="text" name="title" value="{{old('title')}}">
                         </div>
                     </div>
+
                     <div class="col-lg-6">
-                        <label for="duration"> 
+                        <label for="duration">
                             {{translate('Duration')}} <small class="text-danger">*</small>
                         </label>
                         <select id="duration" required name="duration" class="select2" >
@@ -23,14 +24,15 @@
                                 <option {{ old("duration") ==  $val ? 'selected' :""}}  value="{{$val}}">
                                     {{ucfirst(strtolower(str_replace("_"," ",$key)))}}
                                 </option>
-                            @endforeach 
+                            @endforeach
                         </select>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="price"> 
+                            <label for="price">
                                 {{translate('Price')}} <small class="text-danger">*</small>
-                              
+
                             </label>
                             <div class="input-group mb-3">
                                 <input placeholder="{{translate('Enter Price')}}" id="price" step="any" required type="number" min="0" name="price" value="{{old('price')}}" class="form-control">
@@ -38,10 +40,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="discount_price"> 
-                                {{translate('Discount Price')}} 
+                            <label for="discount_price">
+                                {{translate('Discount Price')}}
                             </label>
                             <div class="input-group mb-3">
                                 <input class="form-control" id="discount_price" placeholder="{{translate('Enter Discount Price')}}" step="0.1" type="number" min="0" name="discount_price" value="{{old('discount_price')}}">
@@ -50,10 +53,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="open_ai_model">
-                                {{translate("Template Access")}} 
+                                {{translate("Template Access")}}
                             </label>
                             <select  class="select-template" name="template_access[]" multiple="multiple">
                                 <option value="">
@@ -64,16 +68,17 @@
                                     <option selected value="{{$template->id}}">
                                          {{$template->name}}
                                     </option>
-                                       
+
                                    @endforeach
                                 @endif
                             </select>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="affiliate_commission"> 
-                                {{translate('Affiliate Commission')}} 
+                            <label for="affiliate_commission">
+                                {{translate('Affiliate Commission')}}
                             </label>
                             <div class="input-group mb-3">
                                 <input class="form-control" id="affiliate_commission" placeholder="{{translate('Enter commission')}}" step="0.1" type="number" min="0" max="100" name="affiliate_commission" value="{{old('affiliate_commission')}}">
@@ -81,14 +86,16 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12">
                         <div class="form-inner">
-                            <label for="description"> 
+                            <label for="description">
                                 {{translate('Description')}} <small class="text-danger">*</small>
                             </label>
                             <textarea required placeholder="{{translate('Enter Description')}}" name="description" id="description"  cols="30" rows="5">{{old("description")}}</textarea>
                         </div>
                     </div>
+
                     <div class="col-lg-12 mt-3 mb-3">
                         <div class="faq-wrap style-2">
                             <div class="accordion" id="advanceOption">
@@ -101,7 +108,7 @@
                                         data-bs-target="#socailSection"
                                         aria-expanded="true"
                                         aria-controls="socailSection">
-                                            {{translate("Platform Configuration")}} 
+                                            {{translate("Platform Configuration")}}
                                             <i title="{{translate('Social Platform Configuration')}}" class="ms-1 las la-question-circle"></i>
                                         </button>
                                     </h2>
@@ -128,7 +135,7 @@
                                                <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         <label for="profile"
-                                                        class="form-label">{{ translate('Total Profile') }}
+                                                        >{{ translate('Total Profile') }}
                                                         <small class="text-danger" >*</small></label>
                                                         <input type="number" min="1"
                                                         placeholder="{{translate('Total Profile')}}"
@@ -138,7 +145,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         <label for="post"
-                                                        class="form-label">{{ translate('Total Post') }}
+                                                        >{{ translate('Total Post') }}
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
 
                                                         <input type="number" min="-1"
@@ -172,7 +179,7 @@
                                         data-bs-target="#aiSection"
                                         aria-expanded="true"
                                         aria-controls="aiSection">
-                                            {{translate("Ai Configuration")}} 
+                                            {{translate("Ai Configuration")}}
                                             <i title="{{translate('Configure ai settings that package should include')}}" class="ms-1 las la-question-circle"></i>
                                         </button>
                                     </h2>
@@ -182,7 +189,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         <label for="open_ai_model">
-                                                            {{translate("Ai Model")}} 
+                                                            {{translate("Ai Model")}}
                                                         </label>
                                                         <select   class="select2" id="open_ai_model" name="ai_configuration[open_ai_model]" >
                                                             <option  value="">
@@ -199,9 +206,9 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         <label for="word_limit"
-                                                        class="form-label">{{ translate('No. Of Words') }}
+                                                        >{{ translate('No. Of Words') }}
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
-        
+
                                                         <input type="number" min="-1"
                                                         value="{{old('ai_configuration.word_limit')}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate('No. of Words')}}"   >
                                                     </div>
@@ -213,13 +220,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12 ">
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
    </form>
 @endsection
@@ -250,8 +258,8 @@
                     cache: true
                 }
             })
- 
+
 	})(jQuery);
-    
+
 </script>
 @endpush

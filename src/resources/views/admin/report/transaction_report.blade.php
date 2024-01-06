@@ -33,11 +33,11 @@
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">                        
+                            <form action="{{route(Route::currentRouteName())}}" method="get">
                                     <div class="form-inner">
                                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                     </div>
@@ -68,7 +68,7 @@
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>
-                            </div>  
+                            </div>
                         </div>
                         <div class="ms-3">
                             <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
@@ -112,7 +112,7 @@
                             <th scope="col">
                                 {{translate('Remark')}}
                             </th>
-                
+
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
@@ -139,7 +139,7 @@
                                             {{$report->user->name}}
                                         </a>
                                     </td>
-                                    
+
                                     <td  data-label='{{translate("Trx Code")}}'>
                                           {{$report->trx_code}}
                                     </td>
@@ -149,7 +149,7 @@
                                             <i class='las la-{{$report->trx_type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}'></i>
 
                                               {{num_format($report->amount,$report->currency)}}
-                                          
+
                                         </span>
                                     </td>
 
@@ -159,13 +159,13 @@
                                             number : $report->post_balance??0,
                                             calC   : true
                                         )}}
-                               
+
                                     </td>
 
                                     <td  data-label='{{translate("Remark")}}'>
-                                 
+
                                         {{k2t($report->remarks)}}
-                         
+
                                     </td>
 
                                     <td data-label='{{translate("Options")}}'>
@@ -176,7 +176,7 @@
                                             @if(check_permission('delete_report') )
                                                 <a href="javascript:void(0);" data-href="{{route('admin.transaction.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
-                                                   
+
                                             @else
                                                 {{translate('N/A')}}
                                             @endif
@@ -184,7 +184,7 @@
                                         </div>
                                     </td>
                                </tr>
-                         
+
                             @empty
 
                             <tr>
@@ -193,7 +193,7 @@
                                 </td>
                             </tr>
                         @endforelse
-                 
+
                     </tbody>
                 </table>
             </div>
@@ -244,13 +244,13 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         });
         $(".user").select2({
-           
+
         });
         $(".type").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
@@ -262,7 +262,7 @@
         $(document).on('click','.show-info',function(e){
 
             var modal = $('#report-info');
-           
+
             var report = JSON.parse($(this).attr('data-report'))
 
             $('.content').html(report.details)

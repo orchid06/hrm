@@ -35,7 +35,7 @@
                                             @endforeach
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
-                                                    <button type="button" name="bulk_status" data-type ="is_feature" value="{{$v}}" class="dropdown-item bulk-action-btn" > 
+                                                    <button type="button" name="bulk_status" data-type ="is_feature" value="{{$v}}" class="dropdown-item bulk-action-btn" >
                                                         {{$v == App\Enums\StatusEnum::true->status() ? 'Feature' :"Exclude "}}
                                                     </button>
                                                 </li>
@@ -58,7 +58,7 @@
 
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
@@ -91,7 +91,7 @@
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>
-                            </div>  
+                            </div>
                         </div>
                         <div class="ms-3">
                             <a href="{{route('admin.article.list')}}"  class="i-btn btn--sm danger">
@@ -134,7 +134,7 @@
                     </thead>
                     <tbody>
                         @forelse($articles as $article)
-  
+
                             <tr>
                                 <td data-label="#">
                                     @if(check_permission('create_article') || check_permission('update_article') || check_permission('delete_article'))
@@ -188,11 +188,11 @@
                                                 <a  href="{{route('admin.article.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
                                             @if(check_permission('delete_article'))
-                          
+
                                                     <a href="javascript:void(0);" data-href="{{route('admin.article.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
 
                                                     <i class="las la-trash-alt"></i></a>
-                                               
+
                                             @endif
                                         @else
                                             {{translate('N/A')}}
@@ -234,7 +234,7 @@
          "use strict";
 
         $(".select2").select2({
-           
+
         })
 
 	})(jQuery);
