@@ -120,7 +120,7 @@
                                             <p>	{{ @$post->account->account_information->name}}</p>
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
-                                        -  <span class="i-badge success"><a  title="{{translate("Show")}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                                        -  <span class="i-badge success"><a  title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
                                             </a>
                                         </span>
                                         @endif
@@ -166,10 +166,10 @@
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
 
-                                        <a  title="{{translate("Show")}}"  href="{{route('admin.social.post.show',["uid" => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                        <a  title="{{translate('Show')}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                         </a>
                                         @if(check_permission('delete_post') )
-                                            <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
+                                            <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i>
                                             </a>
                                         @else

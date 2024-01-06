@@ -66,11 +66,11 @@ class FrontendSeeder extends Seeder
                 "element" => [
                     [
                         "button_name" => "Get Started",
-                        "url" =>  "##",
+                        "url" =>  "@@",
                     ],
                     [
                         "button_name" => "Contact Us",
-                        "url" =>  "##",
+                        "url" =>  "@@",
                     ]
                 ]
 
@@ -92,9 +92,9 @@ class FrontendSeeder extends Seeder
                     "motion_text"       => "Explore more - Explore more ",
                     "description"       => "Our all-in-one social media management platform unlocks the full potential of social to transform not just your marketing strategy—but every area of your organization.",
                     "button_left_name"  =>  "Get started for free",
-                    "button_left_url"   =>  "##",
+                    "button_left_url"   =>  "@@",
                     "button_right_name" =>  "Book a demo",
-                    "button_right_url"  =>  "##"
+                    "button_right_url"  =>  "@@"
                 ]
 
             ],
@@ -105,7 +105,7 @@ class FrontendSeeder extends Seeder
                     "title"        => "Propelling your brand to new heights in the digital realm",
                     "sub_title"    => "Learn About Us",
                     "button_name"  => "Learn More",
-                    "button_url"   => "##",
+                    "button_url"   => "@@",
                     "description"  => "Our vision is to be the driving force behind businesses, success in the digital age, where social media is not just a platform but a powerful tool for growth and engagement.",
                 ],
 
@@ -742,32 +742,32 @@ class FrontendSeeder extends Seeder
                     [
                         "social_icon" =>  "bi bi-facebook",
                         "title"=> "facebook",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                     [
                         "social_icon" =>  "bi bi-linkedin",
                         "title"=> "linkedin",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                     [
                         "social_icon" =>  "bi bi-instagram",
                         "title"=> "instagram",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                     [
                         "social_icon" =>  "bi bi-twitter",
                         "title"=> "twitter",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                     [
                         "social_icon" =>  "bi bi-youtube",
                         "title"=> "youtube",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                     [
                         "social_icon" =>  "bi bi-tiktok",
                         "title"=> "tiktok",
-                        "url"=> "##",
+                        "url"=> "@@",
                     ],
                 ],
                 

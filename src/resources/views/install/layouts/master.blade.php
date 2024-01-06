@@ -21,10 +21,8 @@
   </head>
   <body>
 
-
-    <main class="main" id="main">
-
-      <div class="text-center text-white mb-4">
+    <main class="main d-flex flex-column justify-content-center align-items-center" id="main">
+      <div class="text-center text-white mb-5">
         <h2>
             {{@trans('default.insaller_title')}}
         </h2>
@@ -43,6 +41,7 @@
     <script src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 
+    
 
     @include('partials.notify')
     @stack('script-include')

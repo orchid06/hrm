@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('uid',100)->index()->nullable();
             $table->string('o_auth_id',255)->nullable();
             $table->string('name',255);
-            $table->string('username',255)->nullable()->unique();
-            $table->string('phone',255)->nullable()->unique();
+            $table->string('username',191)->nullable()->unique();
+            $table->string('phone',191)->nullable()->unique();
             $table->double('balance',20,2)->default(0.00);
-            $table->string('email',255)->unique();
+            $table->string('email',191)->unique();
             $table->longText('notification_settings')->nullable();
             $table->longText('settings')->nullable();
             $table->longText('address')->nullable();

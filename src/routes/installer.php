@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\InstallerController;
+use App\Http\Middleware\SoftwareVerification;
 use Illuminate\Support\Facades\Route;
 
 
 
 
     #Install er route
-    Route::controller(InstallerController::class)->prefix("/install")->name('install.')->group(function(){
+    Route::controller(InstallerController::class)->prefix("/install")->name('install.')->withoutMiddleware([SoftwareVerification::class,])->group(function(){
 
         Route::get('/','init')->name('init');
         Route::get('/requirement-verification','requirementVerification')->name('requirement.verification');
@@ -21,9 +22,5 @@ use Illuminate\Support\Facades\Route;
 
    });
 
-
-   Route::fallback(function () {
-    return redirect('/');
-  });
 
 

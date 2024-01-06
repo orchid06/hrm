@@ -90,8 +90,8 @@
                                                                 <div class="menu-feature-item">
                                                                     <span><i class="@php echo $element->value->icon @endphp"></i></span>
                                                                     <div>
-                                                                    <h6>{{$element->value->title}}</h6>
-                                                                    <p>{{$element->value->sub_title}}</p>
+                                                                        <h6>{{$element->value->title}}</h6>
+                                                                        <p>{{$element->value->sub_title}}</p>
                                                                     </div>
                                                                 </div>
 

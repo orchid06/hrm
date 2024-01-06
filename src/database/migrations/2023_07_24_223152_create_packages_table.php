@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->string('title',255)->unique()->nullable();
-            $table->string('slug',255)->unique()->nullable();
+            $table->string('title',191)->unique()->nullable();
+            $table->string('slug',191)->unique()->nullable();
             $table->enum('duration',[1,2,-1])->comment('MONTHLY = 1; YEARLY = 2; UNLIMITED = -1');
             $table->double('price',20, 2)->default(0.00);
             $table->double('discount_price',20, 2)->default(0.00);

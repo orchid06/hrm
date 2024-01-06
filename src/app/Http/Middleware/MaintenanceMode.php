@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\StatusEnum;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SoftwareVerification
+class MaintenanceMode
 {
     /**
      * Handle an incoming request.
@@ -16,11 +17,16 @@ class SoftwareVerification
     public function handle(Request $request, Closure $next): Response
     {
 
-        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
-        if (!file_exists($logFile)) {
-             return redirect()->route('install.init');
-        } 
+        try {
+     
+            if(site_settings('maintenance_mode') == (StatusEnum::true)->status() ){
+                return redirect()->route('maintenance.mode');
+            }
+            return $next($request);
 
+        } catch (\Exception $ex) {
+            
+        }
         return $next($request);
     }
 }

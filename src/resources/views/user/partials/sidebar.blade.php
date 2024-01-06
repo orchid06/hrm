@@ -12,13 +12,13 @@
         <div class="sidemenu-wrapper">
             <ul class="sidemenu-list">
                 <li class="sidemenu-item">
-                    <a href="{{route("user.home")}}" class="sidemenu-link {{request()->routeIs('user.home') ? "active" :""}}">
+                    <a href="{{route('user.home')}}" class="sidemenu-link {{request()->routeIs('user.home') ? 'active' :''}}">
                     <div
                         class="sidemenu-icon"
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate("Dashboard")}}">
+                        data-bs-title="{{translate('Dashboard')}}">
                         <i class="bi bi-grid-1x2"></i>
                     </div>
                     <span class="d-lg-none">
@@ -41,7 +41,7 @@
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate("Post Feed")}}">
+                        data-bs-title="{{translate('Post Feed')}}">
                         <i class="bi bi-stickies"></i>
 
                     </div>
@@ -59,7 +59,7 @@
 
                     <ul class="sub-menu">
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? "active" :""}}" href="{{route('user.social.post.create')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
                                 <span>
                                     <i class="bi bi-pencil-square"></i>
                                 </span>
@@ -70,7 +70,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? "active" :""}}" href="{{route('user.social.post.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
                                 <span>
                                 <i class="bi bi-newspaper"></i>
                                 </span>
@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="sidemenu-item">
-                    <a href="{{route("user.ai.content.list")}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? "active" :""}}">
+                    <a href="{{route('user.ai.content.list')}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? 'active' :''}}">
                         <div
                             class="sidemenu-icon"
                             data-bs-toggle="tooltip"
@@ -101,13 +101,13 @@
                 </li>
 
                 <li class="sidemenu-item">
-                    <a href="{{route("user.social.account.list")}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? "active" :""}}">
+                    <a href="{{route('user.social.account.list')}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? 'active' :''}}">
                     <div
                         class="sidemenu-icon"
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate("Social Accounts")}}">
+                        data-bs-title="{{translate('Social Accounts')}}">
                         <i class="bi bi-person-fill-gear"></i>
                     </div>
 
@@ -118,8 +118,8 @@
                 </li>
 
                 <li class="sidemenu-item">
-                    <a href="{{route("user.plan")}}" class="sidemenu-link  {{request()->routeIs('user.plan') ? "active" :""}}">
-                        <div class="sidemenu-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="{{translate("Plans")}}">
+                    <a href="{{route('user.plan')}}" class="sidemenu-link  {{request()->routeIs('user.plan') ? 'active' :''}}">
+                        <div class="sidemenu-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="{{translate('Plans')}}">
                         <i class="bi bi-box-seam"></i>
                         </div>
                         <span class="d-lg-none">
@@ -129,16 +129,16 @@
                 </li>
 
                 <li class="sidemenu-item">
-                    <a href="javascript:void(0)" class="sidemenu-link
+                    <a href="javascript:void(0)" class='sidemenu-link
                     @if($lastSegment == "reports")
                         active
-                    @endif">
+                    @endif'>
                     <div
                         class="sidemenu-icon"
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate("Analytical Reports")}}">
+                        data-bs-title="{{translate('Analytical Reports')}}">
                         <i class="bi bi-graph-up"></i>
                     </div>
                     <span class="d-lg-none">
@@ -156,7 +156,7 @@
                     <ul class="sub-menu">
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? "active" :""}}" href="{{route('user.template.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? 'active' :''}}" href="{{route('user.template.report.list')}}">
                                 <span>
                                     <i class="bi bi-layers"></i>
                                 </span>
@@ -167,7 +167,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? "active" :""}}" href="{{route('user.subscription.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? 'active' :''}}" href="{{route('user.subscription.report.list')}}">
                                 <span>
                                 <i class="bi bi-bookmarks"></i>
                                 </span>
@@ -179,7 +179,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? "active" :""}}" href="{{route('user.credit.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? 'active' :''}}" href="{{route('user.credit.report.list')}}">
                             <span><i class="bi bi-credit-card-2-front"></i></span>
                                 <p>
                                 {{translate('Credit Reports')}}
@@ -188,7 +188,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? "active" :""}}" href="{{route('user.deposit.report.list')}}">
+                            <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? 'active' :''}}" href="{{route('user.deposit.report.list')}}">
                             <span><i class="bi bi-wallet"></i></span>
                                 <p>
                                 {{translate('Deposit Reports')}}
@@ -197,7 +197,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? "active" :""}}" href="{{route('user.withdraw.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? 'active' :''}}" href="{{route('user.withdraw.report.list')}}">
                             <span><i class="bi bi-box-arrow-in-up-left"></i></span>
                                 <p>
                                 {{translate('Withdraw Reports')}}
@@ -207,7 +207,7 @@
 
                         @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
                             <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? "active" :""}}" href="{{route('user.affiliate.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? 'active' :''}}" href="{{route('user.affiliate.report.list')}}">
                                 <span><i class="bi bi-share"></i></span>
                                 <p>
                                     {{translate('Affiliate Reports')}}
@@ -217,7 +217,7 @@
                         @endif
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? "active" :""}}" href="{{route('user.transaction.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? 'active' :''}}" href="{{route('user.transaction.report.list')}}">
                             <span><i class="bi bi-arrow-left-right"></i></span>
                                 <p>
                                 {{translate('Transaction Reports')}}
@@ -226,7 +226,7 @@
                         </li>
 
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? "active" :""}}" href="{{route('user.kyc.report.list')}}">
+                            <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? 'active' :''}}" href="{{route('user.kyc.report.list')}}">
                             <span><i class="bi bi-shield-lock"></i></span>
                                 <p>
                                 {{translate('Kyc Reports')}}
@@ -239,7 +239,7 @@
                 </li>
 
                 <li class="sidemenu-item">
-                        <a href="{{route("user.ticket.list")}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? "active" :""}}">
+                        <a href="{{route('user.ticket.list')}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? 'active' :''}}">
                         <div
                             class="sidemenu-icon"
                             data-bs-toggle="tooltip"
@@ -256,13 +256,13 @@
                 </li>
 
                 <li class="sidemenu-item">
-                    <a href="{{route("user.profile")}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? "active" :""}}">
+                    <a href="{{route('user.profile')}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? 'active' :''}}">
                     <div
                         class="sidemenu-icon"
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate("Profile")}}">
+                        data-bs-title="{{translate('Profile')}}">
                         <i class="bi bi-gear"></i>
                     </div>
 

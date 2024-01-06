@@ -140,6 +140,15 @@ class SettingService
             "status"           => ["required",Rule::in(StatusEnum::toArray())],
         ]);
 
+        if( $request->input('key') =='force_ssl' &&   $request->input("status") == (StatusEnum::true)->status()  && !$request->secure()){
+
+            return [
+                'status'  => false,
+                'message' => translate('Your request is not secure!! to enable this module'),
+            ];
+
+        }
+
         $response['status']    = false;
         $response['message']   = translate('Some thing went wrong!!');
 

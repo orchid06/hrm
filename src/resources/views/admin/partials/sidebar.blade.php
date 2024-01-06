@@ -40,19 +40,19 @@
                   @if(check_permission('view_account'))
 
                   <li class="sub-menu-item">
-                    <a  href='{{route('admin.social.post.analytics')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.analytics")}}'>
+                    <a  href="{{route('admin.social.post.analytics')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.post.analytics")}}'>
                         <span></span>
                         <p>{{translate('Analytics')}}</p>
                     </a>
                   </li>
                     <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.post.list')}}'  class='sidebar-menu-link {{sidebar_awake(["admin.social.post.list","admin.social.post.show"])}}'>
+                        <a  href="{{route('admin.social.post.list')}}"  class='sidebar-menu-link {{sidebar_awake(["admin.social.post.list","admin.social.post.show"])}}'>
                             <span></span>
                             <p>{{translate('All Post')}}</p>
                         </a>
                     </li>
                     <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.post.create')}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
+                        <a  href="{{route('admin.social.post.create')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
                             <span></span>
                             <p>{{translate('Create New')}}</p>
                         </a>
@@ -92,7 +92,7 @@
 
                   @if(check_permission('view_account'))
                     <li class="sub-menu-item">
-                        <a  href='{{route('admin.social.account.list',['platform' => 'facebook'])}}'  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
+                        <a  href="{{route('admin.social.account.list',['platform' => 'facebook'])}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
                             <span></span>
                             <p>{{translate('Accounts')}}</p>
                         </a>
@@ -816,7 +816,7 @@
             <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.mailGateway.*','admin.smsGateway.*'],'drop_down')}} " id="notificationGateway">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
-                    <a class='sidebar-menu-link {{sidebar_awake("admin.mailGateway.*")}}' href="{{route("admin.mailGateway.list")}}">
+                    <a class='sidebar-menu-link {{sidebar_awake("admin.mailGateway.*")}}' href='{{route("admin.mailGateway.list")}}'>
                       <span></span>
                         <p>
                           {{translate('Mail Gateway')}}
@@ -824,7 +824,7 @@
                     </a>
                 </li>
                 <li class="sub-menu-item">
-                    <a class="sidebar-menu-link {{sidebar_awake("admin.smsGateway.*")}}'" href="{{route("admin.smsGateway.list")}}">
+                    <a class="sidebar-menu-link {{sidebar_awake('admin.smsGateway.*')}}" href="{{route('admin.smsGateway.list')}}">
                       <span></span>
                         <p>
                           {{translate('Sms Gateway')}}

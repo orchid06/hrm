@@ -116,7 +116,9 @@
                                             <p>	{{ @$post->account->account_information->name}}</p>
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
-                                        -  <a class="i-badge success" title="{{translate("Show")}}" target="_blank"  href="{{@$post->platform_response->url}}"> {{translate("View Post")}}
+
+                                            <a class="i-badge success" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+
                                             </a>
 
                                         @endif
@@ -149,10 +151,10 @@
 
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
-                                        <a  title="{{translate("Show")}}"  href="{{route('user.social.post.show',["uid" => $post->uid])}}" class="icon-btn icon-btn-sm info"><i class="bi bi-eye"></i>
+                                        <a  title="{{translate('Show')}}"  href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="icon-btn icon-btn-sm info"><i class="bi bi-eye"></i>
                                         </a>
 
-                                        <a title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('user.social.post.destroy',  $post->id)}}" class="icon-btn icon-btn-sm danger delete-item">
+                                        <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.post.destroy',  $post->id)}}" class="icon-btn icon-btn-sm danger delete-item">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
@@ -234,8 +236,6 @@
 
             modal.modal('show')
         });
-
-
 
 
 

@@ -206,6 +206,28 @@
                                             <input type="number" min="0" name="site_settings[vistors]" id="vistors"  value="{{site_settings('vistors')}}" required placeholder='{{translate("Site Vistors")}}'>
                                         </div>
                                     </div>
+
+                                    <div class="col-xl-6">
+                                        <div class="form-inner">
+                                            <label for="maintenance_title" class="form-label">
+                                                {{translate('Maintenance Mode Title')}} <small class="text-danger" >*</small>
+                                            </label>
+
+                                            <input type="text"  name="site_settings[maintenance_title]" id="maintenance_title"  value="{{site_settings('maintenance_title')}}" required placeholder='{{translate("Maintenance Mode Title")}}'>
+                                  
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-inner">
+                                            <label for="maintenance_description" class="form-label">
+                                                {{translate('Maintenance Mode Description')}} <small class="text-danger" >*</small>
+                                            </label>
+
+                                            <input type="text"  name="site_settings[maintenance_description]" id="maintenance_description"  value="{{site_settings('maintenance_description')}}" required placeholder='{{translate("Maintenance Mode Description")}}'>
+                                  
+                                        </div>
+                                    </div>
+
                                     <div class="col-xl-12">
                                         <div class="form-inner">
                                             <label for="copy_right_text">
@@ -214,6 +236,8 @@
                                             <textarea name="site_settings[copy_right_text]" placeholder='{{translate("Copy Right Text")}}' id="copy_right_text" cols="30" rows="4">{{site_settings('copy_right_text')}}</textarea>
                                         </div>
                                     </div>
+
+
                                     <div class="col-xl-6">
                                         <div class="form-inner">
                                             <label for="google_adsense_publisher_id" >
