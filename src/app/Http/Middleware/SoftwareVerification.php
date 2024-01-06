@@ -17,7 +17,7 @@ class SoftwareVerification
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(!$this->_systemInstalled()){
+        if(!$this->is_installed()){
             return redirect()->route('install.init');
         }
         return $next($request);
