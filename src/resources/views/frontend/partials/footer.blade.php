@@ -148,16 +148,78 @@
       </div>
 
       <div class="footer-bottom pb-4 pt-4">
-        <div class="text-center">
-        <p>
-            {{site_settings("copy_right_text")}}
-        </p>
+        <div class="container">
+            <div class="footer-bottom-wrapper">
+                <p>
+                    {{site_settings("copy_right_text")}}
+                </p>
+
+                 <button class="language-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span class="language-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                    <p>{{translate("English")}} </p>
+                </button>
+            </div>
         </div>
+
       </div>
 
 </footer>
 
-{{-- <div class="back-to-top d-md-flex d-none">
-    <p>{{trans('default.back_to_top')}}</p>
-    <span></span>
-</div> --}}
+<div class="modal fade zoomIn" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{translate("Language")}} </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body lang-modal">
+        <div class="lang-modal-wrapper">
+            <h6 class="mb-4">Select Your Language</h6>
+            <ul class="language-list">
+                <li>
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <img src="https://i.ibb.co/m88DMbj/Dotted-Map-White-Background.jpg" alt="Dotted-Map-White-Background">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="i-btn btn--primary  btn--md capsuled">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

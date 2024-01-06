@@ -88,8 +88,6 @@ body {
   background-color: var(--site-bg);
   font-family: var(--font-primary) !important;
   font-size: 16px;
-  -webkit-transition: 0.3s all linear;
-  transition: 0.3s all linear;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;

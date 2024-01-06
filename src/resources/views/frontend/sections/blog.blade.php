@@ -4,7 +4,7 @@
    $blogs        = App\Models\Article::active()->feature()->take(10)->get();
 @endphp
 
-<section class="blog pb-110">
+<section class="blog bg--white pt-110 pb-110">
       <div class="container-fluid wrapper-fluid">
         <div class="row g-5">
           <div class="col-xl-3 col-lg-8 col-md-11 col-12">

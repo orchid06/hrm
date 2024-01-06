@@ -2184,12 +2184,15 @@
   padding: 0;
   width: 100%;
 }
+.features .feature-list .nav-link:last-child .feature-card-item {
+  border-bottom: none;
+}
 
 .features .feature-list .nav-link .feature-card-item {
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 30px 20px;
+  padding: 25px 20px;
   transition: 0.3s ease-in-out;
   cursor: pointer;
   border-bottom: 1px solid var(--border-light);
@@ -2263,59 +2266,100 @@
   color: var(--color-primary);
 }
 
+.feature-tab-body {
+  position: relative;
+}
+.feature-tab-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 65%
+  );
+  z-index: 2;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .feature-tab-body::after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 60%
+    );
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .feature-tab-body::after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 50%
+    );
+  }
+}
 .features .feature-content {
-  padding: 40px 30px;
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  background: var(--color-white);
+  text-align: end;
+  padding: 40px 0;
   width: -webkit-fit-content;
   width: -moz-fit-content;
-  width: fit-content;
+  width: 320px;
   height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
 }
+
 @media (max-width: 1199.98px) {
   .features .feature-content {
     height: fit-content;
+  }
+  .features .feature-content {
+    padding: 20px 0 0 0;
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {
   .features .feature-content {
-    padding: 35px 25px;
+    padding: 20px 0 0 0;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .features .feature-content {
-    padding: 35px 25px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .features .feature-content {
-    padding: 35px 25px;
-  }
-}
-
-@media (max-width: 1199px) {
-  .features .feature-content {
-    max-width: 400px;
-    margin-top: -150px;
-    margin-left: 10%;
+    padding: 20px 0 0 0;
   }
 }
 
 @media (max-width: 767px) {
   .features .feature-content {
-    max-width: 100%;
-    margin-left: 0;
-    margin-top: 0;
+    margin-right: auto;
+    margin-top: -50px;
+    position: relative;
+    background-color: var(--color-white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px !important;
+    text-align: start;
+  }
+  .feature-tab-body::after {
+    display: none;
+  }
+  .features .feature-content ul {
+    justify-content: start !important;
   }
 }
-
-@media (max-width: 576px) {
+@media (max-width: 424.98px) {
   .features .feature-content {
-    padding: 25px 20px;
+    max-width: 100% !important;
+    margin-top: -25px !important;
   }
 }
 
@@ -2327,9 +2371,17 @@
 .features .feature-content ul {
   margin-top: 30px;
   display: grid;
+  justify-content: end;
   gap: 15px;
 }
-
+@media (max-width: 1199px) {
+  .features .feature-content {
+    max-width: 400px;
+  }
+  .features .feature-content ul {
+    gap: 10px;
+  }
+}
 .features .feature-content ul li {
   display: flex;
   align-items: flex-start;
@@ -2665,7 +2717,7 @@
 }
 
 .blog-img .blog-card__pop {
-  background: var(--site-bg);
+  background: var(--color-white);
   position: absolute;
   width: 70px;
   height: 70px;
@@ -2714,7 +2766,7 @@
 .blog-img .blog-card__pop > .shape > svg {
   width: 100%;
   height: 100%;
-  fill: var(--site-bg);
+  fill: var(--color-white);
 }
 
 @media (max-width: 1199px) {
@@ -2822,6 +2874,14 @@
   margin-bottom: 0;
 }
 
+.blog-list .blog-img .blog-card__pop {
+  background: var(--site-bg);
+}
+.blog-list .blog-img .blog-card__pop > .shape > svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--site-bg);
+}
 /* =========================================================
               Call To Action Section Start
 ============================================================ */
@@ -2901,9 +2961,9 @@
 
 .template-card {
   padding: 20px;
-  border: 1px solid var(--color-primary-light);
+  border: 1px solid var(--border-dark);
   border-radius: 12px;
-  background-color: var(--color-white);
+  background-color: var(--border-dark);
   transition: 0.3s all ease;
   cursor: pointer;
 }
@@ -2932,6 +2992,7 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 8px;
+  color: var(--text-light);
 }
 
 @media (max-width: 767px) {
@@ -3290,6 +3351,80 @@
   text-decoration: underline;
 }
 
+.footer-bottom-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.language-btn {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  gap: 10px;
+}
+.language-btn:hover {
+  text-decoration: overline;
+}
+.language-img {
+  width: 25px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.language-img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.language-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.language-list > li {
+  flex:0 0 calc(50% - 15px);
+}
+.language-item {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: 3px;
+}
+.language-item:hover {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+.language-item-img {
+  max-width: 25px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.lang-modal{
+  position: relative;
+}
+.lang-modal-wrapper{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: inherit;
+}
+.lang-modal >img{
+  opacity: 0.4;
+}
 /* =========================================================
               Currency Dropdown Start
 ============================================================ */
