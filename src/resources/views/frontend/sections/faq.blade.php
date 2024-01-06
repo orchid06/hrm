@@ -3,7 +3,7 @@
    $elemets             = get_content("element_faq");
 @endphp
 
-<section class="faqs pt-110 pb-110 mb-110">
+<section class="faqs pt-110 pb-110">
     <div class="container">
       <div class="row">
         <div class="col-xl-7 col-lg-8 mx-auto">

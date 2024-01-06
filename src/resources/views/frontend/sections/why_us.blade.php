@@ -4,7 +4,7 @@
 @endphp
 
 
-<section class="choose pb-110">
+<section class="choose bg--white pt-110 pb-110">
     <div class="container">
       <div class="row g-5">
         <div class="col-lg-5">

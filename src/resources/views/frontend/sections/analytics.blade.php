@@ -4,7 +4,7 @@
 
 @endphp
 
-<section class="Analytic pb-110">
+<section class="Analytic pt-110 pb-110">
     <div class="container">
       <div class="row g-5 align-items-center overflow-hidden">
         <div class="col-lg-7 pe-lg-5 order-lg-0 order-2 gs_reveal fromLeft">

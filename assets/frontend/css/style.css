@@ -15,6 +15,9 @@
 .fade-item {
   opacity: 0;
 }
+.bg--white {
+  background-color: var(--color-white);
+}
 
 /* =======For Full Width section======= */
 .section-fluid {
