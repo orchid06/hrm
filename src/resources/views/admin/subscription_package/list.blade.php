@@ -185,11 +185,11 @@
                                     <div class="table-action">
                                         @if(check_permission('update_package') || check_permission('delete_package') )
                                             @if(check_permission('update_package') )
-                                                <a  href="{{route('admin.subscription.package.edit',$package->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Edit')}}" href="{{route('admin.subscription.package.edit',$package->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
                                             @if(check_permission('delete_package') && $package->is_free !=  App\Enums\StatusEnum::true->status())
                                               
-                                                <a href="javascript:void(0);"    data-href="{{route('admin.subscription.package.destroy',$package->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.subscription.package.destroy',$package->id)}}" class="pointer delete-item icon-btn danger">
                                                      <i class="las la-trash-alt"></i>
                                                 </a>
                                             @endif

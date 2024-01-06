@@ -151,7 +151,7 @@
                                                 ];
                                             @endphp
 
-                                            <a href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
+                                            <a title="{{translate('Info')}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                             <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
                                         </div>

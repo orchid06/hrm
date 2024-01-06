@@ -208,9 +208,9 @@
                                 </td>
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-                                        <a  href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
+                                        <a title="{{translate('Show')}}" href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
                                         @if(check_permission('delete_ticket') )
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
+                                        <a title="{{translate('Delete')}}" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
                                             <i class="las la-trash-alt"></i></a>
                                         @endif
                                     </div>

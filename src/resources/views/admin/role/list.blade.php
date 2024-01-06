@@ -135,10 +135,10 @@
 									<div class="table-action">
 										@if(check_permission('update_role') ||  check_permission('delete_role'))
 											@if(check_permission('update_role'))
-												<a href="{{route('admin.role.edit',$role->uid)}}" class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+												<a title="{{translate('Update')}}"  href="{{route('admin.role.edit',$role->uid)}}" class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
 											@endif
 											@if(check_permission('delete_role'))
-												<a href="javascript:void(0);" data-href="{{route('admin.role.destroy',$role->uid)}}" class="pointer delete-item icon-btn danger">
+												<a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.role.destroy',$role->uid)}}" class="pointer delete-item icon-btn danger">
 												<i class="las la-trash-alt"></i>
 											</a>
 											@endif
