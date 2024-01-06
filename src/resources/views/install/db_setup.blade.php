@@ -26,7 +26,7 @@
                                         <label for="db_host">
                                             Database Host
                                         </label>
-                                        <input name="db_host" value="{{old('db_host')}}" type="text" id="db_host" placeholder="Ex:localhost">
+                                        <input name="db_host" value="localhost" type="text" id="db_host" placeholder="Ex:localhost">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

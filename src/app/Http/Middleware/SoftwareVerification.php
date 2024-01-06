@@ -5,9 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Traits\InstallerManager;
 class SoftwareVerification
 {
+    use InstallerManager;
     /**
      * Handle an incoming request.
      *
@@ -16,11 +17,9 @@ class SoftwareVerification
     public function handle(Request $request, Closure $next): Response
     {
 
-        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
-        if (!file_exists($logFile)) {
-             return redirect()->route('install.init');
-        } 
-
+        if(!$this->_systemInstalled()){
+            return redirect()->route('install.init');
+        }
         return $next($request);
     }
 }
