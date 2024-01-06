@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->string('name')->unique();
-            $table->string('code')->unique();
-            $table->string('symbol');
+            $table->string('name',191)->unique();
+            $table->string('code',191)->unique();
+            $table->string('symbol',191);
             $table->double('exchange_rate');
             $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
             $table->enum('default',[0,1])->nullable()->comment('Yes: 1, No: 0');

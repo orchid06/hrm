@@ -77,7 +77,7 @@ return [
         'status'     => StatusEnum::false->status()
     ]),
 
-    "strong_password" => StatusEnum::false->status(),
+    "strong_password" => StatusEnum::true->status(),
 
     "captcha" => StatusEnum::false->status(),
     "vistors" => '500',
@@ -90,13 +90,13 @@ return [
     "social_login"              => StatusEnum::false->status(),
     "social_login_with"         => json_encode([
         'google_oauth' => [
-            'client_id'     => '580301070453-job03fms4l7hrlnobt7nr5lbsk9bvoq9.apps.googleusercontent.com',
-            'client_secret' => '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',
+            'client_id'     => '@@',
+            'client_secret' => '@@',
             'status'        => StatusEnum::true->status(),
         ],
         'facebook_oauth' => [
-            'client_id'     => '5604901016291309',
-            'client_secret' => '41c62bf15c8189171196ffde1d2a6848',
+            'client_id'     => '@@',
+            'client_secret' => '@@',
             'status'        => StatusEnum::true->status(),
         ],
     ]),
@@ -150,10 +150,10 @@ return [
     'api_route_rate_limit' => 1000,
     'web_route_rate_limit' => 1000,
 
-    'primary_color'   => "#673ab7",
-    'secondary_color' => "#ba6cff",
-    'text_primary'    => '#26152e',
-    'text_secondary'  => '#777777',
+    'primary_color'   => "#8158FC",
+    'secondary_color' => "#00A9FF",
+    'text_primary'    => '#26152E',
+    'text_secondary'  => '#676767',
     
 
     /** newly added content */

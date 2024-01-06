@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="form-inner">
-                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder="{{translate("Search by transaction id or remarks")}}">
+                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
                     </div>
 
                     <div class="d-flex gap-2">

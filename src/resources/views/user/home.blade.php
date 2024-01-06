@@ -185,7 +185,7 @@
             </h3>
 
             <a
-              href="{{translate('user.plan')}}"
+              href="{{route('user.plan')}}"
               class="i-btn btn--primary btn--lg capsuled">
               @if($user->runningSubscription)
                 {{translate('Upgrade Now')}}
@@ -228,7 +228,7 @@
                     <div class="channel-item">
                       <div class="channel-meta">
                         <span class="channel-img">
-                          <img src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{imageUrl(@$platform->file,"platform",true)}}"/>
+                          <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
                         </span>
 
                         <div class="channel-info">

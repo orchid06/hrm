@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('serial_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->string("name")->unique();
-            $table->string("code")->unique();
+            $table->string("name",191)->unique();
+            $table->string("code",191)->unique();
             $table->longText("parameters")->nullable();
             $table->longText("extra_parameters")->nullable();
             $table->double("percentage_charge",20, 2)->default(0.00);

@@ -278,10 +278,10 @@ return [
             "serial_id"        => "1",
             "currency_id"      => "1",
             "parameters"       => [
-                "api_key"    => "#",
-                "username"   => "#",
-                "password"   => "#",
-                "api_secret" => "#",
+                "api_key"    => "@@",
+                "username"   => "@@",
+                "password"   => "@@",
+                "api_secret" => "@@",
                 "sandbox"    => StatusEnum::true->status()
             ],
             "extra_parameters" =>[
@@ -294,10 +294,10 @@ return [
             "serial_id"        => "2",
             "currency_id"      => "1",
             "parameters"       => [
-                "pub_key"         => "#",
-                "pri_key"         => "#",
-                "marchent_number" => "#",
-                "marchent_id"     => "#",
+                "pub_key"         => "@@",
+                "pri_key"         => "@@",
+                "marchent_number" => "@@",
+                "marchent_id"     => "@@",
                 "sandbox"         => StatusEnum::true->status()
             ],
             "extra_parameters" => [
@@ -310,8 +310,8 @@ return [
             "serial_id"        => "3",
             "currency_id"      => "1",
             "parameters"       => [
-                "cleint_id" => "#",
-                "secret"    => "#",
+                "cleint_id" => "@@",
+                "secret"    => "@@",
             ],
             "extra_parameters" => [],
         ],
@@ -321,8 +321,8 @@ return [
             "serial_id"        => "4",
             "currency_id"      => "1",
             "parameters"       => [
-                "secret_key"      => "#",
-                "publishable_key" => "#",
+                "secret_key"      => "@@",
+                "publishable_key" => "@@",
             ],
             "extra_parameters" => [],
         ],
@@ -332,8 +332,8 @@ return [
             "serial_id"        => "5",
             "currency_id"      => "1",
             "parameters"       => [
-                "merchant_id" => "#",
-                "secret_key"  => "#",
+                "merchant_id" => "@@",
+                "secret_key"  => "@@",
             ],
             "extra_parameters" => [
                 "status" => "ipn"
@@ -345,8 +345,8 @@ return [
             "serial_id"        => "6",
             "currency_id"      => "1",
             "parameters"       => [
-                "public_key" => "#",
-                "secret_key" => "#",
+                "public_key" => "@@",
+                "secret_key" => "@@",
             ],
             "extra_parameters" => [
                 "callback" => "ipn",
@@ -359,9 +359,9 @@ return [
             "serial_id"        => "7",
             "currency_id"      => "1",
             "parameters"       => [
-                "public_key"     => "#",
-                "secret_key"     => "#",
-                "encryption_key" => "#"
+                "public_key"     => "@@",
+                "secret_key"     => "@@",
+                "encryption_key" => "@@"
             ],
             "extra_parameters" => [],
         ],
@@ -371,8 +371,8 @@ return [
             "serial_id"        => "8",
             "currency_id"      => "1",
             "parameters"       => [
-                "key_id"     => "#",
-                "key_secret" => "#"
+                "key_id"     => "@@",
+                "key_secret" => "@@"
             ],
             "extra_parameters" => [],
         ],
@@ -383,9 +383,9 @@ return [
             "currency_id"      => "1",
 
             "parameters"       => [
-                "api_key"    => "#",
-                "auth_token" => "#",
-                "salt"       => "#"
+                "api_key"    => "@@",
+                "auth_token" => "@@",
+                "salt"       => "@@"
             ],
             "extra_parameters" => [],
         ],
@@ -395,7 +395,7 @@ return [
             "serial_id"        => "10",
             "currency_id"      => "1",
             "parameters"       => [
-                "api_key" => "#",
+                "api_key" => "@@",
             ],
             "extra_parameters" => [],
         ],
@@ -405,8 +405,8 @@ return [
             "serial_id"        => "11",
             "currency_id"      => "1",
             "parameters"       => [
-                "merchant_key" => "#",
-                "salt"         => "#"
+                "merchant_key" => "@@",
+                "salt"         => "@@"
             ],
             
             "extra_parameters" => [],
@@ -418,7 +418,7 @@ return [
             "serial_id"        => "12",
             "currency_id"      => "1",
             "parameters"       => [
-                "access_token" => "#",
+                "access_token" => "@@",
             ],
             "extra_parameters" =>  [],
         ],
@@ -428,8 +428,8 @@ return [
             "serial_id"        => "13",
             "currency_id"      => "1",
             "parameters"       => [
-                "web_id"  => "#",
-                "ipn_key" => "#"
+                "web_id"  => "@@",
+                "ipn_key" => "@@"
             ],
             "extra_parameters" => [
                 "ipn_url" => "ipn"
@@ -441,13 +441,13 @@ return [
             "serial_id"        => "14",
             "currency_id"      => "1",
             "parameters"       => [
-                "MID"                    => "#",
-                "merchant_key"           => "#",
-                "WEBSITE"                => "#",
-                "INDUSTRY_TYPE_ID"       => "#",
-                "CHANNEL_ID"             => "#",
-                "transaction_url"        => "#",
-                "transaction_status_url" => "#"
+                "MID"                    => "@@",
+                "merchant_key"           => "@@",
+                "WEBSITE"                => "@@",
+                "INDUSTRY_TYPE_ID"       => "@@",
+                "CHANNEL_ID"             => "@@",
+                "transaction_url"        => "@@",
+                "transaction_status_url" => "@@"
             ],
             "extra_parameters" => [],
         ],
@@ -457,7 +457,7 @@ return [
             "serial_id"        => "15",
             "currency_id"      => "1",
             "parameters"       => [
-                "merchant_id" => "#",
+                "merchant_id" => "@@",
             ],
             "extra_parameters" => [],
         ],
@@ -467,8 +467,8 @@ return [
             "serial_id"        => "16",
             "currency_id"      => "1",
             "parameters"       => [
-                "login_id"                => "#",
-                "current_transaction_key" => "#"
+                "login_id"                => "@@",
+                "current_transaction_key" => "@@"
             ],
             "extra_parameters" => [],
         ],
@@ -479,7 +479,7 @@ return [
             "serial_id"        => "17",
             "currency_id"      => "1",
             "parameters"       => [
-                "api_key" => '#',
+                "api_key" => '@@',
             ],
             "extra_parameters" => [],
         ],
@@ -490,10 +490,10 @@ return [
             "serial_id"        => "18",
             "currency_id"      => "1",
             "parameters"       => [
-                "store_id"    => '#',
-                "api_key"     => '#',
-                "server_name" => '#',
-                "secret_code" => '#',
+                "store_id"    => '@@',
+                "api_key"     => '@@',
+                "server_name" => '@@',
+                "secret_code" => '@@',
             ],
             "extra_parameters" => [
                 "callback" => 'ipn',
@@ -506,8 +506,8 @@ return [
             "serial_id"        => "19",
             "currency_id"      => "1",
             "parameters"       => [
-                "passphrase" => '#',
-                "wallet_id" => '#',
+                "passphrase" => '@@',
+                "wallet_id" => '@@',
             ],
             "extra_parameters" => [],
         ],
@@ -517,7 +517,7 @@ return [
             "serial_id"        => "22",
             "currency_id"      => "1",
             "parameters"       => [
-                "api_key" => '#',
+                "api_key" => '@@',
             ],
             "extra_parameters" => [],
         ],
@@ -527,8 +527,8 @@ return [
             "serial_id"        => "23",
             "currency_id"      => "1",
             "parameters"       => [
-                "secret_key"   => '#',
-                "skrill_email" => '#',
+                "secret_key"   => '@@',
+                "skrill_email" => '@@',
             ],
             "extra_parameters" => [],
         ],
@@ -539,8 +539,8 @@ return [
             "serial_id"        => "24",
             "currency_id"      => "1",
             "parameters"       => [
-                "api_key"        => '#',
-                "webhook_secret" => '#',
+                "api_key"        => '@@',
+                "webhook_secret" => '@@',
             ],
             "extra_parameters" => [
                 "webhook" => "ipn"
