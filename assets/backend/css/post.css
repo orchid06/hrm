@@ -630,7 +630,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 12px;
   background-color: var(--color-primary-light);
   border: 1px solid transparent;
   padding: 5px;
@@ -653,15 +653,6 @@
 }
 .selected-profile-item > p > span:hover {
   color: var(--color-danger);
-}
-.channel-icon {
-  width: 18px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .choose-profile-btn {

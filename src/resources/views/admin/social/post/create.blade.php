@@ -521,7 +521,7 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="sub_category">
+                                    <label for="sub_category_id">
                                         {{translate('Sub Category')}}
                                     </label>
                                     <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
@@ -593,7 +593,7 @@
                                                                     <span class="text-danger">*</span>
                                                                 @endif
                                                             </label>
-                                                            <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result"  value='{{old("max_result")}}' >
+                                                            <input placeholder="{{translate('Enter number')}}" type="number" min="1" name="max_result" id="max_result"  value='{{old("max_result")}}' >
                                                         </div>
 
                                                         <div class="form-inner">

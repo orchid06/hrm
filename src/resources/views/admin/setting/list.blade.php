@@ -102,7 +102,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-inner">
-                                            <label for="site_name" class="form-label">
+                                            <label for="site_name">
                                                 {{translate('Site Name')}} <small class="text-danger" >*</small>
                                             </label>
                                             <input type="text" name="site_settings[site_name]" id="site_name"  value="{{site_settings('site_name')}}" required placeholder='{{translate("Name")}}'>
@@ -142,7 +142,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-inner">
-                                            <label for="time_zone" class="form-label">
+                                            <label for="time_zone">
                                                 {{translate('Time Zone')}} <small class="text-danger" >*</small>
                                             </label>
                                             <select  name="site_settings[time_zone]" id="time_zone" class="select2">
@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-inner">
-                                            <label for="input-date_format" class="form-label">
+                                            <label for="input-date_format">
                                                 {{translate('Select Date Format')}} <small class="text-danger" >*</small>
                                             </label>
                                             <select name="site_settings[date_format]" id="input-date_format" class="select2" required>
@@ -166,7 +166,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-inner">
-                                            <label for="input-time_format" class="form-label">
+                                            <label for="input-time_format">
                                                 {{translate('Select Time Format')}} <small class="text-danger" >*</small>
                                             </label>
                                             <select name="site_settings[time_format]" id="input-time_format" class="select2" required>
@@ -178,7 +178,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-inner">
-                                            <label for="country" class="form-label">
+                                            <label for="country">
                                                 {{translate('Country')}} <small class="text-danger" >*</small>
                                             </label>
                                             <select   name="site_settings[country]" id="country" class="select2">
@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-inner">
-                                            <label for="pagination_number" class="form-label">
+                                            <label for="pagination_number">
                                                 {{translate('Data Perpage')}} <small class="text-danger" >*</small>
                                             </label>
                                                 <input type="number" min="0" name="site_settings[pagination_number]" id="pagination_number"  value="{{site_settings('pagination_number')}}" required placeholder='{{translate("Data Perpage")}}'>
@@ -200,7 +200,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-inner">
-                                            <label for="vistors" class="form-label">
+                                            <label for="vistors">
                                                 {{translate('Web Visitors')}} <small class="text-danger" >*</small>
                                             </label>
                                             <input type="number" min="0" name="site_settings[vistors]" id="vistors"  value="{{site_settings('vistors')}}" required placeholder='{{translate("Site Vistors")}}'>
@@ -230,7 +230,7 @@
 
                                     <div class="col-xl-12">
                                         <div class="form-inner">
-                                            <label for="copy_right_text" class="form-label">
+                                            <label for="copy_right_text">
                                                 {{translate('Copy Right Text')}} <small class="text-danger" >*</small>
                                             </label>
                                             <textarea name="site_settings[copy_right_text]" placeholder='{{translate("Copy Right Text")}}' id="copy_right_text" cols="30" rows="4">{{site_settings('copy_right_text')}}</textarea>
@@ -240,11 +240,11 @@
 
                                     <div class="col-xl-6">
                                         <div class="form-inner">
-                                            <label for="google_adsense_publisher_id" class="form-label">
+                                            <label for="google_adsense_publisher_id" >
                                                 {{translate('Google Adsense Publisher Id')}} <small class="text-danger" >*</small>
                                             </label>
                                                 <input type="checkbox" class="form-check-input status-update" {{ site_settings('google_ads') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }}
-                                                 
+
                                                 data-key='google_ads'
                                                 data-status='{{ site_settings('google_ads') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                                 data-route="{{ route('admin.setting.update.status') }}"  >
@@ -283,11 +283,11 @@
                                     {{translate("Seo Settings")}}
                                 </h4>
                             </div>
-                            <div class="card-body">                               
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-inner">
-                                            <label for="title_separator" class="form-label">
+                                            <label for="title_separator">
                                                 {{translate('Title Separator')}} <small class="text-danger" >*</small>
                                             </label>
                                              <input type="text" value="{{site_settings('title_separator')}}" name="site_settings[title_separator]" id="title_separator">
@@ -295,7 +295,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-inner">
-                                            <label for="site_description" class="form-label">
+                                            <label for="site_description">
                                                 {{translate('Site Description')}} <small class="text-danger" >*</small>
                                             </label>
                                             <textarea name="site_settings[site_description]" id="site_description" cols="30" rows="10">{{site_settings('site_description')}}</textarea>
@@ -303,7 +303,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-inner">
-                                            <label for="metaKeywords" class="form-label">
+                                            <label for="metaKeywords" >
                                                 {{translate('Meta Keywords')}} <small class="text-danger" >*</small>
                                             </label>
                                             <select multiple name="site_settings[site_meta_keywords][]" id="metaKeywords">
@@ -388,7 +388,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-inner">
-                                            <label for="api_route_rate_limit" class="form-label">
+                                            <label for="api_route_rate_limit" >
                                                 {{translate('Api Hit limit')}} <small class="text-danger" >*({{translate('Per Minute')}})</small>
                                             </label>
                                             <input type="number" name="site_settings[api_route_rate_limit]" id="api_route_rate_limit"  value="{{site_settings('api_route_rate_limit')}}" required placeholder="api_route_rate_limit">
@@ -396,7 +396,7 @@
                                     </div>
                                     <div class="col-lg-6 ">
                                         <div class="form-inner">
-                                            <label for="web_route_rate_limit" class="form-label">
+                                            <label for="web_route_rate_limit" >
                                                 {{translate('Web Route limit')}} <small class="text-danger" >*({{translate('Per Minute')}})</small>
                                             </label>
                                             <input type="number" name="site_settings[web_route_rate_limit]" id="web_route_rate_limit" value="{{site_settings('web_route_rate_limit')}}" required placeholder="web_route_rate_limit">
@@ -539,7 +539,7 @@
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="form-inner">
-                                                    <label for="max_file_upload" class="form-label">
+                                                    <label for="max_file_upload" >
                                                         {{translate('Max File Upload size')}}  <small class="text-danger" >*
                                                             ({{translate('In Kilobyte')}})
                                                         </small>
@@ -713,7 +713,7 @@
                                         @foreach($google_recaptcha as $key => $settings)
                                             <div class="col-xl-6">
                                                 <div class="form-inner">
-                                                    <label for="{{$key}}" class="form-label">
+                                                    <label for="{{$key}}">
                                                         {{
                                                             Str::ucfirst(str_replace("_"," ",$key))
                                                         }}  <small class="text-danger" >*</small>
@@ -1012,7 +1012,7 @@
                                                 </label>
                                                 <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class="preview" data-size = "{{config('settings')['file_path'][$logoKey]['size']}}">
                                                 <div class="mt-2 image-preview-section">
-                                                    
+
                                                     <img src="{{imageUrl(@site_logo($logoKey)->file,$logoKey,true)}}" alt="{{@site_settings($logoKey)}}" class="fav-preview">
                                                 </div>
                                             </div>
@@ -1048,14 +1048,14 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="queue_url" class="form-label">{{translate('Queue')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
+                    <label for="queue_url" >{{translate('Queue')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
                     <div class="input-group">
                         <input readonly class="form-control" value="curl -s {{route('queue.work')}}">
                         <button data-type="modal"  data-text ="curl -s {{route('queue.work')}}" class="copy-text btn btn-info" type="button"><i class="las la-copy"></i></button>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="queue_url" class="form-label">{{translate('Cron Job ')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
+                    <label for="queue_url">{{translate('Cron Job ')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
                     <div class="input-group">
                         <input readonly class="form-control" value="curl -s {{route('cron.run')}}">
                         <button data-type="modal" data-text ="curl -s {{route('cron.run')}}" class="copy-text btn btn-info" type="button"><i class="las la-copy"></i></button>
@@ -1114,7 +1114,7 @@
 
 		});
 
-		
+
 
 		// update seettings
 		$(document).on('change','#loginWith',function(e){
