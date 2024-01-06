@@ -38,8 +38,7 @@
           </div>
         </div>
 
-        <div
-          class="col-xl-4 col-lg-5 offset-lg-1 offset-0 order-0 order-lg-1">
+        <div class="col-xl-4 col-lg-5 offset-lg-1 offset-0 order-0 order-lg-1">
           <div class="section-title">
             <span>{{$platformContent->value->sub_title}}</span>
 

@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="row g-xxl-5 g-4 align-items-xl-center align-items-start">
+        <div class="row g-xxl-5 g-4">
           <div class="col-xl-3 col-lg-4">
             <div
               class="nav feature-list tab-on-hover"
@@ -64,7 +64,7 @@
                 @foreach ($featureElements as  $element)
                     <div class='tab-pane fade {{$loop->index  == 0 ? "show active" :"" }} ' id="v-pills-{{$loop->index}}" role="tabpanel"
                       aria-labelledby="v-pills-{{$loop->index}}-tab">
-                      <div class="row g-4 align-items-xxl-start align-items-center">
+                      {{-- <div class="row g-4 align-items-xxl-start align-items-center">
                           <div class="col-xxl-8 col-xl-7">
                               @foreach (@get_appearance()->feature->element->images as  $key => $val)
                                 @php
@@ -83,6 +83,23 @@
                           <div class="col-xxl-4 col-xl-5">
                               @php  echo  $element->value->description   @endphp
                           </div>
+                      </div> --}}
+
+                      <div>
+                        <div>@foreach (@get_appearance()->feature->element->images as  $key => $val)
+                                @php
+                                    $file =  $element->file->where("type",$key)->first();
+                                @endphp
+                                <div class="platform-content-img">
+                                  <img
+                                    src='{{imageUrl(@$file,"frontend",true,$val->size)}}'
+                                    alt="{{@$file->name}}"
+                                    loading="lazy"/>
+                                </div>
+                              @endforeach
+                        </div>
+
+                         @php  echo  $element->value->description   @endphp
                       </div>
                     </div>
                 @endforeach
