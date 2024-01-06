@@ -27,7 +27,7 @@ class InstallerController extends Controller
     public function __construct(){
 
         $this->middleware(function ($request, $next) {
-            if($this->is_installed()){
+            if($this->is_installed() && !$request->routeIs('install.setup.finished')){
                 return redirect()->route('home')->with('success',trans('default.already_installed'));
             }
             return $next($request);

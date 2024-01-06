@@ -18,7 +18,7 @@ trait InstallerManager
 
    
 
-    public function is_installed() :bool{
+    public function is_installed() :mixed{
 
         $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
         if (file_exists($logFile)) {
