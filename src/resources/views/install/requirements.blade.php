@@ -18,7 +18,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="#">
                                     <div class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"  x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M18 24a.502.502 0 0 1-.194-.039C17.568 23.86 12 21.454 12 16.536v-4.179a.5.5 0 0 1 .34-.474l5.5-1.857a.5.5 0 0 1 .32 0l5.5 1.857a.5.5 0 0 1 .34.474v4.179c0 4.918-5.568 7.324-5.806 7.425A.502.502 0 0 1 18 24zm-5-11.283v3.819c0 3.784 4.055 5.958 5 6.413.944-.456 5-2.639 5-6.413v-3.819l-5-1.689z"  opacity="1" data-original="#000000" class=""></path><path d="m17.5 19-.027-.001a.496.496 0 0 1-.363-.187l-2-2.5a.5.5 0 0 1 .781-.625l1.65 2.063 3.105-3.104a.5.5 0 0 1 .707.707l-3.5 3.5A.498.498 0 0 1 17.5 19zM9.5 21h-7A2.502 2.502 0 0 1 0 18.5v-13C0 4.121 1.121 3 2.5 3h2a.5.5 0 0 1 0 1h-2C1.673 4 1 4.673 1 5.5v13c0 .827.673 1.5 1.5 1.5h7a.5.5 0 0 1 0 1zM16.5 8.5A.5.5 0 0 1 16 8V5.5c0-.827-.673-1.5-1.5-1.5h-2a.5.5 0 0 1 0-1h2C15.879 3 17 4.121 17 5.5V8a.5.5 0 0 1-.5.5z"  opacity="1" data-original="#000000" class=""></path><path d="M11.5 6h-6C4.673 6 4 5.327 4 4.5v-2a.5.5 0 0 1 .5-.5h1.55C6.282.86 7.293 0 8.5 0s2.218.86 2.45 2h1.55a.5.5 0 0 1 .5.5v2c0 .827-.673 1.5-1.5 1.5zM5 3v1.5c0 .275.225.5.5.5h6c.275 0 .5-.225.5-.5V3h-1.5a.5.5 0 0 1-.5-.5C10 1.673 9.327 1 8.5 1S7 1.673 7 2.5a.5.5 0 0 1-.5.5zM13.5 9h-10a.5.5 0 0 1 0-1h10a.5.5 0 0 1 0 1zM9.5 12h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1zM9.5 15h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1z"  opacity="1" data-original="#000000" class=""></path></g></svg>
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row g-4">
+                            <div class="row g-3">
                                 <div class="col-lg-6">
                                     <div class="list-header">
                                         <h6>
@@ -96,14 +96,17 @@
                                     <ul class="permission-list">
                                         @foreach(Arr::get($requirements,'requirements',[]) as $type => $requirement)
                                                 <li class="list {{ @$phpSupportInfo['supported'] ? 'list-success' : 'list-error' }}">
+                                                    <div>
                                                     <strong>{{ ucfirst($type) }}</strong>
                                                     @if($type == 'php')
-                                                    <span>(minimum version {{ $phpSupportInfo['minimum'] }} required)</span><span> {{ $phpSupportInfo['current'] }}</span>
+                                                    <span class="mx-2">(minimum version {{ $phpSupportInfo['minimum'] }} required)</span>
+                                                    <span> {{ $phpSupportInfo['current'] }}</span>
+                                                    </div>
 
                                                         @if(@$phpSupportInfo['supported'])
-                                                        <i class="bi bi-check-circle-fill"></i>
+                                                        <i class="bi bi-check-circle-fill i-success"></i>
                                                         @else
-                                                        <i class="bi bi-exclamation-lg"></i>
+                                                        <i class="bi bi-exclamation-circle-fill i-danger"></i>
                                                         @endif
                                                     @endif
                                                 </li>
@@ -112,9 +115,9 @@
                                                         {{ $extention }}
 
                                                         @if($enabled)
-                                                        <i class="bi bi-check-circle-fill"></i>
+                                                        <i class="bi bi-check-circle-fill i-success"></i>
                                                         @else
-                                                        <i class="bi bi-exclamation-lg"></i>
+                                                        <i class="bi bi-exclamation-circle-fill i-danger"></i>
                                                         @endif
                                                     </li>
                                                 @endforeach
@@ -132,9 +135,9 @@
                                             <li class="list {{Arr::get($permission ,'isSet' ,false) ? 'list-success' : 'list-error' }}">
                                                 {{ Arr::get($permission ,'folder' ,null) }}
                                                 @if(@$permission['isSet'])
-                                                <i class="bi bi-check-circle-fill"></i>
+                                                <i class="bi bi-check-circle-fill i-success"></i>
                                                 @else
-                                                <i class="bi bi-exclamation-lg"></i>
+                                                <i class="bi bi-exclamation-circle-fill i-danger"></i>
                                                 @endif
                                             </li>
                                         @endforeach
