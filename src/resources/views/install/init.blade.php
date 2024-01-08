@@ -13,7 +13,7 @@
                                     </div>
                                     <div class="content">
                                         <h6>Database Info</h6>
-                                        <p>Database manages, organizes information.</p>
+                                        <p>Database manages information.</p>
                                     </div>
                                 </a>
                             </li>
@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="content">
                                         <h6>File Permission</h6>
-                                        <p>Database manages, organizes information.</p>
+                                        <p>Database organizes information.</p>
                                     </div>
                                 </a>
                             </li>
@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="content">
                                         <h6>Update Purchase</h6>
-                                        <p>Database manages, organizes information.</p>
+                                        <p>Database purchase information.</p>
                                     </div>
                                 </a>
                             </li>
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="content">
                                         <h6>Update Database</h6>
-                                        <p>Database manages, organizes information.</p>
+                                        <p>Update Your Database information.</p>
                                     </div>
                                 </a>
                             </li>
