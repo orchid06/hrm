@@ -181,9 +181,7 @@
                 </table>
             </div>
             <div class="Paginations">
-            <div class="pagination">
-                {{ $users->links() }}
-            </div>
+                    {{ $users->links() }}
             </div>
         </div>
     </div>

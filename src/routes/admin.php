@@ -44,7 +44,7 @@ try {
 
 }
 
-Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
+Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
 
      #guest admin route start here
 	Route::middleware(['guest:admin'])->group(function () {
@@ -288,9 +288,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                });
 
                Route::get('system/info','systemInfo')->name('system.info');
-
                Route::post('/ticket/store', 'ticketSetting')->name('ticket.store');
-
                #ai config route
                Route::get('/open-ai', 'openAi')->name('openAi');
                Route::get('/webhook', 'webhook')->name('webhook');
@@ -298,7 +296,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1"])->prefix('admin')
                #kyc config
                Route::get('/kyc-configuration', 'kycConfig')->name('kyc');
                Route::post('/kyc-configuration/store', 'kycSetting')->name('kyc.store');
-
 
                #affiliate config
                Route::get('/affiliate/configurations', 'affiliate')->name('affiliate');

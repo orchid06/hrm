@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="sub_category">
+                                    <label for="sub_category_id">
                                         {{translate('Sub Category')}}
                                     </label>
                                     <select  name="sub_category_id" id="sub_category_id" class="sub_category_id" >
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-xl-12">
                 <div class="i-card-md">
                     <div class="card--header">

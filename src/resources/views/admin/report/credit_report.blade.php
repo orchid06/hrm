@@ -31,10 +31,10 @@
                             </div>
                         </div>
                     @endif
-            
+
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
@@ -47,7 +47,7 @@
                                             <option value="">
                                                 {{translate('Select User')}}
                                             </option>
-                        
+
                                             @foreach(system_users() as $user)
                                                 <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
                                                 </option>
@@ -70,13 +70,13 @@
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>
-                            </div>  
-                        </div>  
+                            </div>
+                        </div>
                         <div class="ms-3">
                             <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
                                 <i class="las la-sync"></i>
                             </a>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,17 +218,17 @@
 @push('script-push')
 <script>
 	(function($){
-        
+
          "use strict";
 
         $(".select2").select2({
-           
+
         });
         $(".user").select2({
-           
+
         });
         $(".type").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
@@ -239,7 +239,7 @@
         $(document).on('click','.show-info',function(e){
 
             var modal = $('#report-info');
-           
+
             var report = JSON.parse($(this).attr('data-report'))
 
             $('.content').html(report.details)

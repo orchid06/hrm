@@ -12,7 +12,7 @@
             <div class="row g-3">
                 <div class="col-md-12 d-flex justify-content-end">
                     <div class="filter-wrapper">
-                        <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                             <i class="las la-filter"></i>
                         </button>
                         <div class="filter-dropdown">
@@ -46,8 +46,8 @@
                                     <i class="las la-sliders-h"></i>
                                 </button>
                             </form>
-                        </div>  
-                    </div> 
+                        </div>
+                    </div>
                     <div class="ms-3">
                         <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
                             <i class="las la-sync"></i>
@@ -90,7 +90,7 @@
                             <td data-label='{{translate("Template")}}'>
                                 <p>{{$report->template->name}}</p>
                             </td>
-                            <td data-label='{{translate("Genarated By")}}'> 
+                            <td data-label='{{translate("Genarated By")}}'>
                                 @php
                                    $name  = $report->user?  $report->user->name : @$report->admin->name;
                                    $role  = $report->user? translate('System User') :translate('admin') ;
@@ -163,7 +163,7 @@
                         <div class="col-lg-12">
                             <div class="form-inner">
                                 <label for="content" class="form-label" >
-                                    {{translate('Genarated Content')}} 
+                                    {{translate('Genarated Content')}}
                                 </label>
                                 <textarea disabled name="content" id="content" cols="30" rows="4"></textarea>
                             </div>
@@ -196,10 +196,10 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         });
         $(".user").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
@@ -211,7 +211,7 @@
         $(document).on('click','.show-info',function(e){
 
             var modal = $('#report-info');
-           
+
             var report = JSON.parse($(this).attr('data-report'))
 
             modal.find('textarea[name="content"]').html(report.content)

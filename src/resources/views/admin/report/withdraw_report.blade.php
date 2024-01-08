@@ -12,7 +12,7 @@
                 <div class="row g-3">
                     <div class="col-md-12 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
@@ -26,7 +26,7 @@
                                                 {{translate('Select status')}}
                                             </option>
                                             @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
-                                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}"> 
+                                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">
                                                     {{ucfirst(t2k($k))}}
                                                </option>
                                             @endforeach
@@ -50,7 +50,7 @@
                                         <i class="las la-sliders-h"></i>
                                     </button>
                                 </form>
-                            </div>  
+                            </div>
                         </div>
                         <div class="ms-3">
                             <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
@@ -95,7 +95,7 @@
                         @forelse($reports as $report)
                             <tr>
                                 <td data-label="#">
-                                  
+
                                     {{$loop->iteration}}
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
@@ -116,7 +116,7 @@
                                       {{num_format($report->final_amount,@$report->currency)}}
                                 </td>
                                 <td  data-label='{{translate("Status")}}'>
-                                     
+
                                     @php echo  withdraw_status($report->status)  @endphp
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
@@ -153,20 +153,20 @@
         "use strict";
 
         $(".select2").select2({
-           
+
         });
         $(".user").select2({
-           
+
         });
         $(".status").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
             dateFormat: "Y-m-d",
             mode: "range",
         });
-       
+
 	})(jQuery);
 </script>
 

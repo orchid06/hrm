@@ -1198,6 +1198,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 
 
+   if (!function_exists('is_demo')){
+      function is_demo() :bool {
+         return strtolower(env('APP_MODE')) == 'demo' ? true : false;
+      }
+ 
+   }
 
 
 

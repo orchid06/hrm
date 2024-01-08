@@ -45,7 +45,7 @@
 
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="filter-wrapper">
-                            <button class="i-btn btn--primary btn--sm filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="i-btn btn--primary btn--sm filter-btn" type="button">
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
@@ -218,12 +218,12 @@
                                         <div class="table-action">
                                             @if(check_permission('update_ai_template') || check_permission('delete_ai_template') )
                                                 @if(check_permission('update_ai_template') )
-                                                    <a  href="{{route('admin.ai.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a title="{{translate('Update')}}" href="{{route('admin.ai.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                                 @endif
 
                                                 @if(check_permission('delete_ai_template') && $template->is_default == App\Enums\StatusEnum::false->status() )
 
-                                                        <a href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
+                                                        <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i></a>
 
                                                 @endif
