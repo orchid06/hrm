@@ -223,7 +223,6 @@
                                                             </a>
                                                     @endif
                                                     @if(check_permission('delete_account') )
-
                                                         <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                             <i class="las la-trash-alt"></i>
                                                         </a>

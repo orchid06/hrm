@@ -121,7 +121,7 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        <a href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                        <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                             <i class="las la-info"></i></a>
                                     </div>
                                 </td>

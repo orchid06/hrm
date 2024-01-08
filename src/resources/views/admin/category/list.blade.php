@@ -198,11 +198,11 @@
                                             @if(check_permission('update_category') || check_permission('delete_category') )
 
                                                 @if(check_permission('update_category') )
-                                                    <a  href="{{route('admin.category.edit',$category->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a title="{{translate('Edit')}}"  href="{{route('admin.category.edit',$category->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                                 @endif
 
                                                 @if(check_permission('delete_category'))
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a title="{{translate('Delete')}}"  href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @endif

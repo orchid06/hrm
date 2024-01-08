@@ -156,12 +156,12 @@
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a  href="{{route('admin.user.show', $user->uid)}}"  data-toggle="tooltip" data-placement="top" title="{{translate('Update/Show')}}" class="icon-btn info"><i class="las la-pen"></i></a>
-                                                <a target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success" data-toggle="tooltip" data-placement="top" title="{{translate('Login')}}"><i class="las la-sign-in-alt"></i></a>
+                                                <a title="{{translate('Show')}}"  href="{{route('admin.user.show', $user->uid)}}"  data-toggle="tooltip" data-placement="top" title="{{translate('Update/Show')}}" class="icon-btn info"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Login')}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success" data-toggle="tooltip" data-placement="top" title="{{translate('Login')}}"><i class="las la-sign-in-alt"></i></a>
                                             @endif
 
                                             @if(check_permission('delete_user'))
-                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                             @endif
                                         @else
@@ -181,9 +181,7 @@
                 </table>
             </div>
             <div class="Paginations">
-            <div class="pagination">
-                {{ $users->links() }}
-            </div>
+                    {{ $users->links() }}
             </div>
         </div>
     </div>
