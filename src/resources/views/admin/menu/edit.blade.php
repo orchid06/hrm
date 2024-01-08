@@ -141,7 +141,7 @@
 @push('script-push')
 <script>
 	(function($){
-        
+
        	   "use strict";
 
            $(".dropable-section").sortable({

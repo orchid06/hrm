@@ -10,7 +10,7 @@
 
 @endphp
 
-<section class="template dark-bg pt-110 pb-110">
+<section class="template pb-110">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 mx-auto">

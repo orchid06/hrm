@@ -8,7 +8,7 @@
 @endphp
 
 
-<section class="plan pt-110 pb-110">
+<section class="plan pb-110">
     <div class="container">
       <div class="row gy-5">
         <div class="col-xl-5 col-lg-4">

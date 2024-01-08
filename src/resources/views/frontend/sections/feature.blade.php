@@ -5,7 +5,7 @@
    $featureElements  = get_content("element_feature");
 @endphp
 
-<section class="features pt-110 pb-110">
+<section class="features bg--light pt-110 pb-110 sectionWithBg">
       <div class="container">
         <div class="row">
           <div class="col-xl-7 col-lg-8 mx-auto">

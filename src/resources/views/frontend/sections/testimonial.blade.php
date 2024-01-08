@@ -5,7 +5,7 @@
 @endphp
 
 
-<section class="reviews pt-110 pb-110">
+<section class="reviews pb-110">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 mx-auto">
