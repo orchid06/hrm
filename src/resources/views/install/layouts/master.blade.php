@@ -22,12 +22,9 @@
 
     <main class="main d-flex flex-column justify-content-center align-items-center" id="main">
       <div class="text-center text-white mb-5">
-        <h2>
+        <h4 class="text-white">
             {{@trans('default.insaller_title')}}
-        </h2>
-        <p>
-          {{trans("default.insaller_subtitle")}}
-        </p>
+        </h4>
       </div>
        @yield('content')
              
