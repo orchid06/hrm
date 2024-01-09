@@ -200,11 +200,11 @@
                                         @if(check_permission('update_staff') ||  check_permission('delete_staff'))
 
                                             @if(check_permission('update_staff') && request()->routeIs('admin.staff.list'))
-                                                <a target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class="icon-btn success"><i class="las la-sign-in-alt"></i></a>
+                                                <a title="{{translate('Login')}}"  target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class="icon-btn success"><i class="las la-sign-in-alt"></i></a>
 
-                                                <a  href="javascript:void(0);" data-uid ="{{$staff->uid}}" class="passwordUpdate   icon-btn warning"><i class="las la-key"></i></a>
+                                                <a title="{{translate('Delete')}}"  href="javascript:void(0);" data-uid ="{{$staff->uid}}" class="passwordUpdate   icon-btn warning"><i class="las la-key"></i></a>
 
-                                                <a  href="javascript:void(0);" data-staff ="{{$staff}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}"  href="javascript:void(0);" data-staff ="{{$staff}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                             @endif
 
                                             @if(check_permission('delete_staff'))
@@ -268,7 +268,6 @@
 
     @include('modal.bulk_modal')
 
-    <!-- create staff modal -->
     <div class="modal fade" id="addStaff" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addStaff"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -405,7 +404,6 @@
         </div>
     </div>
 
-    <!-- update staff modal -->
     <div class="modal fade" id="updateStaff" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateStaff" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -501,7 +499,6 @@
         </div>
     </div>
 
-    <!-- update password modal -->
     <div class="modal fade" id="updatePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updatePassword" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-lg">
             <div class="modal-content">

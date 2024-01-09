@@ -114,10 +114,10 @@
                                     <div class="table-action">
                                         @if(check_permission('update_withdraw') || check_permission('delete_withdraw') )
                                             @if(check_permission('update_withdraw'))
-                                                <a  href="{{route('admin.withdraw.edit',$withdraw->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}" href="{{route('admin.withdraw.edit',$withdraw->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
                                             @if(check_permission('delete_withdraw'))
-                                                <a href="javascript:void(0);" data-href="{{route('admin.withdraw.destroy',$withdraw->uid)}}" class="pointer delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.withdraw.destroy',$withdraw->uid)}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                             @endif
                                         @else

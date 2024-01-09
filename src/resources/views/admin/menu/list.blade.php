@@ -112,10 +112,10 @@
                                     <div class="table-action">
                                         @if(check_permission('update_menu') ||  check_permission('delete_menu'))
                                             @if(check_permission('update_menu'))
-                                                <a  href="{{route('admin.menu.edit',$menu->uid)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}" href="{{route('admin.menu.edit',$menu->uid)}}"  class="fs-15 icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
                                             @if(check_permission('delete_menu') && $menu->is_default == App\Enums\StatusEnum::false->status())
-                                                <a href="javascript:void(0);"    data-href="{{route('admin.menu.destroy',$menu->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.menu.destroy',$menu->id)}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i>
                                                 </a>
                                             @endif

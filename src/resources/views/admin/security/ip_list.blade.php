@@ -132,11 +132,11 @@
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
                                         @if(check_permission('update_security'))
-                                            <a href="javascript:void(0);"    data-href="{{route('admin.security.ip.destroy',$ip->id)}}" class="pointer delete-item icon-btn danger">
+                                           <a title="{{translate('Update')}}" href="javascript:void(0);" data-ip = "{{$ip}}"  class="fs-15 icon-btn warning update"><i class="las la-pen"></i></a>
+
+                                            <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.security.ip.destroy',$ip->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i>
                                             </a>
-
-                                            <a  href="javascript:void(0);" data-ip = "{{$ip}}"  class="fs-15 icon-btn info update"><i class="las la-pen"></i></a>
                                         @else
                                                {{translate('N/A')}}
                                         @endif

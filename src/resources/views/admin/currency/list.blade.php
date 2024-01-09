@@ -131,12 +131,12 @@
                                             @if(check_permission('update_currency'))
                                             
                                             @if($currency->default != App\Enums\StatusEnum::true->status())
-                                                <a href="{{route('admin.currency.make.default',$currency->uid)}}" class="icon-btn info">
+                                                <a title="{{translate('Default')}}" href="{{route('admin.currency.make.default',$currency->uid)}}" class="icon-btn info">
                                                     <i class="las la-star"></i>
                                                 </a>
                                             @endif
 
-                                                <a  href="javascript:void(0);" data-currency ="{{$currency}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}"  href="javascript:void(0);" data-currency ="{{$currency}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
 
                                             @endif
 
@@ -144,7 +144,7 @@
 
                                                 @if($currency->default != App\Enums\StatusEnum::true->status() && $currency->code != "USD" && ($currency->code != @session('currency')->code))
                                                 
-                                                    <a href="javascript:void(0);"    data-href="{{route('admin.currency.destroy',$currency->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"  data-href="{{route('admin.currency.destroy',$currency->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
 

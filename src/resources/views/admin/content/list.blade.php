@@ -111,13 +111,13 @@
                                         @if(check_permission('update_content') || check_permission('delete_content') )
                                             @if(check_permission('update_content'))
 
-                                                <a  href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}" href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
 
                                             @endif
 
                                             @if(check_permission('delete_content'))
 
-                                                <a href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i>
                                                 </a>
                                             @endif

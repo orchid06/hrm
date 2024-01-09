@@ -1059,7 +1059,7 @@ button {
     border-left: 3px solid rgba(0, 0, 0, 0);
     color: var(--text-primary);
     border-radius: 0;
-    padding: 10px 16px;
+    padding: 8px 12px;
     font-size: 15px;
     font-weight: 400;
     -webkit-clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
@@ -1770,6 +1770,7 @@ table.dataTable.no-footer {
     position: relative;
     background-color: var(--card-bg);
     border-radius: 4px;
+    height: 100%;
     box-shadow: 0px 5px 12px rgba(46, 35, 94, .06)
 }
 
@@ -4253,6 +4254,10 @@ textarea {
 
 .filter-dropdown.show {
     display: block
+}
+
+.filter-dropdown .form-inner {
+    margin-bottom: 8px
 }
 
 .simplebar-content-wrapper {
