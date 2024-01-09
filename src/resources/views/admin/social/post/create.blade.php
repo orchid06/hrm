@@ -305,7 +305,7 @@
                 </p>
 
                 <div class="row gy-4 mt-5">
-                  <div class="col-md-2">
+                  <div class="col-xxl-2 col-xl-12 col-md-2">
                     <div class="pre-tab-list">
                       <div class="nav" role="tablist" id="preview-tab" aria-orientation="horizontal">
 
@@ -323,7 +323,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-10">
+                  <div class="col-xxl-10 col-xl-12 col-md-10">
                     <div class="tab-content" id="preview-tabContent">
 
                       @foreach ($platforms as $platform )

@@ -223,5 +223,48 @@
 
     form.submit();
   }
-  
+
+  function hasClass(element, className) {
+    return element.classList.contains(className);
+  }
+
+  // Drag and Drop Section
+  function hasClass(element, className) {
+    return element && element.classList.contains(className);
+  }
+
+  const sectionList = document.querySelectorAll("section");
+  sectionList.forEach((sectionListItem) => {
+    window.addEventListener("load", () => {
+      const current = sectionListItem;
+      const prevEl = current.previousElementSibling;
+      const nextEl = current.nextElementSibling;
+
+      const platform = current.classList.contains("platform");
+      const integration = current.classList.contains("integration");
+
+      const prevBg = hasClass(prevEl, "sectionWithBg");
+      const currentBg = hasClass(current, "sectionWithBg");
+      const nextBg = hasClass(nextEl, "sectionWithBg");
+
+      if (prevBg && !currentBg) {
+        current.classList.add("pt-110");
+      }
+
+      if (integration && !currentBg) {
+        nextEl.classList.add("pt-110");
+      }
+
+      if (platform && !currentBg) {
+        nextEl.classList.add("pt-110");
+      }
+
+      if (prevBg && platform) {
+        current.classList.add("pt-110");
+      }
+      if (prevBg && currentBg) {
+        current.classList.remove("pt-110");
+      }
+    });
+  });
 })();

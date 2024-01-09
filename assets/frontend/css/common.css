@@ -584,10 +584,6 @@
 /* =========================================================
               Faqs Section Start
 ============================================================ */
-.faqs {
-  background: var(--color-white);
-}
-
 .faq-wrap .accordion-item {
   margin-bottom: 20px !important;
   border: none;

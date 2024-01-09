@@ -1,10 +1,10 @@
 @php
-   $aboutContent  = get_content("content_about")->first();  
-   $aboutElements = get_content("element_about"); 
+   $aboutContent  = get_content("content_about")->first();
+   $aboutElements = get_content("element_about");
    $aboutImg      = $aboutContent->file->where("type",'image')->first();
 @endphp
 
-<section class="about pt-110 pb-110">
+<section class="about pt-110 pb-110 sectionWithBg">
     <div class="container">
       <div class="about-wrapper">
         <div class="row">

@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="blog-slider-wrapper ms-0">
+      <div class="blog-slider-wrapper blog-list ms-0">
         <div class="row gx-4 gy-xl-5 gy-4">
                 @forelse($blogs  as $blog)
                     <div class="col-lg-4 col-md-6">
@@ -149,9 +149,9 @@
                         </div>
                     </div>
                 @empty
-                   <div class="col-12 justify-content-center text-center">
-                       @include("frontend.partials.not_found")
-                   </div>
+                <div class="col-12 justify-content-center text-center">
+                    @include("frontend.partials.not_found")
+                </div>
                 @endforelse
 
         </div>
