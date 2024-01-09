@@ -165,52 +165,57 @@
 </footer>
 
 <div class="modal fade zoomIn" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{translate("Language")}} </h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{translate("Select Your Language")}} </h1>
         <button type="button" class="modal-closer" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
       </div>
       <div class="modal-body lang-modal">
         <div class="lang-modal-wrapper">
-            <h6 class="mb-4">Select Your Language</h6>
-            <ul class="language-list">
-                <li>
+            <div class="row g-0">
+                <div class="col-md-4 col-sm-4 col-6">
                     <a href="#" class="language-item">
                         <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
                         <p>English</p>
                     </a>
-                </li>
+                </div>
 
-                 <li>
+                <div class="col-md-4 col-sm-4 col-6">
                     <a href="#" class="language-item">
                         <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
                         <p>English</p>
                     </a>
-                </li>
+                </div>
 
-                 <li>
+                <div class="col-md-4 col-sm-4 col-6">
                     <a href="#" class="language-item">
                         <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
                         <p>English</p>
                     </a>
-                </li>
+                </div>
 
-                 <li>
+                <div class="col-md-4 col-sm-4 col-6">
                     <a href="#" class="language-item">
                         <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
                         <p>English</p>
                     </a>
-                </li>
+                </div>
 
-                 <li>
+                <div class="col-md-4 col-sm-4 col-6">
                     <a href="#" class="language-item">
                         <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
                         <p>English</p>
                     </a>
-                </li>
+                </div>
 
-            </ul>
+                <div class="col-md-4 col-sm-4 col-6">
+                    <a href="#" class="language-item">
+                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
+                        <p>English</p>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <img src="https://i.ibb.co/m88DMbj/Dotted-Map-White-Background.jpg" alt="Dotted-Map-White-Background">
