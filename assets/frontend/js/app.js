@@ -160,6 +160,19 @@
         menuItem.classList.toggle("active");
       })
     );
+
+    const menuFeatureItem = document.querySelectorAll(".menu-feature-item");
+    menuFeatureItem.forEach((item) => {
+      item.addEventListener("click", () => {
+          menuFeatureItem.forEach((otherItem) => {
+            if (otherItem !== item) {
+              otherItem.classList.remove("hover");
+            }
+          });
+        
+          item.classList.toggle("hover");
+      });
+    });
   }
 
   // Select 2 Initialized

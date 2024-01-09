@@ -465,6 +465,9 @@
   line-height: 1.2;
   font-size: 14px;
 }
+.social-preview-body.linkedin .caption-action .caption-action-item {
+  flex-direction: column;
+}
 @media (max-width: 576px) {
   .social-preview-body.facebook .caption-action .caption-action-item,
   .social-preview-body.linkedin .caption-action .caption-action-item {

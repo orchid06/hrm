@@ -694,6 +694,43 @@
   display: block;
 }
 
+@media (max-width: 991.98px) {
+  .mega-menu-wrapper
+    .mega-menu-left
+    .maga-menu-item.menu-feature
+    ul
+    li
+    .menu-feature-item:hover
+    + .sub-mega-menu {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+  @media (hover: hover) {
+    .mega-menu-wrapper
+      .mega-menu-left
+      .maga-menu-item.menu-feature
+      ul
+      li
+      .menu-feature-item:hover
+      + .sub-mega-menu {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+  }
+  .mega-menu-wrapper
+    .mega-menu-left
+    .maga-menu-item.menu-feature
+    ul
+    li
+    .menu-feature-item.hover
+    + .sub-mega-menu {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+}
 .mega-menu-wrapper
   .mega-menu-left
   .maga-menu-item.menu-feature
@@ -730,6 +767,7 @@
     padding: 20px 15px;
     position: relative;
     display: none;
+    margin-bottom: 10px;
   }
 }
 
@@ -2173,8 +2211,10 @@
   padding: 0;
   width: 100%;
 }
-.features .feature-list .nav-link:last-child .feature-card-item {
-  border-bottom: none;
+@media (min-width: 992px) {
+  .features .feature-list .nav-link:last-child .feature-card-item {
+    border-bottom: none;
+  }
 }
 
 .features .feature-list .nav-link .feature-card-item {
@@ -2295,7 +2335,7 @@
 }
 .features .feature-content {
   text-align: end;
-  padding: 40px 0;
+  padding: 20px 0;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: 320px;
@@ -2376,6 +2416,12 @@
   align-items: flex-start;
   flex-direction: row-reverse;
   gap: 15px;
+}
+
+@media (max-width: 767.98px) {
+  .features .feature-content ul li {
+    flex-direction: row;
+  }
 }
 
 .features .feature-content ul li span {
@@ -3372,31 +3418,56 @@
 .language-list {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 5px;
 }
 .language-list > li {
-  flex: 0 0 calc(50% - 15px);
+  flex: 0 0 calc(34% - 15px);
 }
 .language-item {
   padding: 5px 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  border: 1px solid var(--color-primary);
   border-radius: 3px;
+  position: relative;
+}
+.language-item::after {
+  content: "\F633";
+  position: absolute;
+  font-family: bootstrap-icons !important;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  color: var(--color-primary);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease-in-out;
+}
+.language-item:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s ease-in-out;
 }
 .language-item:hover {
-  background: var(--color-primary);
+  background: var(--color-primary-light);
   color: var(--color-primary-text);
-  border-color: var(--color-primary);
 }
+
 .language-item-img {
   max-width: 25px;
-  border-radius: 3px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
   overflow: hidden;
+}
+.language-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.language-item > p {
+  font-weight: 600;
 }
 .lang-modal {
   position: relative;
@@ -3408,13 +3479,28 @@
   height: 100%;
   display: flex;
   z-index: 2;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   padding: inherit;
 }
 .lang-modal > img {
   opacity: 0.4;
+}
+.modal-closer {
+  width: 30px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  line-height: 30px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-danger-soft);
+  color: var(--color-danger);
+  transition: 0.3s ease-in-out;
+}
+.modal-closer:hover {
+  background-color: var(--color-danger);
+  color: var(--color-danger-soft);
 }
 /* =========================================================
               Currency Dropdown Start

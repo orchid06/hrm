@@ -12,7 +12,6 @@
 
 @endphp
 
-
 <footer class="footer">
       <div class="cta pb-110 pt-110">
         <div class="container">
@@ -170,7 +169,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel"> {{translate("Language")}} </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="modal-closer" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
       </div>
       <div class="modal-body lang-modal">
         <div class="lang-modal-wrapper">
@@ -218,7 +217,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="i-btn btn--primary  btn--md capsuled">Save changes</button>
       </div>
     </div>
   </div>
