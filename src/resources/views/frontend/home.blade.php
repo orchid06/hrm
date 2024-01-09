@@ -51,7 +51,7 @@
    <div class="banner-texture"></div>
 </section>
 
-<div class="banner-img-wrapper">
+<div class="banner-img-wrapper bg--light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
