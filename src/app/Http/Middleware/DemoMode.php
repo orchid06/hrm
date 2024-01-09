@@ -18,11 +18,13 @@ class DemoMode
     public function handle(Request $request, Closure $next): Response
     {
         try {
+            
             $ignoreRouteList = ['admin.setting.update.status'];
+    
             if(strtolower(env('APP_MODE')) == 'demo'){ 
                 if(!in_array(Route::currentRouteName(),$ignoreRouteList)){
         
-                    if(request()->routeIs("*.update*")  || request()->routeIs("*.destroy*") || request()->routeIs("*.delete*") || request()->routeIs("*.bulk*") ||  request()->routeIs("*.send*") ){
+                    if(request()->routeIs("admin.setting.plugin.store") ||  request()->routeIs("admin.setting.store")||request()->routeIs("admin.setting.ticket.store") ||  request()->routeIs("admin.setting.logo.store") || request()->routeIs("*.update*")  || request()->routeIs("*.destroy*") || request()->routeIs("*.delete*") || request()->routeIs("*.bulk*") ||  request()->routeIs("*.send*") ){
                         if ($request->expectsJson() || $request->isXmlHttpRequest()) {
                             return response()->json(response_status('This Function Is Not Available For Website Demo Mode','error'), 403);
                         }

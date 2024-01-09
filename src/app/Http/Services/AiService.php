@@ -182,11 +182,13 @@ class AiService
     public function getAiModel() :string{
 
         $model = site_settings("open_ai_model");
-       
+
         if(request()->routeIs("user.*")){
             $subscription    =  auth_user('web')->runningSubscription;
             $model           = optional(optional($subscription)->package->ai_configuration)->open_ai_model ?? $model;
         }
+
+
         return $model ;
     }
 

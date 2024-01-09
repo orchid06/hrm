@@ -124,7 +124,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
+            <div class="Pagination">
                 {{ $contacts->links() }}
             </div>
         </div>

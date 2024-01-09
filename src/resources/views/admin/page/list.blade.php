@@ -149,11 +149,11 @@
                                     <div class="table-action">
                                         @if(check_permission('update_page') || check_permission('delete_page') )
                                             @if(check_permission('update_page'))
-                                                <a  href="{{route('admin.page.edit',$page->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a title="{{translate('Update')}}" href="{{route('admin.page.edit',$page->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
 
                                             @if(check_permission('delete_page'))
-                                                <a href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.page.destroy',$page->id)}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i>
                                                 </a>
                                             @endif

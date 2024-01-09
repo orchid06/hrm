@@ -1018,7 +1018,7 @@ button {
             border-left: 3px solid transparent;
             color: $text-primary;
             border-radius: 0;
-            padding: 10px 16px;
+            padding: 8px 12px;
             font-size: 15px;
             font-weight: 400;
             clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
@@ -1116,7 +1116,6 @@ button {
     }
   }
 }
-
 .sticky-side-div {
   position: sticky;
   top: calc(0px + 90px);
