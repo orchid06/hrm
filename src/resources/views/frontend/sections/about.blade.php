@@ -4,7 +4,7 @@
    $aboutImg      = $aboutContent->file->where("type",'image')->first();
 @endphp
 
-<section class="about bg--light pt-110 pb-110 sectionWithBg">
+<section class="about pt-110 pb-110 sectionWithBg">
     <div class="container">
       <div class="about-wrapper">
         <div class="row">
