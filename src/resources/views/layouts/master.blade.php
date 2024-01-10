@@ -78,6 +78,7 @@
       @endif
     @endif
     @yield("modal")
+    
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 

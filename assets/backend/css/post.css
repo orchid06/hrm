@@ -193,6 +193,18 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+@media (max-width: 1399.98px) and (min-width: 1199px) {
+  .pre-tab-list .nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
 @media (max-width: 767px) {
   .pre-tab-list .nav {
     -webkit-box-orient: horizontal;
@@ -457,6 +469,9 @@
 .social-preview-body.linkedin .caption-action .caption-action-item {
   line-height: 1.2;
   font-size: 14px;
+}
+.social-preview-body.linkedin .caption-action .caption-action-item {
+  flex-direction: column;
 }
 @media (max-width: 576px) {
   .social-preview-body.facebook .caption-action .caption-action-item,
