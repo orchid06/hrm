@@ -42,9 +42,9 @@
                          @endif
 
                         @if(check_permission('create_content'))
-                            <button type="button" class="i-btn btn--sm success me-2 create">
+                            <a href="#generateContent" type="button" class="i-btn btn--sm success me-2 create">
                                 <i class="las la-plus me-1"></i>  {{translate('Add New')}}
-                            </button>
+                            </a>
                         @endif
                     </div>
                     @endif
@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <div class="ai-section d-none">
+    <div class="ai-section d-none" id="generateContent">
         @include('partials.prompt_content',['content_route' => route("admin.content.store")])
     </div>
 
