@@ -6,7 +6,6 @@
       $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
   @endphp
 
-
     <div class="header-container">
         <div class="d-flex align-items-center gap-3">
             <div class="d-lg-none">
@@ -248,7 +247,7 @@
                         aria-expanded="false">
                         {{session()->get('currency')?->code}}
                     </button>
-    
+
 
                     @if($currencies->count() > 0)
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -308,3 +307,7 @@
     </div>
 
   </header>
+
+<div class="preloader-wrapper">
+    <div class="preloader"></div>
+</div>

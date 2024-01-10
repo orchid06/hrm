@@ -1,6 +1,14 @@
 (function () {
   ("use strict");
 
+  // Preloader
+  window.addEventListener("load", () => {
+    const preloaderWrapper = document.querySelector(".preloader-wrapper");
+    if (preloaderWrapper) {
+      preloaderWrapper.style.cssText = `display:none;`;
+    }
+  });
+
   // Sticky Header
   const header = document.querySelector(".header");
   if (header) {
@@ -164,13 +172,13 @@
     const menuFeatureItem = document.querySelectorAll(".menu-feature-item");
     menuFeatureItem.forEach((item) => {
       item.addEventListener("click", () => {
-          menuFeatureItem.forEach((otherItem) => {
-            if (otherItem !== item) {
-              otherItem.classList.remove("hover");
-            }
-          });
-        
-          item.classList.toggle("hover");
+        menuFeatureItem.forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.classList.remove("hover");
+          }
+        });
+
+        item.classList.toggle("hover");
       });
     });
   }
@@ -248,7 +256,7 @@
 
   const sectionList = document.querySelectorAll("section");
   sectionList.forEach((sectionListItem) => {
-    window.addEventListener("load", () => {
+    window.addEventListener("DOMContentLoaded", () => {
       const current = sectionListItem;
       const prevEl = current.previousElementSibling;
       const nextEl = current.nextElementSibling;
