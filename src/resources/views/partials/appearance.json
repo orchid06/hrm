@@ -81,8 +81,6 @@
             "modal": true
         }
     },
-
-
     
     "integration": {
         "builder": true,
@@ -189,23 +187,6 @@
     },
 
 
-    "feedback": {
-
-        "builder": true,
-        "name": "feedback",
-        "no_selection": true,
-        "content": {
-            "banner_title" :"text",
-            "banner_description": "text",
-            "heading" :"text",
-            "description" :"textarea"
-        }
-    
-    },
-
-
-
-
     "template": {
         "builder": true,
         "name": "template_section",
@@ -216,7 +197,7 @@
         }
     
     },
-    
+
     "analytics": {
         "builder": true,
         "name": "analytics_section",
@@ -238,7 +219,6 @@
     
     },
 
-
     "why_us": {
         "builder": true,
         "name": "why_choose_us",
@@ -259,7 +239,7 @@
         }
     
     },
-
+    
     "faq": {
         "builder": true,
         "name": "FAQ_section",
@@ -276,7 +256,6 @@
         }
     },
 
- 
     "plan": {
         "builder": true,
         "name": "plan_section",
@@ -288,7 +267,6 @@
             "description": "textarea"
         }
     },
- 
 
     "testimonial": {
         "builder": true,
@@ -312,7 +290,21 @@
             "modal": true
         }
     },
-  
+
+    "feedback": {
+
+        "builder": true,
+        "name": "feedback",
+        "no_selection": true,
+        "content": {
+            "banner_title" :"text",
+            "banner_description": "text",
+            "heading" :"text",
+            "description" :"textarea"
+        }
+    
+    },
+
     "blog": {
         "builder": true,
         "name": "blog_section",
@@ -328,7 +320,6 @@
         }
     },
     
-   
     "social_icon": {
         "builder": true,
         "no_selection": true,
@@ -340,6 +331,7 @@
             "modal": true
         }
     },
+
     "footer": {
         "builder": true,
         "no_selection": true,
@@ -424,5 +416,4 @@
     
     }
 
-    
 }

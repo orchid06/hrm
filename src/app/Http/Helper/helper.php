@@ -186,11 +186,11 @@ use Illuminate\Database\Eloquent\Collection;
 
    if (!function_exists('get_appearance')) {
       
-      function get_appearance(bool $is_arr = false) {
+      function get_appearance(bool $is_arr = false , bool $sortable = true) {
 
          $sectionJson = resource_path('views/partials/appearance.json');
          $appearances = json_decode(file_get_contents($sectionJson), $is_arr ? true :false);
-         if ($is_arr) {
+         if ($is_arr && $sortable) {
              ksort($appearances);
          }
          
