@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Core\Setting;
+use App\Traits\InstallerManager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,22 @@ use ZipArchive;
 use Illuminate\Support\Facades\Artisan;
 class SystemUpdateController extends Controller
 {
+
+
+    use InstallerManager;
+
+    use InstallerManager;
+
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            if(!$this->_isPurchased()){
+                return redirect()->route('invalid.puchase');
+            }
+            return $next($request);
+        });
+    }
+
+
     public function init() :View {
 
         return view('admin.system_update',[
@@ -30,15 +47,15 @@ class SystemUpdateController extends Controller
      */
     public function update(Request $request) :RedirectResponse {
 
-    
         ini_set('memory_limit', '-1');
-
-
+        
         $request->validate([
             'updateFile' => ['required', 'mimes:zip'],
+        ],[
+            'updateFile.required' => translate('File field is required')
         ]);
 
-        $response = response_status(translate('Your system is currently running the latest version.','error'));
+        $response = response_status(translate('Your system is currently running the latest version.'),'error');
 
         try {
             if ($request->hasFile('updateFile')) {
@@ -73,7 +90,7 @@ class SystemUpdateController extends Controller
                     abort(500, translate('Error! No Configuration file found'));
                 } 
      
-                $newVersion      = (float) Arr::get($json,'version',1.0);
+                $newVersion      = (double) Arr::get($json,'version',1.0);
                 $currentVersion  = (double) site_settings(key : "app_version",default :1.0);
 
                 
@@ -81,12 +98,12 @@ class SystemUpdateController extends Controller
                 $dst             = dirname(base_path());
 
                 if($newVersion  > $currentVersion){
+                    $response = response_status(translate('Your system updated successfully'));
                     if($this->copyDirectory($src, $dst)){
 
                         $this->_runMigrations($json);
                         $this->_runSeeder($json);
                       
-        
                         Setting::updateOrInsert(
                             ['key'    => "app_version"],
                             ['value'  => $newVersion]
@@ -95,10 +112,7 @@ class SystemUpdateController extends Controller
                             ['key'    => "system_installed_at"],
                             ['value'  => Carbon::now()]
                         );
-                  
 
-                       $response = response_status(translate('System updated successfully'));
-    
                     }
                 }
             }
@@ -112,45 +126,31 @@ class SystemUpdateController extends Controller
             $response = response_status(strip_tags($ex->getMessage()),'errror');
         }
 
-
-        return back()->with($response);
-       
-
+        optimize_clear();
+        return redirect()->route('home')->with($response);
     }
 
 
     private function _runMigrations(array $json) :void{
 
         $migrations = Arr::get($json , 'migrations' ,[]);
-
         if(count($migrations) > 0){
-
-                $result = Arr::where($migrations, function ($value, $key ,$currentVersion) {
-                    return version_compare($key, (string)$currentVersion, '>');
-                });
-
-                $migrationFiles = (array) @array_unique(Arr::collapse($result));
-
-                foreach ($migrationFiles as $migration) {
-                    Artisan::call('migrate',
-                        array(
-                            '--path' => $migration,
-                            '--force' => true));
-                }
+            $migrationFiles = $this->_getFormattedFiles($migrations);
+            foreach ($migrationFiles as $migration) {
+                Artisan::call('migrate',
+                    array(
+                        '--path' => $migration,
+                        '--force' => true));
+            }
         }
     }
 
     private function _runSeeder(array $json) :void{
-        
+
         $seeders = Arr::get($json , 'seeder' ,[]);
 
         if(count($seeders) > 0){
-            $result = Arr::where($seeders, function ($value, $key ,$currentVersion) {
-                return version_compare($key, (string)$currentVersion, '>');
-            });
-
-            $seederFiles = (array) @array_unique(Arr::collapse($result));
-
+            $seederFiles = $this->_getFormattedFiles($seeders);
             foreach ($seederFiles as $seeder) {
                 Artisan::call('db:seed',
                     array(
@@ -158,6 +158,20 @@ class SystemUpdateController extends Controller
                         '--force' => true));
             }
         }
+    }
+
+    private function _getFormattedFiles (array $files) :array{
+
+        $currentVersion  = (double) site_settings(key : "app_version",default :1.0);
+        $formattedFiles = [];
+        foreach($files as $version => $file){
+           if(version_compare($version, (string)$currentVersion, '>')){
+              $formattedFiles [] =  $file;
+           }
+        }
+
+        return array_unique(Arr::collapse($formattedFiles));
+
     }
 
     
@@ -214,7 +228,7 @@ class SystemUpdateController extends Controller
                     if (!is_dir($dirname . "/" . $file))
                         unlink($dirname . "/" . $file);
                     else
-                        $this->delete_directory($dirname . '/' . $file);
+                        $this->deleteDirectory($dirname . '/' . $file);
                 }
             }
             closedir($dir_handle);

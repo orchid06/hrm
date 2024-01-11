@@ -317,6 +317,8 @@
                 $(".note-dropdown-menu").removeClass("show");
             }
         });
+
+
     </script>
 
     @include('partials.notify')

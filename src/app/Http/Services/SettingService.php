@@ -161,10 +161,10 @@ class SettingService
     
             if($request->input('key') == 'app_debug'){
                 if($request->input("status") ==  (StatusEnum::true)->status()){
-                    update_env('APP_DEBUG=false',"APP_DEBUG=true");
+                    update_env('APP_DEBUG',"true");
                 }
                 else{
-                    update_env('APP_DEBUG=true',"APP_DEBUG=false");
+                    update_env('APP_DEBUG',"false");
                 }
             }
          
