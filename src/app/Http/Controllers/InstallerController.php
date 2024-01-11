@@ -292,6 +292,8 @@ class InstallerController extends Controller
     public function verifyPuchase(Request $request) :View |RedirectResponse
     {
   
+     
+      
         $request->validate([
             base64_decode('cHVyY2hhc2VfY29kZQ==') => "required",
             base64_decode('dXNlcm5hbWU=')         => "required"
@@ -300,7 +302,8 @@ class InstallerController extends Controller
             base64_decode('dXNlcm5hbWU=').".required"         => "Username is required", 
         ]);
 
-        if($this->_validatePurchaseKey($request->input(base64_decode('cHVyY2hhc2VfY29kZQ==')))){
+
+        if($this->_registerDomain() && $this->_validatePurchaseKey($request->input(base64_decode('cHVyY2hhc2VfY29kZQ=='))) ){
 
             $currentPurchaseKey    = env('PURCHASE_KEY');
             $currentEnvatoUsername = env('ENVATO_USERNAME');

@@ -110,7 +110,7 @@
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
                         data-bs-title="{{translate('Social Accounts')}}">
-                        <i class="bi bi-person-fill-gear"></i>
+                        <i class="bi bi-person-gear"></i>
                     </div>
 
                     <span>
