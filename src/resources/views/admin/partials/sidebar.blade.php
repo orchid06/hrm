@@ -839,13 +839,13 @@
   
       @if(check_permission('view_settings'))
         <li class="sidebar-menu-title">
-            {{translate('Softwae Info')}}
+            {{translate('Server Info')}}
         </li>
         <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.system.info")}}'  href='{{route("admin.setting.system.info")}}'>
+            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.server.info")}}'  href='{{route("admin.setting.server.info")}}'>
               <span><i class="lab la-accusoft"></i></span>
               <p>
-                {{translate('Software Info')}}
+                {{translate('Server Info')}}
               </p>
             </a>
         </li>

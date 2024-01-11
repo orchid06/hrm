@@ -35,6 +35,7 @@ return new class extends Migration
             $table->enum('is_kyc_verified',[0,1])->default(0)->comment('Yes: 1, No: 0');
             $table->longText('custom_data')->nullable();
             $table->string('password',255)->nullable();
+            $table->string('webhook_api_key',255)->nullable();
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

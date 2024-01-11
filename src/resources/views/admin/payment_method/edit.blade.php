@@ -102,7 +102,7 @@
                                     </label>
 
                                     @if($key != 'sandbox')
-                                        <input type="text" name="parameter[{{ $key }}]" value="{{ is_demo() ? "@@@": old($key, $parameter) }}"
+                                        <input type="text" name="parameter[{{ $key }}]" value='{{ is_demo() ? "@@@": old($key, $parameter) }}'
                                         id="{{ $key }}">
                                     @else
                                         <select name="parameter[{{ $key }}]" class="select2" id="{{ $key }}">

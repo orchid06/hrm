@@ -200,6 +200,7 @@
 	(function($){
 
         "use strict";
+        
         $(".type").select2({
 
         });

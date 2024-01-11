@@ -50,16 +50,20 @@ class MenuSeeder extends Seeder
 
         ];
         $keys = Menu::pluck('url')->toArray();
-
+        $serial = 0;
         foreach($menus as $key => $section){
             if(!in_array($key ,$keys )){
 
                 Menu::create([
                     "url"          => $key,
+                    "serial_id"    =>  $serial,
                     "name"         => Arr::get($section,"name",'home'),
                     "section"      => Arr::get($section,"section",[]),
                     "is_default"   => Arr::get($section,"default",StatusEnum::false->status()),
                 ]);
+
+
+                $serial ++;
               
             }
         }

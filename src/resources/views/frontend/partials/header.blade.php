@@ -1,8 +1,5 @@
 <header class="header">
   @php
-      $lang       = $languages->where('code',session()->get('locale'));
-      $code       = count($lang)!=0 ? $lang->first()->code:"en";
-      $languages  = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
       $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
   @endphp
 
@@ -215,30 +212,7 @@
         </div>
 
         <div class="nav-right d-flex jsutify-content-end align-items-center gap-sm-3 gap-2">
-            <div class="lang">
-                <div class="dropdown">
-                    <button class="lang-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="flag">
-                            <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-                        </span>
-                    </button>
-
-                    @if(!$languages->isEmpty())
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            @foreach($languages as $language)
-                                <li>
-                                    <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                                        <span class="flag">
-                                                <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                                        </span>
-                                        {{$language->name}}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-            </div>
+   
 
             <div class="currency">
                     <button class="dropdown-toggle"

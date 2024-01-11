@@ -119,9 +119,9 @@ class SystemUpdateController extends Controller
     }
 
 
-    public function _runMigrations(array $json) :void{
+    private function _runMigrations(array $json) :void{
 
-        $migrations = Arr::get($json , 'seeder' ,[]);
+        $migrations = Arr::get($json , 'migrations' ,[]);
 
         if(count($migrations) > 0){
 
@@ -140,9 +140,9 @@ class SystemUpdateController extends Controller
         }
     }
 
-    public function _runSeeder(array $json) :void{
-
-        $seeders = Arr::get($json , 'migrations' ,[]);
+    private function _runSeeder(array $json) :void{
+        
+        $seeders = Arr::get($json , 'seeder' ,[]);
 
         if(count($seeders) > 0){
             $result = Arr::where($seeders, function ($value, $key ,$currentVersion) {
@@ -224,6 +224,6 @@ class SystemUpdateController extends Controller
         catch (\Exception $e) {
             return false;
         }
-     }
+    }
     
 }

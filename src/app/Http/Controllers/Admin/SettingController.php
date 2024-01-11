@@ -183,17 +183,16 @@ class SettingController extends Controller
      * clear cache
      * @return View
      */
-    public function systemInfo() :View
+    public function serverInfo() :View
     {
         $systemInfo = [
             'laravel_version' => app()->version(),
             'server_detail'   => $_SERVER,
-            'php_version'     => phpversion(),
         ];
-        return view('admin.system_info',[
+        return view('admin.server_info',[
             
-            'breadcrumbs'     =>  ['home'=>'admin.home','SystemInfo'=> null],
-            'title'           => "System Information",
+            'breadcrumbs'     =>  ['home'=>'admin.home','Server Information'=> null],
+            'title'           => "Server Information",
             'systemInfo'      =>  $systemInfo
         ]);
     }

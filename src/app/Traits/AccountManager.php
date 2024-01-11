@@ -104,13 +104,6 @@ trait AccountManager
 
                     });
 
-
-
-
-
-        
-
-
         return [
             'status'  => true,
             'account' => $socialAccount

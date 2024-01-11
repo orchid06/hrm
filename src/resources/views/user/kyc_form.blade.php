@@ -1,7 +1,5 @@
 @extends('layouts.master')
-@push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
-@endpush
+
 @section('content')
 <div class="row">
     <div class="col-12">

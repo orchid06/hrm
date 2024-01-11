@@ -323,6 +323,7 @@ use Illuminate\Support\Facades\DB;
 
 
     Route::get('/maintenance-mode', [CoreController::class, 'maintenanceMode'])->name('maintenance.mode')->middleware(['sanitizer']);
+    Route::get('/post/webhook', [CoreController::class, 'postWebhook'])->name('post.webhook')->middleware(['sanitizer']);
 
 
 

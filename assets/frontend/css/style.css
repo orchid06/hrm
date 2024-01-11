@@ -3415,6 +3415,12 @@
   object-fit: cover;
 }
 
+
+.language-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary-soft);
+}
 .language-item {
   padding: 10px;
   display: flex;
@@ -3424,6 +3430,7 @@
   border-radius: 3px;
   position: relative;
   border: 1px solid transparent;
+  text-align: center;
 }
 
 .language-item:hover {

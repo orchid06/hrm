@@ -46,7 +46,7 @@
                                         $field_name = $ticket_field['name'];
                                     }
                                 @endphp
-                                <div class="col-lg-{{$ticket_field['type'] == 'textarea'  || $ticket_field['name'] == 'subject'  ? 12 :6}}">
+                                <div class="col-lg-{{$ticket_field['type'] == 'textarea'   ? 12 :6}}">
                                     <div class="form-inner">
                                         <label for="{{$loop->index}}" class="form-label">
                                             {{$ticket_field['labels']}} @if($ticket_field['required'] == '1' || $ticket_field['type'] == 'file') <span class="text-danger">

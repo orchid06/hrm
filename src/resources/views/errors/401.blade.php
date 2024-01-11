@@ -1,7 +1,6 @@
 @extends('layouts.error')
 @section('content')
 
-
 <div class="col-lg-5">
     <div class="error-content">
         <h1>401</h1>

@@ -72,7 +72,6 @@ class RouteServiceProvider extends ServiceProvider
                 return Limit::perMinute($hitLimit)->by($request->user()?->id ?: $request->ip());
             });
 
-
             RateLimiter::for('refresh', function(Request $request){
 
                 if(site_settings('dos_prevent') == StatusEnum::true->status()){
