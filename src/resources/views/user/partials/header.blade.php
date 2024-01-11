@@ -17,7 +17,11 @@
             </a>
 
             <div class="mobile-menu-btn sidebar-trigger">
-                <i class="bi bi-list"></i>
+                <div class="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
 

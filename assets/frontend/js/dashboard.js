@@ -23,17 +23,6 @@
     window.addEventListener("load", checkScroll);
   }
 
-  // Back to Top
-  const backToTop = document.querySelector(".back-to-top");
-  if (backToTop != null) {
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-  }
-
   // Sidebar mobile menu
   const sidebarTrigger = document.querySelector(".sidebar-trigger");
   if (sidebarTrigger != null) {
@@ -44,20 +33,11 @@
     sidebaroverlay = document.createElement("div");
     sidebaroverlay.setAttribute("class", "sidebaroverlay");
 
-
-    // By default Set attributes
-    // rootHtml.setAttribute("data-sidebar", "open-sidebar");
-
     sidebarTrigger.addEventListener("click", () => {
-      // Set attributes
-      // var currentAttribute = rootHtml.getAttribute("data-sidebar");
-      // rootHtml.setAttribute(
-      //   "data-sidebar",
-      //   currentAttribute === "open-sidebar" ? "" : "open-sidebar"
-      // );
-
       // Sidebar Toggle Class
       sidebars.classList.toggle("show-side-bar");
+      sidebarTrigger.classList.toggle("clicked");
+
       if (sidebars.classList.contains("show-side-bar")) {
         document.body.appendChild(sidebaroverlay);
       } else {
@@ -67,12 +47,14 @@
 
     sidebaroverlay.addEventListener("click", () => {
       sidebaroverlay.remove();
-      if (sidebars.classList.contains("show-side-bar")) {
+      if (
+        sidebars.classList.contains("show-side-bar") &&
+        sidebarTrigger.classList.contains("clicked")
+      ) {
         sidebars.classList.remove("show-side-bar");
+        sidebarTrigger.classList.remove("clicked");
       }
     });
-
-
   }
 
   // Sidebar Menu
@@ -139,7 +121,7 @@
 
           if (!sideBarDropdown.classList.contains("show-sideMenu")) {
             hiddenOverlay.remove();
-          } else {
+          }else {
             hiddenOverlay.addEventListener("click", () => {
               sideBarDropdown.classList.remove("show-sideMenu");
               hiddenOverlay.remove();
@@ -154,8 +136,6 @@
   function checkDeviceWidth() {
     if (deviceWidth <= 992) {
       hiddenOverlay.remove();
-    } else {
-      sidebaroverlay.remove();
     }
   }
   window.addEventListener("resize", checkDeviceWidth);
