@@ -2,25 +2,47 @@
 
 namespace App\Traits;
 
+use App\Enums\StatusEnum;
 use App\Models\Core\Setting;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cache;
 
 trait InstallerManager
 {
-    private $_minPhpVersion = '8.1';
 
-   
+    private function _isPurchased() :mixed{
+    
+        $purchaseKey = site_settings('purchase_key');
+        $userName    = site_settings('envato_username');
 
-    public function is_installed() :mixed{
+        $licenseData = Cache::get('software_license');
 
-        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
+         if (empty($purchaseKey) || empty($userName)) {
+             return false;
+         }
+
+         if (!$licenseData) {
+             if (!$this->_registerDomain() || !$this->_validatePurchaseKey($purchaseKey)) {
+                 return false;
+             }
+             Cache::put('software_license', true, now()->addHour());
+         }
+ 
+         return true;
+     
+     }
+     
+
+
+     public function is_installed() :mixed{
+
+        $logFile = storage_path(base64_decode(config('installer.cacheFile')));
+
         if (file_exists($logFile)) {
             return true;
         }
@@ -82,20 +104,11 @@ trait InstallerManager
         $currentVersion = $filtered[0];
 
         return [
-            'full' => $currentVersionFull,
+            'full'    => $currentVersionFull,
             'version' => $currentVersion,
         ];
     }
 
-    /**
-     * Get minimum PHP version ID.
-     *
-     * @return string _minPhpVersion
-     */
-    protected function getMinPhpVersion()
-    {
-        return $this->_minPhpVersion;
-    }
 
 
 
@@ -104,33 +117,26 @@ trait InstallerManager
      *
      * @return array
      */
-    public function checkPHPversion(string $minPhpVersion = null) :array
+    public function checkPHPversion(string $minPhpVersion) :array
     {
         $minVersionPhp = $minPhpVersion;
         $currentPhpVersion = $this->getPhpVersionInfo();
         $supported = false;
-
-        if ($minPhpVersion == null) {
-            $minVersionPhp = $this->getMinPhpVersion();
-        }
 
         if (version_compare($currentPhpVersion['version'], $minVersionPhp) >= 0) {
             $supported = true;
         }
 
         $phpStatus = [
-            'full' => $currentPhpVersion['full'],
-            'current' => $currentPhpVersion['version'],
-            'minimum' => $minVersionPhp,
-            'supported' => $supported,
+            'full'       => $currentPhpVersion['full'],
+            'current'    => $currentPhpVersion['version'],
+            'minimum'    => $minVersionPhp,
+            'supported'  => $supported,
         ];
 
         return $phpStatus;
     }
 
-
-
-    /** file permissions */
 
 
     public function permissionsCheck(array $folders) :array{
@@ -193,45 +199,92 @@ trait InstallerManager
 
 
 
-    public function _envatoVerification(Request $request) : mixed {
+    private function _envatoVerification(Request $request) : mixed {
 
-
-        return eval(base64_decode('IAogICAgICAgIGlmKCR0aGlzLT5fcmVnaXN0ZXJEb21haW4oKSl7CiAgICAgICAgICAgICRwYXJhbXNbYmFzZTY0X2RlY29kZSgnY0hWeVkyaGhjMlZrWDJOdlpHVT0nKV0gPSAkcmVxdWVzdC0+aW5wdXQoYmFzZTY0X2RlY29kZSgnY0hWeVkyaGhjMlZmWTI5a1pRPT0nKSk7CiAgICAgICAgICAgICRwYXJhbXNbYmFzZTY0X2RlY29kZSgnWW5WNVpYSmZaRzl0WVdsdScpXSAgID0gdXJsKCcvJyk7CiAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAkY2ggPSBjdXJsX2luaXQoKTsgCiAgICAgICAgICAgICAgICAkZGF0YSA9IGh0dHBfYnVpbGRfcXVlcnkoJHBhcmFtcyk7CiAgICAgICAgICAgICAgICAkcG9zdGluZ0RhdGEgPSBiYXNlNjRfZGVjb2RlKCJhSFIwY0hNNkx5OXNhV05sYm5ObExtbG5aVzV6YjJ4MWRHbHZibk5zZEdRdVkyOXQiKS4iPyIuJGRhdGE7CiAgICAgICAgICAgICAgICBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfU1NMX1ZFUklGWVBFRVIsIEZBTFNFKTsKICAgICAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9GT0xMT1dMT0NBVElPTiwgVFJVRSk7CiAgICAgICAgICAgICAgICBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfUkVUVVJOVFJBTlNGRVIsIFRSVUUpOwogICAgICAgICAgICAgICAgY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1VSTCwgJHBvc3RpbmdEYXRhKTsKICAgICAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9USU1FT1VULCA4MCk7CiAgICAgICAgICAgICAgICAkcmVzcG9uc2UgPSBjdXJsX2V4ZWMoJGNoKTsKICAgICAgICAgICAgICAgIGN1cmxfY2xvc2UoJGNoKTsKICAgICAgICAgICAgICAgICRyZXNwb25zZSA9IGpzb25fZGVjb2RlKCAkcmVzcG9uc2UpOwogICAgICAgICAgICAgICAgcmV0dXJuICAkcmVzcG9uc2UtPnN0YXR1czsKICAgICAgICAgICAgfSBjYXRjaCAoXEV4Y2VwdGlvbiAkZSkgewogICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHJldHVybiBmYWxzZTsK'));
-   
-
-    }
-
-    public function _registerDomain() :mixed {
-
-      return eval(base64_decode("IHRyeSB7CiAgICAgICAgICAgICRjaCA9IGN1cmxfaW5pdCgpOyAKICAgICAgICAgICAgJHBvc3RQYXJhbXMgPSBbCiAgICAgICAgICAgICAgICBiYXNlNjRfZGVjb2RlKCdZblY1WlhKZlpHOXRZV2x1JykgPT4gdXJsKCcvJyksIAogICAgICAgICAgICAgICAgYmFzZTY0X2RlY29kZSgnYzI5bWRIZGhjbVZmYVdRPScpID0+IGNvbmZpZygnaW5zdGFsbGVyLnNvZnR3YXJlX2lkJykgPz8gJ1NISFZMTVRHS1o9PScKICAgICAgICAgICAgXTsKICAgICAgICAgICAgJGRhdGEgPSBodHRwX2J1aWxkX3F1ZXJ5KCRwb3N0UGFyYW1zKTsKICAgICAgICAgICAgJHBvc3RpbmdEYXRhID0gYmFzZTY0X2RlY29kZSgiYUhSMGNITTZMeTlzYVdObGJuTmxMbWxuWlc1emIyeDFkR2x2Ym5Oc2RHUXVZMjl0IikuJz8nLiRkYXRhOyAKICAgICAgICAgICAgY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1NTTF9WRVJJRllQRUVSLCBGQUxTRSk7CiAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9GT0xMT1dMT0NBVElPTiwgVFJVRSk7CiAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9SRVRVUk5UUkFOU0ZFUiwgVFJVRSk7CiAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9VUkwsICRwb3N0aW5nRGF0YSk7CiAgICAgICAgICAgIGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9USU1FT1VULCA4MCk7CiAgICAgICAgICAgICRyZXNwb25zZSA9IGpzb25fZGVjb2RlKGN1cmxfZXhlYygkY2gpKTsKICAgICAgICAgICAgY3VybF9jbG9zZSgkY2gpOwogICAgICAgICAgICByZXR1cm4gJHJlc3BvbnNlLT5zdGF0dXM7CiAgICAgICAgfSBjYXRjaCAoXEV4Y2VwdGlvbiAkZXgpIHsKICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgICAgIH0="));
-
+        if($this->_registerDomain()){
+            return $this->_validatePurchaseKey($request->input(base64_decode('cHVyY2hhc2VfY29kZQ==')));
+        }
+        return false;
 
     }
 
+    private function _registerDomain() :mixed {
 
-    public function _validatePurchaseKey(string $key) :mixed {
+        try {
+            $ch = curl_init(); 
+            $postParams = [
+                base64_decode('YnV5ZXJfZG9tYWlu') => url('/'), 
+                base64_decode('c29mdHdhcmVfaWQ=') => config('installer.software_id') ?? 'SHHVLMTGKZ=='
+            ];
+            $data = http_build_query($postParams);
+            $postingData = base64_decode("aHR0cHM6Ly9saWNlbnNlLmlnZW5zb2x1dGlvbnNsdGQuY29t").'?'.$data; 
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_URL, $postingData);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 80);
+            $response = json_decode(curl_exec($ch));
+            curl_close($ch);
+            return $response->status;
+        } catch (\Exception $ex) {
+            return false;
+        }
 
-        return true;
+
     }
 
-    public  function _chekcDbConnection(Request $request) :mixed {
+
+    private function _validatePurchaseKey(string $key) :mixed {
+
+        $params[base64_decode('cHVyY2hhc2VkX2NvZGU=')] = $key;
+        $params[base64_decode('YnV5ZXJfZG9tYWlu')]     = url('/');
+     
+        try {
+            $ch = curl_init(); 
+            $data = http_build_query($params);
+            $postingData = base64_decode("aHR0cHM6Ly9saWNlbnNlLmlnZW5zb2x1dGlvbnNsdGQuY29t")."?".$data;
+
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_URL, $postingData);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 80);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $response = json_decode( $response);
+
+            return  $response->status;
+        } catch (\Exception $e) {
+            return false;
+        }
+
+    }
+
+
+    private  function _chekcDbConnection(Request $request) :mixed {
         
-        return eval(base64_decode("CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgaWYgKEBteXNxbGlfY29ubmVjdCgkcmVxdWVzdC0+aW5wdXQoJ2RiX2hvc3QnKSwgJHJlcXVlc3QtPmlucHV0KCdkYl91c2VybmFtZScpLCAgJHJlcXVlc3QtPmlucHV0KCdkYl9wYXNzd29yZCcpLCAkcmVxdWVzdC0+aW5wdXQoJ2RiX2RhdGFiYXNlJykgLCAkcmVxdWVzdC0+aW5wdXQoJ2RiX3BvcnQnKSkpIHsKICAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwogICAgICAgICAgICB9CiAgICAgICAgICAgIHJldHVybiBmYWxzZTsKICAgICAgICB9Y2F0Y2goXEV4Y2VwdGlvbiAkZXhjZXB0aW9uKXsKICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogICAgICAgIH0="));
+        try {
+            if (@mysqli_connect($request->input('db_host'), $request->input('db_username'),  $request->input('db_password'), $request->input('db_database') , $request->input('db_port'))) {
+                return true;
+            }
+            return false;
+        }catch(\Exception $exception){
+            return false;
+        }
 
     }
 
 
     
-    public  function _checkDb(Request $request) :mixed {
+    private  function _isDbEmpty() :mixed {
 
         try {
-            $servername = $request->input('db_host');
-            $username   = $request->input('db_username');
-            $password   = $request->input('db_password');
-            $dbname     = $request->input('db_database');
-            $conn = new \mysqli($servername, $username, $password, $dbname);
+            $servername = env('DB_HOST');
+            $username   = env('DB_USERNAME');
+            $password   = env('DB_PASSWORD');
+            $dbname     = env('DB_DATABASE');
+            $conn       = new \mysqli($servername, $username, $password, $dbname);
 
-            $conn   = new \mysqli($servername, $username, $password, $dbname);
             $result = $conn->query("SHOW TABLES");
             $conn->close();
             if ($result->num_rows > 0) {
@@ -244,8 +297,9 @@ trait InstallerManager
         }
     }
 
+
     
-    public  function _envConfig(Request $request) :mixed {
+    private  function _envConfig(Request $request) :mixed {
 
 
         try {
@@ -308,17 +362,21 @@ trait InstallerManager
 
     }
 
-    public function _dbMigrate() :void{
+    private function _dbMigrate(mixed $forceImport) :void{
+
+        if($forceImport == StatusEnum::true->status()){
+            Artisan::call('db:wipe', ['--force' => true]);
+        }
         ini_set('max_execution_time', 0);
         Artisan::call('migrate:fresh', ['--force' => true]);
     }
-    public function _dbSeed() :void{
+    private function _dbSeed() :void{
         ini_set('max_execution_time', 0);
         Artisan::call('db:seed', ['--force' => true]);
     }
 
 
-    public function _systemInstalled() :void {
+    private function _systemInstalled() :void {
 
         $version = Arr::get(config("installer.core"),'appVersion',null);
         $data = [
@@ -332,14 +390,17 @@ trait InstallerManager
             Setting::updateOrInsert(['key' => $item['key']], $item);
         }
 
-        $message ='PURCHASE_KEY:'.env('PURCHASE_KEY').'ENVATO_USERNAME:'.env('ENVATO_USERNAME')."INSTALLED_AT:".Carbon::now();
-
-        $logFile = storage_path(base64_decode('X2ZpbGVjYWNoZWluZw=='));
+        $message ="INSTALLED_AT:".Carbon::now();
+        $logFile = storage_path(base64_decode(config('installer.cacheFile')));
 
         if (file_exists($logFile)) {
             unlink($logFile);
         } 
         file_put_contents($logFile, $message);
+
+        Cache::remember('software_license',now()->addHour(), function ()  {
+            return true;
+        });
     }
 
 

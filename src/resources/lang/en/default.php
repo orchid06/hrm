@@ -41,15 +41,15 @@ return [
     published. Tests and updates by social networks may affect
     the final appearance. Report a difference you notice",
     'dashboard_plan_title' => 'Try our all new Enviroment with Pro Plan',
-    'system_update_title'  => 'Be Aware !!! Before Update',
-    'update_note'          => ' <li><i class="bi bi-check2-square"></i>You must take backup from your server (files & database)</li>
-    <li><i class="bi bi-check2-square"></i>Make Sure You have stable internet connection</li>
-    <li class="text-danger"><i class="bi bi-check2-square"></i>Do not close the tab while the process is running</li>',
+
+    'invalid_license' => 'Invalid Software License',
+    'invalid_license_note' => 'Your software is runnig without License',
+
     
 
     /** site  title  */
 
-    "already_installed" => "Already Installed",
+   
     "blogs"     => 'Blogs',
     "feedback"  => 'Feedback',
     "contact"  =>  'Contacts',
@@ -69,16 +69,22 @@ return [
 
     /** installer  default lang */
 
-    "insaller_title" => "EngageHub Installer",
+    'already_installed' => 'Already Installed',
+
+    /** installer default lang section start */
+
     "insaller_subtitle" => "Please proceed step by step with proper data according to instructions",
 
     'btn_next' => "Next",
     'btn_previous' => "Previous",
+    'btn_import' => 'Import',
+    'btn_force_import' => 'Force Import',
+    'browser_home' => "Browser Home",
     
     /** init step */
-    'init_title' => "Required Database Information",
+    'init_title' => "Database Information",
     "init_note" => "Before starting the installation process please collect this
-    information. Without this information, you won’t be able to complete the installation process",
+    information.",
     'init_dbname' => "Database Name",
     'init_dbpassword' => "Database Password",
     'init_dbusername' => "Database Username",
@@ -86,20 +92,45 @@ return [
 
     /** requirment and permission step */
 
-    'requirments_title' => " Verify Requirments & File Permissions",
+    'requirments_title' => "Requirments & Permissions",
+    "requirments_note" => "File permission & Server Requirments",
 
     /** envato verification route */
-    'envato_verification_title' => "Update Purchase Information",
-    "envato_verification_note" => "rovide your username of codecanyon & the purchase code",
+    'envato_verification_title' => "Envato Verifications",
+    "envato_verification_note" => "Provide your username of codecanyon & the purchase code",
 
     /** db setup */
 
-    'dbsetup_title' => "Update Database Information",
+    'dbsetup_title' => "Database Setup",
+    'dbsetup_note' => "Fill this form with valid database credentials ",
+
+
+    
+    /** db setup */
+
+    'account_setup_title'   => "Account Settings",
+    'account_setup_note'    => "Fill this form with basic information & admin login credentials",
+    
+    'account_setup_warning' => "If your database contains data, opt for force import to remove existing tables. For an empty database, simply click 'Import.' <strong>Exercise caution  </strong>, as force import erases previous table data.",
+    
+
 
     /** system setup */
 
-    'account_setup_title' => "Setup your admin account",
-    'finished_note' => "Application has been installed successfully!",
+    'finished_title'   => "Installation Finished",
+    'finished_note'    => "Application has been installed successfully!",
+
+    /** installer default lang section end */
+
+    
+
+
+   /** system update note */ 
+   'system_update_title'  => 'Be Aware !!! Before Update',
+   'update_note'          => ' <li><i class="ri-checkbox-circle-line"></i></i>You must take backup from your server (files & database)</li>
+   <li><i class="ri-checkbox-circle-line"></i></i>Make Sure You have stable internet connection</li>
+   <li class="text-danger"><i class="ri-checkbox-circle-line"></i></i>Do not close the tab while the process is running</li>',
+   
 
 
 

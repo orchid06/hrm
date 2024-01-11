@@ -28,7 +28,7 @@ class HomeController extends Controller
 
 
 
-    protected $user ,$subscription,$accessPlatforms;
+    protected $user ,$subscription,$accessPlatforms,$webhookAccess;
 
     use Fileable;
     public function __construct(){
@@ -37,6 +37,8 @@ class HomeController extends Controller
             $this->user = auth_user('web');
             $this->subscription           = $this->user->runningSubscription;
             $this->accessPlatforms        = (array) ($this->subscription ? @$this->subscription->package->social_access->platform_access : []);
+            $this->webhookAccess          = @optional($this->subscription->package->social_access)
+                                                 ->webhook_access;
 
             return $next($request);
         });
@@ -267,6 +269,7 @@ class HomeController extends Controller
 
     /**
      * read a notifications
+     * 
      */
 
     public function readNotification(Request $request) :string{
@@ -293,7 +296,8 @@ class HomeController extends Controller
 
 
     /**
-     * read a notifications
+     * view  all notifications
+     * 
      */
 
     public function notification(Request $request) :View{
@@ -313,20 +317,52 @@ class HomeController extends Controller
 
 
     /**
-     * profile Update
+     * Affiliate Config Update
      *
-     * @return View
+     * @return RedirectResponse
      */
     public function affiliateUpdate(Request $request ) :RedirectResponse{
 
-        $request->validate([
-            'referral_code'      => ['required','unique:users,referral_code,'.$this->user->id,'max:155'],
-        ]);
+        $response = response_status('Affiliate System Is Currently Disabled');
+        if(site_settings("affiliate_system") == StatusEnum::true->status()){
+            $response = response_status('Referral Code Updated');
+            $request->validate([
+                'referral_code'      => ['required','unique:users,referral_code,'.$this->user->id,'max:155'],
+            ]);
+    
+            $user                       =  $this->user;
+            $user->referral_code        =  $request->input('referral_code');
+            $user->save();
 
-        $user                       =  $this->user;
-        $user->referral_code        =  $request->input('referral_code');
-        $user->save();
-        return back()->with(response_status('Referral Code Updated'));
+        }
+
+        return back()->with( $response);
+    }
+
+
+
+    
+    /**
+     * Webhook Config Update
+     *
+     * @return RedirectResponse
+     */
+    public function webhookUpdate(Request $request ) :RedirectResponse{
+
+        $response = response_status('You current plan doesnot have webhook access');
+        if($this->webhookAccess == StatusEnum::true->status()){
+            $response = response_status('Webhook Api Key Updated');
+            $request->validate([
+                'webhook_api_key'      => ['required','unique:users,webhook_api_key,'.$this->user->id],
+            ]);
+    
+            $user                       =  $this->user;
+            $user->webhook_api_key      =  $request->input('webhook_api_key');
+            $user->save();
+
+        }
+
+        return back()->with( $response);
     }
 
 }

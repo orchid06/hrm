@@ -178,7 +178,7 @@
 
         $(document).on('click','.bulk-action-modal',function(e){
             var type = $(this).attr("data-type");
-            var src = "{{asset('assets/images/trash-bin.gif')}}";
+            var src = "{{asset('assets/images/default/trash-bin.gif')}}";
             $('.bulk-btn').html('{{translate("Delete")}}')
             if(type){
                 if(type != "delete"){
@@ -187,7 +187,7 @@
                     $('.bulk-warning').html($(this).attr("data-message"))
                     if(type == 'restore'){
                         $('.bulk-btn').html('{{translate("Restore")}}')
-                         src = "{{asset('assets/images/restore.gif')}}";
+                         src = "{{asset('assets/images/default/restore.gif')}}";
                     }
                 }
             }
@@ -205,7 +205,7 @@
             if (($(this).attr('data-message'))) {
                 message = $(this).attr('data-message')
             }
-            var src = "{{asset('assets/images/trash-bin.gif')}}";
+            var src = "{{asset('assets/images/default/trash-bin.gif')}}";
             $('.action-img').attr("src",src)
             $("#action-href").attr("href", href);
             $(".warning-message").html(message)
@@ -218,7 +218,7 @@
             e.preventDefault();
             var href = $(this).attr('data-href');
 
-            var src = "{{asset('assets/images/restore.gif')}}";
+            var src = "{{asset('assets/images/default/restore.gif')}}";
             var message = 'Are you sure! you want to restore these record ?'
             if (($(this).attr('data-message'))) {
                 message = $(this).attr('data-message')

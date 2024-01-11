@@ -206,7 +206,7 @@ trait Fileable
     {
         $config    = config("settings")['file_path'];
         $basepath  = $this->getConfigValue($path, $config);
-        $image_url = asset('assets/images/default.jpg');
+        $image_url = asset('assets/images/default/default.jpg');
 
         if($size){
             $default = $foreceSize?? "100x100";

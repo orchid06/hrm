@@ -107,7 +107,10 @@ return [
 
     'storage'    => "s3",
     'mime_types' => json_encode([
-        'png'
+        'png',
+        'jpg',
+        'jpeg',
+        'jpe',
     ]),
 
     'max_file_size'   => 20000,
@@ -150,8 +153,8 @@ return [
     'api_route_rate_limit' => 1000,
     'web_route_rate_limit' => 1000,
 
-    'primary_color'   => "#8158FC",
-    'secondary_color' => "#00A9FF",
+    'primary_color'   => "#00AF91",
+    'secondary_color' => "#29D2E4",
     'text_primary'    => '#26152E',
     'text_secondary'  => '#676767',
     

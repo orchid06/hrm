@@ -16,6 +16,7 @@ use App\Models\Admin\Category;
 use App\Models\Admin\Currency;
 use App\Models\AiTemplate;
 use App\Models\Core\Language;
+use App\Models\Core\Setting;
 use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\SocialPost;
@@ -155,18 +156,23 @@ class CoreController extends Controller
     /**
      * Process cron job
      *
-     * @return Void
+     * @return void
      */
-    public function cron() :Void{
+    public function cron() :void{
 
-        // try {
+        try {
             $this->handleSchedulePost();
             $this->handleExpireSubscriptions();
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
+        } catch (\Throwable $th) {
+          
+        }
 
-        session()->put('last_corn_run',Carbon::now());
+        Setting::updateOrInsert(
+            ['key'    => 'last_cron_run'],
+            ['value'  => Carbon::now()]
+        );
+        
+
 
     }
 
@@ -286,10 +292,7 @@ class CoreController extends Controller
 
         }
 
-
     }
-
-
 
 
 
@@ -649,7 +652,6 @@ class CoreController extends Controller
 
 
 
-
     public  function maintenanceMode() :View | RedirectResponse{
 
         if(site_settings('maintenance_mode') == (StatusEnum::false)->status() ){
@@ -661,6 +663,19 @@ class CoreController extends Controller
         ]);
 
      }
+
+     
+
+
+     /**
+      * Handle post webhook
+      *
+      * @return void
+      */
+    public function postWebhook():void{
+
+    }
+
 
 
     

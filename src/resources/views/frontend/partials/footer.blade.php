@@ -10,6 +10,11 @@
    $paymentImg  = $ctaContent->file->where("type",'payment_image')->first();
    $icons       =  get_content("element_social_icon");
 
+   $lang         = $languages->where('code',session()->get('locale'));
+   $code         = count($lang)!=0 ? $lang->first()->code:"en";
+   $langName     = count($lang)!=0 ? $lang->first()->name:"en";
+   $languages    = $languages->where('status',App\Enums\StatusEnum::true->status());
+
 @endphp
 
 <footer class="footer">
@@ -18,22 +23,21 @@
           <div class="row">
             <div class="col-lg-7 mx-auto">
               <div class="section-title light text-center">
-                <h3 class="mt-0 title-anim">
-                   {{@$ctaContent->value->title}}
-                </h3>
-                <p class="mt-4">
-                  {{@$ctaContent->value->description}}
-                </p>
+                  <h3 class="mt-0 title-anim">
+                     {{@$ctaContent->value->title}}
+                  </h3>
+                  <p class="mt-4">
+                    {{@$ctaContent->value->description}}
+                  </p>
               </div>
-
 
               <div class="d-flex align-items-center justify-content-center gap-3 gap-md-4 text-center">
 
-                    @foreach ( $ctaElements as $ctaBtn )
-                        <a href="{{url(@$ctaBtn->value->url)}}" class='i-btn {{$loop->even ? " btn--secondary" : "btn--primary" }}  btn--lg capsuled'>
-                             {{@$ctaBtn->value->button_name}}
-                        </a>
-                    @endforeach
+                  @foreach ( $ctaElements as $ctaBtn )
+                      <a href="{{url(@$ctaBtn->value->url)}}" class='i-btn {{$loop->even ? " btn--secondary" : "btn--primary" }}  btn--lg capsuled'>
+                            {{@$ctaBtn->value->button_name}}
+                      </a>
+                  @endforeach
 
               </div>
             </div>
@@ -153,9 +157,9 @@
                     {{site_settings("copy_right_text")}}
                 </p>
 
-                 <button class="language-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <span class="language-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                    <p>{{translate("English")}} </p>
+                 <button class="language-btn" data-bs-toggle="modal" data-bs-target="#langModal">
+                    <span class="language-img"><img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}"></span>
+                    <p>{{   $langName }} </p>
                 </button>
             </div>
         </div>
@@ -164,64 +168,39 @@
 
 </footer>
 
-<div class="modal fade zoomIn" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade zoomIn" id="langModal" tabindex="-1" aria-labelledby="langModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{translate("Select Your Language")}} </h1>
+        <h1 class="modal-title fs-5" id="langModalLabel"> {{translate("Select Your Language")}} </h1>
         <button type="button" class="modal-closer" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
       </div>
       <div class="modal-body lang-modal">
         <div class="lang-modal-wrapper">
-            <div class="row g-0">
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
+            <div class="row g-1">
 
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
+                @foreach ($languages  as $language )
 
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-6">
-                    <a href="#" class="language-item">
-                        <span class="language-item-img"><img src="https://i.ibb.co/ScwRTH2/canda.png" alt="canda"></span>
-                        <p>English</p>
-                    </a>
-                </div>
+                  <div class="col-md-4 col-sm-4 col-6">
+                      <a href="{{route('language.change',$language->code)}}" class="language-item @if($code == $language->code) active @endif">
+                          <span class="language-item-img"><img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}"></span>
+                          <p>
+                            {{$language->name}}
+                          </p>
+                      </a>
+                  </div>
+                      
+                @endforeach
+         
             </div>
         </div>
 
-        <img src="https://i.ibb.co/m88DMbj/Dotted-Map-White-Background.jpg" alt="Dotted-Map-White-Background">
+        <img src="{{asset('assets/images/default/map.jpg')}}" alt="map.jpg">
       </div>
       <div class="modal-footer">
-        <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">
+            {{translate('Close')}}
+        </button>
       </div>
     </div>
   </div>

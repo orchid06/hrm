@@ -15,7 +15,7 @@
 									<small class="text-danger">*</small>
 								</label>
 				
-								<input type="text" name="credential[{{ $k }}]" value="{{$v}}"
+								<input type="text" name="credential[{{ $k }}]" value="{{is_demo() ? '@@@' :$v}}"
 								id="{{ $k }}">
 							</div>
 						</div> 

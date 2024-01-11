@@ -305,6 +305,20 @@ class User extends Authenticatable
 
 
     /**
+     * Get all of credit logs
+     *
+     * @return HasMany
+     */
+    public function affiliateLogs(): HasMany
+    {
+        return $this->hasMany(AffiliateLog::class, 'referred_to');
+    }
+
+
+    
+
+
+    /**
      * Get the country that user bleongs to
      *
      * @return BelongsTo

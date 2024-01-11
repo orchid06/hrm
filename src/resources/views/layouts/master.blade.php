@@ -78,6 +78,7 @@
       @endif
     @endif
     @yield("modal")
+    
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -275,7 +276,7 @@
           passwordField.attr('type', fieldType);
           var toggleIcon = parentAuthInput.find('.toggle-icon');
           toggleIcon.toggleClass('bi-eye bi-eye-slash');
-        });
+      });
 
         $(document).on('click','#genarate-captcha',function(e){
             var url = "{{ route('captcha.genarate',[":randId"]) }}"
@@ -292,7 +293,7 @@
             if (($(this).attr('data-message'))) {
                 message = $(this).attr('data-message')
             }
-            var src = "{{asset('assets/images/trash-bin.gif')}}";
+            var src = "{{asset('assets/images/default/trash-bin.gif')}}";
             $('.action-img').attr("src",src)
             $("#action-href").attr("href", href);
             $(".warning-message").html(message)

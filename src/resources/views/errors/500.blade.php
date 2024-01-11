@@ -1,7 +1,5 @@
 @extends('layouts.error')
 @section('content')
-
-
 <div class="col-lg-5">
     <div class="error-content">
         <h1>500</h1>
@@ -14,11 +12,9 @@
         </div>
     </div>
 </div>
-
 <div class="col-lg-7">
     <div class="error-image">
-        <img src="{{asset('assets/images/500.png')}}" alt="500.png" class="img-fluid">
+        <img src="{{asset('assets/images/default/500.png')}}" alt="500.png" class="img-fluid">
     </div>
 </div>
-
 @endsection

@@ -11,7 +11,7 @@ use App\Http\Middleware\KycMiddleware;
 use App\Http\Middleware\LanguageMiddleware;
 use App\Http\Middleware\MaintenanceMode;
 use App\Http\Middleware\Permissions;
-
+use App\Http\Middleware\PurchaseValidation;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\Sanitization;
 use App\Http\Middleware\SecurityMiddleware;
@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
             LanguageMiddleware::class,
             CurrencySwitcher::class,
             SoftwareVerification::class,
+            PurchaseValidation::class
         
         ],
 

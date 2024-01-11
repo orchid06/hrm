@@ -10,6 +10,7 @@
 @endphp
 <div class="row">
     <div class="col-xl-12 col-lg-12 mx-auto">
+
         <div class="w-100 d-flex align-items-center justify-content-between flex-md-nowrap flex-wrap gap-lg-5 gap-3 mb-4">
             <div>
                 <h4>
@@ -23,13 +24,13 @@
                 </div>
 
                 <button
-                class="icon-btn icon-btn-lg info circle"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#tableFilter"
-                aria-expanded="false"
-                aria-controls="tableFilter">
-                <i class="bi bi-funnel"></i>
+                    class="icon-btn icon-btn-lg info circle"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#tableFilter"
+                    aria-expanded="false"
+                    aria-controls="tableFilter">
+                    <i class="bi bi-funnel"></i>
                 </button>
             </div>
         </div>
@@ -45,7 +46,6 @@
                                 <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                             </div>
 
-
                             @if($user->affilateUser)
                                 <div class="form-inner">
                                     <select name="referral" id="referral" class="referral">
@@ -54,8 +54,8 @@
                                         </option>
 
                                         @foreach($user->affilateUser as $affilateUser)
-                                        <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
-                                        </option>
+                                            <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -202,7 +202,6 @@
 </div>
 
 @endsection
-
 
 @push('script-include')
    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>

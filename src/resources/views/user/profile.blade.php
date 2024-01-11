@@ -2,8 +2,11 @@
 @section('content')
 
     @php
-        $user      = auth_user('web');
-        $content   = get_content("content_plan")->first();
+        $user                = auth_user('web');
+        $content             = get_content("content_plan")->first();
+        $subscription        = $user->runningSubscription;
+        $webhookAccess       = @optional($user->runningSubscription->package->social_access)->webhook_access;
+
     @endphp
 
     <div class="profile-wrapper">
@@ -75,7 +78,7 @@
 
                 <div class="plan-upgrade-img">
                   <img
-                    src="{{asset('assets/images/plan.gif')}}"
+                    src="{{asset('assets/images/default/plan.gif')}}"
                     alt="plan.gif"
                     class="img-fluid"/>
                 </div>
@@ -127,6 +130,22 @@
                         <i class="bi bi-tag"></i>
                         {{translate("Current Plan")}}
                         </a>
+                    </li>
+                  @endif
+
+
+                  @if($webhookAccess == App\Enums\StatusEnum::true->status())
+                    <li class="nav-item" role="presentation">
+                            <a
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            href="#webhook-configuration"
+                            role="tab"
+                            aria-selected="false"
+                            tabindex="-1">
+                            <i class="bi bi-arrow-left-right"></i>
+                            {{translate("Webhook Configuration")}}
+                            </a>
                     </li>
                   @endif
 
@@ -320,7 +339,7 @@
                             <div class="i-card-md">
                                 <div class="card-header">
                                     <h4 class="card-title">
-                                        {{translate("Affiliate Configurations")}}
+                                        {{translate("Affiliate Configuration")}}
                                     </h4>
                                 </div>
 
@@ -399,7 +418,7 @@
                                             <div class="current-plan">
                                                 <div class="current-plan-img">
                                                     <img
-                                                    src="{{asset('assets/images/current-plan.gif')}}"
+                                                    src="{{asset('assets/images/default/current-plan.gif')}}"
                                                     alt="current-plan.gif"/>
                                                 </div>
                                                 <h5 class="mb-2">
@@ -435,6 +454,64 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($webhookAccess == App\Enums\StatusEnum::true->status())
+                        <div class="tab-pane fade" id="webhook-configuration" role="tabpanel">
+                            <div class="i-card-md">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        {{translate("Webhook Configuration")}}
+                                    </h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <form action="{{route('user.webhook.update')}}"  method="post">
+                                        @csrf
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
+                                                <div class="form-inner mb-0">
+                                                    <label for="referral_code"
+                                                    class="form-label">{{ translate('Api Key') }}
+                                                        <small class="text-danger" >*</small>
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <input placeholder="{{translate('Webhook api key')}}" id="webhook_api_key" value="{{$user->webhook_api_key}}" name="webhook_api_key"  type="text" class="form-control" >
+                                                        <span class="input-group-text danger pointer key-generate"><i class="bi bi-arrow-repeat"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-inner mb-0">
+                                                    <label for="webhookUrl"
+                                                    class="form-label">{{ translate('Webhook Url') }}
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <input readonly id="webhookUrl" value="{{route('webhook')}}"  type="text" class="form-control" >
+                                                        <span data-text ="{{route('webhook')}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <button
+                                                    type="submit"
+                                                    class="i-btn btn--primary btn--lg capsuled">
+
+                                                    {{translate(
+                                                        "Update"
+                                                    )}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

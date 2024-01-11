@@ -31,9 +31,7 @@ use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
 use App\Http\Controllers\Admin\SocialPostController;
 use App\Http\Controllers\SystemUpdateController;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Node\Stmt\TryCatch;
 
 
 
@@ -271,8 +269,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
      
           });
 
-          
-          
 
           #General Setting refactored
           Route::controller(SettingController::class)->prefix('settings')->name('setting.')->group(function () {
@@ -287,7 +283,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                    Route::get('/', 'systemConfiguration')->name('index');
                });
 
-               Route::get('system/info','systemInfo')->name('system.info');
+               Route::get('server/info','serverInfo')->name('server.info');
                Route::post('/ticket/store', 'ticketSetting')->name('ticket.store');
                #ai config route
                Route::get('/open-ai', 'openAi')->name('openAi');
@@ -414,8 +410,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           });
 
-
-
           #Communication Route
           Route::controller(CommunicationsController::class)->group(function(){
 
@@ -437,8 +431,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
    
           });
 
-
-
           #Package section refactored 
           Route::controller(PackageController::class)->prefix("/subscription-package")->name('subscription.package.')->group(function(){
 
@@ -454,7 +446,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::get('/select/search','selectSearch')->name('selectSearch');
 
           });
-
 
           #log section refcatored
           Route::controller(ActivityHistoryController::class)->group(function(){
@@ -521,7 +512,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                
           });
 
-
           #support route 
           Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
 
@@ -539,12 +529,8 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           });
 
-
           #social account and post route
-
-
           Route::name('social.')->prefix('social/')->group(function () {
-
 
                #Account manager
                Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
@@ -577,28 +563,12 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           });
 
-
-
           /** system update */
-
-
           Route::controller(SystemUpdateController::class)->name('system.')->prefix('system/')->group(function () {
-
                Route::any('/update/init','init')->name('update.init');
                Route::post('/update','update')->name('update');
     
-
           });
-
-
-     
-
-
-
-
-
-          
-
 
 
 

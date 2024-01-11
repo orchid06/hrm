@@ -11,8 +11,11 @@
   <div class="page-title-right d-flex justify-content-end align-items-center gap-3">
     <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
+             @php
+                 $last_cron_run = App\Models\Core\Setting::where('key','last_cron_run')->first();
+             @endphp
             <div class="cron">
-              {{translate("Last Cron Run")}} : {{session()->has("last_corn_run") ?  diff_for_humans(session()->get("last_corn_run")) : translate("N/A")  }}
+              {{translate("Last Cron Run")}} : {{$last_cron_run && $last_cron_run->value ?  diff_for_humans($last_cron_run->value) : translate("N/A")  }}
             </div>
         </li>
       </ol>
@@ -183,7 +186,7 @@
     </div>
   </div>
   <div class="col-xl-6">
-    <div class="i-card-md">
+    <div class="i-card-md home home">
       <div class="card--header">
         <h4 class="card-title">
             {{translate("Subscriptions & Income")}}
@@ -223,7 +226,7 @@
 </div>
 <div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Social Accounts")}} 
@@ -266,7 +269,7 @@
     </div>
   </div>
   <div class="col-xxl-8 col-xl-7">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Latest Deposits")}}
@@ -379,7 +382,7 @@
     </div>
   </div>
   <div class="col-xxl-8 col-xl-7">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
           {{translate("Revenue With Charge")}} 
@@ -428,7 +431,7 @@
     </div>
   </div>
   <div class="col-xxl-4 col-xl-5">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Latest Subscriptions")}} 
@@ -472,7 +475,7 @@
 </div>
 <div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Plan In Subscription")}} 
@@ -511,7 +514,7 @@
     </div>
   </div>
   <div class="col-xxl-8 col-xl-7">
-    <div class="i-card-md">
+    <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
            {{translate("Latest Transaction")}}
