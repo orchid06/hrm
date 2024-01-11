@@ -105,7 +105,7 @@ return [
         'key' => '#',
     ]),
 
-    'storage'    => "s3",
+    'storage'    => "local",
     'mime_types' => json_encode([
         'png',
         'jpg',
@@ -153,8 +153,8 @@ return [
     'api_route_rate_limit' => 1000,
     'web_route_rate_limit' => 1000,
 
-    'primary_color'   => "#00AF91",
-    'secondary_color' => "#29D2E4",
+    'primary_color'   => "#8158fc",
+    'secondary_color' => "#00b3ba",
     'text_primary'    => '#26152E',
     'text_secondary'  => '#676767',
     
