@@ -186,11 +186,11 @@ use Illuminate\Database\Eloquent\Collection;
 
    if (!function_exists('get_appearance')) {
       
-      function get_appearance(bool $is_arr = false) {
+      function get_appearance(bool $is_arr = false , bool $sortable = true) {
 
          $sectionJson = resource_path('views/partials/appearance.json');
          $appearances = json_decode(file_get_contents($sectionJson), $is_arr ? true :false);
-         if ($is_arr) {
+         if ($is_arr && $sortable) {
              ksort($appearances);
          }
          
@@ -471,7 +471,7 @@ use Illuminate\Database\Eloquent\Collection;
 	if (!function_exists('get_date_time')){
 		function get_date_time(string $date,?string $format = null) :string
 		{
-         $format = $format?? site_settings("date_format")." ".site_settings("time_format"); 
+         $format = $format?? site_settings("date_format",'d M, Y')." ".site_settings("time_format",'h:i A'); 
 			return Carbon::parse($date)->translatedFormat($format);
 		}
     }

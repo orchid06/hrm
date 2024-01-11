@@ -103,7 +103,7 @@
 
                                                 <p>
                                                     @if($report->expired_at)
-                                                    {{ get_date_time($report->expired_at) }}
+                                                      {{ get_date_time($report->expired_at,'d M, Y') }}
                                                     @else
                                                         {{translate("N/A")}}
                                                     @endif

@@ -42,7 +42,7 @@
                                 <label  for="image" class="feedback-file">
                                     <input name="updateFile" hidden accept=".zip" type="file" name="image" id="image" >
                                     <span><i class="bi bi-file-zip"></i>
-                                        {{translate("Update Zip file")}}
+                                        {{translate("Upload Zip file")}}
                                     </span>
                                 </label>
                             

@@ -75,8 +75,7 @@ class HomeController extends Controller
                                             $q->where('user_id', $this->user->id);
                                         }])
                                         ->integrated()
-                                        ->pluck('accounts_count','name')
-                                        ->toArray()
+                                        ->get()
         ];
 
         

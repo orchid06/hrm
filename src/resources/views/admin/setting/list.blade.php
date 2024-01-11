@@ -602,6 +602,14 @@
                                                 <label class="form-check-label mb-0" for="storage"></label>
                                             </div>
                                         </div>
+
+                                        <div class="p-4 mt-3 mb-4 bg--danger-light">
+                                            <p class="text--dark"><span class="bg--danger text-white py-0 px-2 d-inline-block me-2">{{translate("note")}}  :</span>  
+                                              
+                                                   {{trans("default.ftp_note")}}
+                                              
+                                            </p>
+                                        </div>  
                                         <div class="row">
                                             @foreach($ftpSetttings as $ftpKey => $val)
                                                 <div class="col-xl-6">
@@ -1011,8 +1019,7 @@
                                                     {{(k2t($logoKey))}} <small class="text-danger" >* ({{config("settings")['file_path'][$logoKey]['size']}})</small>
                                                 </label>
                                                 <input type="file" name="site_settings[{{$logoKey}}]" id="{{$logoKey}}" class="preview" data-size = "{{config('settings')['file_path'][$logoKey]['size']}}">
-                                                <div class="mt-2 image-preview-section">
-
+                                                <div class="mt-2 image-preview-section logo-preview">
                                                     <img src="{{imageUrl(@site_logo($logoKey)->file,$logoKey,true)}}" alt="{{@site_settings($logoKey)}}" class="fav-preview">
                                                 </div>
                                             </div>
