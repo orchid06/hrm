@@ -221,7 +221,8 @@
           <div class="card-body">
             <ul class="channel-list">
                @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $name => $total)
-
+                    
+                  
                   <li>
                     <div class="channel-item">
                       <div class="channel-meta">
