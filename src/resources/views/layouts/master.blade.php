@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{App::getLocale()}}" class="sr" data-sidebar="open">
+<html lang="{{App::getLocale()}}" class="sr">
 
   <head>
     <meta charset="UTF-8" />

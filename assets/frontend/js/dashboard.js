@@ -1,7 +1,7 @@
 (function () {
   ("use strict");
   // HTML Root Element
-  const rootHtml = document.documentElement;
+  var rootHtml = document.documentElement;
   var deviceWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -44,7 +44,19 @@
     sidebaroverlay = document.createElement("div");
     sidebaroverlay.setAttribute("class", "sidebaroverlay");
 
+
+    // By default Set attributes
+    // rootHtml.setAttribute("data-sidebar", "open-sidebar");
+
     sidebarTrigger.addEventListener("click", () => {
+      // Set attributes
+      // var currentAttribute = rootHtml.getAttribute("data-sidebar");
+      // rootHtml.setAttribute(
+      //   "data-sidebar",
+      //   currentAttribute === "open-sidebar" ? "" : "open-sidebar"
+      // );
+
+      // Sidebar Toggle Class
       sidebars.classList.toggle("show-side-bar");
       if (sidebars.classList.contains("show-side-bar")) {
         document.body.appendChild(sidebaroverlay);
@@ -59,14 +71,16 @@
         sidebars.classList.remove("show-side-bar");
       }
     });
+
+
   }
 
   // Sidebar Menu
   const sideMenuItem = document.querySelectorAll(".sidemenu-item");
   if (sideMenuItem !== null) {
-    var hiddenOverlay = document.querySelector(".hidden-overlay");
     const main = document.querySelector(".main");
 
+    var hiddenOverlay = document.querySelector(".hidden-overlay");
     if (hiddenOverlay === null) {
       hiddenOverlay = document.createElement("div");
       hiddenOverlay.setAttribute("class", "hidden-overlay");
@@ -85,11 +99,15 @@
               const otherSideBarDropdown = otherItem.querySelector(
                 ".side-menu-dropdown"
               );
+
               const otherSideMenuLink =
                 otherItem.querySelector(".sidemenu-link");
-
               if (otherSideBarDropdown !== null && otherSideMenuLink !== null) {
+                const rotateIcon = otherSideMenuLink.querySelector(
+                  ".sidemenu-link small"
+                );
                 if (otherSideBarDropdown !== sideBarDropdown) {
+                  rotateIcon.style.transform = "";
                   otherSideBarDropdown.classList.remove("show-sideMenu");
                   hiddenOverlay.remove();
                 }
@@ -97,6 +115,21 @@
             });
 
             sideBarDropdown.classList.toggle("show-sideMenu");
+
+            // Rotate Icons
+            const rotateIcon = sideMenuLink.querySelector(
+              ".sidemenu-link small"
+            );
+
+            if (
+              !rotateIcon.style.transform ||
+              rotateIcon.style.transform !== "rotate(-180deg)"
+            ) {
+              rotateIcon.style.transform = "rotate(-180deg)";
+            } else {
+              rotateIcon.style.transform = "";
+            }
+
             if (main.contains(hiddenOverlay)) {
               hiddenOverlay.remove();
             } else {
@@ -127,6 +160,4 @@
   }
   window.addEventListener("resize", checkDeviceWidth);
   checkDeviceWidth();
-
-
 })();

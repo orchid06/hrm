@@ -21,7 +21,7 @@
                         data-bs-title="{{translate('Dashboard')}}">
                         <i class="bi bi-grid-1x2"></i>
                     </div>
-                    <span class="d-lg-none">
+                    <span>
                         {{translate('Dashboard')}}
                     </span>
                     </a>
@@ -45,41 +45,43 @@
                         <i class="bi bi-stickies"></i>
 
                     </div>
-                    <span class="d-lg-none">
+                    <span>
                         {{translate("Post Feed")}}
+
+                        <small><i class="bi bi-chevron-down"></i></small>
                     </span>
                     </a>
 
                     <div class="side-menu-dropdown">
-                    <div class="menu-dropdown-header">
-                        <h6>
-                        {{translate("Social Posts")}}
-                        </h6>
-                    </div>
+                        <div class="menu-dropdown-header">
+                            <h6>
+                            {{translate("Social Posts")}}
+                            </h6>
+                        </div>
 
-                    <ul class="sub-menu">
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
-                                <span>
-                                    <i class="bi bi-pencil-square"></i>
-                                </span>
-                                <p>
-                                {{translate('Create Post')}}
-                                </p>
-                            </a>
-                        </li>
+                        <ul class="sub-menu">
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
+                                    <span>
+                                        <i class="bi bi-pencil-square"></i>
+                                    </span>
+                                    <p>
+                                    {{translate('Create Post')}}
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
-                                <span>
-                                <i class="bi bi-newspaper"></i>
-                                </span>
-                                <p>
-                                {{translate('All Post')}}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
+                                    <span>
+                                    <i class="bi bi-newspaper"></i>
+                                    </span>
+                                    <p>
+                                    {{translate('All Post')}}
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
 
@@ -94,7 +96,7 @@
                             <i class="bi bi-robot"></i>
                         </div>
 
-                        <span class="d-lg-none">
+                        <span>
                             {{translate("Ai Contents")}}
                         </span>
                     </a>
@@ -111,7 +113,7 @@
                         <i class="bi bi-person-fill-gear"></i>
                     </div>
 
-                    <span class="d-lg-none">
+                    <span>
                         {{translate("Social Accounts")}}
                     </span>
                     </a>
@@ -122,7 +124,7 @@
                         <div class="sidemenu-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="{{translate('Plans')}}">
                         <i class="bi bi-box-seam"></i>
                         </div>
-                        <span class="d-lg-none">
+                        <span>
                         {{translate("Plans")}}
                         </span>
                     </a>
@@ -141,8 +143,8 @@
                         data-bs-title="{{translate('Analytical Reports')}}">
                         <i class="bi bi-graph-up"></i>
                     </div>
-                    <span class="d-lg-none">
-                        {{translate("Reports")}}
+                    <span>
+                        {{translate("Reports")}}  <small><i class="bi bi-chevron-down"></i></small>
                     </span>
                     </a>
 
@@ -249,7 +251,7 @@
                             <i class="bi bi-patch-question"></i>
                         </div>
 
-                        <span class="d-lg-none">
+                        <span>
                             {{translate("Tickets")}}
                         </span>
                         </a>
@@ -266,7 +268,7 @@
                         <i class="bi bi-gear"></i>
                     </div>
 
-                    <span class="d-lg-none">
+                    <span>
                         {{translate("Profile")}}
                     </span>
                     </a>

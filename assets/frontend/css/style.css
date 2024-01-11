@@ -1121,7 +1121,7 @@
   margin-top: 10px;
 }
 .profile-dropdown .dropdown-menu .dropdown-menu-footer:hover {
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-primary-light);
 }
 .profile-dropdown .dropdown-menu .dropdown-menu-footer a {
   font-size: 14px;
@@ -1319,9 +1319,6 @@
     + .mega-menu {
     opacity: 1 !important;
     visibility: visible !important;
-    /* transform: none;
-    z-index: 200;
-    transform: none; */
     display: block;
   }
 
@@ -1349,7 +1346,6 @@
   }
 
   .header .sidebar .sidebar-body nav .menu-list .menu-item .mega-menu {
-    /* top: 100%; */
     position: relative;
     display: none;
   }

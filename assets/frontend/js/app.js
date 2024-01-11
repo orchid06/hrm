@@ -1,14 +1,6 @@
 (function () {
   ("use strict");
 
-  // Preloader
-  window.addEventListener("load", () => {
-    const preloaderWrapper = document.querySelector(".preloader-wrapper");
-    if (preloaderWrapper) {
-      preloaderWrapper.style.cssText = `display:none;`;
-    }
-  });
-
   // Sticky Header
   const header = document.querySelector(".header");
   if (header) {
@@ -101,6 +93,7 @@
       },
     });
   }
+  
   // Auth Page slider
   const authSlider = document.querySelectorAll(".auth-slider");
   if (authSlider) {
