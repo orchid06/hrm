@@ -1774,12 +1774,14 @@ table.dataTable.no-footer {
     position: relative;
     background-color: var(--card-bg);
     border-radius: 4px;
-<<<<<<< HEAD
-=======
-    height: 100%;
->>>>>>> 642cc640a13bc44629b45d035fc1d9d971cb9f5b
     box-shadow: 0px 5px 12px rgba(46, 35, 94, .06)
 }
+
+.i-card-md.home {
+
+    height: 100% !important;
+}
+
 
 .i-card-md>.card--header {
     display: flex;
@@ -6513,4 +6515,3 @@ ul.inbox-list li .col-mail-2 .date {
     margin-bottom: 30px
 }
 
-/*# sourceMappingURL=main.css.map */

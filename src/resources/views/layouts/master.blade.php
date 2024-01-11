@@ -276,7 +276,7 @@
           passwordField.attr('type', fieldType);
           var toggleIcon = parentAuthInput.find('.toggle-icon');
           toggleIcon.toggleClass('bi-eye bi-eye-slash');
-        });
+      });
 
         $(document).on('click','#genarate-captcha',function(e){
             var url = "{{ route('captcha.genarate',[":randId"]) }}"

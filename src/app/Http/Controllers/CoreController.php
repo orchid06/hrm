@@ -155,16 +155,16 @@ class CoreController extends Controller
     /**
      * Process cron job
      *
-     * @return Void
+     * @return void
      */
-    public function cron() :Void{
+    public function cron() :void{
 
-        // try {
+        try {
             $this->handleSchedulePost();
             $this->handleExpireSubscriptions();
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         session()->put('last_corn_run',Carbon::now());
 
@@ -286,10 +286,7 @@ class CoreController extends Controller
 
         }
 
-
     }
-
-
 
 
 
@@ -649,7 +646,6 @@ class CoreController extends Controller
 
 
 
-
     public  function maintenanceMode() :View | RedirectResponse{
 
         if(site_settings('maintenance_mode') == (StatusEnum::false)->status() ){
@@ -661,6 +657,19 @@ class CoreController extends Controller
         ]);
 
      }
+
+     
+
+
+     /**
+      * Handle post webhook
+      *
+      * @return void
+      */
+    public function postWebhook():void{
+
+    }
+
 
 
     

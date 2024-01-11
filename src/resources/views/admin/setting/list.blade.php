@@ -147,7 +147,7 @@
                                             </label>
                                             <select  name="site_settings[time_zone]" id="time_zone" class="select2">
                                                 @foreach($timeZones as $timeZone)
-                                                    <option value="'{{@$timeZone}}'" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
+                                                    <option value="{{@$timeZone}}" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -248,7 +248,7 @@
                                                 data-key='google_ads'
                                                 data-status='{{ site_settings('google_ads') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                                 data-route="{{ route('admin.setting.update.status') }}"  >
-                                            <input type="text"  name="site_settings[google_adsense_publisher_id]" id="google_adsense_publisher_id"  value="{{site_settings('google_adsense_publisher_id')}}" required placeholder='{{translate("Enter Id")}}'>
+                                            <input type="text"  name="site_settings[google_adsense_publisher_id]" id="google_adsense_publisher_id"  value="{{is_demo() ? '@@@' :site_settings('google_adsense_publisher_id')}}" required placeholder='{{translate("Enter Id")}}'>
                                         </div>
                                     </div>
                                     <div class="col-xl-6">
@@ -260,7 +260,7 @@
                                             data-key='google_analytics'
                                             data-status='{{ site_settings('google_analytics') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                             data-route="{{ route('admin.setting.update.status') }}"  >
-                                            <input type="text"  name="site_settings[google_analytics_tracking_id]" id="google_analytics_tracking_id"  value="{{site_settings('google_analytics_tracking_id')}}" required placeholder='{{translate("Enter Id")}}'>
+                                            <input type="text"  name="site_settings[google_analytics_tracking_id]" id="google_analytics_tracking_id"  value="{{is_demo() ? '@@@' :site_settings('google_analytics_tracking_id')}}" required placeholder='{{translate("Enter Id")}}'>
                                         </div>
                                     </div>
                                     <div class="col-12 ">
@@ -347,7 +347,7 @@
                                             <label for="sentry_dns">
                                                 {{translate('Sentry Dns')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[sentry_dns]" id="sentry_dns"  value="{{site_settings('sentry_dns')}}" required placeholder='{{translate("Enter Dns")}}'>
+                                            <input type="text" name="site_settings[sentry_dns]" id="sentry_dns"  value="{{is_demo() ? '@@@' :site_settings('sentry_dns')}}" required placeholder='{{translate("Enter Dns")}}'>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 ">
@@ -577,7 +577,7 @@
                                                                 ucfirst(str_replace('_',' ',$awsKey))
                                                             }}  <small class="text-danger" >*</small>
                                                         </label>
-                                                        <input required type="text" min="0" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3"  value="{{$val}}" required placeholder="**********">
+                                                        <input required type="text" min="0" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -611,7 +611,7 @@
                                                                 ucfirst(str_replace('_',' ',$ftpKey))
                                                             }}  <small class="text-danger" >*</small>
                                                         </label>
-                                                        <input required type="text" min="0" name="site_settings[ftp][{{$ftpKey}}]" id="ftp"  value="{{$val}}" required placeholder="**********">
+                                                        <input required type="text" min="0" name="site_settings[ftp][{{$ftpKey}}]" id="ftp"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -644,7 +644,7 @@
                                             <label for="slack_channel">
                                                 {{translate("Slack Channel")}} <small class="text-danger" >({{translate("optional")}})</small>
                                             </label>
-                                            <input type="text" name="site_settings[slack_channel]" id="slack_channel"  value="{{site_settings('slack_channel')}}"  placeholder='{{translate("Slack Channel")}}'>
+                                            <input type="text" name="site_settings[slack_channel]" id="slack_channel"  value="{{is_demo() ? '@@@' :site_settings('slack_channel')}}"  placeholder='{{translate("Slack Channel")}}'>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -652,7 +652,7 @@
                                             <label for="slack_web_hook_url">
                                                 {{translate('Slack Web Hook Url')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[slack_web_hook_url]" id="slack_web_hook_url"  value="{{site_settings('slack_web_hook_url')}}" required placeholder='{{translate("Slack Web Hook Url")}}'>
+                                            <input type="text" name="site_settings[slack_web_hook_url]" id="slack_web_hook_url"  value="{{is_demo() ? '@@@' :site_settings('slack_web_hook_url')}}" required placeholder='{{translate("Slack Web Hook Url")}}'>
                                         </div>
                                     </div>
                                     <div class="col-12 ">
@@ -727,7 +727,7 @@
                                                         @endforeach
                                                     </select>
                                                     @else
-                                                    <input id="{{$key}}" required  value="{{$settings}}" name='site_settings[google_recaptcha][{{$key}}]' placeholder="************" type="text">
+                                                    <input id="{{$key}}" required  value="{{is_demo() ? '@@@' :$settings}}" name='site_settings[google_recaptcha][{{$key}}]' placeholder="************" type="text">
                                                     @endif
                                                 </div>
                                             </div>
@@ -782,7 +782,7 @@
                                                                     </option>
                                                                 </select>
                                                             @else
-                                                                <input required  value="{{$val}}" name='site_settings[social_login_with][{{$medium}}][{{$key}}]' placeholder="************" type="text">
+                                                                <input required  value="{{is_demo() ? '@@@' :$val}}" name='site_settings[social_login_with][{{$medium}}][{{$key}}]' placeholder="************" type="text">
                                                             @endif
                                                         </div>
                                                     </div>

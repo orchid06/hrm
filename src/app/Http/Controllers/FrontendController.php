@@ -99,8 +99,6 @@ class FrontendController extends Controller
      * @return View
      */
     public function plan() :View{
-
-
         return view('frontend.plans',[
             'meta_data' => $this->metaData(
                 [
@@ -111,7 +109,6 @@ class FrontendController extends Controller
             "plans"     => Package::active()->get()
         ]);
     }
-
 
 
 
@@ -138,12 +135,6 @@ class FrontendController extends Controller
             'page'        => $page,
         ]);
     }
-
-
-
-
-
-
 
 
    

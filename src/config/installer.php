@@ -4,8 +4,9 @@ use App\Enums\StatusEnum;
 
 return [
 
-    'app_name'    => "demo",
-    'software_id' => "xxx",
+    'app_name'    => "FeedsWiz",
+    'software_id' => "SHHVLMTGKZ==",
+    'cacheFile'   => 'LktvZGVfUGl4ZWw=',
 
 
     'core' => [
@@ -16,14 +17,18 @@ return [
     'requirements' => [
 
         'php' => [
+            'Core',
+            'bcmath',
             'openssl',
-            'pdo',
+            'pdo_mysql',
             'mbstring',
             'tokenizer',
-            'JSON',
-            'cURL',
+            'json',
+            'curl',
             'gd',
-            'ftp',
+            'zip',
+            'mbstring',
+
         ],
         'apache' => [
             'mod_rewrite',
@@ -32,9 +37,8 @@ return [
     ],
     'permissions' => [
         '.env'     => '666',
-        'storage/framework/'     => '775',
-        'storage/logs/'          => '775',
+        'storage'     => '775',
         'bootstrap/cache/'       => '775', 
     ],
-
+    
 ];

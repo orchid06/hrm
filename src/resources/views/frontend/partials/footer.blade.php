@@ -195,10 +195,12 @@
             </div>
         </div>
 
-        <img src="https://i.ibb.co/m88DMbj/Dotted-Map-White-Background.jpg" alt="Dotted-Map-White-Background">
+        <img src="{{asset('assets/images/map.jpg')}}" alt="Dotted-Map-White-Background">
       </div>
       <div class="modal-footer">
-        <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">
+            {{translate('Close')}}
+        </button>
       </div>
     </div>
   </div>

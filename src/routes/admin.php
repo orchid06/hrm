@@ -31,9 +31,7 @@ use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
 use App\Http\Controllers\Admin\SocialPostController;
 use App\Http\Controllers\SystemUpdateController;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Node\Stmt\TryCatch;
 
 
 
@@ -287,7 +285,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                    Route::get('/', 'systemConfiguration')->name('index');
                });
 
-               Route::get('system/info','systemInfo')->name('system.info');
+               Route::get('server/info','serverInfo')->name('server.info');
                Route::post('/ticket/store', 'ticketSetting')->name('ticket.store');
                #ai config route
                Route::get('/open-ai', 'openAi')->name('openAi');
@@ -541,8 +539,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
 
           #social account and post route
-
-
           Route::name('social.')->prefix('social/')->group(function () {
 
 
@@ -580,14 +576,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
 
           /** system update */
-
-
           Route::controller(SystemUpdateController::class)->name('system.')->prefix('system/')->group(function () {
-
                Route::any('/update/init','init')->name('update.init');
                Route::post('/update','update')->name('update');
     
-
           });
 
 

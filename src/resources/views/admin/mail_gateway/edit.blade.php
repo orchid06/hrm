@@ -23,7 +23,7 @@
 											</option>
 										</select>
 									@else
-									<input type="text" name="credential[{{ $k }}]" value="{{$v}}"
+									<input type="text" name="credential[{{ $k }}]" value='{{ is_demo() ? "@@@" :$v}}'
 									id="{{ $k }}">
 									@endif
 								</div>								
@@ -36,7 +36,7 @@
 										<small class="text-danger">*</small>
 									</label>
 
-									<input type="text" name="credential[{{ $k }}][{{ $subKey }}]" value="{{ $subVal }}"
+									<input type="text" name="credential[{{ $k }}][{{ $subKey }}]" value='{{ is_demo() ? "@@@" : $subVal }}'
 									id="{{ $subKey }}">
 								</div>
 							</div>
