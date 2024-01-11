@@ -16,6 +16,7 @@ use App\Models\Admin\Category;
 use App\Models\Admin\Currency;
 use App\Models\AiTemplate;
 use App\Models\Core\Language;
+use App\Models\Core\Setting;
 use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Models\SocialPost;
@@ -163,10 +164,15 @@ class CoreController extends Controller
             $this->handleSchedulePost();
             $this->handleExpireSubscriptions();
         } catch (\Throwable $th) {
-            //throw $th;
+          
         }
 
-        session()->put('last_corn_run',Carbon::now());
+        Setting::updateOrInsert(
+            ['key'    => 'last_cron_run'],
+            ['value'  => Carbon::now()]
+        );
+        
+
 
     }
 

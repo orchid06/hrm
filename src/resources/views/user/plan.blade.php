@@ -2,9 +2,13 @@
 @section('content')
 
     @php
-
-        $planSection   = get_content("content_plan")->first();
+        $user = auth_user('web');
+        $planSection            = get_content("content_plan")->first();
+        $subscription           = $user->runningSubscription;
+        $currentPlan            = $subscription && $subscription->package ? $subscription->package: null;
     @endphp
+
+
 
     <div class="inner-banner">
         <div class="container">
@@ -81,7 +85,20 @@
                                     </p>
 
                                     <a href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--secondary btn--lg capsuled w-100">
-                                      {{translate("Subscribe")}}
+                                      @if( $currentPlan && $currentPlan->id == $plan->id)
+                                        <div class="dot-spinner">
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                            <div class="dot-spinner__dot"></div>
+                                        </div>
+                                      @endif
+
+                                      {{ $currentPlan && $currentPlan->id == $plan->id ? translate("Running") : translate("Subscribe")}}
                                     </a>
                                   </div>
 

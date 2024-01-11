@@ -209,12 +209,21 @@
 
                         @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
                             <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? 'active' :''}}" href="{{route('user.affiliate.report.list')}}">
-                                <span><i class="bi bi-share"></i></span>
-                                <p>
-                                    {{translate('Affiliate Reports')}}
-                                </p>
-                            </a>
+                                <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? 'active' :''}}" href="{{route('user.affiliate.report.list')}}">
+                                    <span><i class="bi bi-share"></i></span>
+                                    <p>
+                                        {{translate('Affiliate Reports')}}
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.user.*') ? 'active' :''}}" href="{{route('user.affiliate.user.list')}}">
+                                    <span><i class="bi bi-people"></i></span>
+                                    <p>
+                                        {{translate('Affiliate Users')}}
+                                    </p>
+                                </a>
                             </li>
                         @endif
 

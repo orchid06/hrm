@@ -19,9 +19,9 @@
 
   <body>
     <main class="main">
-        <section class="overflow-x-hidden d-flex justify-content-center align-items-center min-vh-100">
+        <section class="overflow-x-hidden d-flex justify-content-center align-items-center">
             <div class="error-wrapper pt-110 pb-110">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row g-5 justify-content-center align-items-center">
                         @yield('content')
                     </div>

@@ -20,7 +20,7 @@
 
 <div class="col-lg-7">
     <div class="error-image">
-        <img src="{{asset('assets/images/invalid-license.jpg')}}" alt="invalid-license.jpg" class="img-fluid">
+        <img src="{{asset('assets/images/default/invalid-license.jpg')}}" alt="invalid-license.jpg" class="img-fluid">
     </div>
 </div>
 

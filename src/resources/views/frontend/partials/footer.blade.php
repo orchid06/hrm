@@ -195,7 +195,7 @@
             </div>
         </div>
 
-        <img src="{{asset('assets/images/map.jpg')}}" alt="Dotted-Map-White-Background">
+        <img src="{{asset('assets/images/default/map.jpg')}}" alt="map.jpg">
       </div>
       <div class="modal-footer">
         <button type="button" class="i-btn bg--danger  btn--md capsuled" data-bs-dismiss="modal">

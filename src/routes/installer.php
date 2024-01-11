@@ -20,10 +20,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('/purchase-code/verification','purchaseVerification')->name('purchase.code.verification');
         Route::get('/db-setup','dbSetup')->name('db.setup');
         Route::post('/db-store','dbStore')->name('db.store');
-
         Route::get('account/setup','accountSetup')->name('account.setup');
         Route::post('account/setup/store','accountSetupStore')->name('account.setup.store');
-        
         Route::get('setup-finished','setupFinished')->name('setup.finished');
 
    });

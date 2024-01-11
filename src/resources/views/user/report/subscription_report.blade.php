@@ -241,8 +241,6 @@
             mode: "range",
         });
 
-
-
 	})(jQuery);
 </script>
 @endpush

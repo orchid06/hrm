@@ -1099,7 +1099,7 @@ use Illuminate\Database\Eloquent\Collection;
    
    if (!function_exists('get_default_img')){
       function get_default_img() :string{
-         return asset('assets/images/default.jpg');
+         return asset('assets/images/default/default.jpg');
 
       }
    }
