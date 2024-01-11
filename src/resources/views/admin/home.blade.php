@@ -30,6 +30,7 @@
     </form>
   </div>
 </div>
+
 <div class="row mb-3 g-3">
   <div class="col-xl-6">
     <div class="row g-3">
@@ -96,7 +97,7 @@
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 danger">
           <div class="card-info">
-            <h3>{{Arr::get($data,"total_category",0)}} </h3> 
+            <h3>{{Arr::get($data,"total_category",0)}} </h3>
             <h5 class="title">{{translate('Total Category')}}</h5>
             <a href="{{route('admin.category.list')}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
           </div>
@@ -138,7 +139,7 @@
                 <a href="{{route('admin.platform.list')}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
               </div>
               <div class="d-flex flex-column align-items-end gap-4">
-              
+
                 <div class="icon">
                     <i class="las la-share-alt"></i>
                 </div>
@@ -157,7 +158,7 @@
               <a href="{{route('admin.ai.template.list')}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
-            
+
               <div class="icon">
                 <i class="las la-robot"></i>
               </div>
@@ -176,7 +177,7 @@
               <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--outline">{{translate("View All")}}</a>
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
-            
+
               <div class="icon">
                 <i class="las la-user-tie"></i>
               </div>
@@ -185,6 +186,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-xl-6">
     <div class="i-card-md home home">
       <div class="card--header">
@@ -194,7 +196,7 @@
       </div>
       <div class="card-body">
           <div class="row g-2 text-center mb-5">
-          
+
             <div class="col-sm-6">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1">
@@ -224,12 +226,13 @@
     </div>
   </div>
 </div>
+
 <div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
     <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
-           {{translate("Social Accounts")}} 
+           {{translate("Social Accounts")}}
         </h4>
 
         <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary btn--outline">
@@ -238,8 +241,8 @@
       </div>
       <div class="card-body">
         <div id="accountReport" class="apex-chart"></div>
-        <div class="row g-2 text-center">
-          
+        <div class="row g-2 mt-4 text-center">
+
           <!--end col-->
           <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
@@ -268,6 +271,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-xxl-8 col-xl-7">
     <div class="i-card-md home">
       <div class="card--header">
@@ -292,7 +296,7 @@
                       <th scope="col">
                           {{translate('Date')}}
                       </th>
-                     
+
 
                       <th scope="col">
                           {{translate('User')}}
@@ -311,7 +315,7 @@
                       <th scope="col">
                           {{translate('Status')}}
                       </th>
-          
+
                       <th scope="col">
                           {{translate('Options')}}
                       </th>
@@ -323,14 +327,14 @@
 
                           <tr>
                               <td data-label="#">
-                                 
+
                                   {{$loop->iteration}}
                               </td>
 
                               <td data-label='{{translate("Date")}}'>
                                   {{ get_date_time($report->created_at) }}
                               </td>
-                     
+
 
                               <td data-label='{{translate("User")}}'>
                                   <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -339,11 +343,11 @@
                               </td>
 
                               <td data-label='{{translate("Payment Method")}}'>
-                               
+
                                   {{$report->method->name}}
-                                  
+
                               </td>
-                              
+
                               <td  data-label='{{translate("Trx Code")}}'>
                                     {{$report->trx_code}}
                               </td>
@@ -352,11 +356,11 @@
                                     {{num_format($report->final_amount,@$report->method->currency)}}
                               </td>
                               <td  data-label='{{translate("Status")}}'>
-                                   
+
                                   @php echo  payment_status($report->status)  @endphp
                               </td>
 
-                 
+
                               <td data-label='{{translate("Options")}}'>
                                   <div class="table-action">
 
@@ -365,7 +369,7 @@
                                   </div>
                               </td>
                          </tr>
-                   
+
                       @empty
 
                       <tr>
@@ -374,18 +378,19 @@
                           </td>
                       </tr>
                   @endforelse
-           
+
               </tbody>
           </table>
           </div>
       </div>
     </div>
   </div>
+
   <div class="col-xxl-8 col-xl-7">
     <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
-          {{translate("Revenue With Charge")}} 
+          {{translate("Revenue With Charge")}}
         </h4>
       </div>
       <div class="card-body">
@@ -424,17 +429,18 @@
              </p>
             </div>
           </div>
-         
+
         </div>
         <div id="income" class="apex-chart"></div>
       </div>
     </div>
   </div>
+
   <div class="col-xxl-4 col-xl-5">
     <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
-           {{translate("Latest Subscriptions")}} 
+           {{translate("Latest Subscriptions")}}
         </h4>
       </div>
       <div class="card-body">
@@ -458,27 +464,29 @@
            @empty
 
             <li class="d-flex justify-content-center">
-               
+
               @include('admin.partials.not_found',['custom_message' => "No data found!!"])
 
 
             </li>
 
            @endforelse
-       
-        
+
+
 
         </ul>
       </div>
     </div>
   </div>
+
 </div>
+
 <div class="row g-3 mb-3">
   <div class="col-xxl-4 col-xl-5">
     <div class="i-card-md home">
       <div class="card--header">
         <h4 class="card-title">
-           {{translate("Plan In Subscription")}} 
+           {{translate("Plan In Subscription")}}
         </h4>
         <a href="{{route('admin.subscription.package.list')}}" class="i-btn btn--sm btn--primary btn--outline">
            {{translate("View All")}}
@@ -486,7 +494,7 @@
       </div>
       <div class="card-body">
         <div id="planReport" class="apex-chart"></div>
-        <div class="row g-2 text-center">
+        <div class="row g-2 mt-4 text-center">
           <div class="col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1">
@@ -513,6 +521,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-xxl-8 col-xl-7">
     <div class="i-card-md home">
       <div class="card--header">
@@ -556,7 +565,7 @@
                       <th scope="col">
                           {{translate('Remark')}}
                       </th>
-          
+
                   </tr>
               </thead>
               <tbody>
@@ -579,7 +588,7 @@
                             <td  data-label='{{translate("Credit")}}'>
                                 <span class='text--{{$report->trx_type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
                                     <i class='las la-{{$report->trx_type == App\Models\Transaction::$PLUS ? "plus" :"minus" }}'></i>
-                                      {{num_format($report->amount,$report->currency)}} 
+                                      {{num_format($report->amount,$report->currency)}}
                                 </span>
                             </td>
                             <td  data-label='{{translate("Post Credit")}}'>
@@ -614,7 +623,7 @@
     $primary_light3 = "rgba(".$primaryRgba.",0.5)";
     $primary_light4 = "rgba(".$primaryRgba.",0.3)";
     $secondary_light = "rgba(".$secondaryRgba.",0.1)";
-  @endphp 
+  @endphp
 @endsection
 
 @push('script-include')
@@ -632,9 +641,8 @@
     var options = {
           series: accountValues,
           chart: {
-          width: 380,
-          type: 'donut',
-          
+            width:380,
+            type: 'donut',
           dropShadow: {
             enabled: true,
             color: '#111',
@@ -643,6 +651,9 @@
             blur: 3,
             opacity: 0.2
           }
+        },
+        legend: {
+            position: 'bottom'
         },
         stroke: {
           width: 0,
@@ -660,8 +671,8 @@
             }
           }
         },
-        labels: accountLabel,
 
+        labels: accountLabel,
         dataLabels: {
           dropShadow: {
             blur: 3,
@@ -673,7 +684,7 @@
           pattern: {
             enabled: true,
           },
-          colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+          colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
 
         },
         states: {
@@ -683,13 +694,10 @@
         },
 
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 991,
           options: {
             chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
+              width: "100%",
             }
           }
         }]
@@ -708,7 +716,7 @@
       dataLabels: {
         enabled: false,
       },
-      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+      colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
 
       series: [
         {
@@ -717,7 +725,7 @@
         },
         {
           name: "{{ translate('Profit') }}",
-          data: subscriptionIncome, 
+          data: subscriptionIncome,
         },
       ],
       xaxis: {
@@ -734,7 +742,7 @@
           title: {
             text: "{{ translate('Income') }}",
           }
-      
+
         },
       ],
       tooltip: {
@@ -742,15 +750,15 @@
           intersect: true,
           y: {
             formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-              return formatCurrency(value); 
+              return formatCurrency(value);
             }
           }
         },
       markers: {
-        size: 6, 
+        size: 6,
       },
       stroke: {
-        width: [4, 4], 
+        width: [4, 4],
       },
       legend: {
         horizontalAlign: "left",
@@ -784,7 +792,7 @@
       dataLabels: {
         enabled: false,
       },
-      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+      colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
       series: [
         {
           name: "{{ translate('Subscriptions Income') }}",
@@ -792,31 +800,31 @@
         },
         {
           name: "{{ translate('Payment Charge') }}",
-          data: paymentCharge, 
+          data: paymentCharge,
         },
         {
           name: "{{ translate('Withdraw Charge') }}",
-          data: withdrawCharge, 
+          data: withdrawCharge,
         },
       ],
       xaxis: {
         categories: monthlyLabel,
       },
-   
+
       tooltip: {
           shared: false,
           intersect: true,
           y: {
             formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-              return formatCurrency(value); 
+              return formatCurrency(value);
             }
           }
         },
       markers: {
-        size: 6, 
+        size: 6,
       },
       stroke: {
-        width: [4, 4], 
+        width: [4, 4],
       },
       legend: {
         horizontalAlign: "left",
@@ -826,6 +834,8 @@
 
   var chart = new ApexCharts(document.querySelector("#income"), options);
   chart.render();
+
+
   /** plan report */
   var planValues =  @json(array_values($data['subscription_by_plan']));
   var planLabel =  @json(array_keys($data['subscription_by_plan']));
@@ -843,6 +853,10 @@
           opacity: 0.2
         }
       },
+
+    legend: {
+      position: 'bottom'
+    },
       stroke: {
         width: 0,
       },
@@ -872,7 +886,7 @@
         pattern: {
           enabled: true,
         },
-        colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+        colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
 
       },
       states: {
@@ -880,18 +894,14 @@
           filter: 'none'
         }
       },
-
-      responsive: [{
-        breakpoint: 480,
+    responsive: [{
+        breakpoint: 991,
         options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'bottom'
-          }
+            chart: {
+                width: "100%",
+            }
         }
-      }]
+    }]
   };
   var chart = new ApexCharts(document.querySelector("#planReport"), options);
   chart.render();
