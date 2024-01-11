@@ -398,7 +398,9 @@ trait InstallerManager
         } 
         file_put_contents($logFile, $message);
 
-        Cache::remember('software_license',now()->addHour(), function ()  {
+        optimize_clear();
+
+        Cache::remember('software_license',now()->addHour(),function ()  {
             return true;
         });
     }
