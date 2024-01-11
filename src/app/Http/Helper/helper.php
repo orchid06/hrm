@@ -471,7 +471,7 @@ use Illuminate\Database\Eloquent\Collection;
 	if (!function_exists('get_date_time')){
 		function get_date_time(string $date,?string $format = null) :string
 		{
-         $format = $format?? site_settings("date_format")." ".site_settings("time_format"); 
+         $format = $format?? site_settings("date_format",'d M, Y')." ".site_settings("time_format",'h:i A'); 
 			return Carbon::parse($date)->translatedFormat($format);
 		}
     }
