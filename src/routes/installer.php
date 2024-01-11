@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
     #Install er route
     Route::controller(InstallerController::class)->prefix("/install")->name('install.')
      ->middleware(['sanitizer'])
-     ->withoutMiddleware([SoftwareVerification::class,LanguageMiddleware::class,CurrencySwitcher::class,HttpsMiddleware::class])->group(function(){
+     ->withoutMiddleware([SoftwareVerification::class,LanguageMiddleware::class,CurrencySwitcher::class,HttpsMiddleware::class,PurchaseValidation::class])->group(function(){
 
         Route::get('/','init')->name('init');
         Route::get('/requirement-verification','requirementVerification')->name('requirement.verification');

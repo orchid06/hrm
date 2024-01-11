@@ -19,6 +19,7 @@ class PurchaseValidation
     public function handle(Request $request, Closure $next): Response
     {
 
+
         if(!$this->_isPurchased()){
             return redirect()->route('invalid.puchase',["verification_view" => request()->routeIs('admin.*') ? true:false]);
         }

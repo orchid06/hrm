@@ -40,6 +40,7 @@ class InstallerController extends Controller
      */
     public function init() :View
     {
+     
         return view('install.init',[
             'title' => 'Install'
         ]);
@@ -180,6 +181,7 @@ class InstallerController extends Controller
      */
     public function accountSetup() :View |RedirectResponse
     {
+  
         if (Hash::check(base64_decode('c3lzdGVtX2NvbmZpZw=='), request()->input('verify_token'))) {
             return view('install.account_setup',[
                 'title' => 'System Account Setup'
@@ -292,6 +294,8 @@ class InstallerController extends Controller
     public function verifyPuchase(Request $request) :View |RedirectResponse
     {
   
+     
+      
         $request->validate([
             base64_decode('cHVyY2hhc2VfY29kZQ==') => "required",
             base64_decode('dXNlcm5hbWU=')         => "required"
@@ -300,22 +304,19 @@ class InstallerController extends Controller
             base64_decode('dXNlcm5hbWU=').".required"         => "Username is required", 
         ]);
 
-        if($this->_validatePurchaseKey($request->input(base64_decode('cHVyY2hhc2VfY29kZQ==')))){
 
-            $currentPurchaseKey    = env('PURCHASE_KEY');
-            $currentEnvatoUsername = env('ENVATO_USERNAME');
+        if($this->_registerDomain() && $this->_validatePurchaseKey($request->input(base64_decode('cHVyY2hhc2VfY29kZQ=='))) ){
+
             $newPurchaseKey        = $request->input(base64_decode('cHVyY2hhc2VfY29kZQ=='));
             $newEnvatoUsername     =  $request->input( base64_decode('dXNlcm5hbWU='));
-            update_env('PURCHASE_KEY='.$currentPurchaseKey ,'PURCHASE_KEY='.$newPurchaseKey);
-            update_env('ENVATO_USERNAME='.$currentEnvatoUsername ,'ENVATO_USERNAME='.$newEnvatoUsername);
+            update_env('PURCHASE_KEY',$newPurchaseKey);
+            update_env('ENVATO_USERNAME',$newEnvatoUsername);
             optimize_clear();
-            $this->_systemInstalled();
+            $this->_systemInstalled($newPurchaseKey,$newEnvatoUsername);
             return redirect()->route("admin.home")->with("success","Verified Successfully");
         }
 
         return redirect()->back()->with("error","Invalid Purchase key");
-
-
     }
 
 

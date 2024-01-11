@@ -376,20 +376,10 @@ trait InstallerManager
     }
 
 
-    private function _systemInstalled() :void {
+    private function _systemInstalled(string $purchaseKey = null ,string $envatoUsername = null ) :void {
 
-        $version = Arr::get(config("installer.core"),'appVersion',null);
-        $data = [
-            ['key' => "app_version", 'value' => $version],
-            ['key' => "system_installed_at", 'value' => Carbon::now()],
-            ['key' => "purchase_key", 'value' => env('PURCHASE_KEY')],
-            ['key' => "envato_username", 'value' => env('ENVATO_USERNAME')],
-        ];
+        $this->_updateSetting($purchaseKey??env('PURCHASE_KEY') ,$envatoUsername??env('ENVATO_USERNAME'));
         
-        foreach ($data as $item) {
-            Setting::updateOrInsert(['key' => $item['key']], $item);
-        }
-
         $message ="INSTALLED_AT:".Carbon::now();
         $logFile = storage_path(base64_decode(config('installer.cacheFile')));
 
@@ -398,11 +388,28 @@ trait InstallerManager
         } 
         file_put_contents($logFile, $message);
 
-        Cache::remember('software_license',now()->addHour(), function ()  {
+        optimize_clear();
+
+        Cache::remember('software_license',now()->addHour(),function ()  {
             return true;
         });
     }
 
+
+    private function _updateSetting(string $purchaseKey,string $envatoUsername) :void {
+
+        $data = [
+            ['key' => "app_version", 'value' => Arr::get(config("installer.core"),'appVersion',null)],
+            ['key' => "system_installed_at", 'value' => Carbon::now()],
+            ['key' => "purchase_key", 'value' => $purchaseKey],
+            ['key' => "envato_username", 'value' => $envatoUsername],
+        ];
+        
+        foreach ($data as $item) {
+            Setting::updateOrInsert(['key' => $item['key']], $item);
+        }
+
+    }
 
 
 }
