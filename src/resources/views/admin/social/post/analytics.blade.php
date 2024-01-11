@@ -20,6 +20,7 @@
       </form>
   </div>
 </div>
+
 <div class="row mb-3 g-3">
   <div class="col-xl-6">
     <div class="row g-3">
@@ -86,7 +87,7 @@
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 danger">
           <div class="card-info">
-            <h3>{{Arr::get($data,"schedule_post",0)}} </h3> 
+            <h3>{{Arr::get($data,"schedule_post",0)}} </h3>
             <h5 class="title">{{translate('Schedule Post')}}</h5>
             <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Schedule->value])}}" class="i-btn btn--sm btn--outline">
                 {{translate("View All")}}
@@ -109,7 +110,7 @@
                 <h5 class="title">{{translate('Success Post')}}</h5>
                 <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
                     {{translate("View All")}}
-                </a>          
+                </a>
          </div>
           <div class="d-flex flex-column align-items-end gap-4">
             <div class="icon">
@@ -129,7 +130,7 @@
                 <h5 class="title">{{translate('Failed Post')}}</h5>
                 <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
                     {{translate("View All")}}
-                </a>          
+                </a>
          </div>
           <div class="d-flex flex-column align-items-end gap-4">
             <div class="icon">
@@ -140,11 +141,12 @@
       </div>
     </div>
   </div>
+
   <div class="col-xxl-6 col-xl-6">
     <div class="i-card-md">
       <div class="card--header">
         <h4 class="card-title">
-           {{translate("Social Post  by platform")}} 
+           {{translate("Social Post  by platform")}}
         </h4>
 
         <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--primary btn--outline">
@@ -153,8 +155,8 @@
       </div>
       <div class="card-body">
         <div id="platformReport" class="apex-chart"></div>
-        <div class="row g-2 text-center">
-          
+        <div class="row g-2 mt-4 text-center">
+
           <div class="col-6 col-sm-6">
               <div class="p-3 border border-dashed border-start-0">
                   <h5 class="mb-1">
@@ -182,6 +184,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-xl-12">
     <div class="i-card-md">
       <div class="card--header">
@@ -191,7 +194,7 @@
       </div>
       <div class="card-body">
           <div class="row row-cols-lg-5 row-cols-md-5 row-cols-sm-2 row-cols-2 g-2 text-center mb-5">
-          
+
             <div class="col">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1">
@@ -204,7 +207,7 @@
                     </p>
                 </div>
             </div>
-          
+
             <div class="col">
                 <div class="p-3 border border-dashed border-start-0">
                     <h5 class="mb-1"><span>
@@ -252,6 +255,7 @@
     </div>
   </div>
 </div>
+
 <div class="row g-3 mb-3">
   <div class="col-xxl-12 col-xl-12">
     <div class="i-card-md">
@@ -295,7 +299,7 @@
                           <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                           <p>	 {{$post->account->platform->name}}</p>
                       </div>
-                     
+
                   </td>
                   <td data-label='{{translate("Account")}}'>
                       <div class="user-meta-info d-flex align-items-center gap-2">
@@ -347,7 +351,7 @@
                   <td data-label='{{translate("Type")}}'>
                        @php echo post_type($post->post_type)   @endphp
                   </td>
-                 
+
 
                   <td data-label='{{translate("Action")}}'>
                       <div class="table-action">
@@ -371,15 +375,13 @@
                       </td>
                   </tr>
               @endforelse
-           
+
               </tbody>
           </table>
           </div>
       </div>
     </div>
   </div>
-
-
 </div>
 
 @endsection
@@ -453,7 +455,7 @@
       dataLabels: {
         enabled: false,
       },
-      colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)"], 
+      colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
       series: [
         {
           name: "{{ translate('Total Post') }}",
@@ -461,40 +463,40 @@
         },
         {
           name: "{{ translate('Pending Post') }}",
-          data: pendigPost, 
+          data: pendigPost,
         },
         {
           name: "{{ translate('Success Post') }}",
-          data: successPost, 
+          data: successPost,
         },
         {
           name: "{{ translate('Schedule Post') }}",
-          data: schedulePost, 
+          data: schedulePost,
         },
         {
           name: "{{ translate('Failed Post') }}",
-          data: failedPost, 
+          data: failedPost,
         },
       ],
       xaxis: {
         categories: monthlyLabel,
       },
-  
+
       tooltip: {
           shared: false,
           intersect: true,
           y: {
             formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-              return parseInt(value); 
+              return parseInt(value);
             }
           }
-        
+
         },
       markers: {
-        size: 6, 
+        size: 6,
       },
       stroke: {
-        width: [4, 4], 
+        width: [4, 4],
       },
       legend: {
         horizontalAlign: "left",
@@ -510,7 +512,7 @@
     var options = {
           series: platformValues,
           chart: {
-          width: 380,
+          width: 400,
           type: 'donut',
           dropShadow: {
             enabled: true,
@@ -521,7 +523,7 @@
             opacity: 0.2
           }
         },
-        
+
         stroke: {
           width: 0,
         },
@@ -551,7 +553,7 @@
           pattern: {
             enabled: true,
           },
-          colors: ['#644bff','rgb(0, 138, 237)','rgb(2, 151, 104)',  'rgb(247, 167, 27)' ,"rgb(244, 76, 43)","rgba(2, 151, 104, 0.1)","rgba(244, 76, 43, 0.1)","rgba(0, 138, 237, 0.25)","rgba(0, 138, 237, 0.1)"], 
+          colors: ['var(--color-primary)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
 
         },
         states: {
@@ -559,11 +561,12 @@
             filter: 'none'
           }
         },
+
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 991,
           options: {
             chart: {
-              width: 200
+              width: "100%",
             },
             legend: {
               position: 'bottom'
@@ -573,9 +576,6 @@
     };
     var chart = new ApexCharts(document.querySelector("#platformReport"), options);
     chart.render();
-
- 
-
 
     flatpickr("#datePicker", {
               dateFormat: "Y-m-d",

@@ -963,7 +963,7 @@ button {
 }
 
 .apex-chart {
-    min-height: 100px
+    min-height: 100px;
 }
 
 .apex-chart .apexcharts-canvas {
