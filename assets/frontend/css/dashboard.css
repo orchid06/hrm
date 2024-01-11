@@ -3498,6 +3498,9 @@ aside.show-side-bar {
 }
 .profile-wrapper .profile-content .profile-activity .profile-tabs {
   margin-top: -40px;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: auto;
 }
 @media (max-width: 991px) {
   .profile-wrapper .profile-content .profile-activity .profile-tabs {
@@ -3506,6 +3509,7 @@ aside.show-side-bar {
 }
 .profile-wrapper .profile-content .profile-activity .profile-tabs .nav {
   gap: 10px 0;
+  flex-wrap: nowrap;
 }
 @media (max-width: 991px) {
   .profile-wrapper .profile-content .profile-activity .profile-tabs .nav {
@@ -3535,6 +3539,7 @@ aside.show-side-bar {
   align-items: center;
   gap: 8px;
   line-height: 1.2;
+  white-space: nowrap;
 }
 .profile-wrapper
   .profile-content
@@ -3554,8 +3559,8 @@ aside.show-side-bar {
     .nav
     .nav-item
     .nav-link {
-    padding: 6px 10px;
-    font-size: 14px;
+    padding: 8px 15px;
+    font-size: 16px;
   }
   .profile-wrapper
     .profile-content
@@ -3565,7 +3570,7 @@ aside.show-side-bar {
     .nav-item
     .nav-link
     i {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 .profile-wrapper
