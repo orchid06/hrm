@@ -16,7 +16,7 @@
 
 <div class="col-lg-7">
     <div class="error-image">
-        <img src="{{asset('assets/images/too-many.jpg')}}" alt="too-many.jpg" class="img-fluid">
+        <img src="{{asset('assets/images/default/too-many.jpg')}}" alt="too-many.jpg" class="img-fluid">
     </div>
 </div>
 

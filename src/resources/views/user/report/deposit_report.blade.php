@@ -280,13 +280,10 @@
 
         });
 
-
         flatpickr("#datePicker", {
             dateFormat: "Y-m-d",
             mode: "range",
         });
-
-
 
 	})(jQuery);
 </script>

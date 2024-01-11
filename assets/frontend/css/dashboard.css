@@ -3151,7 +3151,7 @@ aside.show-side-bar {
   width: 100%;
   height: 100%;
   opacity: 0.3;
-  background-image: url(../../images/texture-bg.png);
+  background-image: url(../../images/default/texture-bg.png);
   background-position: 0 0;
   background-size: auto;
   position: absolute;

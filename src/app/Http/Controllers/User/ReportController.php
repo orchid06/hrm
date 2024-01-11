@@ -13,6 +13,7 @@ use App\Models\PaymentLog;
 use App\Models\Subscription;
 use App\Models\TemplateUsage;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\WithdrawLog;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -160,6 +161,26 @@ class ReportController extends Controller
 
             "packages"       => Package::all(),
          
+        ]);
+
+    
+    }
+
+
+    /**
+     * affiliate Users
+     *
+     * @return View
+     */
+    public function affiliateUsers() :View{
+
+        return view('user.report.affiliate_user',[
+            'meta_data'       => $this->metaData(['title'=> translate("Affiliate Users")]),
+            'affliateUsers'   => User::with(['affiliateLogs','file','country'])
+                                    ->where("referral_id",$this->user->id)
+                                    ->search(['name','email',"phone"])
+                                    ->date()
+                                    ->paginate(paginateNumber())
         ]);
 
     

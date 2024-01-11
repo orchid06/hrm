@@ -293,7 +293,7 @@
             if (($(this).attr('data-message'))) {
                 message = $(this).attr('data-message')
             }
-            var src = "{{asset('assets/images/trash-bin.gif')}}";
+            var src = "{{asset('assets/images/default/trash-bin.gif')}}";
             $('.action-img').attr("src",src)
             $("#action-href").attr("href", href);
             $(".warning-message").html(message)

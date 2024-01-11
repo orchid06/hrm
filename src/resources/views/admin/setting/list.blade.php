@@ -147,7 +147,7 @@
                                             </label>
                                             <select  name="site_settings[time_zone]" id="time_zone" class="select2">
                                                 @foreach($timeZones as $timeZone)
-                                                    <option value="{{@$timeZone}}" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
+                                                    <option value="'{{@$timeZone}}'" @if(config('app.timezone') == $timeZone) selected @endif>{{$timeZone}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

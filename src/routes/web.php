@@ -71,8 +71,6 @@ use Illuminate\Support\Facades\DB;
                 Route::get('/otp-resend', 'otpResend')->name('otp.resend')->withoutMiddleware('guest:web');
             });
 
-
-
             #password route
             Route::controller(NewPasswordController::class)->name('password.')->group(function () {
 
@@ -112,6 +110,7 @@ use Illuminate\Support\Facades\DB;
                 Route::post('profile/update','profileUpdate')->name('profile.update');
                 Route::post('/update', 'passwordUpdate')->name('password.update');
                 Route::post('/affiliate/update', 'affiliateUpdate')->name('affiliate.update');
+                Route::post('/webhook/update', 'webhookUpdate')->name('webhook.update');
                 Route::get('/notifications','notification')->name('notifications');
                 Route::post('/read-notification','readNotification')->name('read.notification');
             });
@@ -156,8 +155,6 @@ use Illuminate\Support\Facades\DB;
                 Route::post('/store','store')->name('store');
                 Route::post('/update/status','updateStatus')->name('update.status');
                 Route::get('/destroy/{id}','destroy')->name('destroy');
-
-
                 Route::post('/generate', 'generate')->name('generate');
 
             });
@@ -193,8 +190,11 @@ use Illuminate\Support\Facades\DB;
                 Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
                     Route::get('/','subscriptionReport')->name('list');
                 });
-                Route::prefix("/affiliate/reports")->name('affiliate.report.')->group(function(){
-                    Route::get('/','affiliateReport')->name('list');
+
+
+                Route::prefix("/affiliate")->name('affiliate.')->group(function(){
+                    Route::get('/user/list','affiliateUsers')->name('user.list');
+                    Route::get('/reports','affiliateReport')->name('report.list');
                 });
                 Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){
                     Route::get('/','kycReport')->name('list');
@@ -271,8 +271,6 @@ use Illuminate\Support\Facades\DB;
 
         });
 
-
-
         #CORE CONTROLER
         Route::controller(CoreController::class)->group(function () {
 
@@ -297,8 +295,6 @@ use Illuminate\Support\Facades\DB;
 
         });
 
-
-
     });
 
     Route::get('/error/{message?}', function (?string $message = null) {
@@ -312,15 +308,11 @@ use Illuminate\Support\Facades\DB;
 
     /** security and captcha */
     Route::controller(CoreController::class)->middleware(["sanitizer",'https'])->group(function () {
-
         Route::get('/security-captcha',"security")->name('dos.security');
         Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
         Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
         Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
-
     });
-
-
 
     Route::get('/maintenance-mode', [CoreController::class, 'maintenanceMode'])->name('maintenance.mode')->middleware(['sanitizer']);
     Route::get('/post/webhook', [CoreController::class, 'postWebhook'])->name('post.webhook')->middleware(['sanitizer']);

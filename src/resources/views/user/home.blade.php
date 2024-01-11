@@ -196,13 +196,11 @@
 
             <div class="plan-upgrade-img">
               <img
-              src="{{asset('assets/images/plan.gif')}}"
+              src="{{asset('assets/images/default/plan.gif')}}"
               alt="plan.gif"
               class="img-fluid"/>
             </div>
           </div>
-
-
 
         </div>
       </div>

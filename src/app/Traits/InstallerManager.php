@@ -16,15 +16,18 @@ trait InstallerManager
 {
 
     private function _isPurchased() :mixed{
-        
+    
         $purchaseKey = site_settings('purchase_key');
         $userName    = site_settings('envato_username');
+
         $licenseData = Cache::get('software_license');
+
          if (empty($purchaseKey) || empty($userName)) {
              return false;
          }
+
          if (!$licenseData) {
-             if (!$this->_validatePurchaseKey($purchaseKey)) {
+             if (!$this->_registerDomain() || !$this->_validatePurchaseKey($purchaseKey)) {
                  return false;
              }
              Cache::put('software_license', true, now()->addHour());
@@ -249,6 +252,7 @@ trait InstallerManager
             $response = curl_exec($ch);
             curl_close($ch);
             $response = json_decode( $response);
+
             return  $response->status;
         } catch (\Exception $e) {
             return false;
