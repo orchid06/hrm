@@ -19,11 +19,12 @@ class MenuSeeder extends Seeder
 
         $sections = [];
 
-        foreach(get_appearance(true) as $key => $appearance ){
+        foreach(get_appearance(true,false) as $key => $appearance ){
             if (isset($appearance['builder']) && $appearance['builder'] && !@$appearance['no_selection']){
                 $sections[] =  $key;  
             }
         }
+
 
         $menus = [
 

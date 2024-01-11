@@ -45,6 +45,8 @@ return [
     'invalid_license' => 'Invalid Software License',
     'invalid_license_note' => 'Your software is runnig without License',
 
+    'ftp_note' => 'To utilize FTP storage, kindly enable the FTP extension. This action is imperative for seamless functionality. Your cooperation in this matter is greatly appreciated',
+
     
 
     /** site  title  */

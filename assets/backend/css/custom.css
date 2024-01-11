@@ -364,3 +364,8 @@
   height: 100%;
   z-index: 200;
 }
+
+
+.logo-preview{
+  max-width: 150px !important;
+}
