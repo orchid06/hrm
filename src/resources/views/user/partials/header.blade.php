@@ -9,17 +9,16 @@
 
     <div class="container-fluid px-0">
       <div class="header-container">
-        <div class="d-flex align-items-center gap-3">
-          <div class="d-lg-none">
+        <div class="d-flex align-items-center gap-4">
+            <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
+
+                <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+
+            </a>
+
             <div class="mobile-menu-btn sidebar-trigger">
-              <i class="bi bi-list"></i>
+                <i class="bi bi-list"></i>
             </div>
-          </div>
-          <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
-
-            <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-          </a>
         </div>
 
         <nav class="nav-bar">
@@ -238,7 +237,7 @@
                                 <p>
                                     {{translate("Balance")}}
                                 </p>
-                                
+
                                 <h6>
                                     {{num_format(number:$user->balance,calC:true)}}
                                 </h6>
