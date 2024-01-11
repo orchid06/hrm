@@ -80,7 +80,7 @@ class HomeController extends Controller
                 "total_account"         => SocialAccount::count(),
                 "active_account"        => SocialAccount::active()->count(),
                 "inactive_account"      => SocialAccount::inactive()->count(),
-                "accounts_by_platform"  => MediaPlatform::withCount(['accounts'])
+                "accounts_by_platform"  => MediaPlatform::with('file')->withCount(['accounts'])
                                             ->integrated()
                                             ->pluck('accounts_count','name')
                                             ->toArray()
