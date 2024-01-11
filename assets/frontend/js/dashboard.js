@@ -76,6 +76,7 @@
         sideBarDropdown.classList.remove("show-sideMenu");
 
         sideMenuLink.addEventListener("click", () => {
+   
           if (sideBarDropdown !== null) {
             sideMenuItem.forEach((otherItem) => {
               const otherSideBarDropdown = otherItem.querySelector(
@@ -89,9 +90,9 @@
                   ".sidemenu-link small"
                 );
                 if (otherSideBarDropdown !== sideBarDropdown) {
-                  rotateIcon.style.transform = "";
-                  otherSideBarDropdown.classList.remove("show-sideMenu");
-                  hiddenOverlay.remove();
+                    rotateIcon.style.transform = "";
+                    otherSideBarDropdown.classList.remove("show-sideMenu");
+                    hiddenOverlay.remove();
                 }
               }
             });

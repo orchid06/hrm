@@ -761,11 +761,16 @@ use Illuminate\Database\Eloquent\Collection;
 
    //update env method
 	if (!function_exists('update_env')){
-		function update_env(string $str, string $replaceStr) :void{
+		function update_env(string $key, string $newValue) :void{
          $path = base_path('.env');
-         if (file_exists($path)) {
-            file_put_contents($path, str_replace($str, $replaceStr, file_get_contents($path)));
+         $envContent = file_get_contents($path);
+
+         if (preg_match('/^' . preg_quote($key, '/') . '=/m', $envContent)) {
+            $envContent = preg_replace('/^' . preg_quote($key, '/') . '.*/m', $key . '=' . $newValue, $envContent);
+         } else {
+            $envContent .= PHP_EOL . $key . '=' . $newValue . PHP_EOL;
          }
+        file_put_contents($path, $envContent);
 
 		}
     }
