@@ -264,7 +264,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -316,7 +316,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -365,7 +365,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -403,7 +403,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -421,7 +421,7 @@
                                 <h4 class="card-title">
                                     {{translate('Frontend Theme/Color Settings')}}
                                 </h4>
-                                <button class="i-btn btn--sm danger reset-color">
+                                <button type="button" class="i-btn btn--sm danger reset-color">
                                     <i class="las la-sync"></i>
                                 </button>
                             </div>
@@ -443,10 +443,29 @@
                                             <input type="text" name="site_settings[secondary_color]" id="secondary_color" class="colorpicker" value="{{site_settings('secondary_color')}}" required >
                                         </div>
                                     </div>
+
+                                      
+                                    <div class="col-lg-6">
+                                        <div class="form-inner">
+                                            <label for="btn_text_primary">
+                                                {{translate('Text Primary Color')}} <small class="text-danger" >*({{translate('Button')}})</small>
+                                            </label>
+                                            <input type="text" name="site_settings[btn_text_primary]" id="btn_text_primary" class="colorpicker" value="{{site_settings('btn_text_primary')}}" required >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-inner">
+                                            <label for="btn_text_secondary">
+                                                {{translate('Text Secondary Color')}} <small class="text-danger" >*({{translate('Button')}})</small>
+                                            </label>
+                                            <input type="text" name="site_settings[btn_text_secondary]" id="btn_text_secondary" class="colorpicker" value="{{site_settings('btn_text_secondary')}}" required>
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="text_primary_color">
-                                                {{translate('Text Primary Color')}} <small class="text-danger" >*</small>
+                                                {{translate('Text Primary Color')}} <small class="text-danger" >*({{translate('Body')}})</small>
                                             </label>
                                             <input type="text" name="site_settings[text_primary]" id="text_primary" class="colorpicker" value="{{site_settings('text_primary')}}" required >
                                         </div>
@@ -454,13 +473,14 @@
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="text_secondary_color">
-                                                {{translate('Text Secondary Color')}} <small class="text-danger" >*</small>
+                                                {{translate('Text Secondary Color')}} <small class="text-danger" >*({{translate('Body')}})</small>
                                             </label>
                                             <input type="text" name="site_settings[text_secondary]" id="text_secondary_color" class="colorpicker" value="{{site_settings('text_secondary')}}" required>
                                         </div>
                                     </div>
+
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -487,12 +507,12 @@
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" data-bs-toggle="tab" href="#aws-s3" role="tab" aria-selected="false" tabindex="-1">
-                                        {{translate ('Aws S3')}}
+                                        {{translate ('AWS S3')}}
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" data-bs-toggle="tab" href="#ftp" role="tab" aria-selected="false" tabindex="-1">
-                                        {{translate ('Ftp')}}
+                                        {{translate ('FTP')}}
                                     </a>
                                 </li>
                             </div>
@@ -502,7 +522,7 @@
                                     <form  class="settingsForm"  data-route="{{route('admin.setting.store')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex align-items-center gap-3 mb-20">
-                                            <label for="">{{translate('Local Storage Settings')}}</label>
+                                            <label >{{translate('Local Storage')}}</label>
 
                                             <div class="form-check form-switch form-switch-md" dir="ltr">
                                                 <input {{ site_settings('storage') == "local" ? 'checked' :"" }} type="checkbox" class="form-check-input"
@@ -548,7 +568,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 ">
-                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                                <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -560,12 +580,12 @@
                                     <form  class="settingsForm"  data-route="{{route('admin.setting.store')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex align-items-center gap-3 mb-20">
-                                            <label for="">{{translate('S3 Storage Settings')}}</label>
+                                            <label>{{translate('S3 Storage')}}</label>
                                             <div class="form-check form-switch form-switch-md" dir="ltr">
                                                     <input {{ site_settings('storage') == "s3" ? 'checked' :"" }} type="checkbox" class="form-check-input"
                                                     value ='s3'
-                                                    name="site_settings[storage]"  id="storage">
-                                                    <label class="form-check-label mb-0" for="storage"></label>
+                                                    name="site_settings[storage]"  id="AWSstorage">
+                                                    <label class="form-check-label mb-0" for="AWSstorage"></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -582,7 +602,7 @@
                                                 </div>
                                             @endforeach
                                             <div class="col-12">
-                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                                <button type="submit" class="i-btn btn--md ai-btn btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -594,12 +614,12 @@
                                     <form  class="settingsForm"  data-route="{{route('admin.setting.store')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex align-items-center gap-3 mb-20">
-                                            <label for=""> {{translate('Ftp Settings')}}</label>
+                                            <label> {{translate('FTP Storage')}}</label>
                                             <div class="form-check form-switch form-switch-md" dir="ltr">
                                                 <input {{ site_settings('storage') == "ftp" ? 'checked' :"" }} type="checkbox" class="form-check-input"
                                                 value ='ftp'
-                                                name="site_settings[storage]"  id="storage">
-                                                <label class="form-check-label mb-0" for="storage"></label>
+                                                name="site_settings[storage]"  id="ftpStorage">
+                                                <label class="form-check-label mb-0" for="ftpStorage"></label>
                                             </div>
                                         </div>
 
@@ -624,7 +644,7 @@
                                                 </div>
                                             @endforeach
                                             <div class="col-12 ">
-                                                <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                                <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                                     {{translate("Submit")}}
                                                 </button>
                                             </div>
@@ -664,7 +684,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 ">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -741,7 +761,7 @@
                                             </div>
                                         @endforeach
                                         <div class="col-12 ">
-                                            <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                            <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                                 {{translate("Submit")}}
                                             </button>
                                         </div>
@@ -811,7 +831,7 @@
                                     </div>
                                 @endforeach
                                 <div>
-                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                    <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -879,7 +899,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                    <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -992,7 +1012,7 @@
                                     </table>
                                 </div>
                                 <div class="mt-20">
-                                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                    <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                         {{translate("Submit")}}
                                     </button>
                                 </div>
@@ -1026,7 +1046,7 @@
                                         </div>
                                     @endforeach
                                     <div class="col-12">
-                                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                                             {{translate("Submit")}}
                                         </button>
                                     </div>
@@ -1117,6 +1137,8 @@
 			$("[name='site_settings[secondary_color]']").val("{{Arr::get(config('site_settings'),'secondary_color','#ba6cff')}}")
 			$("[name='site_settings[text_primary]']").val("{{Arr::get(config('site_settings'),'text_primary','#26152e')}}");
 			$("[name='site_settings[text_secondary]']").val("{{Arr::get(config('site_settings'),'text_secondary','#777777')}}")
+			$("[name='site_settings[btn_text_primary]']").val("{{Arr::get(config('site_settings'),'btn_text_primary','#fffff')}}");
+			$("[name='site_settings[btn_text_secondary]']").val("{{Arr::get(config('site_settings'),'btn_text_secondary','#24282c')}}")
 			toastr("{{translate('Successfully Reseted To Base Color')}}",'success')
 
 		});

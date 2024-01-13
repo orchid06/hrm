@@ -78,6 +78,7 @@ return [
     "insaller_subtitle" => "Please proceed step by step with proper data according to instructions",
 
     'btn_next' => "Next",
+    'btn_refresh' => "Refresh",
     'btn_previous' => "Previous",
     'btn_import' => 'Import',
     'btn_force_import' => 'Force Import',

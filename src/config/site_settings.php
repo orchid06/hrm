@@ -157,6 +157,8 @@ return [
     'secondary_color' => "#00b3ba",
     'text_primary'    => '#26152E',
     'text_secondary'  => '#676767',
+    'btn_text_primary'    => '#ffffff',
+    'btn_text_secondary'  => '#24282c',
     
 
     /** newly added content */

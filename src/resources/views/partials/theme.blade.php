@@ -17,6 +17,9 @@
     --color-secondary-light:{{$secondary_light}} !important;
     --text-primary:{{site_settings('text_primary') }} !important;
     --text-secondary:{{site_settings('text_secondary') }} !important;
+    --color-primary-text: {{ site_settings('btn_text_primary') }} !important;
+    --color-secondary-text: {{ site_settings('btn_text_secondary') }} !important;
+
 }
 
 </style>

@@ -111,7 +111,7 @@
                         </table>
                     </div>
                     <div class="mt-20">
-                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
                             {{translate("Submit")}}
                         </button>
                     </div>
