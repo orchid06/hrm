@@ -448,7 +448,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="btn_text_primary">
-                                                {{translate('Text Primary Color')}} <small class="text-danger" >*({{translate('Button')}})</small>
+                                                {{translate('Primary Color Text')}} <small class="text-danger" >*</small>
                                             </label>
                                             <input type="text" name="site_settings[btn_text_primary]" id="btn_text_primary" class="colorpicker" value="{{site_settings('btn_text_primary')}}" required >
                                         </div>
@@ -456,7 +456,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="btn_text_secondary">
-                                                {{translate('Text Secondary Color')}} <small class="text-danger" >*({{translate('Button')}})</small>
+                                                {{translate('Secondary Color Text')}} <small class="text-danger" >*</small>
                                             </label>
                                             <input type="text" name="site_settings[btn_text_secondary]" id="btn_text_secondary" class="colorpicker" value="{{site_settings('btn_text_secondary')}}" required>
                                         </div>
@@ -465,15 +465,15 @@
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="text_primary_color">
-                                                {{translate('Text Primary Color')}} <small class="text-danger" >*({{translate('Body')}})</small>
+                                                {{translate('Body Text Primary')}} <small class="text-danger" >*</small>
                                             </label>
-                                            <input type="text" name="site_settings[text_primary]" id="text_primary" class="colorpicker" value="{{site_settings('text_primary')}}" required >
+                                            <input type="text" name="site_settings[text_primary]" id="text_primary_color" class="colorpicker" value="{{site_settings('text_primary')}}" required >
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-inner">
                                             <label for="text_secondary_color">
-                                                {{translate('Text Secondary Color')}} <small class="text-danger" >*({{translate('Body')}})</small>
+                                                {{translate('Body Text Secondary')}} <small class="text-danger" >*</small>
                                             </label>
                                             <input type="text" name="site_settings[text_secondary]" id="text_secondary_color" class="colorpicker" value="{{site_settings('text_secondary')}}" required>
                                         </div>
@@ -554,17 +554,17 @@
                                                         </small>
                                                     </label>
 
-                                                    <input type="number" min="1" max="10" required  value ="{{site_settings('max_file_upload')}}" name="site_settings[max_file_upload]"  type="text">
+                                                    <input type="number" min="1" max="10" required  value ="{{site_settings('max_file_upload')}}" name="site_settings[max_file_upload]" id="max_file_upload"  type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="form-inner">
-                                                    <label for="max_file_upload" >
+                                                    <label for="max_file_size" >
                                                         {{translate('Max File Upload size')}}  <small class="text-danger" >*
                                                             ({{translate('In Kilobyte')}})
                                                         </small>
                                                     </label>
-                                                    <input type="number" min="1"  required  value ="{{site_settings('max_file_size')}}" name="site_settings[max_file_size]"  type="text">
+                                                    <input type="number" min="1" id="max_file_size"  required  value ="{{site_settings('max_file_size')}}" name="site_settings[max_file_size]"  type="text">
                                                 </div>
                                             </div>
                                             <div class="col-12 ">
@@ -592,12 +592,12 @@
                                             @foreach($awsSettings as $awsKey => $val)
                                                 <div class="col-xl-6">
                                                     <div class="form-inner">
-                                                        <label for="aws_s3">
+                                                        <label for="aws_s3-{{$awsKey}}">
                                                             {{
                                                                 ucfirst(str_replace('_',' ',$awsKey))
                                                             }}  <small class="text-danger" >*</small>
                                                         </label>
-                                                        <input required type="text" min="0" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
+                                                        <input required type="text" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3-{{$awsKey}}"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -634,12 +634,12 @@
                                             @foreach($ftpSetttings as $ftpKey => $val)
                                                 <div class="col-xl-6">
                                                     <div class="form-inner">
-                                                        <label for="ftp">
+                                                        <label for="ftp-{{$ftpKey}}">
                                                             {{
                                                                 ucfirst(str_replace('_',' ',$ftpKey))
                                                             }}  <small class="text-danger" >*</small>
                                                         </label>
-                                                        <input required type="text" min="0" name="site_settings[ftp][{{$ftpKey}}]" id="ftp"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
+                                                        <input required type="text" name="site_settings[ftp][{{$ftpKey}}]" id="ftp-{{$ftpKey}}"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -795,13 +795,13 @@
                                                 @foreach( $settings as $key => $val)
                                                     <div class="col-xl-6">
                                                         <div class="form-inner">
-                                                            <label for="{{$key}}">
+                                                            <label for="{{$key}}-{{$medium}}-{{$loop->index}}">
                                                                 {{
                                                                     Str::ucfirst(str_replace("_"," ",$key))
                                                                 }}  <small class="text-danger" >*</small>
                                                             </label>
                                                             @if($key == 'status')
-                                                                <select class="form-select" name="site_settings[social_login_with][{{$medium}}][{{$key}}]" id="{{$key}}">
+                                                                <select class="form-select" name="site_settings[social_login_with][{{$medium}}][{{$key}}]" id="{{$key}}-{{$medium}}-{{$loop->index}}">
                                                                     <option {{$val == App\Enums\StatusEnum::true->status() ? "selected" :""}} value="{{App\Enums\StatusEnum::true->status()}}">
                                                                         {{translate('Active')}}
                                                                     </option>
@@ -810,18 +810,18 @@
                                                                     </option>
                                                                 </select>
                                                             @else
-                                                                <input required  value="{{is_demo() ? '@@@' :$val}}" name='site_settings[social_login_with][{{$medium}}][{{$key}}]' placeholder="************" type="text">
+                                                                <input id="{{$key}}-{{$medium}}-{{$loop->index}}" required  value="{{is_demo() ? '@@@' :$val}}" name='site_settings[social_login_with][{{$medium}}][{{$key}}]' placeholder="************" type="text">
                                                             @endif
                                                         </div>
                                                     </div>
                                                 @endforeach
                                                 <div class="col-xl-6">
                                                     <div class="form-inner">
-                                                        <label for="callbackUrl">
+                                                        <label for="callbackUrl-{{$medium}}-{{$key}}">
                                                             {{translate('Callback Url')}}
                                                         </label>
                                                         <div class="input-group">
-                                                            <input id="callbackUrl" readonly value='{{route("auth.social.login.callback",str_replace("_oauth","",$medium))}}' type="text" class="form-control" >
+                                                            <input id="callbackUrl-{{$medium}}-{{$key}}" readonly value='{{route("auth.social.login.callback",str_replace("_oauth","",$medium))}}' type="text" class="form-control" >
                                                             <span class="input-group-text pointer copy-text pointer"  data-text ='{{route("auth.social.login.callback",str_replace("_oauth","",$medium))}}' ><i class="las la-copy"></i></span>
                                                         </div>
                                                     </div>
@@ -1077,14 +1077,14 @@
                 <div class="mb-3">
                     <label for="queue_url" >{{translate('Queue')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
                     <div class="input-group">
-                        <input readonly class="form-control" value="curl -s {{route('queue.work')}}">
+                        <input id="queue_url" readonly class="form-control" value="curl -s {{route('queue.work')}}">
                         <button data-type="modal"  data-text ="curl -s {{route('queue.work')}}" class="copy-text btn btn-info" type="button"><i class="las la-copy"></i></button>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="queue_url">{{translate('Cron Job ')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
+                    <label for="cron_url">{{translate('Cron Job ')}} <span class="text-danger">* {{translate('Set time for 1 minute')}}</span></label>
                     <div class="input-group">
-                        <input readonly class="form-control" value="curl -s {{route('cron.run')}}">
+                        <input id="cron_url" readonly class="form-control" value="curl -s {{route('cron.run')}}">
                         <button data-type="modal" data-text ="curl -s {{route('cron.run')}}" class="copy-text btn btn-info" type="button"><i class="las la-copy"></i></button>
                     </div>
                 </div>

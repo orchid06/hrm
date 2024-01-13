@@ -175,7 +175,7 @@
                 </div>
                 @if($user->runningSubscription)
                   {{$user->runningSubscription->package->title}}
-                 @else
+                @else
                     {{translate('No subscription')}}
                 @endif
               </div>

@@ -182,11 +182,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-inner">
-                                    <label for="message">
+                                    <label for="message-all">
                                         {{translate('Message')}}
                                             <small class="text-danger">*</small>
                                     </label>
-                                    <textarea class="summernote" required placeholder="{{translate('Type Here')}}" name="message" id="message" cols="30" rows="5">{{old("message")}}</textarea>
+                                    <textarea class="summernote" required placeholder="{{translate('Type Here')}}" name="message" id="message-all" cols="30" rows="5">{{old("message")}}</textarea>
                                 </div>
                             </div>
                         </div>

@@ -54,8 +54,8 @@
                                             data-route="{{ route('admin.smsGateway.update.status') }}"
                                             data-status="{{ $gateway->default == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
                                             data-id="{{$gateway->uid}}" {{$gateway->default ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch" >
-                                        <label class="form-check-label" for="status-switch"></label>
+                                        id="status-switch-{{$gateway->id}}" >
+                                        <label class="form-check-label" for="status-switch-{{$gateway->id}}"></label>
                                     </div>
                                 </td>
                                 <td data-label='{{translate("Updated By")}}'>

@@ -170,11 +170,11 @@
                         </select>
                     </div>
                     <div class="form-inner">
-                        <label for="remarks">
+                        <label for="subscriptionRemarks">
                             {{ translate('Remarks') }}
                             <small class="text-danger">*</small>
                         </label>
-                        <textarea required placeholder="{{ translate('Type Here ...') }}" name="remarks" id="remarks" cols="30"
+                        <textarea required placeholder="{{ translate('Type Here ...') }}" name="remarks" id="subscriptionRemarks" cols="30"
                             rows="10"></textarea>
                     </div>
                     <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
@@ -366,7 +366,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 withdraw-method d-none">
-                                <label for="method">
+                                <label for="method_id">
                                     {{translate('Withdraw Method')}}
                                         <small class="text-danger">*</small>
                                 </label>

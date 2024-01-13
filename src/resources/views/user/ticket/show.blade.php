@@ -61,18 +61,18 @@
                                         }
                                     @endphp
 
-                                        <div class="message-item d-flex justify-content-between align-items-start">
+                                        <div class="message-item d-flex justify-content-between align-items-start ticket-admin-reply">
                                             <div class="author-image me-3">
                                                 <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
                                             </div>
 
-                                            <div class="author-content flex-grow-1">
+                                            <div class="author-content flex-grow-1 ">
                                                 <div class="mesg-meta mb-1">
                                                     <h6>
                                                         @if ($message->admin_id)
                                                             {{ $message->admin?->name }}
                                                         @else
-                                                            {{ $ticket->user?->name }}
+                                                            {{ translate("Me") }}
                                                         @endif
                                                     </h6>
                                                     <small> {{ diff_for_humans($message->created_at) }}</small>
