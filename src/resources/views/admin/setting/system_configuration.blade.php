@@ -196,9 +196,9 @@
                     </div>
                     <div class="form-group">
                         <div class="form-check form-switch form-switch-md" dir="ltr">
-                            <input {{ env('app_debug') ? 'checked' : '' }} type="checkbox"
+                            <input {{ env('app_debug') || env('APP_DEBUG') ? 'checked' : '' }} type="checkbox"
                                 class="form-check-input status-update" data-key='app_debug'
-                                data-status='{{ env("app_debug") ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
+                                data-status='{{ env("APP_DEBUG") ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
                                 data-route="{{ route('admin.setting.update.status') }}" id="app_debug">
                             <label class="form-check-label" for="app_debug"></label>
                         </div>

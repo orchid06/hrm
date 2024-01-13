@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{translate('Error')}}-{{@$title}}</title>
+    <title>{{translate('Error')}}{{@$title?'-'.@$title:""}}</title>
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/root.css')}}" rel="stylesheet" type="text/css" />

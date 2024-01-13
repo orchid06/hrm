@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         try {
+
             Paginator::useBootstrap();
             
             if(env("APP_DEBUG")){

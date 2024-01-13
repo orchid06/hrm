@@ -83,7 +83,7 @@
                             </div>
 
                               @php
-                                 session()->put('system_requirments',$flag)
+                                  session()->put('system_requirments',$flag)
                               @endphp
                         </div>
                     </div>
@@ -93,9 +93,20 @@
                             <a href="{{route('install.init')}}"  class="ai--btn i-btn btn--md btn--primary"> 
                                 <i class="bi bi-arrow-left me-2"></i>{{trans("default.btn_previous")}}
                             </a>
+
+                            @php
+                               $btnUrl  = route('install.envato.verification',['verify_token' => bcrypt(base64_decode('ZW52YXRvX3ZlcmlmaWNhdGlvbg=='))]);
+                      
+                            @endphp
                             
-                            <a href="{{route('install.envato.verification',['verify_token' => bcrypt(base64_decode('ZW52YXRvX3ZlcmlmaWNhdGlvbg=='))])}}"  class="ai--btn i-btn btn--md btn--primary"> 
-                                {{trans("default.btn_next")}} <i class="bi bi-arrow-right ms-2"></i>
+                            <a href="{{$btnUrl}}"  class="ai--btn i-btn btn--md btn--primary">
+                
+                                @if( session()->get('system_requirments'))
+                                   {{trans("default.btn_next")}} <i class="bi bi-arrow-right ms-2"></i>
+                                @else
+                                    {{trans("default.btn_refresh")}}  <i class="bi bi-arrow-repeat ms-2"></i> 
+                                @endif
+                           
                             </a>
                         </div>
                     </div>

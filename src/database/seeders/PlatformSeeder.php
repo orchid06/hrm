@@ -32,6 +32,7 @@ class PlatformSeeder extends Seeder
                         "description"     => 'Seamlessly execute social media management and social customer care on '.$name.' from a single, scalable platform',
                         "configuration"   => Arr::get($config,'credential',[]),
                         "is_integrated"   => Arr::get($config,'is_integrated',StatusEnum::false->status()),
+                        "is_feature"      => Arr::get($config,'is_feature',StatusEnum::false->status()),
                     ]);
                 }
             }

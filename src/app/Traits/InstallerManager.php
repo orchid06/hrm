@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Cache;
 trait InstallerManager
 {
 
-    private function _isPurchased() :mixed{
+    private function _isPurchased() :bool{
     
         $purchaseKey = site_settings('purchase_key');
         $userName    = site_settings('envato_username');
@@ -39,7 +39,7 @@ trait InstallerManager
      
 
 
-     public function is_installed() :mixed{
+     public function is_installed() :bool{
 
         $logFile = storage_path(base64_decode(config('installer.cacheFile')));
 
@@ -261,7 +261,7 @@ trait InstallerManager
     }
 
 
-    private  function _chekcDbConnection(Request $request) :mixed {
+    private  function _chekcDbConnection(Request $request) :bool {
         
         try {
             if (@mysqli_connect($request->input('db_host'), $request->input('db_username'),  $request->input('db_password'), $request->input('db_database') , $request->input('db_port'))) {
@@ -276,7 +276,7 @@ trait InstallerManager
 
 
     
-    private  function _isDbEmpty() :mixed {
+    private  function _isDbEmpty() :bool {
 
         try {
             $servername = env('DB_HOST');
@@ -311,7 +311,7 @@ trait InstallerManager
                 'APP_NAME=' . $appName . PHP_EOL .
                 'APP_ENV=live' . PHP_EOL .
                 'APP_KEY=base64:' . $key . PHP_EOL .
-                'APP_DEBUG=true' . PHP_EOL .
+                'APP_DEBUG=false' . PHP_EOL .
                 'APP_INSTALL=true' . PHP_EOL .
                 'APP_LOG_LEVEL=debug' . PHP_EOL .
                 'APP_MODE=live' . PHP_EOL .

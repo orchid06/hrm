@@ -245,7 +245,7 @@
                         class="d-flex align-items-end flex-wrap gap-md-4 gap-3">
 
                         <button type="submit" class="i-btn btn--lg btn--primary btn--outline">
-                                 {{translate("Post Now")}}
+                                 {{translate("Post")}}
                                 <i class="bi bi-send ms-2"></i>
                         </button>
 

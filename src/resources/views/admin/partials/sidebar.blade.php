@@ -73,7 +73,7 @@
                 aria-expanded="false" aria-controls="socialAccount">
               <span><i class="las la-network-wired"></i></span>
                 <p>
-                  {{translate('Accounts')}}
+                  {{translate('Social Media')}}
                 </p>
                 <small >
                     <i class="las la-angle-down"></i>

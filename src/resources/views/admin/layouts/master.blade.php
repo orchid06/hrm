@@ -235,11 +235,15 @@
                 var data =   new FormData(this)
                 var route = "{{route('admin.setting.store')}}"
                 if($(this).attr('data-route')){
-                route = $(this).attr('data-route')
+                    route = $(this).attr('data-route')
                 }
                 $.ajax({
                 method:'post',
                 url: route,
+                beforeSend: function() {
+                    $('.ai-btn').addClass('btn__dots--loading');
+                    $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+                },
                 dataType: 'json',
                 cache: false,
                 processData: false,
@@ -271,7 +275,12 @@
                     else{
                         toastr(error.message,'danger')
                     }
-                }
+                },
+                complete: function() {
+                    $('.ai-btn').removeClass('btn__dots--loading');
+                    $('.ai-btn').find('.btn__dots').remove();
+                },
+                
             })
 
             e.preventDefault();

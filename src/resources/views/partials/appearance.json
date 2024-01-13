@@ -13,6 +13,7 @@
             },
             "title": "text",
             "motion_text": "text",
+            "motion_button_url": "text",
             "description": "textarea",
             "button_left_name": "text",
             "button_left_url": "text",

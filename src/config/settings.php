@@ -845,7 +845,7 @@ return [
 
     "sms_gateway" => [
         '101NEX' => [
-            "name" => "Nexmo",
+            "name" => "Nexmo(VONAGE)",
             "credential" => ([
                 'api_key' => "@@",
                 'api_secret' => "@@",
@@ -1017,6 +1017,7 @@ return [
                 'group_url'   => 'https://www.facebook.com/groups',
             ],
             'is_integrated' => StatusEnum::true->status(),
+            'is_feature'    => StatusEnum::true->status(),
             'view_option'   => StatusEnum::true->status(),
         ],
         'instagram' => [
@@ -1030,6 +1031,7 @@ return [
 
             'is_integrated' => StatusEnum::true->status(),
             'view_option'   => StatusEnum::true->status(),
+            'is_feature'    => StatusEnum::true->status(),
             
         ],
 
@@ -1042,6 +1044,7 @@ return [
             ],
             'is_integrated' => StatusEnum::true->status(),
             'official'      => StatusEnum::false->status(),
+            'is_feature'    => StatusEnum::true->status(),
 
      
         ],
@@ -1053,6 +1056,7 @@ return [
             ],
             'is_integrated' => StatusEnum::true->status(),
             'unofficial'    => StatusEnum::false->status(),
+            'is_feature'    => StatusEnum::true->status(),
         ],
         'youtube' => [
 
