@@ -7,6 +7,13 @@
     document.documentElement.clientWidth ||
     document.body.clientWidth;
 
+  // Preloader
+  const preloader = document.querySelector(".preloader");
+  window.addEventListener("load", () => {
+    if (preloader) {
+      preloader.remove();
+    }
+  });
   // Sticky Header
   const header = document.querySelector(".header");
   if (header) {
@@ -76,7 +83,6 @@
         sideBarDropdown.classList.remove("show-sideMenu");
 
         sideMenuLink.addEventListener("click", () => {
-   
           if (sideBarDropdown !== null) {
             sideMenuItem.forEach((otherItem) => {
               const otherSideBarDropdown = otherItem.querySelector(
@@ -90,9 +96,9 @@
                   ".sidemenu-link small"
                 );
                 if (otherSideBarDropdown !== sideBarDropdown) {
-                    rotateIcon.style.transform = "";
-                    otherSideBarDropdown.classList.remove("show-sideMenu");
-                    hiddenOverlay.remove();
+                  rotateIcon.style.transform = "";
+                  otherSideBarDropdown.classList.remove("show-sideMenu");
+                  hiddenOverlay.remove();
                 }
               }
             });
@@ -122,7 +128,7 @@
 
           if (!sideBarDropdown.classList.contains("show-sideMenu")) {
             hiddenOverlay.remove();
-          }else {
+          } else {
             hiddenOverlay.addEventListener("click", () => {
               sideBarDropdown.classList.remove("show-sideMenu");
               hiddenOverlay.remove();

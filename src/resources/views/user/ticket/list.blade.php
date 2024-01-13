@@ -59,10 +59,10 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button class="i-btn primary btn--lg rounded">
+                        <button class="i-btn primary btn--lg capsuled">
                             <i class="bi bi-search"></i>
                         </button>
-                        <a href="{{ route('user.ticket.list') }}" class="i-btn danger btn--lg rounded">
+                        <a href="{{ route('user.ticket.list') }}" class="i-btn danger btn--lg capsuled">
                             <i class="bi bi-arrow-repeat"></i>
                         </a>
                     </div>

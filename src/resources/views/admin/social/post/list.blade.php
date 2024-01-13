@@ -10,16 +10,16 @@
 
                     @if(check_permission('create_post') )
                         <div class="col-md-2 d-flex justify-content-start">
-                
+
                             <div class="action">
                                 <a href="{{route('admin.social.post.create')}}" class="i-btn btn--sm success">
                                     <i class="las la-plus me-1"></i>  {{translate('Add New')}}
                                 </a>
                             </div>
-                       
+
                         </div>
                     @endif
-                  
+
                     <div class="col-md-10 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
@@ -31,7 +31,7 @@
                                         <option value="">
                                             {{translate('Select User')}}
                                         </option>
-                
+
                                         @foreach(system_users() as $user)
                                             <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
                                             </option>
@@ -44,7 +44,7 @@
                                         <option value="">
                                             {{translate('Select Account')}}
                                         </option>
-                    
+
                                         @foreach($accounts as $account)
                                             <option  {{$account->account_id ==   request()->input('account') ? 'selected' :""}} value="{{$account->account_id}}"> {{$account->name}}
                                             </option>
@@ -57,7 +57,7 @@
                                         <option value="">
                                             {{translate('Select Status')}}
                                         </option>
-                    
+
                                         @foreach(App\Enums\PostStatus::toArray() as $k => $v)
                                             <option  {{$v  ==   request()->input('status',-1) ? 'selected' :""}} value="{{$v}}">   {{$k}}
                                             </option>
@@ -106,7 +106,7 @@
                                         <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                                         <p>	 {{$post->account->platform->name}}</p>
                                     </div>
-                                   
+
                                 </td>
                                 <td data-label='{{translate("Account")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
@@ -120,9 +120,9 @@
                                             <p>	{{ @$post->account->account_information->name}}</p>
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
-                                        -  <span class="i-badge success"><a  title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                                        -  <a class="i-badge success" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
                                             </a>
-                                        </span>
+                                       
                                         @endif
                                     </div>
                                 </td>
@@ -161,7 +161,7 @@
                                 <td data-label='{{translate("Type")}}'>
                                      @php echo post_type($post->post_type)   @endphp
                                 </td>
-                               
+
 
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
@@ -194,7 +194,7 @@
             </div>
         </div>
     </div>
-  
+
 @endsection
 @section('modal')
   @include('modal.delete_modal')
@@ -232,14 +232,14 @@
        	"use strict";
 
         $(".user").select2({
-           
+
         });
 
         $(".account").select2({
-           
+
         });
         $(".status").select2({
-           
+
         });
 
         flatpickr("#datePicker", {
@@ -258,9 +258,9 @@
             modal.modal('show')
         });
 
-    
 
-      
+
+
 
 	})(jQuery);
 

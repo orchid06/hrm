@@ -150,6 +150,7 @@
                   @endif
 
                 </ul>
+                <div class="under-line"></div>
               </div>
 
               <div class="profile-tab-content">
@@ -531,7 +532,7 @@
 @push('script-push')
 <script>
 	(function($){
-        
+
         "use strict";
 
         $(".select2").select2({

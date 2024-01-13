@@ -27,162 +27,154 @@
        }
    @endphp
 
+    <div class="page-title-content">
+        <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
+    </div>
+
     <div class="row g-4">
-      <div class="col-12">
+      <div class="col-xxl-9">
         <div class="dash-intro">
-          <div class="row align-items-center gx-4 gy-5">
-            <div class="col-xxl-3 col-xl-6">
-              <div class="dash-intro-content">
-                <h3>{{translate("Welcome")}}, {{$user->name }}</h3>
-              </div>
-            </div>
+            <div class="posting-summary">
+            <div class="row g-3">
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--info">
+                    <i class="bi bi-border-all"></i>
+                    </span>
 
-            <div class="col-xxl-9">
-              <div class="posting-summary">
-                <div class="row g-3">
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--info">
-                        <i class="bi bi-border-all"></i>
-                      </span>
-
-                      <div>
-                        <h6>
-                           {{Arr::get($data,'total_post',0)}}
-                        </h6>
-                        <p>
-                           {{translate("Total Post")}}
-                        </p>
-                      </div>
+                    <div>
+                    <h6>
+                        {{Arr::get($data,'total_post',0)}}
+                    </h6>
+                    <p>
+                        {{translate("Total Post")}}
+                    </p>
                     </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--success">
-                        <i class="bi bi-calendar-check"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data,'pending_post',0)}}</h6>
-                        <p>   {{translate("Pending Post")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--warning">
-                        <i class="bi bi-clock-history"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data,'schedule_post',0)}}</h6>
-                        <p>   {{translate("Schedule Post")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--success">
-                         <i class="bi bi-check-all"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data,'success_post',0)}}</h6>
-                        <p>   {{translate("Success Post")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--danger">
-                        <i class="bi bi-journal-x"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data,'failed_post',0)}}</h6>
-
-                        <p>   {{translate("Failed Post")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--info">
-                        <i class="bi bi-person-gear"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data['account_report'],'total_account',0)}}</h6>
-
-                        <p>   {{translate("Total Account")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--success">
-                        <i class="bi bi-person-check-fill"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data['account_report'],'active_account',0)}}</h6>
-
-                        <p>   {{translate("Active Account")}}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                    <div class="summary-card">
-                      <span class="text--danger">
-                        <i class="bi bi-person-exclamation"></i>
-                      </span>
-
-                      <div>
-                        <h6>  {{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
-
-                        <p>   {{translate("Inactive Account")}}</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--success">
+                    <i class="bi bi-calendar-check"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data,'pending_post',0)}}</h6>
+                    <p>   {{translate("Pending Post")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--warning">
+                    <i class="bi bi-clock-history"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data,'schedule_post',0)}}</h6>
+                    <p>   {{translate("Schedule Post")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--success">
+                        <i class="bi bi-check-all"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data,'success_post',0)}}</h6>
+                    <p>   {{translate("Success Post")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--danger">
+                    <i class="bi bi-journal-x"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data,'failed_post',0)}}</h6>
+
+                    <p>   {{translate("Failed Post")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--info">
+                    <i class="bi bi-person-gear"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data['account_report'],'total_account',0)}}</h6>
+
+                    <p>   {{translate("Total Account")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--success">
+                    <i class="bi bi-person-check-fill"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data['account_report'],'active_account',0)}}</h6>
+
+                    <p>   {{translate("Active Account")}}</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                <div class="summary-card">
+                    <span class="text--danger">
+                    <i class="bi bi-person-exclamation"></i>
+                    </span>
+
+                    <div>
+                    <h6>  {{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
+
+                    <p>   {{translate("Inactive Account")}}</p>
+                    </div>
+                </div>
+                </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
 
       <div class="col-xxl-3 col-md-6">
-        <div class="i-card-md card-height-100 plan-upgrade-card">
+      
+       <div class="i-card-md card-height-100 plan-upgrade-card">
           <div class="card-body plan-upgrade-body">
+            <span class="package-badge">{{translate("Current Plan")}}</span>
 
-              <div class="existing-plan">
-                <div class="dot-spinner">
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
-                  <div class="dot-spinner__dot"></div>
+            <div class="current-package">
+                <div class="ai-icon">
+                    <i class="bi bi-robot"></i>
                 </div>
-                @if($user->runningSubscription)
-                  {{$user->runningSubscription->package->title}}
-                @else
-                    {{translate('No subscription')}}
-                @endif
-              </div>
+                <h3>
+                    @if($user->runningSubscription)
+                    {{$user->runningSubscription->package->title}}
+                    @else
+                        {{translate('No subscription')}}
+                    @endif
+                </h3>
 
-            <h3>
+
+            </div>
+            <p>
                {{trans('default.dashboard_plan_title')}}
-            </h3>
+            </p>
 
             <a
               href="{{route('user.plan')}}"
@@ -194,18 +186,13 @@
               @endif
             </a>
 
-            <div class="plan-upgrade-img">
-              <img
-              src="{{asset('assets/images/default/plan.gif')}}"
-              alt="plan.gif"
-              class="img-fluid"/>
-            </div>
           </div>
 
         </div>
+ 
       </div>
 
-      <div class="col-xxl-3 col-md-6">
+      <div class="col-xxl-4 col-md-6">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">
@@ -251,7 +238,7 @@
         </div>
       </div>
 
-      <div class="col-xxl-6">
+      <div class="col-xxl-8">
         <div class="i-card-md card-height-100">
           <div class="card-header">
             <h4 class="card-title">
@@ -507,7 +494,7 @@
                                           </h6>
 
                                           <p>
-                                 
+
                                               @if($report->created_at)
                                                   {{ get_date_time($report->created_at) }}
                                               @else

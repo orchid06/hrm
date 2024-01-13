@@ -1578,7 +1578,7 @@
 .banner .banner-texture {
   width: 100%;
   height: 100%;
-  opacity: 0.3;
+  opacity: 0.2;
   background-image: url(../../images/default/texture-bg.png);
   background-position: 0 0;
   background-size: auto;
@@ -1718,7 +1718,7 @@
   color: var(--color-primary);
   z-index: 3;
 }
-.banner-img-wrapper .banner-img .circle-container .circleButton span >a{
+.banner-img-wrapper .banner-img .circle-container .circleButton span > a {
   color: var(--color-primary);
 }
 .banner-img-wrapper .banner-img .circle-container .circleButton span > a i {
@@ -3413,7 +3413,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 
 .language-item.active {
   background: var(--color-primary-light);

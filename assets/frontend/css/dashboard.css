@@ -760,6 +760,9 @@ body {
 .search-action-area {
   padding: 20px 25px 0;
 }
+.search-action-area .i-btn.btn--lg {
+  padding: 13.3px 30px;
+}
 @media (max-width: 576px) {
   .search-action-area {
     padding: 20px 15px 0;
@@ -1143,22 +1146,33 @@ select {
 
 /* ===============Flatpickr Customize CSS=============== */
 .flatpickr-day.startRange {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
 }
 
 .flatpickr-day.endRange {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
 }
 
+.flatpickr-day.today {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary-text) !important;
+}
 .flatpickr-day.selected {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary-text) !important;
 }
 .flatpickr-day.selected:hover {
-  border-color: var(--text-secondary);
-  background-color: var(--text-secondary);
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary-text) !important;
+}
+.flatpickr-day:hover {
+  border-color: var(--color-primary-light) !important;
+  background-color: var(--color-primary-light) !important;
 }
 
 /* ======================================================
@@ -2810,9 +2824,8 @@ aside.show-side-bar {
   }
 }
 .main .main-wrapper {
-  padding: 50px 30px 30px;
-  min-height: calc(100dvh - 95px);
-  max-height: calc(100dvh - 70px);
+  padding: 40px 30px 30px;
+  max-height: calc(100dvh - 69px);
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
@@ -2854,19 +2867,20 @@ aside.show-side-bar {
     padding: 25px 15px;
   }
 }
-.dash-intro .dash-intro-content > h3 {
+.page-title-content {
+  margin-bottom: 20px;
+}
+.page-title-content > h2 {
   font-size: 36px;
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--text-primary);
 }
 @media (max-width: 576px) {
-  .dash-intro .dash-intro-content > h3 {
+  .page-title-content > h2 {
     font-size: 30px;
   }
 }
-.dash-intro .dash-intro-content p {
-  color: var(--color-white);
-}
+
 .posting-summary > h5 {
   color: var(--site-bg);
   margin-bottom: 10px;
@@ -2899,6 +2913,23 @@ aside.show-side-bar {
 /* =================Plan Upgrade Card================= */
 .plan-upgrade-card {
   position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.plan-upgrade-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  -webkit-filter: blur(200px);
+  filter: blur(80px);
+  background-color: var(--color-primary);
+  opacity: 0.4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
 .plan-upgrade-card .plan-upgrade-body {
   display: -webkit-box;
@@ -2915,7 +2946,7 @@ aside.show-side-bar {
   -ms-flex-direction: column;
   flex-direction: column;
   text-align: center;
-  gap: 20px;
+  gap: 18px;
   height: inherit;
 }
 .plan-upgrade-card .plan-upgrade-body .existing-plan {
@@ -2936,13 +2967,13 @@ aside.show-side-bar {
   gap: 8px;
   border-radius: 4px;
 }
-.plan-upgrade-card .plan-upgrade-body > h3 {
+.plan-upgrade-card .plan-upgrade-body > h6 {
   font-weight: 700;
-  font-size: 30px;
+  font-size: 18px;
 }
 @media (max-width: 576px) {
-  .plan-upgrade-card .plan-upgrade-body > h3 {
-    font-size: 26px;
+  .plan-upgrade-card .plan-upgrade-body > h6 {
+    font-size: 16px;
   }
 }
 .plan-upgrade-card .plan-upgrade-body .plan-upgrade-img {
@@ -2956,7 +2987,29 @@ aside.show-side-bar {
   right: 0;
   z-index: 1;
 }
-
+.package-badge {
+  position: absolute;
+  width: 150px;
+  left: -42px;
+  top: 15px;
+  transform: rotate(-45deg);
+  font-size: 14px;
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
+  padding: 4px 0;
+}
+.current-package > h3 {
+  font-size: 24px;
+}
+.ai-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  line-height: 1;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
 /* =================Channel Profile List================= */
 .channel-list li:first-of-type .channel-item {
   padding-top: 0;
@@ -3512,7 +3565,7 @@ aside.show-side-bar {
   flex-wrap: nowrap;
 }
 @media (max-width: 991px) {
-  .profile-wrapper .profile-content .profile-activity .profile-tabs .nav {
+  .profile-wrapper .profile-content .profile-activity .profile-tabs {
     border-bottom: 1px solid var(--border-light);
   }
 }
