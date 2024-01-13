@@ -41,36 +41,38 @@
     </ul>
     <div class="primary-shade"></div>
     <div class="banner-texture"></div>
-  </section>
+</section>
 
-  <div class="banner-img-wrapper bg--light">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-8 mx-auto">
-                  <div class="banner-img">
-                      <div class="circle-container">
-                          <div class="circleButton">
-                              <svg class="textcircle" viewBox="0 0 500 500">
-                              <defs>
-                                  <path
-                                  id="textcircle"
-                                  d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
-                                  ></path>
-                              </defs>
-                              <text>
-                                  <textPath xlink:href="#textcircle" textLength="900">
-                                  {{@$bannerContent->value->motion_text}}
-                                  </textPath>
-                              </text>
-                              </svg>
-                              <span>
-                              <i class="bi bi-play-fill"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <img src="{{imageUrl(@$bannerImg,'frontend',true,@get_appearance()->banner->content->images->image->size)}}" alt="{{@$bannerImg->name}}" />
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="banner-img-wrapper bg--light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="banner-img">
+                    <div  class="circle-container">
+                        <div  class="circleButton">
+                            <svg class="textcircle" viewBox="0 0 500 500">
+                            <defs>
+                                <path
+                                id="textcircle"
+                                d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
+                                ></path>
+                            </defs>
+                            <text>
+                                <textPath xlink:href="#textcircle" textLength="900">
+                                {{@$bannerContent->value->motion_text}}
+                                </textPath>
+                            </text>
+                            </svg>
+                            <span>
+                              <a target="_blank" href="{{@$bannerContent->value->motion_button_url}}">
+                                  <i class="bi bi-play-fill"></i>
+                              </a>
+                            </span>
+                        </div>
+                    </div>
+                    <img src="{{imageUrl(@$bannerImg,'frontend',true,@get_appearance()->banner->content->images->image->size)}}" alt="{{@$bannerImg->name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

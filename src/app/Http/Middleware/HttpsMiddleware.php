@@ -19,7 +19,7 @@ class HttpsMiddleware
     {
         try {
             if(site_settings('force_ssl') == StatusEnum::true->status() && $request->secure()){
-                return redirect()->secure($request->getPathInfo());
+                \URL::forceScheme('https');
             }
             return $next($request);
             

@@ -251,7 +251,7 @@
                             <div class="form-inner mt-5 mb-0">
                                 <div class="d-flex align-items-end flex-wrap gap-md-4 gap-3">
                                     <button type="submit" class="i-btn btn--primary btn--lg capsuled">
-                                            {{translate("Post Now")}}
+                                          {{translate("Post")}}
                                             <i class="bi bi-send"></i>
                                     </button>
 

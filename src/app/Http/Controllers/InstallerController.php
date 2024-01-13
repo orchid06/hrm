@@ -294,8 +294,7 @@ class InstallerController extends Controller
     public function verifyPuchase(Request $request) :View |RedirectResponse
     {
   
-     
-      
+    
         $request->validate([
             base64_decode('cHVyY2hhc2VfY29kZQ==') => "required",
             base64_decode('dXNlcm5hbWU=')         => "required"

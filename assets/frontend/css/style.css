@@ -1716,9 +1716,12 @@
   align-items: center;
   justify-content: center;
   color: var(--color-primary);
+  z-index: 3;
 }
-
-.banner-img-wrapper .banner-img .circle-container .circleButton span i {
+.banner-img-wrapper .banner-img .circle-container .circleButton span >a{
+  color: var(--color-primary);
+}
+.banner-img-wrapper .banner-img .circle-container .circleButton span > a i {
   line-height: 1;
 }
 

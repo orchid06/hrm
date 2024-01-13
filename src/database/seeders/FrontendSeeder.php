@@ -41,8 +41,6 @@ class FrontendSeeder extends Seeder
 
             ],
 
-
-            
             "feedback" => [
 
                 "content"  => [
@@ -89,7 +87,8 @@ class FrontendSeeder extends Seeder
                 "content"  => [
 
                     "title"             => "A powerful solution for social media",
-                    "motion_text"       => "Explore more - Explore more ",
+                    "motion_text"       => "Explore more - Explore more",
+                    "motion_button_url" => "@@",
                     "description"       => "Our all-in-one social media management platform unlocks the full potential of social to transform not just your marketing strategy—but every area of your organization.",
                     "button_left_name"  =>  "Get started for free",
                     "button_left_url"   =>  "@@",

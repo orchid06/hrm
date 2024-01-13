@@ -22,11 +22,11 @@
             <div class="sidebar-body">
                 <div class="mobile-logo-area d-lg-none mb-5">
                     <div class="mobile-logo-wrap">
-                    <a href="{{route('home')}}">
+                        <a href="{{route('home')}}">
 
-                        <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                            <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
-                    </a>
+                        </a>
                     </div>
 
                     <div class="closer-sidebar">
@@ -256,7 +256,7 @@
 
                             <li>
                                 <a href="{{route('user.home')}}" class="dropdown-item" >
-                                    <i class="bi bi-person"></i> {{translate('Home')}}
+                                    <i class="bi bi-person"></i> {{translate('Dashboard')}}
                                 </a>
                             </li>
 

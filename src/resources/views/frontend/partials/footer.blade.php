@@ -7,7 +7,7 @@
    $newsLetter  = get_content("content_newsletter")->first();
 
    $footer      = get_content("content_footer")->first();
-   $paymentImg  = $ctaContent->file->where("type",'payment_image')->first();
+   $paymentImg  = $footer->file->where("type",'payment_image')->first();
    $icons       =  get_content("element_social_icon");
 
    $lang         = $languages->where('code',session()->get('locale'));

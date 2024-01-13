@@ -6,8 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-
-        "authorizenet/authorizenet": ">=1.9.3",
+        "authorizenet/authorizenet": "^2.0",
         "btcpayserver/btcpayserver-greenfield-php": "^2.0",
         "coderjerk/bird-elephant": "^0.7.0",
         "coingate/coingate-php": "^3.0",
@@ -26,7 +25,6 @@
         "league/flysystem-ftp": "3.0",
         "messagebird/php-rest-api": "^3.1",
         "mollie/laravel-mollie": "^2.14",
-        "nexmo/client": "^2.4",
         "orhanerday/open-ai": "^4.9",
         "phpseclib/phpseclib": "~3.0",
         "predis/predis": "^2.2",
@@ -42,7 +40,6 @@
         "vonage/client": "^2.4"
     },
     "require-dev": {
-        "authorizenet/authorizenet": "dev-master#ef297d3e2d7c1092ddabd2c376eb485aac1aa66c",
         "barryvdh/laravel-debugbar": "^3.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
