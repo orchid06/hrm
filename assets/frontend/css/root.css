@@ -2,18 +2,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap");
 :root {
   --font-primary: "Cabin", sans-serif;
-  --color-primary: #8158fc;
-  --color-primary-light: rgba(129, 88, 252, 0.1);
-  --color-primary-soft: #eee8fb;
+  --color-primary: #10a37f;
+  --color-primary-light: rgba(16, 163, 126, 0.1);
+  --color-primary-soft: #e4f5f0;
   --color-primary-text: #fff;
 
-  --color-secondary: #00b3ba;
-  --color-secondary-light: rgba(0, 180, 186, 0.1);
-  --color-secondary-soft: #e8feff;
+  --color-secondary: #c2fa6b;
+  --color-secondary-light: rgba(195, 250, 107, 0.1);
+  --color-secondary-soft: #f1faec;
   --color-secondary-text: #24282c;
 
-  --text-primary: #26152e;
-  --text-secondary: #676767;
+  --text-primary: #24282c;
+  --text-secondary: #545454;
   --text-light: #ebebeb;
   --border-light: #ebebeb;
   --border-dark: #2e2e2e;
@@ -22,7 +22,7 @@
   --color-gray-1: #eff2f7;
   --color-dark: #222222;
   --color-dark-2: #1d1d1d;
-  --site-bg: #f8f6fb;
+  --site-bg: #f6fbfa;
   --sidebar-bg: #fff;
   --footer-bg: #020202;
 
@@ -119,6 +119,9 @@ figure {
 /* Text Colors */
 .text--primary {
   color: var(--color-primary) !important;
+}
+.text--secondary {
+  color: var(--color-secondary) !important;
 }
 
 .text--danger {

@@ -1,5 +1,6 @@
-(function (params) {
+(function () {
   ("use strict");
+
 
   // Tooltip
   const tooltipTriggerList = document.querySelectorAll(
@@ -8,7 +9,6 @@
   const tooltipList = [...tooltipTriggerList].map(
     (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
   );
-
 
   // Post Slider
   const postSlider = document.querySelector(".post-slider");
@@ -40,6 +40,4 @@
       },
     });
   }
-
-
 })();

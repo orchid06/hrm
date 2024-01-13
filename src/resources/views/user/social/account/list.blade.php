@@ -60,7 +60,7 @@
                             <div class="search-action-area mb-4">
                                 <div class="row g-4">
                                     <div class="col-md-4">
-                                        <a href="{{route('user.social.account.create',['platform' => request()->input('platform')])}}" class="i-btn primary btn--lg rounded create">
+                                        <a href="{{route('user.social.account.create',['platform' => request()->input('platform')])}}" class="i-btn primary btn--lg capsuled create">
                                         <i class="bi bi-plus-lg"></i>  {{translate('Add New')}}
                                        </a>
 
@@ -78,10 +78,10 @@
                                                 </div>
 
                                                 <div class="d-flex gap-2">
-                                                    <button class="i-btn primary btn--lg rounded">
+                                                    <button class="i-btn primary btn--lg capsuled">
                                                         <i class="bi bi-search"></i>
                                                     </button>
-                                                    <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg rounded">
+                                                    <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
                                                         <i class="bi bi-arrow-repeat"></i>
                                                     </a>
                                                 </div>

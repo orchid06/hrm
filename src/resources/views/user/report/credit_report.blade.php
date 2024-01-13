@@ -53,11 +53,11 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg rounded">
+                            <button type="submit" class="i-btn primary btn--lg capsuled">
                                 <i class="bi bi-search"></i>
                             </button>
 
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger rounded">
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
                                 <i class="bi bi-arrow-repeat"></i>
                             </a>
                     </div>
