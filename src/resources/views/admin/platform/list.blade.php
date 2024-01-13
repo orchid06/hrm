@@ -214,7 +214,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{route('admin.platform.configuration.update')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.platform.configuration.update')}}" id="platformConfigForm" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">

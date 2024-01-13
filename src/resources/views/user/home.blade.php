@@ -153,7 +153,8 @@
       </div>
 
       <div class="col-xxl-3 col-md-6">
-        <div class="i-card-md card-height-100 plan-upgrade-card">
+      
+       <div class="i-card-md card-height-100 plan-upgrade-card">
           <div class="card-body plan-upgrade-body">
             <span class="package-badge">{{translate("Current Plan")}}</span>
 
@@ -188,6 +189,7 @@
           </div>
 
         </div>
+ 
       </div>
 
       <div class="col-xxl-4 col-md-6">

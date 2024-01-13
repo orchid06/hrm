@@ -254,7 +254,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{route('admin.currency.config')}}" id="currenncyForm" method="post">
+                <form action="{{route('admin.currency.config')}}" id="currenncyConfigForm" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="row">

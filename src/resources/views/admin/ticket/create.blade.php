@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="user" class="form-label">
                                         {{translate("User")}} <span class="text-danger">*</span>

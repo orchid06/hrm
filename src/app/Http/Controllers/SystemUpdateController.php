@@ -17,7 +17,6 @@ class SystemUpdateController extends Controller
 {
 
 
-    use InstallerManager;
 
     use InstallerManager;
 
