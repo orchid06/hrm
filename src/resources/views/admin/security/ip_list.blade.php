@@ -248,7 +248,7 @@
                     </button>
                 </div>
 
-                <form action="{{route('admin.security.ip.update')}}" id="ipForm" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.security.ip.update')}}"  method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">

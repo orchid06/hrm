@@ -179,10 +179,10 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-inner">
-                                    <label for="content" class="form-label" >
+                                    <label for="input-content" class="form-label" >
                                         {{translate('Content')}} <small class="text-danger">*</small>
                                     </label>
-                                    <textarea placeholder='{{translate("Type Here...")}}' name="content" id="content" cols="30" rows="10"></textarea>
+                                    <textarea placeholder='{{translate("Type Here...")}}' name="content" id="input-content" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                         </div>

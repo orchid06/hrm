@@ -20,7 +20,7 @@
                 <textarea  placeholder='{{translate("Enter Description")}}' id="meta_description"  name="meta_description"  cols="30" rows="5">{{@$model->meta_description??old("meta_description") }}</textarea>
             </div>
             <div class="form-inner">
-                <label for="page" id="meta_keywords"> 
+                <label for="meta_keywords"> 
                     {{translate('Meta Keywords')}}  
                 </label>
                 @php

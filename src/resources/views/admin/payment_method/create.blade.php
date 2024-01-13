@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-12">
                         <div class="form-inner">
-                            <label id="paymentNote">
+                            <label for="paymentNote">
                                 {{translate('Payment Notes')}}
                             </label>
                             <textarea  placeholder="{{translate('Enter Payment Notes')}}" name="payment_notes" id="paymentNote" cols="3" rows="3">{{old("payment_notes")}}</textarea> 

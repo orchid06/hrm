@@ -411,7 +411,7 @@
                 aria-expanded="false" aria-controls="aiTemplate">
               <span><i class="las la-money-bill"></i></span>
                 <p>
-                  {{translate('Ai Templates')}}
+                  {{translate('AI Templates')}}
                 </p>
                 <small >
                     <i class="las la-angle-down"></i>
@@ -453,7 +453,7 @@
             <a class='sidebar-menu-link {{sidebar_awake("admin.content.*")}}'  href='{{route("admin.content.list")}}'>
               <span><i class="las la-pager"></i></span>
               <p>
-                {{translate('Ai Contents')}}
+                {{translate('Contents')}}
               </p>
             </a>
           </li>
@@ -701,7 +701,7 @@
                       <a class='sidebar-menu-link {{sidebar_awake("admin.security.ip.list")}}'  href='{{route("admin.security.ip.list")}}'>
                         <span></span>
                         <p>
-                           {{translate('Ip List')}}
+                           {{translate('IP List')}}
                         </p>
                       </a>
                   </li>
@@ -767,8 +767,8 @@
 
       @if(check_permission('view_template'))
           <li class="sidebar-menu-item">
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#templates" role="button"
-              aria-expanded="false" aria-controls="templates">
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#notificationTemplates" role="button"
+              aria-expanded="false" aria-controls="notificationTemplates">
               <span><i class="las la-bell"></i></span>
                 <p>
                   {{translate('Notification Templates')}}
@@ -777,7 +777,7 @@
                   <i class="las la-angle-down"></i>
                 </small>
             </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="templates">
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.template.*'],'drop_down')}} " id="notificationTemplates">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
                     <a class='sidebar-menu-link {{sidebar_awake(["admin.template.list","admin.template.edit"])}}' href="{{route('admin.template.list')}}">

@@ -6,6 +6,7 @@ return [
 
     'app_name'    => "FeedsWiz",
     'software_id' => "SHHVLMTGKZ==",
+
     'cacheFile'   => 'LktvZGVfUGl4ZWw=',
 
 

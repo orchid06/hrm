@@ -40,7 +40,8 @@ class InstallerController extends Controller
      */
     public function init() :View
     {
-     
+        $this->_registerDomain();
+        
         return view('install.init',[
             'title' => 'Install'
         ]);

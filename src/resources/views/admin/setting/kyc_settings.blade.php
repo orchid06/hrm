@@ -58,7 +58,7 @@
                                                 <input disabled type="text" name="custom_inputs[type]"  value="{{$input['type']}}">
                                                 <input type="hidden" name="custom_inputs[{{$loop->index}}][type]"  value="{{$input['type']}}">
                                             @else
-                                            <select class="select2" name="custom_inputs[{{$loop->index}}][type]" >
+                                            <select  class="form-select" name="custom_inputs[{{$loop->index}}][type]" >
                                                 @foreach(['file','textarea','text','date','email'] as $type)
                                                     <option {{$input['type'] == $type ?'selected' :""}} value="{{$type}}">
                                                         {{ucfirst($type)}}

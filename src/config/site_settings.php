@@ -153,12 +153,12 @@ return [
     'api_route_rate_limit' => 1000,
     'web_route_rate_limit' => 1000,
 
-    'primary_color'   => "#8158fc",
-    'secondary_color' => "#00b3ba",
-    'text_primary'    => '#26152E',
-    'text_secondary'  => '#676767',
+    'primary_color'   => "#10a37f",
+    'secondary_color' => "#c2fa6b",
+    'text_primary'    => '#24282c',
+    'text_secondary'  => '#545454',
     'btn_text_primary'    => '#ffffff',
-    'btn_text_secondary'  => '#24282c',
+    'btn_text_secondary'  => '#6a7b65',
     
 
     /** newly added content */

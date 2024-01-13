@@ -125,7 +125,7 @@
                         @elseif($v->type == "file")
                             <div class="col-md-6">
                                 <div class="form-inner mb-0">
-                                    <label id="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
+                                    <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
 
                                     <input id="{{$k}}" type="file" name="{{$k}}" accept="image/*"
                                         @if($v->validation == "required") required @endif>

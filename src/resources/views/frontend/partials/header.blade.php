@@ -256,7 +256,7 @@
 
                             <li>
                                 <a href="{{route('user.home')}}" class="dropdown-item" >
-                                    <i class="bi bi-person"></i> {{translate('Dashboard')}}
+                                    <i class="bi bi-house"></i> {{translate('Dashboard')}}
                                 </a>
                             </li>
 
