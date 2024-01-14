@@ -257,4 +257,13 @@
 }
 
 
+.language-btn{
+
+  color: var(--color-white) !important;
+}
+
+.language-btn:hover{
+  text-decoration: none !important;
+}
+
 /** dev css end */

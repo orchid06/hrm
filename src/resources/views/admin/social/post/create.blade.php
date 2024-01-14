@@ -287,41 +287,7 @@
                                  {{translate("Post")}}
                                 <i class="bi bi-send ms-2"></i>
                         </button>
-
-                        {{-- <button class="i-btn btn--primary btn--lg" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
-                              aria-controls="schedule"
-                              type="button">
-                          {{translate("Schedule Post")}}
-                          <i class="bi bi-plus-lg ms-2"></i>
-                        </button> --}}
                       </div>
-
-                      {{-- <div class="collapse mt-3" id="schedule">
-                        <div class="schedule-body">
-                            <div class="schedule-content">
-                              <div class="row g-4 align-items-end">
-                                <div class="col-xl-8 col-md-9">
-                                  <div class="form-inner mb-0">
-                                    <label for="schedule_date">
-                                        {{translate("Set Date & Time")}}
-                                    </label>
-                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
-                                      name="schedule_date"
-                                      value="{{old('schedule_date')}}"
-                                      id="schedule_date"/>
-                                  </div>
-                                </div>
-
-                                <div class="col-xl-4 col-md-3">
-                                      <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
-                                      aria-controls="schedule">
-                                        <i class="bi bi-x-lg fs-5"></i>
-                                    </button>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                      </div> --}}
                   </div>
                 </div>
               </div>

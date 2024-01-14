@@ -305,6 +305,26 @@
                         </div>
                     </div>
                 </li>
+
+                <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-0">{{ translate('Frontend Preloader') }}</h6>
+                        <p class="mb-0">
+                            <small>{{ translate("Enabling this feature activates SEO functionalities, optimizing online visibility and enhancing search engine performance for improved digital presence and accessibility") }}</small>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-switch form-switch-md" dir="ltr">
+                            <input
+                                {{ site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }}
+                                type="checkbox" class="form-check-input status-update"
+                                data-key='frontend_preloader'
+                                data-status='{{ site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
+                                data-route="{{ route('admin.setting.update.status') }}" id="frontend_preloader">
+                            <label class="form-check-label" for="frontend_preloader"></label>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

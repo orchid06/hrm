@@ -142,6 +142,7 @@ return [
 
     'database_notifications'    => StatusEnum::false->status(),
     'cookie'                    => StatusEnum::false->status(),
+    'frontend_preloader'        => StatusEnum::false->status(),
     'cookie_text'               => "demo cookie_text",
     'google_map_key'            => "@@",
     'geo_location'              => "map_base",

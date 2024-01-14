@@ -9,7 +9,7 @@ use App\Http\Middleware\SoftwareVerification;
 use Illuminate\Support\Facades\Route;
 
 
-    #Install er route
+    #Install
     Route::controller(InstallerController::class)->prefix("/install")->name('install.')
      ->middleware(['sanitizer'])
      ->withoutMiddleware([SoftwareVerification::class,LanguageMiddleware::class,CurrencySwitcher::class,HttpsMiddleware::class,PurchaseValidation::class])->group(function(){
@@ -28,9 +28,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-   Route::get('invalid-license',[InstallerController::class ,'invalidPuchase'])->name('invalid.puchase')->middleware(['sanitizer'])
+   Route::get('invalid-license',[InstallerController::class ,'invalidPurchase'])->name('invalid.purchase')->middleware(['sanitizer'])
    ->withoutMiddleware([LanguageMiddleware::class,HttpsMiddleware::class,PurchaseValidation::class]);
 
-   Route::post('verify-puchase',[InstallerController::class ,'verifyPuchase'])->name('verify.puchase')->middleware(['sanitizer'])
+   Route::post('verify-purchase',[InstallerController::class ,'verifyPurchase'])->name('verify.puchase')->middleware(['sanitizer'])
    ->withoutMiddleware([LanguageMiddleware::class,HttpsMiddleware::class,PurchaseValidation::class]);
 
