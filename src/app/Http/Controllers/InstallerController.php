@@ -23,7 +23,7 @@ class InstallerController extends Controller
         $this->middleware(function ($request, $next) {
             if($this->is_installed() 
                     && !$request->routeIs('install.setup.finished') 
-                    && !$request->routeIs('invalid.puchase') 
+                    && !$request->routeIs('invalid.purchase') 
                     && !$request->routeIs('verify.puchase')){
                 return redirect()->route('home')->with('success',trans('default.already_installed'));
             }
@@ -271,7 +271,7 @@ class InstallerController extends Controller
      *
      * @return View |RedirectResponse
      */
-    public function invalidPuchase() :View |RedirectResponse
+    public function invalidPurchase() :View |RedirectResponse
     {
         if(!$this->_isPurchased()){
 
@@ -292,7 +292,7 @@ class InstallerController extends Controller
      * @param Request $request
      * @return View |RedirectResponse
      */
-    public function verifyPuchase(Request $request) :View |RedirectResponse
+    public function verifyPurchase(Request $request) :View |RedirectResponse
     {
   
     

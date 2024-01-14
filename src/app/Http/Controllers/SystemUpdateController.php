@@ -23,7 +23,7 @@ class SystemUpdateController extends Controller
     public function __construct(){
         $this->middleware(function ($request, $next) {
             if(!$this->_isPurchased()){
-                return redirect()->route('invalid.puchase');
+                return redirect()->route('invalid.purchase');
             }
             return $next($request);
         });

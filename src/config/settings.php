@@ -231,6 +231,11 @@ return [
             'size' => '25x25',
         ],
 
+        'loader_icon' => [
+            'path' => 'assets/images/global/loader',
+            'size' => '100x100',
+        ],
+
 
         'category' => [
             'path' => 'assets/images/global/category',
@@ -939,7 +944,9 @@ return [
         "site_logo",
         "user_site_logo",
         "favicon",
+        "loader_icon",
         "meta_image",
+
     ],
 
 
