@@ -19,7 +19,6 @@
   background-color: var(--color-white);
 }
 
-
 /* =======For Full Width section======= */
 .section-fluid {
   padding: 0 3%;
@@ -1667,7 +1666,7 @@
 .banner-img-wrapper .banner-img .circle-container {
   position: absolute;
   top: -75px;
-  right: 20px;
+  right: 135px;
 }
 
 .banner-img-wrapper .banner-img .circle-container .circleButton {
@@ -1681,10 +1680,27 @@
   cursor: pointer;
 }
 
+@media (max-width: 991px) and (min-width: 768px) {
+  .banner-img-wrapper .banner-img .circle-container .circleButton {
+    width: 125px;
+  }
+  .banner-img-wrapper .banner-img .circle-container .circleButton .textcircle {
+    width: 125px !important;
+  }
+  .banner-img-wrapper .banner-img .circle-container {
+    top: -75px;
+    right: 75px;
+  }
+}
+
 @media (max-width: 576px) {
   .banner-img-wrapper .banner-img .circle-container .circleButton {
-    width: 120px;
-    font-size: 30px;
+    width: 80px;
+    font-size: 24px;
+  }
+  .banner-img-wrapper .banner-img .circle-container {
+    top: -50px;
+    right: 15px;
   }
 }
 
@@ -1721,6 +1737,11 @@
 }
 .banner-img-wrapper .banner-img .circle-container .circleButton span > a {
   color: var(--color-primary);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .banner-img-wrapper .banner-img .circle-container .circleButton span > a i {
   line-height: 1;
@@ -1742,7 +1763,7 @@
 
 @media (max-width: 576px) {
   .banner-img-wrapper .banner-img .circle-container .circleButton .textcircle {
-    width: 120px;
+    width: 80px;
   }
 }
 
