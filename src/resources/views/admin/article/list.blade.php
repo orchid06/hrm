@@ -204,7 +204,7 @@
                             @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Articles found!!"])
+                                    @include('admin.partials.not_found',['custom_message' => "No Blogs found!!"])
                                 </td>
                             </tr>
                         @endforelse

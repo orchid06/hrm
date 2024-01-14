@@ -524,7 +524,7 @@
               aria-expanded="false" aria-controls="article">
               <span><i class="las la-newspaper"> </i> </span>
               <p>
-                {{translate('Article')}}
+                {{translate('Blogs')}}
               </p>
               <small >
                 <i class="las la-angle-down"></i>
@@ -536,7 +536,7 @@
                     <a class='sidebar-menu-link {{sidebar_awake(["admin.article.list","admin.article.edit"])}}' href='{{route("admin.article.list")}}'>
                     <span></span>
                     <p>
-                      {{translate('Articles')}}
+                      {{translate('Blogs')}}
                     </p>
                     </a>
                 </li>
