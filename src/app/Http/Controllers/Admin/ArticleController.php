@@ -31,10 +31,10 @@ class ArticleController extends Controller
      public function __construct(){
 
         //check permissions middleware
-        $this->middleware(['permissions:view_article'])->only(['list']);
-        $this->middleware(['permissions:create_article'])->only(['store','create']);
-        $this->middleware(['permissions:update_article'])->only(['updateStatus','update','edit','bulk']);
-        $this->middleware(['permissions:delete_article'])->only(['destroy','bulk']);
+        $this->middleware(['permissions:view_blog'])->only(['list']);
+        $this->middleware(['permissions:create_blog'])->only(['store','create']);
+        $this->middleware(['permissions:update_blog'])->only(['updateStatus','update','edit','bulk']);
+        $this->middleware(['permissions:delete_blog'])->only(['destroy','bulk']);
         
         $this->middleware(function (Request $request, Closure $next) {
             $this->categories = Category::article()->get();

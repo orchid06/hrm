@@ -518,7 +518,7 @@
           </div>
         </li>
 
-        @if(check_permission('view_article'))
+        @if(check_permission('view_blog'))
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#article" role="button"
               aria-expanded="false" aria-controls="article">

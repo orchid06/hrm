@@ -517,7 +517,7 @@ use Illuminate\Database\Eloquent\Collection;
 	if (!function_exists('translate')){
       function translate(string | null $keyWord, string $lang_code = null) :string
       {
-         try {
+         // try {
             $lang_code = $lang_code ? $lang_code : App::getLocale();
             $lang_key = preg_replace('/[^A-Za-z0-9\_]/', '', str_replace(' ', '_', strtolower($keyWord)));
             $translate_data = Cache::remember('translations-'.$lang_code,now()->addHour(), function () use($lang_code) {
@@ -539,9 +539,9 @@ use Illuminate\Database\Eloquent\Collection;
                $keyWord = $translate_data[$lang_key];
             }
 
-         } catch (\Throwable $th) {
+         // } catch (\Throwable $th) {
 
-         }
+         // }
 
          return ucwords(strip_tags($keyWord));
       }

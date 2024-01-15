@@ -249,6 +249,15 @@ return [
             'default' => StatusEnum::true->status(),
             'multiple' => StatusEnum::false->status()
         ],
+        [
+            'labels' => 'File',
+            'name' => 'attachment',
+            'placeholder' => 'Upload file',
+            'type' => 'file',
+            'required' => StatusEnum::true->status(),
+            'default' => StatusEnum::true->status(),
+            'multiple' => StatusEnum::true->status()
+        ],
     ]),
     "site_earning"          => StatusEnum::false->status(),
     "continuous_commission" => StatusEnum::false->status(),
