@@ -115,7 +115,7 @@
                                         {{old("display_in")  == $v ? "checked" : ""}}
                                         id="{{ $k }}" value="{{ $v }}" class="form-check-input" name="display_in" type="radio">
                                         <label for="{{ $k }}" class="form-check-label me-2">
-                                            {{translate($k)}}
+                                            {{translate($v == App\Enums\CategoryDisplay::Article->value ? "Blog" :$k)}}
                                         </label>
                                     @endforeach
                                 </div>

@@ -19,7 +19,9 @@
 
     $captcha              = (site_settings('captcha_with_registration'));
     $defaultcaptcha       = (site_settings('default_recaptcha'));
+ 
     $geoCountry           = Arr::get(get_ip_info() , "country",'');
+
 
     $countries            = get_countries();
 
@@ -95,6 +97,8 @@
                           </span>
                         </div>
                     </div>
+                  
+                
 
                     <div class="col-12">
                         <div class="auth-input">
@@ -105,7 +109,7 @@
                                     </option>
                                     @foreach ($countries  as  $country)
 
-                                        <option {{ $geoCountry  == $country || old("country_id") == $country ? 'selected' :""}} value="{{$country->id}}">
+                                        <option {{ strtolower($geoCountry)  == strtolower($country->name) || old("country_id") == $country->id ? 'selected' :""}} value="{{$country->id}}">
                                             {{ $country->name}}
                                         </option>
 

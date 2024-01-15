@@ -55,22 +55,22 @@
     @stack('style-include')
   </head>
   <body>
-    {{-- PreLoader Start --}}
-       <div class="preloader">
-          <div class="preloader-content">
-              <div class="preloader-logo">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 623 619" fill="none">
-                  <path d="M0 84C0 37.6081 37.6081 0 84 0H623V19C623 68.1533 583.153 108 534 108H0V84Z" fill="#10A37F"/>
-                  <path d="M211 257H596V265C596 364.411 515.411 445 416 445H391C291.589 445 211 364.411 211 265V257Z" fill="#C2FA6B"/>
-                  <path d="M0 132V132C111.562 132 202 222.438 202 334V417C202 528.562 111.562 619 0 619V619V132Z" fill="#10A37F"/>
-                  </svg>
-              </div>
+
+      @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status())
+        <div class="preloader">
+            <div class="preloader-content">
+
+                <div class="preloader-logo">
+                     <img src="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}">
+                </div>
                 <div class="loader">
                     <span></span>
                 </div>
-          </div>
-       </div>
-    {{-- PreLoader End --}}
+
+            </div>
+        </div>
+      @endif
+
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))
         @if(!request()->routeIs('user.*'))
             @include('frontend.partials.header')

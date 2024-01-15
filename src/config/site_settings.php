@@ -142,6 +142,7 @@ return [
 
     'database_notifications'    => StatusEnum::false->status(),
     'cookie'                    => StatusEnum::false->status(),
+    'frontend_preloader'        => StatusEnum::false->status(),
     'cookie_text'               => "demo cookie_text",
     'google_map_key'            => "@@",
     'geo_location'              => "map_base",
@@ -247,6 +248,15 @@ return [
             'required' => StatusEnum::true->status(),
             'default' => StatusEnum::true->status(),
             'multiple' => StatusEnum::false->status()
+        ],
+        [
+            'labels' => 'File',
+            'name' => 'attachment',
+            'placeholder' => 'Upload file',
+            'type' => 'file',
+            'required' => StatusEnum::true->status(),
+            'default' => StatusEnum::true->status(),
+            'multiple' => StatusEnum::true->status()
         ],
     ]),
     "site_earning"          => StatusEnum::false->status(),

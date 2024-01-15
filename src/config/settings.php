@@ -130,11 +130,11 @@ return [
             "update_frontend",
         ],
 
-        "article" => [
-            "view_article",
-            "create_article",
-            "update_article",
-            "delete_article"
+        "blog" => [
+            "view_blog",
+            "create_blog",
+            "update_blog",
+            "delete_blog"
         ],
 
 
@@ -229,6 +229,11 @@ return [
         'favicon' => [
             'path' => 'assets/images/global/favicon',
             'size' => '25x25',
+        ],
+
+        'loader_icon' => [
+            'path' => 'assets/images/global/loader',
+            'size' => '100x100',
         ],
 
 
@@ -939,7 +944,9 @@ return [
         "site_logo",
         "user_site_logo",
         "favicon",
+        "loader_icon",
         "meta_image",
+
     ],
 
 

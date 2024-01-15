@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('name',100)->unique();

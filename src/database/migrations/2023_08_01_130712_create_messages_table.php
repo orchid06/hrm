@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('ticket_id')->nullable();
-            $table->string('message')->nullable();
+            $table->longText('message')->nullable();
             $table->timestamps();
         });
     }

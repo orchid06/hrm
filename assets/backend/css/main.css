@@ -4276,7 +4276,7 @@ textarea {
 .profile-details-top {
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .3);
     background-blend-mode: multiply;
     padding: 20px
 }

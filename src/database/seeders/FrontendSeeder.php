@@ -502,7 +502,7 @@ class FrontendSeeder extends Seeder
 
                     "title" => "Work smarter, faster using AI and automation",
                     "sub_title" => "AI CONTENT CREATION",
-                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on EngageHub. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
+                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on Feedswiz. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
                 ]
 
             ],
@@ -513,7 +513,7 @@ class FrontendSeeder extends Seeder
 
                     "title" => "Pre-build Templates for all social",
                     "sub_title" => "Templates",
-                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on EngageHub. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
+                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on Feedswiz. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
                 ]
 
             ],
@@ -536,7 +536,7 @@ class FrontendSeeder extends Seeder
                 "content"  => [
 
                     "title" => "Watch Your Accounts Grow",
-                    "sub_title" => "Why EngageHub",
+                    "sub_title" => "Why Feedswiz",
                     "button_name"=> "View More",
                     "button_url"=> "##",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
@@ -716,9 +716,10 @@ class FrontendSeeder extends Seeder
 
                     "title" => "Latest News",
                     "sub_title" => "Blogs",
-                    "banner_title" => "EngageHub Blog",
+                    "banner_title" => "Feedswiz Blog",
                     "banner_description"=> "Master social media with the latest expert tips & trends: tailored for entrepreneurs, small businesses, and agencies.",
-                    "button_url"=> "##",
+                    "button_name"=> "View More",
+                    "button_url"=> "@@",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
                 ]
 

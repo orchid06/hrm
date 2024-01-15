@@ -11,22 +11,22 @@
                         <input type="hidden" name="value" id="value">
                         <input type="hidden" name="type" id="type">
                     </form>
-                    @if(check_permission('create_article') || check_permission('update_article') || check_permission('delete_article'))
+                    @if(check_permission('create_blog') || check_permission('update_blog') || check_permission('delete_blog'))
                         <div class="col-md-6 d-flex justify-content-start">
-                            @if(check_permission('update_article') || check_permission('delete_article'))
+                            @if(check_permission('update_blog') || check_permission('delete_blog'))
                                 <div class="i-dropdown bulk-action d-none">
                                     <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="las la-cogs fs-15"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        @if(check_permission('delete_article'))
+                                        @if(check_permission('delete_blog'))
                                             <li>
                                                 <button data-type="delete"  class="dropdown-item bulk-action-modal">
                                                     {{translate("Delete")}}
                                                 </button>
                                             </li>
                                         @endif
-                                        @if(check_permission('update_article'))
+                                        @if(check_permission('update_blog'))
 
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
@@ -44,7 +44,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            @if(check_permission('create_article'))
+                            @if(check_permission('create_blog'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
                                         <a href="{{route('admin.article.create')}}"    class="i-btn btn--sm success">
@@ -108,7 +108,7 @@
                     <thead>
                         <tr>
                             <th scope="col">
-                                @if( check_permission('update_article') || check_permission('delete_article'))
+                                @if( check_permission('update_blog') || check_permission('delete_blog'))
                                     <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
                                 @endif#
                             </th>
@@ -137,7 +137,7 @@
 
                             <tr>
                                 <td data-label="#">
-                                    @if(check_permission('create_article') || check_permission('update_article') || check_permission('delete_article'))
+                                    @if(check_permission('create_blog') || check_permission('update_blog') || check_permission('delete_blog'))
                                         <input type="checkbox" value="{{$article->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$article->id}}" />
                                     @endif
                                     {{$loop->iteration}}
@@ -160,7 +160,7 @@
                                 </td>
                                 <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">
-                                        <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                        <input {{!check_permission('update_blog') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="status"
                                             data-route="{{ route('admin.article.update.status') }}"
                                             data-status="{{ $article->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -171,7 +171,7 @@
                                 </td>
                                 <td data-label='{{translate("Feature")}}'>
                                     <div class="form-check form-switch switch-center">
-                                        <input {{!check_permission('update_article') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                        <input {{!check_permission('update_blog') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
                                             data-column="is_feature"
                                             data-route="{{ route('admin.article.update.status') }}"
                                             data-status="{{ $article->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
@@ -182,12 +182,12 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        @if(check_permission('update_article') || check_permission('delete_article') )
+                                        @if(check_permission('update_blog') || check_permission('delete_blog') )
 
-                                            @if(check_permission('update_article') )
+                                            @if(check_permission('update_blog') )
                                                 <a title="{{translate('Update')}}" href="{{route('admin.article.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
-                                            @if(check_permission('delete_article'))
+                                            @if(check_permission('delete_blog'))
 
                                                     <a  title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.article.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
 
@@ -204,7 +204,7 @@
                             @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Articles found!!"])
+                                    @include('admin.partials.not_found',['custom_message' => "No Blogs found!!"])
                                 </td>
                             </tr>
                         @endforelse

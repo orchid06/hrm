@@ -212,7 +212,15 @@ class HomeController extends Controller
 
 
                 if($request->hasFile('image')){
-                    $response = $this->storeFile($request->file('image'), config("settings")['file_path']['profile']['admin']['path']);
+
+                    $oldFile = $admin->file()->where('type','avatar')->first();
+                    $response = $this->storeFile(
+                        file        : $request->file('image'), 
+                        location    : config("settings")['file_path']['profile']['admin']['path'],
+                        removeFile  : $oldFile
+                    );
+
+
                     if(isset($response['status'])){
                         $image = new File([
                             'name'      => Arr::get($response, 'name', '#'),

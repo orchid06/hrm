@@ -159,7 +159,7 @@
 
                  <button class="language-btn" data-bs-toggle="modal" data-bs-target="#langModal">
                     <span class="language-img"><img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}"></span>
-                    <span class="language-title">{{   $langName }} </span>
+                    {{   $langName }}
                 </button>
             </div>
         </div>

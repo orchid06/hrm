@@ -192,7 +192,7 @@
                                                             {{translate("Ai Model")}} 
                                                         </label>
                                 
-                                                        <select   class="select2" id="open_ai_model" name="ai_configuration[open_ai_model]" >
+                                                        <select   class="form-select" id="open_ai_model" name="ai_configuration[open_ai_model]" >
                                                             <option  value="">
                                                                 {{translate("Select Model")}}
                                                             </option>
@@ -207,8 +207,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-inner">
-                                                        <label for="word_limit"
-                                                        class="form-label">{{ translate('No. Of Words') }}
+                                                        <label for="word_limit" >{{ translate('No. Of Words') }}
                                                         <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
                                                         <input type="number" min="-1"
                                                         value="{{@$package->ai_configuration->word_limit}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate('No. of Words')}}"   >
