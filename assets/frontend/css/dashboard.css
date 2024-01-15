@@ -1247,7 +1247,7 @@ select {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: var(--color-dark);
+  background-color: transparent;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -1265,7 +1265,7 @@ select {
   position: absolute;
   height: 2px;
   width: 100%;
-  background-color: var(--color-white);
+  background-color: var(--color-primary);
   border-radius: 9px;
   opacity: 1;
   left: 0;
@@ -1291,21 +1291,11 @@ select {
   width: 10px;
 }
 
-.mobile-menu-btn.clicked .burger > span:nth-of-type(1) {
-  transform: rotate(45deg);
-  top: -3px;
-  left: 4px;
-}
-
 .mobile-menu-btn.clicked .burger > span:nth-of-type(2) {
-  width: 0%;
-  opacity: 0;
+  width: 100%;
 }
 
 .mobile-menu-btn.clicked .burger > span:nth-of-type(3) {
-  transform: rotate(-45deg);
-  top: 14px;
-  left: 4px;
   width: 100%;
 }
 
