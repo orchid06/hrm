@@ -30,23 +30,24 @@
                     </div>
 
                     <div class="closer-sidebar">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        x="0"
-                        y="0"
-                        viewBox="0 0 426.667 426.667">
-                        <g>
-                        <path
-                            d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
-                            opacity="1"
-                            data-original="#000000"
-                        ></path>
-                        </g>
-                    </svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0"
+                            y="0"
+                            viewBox="0 0 426.667 426.667">
+                            <g>
+                            <path
+                                d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
+                                opacity="1"
+                                data-original="#000000"
+                            ></path>
+                            </g>
+                        </svg>
                     </div>
                 </div>
+
                 <div class="sidebar-wrapper">
                     <nav>
                         <ul class="menu-list">
@@ -132,9 +133,10 @@
                                                                 @forelse ($platforms   as  $platform)
                                                                 <a href="{{route('user.social.post.create')}}" class="menu-social-item">
                                                                     <div class="social-item-img">
-                                                                    <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                                        alt="{{@$platform->file->name}}" loading="lazy" />
+                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
                                                                     </div>
+
                                                                     <div>
                                                                         <h6> {{$platform->name}}</h6>
                                                                         <p>     {{$platform->description}}</p>
@@ -148,6 +150,31 @@
 
                                                                 @endforelse
 
+                                                                <a href="javascript:void(0)" class="menu-social-item coming-soon">
+                                                                    <div class="social-item-img">
+                                                                        <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
+                                                                    </div>
+
+                                                                    <div class="coming-soon-loader">
+                                                                        <span></span>
+                                                                        <span ></span>
+
+                                                                        <p> {{translate('Coming Soon')}}...</p>
+                                                                    </div>
+                                                                </a>
+
+                                                                <a href="javascript:void(0)" class="menu-social-item coming-soon">
+                                                                    <div class="social-item-img">
+                                                                        <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
+                                                                    </div>
+
+                                                                    <div class="coming-soon-loader">
+                                                                        <span></span>
+                                                                        <span ></span>
+
+                                                                        <p> {{translate('Coming Soon')}}...</p>
+                                                                    </div>
+                                                                </a>
 
                                                             </div>
                                                             </div>
@@ -212,7 +239,7 @@
         </div>
 
         <div class="nav-right d-flex jsutify-content-end align-items-center gap-sm-3 gap-2">
-   
+
 
             <div class="currency">
                     <button class="dropdown-toggle"
@@ -221,7 +248,6 @@
                         aria-expanded="false">
                         {{session()->get('currency')?->code}}
                     </button>
-
 
                     @if($currencies->count() > 0)
                         <ul class="dropdown-menu dropdown-menu-end">

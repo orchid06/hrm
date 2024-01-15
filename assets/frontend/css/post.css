@@ -774,20 +774,20 @@
   padding: 15px 20px;
 }
 
-.schedule-btn{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 45px;
-    max-height: 100px;
-    overflow-y: auto;
-    line-height: 1.1;
-    border: 1px solid var(--border-light);
-    color: var(--text-secondary);
-    background-color: transparent;
-    border-radius: 4px;
-    padding: 12px;
-    width: 100%;
+.schedule-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 45px;
+  max-height: 100px;
+  overflow-y: auto;
+  line-height: 1.1;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 12px;
+  width: 100%;
 }
 /* =================Custom File Uploader  Design================= */
 .upload-filed > input {

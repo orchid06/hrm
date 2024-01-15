@@ -619,6 +619,7 @@
   gap: 15px;
   padding: 17px 30px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 @media (max-width: 991px) {
@@ -687,50 +688,32 @@
   .maga-menu-item.menu-feature
   ul
   li
-  .menu-feature-item:hover
+  .menu-feature-item.hover
   + .sub-mega-menu {
   opacity: 1;
   visibility: visible;
   display: block;
 }
-
-@media (max-width: 991.98px) {
-  .mega-menu-wrapper
-    .mega-menu-left
-    .maga-menu-item.menu-feature
-    ul
-    li
-    .menu-feature-item:hover
-    + .sub-mega-menu {
-    opacity: 0;
-    visibility: hidden;
-    display: none;
-  }
-  @media (hover: hover) {
-    .mega-menu-wrapper
-      .mega-menu-left
-      .maga-menu-item.menu-feature
-      ul
-      li
-      .menu-feature-item:hover
-      + .sub-mega-menu {
-      opacity: 1;
-      visibility: visible;
-      display: block;
-    }
-  }
-  .mega-menu-wrapper
-    .mega-menu-left
-    .maga-menu-item.menu-feature
-    ul
-    li
-    .menu-feature-item.hover
-    + .sub-mega-menu {
-    opacity: 1;
-    visibility: visible;
-    display: block;
-  }
+.mega-menu-wrapper
+  .mega-menu-left
+  .maga-menu-item.menu-feature
+  ul
+  li
+  > .menu-feature-item.hover {
+  background-color: var(--site-bg);
 }
+
+.mega-menu-wrapper
+  .mega-menu-left
+  .maga-menu-item.menu-feature
+  ul
+  li
+  > .menu-feature-item.hover
+  div
+  h6 {
+  color: var(--color-primary);
+}
+
 .mega-menu-wrapper
   .mega-menu-left
   .maga-menu-item.menu-feature
@@ -952,7 +935,39 @@
   line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+.menu-social-item.coming-soon{
+  cursor: default;
+}
 
+.coming-soon-loader{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.coming-soon-loader >span{
+    background-color: var(--border-light);
+    height: 13px;
+    width: 100%;
+    display: inline-block;
+    border-radius: 2px;
+    animation: myAnim 1.5s ease-in-out 0s infinite normal forwards;
+  }
+.coming-soon-loader >span:first-child{
+  width: 70%;
+}
+@keyframes myAnim {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+	}
+
+	25%,
+	75% {
+		opacity: 0.4;
+	}
+}
 .mega-menu-wrapper .mega-menu-right .mega-menu-banner {
   height: 100%;
   width: 100%;
