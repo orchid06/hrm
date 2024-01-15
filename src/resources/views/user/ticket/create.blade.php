@@ -28,7 +28,7 @@
                           $field_name = $ticket_field['name'];
                         }
                     @endphp
-                        <div class="col-lg-{{$ticket_field['type'] == 'textarea' || $ticket_field['name'] == 'subject' ? 12 :6}}">
+                        <div class="col-lg-12">
 
                             <div class="form-inner mb-0">
                                 <label for="{{$loop->index}}" class="form-label">

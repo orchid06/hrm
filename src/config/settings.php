@@ -130,11 +130,11 @@ return [
             "update_frontend",
         ],
 
-        "article" => [
-            "view_article",
-            "create_article",
-            "update_article",
-            "delete_article"
+        "blog" => [
+            "view_blog",
+            "create_blog",
+            "update_blog",
+            "delete_blog"
         ],
 
 

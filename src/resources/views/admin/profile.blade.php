@@ -7,6 +7,7 @@
 			<div class="profile-info">
 				<div class="image">
 
+					
 					<img src='{{imageUrl(@$user->file,"profile,admin",true)}}' alt="{{@$user->file->name}}" />
 				</div>
 				<div class="designation">

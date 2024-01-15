@@ -180,7 +180,7 @@ class AiTemplateController extends Controller
     }
 
     /**
-     * Update a specific Article status
+     * Update a specific template status
      *
      * @param Request $request
      * @return string

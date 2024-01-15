@@ -76,9 +76,9 @@
                                     </span>
 
                                     <h4>  @if($plan->discount_price > 0) <del>
-                                      {{num_format( number : $plan->price,decimal:0,
-                                                  calC:true)}}</del> {{num_format( number : $plan->discount_price,decimal:0,
-                                                  calC:true)}} @else {{num_format( number : $plan->price,decimal:0,
+                                      {{num_format( number : $plan->price,
+                                                  calC:true)}}</del> {{num_format( number : $plan->discount_price,
+                                                  calC:true)}} @else {{num_format( number : $plan->price,
                                                   calC:true)}}@endif<span>/{{ucfirst(strtolower($key))}}</span></h4>
                                     <p>
                                       {{$plan->description}}

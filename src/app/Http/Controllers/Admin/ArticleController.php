@@ -31,10 +31,10 @@ class ArticleController extends Controller
      public function __construct(){
 
         //check permissions middleware
-        $this->middleware(['permissions:view_article'])->only(['list']);
-        $this->middleware(['permissions:create_article'])->only(['store','create']);
-        $this->middleware(['permissions:update_article'])->only(['updateStatus','update','edit','bulk']);
-        $this->middleware(['permissions:delete_article'])->only(['destroy','bulk']);
+        $this->middleware(['permissions:view_blog'])->only(['list']);
+        $this->middleware(['permissions:create_blog'])->only(['store','create']);
+        $this->middleware(['permissions:update_blog'])->only(['updateStatus','update','edit','bulk']);
+        $this->middleware(['permissions:delete_blog'])->only(['destroy','bulk']);
         
         $this->middleware(function (Request $request, Closure $next) {
             $this->categories = Category::article()->get();
@@ -53,8 +53,8 @@ class ArticleController extends Controller
 
         return view('admin.article.list',[
 
-            'breadcrumbs'  => ['Home'=>'admin.home','Articles'=> null],
-            'title'        => 'Manage Article',
+            'breadcrumbs'  => ['Home'=>'admin.home','Blogs'=> null],
+            'title'        => 'Manage Blogs',
             'articles'     => Article::search(['title'])
                                 ->filter(["status",'category:slug','is_feature'])
                                 ->latest()
@@ -78,8 +78,8 @@ class ArticleController extends Controller
     public function create() :View{
 
         return view('admin.article.create',[
-            'breadcrumbs' =>  ['Home'=>'admin.home','Articles'=> 'admin.article.list',"Create"=>null],
-            'title'       => 'Create Article',
+            'breadcrumbs' =>  ['Home'=>'admin.home','Blogs'=> 'admin.article.list',"Create"=>null],
+            'title'       => 'Create Blog',
             'categories'  =>  $this->categories,
         ]);
 
@@ -131,8 +131,8 @@ class ArticleController extends Controller
     public function edit(string $uid) :View{
 
         return view('admin.article.edit',[
-            'breadcrumbs' => ['Home'=>'admin.home','Articles'=> 'admin.article.list',"Edit"=>null],
-            'title'       => 'Update Article',
+            'breadcrumbs' => ['Home'=>'admin.home','Blogs'=> 'admin.article.list',"Edit"=>null],
+            'title'       => 'Update Blog',
             'categories'  => $this->categories,
             'article'     => Article::where('uid',$uid)->firstOrfail()
         ]);

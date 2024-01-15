@@ -56,8 +56,8 @@ class RegisterController extends Controller
         $response = response_status(translate("Something went wrong!! please try again"),'error');
         try {
             
-            if($request->has('referral_code')){
-                $refferedBy = User::active()->where('referral_code',$request->input('referral_code'))->first();
+            if($request->get('referral_code',null)){
+                $refferedBy = User::active()->where('referral_code',$request->input('referral_code',null))->first();
             }
 
             $user                       =  new User();
@@ -68,7 +68,7 @@ class RegisterController extends Controller
             $user->address              =  $request->input('address',[]);
             $user->password             =  $request->input('password');
             $user->country_id           =  $request->input('country_id');
-            $user->referral_id          =  $refferedBy?->id;
+            $user->referral_id          =  @$refferedBy?->id;
             $user->save();
 
             $package = Package::active()->where('id',site_settings('signup_bonus',-1))->first();

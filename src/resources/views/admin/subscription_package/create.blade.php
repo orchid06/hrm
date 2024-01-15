@@ -120,7 +120,7 @@
                                                         <label for="platform_access">
                                                             {{translate("Platform Access")}} <small class="text-danger" >*</small>
                                                         </label>
-                                                        <select required multiple class="select2" id="platform_access" name="social_access[platform_access][]" >
+                                                        <select required multiple class="platformSelect" id="platform_access" name="social_access[platform_access][]" >
                                                             <option  value="">
                                                                 {{translate("Select Platform")}}
                                                             </option>
@@ -191,7 +191,7 @@
                                                         <label for="open_ai_model">
                                                             {{translate("Ai Model")}}
                                                         </label>
-                                                        <select   class="select2" id="open_ai_model" name="ai_configuration[open_ai_model]" >
+                                                        <select   class="ai-select2 form-select" id="open_ai_model" name="ai_configuration[open_ai_model]" >
                                                             <option  value="">
                                                                 {{translate("Select Model")}}
                                                             </option>
@@ -239,6 +239,12 @@
            $(".select2").select2({
 			   placeholder:"{{translate('Select Item')}}",
 	     	})
+
+            $(".platformSelect").select2({
+                placeholder:"{{translate('Select Item')}}",
+                dropdownParent: $("#socailSection"),
+            })
+         
 
             $('.select-template').select2({
 

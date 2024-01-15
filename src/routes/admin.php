@@ -316,7 +316,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           });
 
           #Article section
-          Route::controller(ArticleController::class)->prefix("/article")->name('article.')->group(function(){
+          Route::controller(ArticleController::class)->prefix("/blog")->name('article.')->group(function(){
 
                Route::get('/list','list')->name('list');
                Route::get('/create','create')->name('create');

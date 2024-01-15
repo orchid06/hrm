@@ -29,7 +29,7 @@
       </div>
 
       <div class="row gx-4 gy-5">
-        <div class="col-lg-8">
+        <div class="col-lg-8 pe-xl-5">
           <div class="blog-thumbnail">
             <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
           </div>
