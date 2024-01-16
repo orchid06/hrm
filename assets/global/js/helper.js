@@ -72,26 +72,28 @@ $(document).on('click','.code-generate',function(e){
  $(document).on('click','.key-generate',function(e){
 
 
-    $("#webhook_api_key").val(generateSecureApiKey());
+    $("#webhook_api_key").val(generateSecureApiKey(32));
 
     toastr( "New key generated",'success')
      e.preventDefault()
  })
 
  function generateSecureApiKey(length = 32) {
-     const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_';
-     let apiKey = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuv==wxyz0123456789+/';
+    let result = '';
 
-     for (let i = 0; i < length; i++) {
-         const randomIndex = Math.floor(Math.random() * characters.length);
-         apiKey += characters.charAt(randomIndex);
-         if (i > 0 && (i + 1) % 4 === 0 && i !== length - 1) {
-             apiKey += '-';
-         }
-     }
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
 
-     return apiKey;
- }
+    while (result.length % 4 !== 0) {
+        result += '=';
+    }
+
+    return result;
+}
+
 
 
 $(document).on('click', '.copy-text ', function (e) {
