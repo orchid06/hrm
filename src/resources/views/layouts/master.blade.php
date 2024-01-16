@@ -11,6 +11,7 @@
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/frontend/css/venobox.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/nice-select.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/root.css')}}" rel="stylesheet" type="text/css" />
@@ -59,7 +60,6 @@
       @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status())
         <div class="preloader">
             <div class="preloader-content">
-
                 <div class="preloader-logo">
                      <img src="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}">
                 </div>
@@ -106,6 +106,7 @@
     @endif
 
     <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>
+    <script src="{{asset('assets/frontend/js/venobox.min.js')}}"></script>
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
     @if(request()->routeIs('user.*'))
