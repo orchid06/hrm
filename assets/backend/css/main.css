@@ -1059,11 +1059,7 @@ button {
     border-left: 3px solid rgba(0, 0, 0, 0);
     color: var(--text-primary);
     border-radius: 0;
-<<<<<<< HEAD
-    padding: 10px 16px;
-=======
     padding: 8px 12px;
->>>>>>> 642cc640a13bc44629b45d035fc1d9d971cb9f5b
     font-size: 15px;
     font-weight: 400;
     -webkit-clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);

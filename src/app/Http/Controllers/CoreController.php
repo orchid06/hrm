@@ -19,6 +19,7 @@ use App\Models\Core\Language;
 use App\Models\Core\Setting;
 use App\Models\MediaPlatform;
 use App\Models\Package;
+use App\Models\PostWebhookLog;
 use App\Models\SocialPost;
 use App\Models\Subscriber;
 use App\Models\Subscription;
@@ -670,9 +671,23 @@ class CoreController extends Controller
      /**
       * Handle post webhook
       *
-      * @return void
       */
-    public function postWebhook():void{
+    public function postWebhook(string $uid  = null) {
+
+        $hubToken   = request()->query('hub_verify_token');
+        $apiKey     = site_settings("webhook_api_key");
+        $usersCount = User::where('webhook_api_key',  $hubToken )->count();
+
+        if ($apiKey  == $hubToken || $usersCount > 0 ) {
+            return response(request()->query('hub_challenge'));
+        }
+        
+        $user = User::where('uid',$uid)->first();
+        
+        PostWebhookLog::create([
+            'user_id'           =>  $user?  $user->id : null,
+            'webhook_response'  => request()->all()
+        ]);
 
     }
 

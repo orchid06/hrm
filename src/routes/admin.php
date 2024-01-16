@@ -502,12 +502,16 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
                #kyc reports
                Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){
-
                     Route::get('/','kycReport')->name('list');
                     Route::get('/details/{id}','kycDetails')->name('details');
                     Route::post('/update','kycUpdate')->name('update');
-                    
+               
+               });
 
+               #kyc reports
+               Route::prefix("/webhook/reports")->name('webhook.report.')->group(function(){
+                    Route::get('/','webhookReport')->name('list');
+                    Route::get('/destroy/{id}','destroyWebhook')->name('destroy');
                });
                
           });

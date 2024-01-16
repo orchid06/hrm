@@ -270,7 +270,7 @@
                                                                 </label>
                                                                 <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
                                                                     name="schedule_date"
-                                                                    value="{{old("schedule_date")}}"
+                                                                    value="{{old('schedule_date')}}"
                                                                     id="schedule_date"/>
                                                             </div>
                                                         </div>
@@ -317,13 +317,13 @@
                             <div class="nav" role="tablist" id="preview-tab" aria-orientation="horizontal">
 
                                 @foreach ($platforms as $platform )
-                                <a class="nav-link pre-tab-item {{$loop->index ==  0 ? 'active' :''}}" id="{{$platform->slug}}-tab" data-bs-toggle="pill" href="#{{$platform->slug}}" role="tab" aria-controls="{{$platform->slug}}"
-                                    aria-selected="false"
-                                    tabindex="-1">
-                                    <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
-                                        <img src="{{imageUrl(@$platform->file,"platform",true)}}" alt="{{imageUrl(@$platform->file,"platform",true)}}"/>
-                                    </div>
-                                </a>
+                                    <a class="nav-link pre-tab-item {{$loop->index ==  0 ? 'active' :''}}" id="{{$platform->slug}}-tab" data-bs-toggle="pill" href="#{{$platform->slug}}" role="tab" aria-controls="{{$platform->slug}}"
+                                        aria-selected="false"
+                                        tabindex="-1">
+                                        <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
+                                            <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+                                        </div>
+                                    </a>
                                 @endforeach
 
                             </div>

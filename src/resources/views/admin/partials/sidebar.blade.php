@@ -315,7 +315,7 @@
                   <i class="las la-angle-down"></i>
                 </small>
             </a>
-            <div class='side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*","admin.subscription.report.*","admin.payment.report.*","admin.transaction.report.*","admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*" ,"admin.affiliate.report.*","admin.kyc.report.*"],"drop_down")}}' id="report">
+            <div class='side-menu-dropdown collapse {{sidebar_awake(["admin.template.report.*","admin.subscription.report.*","admin.payment.report.*","admin.transaction.report.*","admin.credit.report.*","admin.withdraw.report.*","admin.deposit.report.*" ,"admin.affiliate.report.*","admin.kyc.report.*","admin.webhook.*"],"drop_down")}}' id="report">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
                   <a  href='{{route("admin.template.report.list")}}'  class='sidebar-menu-link {{sidebar_awake("admin.template.report.list")}}'>
@@ -393,6 +393,16 @@
                     </p>
                   </a>
                 </li>
+
+                <li class="sub-menu-item">
+                    <a class='sidebar-menu-link {{sidebar_awake("admin.webhook.report.*")}}'  href='{{route("admin.webhook.report.list")}}'>
+                      <span></span>
+                      <p>
+                        {{translate('Webhook Reports')}}
+                      </p>
+                    </a>
+                </li>
+                
               </ul>
             </div>
           </li>

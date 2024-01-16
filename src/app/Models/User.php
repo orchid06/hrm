@@ -290,6 +290,19 @@ class User extends Authenticatable
     }
 
 
+    
+    /**
+     * Get all of social wevhook logs
+     *
+     * @return HasMany
+     */
+    public function webhookLogs(): HasMany
+    {
+        return $this->hasMany(PostWebhookLog::class, 'user_id');
+    }
+
+
+
 
 
     

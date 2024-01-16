@@ -153,6 +153,7 @@ class PaymentMethodController extends Controller
         DB::transaction(function() use ($request) {
 
             $method                     = PaymentMethod::with(['file'])->type()->where('id',$request->input('id'))->firstOrfail();
+            $method->name               = $request->input("name");
             $method->serial_id          = $request->input("serial_id");
             $method->currency_id        = $request->input("currency_id");
             $method->percentage_charge  = $request->input("percentage_charge");

@@ -31,7 +31,7 @@ class DemoMode
             }
             return $next($request);
         } catch (\Throwable $th) {
-            //throw $th;
+           
         }
       
         return $next($request);

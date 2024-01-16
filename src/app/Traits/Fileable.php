@@ -118,6 +118,7 @@ trait Fileable
             else{
 
                 $this->{$this->storage[$file->disk]}();
+                
                 if(Storage::disk($file->disk)->exists($location . '/' . @$file->name)){
                     Storage::disk($file->disk)->delete($location . '/' . @$file->name);
                 }

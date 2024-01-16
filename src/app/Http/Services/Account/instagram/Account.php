@@ -277,7 +277,7 @@ class Account
                 }
                 
                 if(count($medias) < 2){
-                    $response = $igAuth->uploadPhoto($post->account->account_id, $medias[0], $post->content??"feed",);
+                    $response = $igAuth->uploadPhoto($post->account->account_id, $medias[0], $post->content??"feed");
                 }
                 else{
                     $response = $igAuth->generateAlbum($post->account->account_id, $medias,$post->content??"feed", 0);

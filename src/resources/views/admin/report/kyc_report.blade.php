@@ -131,6 +131,7 @@
 	(function($){
 
         "use strict";
+        
         $(".user").select2({
 
         });

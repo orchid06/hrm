@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('trx_code',255)->nullable();
             $table->text('custom_data')->nullable();
             $table->text('feedback')->nullable();
+            $table->longText('gateway_response')->nullable();
             $table->enum('status',[-1,1,2,3,4,5])->comment('Paid: 1, Cancel: 2, Pening: 3, Failed: 4, Rejected: 5, Initiate: -1');
             $table->timestamps();
         });

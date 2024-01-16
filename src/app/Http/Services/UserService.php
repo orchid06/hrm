@@ -393,7 +393,12 @@ class UserService
 
 
                 $continuousCommission  = site_settings("continuous_commission");
-                $affiliateBonus        =  $continuousCommission == StatusEnum::true->status() || Subscription::where('user_id', $user->id)->count() < 1;
+                $signUpPackage         = Package::active()->where('id',site_settings('signup_bonus',-1))->first();
+
+                $affiliateBonus        =  $continuousCommission == StatusEnum::true->status() || Subscription::where('user_id', $user->id)
+                                                                                                    ->when($signUpPackage ,function($query) use($signUpPackage) {
+                                                                                                        return $query->where('package_id','!=',@$signUpPackage->id);
+                                                                                                    })->count() < 2;
 
                 if(site_settings("affiliate_system") == StatusEnum::true->status() && $user->referral && $affiliateBonus && $subscription->package->affiliate_commission > 0  ){
 

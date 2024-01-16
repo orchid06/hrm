@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\PaymentMethod;
 use App\Models\AffiliateLog;
@@ -10,6 +11,7 @@ use App\Models\CreditLog;
 use App\Models\KycLog;
 use App\Models\Package;
 use App\Models\PaymentLog;
+use App\Models\PostWebhookLog;
 use App\Models\Subscription;
 use App\Models\TemplateUsage;
 use App\Models\Transaction;
@@ -17,17 +19,23 @@ use App\Models\User;
 use App\Models\WithdrawLog;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ReportController extends Controller
 {
     
 
-    protected $user;
+    protected $user ,$subscription,$accessPlatforms,$webhookAccess;
 
     public function __construct(){
 
         $this->middleware(function ($request, $next) {
             $this->user = auth_user('web');
+            $this->subscription           = $this->user->runningSubscription;
+            $this->accessPlatforms        = (array) ($this->subscription ? @$this->subscription->package->social_access->platform_access : []);
+            $this->webhookAccess          = @optional($this->subscription->package->social_access)
+                                                 ->webhook_access;
+            
             return $next($request);
         });
     }
@@ -297,6 +305,39 @@ class ReportController extends Controller
         ]);
 
     }
+
+
+
+    
+    /**
+     * webhook report
+     *
+     * @return View
+     */
+    public function webhookReport() :View | RedirectResponse{
+
+
+        if($this->webhookAccess == StatusEnum::true->status()){
+
+            return view('user.report.webhook_report',[
+
+                'meta_data'       => $this->metaData(['title'=> translate("Webhook Reports")]),
+                "reports"         => PostWebhookLog::where('user_id',$this->user->id)
+                                            ->date()               
+                                            ->latest()
+                                            ->paginate(paginateNumber())
+                                            ->appends(request()->all()),
+
+            ]);
+        }
+
+        return redirect()->route('user.home')->with('error',translate('You current plan doesnot have webhook access'));
+       
+    }
+
+
+
+    
 
 
    

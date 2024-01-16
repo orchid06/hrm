@@ -52,7 +52,7 @@ class AuthorizationMiddleware
 
             
         } catch (\Throwable $th) {
-            //throw $th;
+           
         }
 
 

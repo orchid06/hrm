@@ -350,8 +350,8 @@ class UserController extends Controller
                     });
 
    
-
-        return back()->with(response_status('KYC application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
+        return redirect()->route("user.kyc.report.list")->with(response_status('KYC application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
+     
     }
 
 

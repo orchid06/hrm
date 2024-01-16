@@ -540,7 +540,7 @@ return [
 
         "Coinbase Commerce" => [
 
-            "code"             => "Coinbase",
+            "code"             => "coinbase",
             "serial_id"        => "24",
             "currency_id"      => "1",
             "parameters"       => [

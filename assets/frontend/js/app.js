@@ -1,5 +1,5 @@
 (function () {
-  ("use strict");
+  "use strict";
 
   // Preloader
   const preloader = document.querySelector(".preloader");

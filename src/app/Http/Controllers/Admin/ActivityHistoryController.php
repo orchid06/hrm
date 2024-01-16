@@ -27,6 +27,7 @@ use App\Models\AiTemplate;
 use App\Models\CreditLog;
 use App\Models\KycLog;
 use App\Models\Package;
+use App\Models\PostWebhookLog;
 use App\Models\TemplateUsage;
 use App\Models\WithdrawLog;
 use App\Traits\ModelAction;
@@ -60,7 +61,8 @@ class ActivityHistoryController extends Controller
                     'withdrawDetails',
                     'kycReport',
                     'kycDetails',
-                    'kycUpdate'
+                    'kycUpdate',
+                    'webhookReport'
                 ]);
 
         $this->middleware(['permissions:delete_report'])
@@ -71,7 +73,8 @@ class ActivityHistoryController extends Controller
                     'destroyTransaction',
                     'transactionBulk',
                     'depostiBulk',
-                    'destroyDeposit'
+                    'destroyDeposit',
+                    'destroyWebhook'
                 ]);
     }
 
@@ -646,6 +649,49 @@ class ActivityHistoryController extends Controller
 
     
     }
+
+
+    /**
+     * webhook report
+     *
+     * @return View
+     */
+
+     public function webhookReport() :View{
+
+
+        return view('admin.report.webhook_report',[
+
+            'breadcrumbs'     =>  ['Home'=>'admin.home','Webhook Reports'=> null],
+            'title'           => 'Webhook Reports',
+            "reports"         => PostWebhookLog::whereNull('user_id')
+                                    ->date()               
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all()),
+         
+        ]);
+
+    
+    }
+
+
+    /**
+     * webhook report Delete
+     *
+     * @return RedirectResponse
+     */
+
+     public function destroyWebhook(int | string $id) :RedirectResponse{
+
+
+        $report  = PostWebhookLog::whereNull('user_id')->where('id',$id)->firstOrfail();
+        $report->delete();
+        return  back()->with(response_status('Deleted Successfully'));
+
+    
+    }
+
 
 
 

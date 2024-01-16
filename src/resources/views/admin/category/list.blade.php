@@ -25,17 +25,6 @@
                                                     <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
                                                 </li>
                                             @endforeach
-
-                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                                <li>
-                                                    <button type="button" name="bulk_status" data-type ="is_feature" value="{{$v}}" class="dropdown-item bulk-action-btn" > 
-
-                                                        {{$v == App\Enums\StatusEnum::true->status() ? 'Feature' :"Exclude "}}
-                                                    
-                                                    </button>
-                                                </li>
-                                            @endforeach
-
                                         @endif
                                     </ul>
                                 </div>
@@ -104,9 +93,7 @@
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
-                            <th scope="col">
-                                {{translate('Feature')}}
-                            </th>
+                           
                             <th scope="col">
                                 {{translate('Options')}}
                             </th>
@@ -182,17 +169,7 @@
                                             <label class="form-check-label" for="status-switch-{{$category->id}}"></label>
                                         </div>
                                     </td>
-                                    <td data-label='{{translate("Feature")}}'>
-                                        <div class="form-check form-switch switch-center">
-                                            <input {{!check_permission('update_category') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                data-column="is_feature"
-                                                data-route="{{ route('admin.category.update.status') }}"
-                                                data-status="{{ $category->is_feature == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                data-id="{{$category->uid}}" {{$category->is_feature ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                            id="status-switch-feature-{{$category->id}}" >
-                                            <label class="form-check-label" for="status-switch-feature-{{$category->id}}"></label>
-                                        </div>
-                                    </td>
+                                   
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_category') || check_permission('delete_category') )
