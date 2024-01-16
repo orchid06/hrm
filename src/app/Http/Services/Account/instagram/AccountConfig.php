@@ -766,8 +766,8 @@ class AccountConfig
 
 	private function buildUserAgent ( $app_version = '107.0.0.27.121', $version_code = '168361634' )
 	{
-		$this->deviceParams[ 'appVersion' ]  = $app_version;  //'203.0.0.29.118' - '314665256';
-		$this->deviceParams[ 'versionCode' ] = $version_code; //'314665256';
+		$this->deviceParams[ 'appVersion' ]  = $app_version; 
+		$this->deviceParams[ 'versionCode' ] = $version_code;
 		$this->deviceParams[ 'userLocale' ]  = 'en_US';
 
 		$deviceString = $this->getSettings( 'devicestring' );
@@ -919,8 +919,8 @@ class AccountConfig
 		$entity_name = sprintf( '%s_%d_%d', $uploadId, 0, $this->hashCode( basename( $photo ) ) );
 		$endpoint    = 'https://i.instagram.com/rupload_igphoto/' . $entity_name;
 
-		// try
-		// {
+		try
+		{
 			$imageContent = @file_get_contents($photo);
 
 			if ($imageContent !== false) {
@@ -942,11 +942,11 @@ class AccountConfig
 			] )->getBody();
 
 			$response = json_decode( $response, true );
-		// }
-		// catch (\Exception $e )
-		// {
-		// 	$response = [];
-		// }
+		}
+		catch (\Exception $e )
+		{
+			$response = [];
+		}
 
 		return $response;
 	}
@@ -978,7 +978,6 @@ class AccountConfig
 						'X-IG-Device-Locale'          => 'en_US',
 						'X-IG-Mapped-Locale'          => 'en_US',
 						'X-IG-App-Startup-Country'    => 'US',
-						//'X-Bloks-Version-Id' => '5fd5e6e0f986d7e592743211c2dda24efc502cff541d7a7cfbb69da25b293bf1',
 						'X-IG-WWW-Claim'              => '0',
 						'X-Bloks-Is-Layout-RTL'       => 'false',
 						'X-Bloks-Is-Panorama-Enabled' => 'true',
@@ -997,7 +996,6 @@ class AccountConfig
 						'X-FB-Server-Cluster'         => 'True',
 						'IG-INTENDED-USER-ID'         => $this->getSettings( 'account_id' ),
 						'X-IG-Nav-Chain'              => '9MV:self_profile:2,ProfileMediaTabFragment:self_profile:3,9Xf:self_following:4',
-						//'Authorization' => 'Bearer IGT:2:eyJkc191c2VyX2lkIjoiNDkxNTQyNjk4NDYiLCJzZXNzaW9uaWQiOiI0OTE1NDI2OTg0NiUzQTJSUE1GV2dvN3liaFQ2JTNBMjUiLCJzaG91bGRfdXNlX2hlYWRlcl9vdmVyX2Nvb2tpZXMiOnRydWV9',
 						'Content-Type'                => 'application/x-www-form-urlencoded; charset=UTF-8',
 						'IG-U-DS-USER-ID'             => $this->getSettings( 'account_id' ),
 						'X-Ads-Opt-Out'               => '0',
@@ -1041,7 +1039,6 @@ class AccountConfig
 						'X-IG-Device-Locale'          => 'en_US',
 						'X-IG-Mapped-Locale'          => 'en_US',
 						'X-IG-App-Startup-Country'    => 'US',
-						//'X-Bloks-Version-Id' => '5fd5e6e0f986d7e592743211c2dda24efc502cff541d7a7cfbb69da25b293bf1',
 						'X-IG-WWW-Claim'              => '0',
 						'X-Bloks-Is-Layout-RTL'       => 'false',
 						'X-Bloks-Is-Panorama-Enabled' => 'true',
@@ -1060,7 +1057,6 @@ class AccountConfig
 						'X-FB-Server-Cluster'         => 'True',
 						'IG-INTENDED-USER-ID'         => $this->getSettings( 'account_id' ),
 						'X-IG-Nav-Chain'              => '9MV:self_profile:2,ProfileMediaTabFragment:self_profile:3,9Xf:self_following:4',
-						//'Authorization' => 'Bearer IGT:2:eyJkc191c2VyX2lkIjoiNDcwNzQ3MDE3MDIiLCJzZXNzaW9uaWQiOiI0NzA3NDcwMTcwMiUzQUtUdFdab0NoQllYSXNpJTNBMjYiLCJzaG91bGRfdXNlX2hlYWRlcl9vdmVyX2Nvb2tpZXMiOnRydWV9',
 						'Content-Type'                => 'application/x-www-form-urlencoded; charset=UTF-8',
 						'IG-U-DS-USER-ID'             => $this->getSettings( 'account_id' ),
 						'X-Ads-Opt-Out'               => '0',
@@ -1088,7 +1084,6 @@ class AccountConfig
 			{
 				$link_y = 0;
 
-				//$link_x = (float) $photo['width'];
 				$link_y = $link_y / $photo_info[ 'height' ];
 
 				$this->client->post( 'https://i.instagram.com/api/v1/media/validate_reel_url/', [
@@ -1102,7 +1097,6 @@ class AccountConfig
 						'X-IG-Device-Locale'          => 'en_US',
 						'X-IG-Mapped-Locale'          => 'en_US',
 						'X-IG-App-Startup-Country'    => 'US',
-						//'X-Bloks-Version-Id' => '5fd5e6e0f986d7e592743211c2dda24efc502cff541d7a7cfbb69da25b293bf1',
 						'X-IG-WWW-Claim'              => '0',
 						'X-Bloks-Is-Layout-RTL'       => 'false',
 						'X-Bloks-Is-Panorama-Enabled' => 'true',
@@ -1121,7 +1115,6 @@ class AccountConfig
 						'X-FB-Server-Cluster'         => 'True',
 						'IG-INTENDED-USER-ID'         => $this->getSettings( 'account_id' ),
 						'X-IG-Nav-Chain'              => '9MV:self_profile:2,ProfileMediaTabFragment:self_profile:3,9Xf:self_following:4',
-						//'Authorization' => 'Bearer IGT:2:eyJkc191c2VyX2lkIjoiNDkxNTQyNjk4NDYiLCJzZXNzaW9uaWQiOiI0OTE1NDI2OTg0NiUzQTJSUE1GV2dvN3liaFQ2JTNBMjUiLCJzaG91bGRfdXNlX2hlYWRlcl9vdmVyX2Nvb2tpZXMiOnRydWV9',
 						'Content-Type'                => 'application/x-www-form-urlencoded; charset=UTF-8',
 						'IG-U-DS-USER-ID'             => $this->getSettings( 'account_id' ),
 						'X-Ads-Opt-Out'               => '0',
@@ -1164,7 +1157,6 @@ class AccountConfig
 						'X-IG-Device-Locale'          => 'en_US',
 						'X-IG-Mapped-Locale'          => 'en_US',
 						'X-IG-App-Startup-Country'    => 'US',
-						//'X-Bloks-Version-Id' => '5fd5e6e0f986d7e592743211c2dda24efc502cff541d7a7cfbb69da25b293bf1',
 						'X-IG-WWW-Claim'              => '0',
 						'X-Bloks-Is-Layout-RTL'       => 'false',
 						'X-Bloks-Is-Panorama-Enabled' => 'true',
@@ -1183,7 +1175,6 @@ class AccountConfig
 						'X-FB-Server-Cluster'         => 'True',
 						'IG-INTENDED-USER-ID'         => $this->getSettings( 'account_id' ),
 						'X-IG-Nav-Chain'              => '9MV:self_profile:2,ProfileMediaTabFragment:self_profile:3,9Xf:self_following:4',
-						//'Authorization' => 'Bearer IGT:2:eyJkc191c2VyX2lkIjoiNDcwNzQ3MDE3MDIiLCJzZXNzaW9uaWQiOiI0NzA3NDcwMTcwMiUzQUtUdFdab0NoQllYSXNpJTNBMjYiLCJzaG91bGRfdXNlX2hlYWRlcl9vdmVyX2Nvb2tpZXMiOnRydWV9',
 						'Content-Type'                => 'application/x-www-form-urlencoded; charset=UTF-8',
 						'IG-U-DS-USER-ID'             => $this->getSettings( 'account_id' ),
 						'X-Ads-Opt-Out'               => '0',

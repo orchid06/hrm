@@ -27,8 +27,9 @@ class PlatformSeeder extends Seeder
 
                 if(! in_array($name,$existsPlatform)){
                     MediaPlatform::create([
-                        "name"            => $name,
+                        "name"            => ucfirst($name),
                         "slug"            => make_slug($name),
+                        "url"             => '@@',
                         "description"     => 'Seamlessly execute social media management and social customer care on '.$name.' from a single, scalable platform',
                         "configuration"   => Arr::get($config,'credential',[]),
                         "is_integrated"   => Arr::get($config,'is_integrated',StatusEnum::false->status()),

@@ -301,13 +301,18 @@ class HomeController extends Controller
 
     public function notification(Request $request) :View{
 
-      
+        Notification::where('notificationable_type','App\Models\User')
+                ->where("notificationable_id",$this->user->id)
+                ->update([
+                    "is_read" =>  (StatusEnum::true)->status()
+                ]);
+            
         return view('user.notifications',[
             'meta_data'=> $this->metaData(['title'=>translate("Notifications")]),
             'notifications' => Notification::where('notificationable_type','App\Models\User')
-                                ->where("notificationable_id",$this->user->id)
-                                ->latest()
-                                ->paginate(paginateNumber())
+                                    ->where("notificationable_id",$this->user->id)
+                                    ->latest()
+                                    ->paginate(paginateNumber())
         ]);
   
 

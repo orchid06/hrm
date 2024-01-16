@@ -144,48 +144,49 @@
 
             var id  =  $(this).val()
 
-            var url = '{{ route("template.config", ["id" => ":id"]) }}';
-            url = url.replace(':id', id).replace(':html', true);
+            if(id){
+                var url = '{{ route("template.config", ["id" => ":id"]) }}';
+                url = url.replace(':id', id).replace(':html', true);
+                $.ajax({
+                    method:'get',
+                    url:url,
+                    dataType: 'json',
+                    success: function(response){
 
-            $.ajax({
-                method:'get',
-                url:url,
-                dataType: 'json',
-                success: function(response){
+                        if(response.status){
+                            $(".template-prompt").removeClass('d-none');
+                            $(".template-prompt").html(response.html);
 
-                    if(response.status){
-                        $(".template-prompt").removeClass('d-none');
-                        $(".template-prompt").html(response.html);
+                            $(".generate-btn").removeClass('d-none');
+                            
+                        }else{
+                            toastr( "Template not found!!",'danger')
+                        }
 
-                        $(".generate-btn").removeClass('d-none');
-                        
-                    }else{
-                        toastr( "Template not found!!",'danger')
-                    }
-
-                },
-                error: function (error){
-                    if(error && error.responseJSON){
-                        if(error.responseJSON.errors){
-                            for (let i in error.responseJSON.errors) {
-                                toastr(error.responseJSON.errors[i][0],'danger')
+                    },
+                    error: function (error){
+                        if(error && error.responseJSON){
+                            if(error.responseJSON.errors){
+                                for (let i in error.responseJSON.errors) {
+                                    toastr(error.responseJSON.errors[i][0],'danger')
+                                }
+                            }
+                            else{
+                                if((error.responseJSON.message)){
+                                    toastr(error.responseJSON.message,'danger')
+                                }
+                                else{
+                                    toastr( error.responseJSON.error,'danger')
+                                }
                             }
                         }
                         else{
-                            if((error.responseJSON.message)){
-                                toastr(error.responseJSON.message,'danger')
-                            }
-                            else{
-                                toastr( error.responseJSON.error,'danger')
-                            }
+                            toastr(error.message,'danger')
                         }
-                    }
-                    else{
-                        toastr(error.message,'danger')
-                    }
-                },
-            
-            })
+                    },
+                
+                })
+            }
 
 
         })

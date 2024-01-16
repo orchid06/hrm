@@ -42,7 +42,9 @@ class PlatformController extends Controller
 
             'breadcrumbs'  => ['Home'=>'admin.home','Platforms'=> null],
             'title'        => 'Manage Platforms',
-            'platforms'    => MediaPlatform::withCount(['accounts'])->search(['name'])->get()
+            'platforms'    => MediaPlatform::withCount(['accounts' => function($q){
+                                   return $q->where('admin_id',auth_user()->id);
+                              }])->search(['name'])->get()
         ]);
     }
 
@@ -82,13 +84,15 @@ class PlatformController extends Controller
 
         $request->validate([
             "id"            => ['required','exists:media_platforms,id'],
-            "description"   => ["nullable","string",'max:255']
+            "description"   => ["nullable","string",'max:255'],
+            'url'           => ["required","string",'max:255']
         ]);
 
         DB::transaction(function() use ($request) {
 
             $platform                      = MediaPlatform::findOrfail($request->input('id'));
             $platform->description         = $request->input("description");
+            $platform->url                 = $request->input("url");
             $platform->save();
 
             if($request->hasFile('image')){

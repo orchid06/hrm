@@ -22,16 +22,15 @@
               @csrf
 
               <div class="row g-4">
-                <div class="col-12 text-center">
-                    <div>
-                        <h6 class="mb-1">
-                            {{translate("Note")}}
-                        </h6>
 
-                    </div>
-                   {{@$method->payment_notes}}
-                </div>
-
+                <div class="col-12">
+                  <div class="p-4  bg-danger-soft">
+                      <p><span class="i-badge-solid danger me-2">{{translate("note")}}  :</span>
+                          {{@$method->payment_notes}}
+                      </p>
+                  </div>
+               </div>
+               
                 <div class="col-12">
                     <ul class="payment-details list-group">
                         <li class="list-group-item active" aria-current="true">
@@ -65,7 +64,7 @@
                             <div class="col-md-6">
                                 <div class="form-inner mb-0">
                                     <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
-                                    <input value="{{old($k)}}" id="{{$k}}" placeholder="{{$k}}" type="{{$v->type}}" name="{{$k}}"   @if($v->validation == "required") required @endif>
+                                    <input value="{{old($k)}}" id="{{$k}}" placeholder="{{k2t($k)}}" type="{{$v->type}}" name="{{$k}}"   @if($v->validation == "required") required @endif>
                                 </div>
                             </div>
                          @elseif($v->type == "textarea")
@@ -74,7 +73,7 @@
                                 <div class="form-inner mb-0">
                                     <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
 
-                                    <textarea id="{{$k}}" placeholder="{{$k}}" name="{{$k}}"  rows="3" @if($v->validation == "required") required @endif>{{old($k)}}</textarea>
+                                    <textarea id="{{$k}}" placeholder="{{k2t($k)}}" name="{{$k}}"  rows="3" @if($v->validation == "required") required @endif>{{old($k)}}</textarea>
 
                                 </div>
                             </div>

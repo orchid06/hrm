@@ -97,12 +97,12 @@ use Illuminate\Support\Facades\DB;
         #user route
         Route::middleware(['auth:web','user.verified','kyc'])->prefix('user')->name('user.')->group(function()  {
 
-            #Login route
+            #logout route
             Route::controller(LoginController::class)->group(function () {
-                Route::get('/logout', 'logout')->name('logout');
+                Route::get('/logout', 'logout')->name('logout')->withoutMiddleware(['kyc']);
             });
 
-           #home & profile route
+            #home & profile route
             Route::controller(HomeController::class)->group(function(){
 
                 Route::any('dashboard','home')->name('home');
@@ -196,7 +196,7 @@ use Illuminate\Support\Facades\DB;
                     Route::get('/user/list','affiliateUsers')->name('user.list');
                     Route::get('/reports','affiliateReport')->name('report.list');
                 });
-                Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){
+                Route::prefix("/kyc/reports")->name('kyc.report.')->withoutMiddleware(['kyc'])->group(function(){
                     Route::get('/','kycReport')->name('list');
                     Route::get('/details/{id}','kycDetails')->name('details');
                 });
@@ -205,6 +205,10 @@ use Illuminate\Support\Facades\DB;
                 });
                 Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
                     Route::get('/','transactionReport')->name('list');
+                });
+
+                Route::prefix("/webhook/reports")->name('webhook.report.')->group(function(){
+                    Route::get('/','webhookReport')->name('list');
                 });
 
             });
@@ -315,7 +319,7 @@ use Illuminate\Support\Facades\DB;
     });
 
     Route::get('/maintenance-mode', [CoreController::class, 'maintenanceMode'])->name('maintenance.mode')->middleware(['sanitizer']);
-    Route::get('/post/webhook', [CoreController::class, 'postWebhook'])->name('post.webhook')->middleware(['sanitizer']);
+    Route::any('/webhook/{?uid}', [CoreController::class, 'postWebhook'])->name('post.webhook')->middleware(['sanitizer']);
 
 
 

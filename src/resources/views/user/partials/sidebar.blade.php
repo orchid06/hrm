@@ -1,6 +1,10 @@
 <aside class="aside">
       @php
         $user = auth_user('web');
+        $subscription           = $user->runningSubscription;
+        $webhookAccess          = @optional($subscription->package->social_access)
+                                                 ->webhook_access;
+
       @endphp
     <div class="side-content">
         <a href="{{route('user.home')}}" class="sidebar-logo d-block d-sm-none">
@@ -149,103 +153,113 @@
                     </a>
 
                     <div class="side-menu-dropdown">
-                    <div class="menu-dropdown-header">
-                        <h6>
-                        {{translate("Analytical Reports")}}
-                        </h6>
-                    </div>
+                        <div class="menu-dropdown-header">
+                            <h6>
+                            {{translate("Analytical Reports")}}
+                            </h6>
+                        </div>
 
-                    <ul class="sub-menu">
+                        <ul class="sub-menu">
 
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? 'active' :''}}" href="{{route('user.template.report.list')}}">
-                                <span>
-                                    <i class="bi bi-layers"></i>
-                                </span>
-                                <p>
-                                {{translate('Template Reports')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? 'active' :''}}" href="{{route('user.subscription.report.list')}}">
-                                <span>
-                                <i class="bi bi-bookmarks"></i>
-                                </span>
-
-                                <p>
-                                {{translate('Subscription Reports')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? 'active' :''}}" href="{{route('user.credit.report.list')}}">
-                            <span><i class="bi bi-credit-card-2-front"></i></span>
-                                <p>
-                                {{translate('Credit Reports')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? 'active' :''}}" href="{{route('user.deposit.report.list')}}">
-                            <span><i class="bi bi-wallet"></i></span>
-                                <p>
-                                {{translate('Deposit Reports')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? 'active' :''}}" href="{{route('user.withdraw.report.list')}}">
-                            <span><i class="bi bi-box-arrow-in-up-left"></i></span>
-                                <p>
-                                {{translate('Withdraw Reports')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
                             <li class="sub-menu-item">
-                                <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? 'active' :''}}" href="{{route('user.affiliate.report.list')}}">
-                                    <span><i class="bi bi-share"></i></span>
+                                <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? 'active' :''}}" href="{{route('user.template.report.list')}}">
+                                    <span>
+                                        <i class="bi bi-layers"></i>
+                                    </span>
                                     <p>
-                                        {{translate('Affiliate Reports')}}
+                                    {{translate('Template Reports')}}
                                     </p>
                                 </a>
                             </li>
 
                             <li class="sub-menu-item">
-                                <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.user.*') ? 'active' :''}}" href="{{route('user.affiliate.user.list')}}">
-                                    <span><i class="bi bi-people"></i></span>
+                                <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? 'active' :''}}" href="{{route('user.subscription.report.list')}}">
+                                    <span>
+                                    <i class="bi bi-bookmarks"></i>
+                                    </span>
+
                                     <p>
-                                        {{translate('Affiliate Users')}}
+                                    {{translate('Subscription Reports')}}
                                     </p>
                                 </a>
                             </li>
-                        @endif
 
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? 'active' :''}}" href="{{route('user.transaction.report.list')}}">
-                            <span><i class="bi bi-arrow-left-right"></i></span>
-                                <p>
-                                {{translate('Transaction Reports')}}
-                                </p>
-                            </a>
-                        </li>
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? 'active' :''}}" href="{{route('user.credit.report.list')}}">
+                                <span><i class="bi bi-credit-card-2-front"></i></span>
+                                    <p>
+                                    {{translate('Credit Reports')}}
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? 'active' :''}}" href="{{route('user.kyc.report.list')}}">
-                            <span><i class="bi bi-shield-lock"></i></span>
-                                <p>
-                                {{translate('Kyc Reports')}}
-                                </p>
-                            </a>
-                        </li>
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? 'active' :''}}" href="{{route('user.deposit.report.list')}}">
+                                <span><i class="bi bi-wallet"></i></span>
+                                    <p>
+                                    {{translate('Deposit Reports')}}
+                                    </p>
+                                </a>
+                            </li>
 
-                    </ul>
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? 'active' :''}}" href="{{route('user.withdraw.report.list')}}">
+                                <span><i class="bi bi-box-arrow-in-up-left"></i></span>
+                                    <p>
+                                    {{translate('Withdraw Reports')}}
+                                    </p>
+                                </a>
+                            </li>
+
+                            @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                                <li class="sub-menu-item">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.report.*') ? 'active' :''}}" href="{{route('user.affiliate.report.list')}}">
+                                        <span><i class="bi bi-share"></i></span>
+                                        <p>
+                                            {{translate('Affiliate Reports')}}
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="sub-menu-item">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.affiliate.user.*') ? 'active' :''}}" href="{{route('user.affiliate.user.list')}}">
+                                        <span><i class="bi bi-people"></i></span>
+                                        <p>
+                                            {{translate('Affiliate Users')}}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.transaction.report.*') ? 'active' :''}}" href="{{route('user.transaction.report.list')}}">
+                                <span><i class="bi bi-arrow-left-right"></i></span>
+                                    <p>
+                                    {{translate('Transaction Reports')}}
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="sub-menu-item">
+                                <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? 'active' :''}}" href="{{route('user.kyc.report.list')}}">
+                                <span><i class="bi bi-shield-lock"></i></span>
+                                    <p>
+                                    {{translate('Kyc Reports')}}
+                                    </p>
+                                </a>
+                            </li>
+                            @if($webhookAccess == App\Enums\StatusEnum::true->status())
+                                <li class="sub-menu-item">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.webhook.report.*') ? 'active' :''}}" href="{{route('user.webhook.report.list')}}">
+                                    <span><i class="bi bi-bell"></i></span>
+                                        <p>
+                                           {{translate('Webhook Reports')}}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endif
+
+                        </ul>
                     </div>
                 </li>
 

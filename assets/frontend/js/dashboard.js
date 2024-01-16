@@ -1,5 +1,5 @@
 (function () {
-  ("use strict");
+  "use strict";
   // HTML Root Element
   var rootHtml = document.documentElement;
   var deviceWidth =

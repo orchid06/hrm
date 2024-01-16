@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uid',100)->index()->nullable();
             $table->string("name",155);
             $table->string("slug",155);
+            $table->string("url",255)->nullable();
             $table->string("description",255)->nullable();
             $table->longText("configuration")->nullable();
             $table->enum('status',[0,1])->default(1)->comment('Active: 1, Inactive: 0');

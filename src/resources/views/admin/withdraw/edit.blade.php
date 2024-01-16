@@ -86,7 +86,7 @@
                             <label for="description">
                                 {{translate('Notes')}}
                             </label>
-                            <textarea required type="text" class="form-control" placeholder="{{translate('Type here')}}"  id="description" name="description" rows="4">{{$withdraw->description}}</textarea>
+                            <textarea required type="text"  placeholder="{{translate('Type here')}}"  id="description" name="description" rows="4">{{$withdraw->description}}</textarea>
                         </div>
                     </div>  
                     <div class="col-lg-12">

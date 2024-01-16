@@ -199,9 +199,9 @@ class UserController extends Controller
         try {
            
             DB::transaction(function() use ($id) {
-                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts','posts','posts.file'])
-                                ->where('uid',$id)
-                                ->firstOrfail();
+                $user      = User::with(['file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts','posts','posts.file','webhookLogs'])
+                            ->where('uid',$id)
+                            ->firstOrfail();
 
                 $user->subscriptions()->delete();
                 $user->affiliates()->delete();
@@ -212,6 +212,7 @@ class UserController extends Controller
                 $user->creditLogs()->delete();
                 $user->templates()->delete();
                 $user->templateUsages()->delete();
+                $user->webhookLogs()->delete();
 
                 if($user->posts()->count() > 0){
                     foreach(@$user->post as $post){

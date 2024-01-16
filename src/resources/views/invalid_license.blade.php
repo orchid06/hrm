@@ -11,7 +11,7 @@
         </p>
 
         <div class="mt-lg-5 mt-4 d-flex align-items-center justify-content-center">
-            <a href="{{route('invalid.purchase',["verification_view" => true])}}" class="i-btn btn--primary btn--lg capsuled">
+            <a href="{{route('invalid.purchase',['verification_view' => true])}}" class="i-btn btn--primary btn--lg capsuled">
                {{@translate('Verify License')}}
             </a>
         </div>

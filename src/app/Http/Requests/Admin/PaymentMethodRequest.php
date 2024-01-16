@@ -42,8 +42,6 @@ class PaymentMethodRequest extends FormRequest
             'fixed_charge'       => ["numeric","gt:-1","between:0,99999999.99"],
             'payment_notes'      => ["max:255"],
 
-            'minimum_amount'     => ['required','gt:-1','numeric','min:1','max:99999999','decimal:0,8','lt:maximum_amount'],
-            'maximum_amount'     => ['required','gt:-1','numeric','min:1','max:99999999','decimal:0,8'],
 
             "name"               => [Rule::requiredIf(function () { 
                 return request()->route("type") ==  'manual' ;
