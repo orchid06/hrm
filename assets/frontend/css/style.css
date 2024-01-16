@@ -692,6 +692,7 @@
   + .sub-mega-menu {
   opacity: 1;
   visibility: visible;
+  display: block;
 }
 .mega-menu-wrapper
   .mega-menu-left
