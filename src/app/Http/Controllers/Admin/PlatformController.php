@@ -84,13 +84,15 @@ class PlatformController extends Controller
 
         $request->validate([
             "id"            => ['required','exists:media_platforms,id'],
-            "description"   => ["nullable","string",'max:255']
+            "description"   => ["nullable","string",'max:255'],
+            'url'           => ["required","string",'max:255']
         ]);
 
         DB::transaction(function() use ($request) {
 
             $platform                      = MediaPlatform::findOrfail($request->input('id'));
             $platform->description         = $request->input("description");
+            $platform->url                 = $request->input("url");
             $platform->save();
 
             if($request->hasFile('image')){

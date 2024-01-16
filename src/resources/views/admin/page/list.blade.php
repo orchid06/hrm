@@ -79,6 +79,9 @@
                                 {{translate('Title')}}
                             </th>
                             <th scope="col">
+                                {{translate('Url')}}
+                            </th>
+                            <th scope="col">
                                 {{translate('Created By')}}
                             </th>
                             <th scope="col">
@@ -107,6 +110,11 @@
                                 <td data-label='{{translate("Title")}}'>
                                     {{($page->title)}}
                                 </td>
+                                <td data-label='{{translate("Url")}}'>
+                                    <a class="text-decoration-underline text--primary" target="_blank" href="{{route('page',$page->slug)}}">
+                                       {{limit_words(route('page',$page->slug),20)}}
+                                    </a>
+                               </td>
                                 <td data-label='{{translate("Created By")}}'>
                                     <span class="i-badge capsuled info">
                                         {{$page->createdBy->name}}

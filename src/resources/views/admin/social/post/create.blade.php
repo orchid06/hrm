@@ -200,7 +200,7 @@
                                             <label for="account-{{$account->id}}">
                                                 <div class="profile-item-meta">
                                                     <div class="profile-item-img">
-                                                        <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
+                                                        <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
                                                     </div>
 
                                                     <div>

@@ -23,7 +23,7 @@
                                 <div class="post-meta d-flex justify-content-start align-items-center gap-2">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <div class="image">
-                                            <img class="rounded-circle avatar-md" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{@$account->account_information->avatar}}">
+                                            <img class="rounded-circle avatar-md" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
                                         </div>
                                         <div class="content">
                                             @if(@$account->account_information->link)

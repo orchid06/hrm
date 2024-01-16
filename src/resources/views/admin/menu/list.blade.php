@@ -93,7 +93,7 @@
                                     {{ ($menu->name)}}
                                 </td>
                                 <td data-label='{{translate("Url")}}'>
-                                     <a target="_blank" href="{{url($menu->url)}}">
+                                     <a class="text-decoration-underline text--primary" target="_blank" href="{{url($menu->url)}}">
                                         {{limit_words(url($menu->url),20)}}
                                      </a>
                                 </td>

@@ -75,7 +75,7 @@
                                 <td data-label='{{translate("Name")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
-                                        <p>	 {{$platform->name}}</p>
+                                        <p>	 {{ucfirst($platform->name)}}</p>
                                     </div>
                                 </td>
 
@@ -170,6 +170,16 @@
                     <div class="modal-body">
                         <div class="row">
                             <input   hidden name="id" type="text">
+
+                            <div class="col-lg-12">
+                                <div class="form-inner">
+                                    <label for="url" class="form-label" >
+                                        {{strtoupper(translate('URL'))}} 
+                                    </label>
+                                   <input placeholder="{{translate("Enter Page URL")}}" type="text" name="url" id="url">
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="form-inner">
                                     <label for="description" class="form-label" >
@@ -263,6 +273,7 @@
             modal.find('.image-preview-section').html(imgUrl)
             modal.find('input[name="id"]').val(platform.id)
             modal.find('textarea[name="description"]').val(platform.description)
+            modal.find('input[name="url"]').val(platform.url)
             modal.modal('show')
         })
 

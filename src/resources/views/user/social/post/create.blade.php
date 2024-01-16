@@ -213,7 +213,7 @@
                                                     <label for="account-{{$account->id}}">
                                                         <span class="profile-item-meta">
                                                             <span class="profile-item-img">
-                                                                <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{@$account->account_information->avatar}}">
+                                                                <img class="rounded-circle avatar-md"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
                                                             </span>
 
                                                             <span class="d-flex flex-column">
