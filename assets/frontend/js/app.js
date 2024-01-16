@@ -36,6 +36,18 @@
     });
   }
 
+  // Venobox
+  new VenoBox({
+    selector: "#video-link",
+    numeration: false,
+    infinigall: true,
+    ratio: "16x9",
+    spinner: "wave",
+    maxWidth: "100%",
+    overlayColor: "rgba(0,0,0,0.5)",
+    toolsColor: "#000",
+  });
+
   // Review Slider
   const reviewSlider = document.querySelector(".review-slider");
   if (reviewSlider) {
@@ -181,6 +193,13 @@
 
         item.classList.toggle("hover");
       });
+
+      const megaMenu = document.querySelector(".mega-menu");
+      if (megaMenu) {
+        megaMenu.addEventListener("mouseleave", () => {
+          item.classList.remove("hover");
+        });
+      }
     });
   }
 

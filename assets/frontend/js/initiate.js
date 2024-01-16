@@ -1,7 +1,6 @@
 (function () {
   ("use strict");
 
-
   // Tooltip
   const tooltipTriggerList = document.querySelectorAll(
     '[data-bs-toggle="tooltip"]'

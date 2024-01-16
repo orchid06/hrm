@@ -46,7 +46,7 @@
 <div class="banner-img-wrapper bg--light">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-10 mx-auto">
                 <div class="banner-img">
                     <div  class="circle-container">
                         <div  class="circleButton">
@@ -64,7 +64,7 @@
                             </text>
                             </svg>
                             <span>
-                              <a target="_blank" href="{{@$bannerContent->value->motion_button_url}}">
+                              <a id="video-link" data-maxwidth="1000px" data-autoplay="true" data-vbtype="video"  href="{{@$bannerContent->value->motion_button_url}}">
                                   <i class="bi bi-play-fill"></i>
                               </a>
                             </span>
