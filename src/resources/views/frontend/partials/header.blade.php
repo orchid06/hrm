@@ -127,56 +127,65 @@
                                                     <div class="row g-0 h-100">
                                                         <div class="col-lg-8">
                                                             <div class="social-integra">
-                                                            <h5>{{$intregrationsContent->value->sub_title}}</h5>
-                                                            <div class="mega-menu-integra">
+                                                                <h5>    {{$intregrationsContent->value->sub_title }}</h5>
 
-                                                                @forelse ($platforms   as  $platform)
-                                                                <a href="{{route('user.social.post.create')}}" class="menu-social-item">
-                                                                    <div class="social-item-img">
-                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mega-menu-integra">
+                                                                            @forelse ($platforms   as  $platform)
+                                                                            <a href="{{route('user.social.post.create')}}" class="menu-social-item">
+                                                                                <div class="social-item-img">
+                                                                                    <img src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                                                    alt="{{@$platform->file->name}}" loading="lazy"/>
+                                                                                </div>
+
+                                                                                <div>
+                                                                                    <h6> {{$platform->name}}</h6>
+                                                                                    <p>     {{$platform->description}}</p>
+                                                                                </div>
+                                                                            </a>
+                                                                            @empty
+
+                                                                                <div class="text-center">
+                                                                                    {{translate('No data found')}}
+                                                                                </div>
+
+                                                                            @endforelse
+                                                                        </div>
                                                                     </div>
 
-                                                                    <div>
-                                                                        <h6> {{$platform->name}}</h6>
-                                                                        <p>     {{$platform->description}}</p>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mega-menu-integra">
+                                                                            <a href="javascript:void(0)" class="menu-social-item coming-soon">
+                                                                                <div class="social-item-img">
+                                                                                    <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
+                                                                                </div>
+
+                                                                                <div class="coming-soon-loader">
+                                                                                    <span></span>
+                                                                                    <span ></span>
+
+                                                                                    <p> {{translate('Coming Next')}}...</p>
+                                                                                </div>
+                                                                            </a>
+
+                                                                            <a href="javascript:void(0)" class="menu-social-item coming-soon">
+                                                                                <div class="social-item-img">
+                                                                                    <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
+                                                                                </div>
+
+                                                                                <div class="coming-soon-loader">
+                                                                                    <span></span>
+                                                                                    <span ></span>
+
+                                                                                    <p> {{translate('Coming Next')}}...</p>
+                                                                                </div>
+                                                                            </a>
+
+                                                                        </div>
                                                                     </div>
-                                                                </a>
-                                                                @empty
+                                                                </div>
 
-                                                                    <div class="text-center">
-                                                                        {{translate('No data found')}}
-                                                                    </div>
-
-                                                                @endforelse
-
-                                                                <a href="javascript:void(0)" class="menu-social-item coming-soon">
-                                                                    <div class="social-item-img">
-                                                                        <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
-                                                                    </div>
-
-                                                                    <div class="coming-soon-loader">
-                                                                        <span></span>
-                                                                        <span ></span>
-
-                                                                        <p> {{translate('Coming Soon')}}...</p>
-                                                                    </div>
-                                                                </a>
-
-                                                                <a href="javascript:void(0)" class="menu-social-item coming-soon">
-                                                                    <div class="social-item-img">
-                                                                        <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
-                                                                    </div>
-
-                                                                    <div class="coming-soon-loader">
-                                                                        <span></span>
-                                                                        <span ></span>
-
-                                                                        <p> {{translate('Coming Soon')}}...</p>
-                                                                    </div>
-                                                                </a>
-
-                                                            </div>
                                                             </div>
                                                         </div>
 

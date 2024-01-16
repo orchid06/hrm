@@ -873,7 +873,7 @@
 
 .mega-menu-wrapper .mega-menu-right .social-integra .mega-menu-integra {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 10px;
 }
 
@@ -935,38 +935,38 @@
   line-clamp: 1;
   -webkit-box-orient: vertical;
 }
-.menu-social-item.coming-soon{
+.menu-social-item.coming-soon {
   cursor: default;
 }
 
-.coming-soon-loader{
+.coming-soon-loader {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.coming-soon-loader >span{
-    background-color: var(--border-light);
-    height: 13px;
-    width: 100%;
-    display: inline-block;
-    border-radius: 2px;
-    animation: myAnim 1.5s ease-in-out 0s infinite normal forwards;
-  }
-.coming-soon-loader >span:first-child{
+.coming-soon-loader > span {
+  background-color: var(--border-light);
+  height: 13px;
+  width: 100%;
+  display: inline-block;
+  border-radius: 2px;
+  animation: myAnim 1.5s ease-in-out 0s infinite normal forwards;
+}
+.coming-soon-loader > span:first-child {
   width: 70%;
 }
 @keyframes myAnim {
-	0%,
-	50%,
-	100% {
-		opacity: 1;
-	}
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
 
-	25%,
-	75% {
-		opacity: 0.4;
-	}
+  25%,
+  75% {
+    opacity: 0.4;
+  }
 }
 .mega-menu-wrapper .mega-menu-right .mega-menu-banner {
   height: 100%;
@@ -1493,7 +1493,7 @@
 
 @media (max-width: 576px) {
   .banner .banner-container {
-    padding: 150px 0 250px;
+    padding: 150px 0 190px;
   }
 }
 
@@ -1674,7 +1674,7 @@
 
 @media (max-width: 576px) {
   .banner-img-wrapper .banner-img {
-    margin-top: -150px;
+    margin-top: -100px;
   }
 }
 
@@ -3038,7 +3038,6 @@
   border-radius: 12px;
   background-color: var(--color-white);
   transition: 0.3s all ease;
-  cursor: pointer;
 }
 
 .template-card:hover {
