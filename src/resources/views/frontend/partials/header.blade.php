@@ -156,16 +156,15 @@
 
                                                                     <div class="col-lg-6">
                                                                         <div class="mega-menu-integra">
-                                                                            <a href="javascript:void(0)" class="menu-social-item coming-soon">
+                                                                            <a href="javascript:void(0)" class="menu-social-item">
                                                                                 <div class="social-item-img">
                                                                                     <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
                                                                                 </div>
 
-                                                                                <div class="coming-soon-loader">
-                                                                                    <span></span>
-                                                                                    <span ></span>
-
-                                                                                    <p> {{translate('Coming Next')}}...</p>
+                                                                                <div>
+                                                                                    <h6> Tik tok </h6>
+                                                                                    <p> Seamlessly execute social media management and social customer care on Instagram from a single, scalable platform</p>
+                                                                                    <span>{{translate('Coming Next')}}...</span>
                                                                                 </div>
                                                                             </a>
 
@@ -174,11 +173,10 @@
                                                                                     <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
                                                                                 </div>
 
-                                                                                <div class="coming-soon-loader">
-                                                                                    <span></span>
-                                                                                    <span ></span>
-
-                                                                                    <p> {{translate('Coming Next')}}...</p>
+                                                                                <div>
+                                                                                    <h6> Tik tok </h6>
+                                                                                    <p> Seamlessly execute social media management and social customer care on Instagram from a single, scalable platform</p>
+                                                                                    <span>{{translate('Coming Next')}}...</span>
                                                                                 </div>
                                                                             </a>
 

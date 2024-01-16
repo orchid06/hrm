@@ -64,7 +64,7 @@
                             </text>
                             </svg>
                             <span>
-                              <a target="_blank" href="{{@$bannerContent->value->motion_button_url}}">
+                              <a id="video-link" data-maxwidth="1000px" data-autoplay="true" data-vbtype="video"  href="{{@$bannerContent->value->motion_button_url}}">
                                   <i class="bi bi-play-fill"></i>
                               </a>
                             </span>
