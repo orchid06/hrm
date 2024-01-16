@@ -120,14 +120,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="form-inner ">
-                                    <input id="is_feature" {{old("is_feature") ==  App\Enums\StatusEnum::true->status() ? "checked" :""}} value="{{App\Enums\StatusEnum::true->status()}}" class="form-check-input" name="is_feature" type="checkbox">
-                                    <label for="is_feature" class="form-check-label me-2">
-                                        {{translate("Feature")}}
-                                    </label>
-                                </div>
-                            </div>
+                         
                             <div class="col-12 ">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
                                     {{translate("Submit")}}

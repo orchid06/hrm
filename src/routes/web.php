@@ -279,7 +279,6 @@ use Illuminate\Support\Facades\DB;
         Route::controller(CoreController::class)->group(function () {
 
             Route::get('/cron/run','cron')->name('cron.run');
-            Route::get('/webhook','webhook')->name('webhook');
             Route::get('/language/change/{code?}','languageChange')->name('language.change');
             Route::get('/currency/change/{code?}','currencyChange')->name('currency.change');
             Route::get('/optimize-clear',"clear")->name('optimize.clear');
@@ -316,10 +315,10 @@ use Illuminate\Support\Facades\DB;
         Route::post('/security-captcha/verify',"securityVerify")->name('dos.security.verify');
         Route::get('/default/image/{size}','defaultImageCreate')->name('default.image');
         Route::get('/default-captcha/{randCode}', 'defaultCaptcha')->name('captcha.genarate');
+        Route::any('/webhook','postWebhook')->name('webhook');
     });
 
     Route::get('/maintenance-mode', [CoreController::class, 'maintenanceMode'])->name('maintenance.mode')->middleware(['sanitizer']);
-    Route::any('/webhook/{?uid}', [CoreController::class, 'postWebhook'])->name('post.webhook')->middleware(['sanitizer']);
 
 
 

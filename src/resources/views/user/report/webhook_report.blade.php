@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 <div>
       <div
         class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">

@@ -139,10 +139,6 @@ class PlatformController extends Controller
         ]);
     }
 
-
-
-  
-   
     /**
      * Bulk action
      *

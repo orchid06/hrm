@@ -495,8 +495,8 @@
                                                     </label>
 
                                                     <div class="input-group">
-                                                        <input readonly id="webhookUrl" value="{{route('webhook')}}"  type="text" class="form-control" >
-                                                        <span data-text ="{{route('webhook')}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
+                                                        <input readonly id="webhookUrl" value="{{route('webhook',['uid' => $user->uid])}}"  type="text" class="form-control" >
+                                                        <span data-text ="{{route('webhook',['uid' => $user->uid])}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
