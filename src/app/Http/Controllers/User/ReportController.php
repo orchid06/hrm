@@ -317,6 +317,7 @@ class ReportController extends Controller
     public function webhookReport() :View | RedirectResponse{
 
 
+    
         if($this->webhookAccess == StatusEnum::true->status()){
 
             return view('user.report.webhook_report',[

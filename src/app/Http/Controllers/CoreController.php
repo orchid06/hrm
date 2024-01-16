@@ -672,18 +672,20 @@ class CoreController extends Controller
       * Handle post webhook
       *
       */
-    public function postWebhook(string $uid  = null) {
+    public function postWebhook() {
 
+ 
         $hubToken   = request()->query('hub_verify_token');
         $apiKey     = site_settings("webhook_api_key");
-        $usersCount = User::where('webhook_api_key',  $hubToken )->count();
+        $usersCount = User::whereNotNull('webhook_api_key')->where('webhook_api_key',  $hubToken )->count();
+
 
         if ($apiKey  == $hubToken || $usersCount > 0 ) {
             return response(request()->query('hub_challenge'));
         }
         
-        $user = User::where('uid',$uid)->first();
-        
+        $user = User::where('uid',request()->input('uid'))->first();
+   
         PostWebhookLog::create([
             'user_id'           =>  $user?  $user->id : null,
             'webhook_response'  => request()->all()

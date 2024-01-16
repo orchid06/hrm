@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('base_final_amount',25,5)->default(0.00000);
             $table->double('final_amount',25,5)->default(0.00000);
             $table->longText('custom_data')->nullable();
-            $table->enum('status',[1,2,3])->default(0)->comment('Pending : 3,Approved : 1 ,Rejected:2');
+            $table->enum('status',[1,2,3])->comment('Pending : 3,Approved : 1 ,Rejected:2');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

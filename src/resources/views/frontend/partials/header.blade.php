@@ -132,18 +132,18 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-6">
                                                                         <div class="mega-menu-integra">
-                                                                            @forelse ($platforms   as  $platform)
-                                                                            <a href="{{route('user.social.post.create')}}" class="menu-social-item">
-                                                                                <div class="social-item-img">
-                                                                                    <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                                    alt="{{@$platform->file->name}}" loading="lazy"/>
-                                                                                </div>
+                                                                            @forelse ($platforms->where('is_integrated',App\Enums\StatusEnum::true->status())   as  $platform)
+                                                                                <a href="{{$platform->url}}" class="menu-social-item">
+                                                                                    <div class="social-item-img">
+                                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
+                                                                                    </div>
 
-                                                                                <div>
-                                                                                    <h6> {{$platform->name}}</h6>
-                                                                                    <p>     {{$platform->description}}</p>
-                                                                                </div>
-                                                                            </a>
+                                                                                    <div>
+                                                                                        <h6> {{$platform->name}}</h6>
+                                                                                        <p>     {{$platform->description}}</p>
+                                                                                    </div>
+                                                                                </a>
                                                                             @empty
 
                                                                                 <div class="text-center">
@@ -156,30 +156,27 @@
 
                                                                     <div class="col-lg-6">
                                                                         <div class="mega-menu-integra">
-                                                                            <a href="javascript:void(0)" class="menu-social-item">
-                                                                                <div class="social-item-img">
-                                                                                    <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
+
+                                                                            @forelse ($platforms->where('is_integrated',App\Enums\StatusEnum::false->status())   as  $platform)
+                                                                                <a href="{{$platform->url}}" class="menu-social-item">
+                                                                                    <div class="social-item-img">
+                                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
+                                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
+                                                                                    </div>
+
+                                                                                    <div>
+                                                                                        <h6> {{$platform->name}}</h6>
+                                                                                        <p>     {{$platform->description}}</p>
+                                                                                    </div>
+                                                                                </a>
+                                                                            @empty
+
+                                                                                <div class="text-center">
+                                                                                    {{translate('No data found')}}
                                                                                 </div>
 
-                                                                                <div>
-                                                                                    <h6> Tik tok </h6>
-                                                                                    <p> Seamlessly execute social media management and social customer care on Instagram from a single, scalable platform</p>
-                                                                                    <span>{{translate('Coming Next')}}...</span>
-                                                                                </div>
-                                                                            </a>
-
-                                                                            <a href="javascript:void(0)" class="menu-social-item coming-soon">
-                                                                                <div class="social-item-img">
-                                                                                    <img src="https://i.ibb.co/WKWLPQK/tik-tok-1.png" alt="tik-tok-1">
-                                                                                </div>
-
-                                                                                <div>
-                                                                                    <h6> Tik tok </h6>
-                                                                                    <p> Seamlessly execute social media management and social customer care on Instagram from a single, scalable platform</p>
-                                                                                    <span>{{translate('Coming Next')}}...</span>
-                                                                                </div>
-                                                                            </a>
-
+                                                                            @endforelse
+                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>

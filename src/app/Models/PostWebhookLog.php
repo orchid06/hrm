@@ -18,15 +18,5 @@ class PostWebhookLog extends Model
     ];
 
 
-    protected static function booted(){
-
-        static::creating(function (Model $model) {
-            $model->uid        = Str::uuid();
-
-        });
-
-
-        
-    }
 
 }
