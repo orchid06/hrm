@@ -31,7 +31,7 @@ class FrontendSeeder extends Seeder
                     "support_title" => "Are you an existing customer?",
                     "support_description" => "If so, please click the button on the right to open a support ticket.",
                     "button_name" => "Open Support Ticket",
-                    "button_url" => "####",
+                    "button_url" => "@@@",
                     "section_title" => "Contact us",
                     "section_heading" => "We'd love hear from you",
                     "section_description" => "We welcome all the questions & remarks. Growth is the only constant in our",
@@ -525,7 +525,7 @@ class FrontendSeeder extends Seeder
                     "title" => "Watch Your Accounts Grow",
                     "sub_title" => "Analytics & Reports",
                     "button_name"=> "View More",
-                    "button_url"=> "##",
+                    "button_url"=> "@@",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
                 ]
 
@@ -538,7 +538,7 @@ class FrontendSeeder extends Seeder
                     "title" => "Watch Your Accounts Grow",
                     "sub_title" => "Why Feedswiz",
                     "button_name"=> "View More",
-                    "button_url"=> "##",
+                    "button_url"=> "@@",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
                 ],
                 "element"  =>  [
@@ -649,7 +649,7 @@ class FrontendSeeder extends Seeder
                     "title" => "Life Planning, Making Easy to Turn Dreams a Reality",
                     "sub_title" => "Pricing Plan",
                     "button_name"=> "Contact Us",
-                    "button_url"=> "##",
+                    "button_url"=> "@@",
                     "description" => "We offer flexible pricing plans to suit the diverse needs of our clients."
                 ]
 
