@@ -95,7 +95,7 @@
                             </a>
 
                             @php
-                               $btnUrl  = route('install.envato.verification',['verify_token' => bcrypt(base64_decode('ZW52YXRvX3ZlcmlmaWNhdGlvbg=='))]);
+                               $btnUrl  = route('install.db.setup',['verify_token' => bcrypt(base64_decode('ZGJzZXR1cF8='))]);
                       
                             @endphp
                             

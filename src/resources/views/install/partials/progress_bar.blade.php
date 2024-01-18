@@ -24,17 +24,7 @@
             </a>
         </li>
         
-        <li @if(request()->routeIs('install.envato.verification')) class="active" @endif>
-            <a href="javascript:void(0)">
-                <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"  x="0" y="0" viewBox="0 0 68 68" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M16.033 15H39a2 2 0 0 1 0 4H16.76l2.91 16H48a2 2 0 0 1 0 4H20.396l1.273 7H50a2 2 0 0 1 0 4H20a2 2 0 0 1-1.968-1.642L10.331 6H2a2 2 0 0 1 0-4h10a2 2 0 0 1 1.968 1.642zM59.172 5l-1.586-1.586A2 2 0 0 1 60.414.586l5 5a2 2 0 0 1 0 2.828l-5 5a2 2 0 0 1-2.828-2.828L59.172 9H56a8 8 0 0 0-8 8 2 2 0 0 1-4 0c0-6.627 5.373-12 12-12zm-6.344 24 1.586 1.586a2 2 0 0 1-2.828 2.828l-5-5a2 2 0 0 1 0-2.828l5-5a2 2 0 0 1 2.828 2.828L52.828 25H56a8 8 0 0 0 8-8 2 2 0 0 1 4 0c0 6.627-5.373 12-12 12zM22 68a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-4a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm24 4a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-4a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"  opacity="1" data-original="#000000" class=""></path></g></svg>
-                </div>
-                <div class="content">
-                    <h6>{{trans("default.envato_verification_title")}}</h6>
-                    <p> {{trans("default.envato_verification_note")}}</p>
-                </div>
-            </a>
-        </li>
+
         
         <li @if(request()->routeIs('install.db.setup')) class="active" @endif>
             <a href="javascript:void(0)">

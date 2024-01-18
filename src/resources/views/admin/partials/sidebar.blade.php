@@ -768,7 +768,7 @@
 
       @if(check_permission('view_withdraw'))
         <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake(["admin.withdraw.list","admin.withdraw.edit"])}}' data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
+            <a class='sidebar-menu-link {{sidebar_awake(["admin.withdraw.list","admin.withdraw.edit","admin.withdraw.create"])}}' data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
                 <span><i class="las la-dolly-flatbed"></i></span>
                 <p>{{translate('Withdraw Method')}}</p>
             </a>

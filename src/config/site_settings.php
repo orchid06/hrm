@@ -6,7 +6,7 @@ use Predis\Response\Status;
 
 return [
 
-    "site_name"      => "quick_pack",
+    "site_name"      => "FeedsWiz",
     "logo_icon"      => "@@",
     "site_logo"      => "@@",
     "user_site_logo" => "@@",
@@ -14,7 +14,7 @@ return [
     "phone"          => "0xxxxxxxx",
     "address"        => "",
 
-    "email"               => "quickpack@gmail.com",
+    "email"               => "feedwiz@gmail.com",
     "last_corn_run"       => Carbon::now(),
     "user_authentication" => json_encode([
         'registration'   => StatusEnum::true->status(),
@@ -70,7 +70,7 @@ return [
     "same_site_name"                => StatusEnum::false->status(),
     "country"                       => 'United States',
 
-    "user_site_name"   => "Demo Name",
+    "user_site_name"   => "FeedsWiz",
     "google_recaptcha" => json_encode([
         'key'        => '6Lc5PpImAAAAABM-m4EgWw8vGEb7Tqq5bMOSI1Ot',
         'secret_key' => '6Lc5PpImAAAAACdUh5Hth8NXRluA04C-kt4Xdbw7',

@@ -83,8 +83,8 @@
 
 
      $('.ai--btn').click(function(){
-       var $html = '<span></span><span></span><span></span>';
-       $(this).html($html);
+          var $html = '<span></span><span></span><span></span>';
+          $(this).html($html);
      });
 
      $(document).on('click','.toggle-password',function(e){

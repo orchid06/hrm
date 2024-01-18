@@ -1,43 +1,44 @@
 (function () {
   "use strict";
 
-  var uploadedFiles = [];
-  $(".upload-filed input").on("change", function () {
-    var fileInput = this;
-    uploadedFiles = Array.from(uploadedFiles);
+
+  function handleFileUpload(files) {
     var preview = $(".file-list");
+    $(files).each(function (i, file) {
+        var reader = new FileReader();
+        uploadedFiles.push(file);
 
-    // Preview Handler
-    function handleFileUpload(file) {
-      var reader = new FileReader();
-      uploadedFiles.push(file);
+        reader.onload = function (e) {
+          preview.append(
+            `<li>
+            <span class="remove-list" data-name="${file.name}">
+              <i class="bi bi-x-circle"></i>
+            </span>
+            <img src="${e.target.result}" alt="${file.name}" />
+          </li>`
+          );
+        };
+        reader.readAsDataURL(file);
+      });
 
-      reader.onload = function (e) {
-        preview.append(
-          `<li>
-           <span class="remove-list" data-name="${file.name}">
-             <i class="bi bi-x-circle"></i>
-           </span>
-           <img src="${e.target.result}" alt="${file.name}" />
-         </li>`
-        );
-      };
-      reader.readAsDataURL(file);
-    }
+  }
 
-    $(fileInput.files).each(function (i, file) {
-      handleFileUpload(file);
-    });
+  var uploadedFiles = [];
+  var fileInput ;
+  $(".upload-filed input").on("change", function () {
 
-    // handelFilePreview Called
+    fileInput = this;
+    uploadedFiles = Array.from(uploadedFiles);
+    handleFileUpload(fileInput.files);
     handelFilePreview(fileInput.files);
-
     uploadedFiles = createFileList(uploadedFiles);
     fileInput.files = uploadedFiles;
+  });
 
-    // Remove Preview And update file
 
-    preview.on("click", ".remove-list", function () {
+
+  $(document).on('click','.remove-list',function(e){
+
       var fileName = $(this).data("name");
       $(this).parent().remove();
 
@@ -55,8 +56,9 @@
       uploadedFiles = newFileList.files;
       fileInput.files = newFileList.files;
       handelFilePreview(uploadedFiles);
-    });
-  });
+  })
+
+
 
   function handelFilePreview(files) {
     var captionImgs = document.querySelectorAll(".caption-imgs");
@@ -156,10 +158,10 @@
                <span class="link-domin">
                  ${e.target.value}
                </span>
-               <h6>Preview | Example</h6>
+               <h6>Preview</h6>
                <p>
                  Preview approximates how your content will
-                 display when published. Tests and updates
+                 display when published.
                </p>
              </a>
            `;
