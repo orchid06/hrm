@@ -778,7 +778,7 @@
                         <div class="i-card-md">
                             <div class="card--header">
                                 <h4 class="card-title">
-                                    {{translate('Socail Login Setup')}}
+                                    {{translate('Social Login Setup')}}
                                 </h4>
                             </div>
                             <div class="card-body">

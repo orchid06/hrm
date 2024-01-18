@@ -369,3 +369,10 @@
 .logo-preview{
   max-width: 150px !important;
 }
+
+
+@media(max-width: 767px){
+  [data-sidebar="open"] body{
+    overflow: hidden;
+  }
+}
