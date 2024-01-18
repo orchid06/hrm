@@ -7,19 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Filterable
 {
-    
-    /*
-    |--------------------------------------------------------------------------
-    | filter & search data
-    |--------------------------------------------------------------------------
-    |
-    | This trait basically used in model. This will help to implement search and filter feature
-    |
-    */
-
-
-
-
+  
     /**
      * Get Only Recycled Data
      *
