@@ -94,19 +94,19 @@
                         @forelse ($related_blogs as $relatedBlog)
 
                             <div class="resource-item">
-                                    <a href="{{route('blog.details',$blog->slug)}}" class="resource-thumbnail">
-                                        <img src="{{imageUrl(@$blog->file,'article',true)}}" alt="{{@$blog->file->name}}" />
+                                    <a href="{{route('blog.details',$relatedBlog->slug)}}" class="resource-thumbnail">
+                                        <img src="{{imageUrl(@$relatedBlog->file,'article',true)}}" alt="{{@$relatedBlog->file->name}}" />
                                     </a>
 
                                     <div class="resource-content">
-                                        <a href="{{route('blog.details',$blog->slug)}}">
+                                        <a href="{{route('blog.details',$relatedBlog->slug)}}">
                                             <h5>
-                                                {{limit_words($blog->title,28)}}
+                                                {{limit_words($relatedBlog->title,28)}}
                                             </h5>
                                         </a>
 
                                         <div class="blog-meta mt-2">
-                                            <span>{{get_date_time($blog->created_at,"F j, Y")}}</span>
+                                            <span>{{get_date_time($relatedBlog->created_at,"F j, Y")}}</span>
                                         </div>
                                     </div>
                             </div>
