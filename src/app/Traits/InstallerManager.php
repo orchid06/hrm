@@ -337,10 +337,7 @@ trait InstallerManager
                 'PUSHER_APP_ID=' . PHP_EOL .
                 'PUSHER_APP_KEY=' . PHP_EOL .
                 'PUSHER_APP_SECRET=' . PHP_EOL .
-                'PUSHER_APP_CLUSTER=mt1' . PHP_EOL .
-            
-                'PURCHASE_KEY=' . session()->get(base64_decode('cHVyY2hhc2VfY29kZQ==')) . PHP_EOL .
-                'ENVATO_USERNAME=' . session()->get(base64_decode('dXNlcm5hbWU=')) . PHP_EOL;
+                'PUSHER_APP_CLUSTER=mt1' . PHP_EOL;
             
             $file = fopen(base_path('.env'), 'w');
             fwrite($file, $output);
@@ -378,7 +375,7 @@ trait InstallerManager
 
     private function _systemInstalled(string $purchaseKey = null ,string $envatoUsername = null ) :void {
 
-        $this->_updateSetting($purchaseKey??env('PURCHASE_KEY') ,$envatoUsername??env('ENVATO_USERNAME'));
+        $this->_updateSetting();
         
         $message ="INSTALLED_AT:".Carbon::now();
         $logFile = storage_path(base64_decode(config('installer.cacheFile')));
@@ -396,13 +393,11 @@ trait InstallerManager
     }
 
 
-    private function _updateSetting(string $purchaseKey,string $envatoUsername) :void {
+    private function _updateSetting() :void {
 
         $data = [
             ['key' => "app_version", 'value' => Arr::get(config("installer.core"),'appVersion',null)],
             ['key' => "system_installed_at", 'value' => Carbon::now()],
-            ['key' => "purchase_key", 'value' => $purchaseKey],
-            ['key' => "envato_username", 'value' => $envatoUsername],
         ];
         
         foreach ($data as $item) {

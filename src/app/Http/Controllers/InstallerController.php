@@ -130,12 +130,16 @@ class InstallerController extends Controller
      */
     public function dbSetup() :View |RedirectResponse
     {
-        if (Hash::check(base64_decode('ZGJzZXR1cF8='), request()->input('verify_token'))) {
-            return view('install.db_setup',[
-                'title' => 'Database Setup'
-            ]);
+        if(session()->get('system_requirments')){
+            if (Hash::check(base64_decode('ZGJzZXR1cF8='), request()->input('verify_token'))) {
+                return view('install.db_setup',[
+                    'title' => 'Database Setup'
+                ]);
+            }
+            return redirect()->route('install.init')->with('error','Invalid verification token');
         }
-        return redirect()->route('install.init')->with('error','Invalid verification token');
+
+        return redirect()->back()->with('error','Server requirements not met. Ensure all essential Extension and file permissions are enabled to ensure proper functionality');
     }
 
     /**
@@ -147,28 +151,23 @@ class InstallerController extends Controller
     public function dbStore(Request $request) :View |RedirectResponse
     {
 
-        if(session()->has(base64_decode('cHVyY2hhc2VfY29kZQ==')) && session()->has(base64_decode('dXNlcm5hbWU='))){
+        $message = "Invalid database info. Kindly check your connection details and try again";
+        $request->validate([
+            'db_host'     => "required",
+            'db_port'     => "required",
+            'db_database' => "required",
+            'db_username' => "required" ,
+        ]);
 
-            $message = "Invalid database info. Kindly check your connection details and try again";
-            $request->validate([
-                'db_host'     => "required",
-                'db_port'     => "required",
-                'db_database' => "required",
-                'db_username' => "required" ,
-            ]);
-    
-            if($this->_chekcDbConnection( $request)){
-                if($this->_envConfig($request)){
-                    return redirect()->route('install.account.setup',['verify_token' => bcrypt(base64_decode('c3lzdGVtX2NvbmZpZw=='))]);
-                }
-                $message = "Please empty your database then try again";
+        if($this->_chekcDbConnection( $request)){
+            if($this->_envConfig($request)){
+                return redirect()->route('install.account.setup',['verify_token' => bcrypt(base64_decode('c3lzdGVtX2NvbmZpZw=='))]);
             }
-    
-            return back()->with("error", $message);
-
+            $message = "Please empty your database then try again";
         }
 
-        return redirect()->route('install.init')->with('error','Invalid verification token');
+        return back()->with("error", $message);
+
 
     }
 

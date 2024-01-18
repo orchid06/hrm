@@ -5,10 +5,9 @@ use App\Enums\StatusEnum;
 return [
 
     'app_name'    => "FeedsWiz",
-    'software_id' => "SHHVLMTGKZ==",
+    'software_id' => "@@",
 
-    'cacheFile'   => 'LktvZGVfUGl4ZWw=',
-
+    'cacheFile'   => 'RmVlZHNfV2l6',
 
     'core' => [
         'appVersion' => '1.1',
@@ -29,6 +28,7 @@ return [
             'gd',
             'zip',
             'mbstring',
+        
 
         ],
         'apache' => [

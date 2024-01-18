@@ -24,7 +24,7 @@
     @include('modal.delete_modal')
     @if(@$appearance->element)
         <div class="modal fade" id="sectionSave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sectionSave"   aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
