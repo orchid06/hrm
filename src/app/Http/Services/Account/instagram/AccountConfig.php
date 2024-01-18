@@ -244,8 +244,6 @@ class AccountConfig
 	public function getCurrentUser(){
 		try
 		{
-
-
 			$response = (string) $this->client->get( 'https://i.instagram.com/api/v1/accounts/current_user/', [
 				'edit' => true
 			] )->getBody();

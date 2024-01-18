@@ -4,7 +4,7 @@
 <div class="col-lg-5">
     <div class="error-content">
         <h1>404</h1>
-        <p>{{@translate('Whoops...Page Not Found:')}}</p>
+        <p>{{@translate('Whoops... Page Not Found')}}</p>
 
         <div class="mt-lg-5 mt-4 d-flex align-items-center justify-content-center">
             <a href="{{route('home')}}" class="i-btn btn--primary btn--lg capsuled">
