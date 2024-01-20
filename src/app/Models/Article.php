@@ -29,7 +29,7 @@ class Article extends Model
         static::addGlobalScope(new ActiveScope());
 
         static::addGlobalScope('autoload', function (Builder $builder) {
-            $builder->with(['category' ,'file']);
+            $builder->with(['category' ,'file','createdBy']);
         });
 
         static::creating(function (Model $model) {

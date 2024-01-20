@@ -61,7 +61,7 @@ class UserController extends Controller
             'breadcrumbs'  =>  ['Home'=>'admin.home','Users'=> null],
             'title'        => 'Manage Users',
 
-            'users'        =>  User::with(['file','country',"subscriptions" => function($q){
+            'users'        =>  User::with(['file','createdBy','country',"subscriptions" => function($q){
                                     return $q->with(['package'])->running();
                                 }])
                                     ->routefilter()
