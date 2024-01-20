@@ -132,8 +132,9 @@ function send_browser_notification(heading, icon, message, route) {
 }
 
 function checkebox_event(selector, sub_selector) {
-    var length = $(`${selector}`).length
-    checked_length = $(`${selector}:checked`).length;
+
+    var length = $(`${selector}`).length;
+    var checked_length = $(`${selector}:checked`).length;
     if (length == checked_length) {
         $(`${sub_selector}`).prop('checked', true);
     }

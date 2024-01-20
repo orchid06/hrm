@@ -49,7 +49,7 @@ class PaymentMethodController extends Controller
         return view('admin.payment_method.list',[
             'breadcrumbs' =>  ['Home'=>'admin.home','Payment Method'=> null],
             'title'       => 'Manage Payment Methods',
-            'methods'     => PaymentMethod::with(['createdBy','updatedBy','currency'])
+            'methods'     => PaymentMethod::with(['createdBy','updatedBy','currency','file'])
                              ->type()
                              ->search(['name'])
                              ->latest()

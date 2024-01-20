@@ -37,7 +37,7 @@ class MailGatewayController extends Controller
         return view('admin.mail_gateway.list',[
             'breadcrumbs' =>  ['Home'=>'admin.home','Gateways'=> null],
             'title'       => 'Manage Gateway',
-            'gateways'    => MailGateway::search(['name'])->latest()->get()
+            'gateways'    => MailGateway::with(['updatedBy'])->search(['name'])->latest()->get()
         ]);
     }
 
