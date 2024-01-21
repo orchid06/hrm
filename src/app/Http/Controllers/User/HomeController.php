@@ -256,9 +256,10 @@ class HomeController extends Controller
 
         $user = $this->user;
 
-        if(!Hash::check($request->input('current_password'), $this->user->password)) {
+        if( $this->user->password && !Hash::check($request->input('current_password'), $this->user->password)) {
             return back()->with('error', translate("Your Current Password does not match !!"));
         }
+        
         $user->password = $request->input('password');
         $user->save();
         return back()->with(response_status('Password Updated'));
