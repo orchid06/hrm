@@ -53,7 +53,7 @@
 
                                         <td data-label='{{translate("Status")}}'>
                                             <div class="form-check form-switch switch-center">
-                                                <input {{!check_permission('update_content') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                <input  type="checkbox" class="status-update form-check-input"
                                                     data-column="status"
                                                     data-route="{{ route('user.ai.content.update.status') }}"
                                                     data-status="{{ $content->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"

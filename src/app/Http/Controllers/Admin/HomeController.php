@@ -148,10 +148,10 @@ class HomeController extends Controller
         $data['payment_charge']         = num_format(number:$charge,calC:true);
 
         $data['monthly_payment_charge']       =  sortByMonth(PaymentLog::date()->paid()->selectRaw("MONTHNAME(created_at) as months, SUM(charge) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
+                                                    ->whereYear('created_at', '=',date("Y"))
+                                                    ->groupBy('months')
+                                                    ->pluck('total', 'months')
+                                                    ->toArray(),true);
 
 
                                                 

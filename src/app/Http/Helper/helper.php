@@ -721,7 +721,7 @@ use Illuminate\Database\Eloquent\Collection;
       function check_permission(string $accessPermission ) :bool{
          $status = true;
 
-         if(auth_user()->super_admin == StatusEnum::false->status()){
+         if(auth_user() && auth_user()->super_admin == StatusEnum::false->status()){
 
             $permissions            = (array)auth_user()->role->permissions;
             $permission_values      = [];
