@@ -59,13 +59,13 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg capsuled">
-                                <i class="bi bi-search"></i>
-                            </button>
+                        <button type="submit" class="i-btn primary btn--lg capsuled">
+                            <i class="bi bi-search"></i>
+                        </button>
 
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
+                        <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
                     </div>
                 </form>
               </div>
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark btn--danger" data-anim="ripple" data-bs-dismiss="modal">
+                    <button type="button" class="i-btn btn--md ripple-dark danger" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
 

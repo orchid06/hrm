@@ -2,7 +2,7 @@
 @section('content')
 	<div class="container-fluid px-0">
 		<div class="row">
-			<div class="col-lg-10 col-xxl-10 mx-auto">
+			<div class="col-lg-10 col-xxl-12">
 				<div class="i-card-md">
 					<div class="card--header">
 						<h3 class="h6 mb-0">{{ translate('Server information') }}</h3>

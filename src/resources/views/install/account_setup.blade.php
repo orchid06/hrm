@@ -51,7 +51,7 @@
                                                 {{trans('default.btn_import')}}
                                                 <i class="ms-2 bi bi-database"></i>
                                             </button>
-                                            <button name="force"  value="1" type="submit" class="i-btn  ai--btn btn--lg btn--danger btn--primary"> 
+                                            <button name="force"  value="1" type="submit" class="i-btn  ai--btn btn--lg danger btn--primary"> 
                                                 {{trans('default.btn_force_import')}}  <i class="ms-2 bi bi-database-down"></i>
                                             </button>
                                         </div>

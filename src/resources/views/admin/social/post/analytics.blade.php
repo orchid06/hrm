@@ -33,7 +33,7 @@
               <h5 class="title">
                 {{translate("Total Account")}}
               </h5>
-              <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--outline">
+              <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
               </a>
             </div>
@@ -53,7 +53,7 @@
             <h5 class="title">
               {{translate("Total Post")}}
             </h5>
-            <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--primary-outline">
               {{translate("View All")}}
             </a>
           </div>
@@ -73,7 +73,7 @@
                 <h5 class="title">
                     {{translate('Pending Post')}}
                 </h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Pending->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Pending->value])}}" class="i-btn btn--sm btn--primary-outline">
                       {{translate("View All")}}
                 </a>
               </div>
@@ -89,7 +89,7 @@
           <div class="card-info">
             <h3>{{Arr::get($data,"schedule_post",0)}} </h3>
             <h5 class="title">{{translate('Schedule Post')}}</h5>
-            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Schedule->value])}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Schedule->value])}}" class="i-btn btn--sm btn--primary-outline">
                 {{translate("View All")}}
             </a>
           </div>
@@ -108,7 +108,7 @@
                 {{Arr::get($data,"success_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Success Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -128,7 +128,7 @@
                 {{Arr::get($data,"failed_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Failed Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -158,7 +158,7 @@
         <div class="row g-2 mt-4 text-center">
 
           <div class="col-6 col-sm-6">
-              <div class="p-3 border border-dashed border-start-0">
+              <div class="p-3 border border-dashed border-start-0 rounded-2">
                   <h5 class="mb-1">
                       <span>
                         {{Arr::get($data,"platform",0)}}
@@ -171,7 +171,7 @@
           </div>
 
           <div class="col-6 col-sm-6">
-              <div class="p-3 border border-dashed border-start-0">
+              <div class="p-3 border border-dashed border-start-0 rounded-2">
                   <h5 class="mb-1"><span>
                     {{Arr::get($data,"total_post",0)}}
                   </span></h5>
@@ -196,7 +196,7 @@
           <div class="row row-cols-lg-5 row-cols-md-5 row-cols-sm-2 row-cols-2 g-2 text-center mb-5">
 
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1">
                         <span>
                           {{Arr::get($data,"total_post",0)}}
@@ -209,7 +209,7 @@
             </div>
 
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"pending_post",0)}}
                     </span></h5>
@@ -219,7 +219,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"success_post",0)}}
                     </span></h5>
@@ -229,7 +229,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"schedule_post",0)}}
                     </span></h5>
@@ -239,7 +239,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"failed_post",0)}}
                     </span></h5>
