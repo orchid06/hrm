@@ -7,7 +7,7 @@
     --color-primary-light-2: rgba(90, 15, 245, 0.2);
     --color-primary-text: #ffffff;
     --text-primary: #26152E;
-    --text-secondary: #676767;
+    --text-secondary: #777777;
     --text-light: #acacac;
     --color-border: #dadce0;
     --color-border-two: #e3e3e3;
@@ -153,7 +153,10 @@ button,
 }
 
 .bg--primary {
-    background-color: var(--color-primary)
+    background-color: var(--color-primary);
+}
+.bg--primary-light {
+    background-color: var(--color-primary-light);
 }
 
 .pt-100 {
@@ -672,6 +675,10 @@ button {
     font-size: 24px;
 }
 
+.fw-500{
+    font-weight: 500;
+}
+
 .mb-50 {
     margin-bottom: 50px
 }
@@ -716,7 +723,7 @@ button {
     margin-top: 10px
 }
 .text-muted{
-    color: #878a99 !important;
+    color: var(--text-secondary) !important;
 }
 
 .section-title h2 {
@@ -742,8 +749,8 @@ button {
 }
 
 .avatar-sm {
-    height: 30px;
-    width: 30px
+    height: 26px;
+    width: 26px
 }
 
 .avatar-md {
@@ -3568,18 +3575,19 @@ textarea {
 .sidebar .sidebar-menu-container .sidebar-menu {
     display: flex;
     flex-direction: column;
-    gap: 6px
+    gap: 8px
 }
 
 .sidebar-menu-title {
     color: var(--color-primary);
     padding: 14px 20px 0px;
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0px;
     line-height: 1;
-    letter-spacing: 1px
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
 .sidebar-menu-item .sidebar-menu-link {
@@ -3587,9 +3595,9 @@ textarea {
     align-items: center;
     width: 100%;
     gap: 8px;
-    padding: 8px 15px 8px 15px;
+    padding: 8px 12px 8px 12px;
     color: #bfc8dd;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1;
     transition: .3s ease-in-out;
     border-radius: 8px;
@@ -5771,7 +5779,7 @@ ul.inbox-list li .col-mail-2 .date {
 }
 
 .activity-list {
-    max-height: 475px;
+    max-height: 400px;
     height: auto;
     overflow: auto;
     padding-right: 8px
@@ -5799,8 +5807,9 @@ ul.inbox-list li .col-mail-2 .date {
     align-items: flex-start;
     font-size: 15px;
     border-bottom: 1px solid #eee;
-    padding: 15px 0
+    padding: 10px 0
 }
+
 
 .activity-list li .time {
     font-size: 12px;
@@ -5831,6 +5840,16 @@ ul.inbox-list li .col-mail-2 .date {
     font-size: 39px;
     color: var(--color-primary);
     display: inline-block
+}
+
+.top-user-list li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.top-user-list li:nth-last-child(){
+    margin-bottom: 0px;
 }
 
 #paymentGateway {
@@ -6604,6 +6623,20 @@ ul.inbox-list li .col-mail-2 .date {
 }
 
 .widget-title{
-    margin-bottom: 5px;
+    margin-bottom: 12px;
+}
+.sidebar-widget {
+    margin-bottom: 25px;
+}
+.sidebar-widget .swiper-slide-active{
+    height: auto !important;
+}
+
+.testi-single{
+    height: auto !important;
+    border: 1px solid var(--color-border);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
 }
 

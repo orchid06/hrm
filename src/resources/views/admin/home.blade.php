@@ -233,6 +233,49 @@
             </div>
           </div>
         </div>
+        <div class="col-6">
+          <div class="i-card-md home home">
+            <div class="card--header">
+              <h4 class="card-title">
+                  {{translate("Subscriptions & Income")}}
+              </h4>
+              <div class="d-flex justify-content-end align-items-center gap-2">
+                  <a href="#" class="i-btn btn--sm btn--primary-transparent">Y</a>
+                  <a href="#" class="i-btn btn--sm btn--primary-transparent">M</a>
+                  <a href="#" class="i-btn btn--sm btn--primary-transparent">D</a>
+              </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-2 text-center mb-5">
+
+                  <div class="col-sm-6">
+                      <div class="p-3 border border-dashed border-start-0 rounded-2">
+                          <h5 class="mb-1">
+                              <span>
+                                {{Arr::get($data['subscription_reports'],"total_subscriptions",0)}}
+                              </span>
+                          </h5>
+                          <p class="text-muted mb-0">
+                              {{translate("Total Subscriptions")}}
+                          </p>
+                      </div>
+                  </div>
+                  <!--end col-->
+                  <div class="col-sm-6">
+                      <div class="p-3 border border-dashed border-start-0 rounded-2">
+                          <h5 class="mb-1"><span>
+                            {{Arr::get($data['subscription_reports'],"total_income",0)}}
+                          </span></h5>
+                          <p class="text-muted mb-0">
+                              {{translate("Total Income")}}
+                          </p>
+                      </div>
+                  </div>
+                </div>
+              <div id="subscriptionReport" class="apex-chart"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="row g-3 mb-3">
@@ -603,7 +646,6 @@
               <h6 class="widget-title">
                   Recent Posts
               </h6>
-
               <div class="widget-body" >
                 <ul class="activity-list">
                   <li class="mb-0">
@@ -616,11 +658,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -636,11 +678,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -656,11 +698,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -676,11 +718,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -696,11 +738,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -716,11 +758,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -736,11 +778,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -756,11 +798,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -776,11 +818,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -796,11 +838,11 @@
                               </div>
                           </div>
                           <div class="flex-grow-1 ms-2">
-                              <h6 class="fs-14">
+                              <h6 class="fs-14 fw-500">
                                   1dsfdf
-                                  <a href="https://pixeldesk.kodepixel.com/admin/tickets/tkt198" class="link-secondary"> teste</a>
+                                  <a href="#" class="link-secondary"> teste</a>
                               </h6>
-                              <p class="mb-0 fs-14">fvadfbdfbgdgbdghbgd</p>
+                              <p class="mb-0 fs-14">See your current post</p>
                               <small class="mb-0 text-muted fs-12">4 days ago</small>
                           </div>
                       </div>
@@ -811,167 +853,397 @@
 
           <div class="sidebar-widget">
               <h6 class="widget-title">
-                  Top Categories By Tickets
+                  Top Ten Customer Income
               </h6>
-
-              <div class="widget-body style-two">
-                  <ul class="category-list">
-                      <li>
-                          <span>
-                              Technical...
-                          </span>
-                          <span>(29)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              Installati...
-                          </span>
-                          <span>(13)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              General In...
-                          </span>
-                          <span>(10)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              Feature Re...
-                          </span>
-                          <span>(3)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              User Train...
-                          </span>
-                          <span>(1)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              Security C...
-                          </span>
-                          <span>(1)</span>
-                      </li>
-
-                      <li>
-                          <span>
-                              bhxlRdke
-                          </span>
-                          <span>(1)</span>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-
-          <div class="sidebar-widget">
-              <h6 class="widget-title">
-                  Latest Agent Replies
-              </h6>
-
               <div class="widget-body" >
-              <ul class="review-list">
+                <ul class="top-user-list">
                   <li>
-                      <div class="image">
-                        
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>test</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p></p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-              
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>Hello</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>PRóbáltad bedugni a...</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>PRóbáltad bedugni a...</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-      
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>Hello teste</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>yttt</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
                   <li>
-                      <div class="image">
-      
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
                       </div>
-                      <div class="content">
-                          <p>ok</p>
-
-                          <span class="name">
-                              Superadmin
-                          </span>
-                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
                   </li>
-              </ul>
+                  <li>
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
+                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="d-flex align-items-center gap-2 flex-grow-1">
+                      <div class="avatar-sm acitivity-avatar">
+                          <div class="avatar-title rounded-2 bg-secondary">
+                              <i class="ri-chat-settings-line"></i>
+                          </div>
+                      </div>
+                      <h6 class="fs-15 fw-500"><a href="#" class="link-secondary"> teste</a></h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <h6 class="fs-14 fw-500 mb-0">$45455</h6>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+          </div>
+
+          <div class="sidebar-widget">
+            <h6 class="widget-title">Products Reviews</h6>
+            <!-- Swiper -->
+            <div class="swiper testi-slider" style="height: 230px;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="testi-single">
+                      <div class="flex-shrink-0">
+                      <img src="https://i.ibb.co/dpm3Skr/user.jpg" alt="user" class="avatar-sm rounded material-shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <div>
+                              <p class="text-muted mb-1 fst-italic text-truncate-two-lines">" The product is very beautiful. I like it. "</p>
+                              <div class="fs-11 align-middle text-warning">
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-half-fill"></i>
+                                  <i class="ri-star-line"></i>
+                              </div>
+                          </div>
+                          <div class="text-end mb-0 text-muted">
+                              - by <cite title="Source Title">Nancy Martino</cite>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="testi-single">
+                    <div class="flex-shrink-0 avatar-sm">
+                        <div class="avatar-title bg-light rounded material-shadow">
+                        <img src="https://i.ibb.co/wKxBcC5/user2.jpg" alt="user2" class="avatar-sm rounded material-shadow">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div>
+                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> " Great product and looks great, lots of features. "</p>
+                            <div class="fs-11 align-middle text-warning">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                        </div>
+                        <div class="text-end mb-0 text-muted">
+                            - by <cite title="Source Title">Force Medicines</cite>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="testi-single d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="https://i.ibb.co/dpm3Skr/user.jpg" alt="user" class="avatar-sm rounded material-shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <div>
+                              <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> " Amazing template, very easy to understand and manipulate. "</p>
+                              <div class="fs-11 align-middle text-warning">
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-half-fill"></i>
+                              </div>
+                          </div>
+                          <div class="text-end mb-0 text-muted">
+                              - by <cite title="Source Title">Henry Baird</cite>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="testi-single d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="https://i.ibb.co/wKxBcC5/user2.jpg" alt="user2" class="avatar-sm rounded material-shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                          <div>
+                              <p class="text-muted mb-1 fst-italic text-truncate-two-lines">" The product is very beautiful. I like it. "</p>
+                              <div class="fs-11 align-middle text-warning">
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-fill"></i>
+                                  <i class="ri-star-half-fill"></i>
+                                  <i class="ri-star-line"></i>
+                              </div>
+                          </div>
+                          <div class="text-end mb-0 text-muted">
+                              - by <cite title="Source Title">Nancy Martino</cite>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="testi-single d-flex">
+                    <div class="flex-shrink-0 avatar-sm">
+                        <div class="avatar-title bg-light rounded material-shadow">
+                          <img src="https://i.ibb.co/dpm3Skr/user.jpg" alt="user" class="avatar-sm rounded material-shadow">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div>
+                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> " Great product and looks great, lots of features. "</p>
+                            <div class="fs-11 align-middle text-warning">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                        </div>
+                        <div class="text-end mb-0 text-muted">
+                            - by <cite title="Source Title">Force Medicines</cite>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+          <div class="sidebar-widget">
+              <h6 class="widget-title">Customer Reviews</h6>
+              <div class="widget-body" >
+                  <h6 class="text-muted mb-3 text-uppercase fw-semibold"></h6>
+                  <div class="bg--primary-light px-3 py-2 rounded-2 mb-2">
+                      <div class="d-flex align-items-center">
+                          <div class="flex-grow-1">
+                              <div class="fs-16 align-middle text-warning">
+                                  <i class="bi bi-star-fill fs-14"></i>
+                                  <i class="bi bi-star-fill fs-14"></i>
+                                  <i class="bi bi-star-fill fs-14"></i>
+                                  <i class="bi bi-star-fill fs-14"></i>
+                                  <i class="bi bi-star-half fs-14"></i>
+                              </div>
+                          </div>
+                          <div class="flex-shrink-0">
+                              <h6 class="mb-0 fs-15 text--primary">4.5 out of 5</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="text-center">
+                      <div class="text-muted">Total <span class="fw-medium text-dark">5.50k</span> reviews</div>
+                  </div>
+
+                  <div class="mt-3">
+                      <div class="row align-items-center g-2 mb-1">
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 fs-15">5 star</h6>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="p-1">
+                                  <div class="progress animated-progress progress-sm">
+                                      <div class="progress-bar bg-success" role="progressbar" style="width: 50.16%" aria-valuenow="50.16" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 text-muted fs-14">2758</h6>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end row -->
+
+                      <div class="row align-items-center g-2 mb-1">
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 fs-15">4 star</h6>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="p-1">
+                                  <div class="progress animated-progress progress-sm">
+                                      <div class="progress-bar bg-success" role="progressbar" style="width: 29.32%" aria-valuenow="29.32" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 text-muted fs-14">1063</h6>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end row -->
+
+                      <div class="row align-items-center g-2 mb-1">
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 fs-15">3 star</h6>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="p-1">
+                                  <div class="progress animated-progress progress-sm">
+                                      <div class="progress-bar bg-warning" role="progressbar" style="width: 18.12%" aria-valuenow="18.12" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 text-muted fs-14">997</h6>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end row -->
+
+                      <div class="row align-items-center g-2 mb-1">
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 fs-15">2 star</h6>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="p-1">
+                                  <div class="progress animated-progress progress-sm">
+                                      <div class="progress-bar bg-success" role="progressbar" style="width: 4.98%" aria-valuenow="4.98" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 text-muted fs-14">227</h6>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- end row -->
+
+                      <div class="row align-items-center g-2 mb-1">
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 fs-15">1 star</h6>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="p-1">
+                                  <div class="progress animated-progress progress-sm">
+                                      <div class="progress-bar bg-danger" role="progressbar" style="width: 7.42%" aria-valuenow="7.42" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-auto">
+                              <div class="p-1">
+                                  <h6 class="mb-0 text-muted fs-14">408</h6>
+                              </div>
+                          </div>
+                      </div><!-- end row -->
+                  </div>
               </div>
           </div>
       </div>
@@ -1274,6 +1546,24 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
+
+    // verticle slider
+    var swiper = new Swiper(".testi-slider", {
+      direction: 'vertical',
+      slidesPerView: 2,
+      spaceBetween: 10,
+      grabCursor: true,
+      loop: true,
+      // autoplay: true,
+      mousewheel: {
+        eventsTarged: ".swiper-slide",
+        sensitivity: 5
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
 
 </script>
 @endpush
