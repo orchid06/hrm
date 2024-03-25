@@ -2,7 +2,7 @@
 
 :root {
     --font-primary: "Outfit", sans-serif;
-    --color-primary: #2275fc;
+    --color-primary: #181f2a;
     --color-primary-light: rgba(90, 15, 245, 0.1);
     --color-primary-light-2: rgba(90, 15, 245, 0.2);
     --color-primary-text: #ffffff;
@@ -27,7 +27,7 @@
     --color-warning: rgb(245,184,73);
     --color-warning-light: rgba(245,184,73, 0.2);
     --color-warning-light-2: rgba(245,184,73, 0.25);
-    --color-info: rgb(73,182,245);
+    --color-info: rgb(0, 162, 255);
     --color-info-light: rgba(73,182,245, 0.2);
     --color-info-light-2: rgba(73,182,245, 0.25)
 }
@@ -45,7 +45,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
     margin-bottom: 0;
     font-weight: 600
 }
@@ -175,7 +175,7 @@ button,
 .i-badge {
     border-radius: 3px;
     display: inline-block;
-    padding: 4px 12px;
+    padding: 5px 12px;
     font-size: 12px;
     font-weight: 500;
     line-height: 1;
@@ -240,7 +240,7 @@ button,
 
 .i-badge.info {
     background-color: var(--color-info-light);
-    color: var(--color-info)
+    color: var(--color-info);
 }
 
 .i-badge.info:hover {
@@ -415,7 +415,7 @@ button {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    border-radius: 5px;
+    border-radius: 6px;
     transition: .35s;
     line-height: 1;
     white-space: nowrap
@@ -1117,7 +1117,7 @@ button {
 .basic-setting .basic-setting-left .setting-tab {
     padding: 20px 0 !important;
     background-color: var(--card-bg);
-    border-radius: 4px
+    border-radius: 10px
 }
 
 .basic-setting .basic-setting-left .setting-tab .nav {
@@ -1128,15 +1128,15 @@ button {
 }
 
 .basic-setting .basic-setting-left .setting-tab .nav .nav-item {
-    padding: 0 10px
+    padding: 0 15px
 }
 
 .basic-setting .basic-setting-left .setting-tab .nav .nav-item .nav-link {
     border: none;
     border-left: 3px solid rgba(0, 0, 0, 0);
     color: var(--text-primary);
-    border-radius: 0;
-    padding: 8px 12px;
+    border-radius: 4px;
+    padding: 8px 10px;
     font-size: 15px;
     font-weight: 400;
 }
@@ -1623,7 +1623,7 @@ table.dataTable.no-footer {
     background-color: var(--card-bg);
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0px 5px 12px rgba(46, 35, 94, .06)
+    box-shadow: 0px 5px 12px rgba(46, 35, 94, .03)
 }
 
 @media(min-width: 992px)and (max-width: 1199px) {
@@ -1730,7 +1730,7 @@ table.dataTable.no-footer {
 
 .i-card-sm.style-2 .card-info .title {
     opacity: .75;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-size: 15px;
     font-weight: 400;
     color: var(--text-primary)
@@ -2158,12 +2158,13 @@ table {
     padding: 0;
     max-width: 100%;
     width: 100%;
-    background-color: var(--card-bg)
+    background-color: var(--card-bg);
+    border: 1px solid #eeeeee;
 }
 
 table thead tr {
-    background-color: var(--site-bg);
-    color: var(--color-primary)
+    background-color: #ededed6e;
+    color: var(--text-light);
 }
 
 table tbody tr {
@@ -2179,9 +2180,9 @@ table th {
     padding: 10px 16px;
     text-align: left;
     white-space: nowrap;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--text-primary)
+    color: var(--text-secondary);
 }
 
 @media(max-width: 767px) {
@@ -2391,7 +2392,7 @@ table td:last-child {
 }
 
 .search-action-area .search-area .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 33px
+    line-height: 33px;
 }
 
 .search-action-area .search-area .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -2579,7 +2580,7 @@ textarea {
     display: block;
     padding: 0 12px;
     height: 45px;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 13px;
     color: var(--text-secondary);
     transition: .4s ease
@@ -2778,7 +2779,7 @@ select {
 
 .select2-container--default .select2-selection--single {
     border: 1px solid var(--color-border);
-    border-radius: 5px;
+    border-radius: 6px;
     background-color: rgba(0, 0, 0, 0)
 }
 
@@ -3640,7 +3641,7 @@ textarea {
     height: 22px;
     border-radius: 50%;
     line-height: 22px;
-    font-size: 22px;
+    font-size: 21px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4012,7 +4013,7 @@ textarea {
     background: var(--white);
     color: var(--text-primary);
     font-family: var(--font-merriw);
-    padding: 15px 40px 15px 15px;
+    padding: 12px 40px 12px 15px;
     padding-right: 40px;
     position: relative;
     transition: .4s ease-in;
@@ -6636,7 +6637,7 @@ ul.inbox-list li .col-mail-2 .date {
     height: auto !important;
     border: 1px solid var(--color-border);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 6px;
     display: flex;
 }
 

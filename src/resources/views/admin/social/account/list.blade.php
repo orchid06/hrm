@@ -13,7 +13,6 @@
 
 
     <div class="basic-setting">
-
         <div class="basic-setting-left">
             <div class="setting-tab sticky-side-div">
                 <ul class="nav nav-tabs gap-3 social-account-list" role="tablist">

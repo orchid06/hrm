@@ -123,7 +123,7 @@
                                     <div class="d-block">
                                         {{$user->email}} 
                                     </div>
-                                    <span class="i-badge success">{{$user->phone}}</span>
+                                    <span class="i-badge info">{{$user->phone}}</span>
                                 </td>
                                 <td  data-label="{{translate('Country')}}">
                                     {{$user->country->name}}

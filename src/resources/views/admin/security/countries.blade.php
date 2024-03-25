@@ -80,7 +80,7 @@
                                 </td>
                                 <td data-label='{{translate("name")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2"><p>{{$country->name}}</p>
-                                            <span class="i-badge capsuled success">
+                                            <span class="i-badge capsuled info">
                                                 {{$country->code}}
                                             </span>
                                     </div>
