@@ -29,7 +29,7 @@
     --color-warning-light-2: rgba(245,184,73, 0.25);
     --color-info: rgb(0, 162, 255);
     --color-info-light: rgba(73,182,245, 0.2);
-    --color-info-light-2: rgba(73,182,245, 0.25)
+    --color-info-light-2: rgba(73,182,245, 0.25);
 }
 
 * {
@@ -183,7 +183,7 @@ button,
     white-space: nowrap;
     vertical-align: middle;
     transition: .3s ease;
-    transition: .3s ease
+    transition: .3s ease;
 }
 
 .i-badge.capsuled {
@@ -456,14 +456,13 @@ button {
 
 .i-btn.btn--outline {
     color: var(--text-primary);
-    background-color: var(--color-white)
+    background-color: var(--color-white);
 }
 
 .i-btn.btn--outline:hover {
-    background-color: var(--color-primary);
+    background-color: var(--color-dark) !important;
     color: var(--color-white)
 }
-
 
 .i-btn.danger {
     border: 1px solid var(--color-danger);
@@ -6639,5 +6638,10 @@ ul.inbox-list li .col-mail-2 .date {
     padding: 10px;
     border-radius: 6px;
     display: flex;
+}
+
+.banner-bg {
+    position: relative;
+    z-index: 1;
 }
 

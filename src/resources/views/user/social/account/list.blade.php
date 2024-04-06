@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-
-
     @php
         $user                   = auth_user('web');
         $subscription           = $user->runningSubscription;
@@ -15,222 +13,961 @@
 
     @endphp
     <div class="row g-4">
-        <div class="col-xxl-3 col-lg-4">
-            <div class="i-card-md">
-                <div class="card-body px-0">
-                    <div class="basic-setting-left sticky-side-div">
-                        <div class="setting-tab">
-                            <ul class="nav nav-tabs social-account-list border-0" role="tablist">
-                                @forelse ($platforms as $platform )
-                                    @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
-                                        <li class="nav-item">
-                                            <a class="nav-link {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('user.social.account.list',['platform' => $platform->slug])}}" >
-                                                <div class="user-meta-info d-flex align-items-center gap-2">
-                                                    <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
-
-                                                    <p>	 {{$platform->name}}</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endif
-                                @empty
-                                   <li class="text-center p-4">
-                                      {{translate("No Active Platform found")}}
-                                   </li>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="i-card mb-4 border">
+            <ul class="nav nav-tabs gap-4 style-2 mb-30" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Facebook</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false"><span><img src="https://i.ibb.co/QJ7MCHY/instagram.png" alt="instagram"></span>Instagram</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-three" data-bs-toggle="tab" data-bs-target="#tab-three-pane" type="button" role="tab" aria-controls="tab-three-pane" aria-selected="false"><span><img src="https://i.ibb.co/Rg1Vz7X/twitter.png" alt="twitter"></span>Twitter</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-four" data-bs-toggle="tab" data-bs-target="#tab-four-pane" type="button" role="tab" aria-controls="tab-four-pane" aria-selected="false"><span><img src="https://i.ibb.co/mcGZcTg/linkedin.png" alt="linkedin"></span>Linkedin</buttons>
+                </li>
+            </ul>
         </div>
 
-        <div class="col-xxl-9 col-lg-8">
-            <div class="basic-setting-right">
-                <div class="i-card-md">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            {{translate(Arr::get($meta_data, 'title'))}}
-                        </h4>
-                    </div>
+        <div class="i-card border">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel" aria-labelledby="tab-one" tabindex="0">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Accounts information
+                                    </th>
+                                    <th scope="col">
+                                        Connection status
+                                    </th>
 
-                    <div class="card-body px-0 pt-0">
-                        @if(request()->input("platform"))
+                                    <th scope="col">
+                                        Connection type
+                                    </th>
 
-                            <div class="search-action-area mb-4">
-                                <div class="row g-4">
-                                    <div class="col-md-4">
-                                        <a href="{{route('user.social.account.create',['platform' => request()->input('platform')])}}" class="i-btn primary btn--lg capsuled create">
-                                        <i class="bi bi-plus-lg"></i>  {{translate('Add New')}}
-                                       </a>
+                                    <th scope="col">
+                                        Account type
+                                    </th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
 
-                                    </div>
+                                    <th scope="col">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
 
-                                    <div class="col-xl-5 offset-xl-3 col-md-8">
-                                        <div class="search-area">
-                                            <form action="{{route(Route::currentRouteName())}}" method="get">
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
 
-                                                <input type="hidden" name="platform" value="{{request()->input('platform')}}">
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
 
-                                                <div class="form-inner">
-                                                    <input placeholder="{{translate('Search by name')}}" type="search" name="name" value="{{request()->input('value')}}">
-
-                                                </div>
-
-                                                <div class="d-flex gap-2">
-                                                    <button class="i-btn primary btn--lg capsuled">
-                                                        <i class="bi bi-search"></i>
-                                                    </button>
-                                                    <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
-                                                        <i class="bi bi-arrow-repeat"></i>
-                                                    </a>
-                                                </div>
-                                            </form>
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
 
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                            #
-                                            </th>
-                                            <th scope="col">{{translate('Account Info')}}</th>
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
 
-                                            <th scope="col">{{translate('Status')}}</th>
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
 
-                                            <th scope="col">{{translate('Connection Status')}}</th>
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
 
-                                            <th scope="col">{{translate('Connection Type')}}</th>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
 
-                                            <th scope="col">{{translate('Account Type')}}</th>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
 
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
 
-                                            <th scope="col">{{translate('Action')}}</th>
-                                        </tr>
-                                    </thead>
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
 
-                                    <tbody>
-                                        @forelse ($accounts as $account)
-                                            <tr>
-                                                <td data-label="#">
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
 
-                                                    {{$loop->iteration}}
-                                                </td>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
 
-                                                <td data-label='{{translate("name")}}'>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
 
-                                                    <div class="user-meta-info d-flex align-items-center gap-2">
-                                                        <img class="rounded-circle avatar-sm"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
 
-                                                        @if(@$account->account_information->link)
-                                                            <a target="_blank" href="{{@$account->account_information->link}}">
-                                                                <p>	{{ @$account->account_information->name}}</p>
-                                                            </a>
-                                                        @else
-                                                            <p>	{{ @$account->account_information->name}}</p>
-                                                        @endif
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
 
-                                                    </div>
-                                                </td>
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
 
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
 
-                                                <td data-label='{{translate("Status")}}'>
-
-                                                    <div class="form-check form-switch switch-center">
-                                                        <input  type="checkbox" class="status-update form-check-input"
-                                                            data-column="status"
-                                                            data-route="{{ route('user.social.account.update.status') }}"
-                                                            data-status="{{ $account->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                            data-id="{{$account->uid}}" {{$account->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                                        id="status-switch-{{$account->id}}" >
-                                                        <label class="form-check-label" for="status-switch-{{$account->id}}"> </label>
-
-                                                    </div>
-
-                                                </td>
-
-                                                <td data-label='{{translate("Connection Status")}}'>
-
-                                                    @php echo account_connection_status($account->is_connected) @endphp
-                                               </td>
-
-                                                <td data-label='{{translate("Connection Type")}}'>
-
-                                                    @php echo account_connection($account->is_official) @endphp
-                                               </td>
-
-                                                <td data-label='{{translate("Account Type")}}'>
-
-                                                    @php echo account_type($account->account_type) @endphp
-                                               </td>
-
-                                                <td data-label='{{translate("Action")}}'>
-                                                    <div class="table-action">
-                                                        @php
-                                                                $platforms           = Arr::get(config('settings'),'platforms' ,[]);
-                                                                $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
-
-                                                        @endphp
-
-                                                        @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' )
-                                                            @php
-
-                                                              $url          = 'javascript:void(0)';
-                                                              $connectionClass  =   true;
-                                                              if($account->platform->slug != 'facebook'){
-                                                                  $url = route("account.connect",[ "guard"=>"web","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ]);
-                                                                  $connectionClass  =   false;
-
-                                                              }
-
-                                                            @endphp
-                                                            <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
-                                                            </a>
-                                                         @endif
-
-                                                        @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                                <a  title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
-                                                                </a>
-                                                        @endif
-                                                        @if(check_permission('delete_account') )
-
-                                                            <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
-                                                                <i class="bi bi-trash"></i>
-                                                            </a>
-                                                        @else
-                                                            {{translate('N/A')}}
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td class="border-bottom-0" colspan="90">
-                                                    @include('admin.partials.not_found')
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-
-
-                                </table>
-                            </div>
-
-                            <div class="Paginations">
-                                {{ $accounts->links() }}
-                            </div>
-                        @else
-                            <div class="text-center pt-4">
-                                {{translate("No Active Platform Selected")}}
-                            </div>
-                        @endif
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="tab-two-pane" role="tabpanel" aria-labelledby="tab-two" tabindex="0">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Accounts information
+                                    </th>
+                                    <th scope="col">
+                                        Connection status
+                                    </th>
 
+                                    <th scope="col">
+                                        Connection type
+                                    </th>
+
+                                    <th scope="col">
+                                        Account type
+                                    </th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab-three-pane" role="tabpanel" aria-labelledby="tab-three" tabindex="0">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Accounts information
+                                    </th>
+                                    <th scope="col">
+                                        Connection status
+                                    </th>
+
+                                    <th scope="col">
+                                        Connection type
+                                    </th>
+
+                                    <th scope="col">
+                                        Account type
+                                    </th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab-four-pane" role="tabpanel" aria-labelledby="tab-four" tabindex="0">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Accounts information
+                                    </th>
+                                    <th scope="col">
+                                        Connection status
+                                    </th>
+
+                                    <th scope="col">
+                                        Connection type
+                                    </th>
+
+                                    <th scope="col">
+                                        Account type
+                                    </th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Accounts information">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="avarar-sm"><img src="https://i.ibb.co/zrjPsCr/social-1.jpg" alt="social-1"></div>
+                                            <p class="mb-0">News nasa</p>
+                                        </div> 
+                                    </td>
+                                    <td data-label="Connection status">
+                                        <a href="#" class="i-badge danger">Disconnected</a>
+                                    </td>
+
+                                    <td data-label="Subject">
+                                        <a href="#" class="i-badge info">Official</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <a href="#" class="i-badge success">Page</a>
+                                    </td>
+
+                                    <td data-label="Status">
+                                        <div class="form-check form-switch switch-center">
+                                            <input  
+                                                type="checkbox" 
+                                                class="status-update form-check-input"
+                                                data-column="status"
+                                                id="status-switch-one" >
+                                            <label class="form-check-label" for="status-switch-one"></label>
+                                        </div>
+                                    </td>
+                                    
+                                    <td data-label="Action">
+                                        <div class="table-action">
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <a
+                                                href="#"
+                                                class="icon-btn icon-btn-sm info">
+                                                <i class="bi bi-power"></i>
+                                            </a>
+
+                                            <a  href="javascript:void(0);" data-href="#" data-toggle="tooltip" data-placement="top" title="delete"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -263,7 +1000,6 @@
 
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -303,15 +1039,9 @@
 
                    <input value="${account.account_information.token}" required type="text" name="access_token">
                 </div>`;
-
-
-
         $("#accountConfig").html(html)
-
         modal.modal('show')
     })
-
-
 
 </script>
 @endpush

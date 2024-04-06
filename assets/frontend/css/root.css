@@ -1,46 +1,51 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
-  --font-primary: "Cabin", sans-serif;
-  --color-primary: #10a37f;
-  --color-primary-light: rgba(16, 163, 126, 0.1);
-  --color-primary-soft: #e4f5f0;
+  --font-primary: "Jost", sans-serif;
+  --color-primary: rgba(127, 86, 217, 1);
+  --color-primary-light: rgba(175, 0, 255, 0.08);
   --color-primary-text: #fff;
 
-  --color-secondary: #c2fa6b;
+  --color-secondary: rgba(255, 192, 71, 1);
   --color-secondary-light: rgba(195, 250, 107, 0.1);
   --color-secondary-soft: #f1faec;
   --color-secondary-text: #24282c;
 
-  --text-primary: #24282c;
-  --text-secondary: #545454;
-  --text-light: #ebebeb;
-  --border-light: #ebebeb;
-  --border-dark: #2e2e2e;
-  --border-light-two: #b3b3b3;
+  --text-primary: rgba(27, 28, 30, 1);
+  --text-secondary: rgba(76, 75, 75, 1);
+  --text-light: rgb(133, 142, 164);
+  --border-one: rgba(205, 205, 205, 1);
+  --border-two: rgba(233, 237, 247, 1);
   --color-white: #fff;
-  --color-gray-1: #eff2f7;
-  --color-dark: #222222;
-  --color-dark-2: #1d1d1d;
-  --site-bg: #f6fbfa;
-  --sidebar-bg: #fff;
-  --footer-bg: #020202;
+  --site-bg: rgba(250, 251, 252, 1);
+  --bg-light-one: rgba(239, 240, 244, 1);
+  --bg-light-two: rgba(245, 245, 245, 1);
+  --card-bg-light: rgb(239, 240, 241);
+  --color-dark: rgba(27, 28, 30, 1);
 
-  --color-success: #10a37f;
-  --color-success-light: rgba(16, 163, 126, 0.1);
-  --color-success-soft: #eafffc;
 
-  --color-danger: #f8285a;
-  --color-danger-light: rgb(248, 37, 87, 0.1);
-  --color-danger-soft: #ffeef3;
+  --color-success: rgba(0, 194, 147, 1);
+  --color-success-light: rgba(0, 194, 147, 0.1);
+
+  --color-danger: rgba(255, 26, 26, 1);
+  --color-danger-light: rgba(255, 26, 26, 0.1);
+  --color-danger-light-2: rgba(255, 26, 26, 0.05);
 
   --color-warning: #f6c000;
   --color-warning-light: rgba(245, 192, 0, 0.1);
   --color-warning-soft: #fff8dd;
 
-  --color-info: #299cdb;
-  --color-info-light: rgb(41, 157, 219, 0.1);
-  --color-info-soft: #e9f3ff;
+  --color-info: rgba(35, 133, 255, 1);
+  --color-info-light: rgba(38, 135, 255, 0.1);
+
+  --color-purple: #AA75F5;
+  --color-purple-light: #f1e7ff;
+  --color-blue: #70ccff;
+  --color-blue-light: #e5f5ff;
+  --color-orange: #ff9e6b;
+  --color-orange-light: #ffefe7;
+  --color-green: #63d27c;
+  --color-green-light: #ebfeef;
 }
 
 * {
@@ -60,6 +65,7 @@ h6 {
   color: var(--text-primary);
   margin-bottom: 0;
   font-weight: 600;
+  line-height: 1.20;
 }
 
 p {
@@ -123,6 +129,9 @@ figure {
 .text--secondary {
   color: var(--color-secondary) !important;
 }
+.text--light {
+  color: var(--text-light) !important;
+}
 
 .text--danger {
   color: var(--color-danger) !important;
@@ -140,12 +149,12 @@ figure {
   color: var(--color-success) !important;
 }
 
-.text--light {
-  color: var(--color-white) !important;
-}
-
 .text--dark {
   color: var(--color-dark) !important;
+}
+
+.fw-bold{
+  font-weight: 500;
 }
 
 /* ==================Bg Colors================== */
@@ -227,7 +236,58 @@ figure {
   }
 }
 
+/* Font size */
+.fs-12{
+  font-size: 12px;
+}
+.fs-13{
+  font-size: 13px;
+}
+.fs-14{
+  font-size: 14px;
+}
+.fs-15{
+  font-size: 15px;
+}
+.fs-16{
+  font-size: 16px;
+}
+.fs-17{
+  font-size: 17px;
+}
+.fs-18{
+  font-size: 18px;
+}
+.fs-19{
+  font-size: 19px;
+}
+.fs-20{
+  font-size: 20px;
+}
+.fs-22{
+  font-size: 22px;
+}
+.fs-24{
+  font-size: 24px;
+}
+.fs-28{
+  font-size: 28px;
+}
+.fs-30{
+  font-size: 30px;
+}
+
 /* ========Margin Spacing========*/
+.mb-30{
+  margin-bottom: 30px;
+}
+.mb-25{
+  margin-bottom: 25px;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+
 .mt-90 {
   margin-top: 90px;
 }
@@ -264,3 +324,68 @@ figure {
     margin-bottom: 70px;
   }
 }
+
+.p-20{
+  padding: 20px;
+}
+
+/* ========Border Radius========*/
+.radius-8{
+  border-radius: 8px;
+}
+.radius-12{
+  border-radius: 12px;
+}
+.radius-16{
+  border-radius: 16px;
+}
+.radius-20{
+  border-radius: 20px;
+}
+.radius-30{
+  border-radius: 30px;
+}
+
+/* ========Form input========*/
+input,select{
+  border-radius: 30px;
+  border: 1px solid var(--border-two);
+}
+
+textarea{
+  border-radius: 16px !important;
+  border: 1px solid var(--border-two);
+}
+
+/* ========Card========*/
+
+.border{
+  border: 1px solid var(--border-two) !important;
+}
+.border-top{
+  border-top: 1px solid var(--border-two) !important;
+}
+.rounded-50{
+  border-radius: 50%;
+}
+.i-card{
+  padding: 20px;
+  background-color: var(--color-white);
+  border-radius: 20px;
+}
+.card--title{
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.card--title-sm{
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.shadow-one{
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.07);
+}
+
+

@@ -8,23 +8,23 @@
 
 <div>
     <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
-    <div>
-        <h4>
-            {{translate(Arr::get($meta_data,'title'))}}
-        </h4>
-    </div>
+        <div>
+            <h4>
+                {{translate(Arr::get($meta_data,'title'))}}
+            </h4>
+        </div>
 
-    <div>
-    <button
-            class="icon-btn icon-btn-lg info circle"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#tableFilter"
-            aria-expanded="false"
-            aria-controls="tableFilter">
-            <i class="bi bi-funnel"></i>
-    </button>
-    </div>
+        <div>
+        <button
+                class="icon-btn icon-btn-lg info circle"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#tableFilter"
+                aria-expanded="false"
+                aria-controls="tableFilter">
+                <i class="bi bi-sliders"></i>
+        </button>
+        </div>
     </div>
 
     <div class="collapse filterTwo mb-3" id="tableFilter">

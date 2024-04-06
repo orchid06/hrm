@@ -25,42 +25,11 @@
             </div>
         </div>
 
-        <nav class="nav-bar">
-          <ul class="menu-list">
-
-            <li class="menu-item">
-              <a href="{{route('user.home')}}" class="menu-link">
-                {{translate("Home")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.plan')}}" class="menu-link">
-                {{translate("Plans")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.subscription.report.list')}}" class="menu-link">
-                  {{translate("Subscriptions")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.transaction.report.list')}}" class="menu-link">
-                   {{translate("Transactions")}}
-               </a>
-            </li>
-          </ul>
-        </nav>
+        <div class="page-title-content">
+            <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
+        </div>
 
         <div class="header-right">
-            <div class="header-right-item">
-                <a target="_blank" href="{{route('home')}}" class="home-link-btn ">
-                    <i class="bi bi-globe-americas"></i>
-                </a>
-            </div>
-
             <!-- notifications -->
             @php
                 $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')

@@ -4,12 +4,32 @@
     <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
-    <div class="i-card-md">
-        <div class="card-header">
+
+    <div class="i-card-md mb-4 border">
+         <div class="card-header">
             <h4 class="card-title">
                  {{translate(Arr::get($meta_data,'title'))}}
             </h4>
-
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs gap-4 style-2 mb-30" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Facebook</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false"><span><img src="https://i.ibb.co/QJ7MCHY/instagram.png" alt="instagram"></span>Instagram</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-three" data-bs-toggle="tab" data-bs-target="#tab-three-pane" type="button" role="tab" aria-controls="tab-three-pane" aria-selected="false"><span><img src="https://i.ibb.co/Rg1Vz7X/twitter.png" alt="twitter"></span>Twitter</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-four" data-bs-toggle="tab" data-bs-target="#tab-four-pane" type="button" role="tab" aria-controls="tab-four-pane" aria-selected="false"><span><img src="https://i.ibb.co/mcGZcTg/linkedin.png" alt="linkedin"></span>Linkedin</buttons>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="i-card-md">
+        <div class="card-header">
              <div class="d-flex align-items-center gap-2">
                 <a href="{{route('user.social.post.create')}}" class="i-btn primary btn--sm capsuled">
                     <i class="bi bi-plus-lg"></i>
@@ -17,11 +37,10 @@
                 </a>
                 <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
                     aria-controls="tableFilter">
-                    <i class="bi bi-funnel"></i>
+                    <i class="bi bi-sliders"></i>
                 </button>
             </div>
         </div>
-
 
         <div class="collapse" id="tableFilter">
             <div class="search-action-area">
@@ -118,9 +137,7 @@
                                         @if( $post->platform_response && $post->platform_response->url )
 
                                             <a class="i-badge success" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
-
                                             </a>
-
                                         @endif
                                     </div>
                                 </td>

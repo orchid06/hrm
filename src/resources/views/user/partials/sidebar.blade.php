@@ -57,12 +57,6 @@
                     </a>
 
                     <div class="side-menu-dropdown">
-                        <div class="menu-dropdown-header">
-                            <h6>
-                            {{translate("Social Posts")}}
-                            </h6>
-                        </div>
-
                         <ul class="sub-menu">
                             <li class="sub-menu-item">
                                 <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
@@ -153,14 +147,7 @@
                     </a>
 
                     <div class="side-menu-dropdown">
-                        <div class="menu-dropdown-header">
-                            <h6>
-                            {{translate("Analytical Reports")}}
-                            </h6>
-                        </div>
-
                         <ul class="sub-menu">
-
                             <li class="sub-menu-item">
                                 <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? 'active' :''}}" href="{{route('user.template.report.list')}}">
                                     <span>

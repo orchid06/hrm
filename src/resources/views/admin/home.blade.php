@@ -188,6 +188,25 @@
               </div>
           </div>
         </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+          <div class="i-card-sm style-2 success">
+              <div class="card-info">
+                <h3>
+                  {{Arr::get($data['account_repot'],"total_account",0)}}
+                </h3>
+                <h5 class="title">
+                  {{translate("Social Accounts")}}
+                </h5>
+                <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
+              </div>
+              <div class="d-flex flex-column align-items-end gap-4">
+
+                <div class="icon">
+                  <i class="las la-user-tie"></i>
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
       <div class="row mb-3">
         <div class="col-6">

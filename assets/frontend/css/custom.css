@@ -61,7 +61,7 @@
 .feedback-file {
   cursor: pointer;
   display: block;
-  border: 1px dashed var(--color-primary-light);
+  border: 1px dashed var(--border-two);
   background-color: var(--color-primary-soft);
   border-radius: 4px;
   transition: all 0.3s ease-in-out;

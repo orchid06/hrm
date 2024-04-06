@@ -59,7 +59,6 @@
                     </li>
                   @endif
 
-              
                 </ul>
               </div>
           </li>

@@ -20,7 +20,7 @@
             <div class="d-flex align-items-center gap-2">
                 <button class="icon-btn icon-btn-lg bg-info-solid text--light circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
                     aria-controls="tableFilter">
-                    <i class="bi bi-funnel"></i>
+                    <i class="bi bi-sliders"></i>
                 </button>
             </div>
       </div>

@@ -8,7 +8,7 @@
 
 
 <div class="row">
-    <div class="col-xl-10 mx-auto">
+    <div class="col-xl-12 mx-auto">
       <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}
@@ -22,23 +22,20 @@
                         </h6>
                     @endif
                 </div>
-
-            <button
-                class="icon-btn icon-btn-lg info circle"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#tableFilter"
-                aria-expanded="false"
-                aria-controls="tableFilter">
-                <i class="bi bi-funnel"></i>
-            </button>
+                <button
+                    class="icon-btn icon-btn-lg info circle"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#tableFilter"
+                    aria-expanded="false"
+                    aria-controls="tableFilter">
+                    <i class="bi bi-sliders"></i>
+                </button>
             </div>
       </div>
 
       <div class="collapse filterTwo mb-3" id="tableFilter">
-        <div class="i-card-md">
-          <div class="card-body">
-            <div class="search-action-area p-0">
+      <div class="search-action-area">
               <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">
 
@@ -47,15 +44,15 @@
                     </div>
 
                     <div class="form-inner">
-                            <select name="template" id="template" class="select2">
-                                <option value="">
-                                    {{translate('Select Template')}}
+                        <select name="template" id="template" class="select2">
+                            <option value="">
+                                {{translate('Select Template')}}
+                            </option>
+                            @foreach($templates as $template)
+                                <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
                                 </option>
-                                @foreach($templates as $template)
-                                    <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
-                                    </option>
-                                @endforeach
-                            </select>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="d-flex gap-2">
@@ -70,8 +67,6 @@
                 </form>
               </div>
             </div>
-          </div>
-        </div>
       </div>
 
       <div class="i-card-md">
@@ -92,8 +87,8 @@
                                           <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                               <div class="col-md-4">
                                                   <div class="table-accordion-header transfer-by">
-                                                      <span class="icon-btn icon-btn-sm info circle">
-                                                          <i class="bi bi-arrow-up-left"></i>
+                                                      <span class="icon-btn icon-btn-sm primary circle">
+                                                        <i class="bi bi-file-text"></i>
                                                       </span>
                                                       <div>
                                                           <h6>
@@ -116,7 +111,7 @@
                                               </div>
 
                                               <div class="col-md-4 col-6 text-end">
-                                                  <div class="table-accordion-header">
+                                                  <div class="table-accordion-header d-flex justify-content-end align-items-center gap-2">
                                                       <h6>
                                                           {{translate("Words")}}
                                                       </h6>
