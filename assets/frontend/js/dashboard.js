@@ -147,4 +147,21 @@
   }
   window.addEventListener("resize", checkDeviceWidth);
   checkDeviceWidth();
+
+
+  const rightBtn = document.getElementById('right-sidebar-btn');
+  const rightSidebar = document.querySelector('.right-side-col');
+  const overlay = document.querySelector('.overlay');
+
+  rightBtn.addEventListener('click', () => {
+    rightSidebar.classList.toggle('show');
+    overlay.classList.toggle('show');
+  });
+
+  overlay.addEventListener('click', ()=>{
+    overlay.classList.toggle('show');
+    rightSidebar.classList.toggle('show');
+  })
+
+
 })();

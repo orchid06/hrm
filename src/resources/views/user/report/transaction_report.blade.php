@@ -85,8 +85,8 @@
                                         <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                             <div class="col-lg-3 col-sm-4 col-12">
                                                 <div class="table-accordion-header transfer-by">
-                                                    <span class="icon-btn icon-btn-sm info circle">
-                                                        <i class="bi bi-arrow-up-left"></i>
+                                                    <span class="icon-btn icon-btn-sm primary circle">
+                                                        <i class="bi bi-file-text"></i>
                                                     </span>
                                                     <div>
                                                         <h6>

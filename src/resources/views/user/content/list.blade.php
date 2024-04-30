@@ -11,7 +11,6 @@
          $templateAccess = $subscription
                             ? (array)subscription_value($subscription,"template_access",true)
                             : [];
-
      @endphp
 
     <!-- new code start -->
@@ -126,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row gy-4">
             <div class="col-lg-6">
                 <div class="i-card-md">
                     <div class="card-header">
@@ -246,15 +245,15 @@
     <div>
         <div class="i-card-md">
           <div class="card-header">
-                <h4 class="card-title">
-                    {{translate(Arr::get($meta_data,'title'))}}
-                </h4>
-                <div class="d-flex align-items-center gap-2">
-                    <a href="#generateContent" class="i-btn primary btn--sm capsuled create">
-                        <i class="bi bi-plus-lg"></i>
-                        {{translate('Create New')}}
-                    </a>
-                </div>
+            <h4 class="card-title">
+                {{translate(Arr::get($meta_data,'title'))}}
+            </h4>
+            <div class="d-flex align-items-center gap-2">
+                <a href="#generateContent" class="i-btn primary btn--sm capsuled create">
+                    <i class="bi bi-plus-lg"></i>
+                    {{translate('Create New')}}
+                </a>
+            </div>
           </div>
           <div class="card-body px-0">
             <div class="table-container">
@@ -291,7 +290,7 @@
                                 </td>
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
-                                        <a href="http://localhost/EngageHub/user/ticket/reply/65A3D475" class="icon-btn icon-btn-sm primary">
+                                        <a href="javascript:void(0);" data-href="{{route('user.ai.content.destroy',$content->id)}}"  class="icon-btn icon-btn-sm primary">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         <a href="javascript:void(0);" data-content ="{{$content}}"
@@ -312,7 +311,6 @@
                                 </td>
                             </tr>
                         @endforelse
-
                     </tbody>
                 </table>
             </div>

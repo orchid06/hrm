@@ -7,11 +7,11 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-7 col-lg-8 mx-auto">
-          <div class="section-title text-center">
-            <span>{{@$content->value->sub_title}}</span>
-            <h3 class="title-anim">
+          <div class="section-title-one text-center mb-60">
+            <div class="subtitle">{{@$content->value->sub_title}}</div>
+            <h2 class="title-anim">
                 {{@$content->value->title}}
-            </h3>
+            </h2>
             <p>
               {{@$content->value->description}}
             </p>
@@ -21,9 +21,7 @@
 
       <div class="faq-wrap">
         <div class="accordion" id="faqAccordion">
-
           @forelse($elemets  as $element)
-
             <div class="accordion-item">
               <h2 class="accordion-header" id="headng-{{$loop->index}}">
                 <button
@@ -33,7 +31,6 @@
                   data-bs-target="#collapse-{{$loop->index}}"
                   aria-expanded="false"
                   aria-controls="collapse-{{$loop->index}}">
-                  <i class="{{ $element->value->icon}}"></i>
                   {{$element->value->question}}
                 </button>
               </h2>
@@ -48,8 +45,6 @@
           @empty
              @include("frontend.partials.not_found")
           @endforelse
-
-
         </div>
       </div>
     </div>

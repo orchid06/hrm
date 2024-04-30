@@ -9,7 +9,7 @@
     @endphp
 
 
-    <div class="i-card mb-4">
+    <!-- <div class="i-card mb-4">
       <div class="row">
         <div class="col-lg-9">
           <div class="d-flex align-items-center justify-content-start gap-4">
@@ -316,7 +316,7 @@
             </div>
           </div>
       </div>
-    </div>
+    </div> -->
 
 @endsection
 

@@ -6,9 +6,14 @@
 
 @section('content')
 
-<div>
-      <div
-        class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+<div> 
+    <div class="i-card-md mb-4">
+        <div class="card-body">
+            <div id="subscription-chart"></div>
+        </div>
+    </div>
+
+      <div class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <h4>
             {{translate(Arr::get($meta_data,'title'))}}
         </h4>
@@ -83,8 +88,8 @@
                                     <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                         <div class="col-lg-2 col-sm-4 col-12">
                                             <div class="table-accordion-header transfer-by">
-                                                <span class="icon-btn icon-btn-sm info circle">
-                                                    <i class="bi bi-arrow-up-left"></i>
+                                                <span class="icon-btn icon-btn-sm primary circle">
+                                                    <i class="bi bi-file-text"></i>
                                                 </span>
                                                 <div>
                                                     <h6>
@@ -240,6 +245,40 @@
             dateFormat: "Y-m-d",
             mode: "range",
         });
+
+
+
+        var options = {
+            series: [{
+                name: 'series1',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }, {
+                name: 'series2',
+                data: [11, 32, 45, 32, 34, 52, 41]
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'datetime',
+                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+            },
+            tooltip: {
+                x: {
+                    format: 'yyyy-MM-dd HH:mm:ss'
+                },
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#subscription-chart"), options);
+        chart.render();
 
 	})(jQuery);
 </script>

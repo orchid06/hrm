@@ -18,11 +18,7 @@
                 <li class="sidemenu-item">
                     <a href="{{route('user.home')}}" class="sidemenu-link {{request()->routeIs('user.home') ? 'active' :''}}">
                     <div
-                        class="sidemenu-icon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="right"
-                        data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate('Dashboard')}}">
+                        class="sidemenu-icon">
                         <i class="bi bi-grid-1x2"></i>
                     </div>
                     <span>
@@ -41,13 +37,8 @@
                         active
                     @endif">
                     <div
-                        class="sidemenu-icon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="right"
-                        data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate('Post Feed')}}">
+                        class="sidemenu-icon">
                         <i class="bi bi-stickies"></i>
-
                     </div>
                     <span>
                         {{translate("Post Feed")}}
@@ -85,12 +76,7 @@
 
                 <li class="sidemenu-item">
                     <a href="{{route('user.ai.content.list')}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? 'active' :''}}">
-                        <div
-                            class="sidemenu-icon"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="right"
-                            data-bs-custom-class="custom-tooltip"
-                            data-bs-title="{{translate('Ai Contents')}}">
+                        <div class="sidemenu-icon">
                             <i class="bi bi-robot"></i>
                         </div>
 
@@ -102,12 +88,7 @@
 
                 <li class="sidemenu-item">
                     <a href="{{route('user.social.account.list')}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? 'active' :''}}">
-                    <div
-                        class="sidemenu-icon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="right"
-                        data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate('Social Accounts')}}">
+                    <div class="sidemenu-icon">
                         <i class="bi bi-person-gear"></i>
                     </div>
 
@@ -133,12 +114,7 @@
                     @if($lastSegment == "reports")
                         active
                     @endif'>
-                    <div
-                        class="sidemenu-icon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="right"
-                        data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate('Analytical Reports')}}">
+                    <div class="sidemenu-icon">
                         <i class="bi bi-graph-up"></i>
                     </div>
                     <span>
@@ -252,12 +228,7 @@
 
                 <li class="sidemenu-item">
                         <a href="{{route('user.ticket.list')}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? 'active' :''}}">
-                        <div
-                            class="sidemenu-icon"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="right"
-                            data-bs-custom-class="custom-tooltip"
-                            data-bs-title="{{translate('Support Ticket')}}">
+                        <div class="sidemenu-icon">
                             <i class="bi bi-patch-question"></i>
                         </div>
 
@@ -269,12 +240,7 @@
 
                 <li class="sidemenu-item">
                     <a href="{{route('user.profile')}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? 'active' :''}}">
-                    <div
-                        class="sidemenu-icon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="right"
-                        data-bs-custom-class="custom-tooltip"
-                        data-bs-title="{{translate('Profile')}}">
+                    <div class="sidemenu-icon">
                         <i class="bi bi-gear"></i>
                     </div>
 

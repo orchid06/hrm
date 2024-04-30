@@ -10,14 +10,14 @@
                 </h4>
 
                 <div class="d-flex align-items-center gap-2">
-                    <a   href="{{route('user.ticket.create')}}" class="i-btn primary btn--sm capsuled">
-                        <i class="bi bi-plus-lg"></i>
-                        {{translate('Create Ticket')}}
-                    </a>
                     <button class="icon-btn icon-btn-lg bg-info-solid text--light circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
                         aria-controls="tableFilter">
                         <i class="bi bi-sliders text-white"></i>
                     </button>
+                    <a   href="{{route('user.ticket.create')}}" class="i-btn primary btn--sm capsuled">
+                        <i class="bi bi-plus-lg"></i>
+                        {{translate('Create Ticket')}}
+                    </a>
                 </div>
         </div>
         <div class="collapse" id="tableFilter">

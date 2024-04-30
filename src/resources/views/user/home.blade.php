@@ -28,20 +28,34 @@
        }
    @endphp
 
-    
-
     <!-- updated start -->
 
+    <div id="overlay" class="overlay"></div>
+
+    <button id="right-sidebar-btn" class="right-sidebar-btn fs-20">
+        <i class="bi bi-activity"></i>
+    </button>
+
     <div class="row g-4 mb-4">
-      <div class="col-xl-9">
+      <div class="col">
         <div class="row g-4">
-          <div class="col-xl-4">
-              <div class="i-card">
+          <div class="col-xxl-4 col-xl-5">
+              <div class="i-card h-550">
                 <h4 class="card--title mb-4">Connected Social Accounts</h4>
                 <div class="row g-3">
                 @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
-                  <div class="col-lg-6">
-                      <div class="i-card p-0 border position-relative">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="i-card no-border p-0 border position-relative bg--light">
+                        <div class="shape-one">
+                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
+                          </svg>
+                        </div>
+                        <div class="shape-two">
+                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
+                          </svg>
+                        </div>
                         <span class="icon-image position-absolute top-0 end-0">
                           <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
                         </span>
@@ -63,16 +77,27 @@
                 </div>
               </div>
           </div>
-          <div class="col-xl-8">
-             <div class="i-card">
-                <h4 class="card--title mb-4">
-                    Post Activity
-                </h4>
+          <div class="col-xxl-8 col-xl-7">
+             <div class="i-card h-550">
+                <div class="row align-items-center g-2 mb-4">
+                  <div class="col-md-9">
+                    <h4 class="card--title">
+                        Post Activity
+                    </h4>
+                  </div>
+                  <div class="col-md-3">
+                    <select name="content-category" class="select2">
+                      <option>Category One</option>
+                      <option>Category Two</option>
+                      <option>Category Three</option>
+                    </select>
+                  </div>
+                </div>
               <div class="row g-3">
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-line-chart-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -84,7 +109,7 @@
                           </h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -97,7 +122,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-calendar-2-line fs-28"></i>
                         </div>
                         <div class="content">
@@ -105,7 +130,7 @@
                           <h6>{{Arr::get($data,'pending_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -118,7 +143,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-time-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -126,7 +151,7 @@
                           <h6>{{Arr::get($data,'schedule_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -139,7 +164,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-checkbox-circle-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -147,7 +172,7 @@
                           <h6>{{Arr::get($data,'success_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -160,7 +185,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-close-circle-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -168,7 +193,7 @@
                           <h6>{{Arr::get($data,'failed_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -181,7 +206,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-account-circle-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -189,7 +214,7 @@
                           <h6>{{Arr::get($data['account_report'],'total_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -202,7 +227,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-user-follow-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -210,7 +235,7 @@
                           <h6>{{Arr::get($data['account_report'],'active_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -223,7 +248,7 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
                       <div class="p-20">
-                        <div class="icon text--primary mb-20">
+                        <div class="icon text--primary mb-30">
                           <i class="ri-user-unfollow-line fs-30"></i>
                         </div>
                         <div class="content">
@@ -231,7 +256,7 @@
                           <h6>{{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between p-20">
+                      <div class="footer border-top d-flex justify-content-between">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -243,71 +268,110 @@
               </div>
              </div>
           </div>
-        </div>
-      </div>
-      <div class="col-xl-3">
-          <div class="i-card shadow-one">
-              <h4 class="card--title mb-20">Latest Post</h4>
-              <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog" border="0">
-              <h6 class="card--title-sm mb-1">Important things on holiday</h6>
-              <div class="d-flex mb-1">
-                <a href="#">#miami</a>
-                <a href="#">#holiday</a>
-              </div>
-              <div class="date mb-3">
-                <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
-              </div>
-              <ul class="meta-list d-flex gap-4 text-dark mb-4">
-                <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
-                <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+          <div class="col-12">
+            <div class="i-card">
+              <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                  </li>
               </ul>
-              <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
-          </div>
-      </div>
-    </div>
-    <!-- updated end -->
-
-    <div class="row g-4">
-      <div class="col-xxl-9">
-        <div class="i-card">
-          <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
-              <li class="nav-item" role="presentation">
-                  <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
-              </li>
-          </ul>
-          <div id="myTabContent3" class="tab-content">
-              <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
-                <div id="postReport"></div>
+              <div id="myTabContent3" class="tab-content">
+                  <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
+                    <div id="postReport"></div>
+                  </div>
+                  <div class="tab-pane fade" id="tab-two" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-three" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-four" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-five" role="tabpanel">
+                    
+                  </div>
               </div>
-              <div class="tab-pane fade" id="tab-two" role="tabpanel">
-                 
-              </div>
-              <div class="tab-pane fade" id="tab-three" role="tabpanel">
-                 
-              </div>
-              <div class="tab-pane fade" id="tab-four" role="tabpanel">
-                 
-              </div>
-              <div class="tab-pane fade" id="tab-five" role="tabpanel">
-                 
-              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-xxl-3 col-md-6">
-        <div class="i-card upgrade-card">
+      <div class="col-auto right-side-col">
+          <div class="swiper latest-post-slider">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="i-card upgrade-card mb-4">
             <h4 class="card--title text-white">Upgrade Premium to Get More Space</h4>
             <p>
             3 Social account and and Enjoy all new environments with pro plan
@@ -322,7 +386,30 @@
               @endif
               <span><i class="bi bi-arrow-up-right"></i></span>
             </a>
-        </div>
+          </div>
+          <div class="i-card-md share-card">
+            <h4 class="card-title mb-3">
+               Shared Files
+            </h4>
+            <ul>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span> One of the largest social media platforms.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>The largest video-sharing platform.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+              <li class="mb-0 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+            </ul>
+          </div>
+        
+      </div>
+    </div>
+    <!-- updated end -->
+
+    <div class="row g-4">
+      <div class="col-xxl-9">
+        
+      </div>
+      <div class="col-xxl-3 col-md-6">
+        
       </div>
 
       <div class="col-xxl-4 col-md-6">
@@ -408,8 +495,8 @@
                                       <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                           <div class="col-lg-3 col-sm-4 col-12">
                                               <div class="table-accordion-header transfer-by">
-                                                  <span class="icon-btn icon-btn-sm info circle">
-                                                      <i class="bi bi-arrow-up-left"></i>
+                                                  <span class="icon-btn icon-btn-sm primary circle">
+                                                      <i class="bi bi-file-text"></i>
                                                   </span>
                                                   <div>
                                                       <h6>
@@ -532,8 +619,8 @@
                               <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                   <div class="col-lg-2 col-sm-4 col-12">
                                       <div class="table-accordion-header transfer-by">
-                                          <span class="icon-btn icon-btn-sm info circle">
-                                              <i class="bi bi-arrow-up-left"></i>
+                                          <span class="icon-btn icon-btn-sm primary circle">
+                                              <i class="bi bi-file-text"></i>
                                           </span>
                                           <div>
                                               <h6>
@@ -787,6 +874,16 @@
 
     var chart = new ApexCharts(document.querySelector("#postReport"), options);
     chart.render();
+
+    var swiper = new Swiper(".latest-post-slider", {
+      autoplay: {
+      delay: 1500,
+    },
+    });
+
+    $(".select2").select2({
+
+});
 
 </script>
 @endpush

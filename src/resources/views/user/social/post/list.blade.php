@@ -6,6 +6,510 @@
 @section('content')
 
     <div class="i-card-md mb-4 border">
+            <div class="card-header">
+            <h4 class="card-title">
+                Latest feeds
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-lg-4 g-3">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="social-preview-body">
+                        <div class="social-auth">
+                            <div class="profile-img">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="profile-meta">
+                                <h6 class="user-name">
+                                    <a href="javascript:void(0)">
+                                        Username
+                                    </a>
+                                </h6>
+                            
+                                <div class="d-flex align-items-center gap-2">
+                                    <p>
+                                    Apr 17
+                                    </p>
+                                    <i class="bi bi-globe-americas fs-12"></i>
+                                </div>
+                            </div>
+
+                            <span class="dots">
+                                <i class="bi bi-three-dots"></i>
+                            </span>
+                        </div>
+
+                        <div class="social-caption">
+                            <!-- <div class="caption-text">
+                                <div class="line-loader">
+                                    <div class="wrapper">
+                                    <div class="line-1"></div>
+                                    <div class="line-2"></div>
+                                    <div class="line-3"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="caption-text">Some default post text here... I have nothing to say but you need to buy it.</div>
+                            <div class="caption-imgs">
+                                <img src="https://i.ibb.co/DzZSQGB/Image.jpg" alt="Image">
+                            </div>
+
+                            <div class="action-count d-flex justify-content-between align-items-center">
+                                <div class="emoji d-flex align-items-center gap-1">
+                                    <ul class="d-flex gap-0 react-icon-list">
+                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                    </ul>
+                                    <span class="fs-13">129</span>
+                                </div>
+                                <div class="comment-count py-2 px-0">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="caption-action">
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span> Like</span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-regular fa-message"></i>
+                                    <span>
+                                        Comment
+                                    </span>
+                                </div>
+
+                                <div class="caption-action-item">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>
+                                        Share
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <div class="i-card-md mb-4 border">
          <div class="card-header">
             <h4 class="card-title">
                  {{translate(Arr::get($meta_data,'title'))}}

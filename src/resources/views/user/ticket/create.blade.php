@@ -66,7 +66,7 @@
                                     <option {{old('priority')  ==  $v ? "selected" :""}} value="{{$v}}">
                                         {{ucfirst(t2k($k))}}
                                     </option>
-                                @endforeach
+                                @endforeach 
                             </select>
                         </div>
                     </div>

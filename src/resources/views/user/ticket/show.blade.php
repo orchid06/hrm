@@ -49,7 +49,6 @@
                                 {{ translate('Ticket Message') }}
                             </h4>
                         </div>
-
                         <div class="card-body">
                             <div class="message-wrapper" data-simplebar>
                                 @forelse($messages  as $message)
@@ -82,7 +81,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                 @empty
                                     @include('admin.partials.not_found')
                                 @endforelse

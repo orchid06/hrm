@@ -16,7 +16,7 @@
 
             </a>
 
-            <div class="mobile-menu-btn sidebar-trigger">
+            <div class="mobile-menu-btn sidebar-trigger d-xl-none d-flex">
                 <div class="burger">
                     <span></span>
                     <span></span>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="page-title-content">
+        <div class="page-title-content d-lg-block d-none">
             <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
         </div>
 
@@ -43,8 +43,6 @@
 
             <div class="header-right-item">
                     <div class="dropdown noti-dropdown">
-
-                
                         <a
                             class="noti-dropdown-btn dropdown-toggle"
                             href="javascript:void(0)"
@@ -54,20 +52,13 @@
                             <i class="bi bi-bell"></i>
                             <span>{{$notificationCount}}</span>
                         </a>
-
-              
-
-
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="dropdown-menu-title">
                         <h6>
                             {{translate("Notifications")}}
                         </h6>
-
                             <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
-
                         </li>
-
                         <li>
                             <div class="notification-items" data-simplebar>
                                 <div class="notification-item">
@@ -106,7 +97,6 @@
                                 </div>
                             </div>
                         </li>
-
                         <li>
                             <div class="dropdown-menu-footer">
                                 <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
@@ -128,12 +118,10 @@
                         aria-expanded="false" >
                         <span class="flag">
                             <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-
                         </span>
                     </button>
                     @if(!$languages->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
-
                         @foreach($languages as $language)
                         <li>
                             <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
@@ -144,7 +132,6 @@
                             </a>
                         </li>
                         @endforeach
-
                     </ul>
                     @endif
                 </div>
@@ -186,15 +173,6 @@
                     <span class="profile-img">
                     <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
                     </span>
-
-                    <div class="balance d-none d-sm-block">
-                    <p>
-                        {{translate("Balance")}}
-                    </p>
-                    <h6>
-                        {{num_format(number:$user->balance,calC:true)}}
-                    </h6>
-                    </div>
                 </div>
 
                 <div class="dropdown-menu dropdown-menu-end">

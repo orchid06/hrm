@@ -102,19 +102,19 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs style-2 d-flex justify-content-start  mb-30 gap-4" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-0 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                                <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
                             </li>
                         </ul>
                         <div id="myTabContent3" class="tab-content">
@@ -133,7 +133,7 @@
 
                                 <div class="collapse mt-2" id="selectProfile">
                                     <div class="choose-profile-body">
-                                        <div class="px-3">
+                                        <div>
                                             <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
                                         </div>
 
@@ -171,7 +171,7 @@
                                             </a>
 
                                             <button class="i-btn btn--sm  capsuled bg-danger-solid text--light" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
-                                                <i class="bi bi-x-lg"></i>
+                                                <i class="bi bi-x-lg text-white"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -245,19 +245,19 @@
 
                             <ul class="nav nav-tabs style-2 d-flex justify-content-start  mb-30 gap-4" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link pb-0 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                                    <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link pb-0" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
                                 </li>
                             </ul>
                                 

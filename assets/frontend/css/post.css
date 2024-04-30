@@ -240,6 +240,7 @@
   object-fit: cover;
 }
 
+
 .social-preview-body {
   border: 2px solid var(--border-two);
   border-radius: 20px;
@@ -249,6 +250,7 @@
   padding: 20px 15px;
   background-color: var(--color-white);
 }
+
 @media (max-width: 576px) {
   .social-preview-body {
     width: 250px;
@@ -681,7 +683,6 @@
   line-height: 1.1;
   border: 1px solid var(--border-light);
   border-radius: 5px;
-  padding: 12px;
 }
 .choose-profile-btn[aria-expanded="true"] > span {
   transform: rotate(-180deg);
@@ -717,6 +718,8 @@
 }
 .profile-item {
   border-bottom: 1px dashed var(--color-border);
+  background-color: var(--color-primary-light);
+  border-radius: 12px;
 }
 .profile-item:hover {
   background-color: var(--color-primary-light);
@@ -771,7 +774,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 15px 20px;
+  padding: 20px 0px 0px 0px;
 }
 
 .schedule-btn {
