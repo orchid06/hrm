@@ -2699,6 +2699,9 @@
   position: relative;
   margin-bottom: 15px;
 }
+.blog-style-two:hover .content{
+  background-color: rgba(0, 0, 0, 1);
+}
 .blog-style-two .i-btn{
   position: absolute;
   left: -15px;
@@ -2713,6 +2716,7 @@
   backdrop-filter: blur(4px);
   padding: 20px 25px 55px 25px;
   border-radius: 0px 0px 30px 30px;
+  transition: 0.4s ease;
 }
 .blog-style-two .date{
   position: absolute;
@@ -2732,6 +2736,10 @@
   color: var(--color-white);
   font-size: 24px;
   font-weight: 500;
+  transition: 0.3s ease;
+}
+.blog-style-two .content h4:hover{
+  color: var(--color-primary);
 }
 .blog-style-two .content h4 a{
   color: inherit;
@@ -4406,7 +4414,7 @@ footer{
 }
 
 .contact .contact-form h4 {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 600;
   line-height: 1;
 }
@@ -5279,6 +5287,24 @@ footer{
   background-color: var(--card-bg-light);
   padding: 35px;
   border-radius: 40px;
+  z-index: 1;
+}
+
+.template-item::before{
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: var(--color-primary);
+  display: block;
+  left: 0;
+  top: 0px;
+  transform: scale(0);
+  transition: 0.4s ease;
+  z-index: -1;
+}
+.template-item:hover::before{
+  transform: scale(0.7);
 }
 .template-item .radius-one{
   position: absolute;
@@ -5366,6 +5392,9 @@ footer{
   padding: 30px;
   border-radius: 40px;
   margin-bottom: 15px;
+}
+.pricing-item:hover .i-btn{
+  transform: translateX(20px);
 }
 .pricing-item .radius-one{
   position: absolute;
@@ -5549,6 +5578,23 @@ footer{
   padding: 30px;
   border-radius: 40px;
   margin-bottom: 15px;
+  z-index: 1;
+}
+.service-item::before{
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: var(--color-primary);
+  display: block;
+  left: 0;
+  top: 0px;
+  transform: scale(0);
+  transition: 0.4s ease;
+  z-index: -1;
+}
+.service-item:hover::before{
+  transform: scale(0.7);
 }
 .service-item .image{
   margin-bottom: 25px;
@@ -5938,6 +5984,8 @@ footer{
   transition: 0.4s ease;
   transform: rotate(0deg);
 }
-
-
+.contact-left-img{
+  max-width: 220px;
+  margin-bottom: 40px;
+}
 

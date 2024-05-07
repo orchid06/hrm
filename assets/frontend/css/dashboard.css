@@ -78,7 +78,7 @@ body {
     display: block;
     visibility: visible;
     cursor: pointer;
-}
+  }
 }
 
 /* ====================Icon Btns Design Start==================== */
@@ -1260,7 +1260,7 @@ input[type="number"] {
   color: var(--text-secondary);
   background-color: transparent;
   border: 1px solid var(--border-two);
-  border-radius: 12px;
+  border-radius: 30px;
 }
 .form-control:focus {
   background-color: transparent;
@@ -4593,21 +4593,17 @@ aside.show-side-bar {
 }
 
 .h-550::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+  width: 5px; 
 }
 
-/* Define the styles for the scrollbar handle */
 .h-550::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar handle */
-  border-radius: 3px; /* Rounded corners for the scrollbar handle */
+  background-color: #888;
+  border-radius: 3px;
 }
 
-/* Define the styles for the scrollbar track on hover */
 .h-550::-webkit-scrollbar-track:hover {
-  background-color: #f0f0f0; /* Color of the scrollbar track on hover */
+  background-color: #f0f0f0;
 }
-
-
 
 .upgrade-card{
   background: linear-gradient(107.35deg, #C9F0FF -30.45%, #AF00FF 98.47%);
@@ -4616,7 +4612,6 @@ aside.show-side-bar {
   position: relative;
   overflow: hidden;
 }
-
 
 .upgrade-card::before{
   content: '';
@@ -4654,7 +4649,6 @@ aside.show-side-bar {
 
 .prompt-btn{
   padding: 15px;
-  /* border: 1px solid var(--border-two); */
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
   text-align: center;
   background-color: var(--color-white);
@@ -4689,7 +4683,6 @@ aside.show-side-bar {
   } 
 }
 
-/* Social post */
 .social-preview-body {
   border: 2px solid var(--border-two);
   border-radius: 20px;
@@ -4892,7 +4885,7 @@ aside.show-side-bar {
   }
 }
 .social-preview-body.instagram .caption-action {
-  margin: 15px 0;
+  margin: 15px 0 0 0;
   gap: 15px;
 }
 .social-preview-body.instagram .caption-action .caption-action-item {
@@ -4925,6 +4918,103 @@ aside.show-side-bar {
   .react-icon-list li img{
     width: 14px;
   }
+}
+
+.report-list li{
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary-light);
+  padding: 12px;
+}
+.report-list li:last-child{
+  margin-bottom: 0px;
+}
+
+.report-list li span{
+  display: inline-block;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+.report-list li span:first-child{
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.copy-input{
+  position: relative;
+}
+.copy-icon{
+  width: 50px;
+  height: 45px;
+  line-height: 45px;
+  background-color: var(--color-primary-light);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 0px 30px 30px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.35s ease;
+}
+.copy-icon i{
+  transition: 0.35s ease;
+  color: var(--color-primary);
+  display: inline-block;
+}
+.copy-icon:hover{
+  background-color: var(--color-primary);
+}
+.copy-icon:hover i{
+  color: var(--color-white);
+}
+
+.notice-message{
+  padding: 20px;
+  background-color: rgba(255, 238, 238, 1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 15px;
+  color: var(--text-primary);
+  border-radius: 10px;
+  margin-top: 45px;
+}
+
+@media (max-width:768px) {
+  .notice-message{
+    flex-wrap: wrap;
+  }
+}
+
+.notice-message span {
+  display: inline-block;
+  background-color: rgba(255, 58, 58, 1);
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 4px;
+  width: 65px;
+}
+
+.social-preview-user{
+  height: 640px;
+  overflow-y: auto;
+}
+.social-preview-user::-webkit-scrollbar {
+  width: 5px;
+}
+
+.social-preview-user::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 10px;
+}
+
+.social-preview-user::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 

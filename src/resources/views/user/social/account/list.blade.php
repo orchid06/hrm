@@ -972,6 +972,62 @@
         </div>
     </div>
 
+
+
+    <!-- Social Account -->
+        <div class="i-card mb-4 border mt-5">
+        <h4 class="card--title mb-4">Social Accounts</h4>
+            <ul class="nav nav-tabs gap-4 style-2" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="tab-official" data-bs-toggle="tab" data-bs-target="#tab-official-pane" type="button" role="tab" aria-controls="tab-official-pane" aria-selected="true"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Official</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-unofficial" data-bs-toggle="tab" data-bs-target="#tab-unofficial-pane" type="button" role="tab" aria-controls="tab-unofficial-pane" aria-selected="false"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Unofficial</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="i-card border">
+            <div class="tab-content" id="myTabContent-official">
+                <div class="tab-pane fade show active" id="tab-official-pane" role="tabpanel" aria-labelledby="tab-official" tabindex="0">
+                    <h4 class="card--title mb-4">Connect account</h4>
+                    <div class="text-center d-block">
+                        <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect <span><i class="bi bi-arrow-up-right"></i></span></button>
+                    </div>
+                    <div class="notice-message">
+                        <span>Note:</span>
+                        <p>I am here to assist you with any questions or information you may need. Please feel free to ask me anything, and I will do my best to help. They may have various technologies in use, but I do not have information on any specific robot.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab-unofficial-pane" role="tabpanel" aria-labelledby="tab-unofficial" tabindex="0">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="amount">Account type</label>
+                                    <select name="account" id="account_type" class="user">
+                                        <option value="1">Select payment method</option>
+                                        <option value="1">Select payment method</option>
+                                        <option value="1">Select payment method</option>
+                                        <option value="1">Select payment method</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="amount">Access token</label>
+                                    <input id="amount" type="text" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect <span><i class="bi bi-arrow-up-right"></i></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 @endsection
 
 

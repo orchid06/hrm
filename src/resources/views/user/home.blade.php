@@ -151,7 +151,7 @@
                           <h6>{{Arr::get($data,'schedule_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -172,7 +172,7 @@
                           <h6>{{Arr::get($data,'success_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -193,7 +193,7 @@
                           <h6>{{Arr::get($data,'failed_post',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -214,7 +214,7 @@
                           <h6>{{Arr::get($data['account_report'],'total_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -235,7 +235,7 @@
                           <h6>{{Arr::get($data['account_report'],'active_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>
@@ -256,7 +256,7 @@
                           <h6>{{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
                         </div>
                       </div>
-                      <div class="footer border-top d-flex justify-content-between">
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
                         <div class="text--success">
                           <i class="bi bi-arrow-up"></i>
                           <span class="fs-14">+12%</span>

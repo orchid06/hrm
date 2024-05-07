@@ -528,8 +528,8 @@
 
     <div class="i-card mb-4">
       <div class="row g-4">
-        <div class="col-lg-9">
-          <div class="d-flex align-items-center justify-content-start gap-4">
+        <div class="col-xl-9 col-lg-8">
+          <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-4">
               <div class="avatar-100 profile-picture">
               <div class="file-input">
                 <input
@@ -553,7 +553,7 @@
               </div>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-xl-3 col-lg-4">
             <div class="p-gl-4 p-3 bg-light radius-16 border">
                 <h5 class="mb-2 fw-normal">Balance</h5>
                 <h3>$520.00</h3>
@@ -659,13 +659,23 @@
                     <div class="col-lg-12">
                       <div class="form-inner">
                         <label for="name">Referral Code</label>
-                        <input type="text" placeholder="Referral Code">
+                        <div class="copy-input">
+                          <input type="text" placeholder="Referral Code">
+                          <div class="copy-icon">
+                            <i class="bi bi-clipboard"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-12">
                       <div class="form-inner">
                         <label for="name">Referral URL</label>
-                        <input type="text" placeholder="Enter Value">
+                        <div class="copy-input">
+                          <input type="text" placeholder="Enter Value">
+                          <div class="copy-icon">
+                            <i class="bi bi-clipboard"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-12">

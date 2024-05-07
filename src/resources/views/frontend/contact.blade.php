@@ -51,8 +51,11 @@
     <div class="row g-5">
       <div class="col-lg-6">
         <div class="contact-left gs_reveal fromLeft">
+          <div class="contact-left-img">
+            <img src="https://i.ibb.co/n1VLbc1/1313-1.png" alt="1313-1">
+          </div>
           <div class="section-title light mb-5">
-            <h3 class="mt-0">{{@$contactSection->value->section_heading}}</h3>
+            <h3 class="mt-0 mb-3">{{@$contactSection->value->section_heading}}</h3>
             <p>
               {{@$contactSection->value->section_description}}
             </p>

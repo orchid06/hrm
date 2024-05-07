@@ -28,7 +28,23 @@
   padding-top: 15px;
   border-top: 1px solid var(--border-two);
   width: 100%;
+  max-height: 330px;
+  overflow-y: auto;
 }
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar {
+  width: 8px;
+}
+
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+  border-left: 1px solid var(--color-primary-soft);
+}
+
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar-thumb {
+  background-color: var(--border-light-two);
+  border-radius: 10px;
+}
+
 .compose-form .caption-wrapper .compose-body-bottom .caption-action {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -677,12 +693,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 45px;
   max-height: 100px;
   overflow-y: auto;
   line-height: 1.1;
-  border: 1px solid var(--border-light);
-  border-radius: 5px;
+  background-color: var(--color-primary-light);
+  border-radius: 30px;
+  padding: 15px 15px;
 }
 .choose-profile-btn[aria-expanded="true"] > span {
   transform: rotate(-180deg);
@@ -783,12 +799,18 @@
   justify-content: space-between;
   overflow-y: auto;
   line-height: 1.1;
-  border: 1px solid var(--border-light);
-  color: var(--text-secondary);
-  background-color: transparent;
+  background-color: var(--color-primary-light);
+  color: var(--text-primary);
   border-radius: 4px;
-  padding: 12px 0;
+  padding: 15px 18px;
   width: 100%;
+  margin-bottom: 10px;
+  border-radius: 30px;
+}
+
+.schedule-btn i{
+  color: var(--color-primary);
+  font-size: 18px;
 }
 /* =================Custom File Uploader  Design================= */
 .upload-filed > input {
@@ -855,7 +877,7 @@
   align-items: center;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
   margin-top: 15px;
   width: 100%;
 }

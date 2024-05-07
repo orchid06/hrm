@@ -371,6 +371,11 @@
       spaceBetween: 15,
       speed: 1000,
       autoplay: true,
+      loop: false,
+      mousewheel: {
+        invert: false,
+      },
+      grabCursor: true,
       loop: true,
       pagination: {
         el: ".swiper-pagination",
@@ -404,6 +409,11 @@
       spaceBetween: 15,
       speed: 1000,
       autoplay: true,
+      loop: false,
+      grabCursor: true,
+      mousewheel: {
+        invert: false,
+      },
       loop: true,
       pagination: {
         el: ".swiper-pagination",

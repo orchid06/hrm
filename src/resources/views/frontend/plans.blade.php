@@ -17,7 +17,7 @@
                     {{@$planSection->value->description}}
                 </p>
 
-                <div class="mt-5 d-flex justify-content-center">
+                <div class="mb-5 d-flex justify-content-center">
                 <div class="nav plan-tab" role="tablist">
                     @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
                         <button
@@ -49,56 +49,161 @@
       <div class="tab-content" id="tab-plans">
           @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
             <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' : ''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab" tabindex="0">
-              @php
-                $purchasePlans = $plans->where('duration',$value);
-              @endphp
-              <div class="plan-detail-wrapper">
-                <div class="row gy-4 gx-4">
-                  @forelse ($purchasePlans as  $plan)
+              
+            <div class="plan-detail-wrapper">
+                  <div class="row gy-4 gx-4">
                     <div class="col-xl-4 col-md-6">
-                      <div class="plan-detail-card @if($plan->is_recommended == App\Enums\StatusEnum::true->status()) recommend @endif">
-                        @if($plan->is_recommended == App\Enums\StatusEnum::true->status())
-                          <div class="recommend-content">
-                            <p>{{translate("Recommended")}}</p>
-                          </div>
-                        @endif
+                      <div class="plan-detail-card">
                         <div class="plan-detail-top">
-                          <span>
-                              {{$plan->title}}
-                          </span>
-                          <h4>  @if($plan->discount_price > 0) <del>
-                            {{num_format( number : $plan->price,
-                                        calC:true)}}</del> {{num_format( number : $plan->discount_price,
-                                        calC:true)}} @else {{num_format( number : $plan->price,
-                                        calC:true)}}@endif<span>/{{ucfirst(strtolower($key))}}</span></h4>
-                          <p>
-                            {{$plan->description}}
-                          </p>
-                          <a href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--secondary btn--lg capsuled w-100">
-                            {{translate("Subscribe")}}
-                          </a>
+                          <p class="mb-0">For Mini Business</p>
+                          <span>title</span>
+                          <p>description</p>
+
+                          <div class="price">
+                            <h4>
+                              $66
+                              <span>$55</span>
+                            </h4>
+                          </div>
                         </div>
                         <div class="plan-detail-body">
-                          <ul class="mb-0">
-                            @foreach (plan_configuration( $plan) as $configKey => $configVal )
-                              <li>
-                                <span>
-                                  <i class="bi bi-patch-check"></i>
-                                </span>
-                                <p> {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}</p>
-                              </li>
-                            @endforeach
+                          <h5 class="mb-4">What’s included</h5>
+                          <ul>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social profile</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Pre-built ai template</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Facebook platform access</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Schedule post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Gpt-3.5-turbo Open ai model</p>
+                            </li> 
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>20 Word token</p>
+                            </li> 
                           </ul>
                         </div>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
                       </div>
                     </div>
-                  @empty
-                  <div class="col-12 justify-content-center text-center">
-                      @include("frontend.partials.not_found")
+                    <div class="col-xl-4 col-md-6">
+                      <div class="plan-detail-card">
+                        <div class="plan-detail-top">
+                          <p class="mb-0">For Mini Business</p>
+                          <span>title</span>
+                          <p>description</p>
+
+                          <div class="price">
+                            <h4>
+                              $66
+                              <span>$55</span>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="plan-detail-body">
+                          <h5 class="mb-4">What’s included</h5>
+                          <ul>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social profile</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Pre-built ai template</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Facebook platform access</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Schedule post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Gpt-3.5-turbo Open ai model</p>
+                            </li> 
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>20 Word token</p>
+                            </li> 
+                          </ul>
+                        </div>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+                      </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                      <div class="plan-detail-card">
+                        <div class="plan-detail-top">
+                          <p class="mb-0">For Mini Business</p>
+                          <span>title</span>
+                          <p>description</p>
+
+                          <div class="price">
+                            <h4>
+                              $66
+                              <span>$55</span>
+                            </h4>
+                          </div>
+                        </div>
+                        <div class="plan-detail-body">
+                          <h5 class="mb-4">What’s included</h5>
+                          <ul>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social profile</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Social post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>1 Pre-built ai template</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Facebook platform access</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Schedule post</p>
+                            </li>
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>Gpt-3.5-turbo Open ai model</p>
+                            </li> 
+                            <li>
+                              <span><i class="bi bi-check-circle-fill"></i></span>
+                              <p>20 Word token</p>
+                            </li> 
+                          </ul>
+                        </div>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+                      </div>
+                    </div>
                   </div>
-                  @endforelse
                 </div>
-              </div>
             </div>
           @endforeach
       </div>

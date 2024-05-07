@@ -63,8 +63,9 @@
   display: block;
   border: 1px dashed var(--border-two);
   background-color: var(--color-primary-soft);
-  border-radius: 4px;
+  border-radius: 16px;
   transition: all 0.3s ease-in-out;
+  overflow: hidden;
 }
 .feedback-file:hover {
   border-color: var(--color-primary);
@@ -76,7 +77,8 @@
   gap: 10px;
   font-weight: 700;
   line-height: 1.1;
-  padding: 20px;
+  padding: 30px 20px;
+  background-color: rgba(240, 242, 248, 1);
 }
 .feedback-file > span i {
   font-size: 26px;
