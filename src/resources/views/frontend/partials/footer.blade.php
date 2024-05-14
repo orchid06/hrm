@@ -29,7 +29,7 @@
                 <h2>Improve your social media content</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipiscing elit dolor posuere vel venenatis eu sit massa volutpat.</p>
                 <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-                  <a href="#" class="i-btn btn--lg btn--primary capsuled">GET STARTED FREE <span><i class="bi bi-arrow-up-right"></i></span></a>
+                  <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started FREE <span><i class="bi bi-arrow-up-right"></i></span></a>
                   <a href="#" class="i-btn btn--lg btn--white capsuled">BOOK a DEMO<span><i class="bi bi-arrow-up-right"></i></span></a>
                 </div>
               </div>

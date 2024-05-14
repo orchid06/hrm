@@ -365,7 +365,7 @@
 }
 
 .i-btn.btn--sm {
-  padding: 10px 14px;
+  padding: 9px 14px;
   font-size: 13px;
 }
 
@@ -374,12 +374,12 @@
 }
 
 .i-btn.btn--md {
-  padding: 9px 14px; 
+  padding: 12px 17px; 
   font-size: 14px;
 }
 
 .i-btn.btn--lg {
-  padding: 15px 30px;
+  padding: 14px 30px;
   font-size: 16px;
 }
 
@@ -1298,12 +1298,14 @@
 
 .nav-tabs.style-2 .nav-link {
   color: var(--text-primary);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   border-radius: 0px;
   border: none;
   padding: 0 0 5px 0;
   opacity: 0.6;
+  text-align: center;
+  white-space: nowrap;
 }
 .nav-tabs.style-2 .nav-link span{
   width: 25px;
@@ -1421,4 +1423,49 @@
   .breadcrumb-wrapper {
     transform: translateY(-60px);
 }
+}
+
+.account-connect-list{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.account-connect-list li{
+  padding: 18px 18px;
+  border: 1px solid #bfbfbf;
+  border-radius: 16px;
+  display: flex;
+  gap: 20px;
+  width: 48%;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+@media (max-width: 991px){
+  .account-connect-list li{
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+.account-connect-list li .button-group{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+.account-connect-list li button{
+  background-color: var(--color-white);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 18px;
+}
+.account-connect-list li button span{
+  display: inline-block;
+  margin-right: 10px;
+}
+.account-connect-list li button span img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
 }

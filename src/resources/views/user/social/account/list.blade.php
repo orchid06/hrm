@@ -976,65 +976,97 @@
 
     <!-- Social Account -->
         <div class="i-card mb-4 border mt-5">
-        <h4 class="card--title mb-4">Social Accounts</h4>
-            <ul class="nav nav-tabs gap-4 style-2" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab-official" data-bs-toggle="tab" data-bs-target="#tab-official-pane" type="button" role="tab" aria-controls="tab-official-pane" aria-selected="true"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Official</button>
+            <h4 class="card--title mb-4">Social Accounts Connection</h4>
+            <ul class="account-connect-list" id="myTab" role="tablist">
+                <li>
+                    <button><span><img src="https://i.ibb.co/Ht50KmY/facebook-10.png" alt="facebook-10"></span>Facebook</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled" type="button" data-bs-toggle="modal" data-bs-target="#face-official">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled" type="button" data-bs-toggle="modal" data-bs-target="#face-unofficial">Unofficial</button>
+                    </div>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-unofficial" data-bs-toggle="tab" data-bs-target="#tab-unofficial-pane" type="button" role="tab" aria-controls="tab-unofficial-pane" aria-selected="false"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Unofficial</button>
+                <li>
+                    <button><span><img src="https://i.ibb.co/9WrsbqH/instagram-2.png" alt="instagram-2"></span>instagram</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled">Unofficial</button>
+                    </div>
+                </li>
+                <li>
+                    <button><span><img src="https://i.ibb.co/XLPsPPg/twitter-2.png" alt="twitter-2"></span>Twitter</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled">Unofficial</button>
+                    </div>
+                </li>
+                <li>
+                    <button><span><img src="https://i.ibb.co/9WmQjvZ/linkedin-2.png" alt="linkedin-2"></span>LinkedIn</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled">Unofficial</button>
+                    </div>
+                </li>
+                <li>
+                    <button><span><img src="https://i.ibb.co/XYkxVt6/titktok.png" alt="titktok"></span>Tiktok</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled">Unofficial</button>
+                    </div>
+                </li>
+                <li>
+                    <button><span><img src="https://i.ibb.co/6NRpN0D/YouTube.png" alt="YouTube"></span>You Tube</button>
+                    <div class="button-group">
+                        <button class="i-btn btn--md btn--outline capsuled">Official</button>
+                        <button class="i-btn btn--md btn--outline capsuled">Unofficial</button>
+                    </div>
                 </li>
             </ul>
         </div>
 
-        <div class="i-card border">
-            <div class="tab-content" id="myTabContent-official">
-                <div class="tab-pane fade show active" id="tab-official-pane" role="tabpanel" aria-labelledby="tab-official" tabindex="0">
+@endsection
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="face-official" tabindex="-1" aria-labelledby="officialLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Official</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
                     <h4 class="card--title mb-4">Connect account</h4>
                     <div class="text-center d-block">
-                        <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect <span><i class="bi bi-arrow-up-right"></i></span></button>
+                        <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect</button>
                     </div>
                     <div class="notice-message">
                         <span>Note:</span>
                         <p>I am here to assist you with any questions or information you may need. Please feel free to ask me anything, and I will do my best to help. They may have various technologies in use, but I do not have information on any specific robot.</p>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tab-unofficial-pane" role="tabpanel" aria-labelledby="tab-unofficial" tabindex="0">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="amount">Account type</label>
-                                    <select name="account" id="account_type" class="user">
-                                        <option value="1">Select payment method</option>
-                                        <option value="1">Select payment method</option>
-                                        <option value="1">Select payment method</option>
-                                        <option value="1">Select payment method</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="amount">Access token</label>
-                                    <input id="amount" type="text" placeholder="Enter amount">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect <span><i class="bi bi-arrow-up-right"></i></span></button>
-                            </div>
-                        </div>
-                    </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="face-unofficial" tabindex="-1" aria-labelledby="unofficialLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Official</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4 class="card--title mb-4">Connect account</h4>
+                    <div class="text-center d-block">
+                        <button class="i-btn btn--lg btn--primary capsuled mx-auto" type="submit">Connect</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-@endsection
-
+    </div>
 
 @section('modal')
     @include('modal.delete_modal')
-
-
     <div class="modal fade" id="reconnect-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reconnect-modal"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">

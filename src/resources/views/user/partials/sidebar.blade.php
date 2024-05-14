@@ -250,6 +250,9 @@
                     </a>
                 </li>
             </ul>
+            <div class="sidebar-footer">
+                <a href="#"><span><i class="bi bi-box-arrow-right"></i></span> Logout Account</a>
+            </div>
         </div>
     </div>
   </aside>

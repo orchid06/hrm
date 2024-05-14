@@ -59,15 +59,15 @@
                         <span class="icon-image position-absolute top-0 end-0">
                           <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
                         </span>
-                        <div class="p-20">
+                        <div class="p-3">
                           <h5 class="card--title-sm">
                               {{$platform->name}}
                           </h5>
                         </div>
-                        <div class="p-20 border-top">
+                        <div class="p-3 border-top">
                           <p class="card--title-sm mb-1">00</p>
                           <p class="mb-4 fs-15">Total Posts</p>
-                          <a href="#" class="i-btn btn--md btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
+                          <a href="#" class="i-btn btn--sm btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
                         </div>
                       </div>
                     </div>
@@ -96,7 +96,7 @@
               <div class="row g-3">
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-line-chart-line fs-30"></i>
                         </div>
@@ -121,7 +121,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-calendar-2-line fs-28"></i>
                         </div>
@@ -142,7 +142,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-time-line fs-30"></i>
                         </div>
@@ -163,7 +163,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-checkbox-circle-line fs-30"></i>
                         </div>
@@ -184,7 +184,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-close-circle-line fs-30"></i>
                         </div>
@@ -205,7 +205,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-account-circle-line fs-30"></i>
                         </div>
@@ -226,7 +226,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-user-follow-line fs-30"></i>
                         </div>
@@ -247,7 +247,7 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
                   <div class="i-card border p-0">
-                      <div class="p-20">
+                      <div class="p-3">
                         <div class="icon text--primary mb-30">
                           <i class="ri-user-unfollow-line fs-30"></i>
                         </div>
@@ -388,7 +388,7 @@
             </a>
           </div>
           <div class="i-card-md share-card">
-            <h4 class="card-title mb-3">
+            <h4 class="card--title mb-3">
                Shared Files
             </h4>
             <ul>

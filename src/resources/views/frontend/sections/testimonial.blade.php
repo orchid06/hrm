@@ -714,7 +714,7 @@
                       <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
                     </div>
                     <div class="radius-two">
-                      <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
                     </div>
                     <div class="icon">
                       <i class="bi bi-send"></i>
@@ -739,7 +739,7 @@
                         <li><span><i class="bi bi-check"></i></span>20 Word token</li>
                       </ul>
                     </div>
-                    <a href="#" class="i-btn btn--lg btn--primary capsuled">GET STARTED</a>
+                    <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -748,7 +748,7 @@
                       <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
                     </div>
                     <div class="radius-two">
-                      <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
                     </div>
                     <div class="icon">
                       <i class="bi bi-rocket-takeoff"></i>
@@ -773,7 +773,7 @@
                         <li><span><i class="bi bi-check"></i></span>20 Word token</li>
                       </ul>
                     </div>
-                    <a href="#" class="i-btn btn--lg btn--primary capsuled">GET STARTED</a>
+                    <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -782,7 +782,7 @@
                       <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
                     </div>
                     <div class="radius-two">
-                      <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
                     </div>
                     <div class="icon">
                       <i class="bi bi-gem"></i>
@@ -807,7 +807,7 @@
                         <li><span><i class="bi bi-check"></i></span>20 Word token</li>
                       </ul>
                     </div>
-                    <a href="#" class="i-btn btn--lg btn--primary capsuled">GET STARTED</a>
+                    <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
                   </div>
                 </div>
               </div>

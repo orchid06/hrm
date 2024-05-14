@@ -493,6 +493,11 @@
   right: 0;
   padding: 0 45px 0 45px;
 }
+
+.header.sticky .header-shape-two{
+  display: none;
+  visibility: hidden;
+}
  
 @media (min-width: 992px) and (max-width: 1199px) {
   .header {
@@ -561,7 +566,7 @@
 }
 }
 .header.sticky {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 1);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
   background-blend-mode: multiply;
@@ -1585,10 +1590,10 @@
 }
 
 .banner-content h1 {
-  font-size: 90px;
+  font-size: 85px;
   font-weight: 600;
   margin-bottom: 5px;
-  line-height: 1.1;
+  line-height: 1.06;
   display: inline-block;
 
 }
@@ -2678,7 +2683,7 @@
 .blog-style-one{
   position: relative;
 }
-.blog-style-one .content span{
+.blog-style-one .content > span{
   display: inline-block;
   font-size: 18px;
   margin-bottom: 5px;
@@ -5403,27 +5408,27 @@ footer{
   transform: rotate(277deg);
   z-index: 2;
 }
-.pricing-item .radius-two{
+.pricing-item .radius-two {
   position: absolute;
-  right: -31px;
-  top: 27px;
-  transform: rotate(-108deg);
+  right: -14px;
+  top: 54px;
+  transform: rotate(-204deg);
   z-index: 2;
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
 }
-.pricing-item .icon{
+.pricing-item .icon {
   position: absolute;
-  right: 0;
-  top: -8px;
-  width: 80px;
-  height: 80px;
+  right: -6px;
+  top: -12px;
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
   background-color: var(--color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 10px solid var(--color-white);
+  border: 11px solid var(--color-white);
 }
 .pricing-item .icon i{
   color: var(--color-white);

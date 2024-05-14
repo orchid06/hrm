@@ -1,5 +1,6 @@
 body {
   overflow: hidden;
+  background-color: var(--card-bg-light);
 }
 .overlay{
   position: fixed;
@@ -536,7 +537,6 @@ body {
 }
 .modal .modal-dialog .modal-content .modal-header {
   background-color: var(--site-bg);
-  border-color: var(--color-primary-soft);
 }
 .modal .modal-dialog .modal-content .modal-header .modal-title {
   font-size: 24px;
@@ -558,7 +558,7 @@ body {
   color: var(--color-primary);
 }
 .modal .modal-dialog .modal-content .modal-body {
-  padding: 20px;
+  padding: 25px;
 }
 .modal .modal-dialog .modal-content .modal-footer {
   border-color: var(--border-one);
@@ -600,7 +600,7 @@ body {
   line-height: 1;
 }
 .i-card .footer{
-  padding: 15px 20px;
+  padding: 12px 16px;
 }
 .i-card-sm {
   position: relative;
@@ -788,7 +788,7 @@ body {
   padding: 15px 20px;
   text-align: left;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -1100,7 +1100,7 @@ body {
 }
 
 .form-inner .form-select {
-  padding: 11px 2.25rem 11px 0.75rem;
+  padding: 11px 16px 11px 16px;
   border-radius: 30px;
   border-color: var(--border-one);
   font-size: 15px;
@@ -1220,7 +1220,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 input[type="number"] {
-  padding: 6.5px 12px;
+  padding: 6.5px 16px;
 }
 
 .form-check-input{
@@ -2411,7 +2411,7 @@ aside.show-side-bar {
   -ms-flex-align: center;
   align-items: center;
   justify-content: flex-start;
-  padding: 12px 12px;
+  padding: 12px 15px;
   gap: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -2967,6 +2967,17 @@ aside.show-side-bar {
   .hidden-overlay {
     display: none;
   }
+}
+
+.sidebar-footer a{
+  color: var(--color-secondary);
+  font-size: 16px;
+}
+.sidebar-footer a span{
+  font-size: 16px;
+  display: inline-block;
+  color: inherit;
+  margin-right: 5px;
 }
 
 /* ========================================================================
@@ -4094,7 +4105,7 @@ aside.show-side-bar {
 
 .table-accordion .list-group .list-group-item .title {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 30%;
   flex: 0 0 30%;
@@ -4855,7 +4866,7 @@ aside.show-side-bar {
   -ms-flex-align: center;
   align-items: center;
   gap: 6px;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
@@ -4975,11 +4986,16 @@ aside.show-side-bar {
   background-color: rgba(255, 238, 238, 1);
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   justify-content: flex-start;
   gap: 15px;
   color: var(--text-primary);
   border-radius: 10px;
   margin-top: 45px;
+  text-align: left;
+}
+.notice-message p{
+  font-size: 15px;
 }
 
 @media (max-width:768px) {
@@ -5001,8 +5017,14 @@ aside.show-side-bar {
 }
 
 .social-preview-user{
-  height: 640px;
+  height: auto;
+  max-height: 725px;
   overflow-y: auto;
+}
+@media (max-width: 767px) {
+  .social-preview-user{
+    height: auto;
+  }
 }
 .social-preview-user::-webkit-scrollbar {
   width: 5px;

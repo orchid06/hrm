@@ -27,29 +27,36 @@
     <form action="{{route('user.social.post.store')}}" method="post" class="compose-form" enctype="multipart/form-data">
         @csrf
         <div class="row gy-4">
-            <div class="col-xl-4">
+            <div class="col-xxl-4">
                 <div class="i-card-md mb-4">
                     <div class="card-header">
                         <h4 class="card-title">{{translate('Choose Profile')}}</h4>
                     </div>
                     <div class="card-body">
-                        <ul class="nav nav-tabs style-2 d-flex justify-content-start border-0 mb-30 gap-4" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
-                            </li>
-                        </ul>
+
+                        <div class="swiper choose-profile-slider mb-4 justify-content-center">
+                            <ul class="nav nav-tabs style-2 justify-content-start border-0 swiper-wrapper flex-nowrap" role="tablist">
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-six" aria-selected="true" role="tab">You Tube</a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <div id="myTabContent3" class="tab-content">
                             <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
                                 <ul class="selected-profile"></ul>
@@ -125,89 +132,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="i-card-md mb-4">
-                    <div class="card-header d-block">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="card-title">{{translate('Schedule Post')}}</h4>
-                            </div>
-                            <div class="col-md-6">
-                                <select name="content-category" class="select-custom">
-                                    <option>Immediately</option>
-                                    <option>Schedule Post</option>
-                                    <option>Category Three</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="card-body">
-                        @if( $schedule)
-                            <button class="schedule-btn" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
-                                aria-controls="schedule"
-                                type="button">
-                                {{translate("Schedule Post")}}
-                                <i class="bi bi-plus-lg ms-2"></i>
-                            </button>
-                            <div class="collapse" id="schedule">
-                                <div class="schedule-body mt-1">
-                                    <div class="schedule-content">
-                                        <div class="row g-4 align-items-end">
-                                            <div class="col-xl-12 col-md-8">
-                                                <div class="form-inner mb-0">
-                                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
-                                                        name="schedule_date"
-                                                        value="{{old('schedule_date')}}"
-                                                        id="schedule_date"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        <div class="row mt-5">
-                            <div class="col-md-6">
-                                <div class="form-inner">
-                                    <label for="schedule_date">Time Post</label>
-                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
-                                        name="schedule_date"
-                                        value="{{old('schedule_date')}}"
-                                        id="time_post"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-inner">
-                                    <label for="interval">Interval Per Post(minute)</label>
-                                    <input placeholder="Interval" id="interval" type="text" name="interval"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-inner">
-                                    <label for="interval">Repost frequency per day</label>
-                                    <input placeholder="Repost" id="interval" type="text" name="interval"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-inner">
-                                    <label for="schedule_date">Repost until</label>
-                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
-                                        name="schedule_date"
-                                        value="{{old('schedule_date')}}"
-                                        id="repost"/>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-                </div>
-
-                <button type="submit" class="i-btn btn--primary btn--lg capsuled">
-                    {{translate("Post")}}
-                        <i class="bi bi-send"></i>
-                </button>
-            </div>
-            <div class="col-xl-4">
                 <div class="i-card-md mb-4">
                     <div class="card-header">
                         <h4 class="card-title">
@@ -275,8 +199,90 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xxl-4 col-xl-6 col-md-6">
+                <div class="i-card-md mb-4">
+                    <div class="card-header d-block">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title">{{translate('Schedule Post')}}</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <select name="content-category" class="select-custom">
+                                    <option>Immediately</option>
+                                    <option>Schedule Post</option>
+                                    <option>Category Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card-body">
+                        @if( $schedule)
+                            <button class="schedule-btn" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                                aria-controls="schedule"
+                                type="button">
+                                {{translate("Schedule Post")}}
+                                <i class="bi bi-plus-lg ms-2"></i>
+                            </button>
+                            <div class="collapse" id="schedule">
+                                <div class="schedule-body mt-1">
+                                    <div class="schedule-content">
+                                        <div class="row g-4 align-items-end">
+                                            <div class="col-xl-12 col-md-8">
+                                                <div class="form-inner mb-0">
+                                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
+                                                        name="schedule_date"
+                                                        value="{{old('schedule_date')}}"
+                                                        id="schedule_date"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
-            <div class="col-xl-4">
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                <div class="form-inner">
+                                    <label for="schedule_date">Time Post</label>
+                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
+                                        name="schedule_date"
+                                        value="{{old('schedule_date')}}"
+                                        id="time_post"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-inner">
+                                    <label for="interval">Interval Per Post(minute)</label>
+                                    <input placeholder="Interval" id="interval" type="text" name="interval"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-inner">
+                                    <label for="interval">Repost frequency per day</label>
+                                    <input placeholder="Repost" id="interval" type="text" name="interval"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-inner">
+                                    <label for="schedule_date">Repost until</label>
+                                    <input placeholder="{{translate('Select date time')}}" type="text" class="singleDate flatpickr-input"
+                                        name="schedule_date"
+                                        value="{{old('schedule_date')}}"
+                                        id="repost"/>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+                <button type="submit" class="i-btn btn--primary btn--lg capsuled">
+                    {{translate("Post")}}
+                        <i class="bi bi-send"></i>
+                </button>
+            </div>
+
+            <div class="col-xxl-4 col-xl-6 col-md-6">
                 <div class="i-card-md social-preview-user">
                     <div class="card-header">
                         <h4 class="card-title">
@@ -284,175 +290,669 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <div class="row gy-4">
-                            <div class="col-md-12">
+                        <div class="swiper social-btn-slider mb-4 justify-content-center">
+                            <ul class="nav nav-tabs style-2 justify-content-start border-0 swiper-wrapper flex-nowrap" role="tablist">
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-two" aria-selected="true" role="tab">Facebook</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-three" aria-selected="true" role="tab">Instagram</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-four" aria-selected="true" role="tab">Twitter</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-five" aria-selected="true" role="tab">Linkedin</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-six" aria-selected="true" role="tab">Tiktok</a>
+                                </li>
+                                <li class="nav-item swiper-slide" role="presentation">
+                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-seven" aria-selected="true" role="tab">You Tube</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="tab-content" id="preview-tabContent">
+                                <!-- @foreach ($platforms as $platform )
+                                    <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel"    aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
+                                        <div class="social-preview-body {{$platform->slug}}">
+                                            <div class="social-auth">
+                                                <div class="profile-img">
+                                                    <img
+                                                    src="{{get_default_img()}}"
 
-                                <ul class="nav nav-tabs style-2 d-flex justify-content-start  mb-30 gap-3 border-0" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-one" aria-selected="false" role="tab" tabindex="-1">All</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-two" aria-selected="true" role="tab">Facebook</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-three" aria-selected="true" role="tab">Instagram</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-four" aria-selected="true" role="tab">Twitter</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-five" aria-selected="true" role="tab">Linkedin</a>
-                                    </li>
-                                </ul>
-                                
-                                <div class="tab-content" id="preview-tabContent">
-                                    <!-- @foreach ($platforms as $platform )
-                                        <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel"    aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
-                                            <div class="social-preview-body {{$platform->slug}}">
-                                                <div class="social-auth">
-                                                    <div class="profile-img">
-                                                        <img
-                                                        src="{{get_default_img()}}"
+                                                    alt="{{get_default_img()}}"/>
+                                                </div>
 
-                                                        alt="{{get_default_img()}}"/>
+                                                <div class="profile-meta">
+                                                    <h6 class="user-name">
+                                                        <a href="javascript:void(0)">
+                                                            {{translate("Username")}}
+                                                        </a>
+                                                    </h6>
+                                                    @php
+                                                        $currentDate   = Carbon\Carbon::now();
+                                                        $formattedDate = $currentDate->format('M j');
+                                                    @endphp
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <p>
+                                                            {{$formattedDate}}
+                                                        </p>
+                                                        <i class="bi bi-globe-americas fs-12"></i>
                                                     </div>
+                                                </div>
 
-                                                    <div class="profile-meta">
-                                                        <h6 class="user-name">
-                                                            <a href="javascript:void(0)">
-                                                                {{translate("Username")}}
-                                                            </a>
-                                                        </h6>
-                                                        @php
-                                                            $currentDate   = Carbon\Carbon::now();
-                                                            $formattedDate = $currentDate->format('M j');
-                                                        @endphp
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <p>
-                                                                {{$formattedDate}}
-                                                            </p>
-                                                            <i class="bi bi-globe-americas fs-12"></i>
+                                                <span class="dots">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </span>
+                                            </div>
+                                            <div class="social-caption">
+                                                <div class="caption-text">
+                                                    <div class="line-loader">
+                                                        <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <span class="dots">
-                                                        <i class="bi bi-three-dots"></i>
+                                                <div class="hash-tag"></div>
+
+                                                <div class="caption-imgs"></div>
+
+                                                <div class="caption-link"></div>
+
+                                                <div class="action-count d-flex justify-content-between align-items-center">
+                                                    <div class="emoji d-flex align-items-center gap-2">
+                                                        <ul class="d-flex gap-0 react-icon-list">
+                                                            <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                                            <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                                            <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                                        </ul>
+                                                        <span class="fs-14">129</span>
+                                                    </div>
+                                                    <div class="comment-count py-2 px-0">
+                                                        <ul class="d-flex align-items-center gap-3">
+                                                            <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                                            <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="caption-action">
+                                                    @if($platform->slug == 'facebook')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-thumbs-up"></i>
+                                                            <span> {{translate("Like")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-message"></i>
+                                                            <span>
+                                                                {{translate("Comment")}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-share"></i>
+                                                            <span>
+                                                                {{translate("Share")}}
+                                                            </span>
+                                                        </div>
+                                                    @elseif($platform->slug == 'instagram')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-paper-plane"></i>
+                                                        </div>
+
+                                                    @elseif($platform->slug == 'twitter')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-retweet"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+
+                                                        @elseif($platform->slug == 'linkedin')
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-thumbs-up"></i>
+                                                            <span>  {{translate("Like")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-message"></i>
+                                                            <span>
+                                                                {{translate("Comment")}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-retweet"></i>
+                                                            <span>{{translate("Repost")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-paper-plane"></i>
+                                                            <span>
+                                                                {{translate("Send")}}
+                                                            </span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach -->
+
+                                <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
+                                    <div class="social-preview-body facebook mb-4">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <p>
+                                                        May 6
+                                                    </p>
+                                                    <i class="bi bi-globe-americas fs-12"></i>
+                                                </div>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="action-count d-flex justify-content-between align-items-center">
+                                                <div class="emoji d-flex align-items-center gap-2">
+                                                    <ul class="d-flex gap-0 react-icon-list">
+                                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like" /></li>
+                                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love" /></li>
+                                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care" /></li>
+                                                    </ul>
+                                                    <span class="fs-14">129</span>
+                                                </div>
+                                                <div class="comment-count py-2 px-0">
+                                                    <ul class="d-flex align-items-center gap-3">
+                                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-message"></i>
+                                                    <span>
+                                                        Comment
                                                     </span>
                                                 </div>
-                                                <div class="social-caption">
-                                                    <div class="caption-text">
-                                                        <div class="line-loader">
-                                                            <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="hash-tag"></div>
-
-                                                    <div class="caption-imgs"></div>
-
-                                                    <div class="caption-link"></div>
-
-                                                    <div class="action-count d-flex justify-content-between align-items-center">
-                                                        <div class="emoji d-flex align-items-center gap-2">
-                                                            <ul class="d-flex gap-0 react-icon-list">
-                                                                <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
-                                                                <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
-                                                                <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
-                                                            </ul>
-                                                            <span class="fs-14">129</span>
-                                                        </div>
-                                                        <div class="comment-count py-2 px-0">
-                                                            <ul class="d-flex align-items-center gap-3">
-                                                                <li><a href="#" class="fs-14 text--light">12 Comments</a></li>
-                                                                <li><a href="#" class="fs-14 text--light">8 Shares</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="caption-action">
-                                                        @if($platform->slug == 'facebook')
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-thumbs-up"></i>
-                                                                <span> {{translate("Like")}}</span>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-message"></i>
-                                                                <span>
-                                                                    {{translate("Comment")}}
-                                                                </span>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-solid fa-share"></i>
-                                                                <span>
-                                                                    {{translate("Share")}}
-                                                                </span>
-                                                            </div>
-                                                        @elseif($platform->slug == 'instagram')
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-heart"></i>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-comment"></i>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-paper-plane"></i>
-                                                            </div>
-
-                                                        @elseif($platform->slug == 'twitter')
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-comment"></i>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-solid fa-retweet"></i>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-heart"></i>
-                                                            </div>
-
-                                                            @elseif($platform->slug == 'linkedin')
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-thumbs-up"></i>
-                                                                <span>  {{translate("Like")}}</span>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-regular fa-message"></i>
-                                                                <span>
-                                                                    {{translate("Comment")}}
-                                                                </span>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-solid fa-retweet"></i>
-                                                                <span>{{translate("Repost")}}</span>
-                                                            </div>
-
-                                                            <div class="caption-action-item">
-                                                                <i class="fa-solid fa-paper-plane"></i>
-                                                                <span>
-                                                                    {{translate("Send")}}
-                                                                </span>
-                                                            </div>
-                                                        @endif
-                                                    </div>
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                    <span>
+                                                        Share
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach -->
+                                    </div>
 
-                                    <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
-                                        <div class="social-preview-body facebook mb-4">
+                                    <div class="social-preview-body instagram">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-paper-plane"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-preview-two" role="tabpanel">
+                                    <div class="social-preview-body facebook">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <p>
+                                                        May 6
+                                                    </p>
+                                                    <i class="bi bi-globe-americas fs-12"></i>
+                                                </div>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="action-count d-flex justify-content-between align-items-center">
+                                                <div class="emoji d-flex align-items-center gap-2">
+                                                    <ul class="d-flex gap-0 react-icon-list">
+                                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like" /></li>
+                                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love" /></li>
+                                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care" /></li>
+                                                    </ul>
+                                                    <span class="fs-14">129</span>
+                                                </div>
+                                                <div class="comment-count py-2 px-0">
+                                                    <ul class="d-flex align-items-center gap-3">
+                                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-message"></i>
+                                                    <span>
+                                                        Comment
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                    <span>
+                                                        Share
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-preview-three" role="tabpanel">
+                                    <div class="social-preview-body instagram">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-paper-plane"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-preview-four" role="tabpanel">
+                                    <div class="social-preview-body twitter">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-preview-five" role="tabpanel">
+                                    <div class="social-preview-body linkedin">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-message"></i>
+                                                    <span>
+                                                        Comment
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                    <span>Repost</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-paper-plane"></i>
+                                                    <span>
+                                                        Send
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-preview-six" role="tabpanel">
+                                    <div class="social-preview-body tiktok">
+                                        <div class="profile-img">
+                                            <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-comment-dots"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-preview-seven" role="tabpanel">
+                                    <div class="social-preview-body youtube">
+                                        <div class="social-caption">
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-down"></i>
+                                                    <span> Unlike</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                    <span>
+                                                        Share
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-download"></i>
+                                                    <span>Download</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-bookmark"></i>
+                                                    <span>
+                                                        Save
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                             <div class="social-auth">
                                                 <div class="profile-img">
                                                     <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
@@ -461,88 +961,7 @@
                                                 <div class="profile-meta">
                                                     <h6 class="user-name">
                                                         <a href="javascript:void(0)">
-                                                            Username
-                                                        </a>
-                                                    </h6>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <p>
-                                                            May 6
-                                                        </p>
-                                                        <i class="bi bi-globe-americas fs-12"></i>
-                                                    </div>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="action-count d-flex justify-content-between align-items-center">
-                                                    <div class="emoji d-flex align-items-center gap-2">
-                                                        <ul class="d-flex gap-0 react-icon-list">
-                                                            <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like" /></li>
-                                                            <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love" /></li>
-                                                            <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care" /></li>
-                                                        </ul>
-                                                        <span class="fs-14">129</span>
-                                                    </div>
-                                                    <div class="comment-count py-2 px-0">
-                                                        <ul class="d-flex align-items-center gap-3">
-                                                            <li><a href="#" class="fs-14 text--light">12 Comments</a></li>
-                                                            <li><a href="#" class="fs-14 text--light">8 Shares</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-thumbs-up"></i>
-                                                        <span> Like</span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-message"></i>
-                                                        <span>
-                                                            Comment
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-solid fa-share"></i>
-                                                        <span>
-                                                            Share
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="social-preview-body instagram">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            Username
+                                                            Voice of Books
                                                         </a>
                                                     </h6>
                                                     <p>
@@ -551,307 +970,11 @@
                                                 </div>
 
                                                 <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
+                                                    <h6 class="text-danger text-upppercase fs-13">SUBSCRIBE</h6>
                                                 </span>
                                             </div>
 
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-comment"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-paper-plane"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tab-preview-two" role="tabpanel">
-                                        <div class="social-preview-body facebook">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            Username
-                                                        </a>
-                                                    </h6>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <p>
-                                                            May 6
-                                                        </p>
-                                                        <i class="bi bi-globe-americas fs-12"></i>
-                                                    </div>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="action-count d-flex justify-content-between align-items-center">
-                                                    <div class="emoji d-flex align-items-center gap-2">
-                                                        <ul class="d-flex gap-0 react-icon-list">
-                                                            <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like" /></li>
-                                                            <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love" /></li>
-                                                            <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care" /></li>
-                                                        </ul>
-                                                        <span class="fs-14">129</span>
-                                                    </div>
-                                                    <div class="comment-count py-2 px-0">
-                                                        <ul class="d-flex align-items-center gap-3">
-                                                            <li><a href="#" class="fs-14 text--light">12 Comments</a></li>
-                                                            <li><a href="#" class="fs-14 text--light">8 Shares</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-thumbs-up"></i>
-                                                        <span> Like</span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-message"></i>
-                                                        <span>
-                                                            Comment
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-solid fa-share"></i>
-                                                        <span>
-                                                            Share
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tab-preview-three" role="tabpanel">
-                                        <div class="social-preview-body instagram">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            Username
-                                                        </a>
-                                                    </h6>
-                                                    <p>
-                                                        May 6
-                                                    </p>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-comment"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-paper-plane"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tab-preview-four" role="tabpanel">
-                                        <div class="social-preview-body twitter">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            Username
-                                                        </a>
-                                                    </h6>
-                                                    <p>
-                                                        May 6
-                                                    </p>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-comment"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-solid fa-retweet"></i>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tab-preview-five" role="tabpanel">
-                                        <div class="social-preview-body linkedin">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            Username
-                                                        </a>
-                                                    </h6>
-                                                    <p>
-                                                        May 6
-                                                    </p>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                            <div class="line-1"></div>
-                                                            <div class="line-2"></div>
-                                                            <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="caption-action">
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-thumbs-up"></i>
-                                                        <span> Like</span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-regular fa-message"></i>
-                                                        <span>
-                                                            Comment
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-solid fa-retweet"></i>
-                                                        <span>Repost</span>
-                                                    </div>
-
-                                                    <div class="caption-action-item">
-                                                        <i class="fa-solid fa-paper-plane"></i>
-                                                        <span>
-                                                            Send
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="caption-link"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1205,6 +1328,48 @@
             $(this).parent().parent().remove();
 
         });
+
+   var swiper = new Swiper(".social-btn-slider", {
+      spaceBetween: 15,
+      slidesPerView: 4,
+      loop:true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 4,
+        },
+        768: {
+          slidesPerView: 4,
+        },
+        1024: {
+          slidesPerView: 5,
+        },
+      },
+    });
+
+    var swiper = new Swiper(".choose-profile-slider", {
+      spaceBetween: 15,
+      slidesPerView: 4,
+      loop:true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 4,
+        },
+        768: {
+          slidesPerView: 4,
+        },
+        1024: {
+          slidesPerView: 5,
+        },
+      },
+    });
 
 
 	})(jQuery);

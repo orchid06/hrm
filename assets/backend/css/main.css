@@ -331,7 +331,7 @@ button,
 .icon-btn {
     border-radius: 3px;
     display: inline-block;
-    padding: 5px 5px;
+    padding: 7px 7px;
     font-size: 16px;
     font-weight: 500;
     line-height: 1;
@@ -1543,7 +1543,7 @@ table.dataTable.no-footer {
     color: var(--text-primary);
     border: 1px solid var(--color-border);
     padding: 15px 15px;
-    border-radius: 3px
+    border-radius: 5px
 }
 
 .list-group .list-group-item.read-notification {
@@ -4123,6 +4123,13 @@ textarea {
     padding: 7px 18px;
 }
 
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+}
+
 .nav-tabs.style-1 {
     border-bottom: none;
     margin-bottom: 20px;
@@ -6643,5 +6650,23 @@ ul.inbox-list li .col-mail-2 .date {
 .banner-bg {
     position: relative;
     z-index: 1;
+}
+
+.social-account-list li{
+    box-shadow: 0px 5px 12px rgba(46, 35, 94, .06);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: var(--color-white);
+}
+
+@media (max-width: 768px) {
+    .social-account-list li{
+        padding: 5px;
+    }
+}
+@media (max-width: 480px) {
+    .social-account-list li{
+        width: 100%;
+    }
 }
 
