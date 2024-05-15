@@ -276,9 +276,9 @@
                      </div>
                 </div>
 
-                <button type="submit" class="i-btn btn--primary btn--lg capsuled">
+                <button type="submit" class="i-btn btn--primary btn--lg capsuled postSubmitButton" id="postSubmitButton">
                     {{translate("Post")}}
-                        <i class="bi bi-send"></i>
+                        <i class="bi bi-send"></i>      
                 </button>
             </div>
 
@@ -1198,6 +1198,7 @@
 
 @push('script-push')
 <script>
+
 	(function($){
        	"use strict";
 

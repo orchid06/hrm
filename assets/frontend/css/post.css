@@ -83,6 +83,7 @@
   p {
   color: var(--color-primary);
 }
+
 .compose-form
   .caption-wrapper
   .compose-body-bottom
@@ -496,7 +497,7 @@
   }
 }
 .social-preview-body.instagram .caption-action {
-  margin: 15px 0;
+  margin: 15px 0 0;
   gap: 15px;
 }
 .social-preview-body.instagram .caption-action .caption-action-item {

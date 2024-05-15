@@ -2361,7 +2361,9 @@ aside.show-side-bar {
   flex-direction: column;
   justify-content: space-between;
   gap: 30px;
+  position: relative;
 }
+
 .sidemenu-wrapper::-webkit-scrollbar {
   width: 5px;
 }
@@ -2648,7 +2650,7 @@ aside.show-side-bar {
   top: 1px;
   left: 20px;
   width: auto;
-  height: 100%;
+  height: auto;
   z-index: 1;
   isolation: isolate;
   padding: 0px 0;
@@ -4270,6 +4272,19 @@ aside.show-side-bar {
 }
 .discussion-continer .mesg-body {
   margin-top: 3px;
+}
+.discussion-continer .mesg-body img{
+  max-width: 300px !important;
+  margin-left: 10px;
+  display: block;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px){
+  .discussion-continer .mesg-body img{
+    max-width: 230px !important;
+    margin-left: 0;
+  }
 }
 .mesg-body p {
   font-size: 14px;

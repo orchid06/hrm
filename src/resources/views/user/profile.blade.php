@@ -569,7 +569,7 @@
       <div class="plan-detail">
           <div class="container-fluid px-0">
             <div class="i-card mb-4 border">
-              <ul class="nav nav-tabs gap-4 style-2 mb-30" id="myTab" role="tablist">
+              <ul class="nav nav-tabs gap-lg-4 gap-3 style-2 mb-30" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true">Edit Profile</button>
                   </li>

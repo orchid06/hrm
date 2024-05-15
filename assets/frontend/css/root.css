@@ -388,7 +388,7 @@ textarea{
 /* ========Card========*/
 
 .border{
-  border: 1px solid var(--border-two) !important;
+  border: 2px solid var(--border-two) !important;
 }
 .border-top{
   border-top: 1px solid var(--border-two) !important;
@@ -400,6 +400,12 @@ textarea{
   padding: 20px;
   background-color: var(--color-white);
   border-radius: 20px;
+}
+
+@media (max-width: 576px) {
+  .i-card{
+    padding: 15px;
+  }
 }
 .card--title{
   font-size: 22px;
