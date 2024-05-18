@@ -10,12 +10,6 @@
     <div class="container-fluid px-0">
       <div class="header-container">
         <div class="d-flex align-items-center gap-4">
-            <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
-
-                <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-            </a>
-
             <div class="mobile-menu-btn sidebar-trigger d-xl-none d-flex">
                 <div class="burger">
                     <span></span>
@@ -138,30 +132,6 @@
             </div>
 
             <!-- currency -->
-            <div class="header-right-item">
-                <div class="dropdown currency">
-                    <button
-                        class="dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        >
-                        {{session()->get('currency')?->code}}
-                    </button>
-
-                    @if($currencies->count() > 0)
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                            @foreach($currencies as $currency)
-                                <li>
-                                    <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
-                                </li>
-                            @endforeach
-
-                        </ul>
-                    @endif
-                </div>
-            </div>
 
             <div class="header-right-item">
                 <div class="dropdown profile-dropdown">

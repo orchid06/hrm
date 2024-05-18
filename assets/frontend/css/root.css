@@ -14,7 +14,7 @@
   --text-primary: rgba(27, 28, 30, 1)
   --text-secondary: rgba(76, 75, 75, 1);
   --text-light: rgb(133, 142, 164);
-  --border-one: rgba(205, 205, 205, 1);
+  --border-one: rgba(205, 205, 205, 0.65);
   --border-two: rgba(233, 237, 247, 1);
   --color-white: #fff;
   --site-bg: rgba(250, 251, 252, 1);
@@ -287,7 +287,7 @@ figure {
 
 /* ========Margin Spacing========*/
 .mb-30{
-  margin-bottom: 30px;
+  margin-bottom: 30px !important;
 }
 .mb-25{
   margin-bottom: 25px;

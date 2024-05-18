@@ -33,28 +33,33 @@
                         <h4 class="card-title">{{translate('Choose Profile')}}</h4>
                     </div>
                     <div class="card-body">
-
-                        <div class="swiper choose-profile-slider mb-4 justify-content-center">
-                            <ul class="nav nav-tabs style-2 justify-content-start border-0 swiper-wrapper flex-nowrap" role="tablist">
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
-                                </li>
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
-                                </li>
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
-                                </li>
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
-                                </li>
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
-                                </li>
-                                <li class="nav-item swiper-slide" role="presentation">
-                                    <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-six" aria-selected="true" role="tab">You Tube</a>
-                                </li>
-                            </ul>
+                        <div class="slider-wrap">
+                            <div class="swiper choose-profile-slider mb-4 justify-content-center">
+                                <ul class="nav nav-tabs style-2 justify-content-start border-0 swiper-wrapper flex-nowrap" role="tablist">
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                                    </li>
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                                    </li>
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                                    </li>
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                                    </li>
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                                    </li>
+                                    <li class="nav-item swiper-slide" role="presentation">
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-six" aria-selected="true" role="tab">You Tube</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="swiper-button-next">
+                                
+                            </div>
+                            <div class="swiper-button-prev"></div>
                         </div>
 
                         <div id="myTabContent3" class="tab-content">
@@ -1358,6 +1363,10 @@
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
       breakpoints: {
         640: {

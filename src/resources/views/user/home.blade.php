@@ -39,7 +39,7 @@
     <div class="row g-4 mb-4">
       <div class="col">
         <div class="row g-4">
-          <div class="col-xxl-4 col-xl-5">
+          <div class="col-xxl-5 col-xl-5">
               <div class="i-card h-550">
                 <h4 class="card--title mb-4">Connected Social Accounts</h4>
                 <div class="row g-3">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="p-3 border-top">
                           <p class="card--title-sm mb-1">00</p>
-                          <p class="mb-4 fs-15">Total Posts</p>
+                          <p class="mb-3 fs-14">Total Posts</p>
                           <a href="#" class="i-btn btn--sm btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
                         </div>
                       </div>
@@ -77,7 +77,45 @@
                 </div>
               </div>
           </div>
-          <div class="col-xxl-8 col-xl-7">
+           <div class="col-xxl-7 col-xl-7">
+            <div class="i-card">
+              <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                  </li>
+              </ul>
+              <div id="myTabContent3" class="tab-content">
+                  <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
+                    <div id="postReport"></div>
+                  </div>
+                  <div class="tab-pane fade" id="tab-two" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-three" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-four" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-five" role="tabpanel">
+                    
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-12 col-xl-12">
              <div class="i-card h-550">
                 <div class="row align-items-center g-2 mb-4">
                   <div class="col-md-9">
@@ -268,51 +306,13 @@
               </div>
              </div>
           </div>
-          <div class="col-12">
-            <div class="i-card">
-              <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
-                  <li class="nav-item" role="presentation">
-                      <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
-                  </li>
-              </ul>
-              <div id="myTabContent3" class="tab-content">
-                  <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
-                    <div id="postReport"></div>
-                  </div>
-                  <div class="tab-pane fade" id="tab-two" role="tabpanel">
-                    
-                  </div>
-                  <div class="tab-pane fade" id="tab-three" role="tabpanel">
-                    
-                  </div>
-                  <div class="tab-pane fade" id="tab-four" role="tabpanel">
-                    
-                  </div>
-                  <div class="tab-pane fade" id="tab-five" role="tabpanel">
-                    
-                  </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col-auto right-side-col">
           <div class="swiper latest-post-slider">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <div class="i-card shadow-one mb-4">
+                <div class="i-card shadow-one mb-4 pb-5">
                   <h4 class="card--title mb-20">Latest Post</h4>
                   <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
                   <h6 class="card--title-sm mb-1">Important things on holiday</h6>
@@ -331,7 +331,7 @@
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="i-card shadow-one mb-4">
+                <div class="i-card shadow-one mb-4 pb-5">
                   <h4 class="card--title mb-20">Latest Post</h4>
                   <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
                   <h6 class="card--title-sm mb-1">Important things on holiday</h6>
@@ -350,7 +350,7 @@
                 </div>
               </div>
               <div class="swiper-slide">
-                <div class="i-card shadow-one mb-4">
+                <div class="i-card shadow-one mb-4 pb-5">
                   <h4 class="card--title mb-20">Latest Post</h4>
                   <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
                   <h6 class="card--title-sm mb-1">Important things on holiday</h6>
@@ -369,6 +369,7 @@
                 </div>
               </div>
             </div>
+            <div class="latest-post-pagination"></div>
           </div>
  
           <div class="i-card upgrade-card mb-4">
@@ -876,9 +877,13 @@
     chart.render();
 
     var swiper = new Swiper(".latest-post-slider", {
-      autoplay: {
-      delay: 1500,
-    },
+      pagination: {
+        el: ".latest-post-pagination",
+      },
+      effect: 'fade',
+      fadeEffect: {
+      crossFade: true
+     },
     });
 
     $(".select2").select2({
