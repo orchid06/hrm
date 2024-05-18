@@ -43,7 +43,6 @@
               <div class="social-media">
 
 
-
                 <a onclick="social_share('https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}',  'Facebook','600','300');" href="javascript:void(0);"><i class="bi bi-facebook"></i>
                 </a>
 
@@ -51,7 +50,7 @@
                     href="javascript:void(0);"><i class="bi bi-twitter"></i>
                 </a>
 
-                <a onclick="social_share('https://api.whatsapp.com/send?text={{str_replace("'", "\'", $blog->slug)}} {{url()->current()}}','WhatsApp','700','650');" href="javascript:void(0);"><i class="bi bi-whatsapp"></i></a>
+                <a onclick="social_share('https://api.whatsapp.com/send?text={{str_replace("'", "\'", $blog->slug)}} https://cartuser.kodepixel.com/product/formal-elegance-dress/6','WhatsApp','700','650');" href="javascript:void(0);"><i class="bi bi-whatsapp"></i></a>
 
 
                 <a onclick="social_share('https://www.linkedin.com/sharing/share-offsite/?url={{url()->current()}}','Linkedin','600','450');" href="javascript:void(0);"><i class="bi bi-linkedin"></i></a>

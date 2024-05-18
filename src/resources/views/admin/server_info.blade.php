@@ -277,16 +277,16 @@
 								@endphp
 								<tbody>
 									@foreach ($requiredPermissions as $filePath)
-									<tr>
-										<td>{{ $filePath }}</td>
-										<td>
-											@if(is_writable(base_path($filePath)))
-											   <i class="las la-check text--success"></i>
-											@else
-											   <i class="las la-times text--danger"></i>
-											@endif
-										</td>
-									</tr>
+										<tr>
+											<td>{{ $filePath }}</td>
+											<td>
+												@if(is_writable(base_path($filePath)))
+												<i class="las la-check text--success"></i>
+												@else
+												<i class="las la-times text--danger"></i>
+												@endif
+											</td>
+										</tr>
 									@endforeach
 								</tbody>
 							</table>

@@ -58,18 +58,14 @@ class AuthService
             "sms"       => "App\Jobs\SendSmsJob",
         ];
 
-
-        
-    
         Arr::get($jobs, $medium,"")::dispatch($sendTo ,$template,$templateCode);
 
-        $response =  [
+        return [
             'otp'         => $otp,
             'status'      => true,
             'message'     => "Verification code has been dispatched",
         ];
-        return $response;
- 
+
 
     
     }
@@ -97,7 +93,7 @@ class AuthService
                     "response"=> $value,
                     "remoteip"=> request()->ip,
                 ]);
-
+                
                 if (!$g_response->json("success")) {
                     $fail(translate("Recaptcha validation failed"));
                 }

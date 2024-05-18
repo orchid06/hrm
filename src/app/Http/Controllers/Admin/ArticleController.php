@@ -96,7 +96,7 @@ class ArticleController extends Controller
 
         DB::transaction(function() use ($request) {
 
-            $article                  = new Article();
+            $article                  =  new Article();
             $article->title           =  $request->input("title");
             $article->category_id     =  $request->input("category_id");
             $article->description     =  $request->input("description");

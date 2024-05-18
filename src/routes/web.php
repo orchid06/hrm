@@ -99,7 +99,7 @@ use Illuminate\Support\Facades\DB;
 
             #logout route
             Route::controller(LoginController::class)->group(function () {
-                Route::get('/logout', 'logout')->name('logout')->withoutMiddleware(['kyc']);
+                Route::get('/logout', 'logout')->name('logout')->withoutMiddleware(['kyc','user.verified']);
             });
 
             #home & profile route

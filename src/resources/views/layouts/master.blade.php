@@ -88,7 +88,7 @@
          @endif
     </main>
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && !request()->routeIs('user.*'))
-         @include('frontend.partials.footer')
+      @include('frontend.partials.footer')
       @if(site_settings("cookie") ==  App\Enums\StatusEnum::true->status() && !session()->has('cookie_consent') )
           @include('frontend.partials.cookie')
       @endif

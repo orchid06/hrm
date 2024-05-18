@@ -159,7 +159,4 @@ class AiController extends Controller
     }
     
 
-
-
- 
 }

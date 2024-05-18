@@ -43,12 +43,11 @@
                                     @php
                                       $modelTranslations ['default'] = $category->getRawOriginal('title');
                                     
-                                     if( 0 < $category->translations->count()){
-                                         foreach ($category->translations as $translation) {
-
-                                            $modelTranslations[$translation->locale] =  $translation->value;
-                                         }
-                                     }
+                                        if( 0 < $category->translations->count()){
+                                            foreach ($category->translations as $translation) {
+                                                $modelTranslations[$translation->locale] =  $translation->value;
+                                            }
+                                        }
                                     
                                    @endphp
                                     @foreach($sortedArray as $code)
