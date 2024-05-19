@@ -5,6 +5,11 @@
 @endpush
 
 @section('content')
+    <div class="i-card-md mb-4">
+        <div class="card-body">
+            <div id="affiliate-report"></div>
+        </div>
+    </div>
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -171,7 +176,8 @@
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -207,6 +213,85 @@
             modal.modal('show')
 
         });
+
+
+        var dates = [
+            { x: new Date('2024-01-01').getTime(), y: 1200000 },
+            { x: new Date('2024-01-02').getTime(), y: 1250000 },
+            { x: new Date('2024-01-03').getTime(), y: 1230000 },
+            { x: new Date('2024-01-04').getTime(), y: 1270000 },
+            { x: new Date('2024-01-05').getTime(), y: 1220000 },
+            { x: new Date('2024-01-06').getTime(), y: 1280000 },
+            { x: new Date('2024-01-07').getTime(), y: 1260000 },
+            { x: new Date('2024-01-08').getTime(), y: 1300000 },
+            { x: new Date('2024-01-09').getTime(), y: 1350000 },
+            { x: new Date('2024-01-10').getTime(), y: 1370000 }
+        ];
+
+
+        var options = {
+          series: [{
+          name: 'XYZ MOTORS',
+          data: dates
+        }],
+          chart: {
+          type: 'area',
+          stacked: false,
+          height: 350,
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            autoSelected: 'zoom'
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: 'Stock Price Movement',
+          align: 'left'
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100]
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0);
+            },
+          },
+          title: {
+            text: 'Price'
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0)
+            }
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#affiliate-report"), options);
+        chart.render();
 
 	})(jQuery);
 </script>
