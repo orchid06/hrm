@@ -211,8 +211,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('paginateNumber')) {
-      function paginateNumber(){
-         return site_settings('pagination_number');
+      function paginateNumber(int $default = 10){
+         return site_settings('pagination_number' ,$default);
       }
    }
 

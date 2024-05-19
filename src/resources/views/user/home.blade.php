@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @push('style-include')
     <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @section('content')
 
@@ -27,169 +28,389 @@
        }
    @endphp
 
-    <div class="page-title-content">
-        <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
-    </div>
+    <!-- updated start -->
 
-    <div class="row g-4">
-      <div class="col-xxl-9">
-        <div class="dash-intro">
-            <div class="posting-summary">
-            <div class="row g-3">
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--info">
-                    <i class="bi bi-border-all"></i>
-                    </span>
+    <div id="overlay" class="overlay"></div>
 
-                    <div>
-                    <h6>
-                        {{Arr::get($data,'total_post',0)}}
-                    </h6>
-                    <p>
-                        {{translate("Total Post")}}
-                    </p>
+    <button id="right-sidebar-btn" class="right-sidebar-btn fs-20">
+        <i class="bi bi-activity"></i>
+    </button>
+
+    <div class="row g-4 mb-4">
+      <div class="col">
+        <div class="row g-4">
+          <div class="col-xxl-5 col-xl-5">
+              <div class="i-card h-550">
+                <h4 class="card--title mb-4">Connected Social Accounts</h4>
+                <div class="row g-3">
+                @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="i-card no-border p-0 border position-relative bg--light">
+                        <div class="shape-one">
+                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
+                          </svg>
+                        </div>
+                        <div class="shape-two">
+                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
+                          </svg>
+                        </div>
+                        <span class="icon-image position-absolute top-0 end-0">
+                          <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+                        </span>
+                        <div class="p-3">
+                          <h5 class="card--title-sm">
+                              {{$platform->name}}
+                          </h5>
+                        </div>
+                        <div class="p-3 border-top">
+                          <p class="card--title-sm mb-1">00</p>
+                          <p class="mb-3 fs-14">Total Posts</p>
+                          <a href="#" class="i-btn btn--sm btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
+                        </div>
+                      </div>
                     </div>
+                  @empty
+                      @include('admin.partials.not_found')
+                  @endempty
                 </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                    <i class="bi bi-calendar-check"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'pending_post',0)}}</h6>
-                    <p>   {{translate("Pending Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--warning">
-                    <i class="bi bi-clock-history"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'schedule_post',0)}}</h6>
-                    <p>   {{translate("Schedule Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                        <i class="bi bi-check-all"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'success_post',0)}}</h6>
-                    <p>   {{translate("Success Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--danger">
-                    <i class="bi bi-journal-x"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'failed_post',0)}}</h6>
-
-                    <p>   {{translate("Failed Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--info">
-                    <i class="bi bi-person-gear"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'total_account',0)}}</h6>
-
-                    <p>   {{translate("Total Account")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                    <i class="bi bi-person-check-fill"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'active_account',0)}}</h6>
-
-                    <p>   {{translate("Active Account")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--danger">
-                    <i class="bi bi-person-exclamation"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
-
-                    <p>   {{translate("Inactive Account")}}</p>
-                    </div>
-                </div>
-                </div>
+              </div>
+          </div>
+           <div class="col-xxl-7 col-xl-7">
+            <div class="i-card">
+              <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab" tabindex="-1">All</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Facebook</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Instagram</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true" role="tab">Twitter</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true" role="tab">Linkedin</a>
+                  </li>
+              </ul>
+              <div id="myTabContent3" class="tab-content">
+                  <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
+                    <div id="postReport"></div>
+                  </div>
+                  <div class="tab-pane fade" id="tab-two" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-three" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-four" role="tabpanel">
+                    
+                  </div>
+                  <div class="tab-pane fade" id="tab-five" role="tabpanel">
+                    
+                  </div>
+              </div>
             </div>
-            </div>
+          </div>
+          <div class="col-xxl-12 col-xl-12">
+             <div class="i-card h-550">
+                <div class="row align-items-center g-2 mb-4">
+                  <div class="col-md-9">
+                    <h4 class="card--title">
+                        Post Activity
+                    </h4>
+                  </div>
+                  <div class="col-md-3">
+                    <select name="content-category" class="select2">
+                      <option>Category One</option>
+                      <option>Category Two</option>
+                      <option>Category Three</option>
+                    </select>
+                  </div>
+                </div>
+              <div class="row g-3">
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-line-chart-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">
+                              {{translate("Total Post")}}
+                          </p>
+                          <h6>
+                              {{Arr::get($data,'total_post',0)}}
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-calendar-2-line fs-28"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Pending Post")}}</p>
+                          <h6>{{Arr::get($data,'pending_post',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-time-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Schedule Post")}}</p>
+                          <h6>{{Arr::get($data,'schedule_post',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-checkbox-circle-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Success Post")}}</p>
+                          <h6>{{Arr::get($data,'success_post',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-close-circle-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Failed Post")}}</p>
+                          <h6>{{Arr::get($data,'failed_post',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-account-circle-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Total Account")}}</p>
+                          <h6>{{Arr::get($data['account_report'],'total_account',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-user-follow-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Active Account")}}</p>
+                          <h6>{{Arr::get($data['account_report'],'active_account',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                  <div class="i-card border p-0">
+                      <div class="p-3">
+                        <div class="icon text--primary mb-30">
+                          <i class="ri-user-unfollow-line fs-30"></i>
+                        </div>
+                        <div class="content">
+                          <p class="card--title-sm mb-1">{{translate("Inactive Account")}}</p>
+                          <h6>{{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
+                        </div>
+                      </div>
+                      <div class="footer border-top d-flex justify-content-between flex-wrap">
+                        <div class="text--success">
+                          <i class="bi bi-arrow-up"></i>
+                          <span class="fs-14">+12%</span>
+                        </div>
+                        <p class="mb-0 fs-14">This week</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+             </div>
+          </div>
         </div>
       </div>
-
-      <div class="col-xxl-3 col-md-6">
-      
-       <div class="i-card-md card-height-100 plan-upgrade-card">
-          <div class="card-body plan-upgrade-body">
-            <span class="package-badge">{{translate("Current Plan")}}</span>
-
-            <div class="current-package">
-                <div class="ai-icon">
-                    <i class="bi bi-robot"></i>
+      <div class="col-auto right-side-col">
+          <div class="swiper latest-post-slider">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4 pb-5">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
                 </div>
-                <h3>
-                    @if($user->runningSubscription)
-                    {{$user->runningSubscription->package->title}}
-                    @else
-                        {{translate('No subscription')}}
-                    @endif
-                </h3>
-
-
+              </div>
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4 pb-5">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="i-card shadow-one mb-4 pb-5">
+                  <h4 class="card--title mb-20">Latest Post</h4>
+                  <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                  <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                  <div class="d-flex mb-1">
+                    <a href="#">#miami</a>
+                    <a href="#">#holiday</a>
+                  </div>
+                  <div class="date mb-3">
+                    <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85 PM</span>
+                  </div>
+                  <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                    <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                    <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                  </ul>
+                  <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                </div>
+              </div>
             </div>
+            <div class="latest-post-pagination"></div>
+          </div>
+ 
+          <div class="i-card upgrade-card mb-4">
+            <h4 class="card--title text-white">Upgrade Premium to Get More Space</h4>
             <p>
-               {{trans('default.dashboard_plan_title')}}
+            3 Social account and and Enjoy all new environments with pro plan
             </p>
-
             <a
               href="{{route('user.plan')}}"
-              class="i-btn btn--primary btn--lg capsuled">
+              class="i-btn btn--md btn--white capsuled mx-auto">
               @if($user->runningSubscription)
                 {{translate('Upgrade Now')}}
               @else
                 {{translate('Subscribe Now')}}
               @endif
+              <span><i class="bi bi-arrow-up-right"></i></span>
             </a>
-
           </div>
+          <div class="i-card-md share-card">
+            <h4 class="card--title mb-3">
+               Shared Files
+            </h4>
+            <ul>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span> One of the largest social media platforms.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>The largest video-sharing platform.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+              <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+              <li class="mb-0 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual discovery and bookmarking platform.</li>
+            </ul>
+          </div>
+        
+      </div>
+    </div>
+    <!-- updated end -->
 
-        </div>
- 
+    <div class="row g-4">
+      <div class="col-xxl-9">
+        
+      </div>
+      <div class="col-xxl-3 col-md-6">
+        
       </div>
 
       <div class="col-xxl-4 col-md-6">
@@ -207,32 +428,7 @@
 
           <div class="card-body">
             <ul class="channel-list">
-               @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
-
-                  <li>
-                    <div class="channel-item">
-                      <div class="channel-meta">
-                        <span class="channel-img">
-                          <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
-                        </span>
-
-                        <div class="channel-info">
-                          <h5>
-                              {{$platform->name}}
-                          </h5>
-                        </div>
-                      </div>
-
-                      <div class="channel-action">
-                        <span class="i-badge-solid success">
-                          {{$platform->accounts_count}} {{translate("Profiles")}}
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                @empty
-                    @include('admin.partials.not_found')
-                @endempty
+               
             </ul>
           </div>
         </div>
@@ -246,7 +442,7 @@
             </h4>
           </div>
           <div class="card-body">
-            <div id="postReport"></div>
+           
           </div>
         </div>
       </div>
@@ -300,8 +496,8 @@
                                       <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                           <div class="col-lg-3 col-sm-4 col-12">
                                               <div class="table-accordion-header transfer-by">
-                                                  <span class="icon-btn icon-btn-sm info circle">
-                                                      <i class="bi bi-arrow-up-left"></i>
+                                                  <span class="icon-btn icon-btn-sm primary circle">
+                                                      <i class="bi bi-file-text"></i>
                                                   </span>
                                                   <div>
                                                       <h6>
@@ -424,8 +620,8 @@
                               <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                   <div class="col-lg-2 col-sm-4 col-12">
                                       <div class="table-accordion-header transfer-by">
-                                          <span class="icon-btn icon-btn-sm info circle">
-                                              <i class="bi bi-arrow-up-left"></i>
+                                          <span class="icon-btn icon-btn-sm primary circle">
+                                              <i class="bi bi-file-text"></i>
                                           </span>
                                           <div>
                                               <h6>
@@ -680,9 +876,19 @@
     var chart = new ApexCharts(document.querySelector("#postReport"), options);
     chart.render();
 
+    var swiper = new Swiper(".latest-post-slider", {
+      pagination: {
+        el: ".latest-post-pagination",
+      },
+      effect: 'fade',
+      fadeEffect: {
+      crossFade: true
+     },
+    });
 
+    $(".select2").select2({
 
-
+});
 
 </script>
 @endpush

@@ -24,6 +24,7 @@ use App\Jobs\SendMailJob;
 use App\Models\Admin\Withdraw;
 use App\Models\Country;
 use App\Traits\ModelAction;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
@@ -61,9 +62,13 @@ class UserController extends Controller
             'breadcrumbs'  =>  ['Home'=>'admin.home','Users'=> null],
             'title'        => 'Manage Users',
 
-            'users'        =>  User::with(['file','createdBy','country',"subscriptions" => function($q){
-                                    return $q->with(['package'])->running();
-                                }])
+            'users'        =>  User::with([
+                                            'file',
+                                            'createdBy',
+                                            'country',
+                                            "runningSubscription",
+                                            "runningSubscription.package"                                       
+                                        ])
                                     ->routefilter()
                                     ->search(['name','email',"phone"])
                                     ->filter(['country:name'])
@@ -74,6 +79,68 @@ class UserController extends Controller
             "countries"    => get_countries(),
     
         ]);
+    }
+
+
+
+    /**
+     * Get user statistics
+     *
+     * @return void
+     */
+    public function statistics() : View {
+
+
+        $currentYear   = date("Y");
+        $currentMonth  = request()->input('month', date("m"));
+
+
+        $usersByCountries    =   User::with(['country'])->select(DB::raw("count(id) as total, country_id"))
+                                                        ->groupBy('country_id')
+                                                        ->orderBy('total')
+                                                        ->lazyById(paginateNumber(),'country_id')->mapWithKeys(fn(User $user) =>
+                                                            [$user->country->name => $user->total]
+                                                        )->toJson();
+
+        $topCountries        =   Country::withCount('users')
+                                           ->orderBy('users_count', 'desc')
+                                           ->take(30)
+                                           ->get();  
+                                           
+      
+        $currentYearUsers    =  sortByMonth(User::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->groupBy('months')
+                                                            ->pluck('total', 'months')
+                                                                                ->toArray());
+
+
+        $daysInMonth      = Carbon::createFromDate($currentYear, $currentMonth, 1)->daysInMonth;
+        $days             = array_fill(1, $daysInMonth, 0);
+        $currentMonthData = DB::table('users')
+                                ->selectRaw("DAY(created_at) as day, count(*) as total")
+                                ->whereYear('created_at', '=', $currentYear)
+                                ->whereMonth('created_at', '=', $currentMonth)
+                                ->groupBy('day')
+                                ->pluck('total', 'day')
+                                ->toArray();
+
+        $currentMonthUsers = array_replace($days, $currentMonthData);
+                             
+
+        return view('admin.user.statistics', [
+            'title'                    =>  'User statistics',
+            'user_by_countries'        =>  $usersByCountries ,
+            'top_countries'            =>  $topCountries ,
+            'subscribed_users'         =>  User::whereHas('subscriptions')->count(),
+            'unsubscribed_users'       =>  User::whereDoesntHave('subscriptions')->count(),
+            'active_users'             =>  User::active()->count(),
+            'banned_users'             =>  User::banned()->count(),
+            'user_by_year'             =>  $currentYearUsers,
+            'user_by_month'            =>  $currentMonthUsers,
+
+        ]);
+
     }
 
 

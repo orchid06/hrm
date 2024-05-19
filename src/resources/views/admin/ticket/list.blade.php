@@ -15,7 +15,7 @@
             <h5 class="title">
                {{translate("Pending Ticket")}}
             </h5>
-            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::PENDING->value])}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::PENDING->value])}}" class="i-btn btn--sm btn--primary-outline">
               {{translate("View All")}}
            </a>
           </div>
@@ -31,7 +31,7 @@
           <h5 class="title">
              {{translate("Closed Ticket")}}
           </h5>
-          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::CLOSED->value])}}" class="i-btn btn--outline btn--sm">
+          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::CLOSED->value])}}" class="i-btn btn--primary-outline btn--sm">
             {{translate("View All")}}
          </a>
         </div>
@@ -47,7 +47,7 @@
             <h5 class="title">
                 {{translate("Holds Ticket")}}
             </h5>
-            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::HOLD->value])}}" class="i-btn btn--outline btn--sm">
+            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::HOLD->value])}}" class="i-btn btn--primary-outline btn--sm">
                {{translate("View All")}}
             </a>
           </div>
@@ -63,7 +63,7 @@
           <h5 class="title">
              {{translate("Solved Ticket")}}
           </h5>
-          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::SOLVED->value])}}" class="i-btn btn--outline btn--sm">
+          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::SOLVED->value])}}" class="i-btn btn--primary-outline btn--sm">
              {{translate("View All")}}
           </a>
         </div>

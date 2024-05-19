@@ -61,10 +61,11 @@
 .feedback-file {
   cursor: pointer;
   display: block;
-  border: 1px dashed var(--color-primary-light);
+  border: 1px dashed var(--border-two);
   background-color: var(--color-primary-soft);
-  border-radius: 4px;
+  border-radius: 16px;
   transition: all 0.3s ease-in-out;
+  overflow: hidden;
 }
 .feedback-file:hover {
   border-color: var(--color-primary);
@@ -76,7 +77,8 @@
   gap: 10px;
   font-weight: 700;
   line-height: 1.1;
-  padding: 20px;
+  padding: 30px 20px;
+  background-color: rgba(240, 242, 248, 1);
 }
 .feedback-file > span i {
   font-size: 26px;
@@ -86,21 +88,16 @@
 
 /* Pages Wrapper */
 .page-content {
-  margin-top: -80px;
-  padding: 40px;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-primary-light);
-  border-radius: 4px;
+  padding: 30px 35px;
+  border-radius: 40px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .page-content {
-    margin-top: -50px;
     padding: 25px;
   }
 }
 @media (max-width: 767px) {
   .page-content {
-    margin-top: -40px;
     padding: 15px;
   }
 }

@@ -41,9 +41,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 use Illuminate\Support\Facades\Route;
-
+use Intervention\Image\Facades\Image;
 use App\Traits\PostManager;
 use App\Traits\AccountManager;
+use Illuminate\Http\Response;
+
 class CoreController extends Controller
 {
 
@@ -93,33 +95,31 @@ class CoreController extends Controller
      /**
       * create default image
       *
-      * @param string|null $size
-      * @return void
+      * @param string $size
+      * @return Response
       */
-     public function defaultImageCreate(string $size=null) :void
-     {
-         $width = explode('x',$size)[0];
-         $height = explode('x',$size)[1];
-         $image = imagecreate($width, $height);
-         $fontFile = realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf';
+     public function defaultImageCreate(string $size)  :Response {
 
-         $fontSize = 5;
-         if($width > 100 && $height > 100){
-             $fontSize = 30;
-         }
-         $text = $width . 'X' . $height;
-         $backgroundcolor = imagecolorallocate($image, 237, 241, 250);
-         $textcolor    = imagecolorallocate($image, 107, 111, 130);
-         imagefill($image, 0, 0, $textcolor);
-         $textsize = imagettfbbox($fontSize, 0, $fontFile, $text);
-         $textWidth  = abs($textsize[4] - $textsize[0]);
-         $textHeight = abs($textsize[5] - $textsize[1]);
-         $xx = ($width - $textWidth) / 2;
-         $yy = ($height + $textHeight) / 2;
-         header('Content-Type: image/jpeg');
-         imagettftext($image, $fontSize, 0, $xx, $yy, $backgroundcolor , $fontFile, $text);
-         imagejpeg($image);
-         imagedestroy($image);
+        $width   = explode('x',$size)[0];
+        $height  = explode('x',$size)[1];
+        $img     = Image::canvas( $width,$height ,'#ccc');
+        $text    = $width . 'X' . $height;
+
+        $fontSize     = $width > 100 && $height > 100 
+                              ? 60 : 20;
+
+      
+
+        $img->text($text, $width / 2,  $height / 2, function ($font) use($fontSize) {
+            $font->file(realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf'); 
+            $font->color('#000');
+            $font->align('center');
+            $font->valign('middle');
+            $font->size($fontSize);
+        });
+
+        return $img->response('png');
+
      }
      
    /**
@@ -148,7 +148,7 @@ class CoreController extends Controller
        $builder->output();
     }
 
-    public function clear() :RedirectResponse{
+    public function clear() :RedirectResponse {
 
         optimize_clear();
         return back()->with(response_status("Cache Clean Successfully"));

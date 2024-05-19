@@ -59,7 +59,6 @@
                     </li>
                   @endif
 
-              
                 </ul>
               </div>
           </li>
@@ -234,6 +233,17 @@
              </a>
             <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.user.*'],'drop_down')}} " id="users">
               <ul class="sub-menu">
+
+                <li class="sub-menu-item">
+                  <a class='sidebar-menu-link {{sidebar_awake(["admin.user.statistics"])}}'  href='{{route("admin.user.statistics")}}'>
+                    <span></span>
+                    <p>
+                        {{translate('Statistics')}}
+                    </p>
+                  </a>
+                </li>
+
+
                 <li class="sub-menu-item">
                   <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show"])}}'  href='{{route("admin.user.list")}}'>
                     <span></span>
@@ -263,7 +273,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.verfied")}}'  href='{{route("admin.user.kyc.verfied")}}'>
                     <span></span>
                     <p>
-                        {{translate('Kyc Verified')}}
+                        {{translate('KYC Verified')}}
                     </p>
                   </a>
                 </li>
@@ -272,7 +282,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.banned")}}'  href='{{route("admin.user.kyc.banned")}}'>
                     <span></span>
                     <p>
-                        {{translate('Kyc Banned')}}
+                        {{translate('KYC Banned')}}
                     </p>
                   </a>
                 </li>

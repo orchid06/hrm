@@ -1,78 +1,73 @@
-
-<section class="banner" id="banner" role="banner">
-    <div class="container">
-      <div class="banner-container">
-        <div class="row align-items-center">
-          <div class="col-xl-8 col-lg-10 mx-auto">
-            <div class="banner-content">
-              <h1 class="quote-title">
-                    {{@$bannerContent->value->title}}
-              </h1>
-              <p class="banner-text">
-                  {{@$bannerContent->value->description}}
-              </p>
-              <div
-                class="banner-actions mt-5">
-                <a href="{{url($bannerContent->value->button_left_url)}}" class="i-btn btn--primary btn--lg capsuled">
-                      {{@$bannerContent->value->button_left_name}}
-                </a>
-                <a
-                  href="{{url($bannerContent->value->button_right_url)}}"
-                  class="i-btn btn--primary-outline btn--lg capsuled">
-                    {{@$bannerContent->value->button_right_name}}
-                </a>
+<section class="banner-section">
+  <div class="container-fluid px-0">
+    <div class="banner-wrapper">
+      <div class="row align-items-center gy-5">
+        <div class="col-xl-5 col-lg-5">
+          <div class="banner-content">
+            <h1>Social <span>Media</span> 10x Faster <br> With AI <span><img src="https://i.ibb.co/hcwHsjG/banner-vector.png" alt="banner-vector"></span></h1>
+            <p>Discover the power of our secure and rewarding credit cards. Explore our range of credit cards and take control of your finances today.</p>
+            <div class="banner-buttons d-flex justify-content-start align-items-center gap-3 flex-wrap">
+              <a href="#" class="i-btn btn--lg btn--dark capsuled">DISCOVER MORE<span><i class="bi bi-arrow-up-right"></i></span></a>
+              <div  class="circle-container">
+                  <div  class="circleButton">
+                      <span>
+                        <a id="video-link" data-maxwidth="1000px" data-autoplay="true" data-vbtype="video"  href="{{@$bannerContent->value->motion_button_url}}">
+                            <i class="bi bi-play-fill"></i>
+                        </a>
+                      </span>
+                  </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="col-xl-6 offset-xl-1 col-lg-7">
+          <div class="banner-image">
+            <img src="https://i.ibb.co/QcKXgkJ/Frame-1321314790-1.png" alt="Frame-1321314790-1">
+          </div>
+        </div>
       </div>
     </div>
-    <ul class="social-media-integrate">
-        @foreach ($bannerElements  as  $element)
-            @foreach (@get_appearance()->banner->element->images as  $key => $val)
-                @php
-                      $file =  $element->file->where("type",$key)->first();
-                @endphp
-                <li>
-                  <img src="{{imageUrl(@$file,'frontend',true,$val->size)}}" alt="{{@$file->name}}" />
-                </li>
-            @endforeach
-        @endforeach
-    </ul>
-    <div class="primary-shade"></div>
-    <div class="banner-texture"></div>
-</section>
+  </div>
 
-<div class="banner-img-wrapper bg--light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="banner-img">
-                    <div  class="circle-container">
-                        <div  class="circleButton">
-                            <svg class="textcircle" viewBox="0 0 500 500">
-                            <defs>
-                                <path
-                                id="textcircle"
-                                d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
-                                ></path>
-                            </defs>
-                            <text>
-                                <textPath xlink:href="#textcircle" textLength="900">
-                                {{@$bannerContent->value->motion_text}}
-                                </textPath>
-                            </text>
-                            </svg>
-                            <span>
-                              <a id="video-link" data-maxwidth="1000px" data-autoplay="true" data-vbtype="video"  href="{{@$bannerContent->value->motion_button_url}}">
-                                  <i class="bi bi-play-fill"></i>
-                              </a>
-                            </span>
-                        </div>
-                    </div>
-                    <img src="{{imageUrl(@$bannerImg,'frontend',true,@get_appearance()->banner->content->images->image->size)}}" alt="{{@$bannerImg->name}}" />
-                </div>
-            </div>
+  <div class="sponsors-area">
+    <div class="swiper sponsor-slider">
+      <div class="swiper-wrapper align-items-center">
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/hY90NmZ/Group-188.png" alt="Group-188">
+          </div>
         </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/5n9nxT3/Logo-2.png" alt="Logo-2">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/h2nr5cm/Logo-3.png" alt="Logo-3">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/5n9nxT3/Logo-2.png" alt="Logo-2">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/5n9nxT3/Logo-2.png" alt="Logo-2">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/h2nr5cm/Logo-3.png" alt="Logo-3">
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="sponsor-item">
+            <img src="https://i.ibb.co/5n9nxT3/Logo-2.png" alt="Logo-2">
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>

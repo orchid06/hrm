@@ -2,8 +2,8 @@
 @section('content')
 	<div class="container-fluid px-0">
 		<div class="row">
-			<div class="col-lg-10 col-xxl-10 mx-auto">
-				<div class="i-card-md">
+			<div class="col-lg-10 col-xxl-12">
+				<div class="i-card-md mb-3">
 					<div class="card--header">
 						<h3 class="h6 mb-0">{{ translate('Server information') }}</h3>
 					</div>
@@ -49,7 +49,7 @@
 						
 					</div>
 				</div>
-				<div class="i-card-md">
+				<div class="i-card-md mb-3">
 					<div class="card--header">
 						<h3 class="h6 mb-0">{{ translate('php.ini Config') }}</h3>
 					</div>
@@ -219,7 +219,7 @@
 					</div>				
 				</div>
 				
-				<div class="i-card-md">
+				<div class="i-card-md mb-3">
 					<div class="card--header">
 						<h3 class="h6 mb-0">{{ translate('Extensions') }}</h3>
 					</div>

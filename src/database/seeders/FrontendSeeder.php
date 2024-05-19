@@ -90,7 +90,7 @@ class FrontendSeeder extends Seeder
                     "motion_text"       => "Explore more - Explore more",
                     "motion_button_url" => "@@",
                     "description"       => "Our all-in-one social media management platform unlocks the full potential of social to transform not just your marketing strategy—but every area of your organization.",
-                    "button_left_name"  =>  "Get started for free",
+                    "button_left_name"  =>  "Get Started for free",
                     "button_left_url"   =>  "@@",
                     "button_right_name" =>  "Book a demo",
                     "button_right_url"  =>  "@@"

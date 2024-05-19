@@ -97,11 +97,11 @@ class ActivityHistoryController extends Controller
                                   ->sum("total_words"),
 
             "reports"         => TemplateUsage::with(['template','admin','user'])
-                                    ->filter(['template:slug',"user:username"])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                        ->filter(['template:slug',"user:username"])
+                                        ->date()               
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
                                     
             "templates"      => AiTemplate::whereHas("templateUsages")->get(),
            
@@ -428,9 +428,6 @@ class ActivityHistoryController extends Controller
                                     ->paginate(paginateNumber())
                                     ->appends(request()->all()),
 
-            
-
-         
         ]);
 
     

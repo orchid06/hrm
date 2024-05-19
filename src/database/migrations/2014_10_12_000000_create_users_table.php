@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('referral_id')->nullable();
-            $table->mediumInteger('referral_code')->nullable();
+            $table->unsignedBigInteger('referral_id')->index()->nullable();
+            $table->mediumInteger('referral_code')->index()->nullable();
             $table->bigInteger('auto_subscription_by')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('country_id')->index()->nullable();
             $table->string('uid',100)->index()->nullable();
             $table->string('o_auth_id',255)->nullable();
             $table->string('name',255);
             $table->string('username',191)->nullable()->unique();
-            $table->string('phone',191)->nullable()->unique();
+            $table->string('phone',191)->nullable()->index()->unique();
             $table->double('balance',20,2)->default(0.00);
-            $table->string('email',191)->unique();
+            $table->string('email',191)->index()->unique();
             $table->longText('notification_settings')->nullable();
             $table->longText('settings')->nullable();
             $table->longText('address')->nullable();

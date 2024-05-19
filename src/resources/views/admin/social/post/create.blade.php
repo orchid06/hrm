@@ -230,7 +230,7 @@
                                       {{translate('Create New Account')}}
                                   </a>
 
-                                    <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                                    <button class="i-btn btn--md danger" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
                                          <i class="bi bi-x-lg"></i>
                                     </button>
                               </div>
@@ -268,7 +268,7 @@
                                     </div>
 
                                     <div class="col-xl-4 col-md-3">
-                                        <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                                        <button class="i-btn btn--md danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
                                         aria-controls="schedule">
                                             <i class="bi bi-x-lg fs-5"></i>
                                         </button>

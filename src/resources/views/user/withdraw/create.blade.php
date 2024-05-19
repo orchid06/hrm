@@ -11,7 +11,7 @@
 @endphp
 
 <div class="row">
-    <div class="col-xl-7 col-lg-10 mx-auto">
+    <div class="col-12">
       <div
         class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>

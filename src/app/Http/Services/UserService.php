@@ -61,8 +61,8 @@ class UserService
                 $user->password             =  $request->input('password');
                 $user->country_id           =  $request->input('country_id');
                 $user->email_verified_at    =  $request->input('email_verified') ?  Carbon::now() : null ;
-                $user->auto_subscription    =  $request->input('auto_subscription')?? StatusEnum::false->status();
-                $user->is_kyc_verified      =  $request->input('is_kyc_verified')?? StatusEnum::false->status();
+                $user->auto_subscription    =  $request->input('auto_subscription',StatusEnum::false->status());
+                $user->is_kyc_verified      =  $request->input('is_kyc_verified', StatusEnum::false->status());
                 $user->save();
 
                 if($request->hasFile('image')){
@@ -82,7 +82,6 @@ class UserService
                             'size'      => Arr::get($response, 'size', ''),
                             'extension' => Arr::get($response, 'extension', ''),
                         ]);
-
                         $user->file()->save($image);
                     }
                 }

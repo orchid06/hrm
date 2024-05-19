@@ -4,247 +4,125 @@
   @endphp
 
     <div class="header-container">
-        <div class="d-flex align-items-center gap-3">
-            <div class="d-lg-none">
-                <div class="mobile-menu-btn sidebar-trigger">
-                <i class="bi bi-list"></i>
-                </div>
-            </div>
-
-            <div class="header-logo d-none d-sm-block">
-                <a href="{{route('home')}}">
-                    <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-                </a>
-            </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="sidebar-body">
-                <div class="mobile-logo-area d-lg-none mb-5">
-                    <div class="mobile-logo-wrap">
-                        <a href="{{route('home')}}">
-
-                            <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-                        </a>
-                    </div>
-
-                    <div class="closer-sidebar">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            version="1.1"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            x="0"
-                            y="0"
-                            viewBox="0 0 426.667 426.667">
-                            <g>
-                            <path
-                                d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
-                                opacity="1"
-                                data-original="#000000"
-                            ></path>
-                            </g>
-                        </svg>
+        
+        <div class="header-left d-flex justify-content-start align-items-center gap-5">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-lg-none">
+                    <div class="mobile-menu-btn sidebar-trigger">
+                    <i class="bi bi-list"></i>
                     </div>
                 </div>
 
-                <div class="sidebar-wrapper">
-                    <nav>
-                        <ul class="menu-list">
+                <div class="header-logo d-none d-sm-block">
+                    <a href="{{route('home')}}">
+                        <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                    </a>
+                </div>
+            </div>
 
-                        @php
-                            $megaMenu     = get_content("content_mega_menu")->first();
+            <div class="sidebar">
+                <div class="sidebar-body">
+                    <div class="mobile-logo-area d-lg-none mb-5">
+                        <div class="mobile-logo-wrap">
+                            <a href="{{route('home')}}">
 
-                            $menuImg      = $megaMenu->file->where("type",'image')->first();
+                                <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
-                            $intregrationsContent   = get_content("content_integration")->first();
-
-
-                            $platformContent  = get_content("content_platform")->first();
-                            $platformElements = get_content("element_platform");
-
-                        @endphp
-
-                        @if($megaMenu->value->select_input->status == App\Enums\StatusEnum::true->status() )
-                            <li class="menu-item">
-                                <a href="javascript:void(0)" class="menu-link">
-                                {{@$megaMenu->value->title}}
-                                    <div class="menu-link-icon">
-                                        <i class="bi bi-chevron-down"></i>
-                                    </div>
-                                </a>
-
-                                <div class="mega-menu container-lg px-0">
-                                    <div class="mega-menu-wrapper">
-                                        <div class="row g-0 h-100">
-                                            <div class="col-lg-3 h-100">
-                                                <div class="mega-menu-left">
-                                                    <div class="maga-menu-item menu-feature">
-                                                        <h5>{{$platformContent->value->sub_title}}</h5>
-                                                        <ul>
-                                                            @foreach ($platformElements as  $element)
-                                                            <li>
-                                                                <div class="menu-feature-item">
-                                                                    <span><i class="@php echo $element->value->icon @endphp"></i></span>
-                                                                    <div>
-                                                                        <h6>{{$element->value->title}}</h6>
-                                                                        <p>{{$element->value->sub_title}}</p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="sub-mega-menu">
-                                                                    <div class="sub-menu-content">
-                                                                        @php echo @$element->value->description @endphp
-                                                                    </div>
-
-                                                                    <div class="sub-mega-menu-img">
-
-                                                                    @foreach (@get_appearance()->platform->element->images as  $key => $val)
-
-                                                                        @php
-                                                                                $file =  $element->file->where("type",$key)->first();
-                                                                        @endphp
-                                                                        <div class="platform-content-img">
-                                                                            <img
-                                                                            src="{{imageUrl(@$file,'frontend',true,$val->size)}}"
-                                                                            alt="{{@$file->name}}"
-                                                                            loading="lazy"/>
-                                                                        </div>
-                                                                    @endforeach
-
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-9">
-                                                <div class="mega-menu-right">
-                                                    <div class="row g-0 h-100">
-                                                        <div class="col-lg-8">
-                                                            <div class="social-integra">
-                                                                <h5>    {{$intregrationsContent->value->sub_title }}</h5>
-
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mega-menu-integra">
-                                                                            @forelse ($platforms->where('is_integrated',App\Enums\StatusEnum::true->status())   as  $platform)
-                                                                                <a href="{{$platform->url}}" class="menu-social-item">
-                                                                                    <div class="social-item-img">
-                                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
-                                                                                    </div>
-
-                                                                                    <div>
-                                                                                        <h6> {{$platform->name}}</h6>
-                                                                                        <p>     {{$platform->description}}</p>
-                                                                                    </div>
-                                                                                </a>
-                                                                            @empty
-
-                                                                                <div class="text-center">
-                                                                                    {{translate('No data found')}}
-                                                                                </div>
-
-                                                                            @endforelse
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mega-menu-integra">
-
-                                                                            @forelse ($platforms->where('is_integrated',App\Enums\StatusEnum::false->status())   as  $platform)
-                                                                                <a href="{{$platform->url}}" class="menu-social-item">
-                                                                                    <div class="social-item-img">
-                                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
-                                                                                    </div>
-
-                                                                                    <div>
-                                                                                        <h6> {{$platform->name}}</h6>
-                                                                                        <p>     {{$platform->description}}</p>
-                                                                                    </div>
-                                                                                </a>
-                                                                            @empty
-
-                                                                                <div class="text-center">
-                                                                                    {{translate('No data found')}}
-                                                                                </div>
-
-                                                                            @endforelse
-                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-4">
-                                                            <div class="mega-menu-banner">
-
-                                                                <img src='{{imageUrl(@$menuImg,"frontend",true,@get_appearance()->mega_menu->content->images->image->size)}}' alt="{{@$menuImg->name}}" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        @endif
-
-                        @foreach ($menus as  $menu)
-                            <li class="menu-item">
-                                <a href="{{url($menu->url)}}" class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
-                                    {{$menu->name}}
-                                </a>
-                            </li>
-                        @endforeach
-                        @php
-                                $lastSegment = collect(request()->segments())->last();
-                        @endphp
-                        @foreach ($pages as  $page)
-                            <li class="menu-item">
-                                <a href="{{route('page',$page->slug)}}" class="menu-link @if($lastSegment == $page->slug) active @endif ">
-                                    {{$page->title}}
-                                </a>
-                            </li>
-                        @endforeach
-
-                        </ul>
-                    </nav>
-
-                    <div class="sidebar-action d-lg-none">
-                        <div
-                        class="d-flex align-items-center justify-content-between gap-3">
-                            <a href='{{route("plan")}}' class="i-btn btn--primary-outline btn--lg capsuled">
-                            {{translate("Get Started")}}
                             </a>
+                        </div>
 
-                            @if(!auth_user('web'))
-                            <a href='{{route("auth.login")}}' class="i-btn btn--secondary btn--lg capsuled">
-                                {{translate('Login')}}
-                            </a>
-                            @endif
+                        <div class="closer-sidebar">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                version="1.1"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0"
+                                y="0"
+                                viewBox="0 0 426.667 426.667">
+                                <g>
+                                <path
+                                    d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
+                                    opacity="1"
+                                    data-original="#000000"
+                                ></path>
+                                </g>
+                            </svg>
                         </div>
                     </div>
+
+                    <div class="sidebar-wrapper">
+                        <nav>
+                            <ul class="menu-list">
+
+                            @php
+                                $megaMenu     = get_content("content_mega_menu")->first();
+
+                                $menuImg      = $megaMenu->file->where("type",'image')->first();
+
+                                $intregrationsContent   = get_content("content_integration")->first();
+
+
+                                $platformContent  = get_content("content_platform")->first();
+                                $platformElements = get_content("element_platform");
+
+                            @endphp
+
+
+                            @foreach ($menus as  $menu)
+                                <li class="menu-item">
+                                    <a href="{{url($menu->url)}}" class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
+                                        {{$menu->name}}
+                                    </a>
+                                </li>
+                            @endforeach
+                            @php
+                                    $lastSegment = collect(request()->segments())->last();
+                            @endphp
+                            @foreach ($pages as  $page)
+                                <li class="menu-item">
+                                    <a href="{{route('page',$page->slug)}}" class="menu-link @if($lastSegment == $page->slug) active @endif ">
+                                        {{$page->title}}
+                                    </a>
+                                </li>
+                            @endforeach
+
+                            </ul>
+                        </nav>
+
+                        <div class="sidebar-action d-lg-none">
+                            <div
+                            class="d-flex align-items-center justify-content-between gap-3">
+                                <a href='{{route("plan")}}' class="i-btn btn--primary-outline btn--lg capsuled">
+                                {{translate("Get Started")}}
+                                </a>
+
+                                @if(!auth_user('web'))
+                                <a href='{{route("auth.login")}}' class="i-btn btn--secondary btn--lg capsuled">
+                                    {{translate('Login')}}
+                                </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
+                <div class="sidebar-overlay"></div>
             </div>
-
-            <div class="sidebar-overlay"></div>
-        </div>
+        </div>    
 
         <div class="nav-right d-flex jsutify-content-end align-items-center gap-sm-3 gap-2">
-
-
+            <div class="header-shape-one">
+                <svg width="67" height="76" viewBox="0 0 67 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M47.4712 75.0976L66.9153 75.0977L66.8965 43.9984L66.7004 0.500002L37.5 8.5L0.714838 12.0024L0.706373 22.9731L0.663656 28.3705L32.3287 28.6211C41.3309 28.6224 47.6453 33.9783 47.4668 43.9986L47.4712 75.0976Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="header-shape-two">
+            <svg width="69" height="123" viewBox="0 0 69 123" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M48.3018 122.096L68.0442 122.096L68.0454 90.9967L68.0454 58.0006L1.54537 58.0006L1.53691 69.9713L1.49419 75.3686L33.1593 75.6192C42.1614 75.6205 48.4759 80.9764 48.2974 90.9967L48.3018 122.096Z" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M48.1811 1.12326L67.9235 1.07375L67.9973 31.8737L68.0744 64.5525L1.57458 64.7195L1.53816 52.8639L1.48284 47.5186L33.1472 47.1908C42.1494 47.167 48.4513 41.8467 48.2494 31.9233L48.1811 1.12326Z" fill="white"/>
+            </svg>
+            </div>
             <div class="currency">
                     <button class="dropdown-toggle"
                         type="button"
@@ -302,7 +180,7 @@
 
             @if(!auth_user('web'))
                 <div class="d-lg-block d-none">
-                    <a  href="{{route('auth.login')}}" class="i-btn btn--secondary btn--lg capsuled">
+                    <a  href="{{route('auth.login')}}" class="i-btn btn--primary btn--lg capsuled">
                         {{translate("Login")}}
                     </a>
                 </div>

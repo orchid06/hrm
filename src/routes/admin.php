@@ -139,6 +139,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           Route::controller(UserController::class)->prefix("/user")->name('user.')->group(function(){
 
                Route::get('/list','list')->name('list');
+               Route::get('/statistics','statistics')->name('statistics');
                Route::get('/banned','list')->name('banned');
                Route::get('/active','list')->name('active');
                Route::get('/kyc-verified','list')->name('kyc.verfied');
@@ -152,7 +153,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/balance','balance')->name('balance');
                Route::post('/subscription','subscription')->name('subscription');
-
                Route::get('/select/search','selectSearch')->name('selectSearch');
 
            

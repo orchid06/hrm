@@ -30,7 +30,7 @@
                     data-bs-target="#tableFilter"
                     aria-expanded="false"
                     aria-controls="tableFilter">
-                    <i class="bi bi-funnel"></i>
+                    <i class="bi bi-sliders"></i>
                 </button>
             </div>
         </div>

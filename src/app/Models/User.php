@@ -76,6 +76,7 @@ class User extends Authenticatable
 
   
     protected static function booted(){
+
         static::creating(function (Model $model) {
 
             $model->uid        = Str::uuid();
@@ -104,14 +105,14 @@ class User extends Authenticatable
 
     public function createdBy() :BelongsTo{
         return $this->belongsTo(Admin::class,'created_by','id')->withDefault([
-            'name' => 'N/A',
-            'username' => 'N/A',
+            'name'     => translate("System"),
+            'username' => translate("System"),
         ]);
     }
     public function updatedBy() :BelongsTo{
         return $this->belongsTo(Admin::class,'updated_by','id')->withDefault([
-             'name' => 'N/A',
-             'username' => 'N/A',
+            'name'     => translate("System"),
+            'username' => translate("System"),
         ]);
     }
 
@@ -154,7 +155,7 @@ class User extends Authenticatable
 
         return $this->hasMany(Subscription::class,'user_id')->latest();
     }
-    public function runningSubscription() :HasOne{
+    public function runningSubscription() :HasOne {
 
         return $this->hasOne(Subscription::class,'user_id')->running();
     }
@@ -214,6 +215,9 @@ class User extends Authenticatable
         })->when(request()->routeIs('admin.user.kyc.verfied'),function($query) {
             return $query->kycverified();
         })->when(request()->routeIs('admin.user.kyc.banned'),function($query) {
+            return $query->kycbanned();
+        })
+        ->when(request()->routeIs('admin.user.banned'),function($query) {
             return $query->kycbanned();
         });
     }

@@ -6,162 +6,232 @@
 @endphp
 
 <section class="inner-banner">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-7 col-lg-8 mx-auto">
-          <div class="inner-banner-content text-center">
-            <h2>
-                 {{@$blogContent->value->banner_title}}
-            </h2>
-            <p>
-                {{@$blogContent->value->banner_description}}
-            </p>
-
-            <form action="{{route(Route::currentRouteName())}}" class="blog-search">
-              <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}"/>
-
-              <div>
-                <div class="blog-filter">
-                  <div class="filter-select">
-                    <select class="select-two"  name="category" id="category">
-                        <option value="">
-                            {{translate('Select Category')}}
-                        </option>
-                        @foreach($categories as $category)
-                           <option  {{$category->slug ==   request()->input('category') ? 'selected' :""}} value="{{$category->slug}}"> {{$category->title}}
-                          </option>
-                        @endforeach
-                    </select>
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  class="i-btn btn--primary btn--lg capsuled">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 64 64">
-                    <g>
-                      <path
-                        d="m60.08 53.34-16-16a22.57 22.57 0 1 0-6.74 6.74l16 16a4.76 4.76 0 1 0 6.73-6.74zM11.26 39A19.58 19.58 0 1 1 39 39a19.6 19.6 0 0 1-27.74 0z"
-                        data-name="Layer 18"
-                        opacity="1"
-                        data-original="#000000"></path>
-                    </g>
-                  </svg>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+    <div class="inner-banner-wrapper">
+      <div class="inner-banner-img">
+        <img src="https://i.ibb.co/NV4XHHy/banner-bg.png" alt="banner-bg">
       </div>
-    </div>
-    <div class="primary-shade"></div>
-    <div class="banner-texture"></div>
-</section>
-
-<section class="blog pt-110 pb-110">
-    <div class="container">
-      <div class="blog-top">
-        <div class="row gy-md-5 gy-4 align-items-end">
-          <div class="col-md-7">
-            <div class="section-title mb-0">
-                <span>{{@$blogContent->value->sub_title}}</span>
-                <h3 class="title-anim">
-                    {{@$blogContent->value->title}}
-                </h3>
-                <p>
-                    {{@$blogContent->value->description}}
-                </p>
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-7 col-lg-8 mx-auto">
+            <div class="inner-banner-content text-center">
+              <h2>
+                  {{@$blogContent->value->banner_title}}
+              </h2>
+              <p>
+                  {{@$blogContent->value->banner_description}}
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="blog-slider-wrapper blog-list ms-0">
-        <div class="row gx-4 gy-xl-5 gy-4">
-                @forelse($blogs  as $blog)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="blog-item fade-item">
-                            <div class="blog-img">
-                                <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
-
-                                <div class="blog-card__pop">
-                                <span class="shape shape-left">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="120"
-                                    height="120"
-                                    viewBox="0 0 120 120"
-                                    fill="none"
-                                    >
-                                    <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                    />
-                                    </svg>
-                                </span>
-                                <a href="{{route('blog.details',$blog->slug)}}">
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </a>
-                                <span class="shape shape-right">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="120"
-                                    height="120"
-                                    viewBox="0 0 120 120"
-                                    fill="none"
-                                    >
-                                    <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M22.6667 0H0V120H120V97.3333H54.6667C36.9936 97.3333 22.6667 83.0064 22.6667 65.3333V0Z"
-                                    />
-                                    </svg>
-                                </span>
-                                </div>
-                            </div>
-
-                            <div class="blog-content">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                                    <div class="blog-meta">
-                                        <span>{{get_date_time($blog->created_at,"F j, Y")}}</span>
-                                        <span> {{get_date_time($blog->created_at," g a")}}</span>
-                                    </div>
-
-                                    <ul class="blog-tags mt-0">
-                                        <li><a href="{{route('blog',['category' =>$blog->category->slug ])}}">  {{$blog->category->title}}</a></li>
-                                    </ul>
-
-                                </div>
-
-                                <a href="{{route('blog.details',$blog->slug)}}" class="blog-title">
-                                    <h4>
-                                        {{limit_words($blog->title,28)}}
-                                    </h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                <div class="col-12 justify-content-center text-center">
-                    @include("frontend.partials.not_found")
-                </div>
-                @endforelse
-
-        </div>
-      </div>
-
-      <div class="Paginations">
-           {{ $blogs->links() }}
-      </div>
     </div>
 </section>
+
+<!-- Blog section start -->
+
+<section class="blog-section pt-110">
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-lg-5">
+        <div class="section-title-one text-start mb-60">
+          <div class="subtitle">Blog</div>
+          <h2>News & <span>Blogs</span></h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit dolor posuere vel venenatis eu sit massa volutpat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row g-xl-5 g-4">
+      <div class="col-12">
+        <div class="blog-style-one">
+            <div class="row align-items-center g-3">
+              <div class="col-md-7 pe-lg-4">
+                <div class="image">
+                  <img src="https://i.ibb.co/Vqn5C2x/Rectangle-38.jpg" alt="Rectangle-38">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="content">
+                  <span>Social Media</span>
+                  <h3><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h3>
+                  <p>Lorem ipsum dolor sit amet consectetur adipiscing elit dolor posuere vel venenatis eu sit massa volutpat.</p>
+                  <a href="#" class="i-btn btn--lg btn--primary capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/pb0cvp1/blog1.jpg" alt="blog1">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/fDGrvZC/blog2.jpg" alt="blog2">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/nr0BqCr/blog3.jpg" alt="blog3">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/pb0cvp1/blog1.jpg" alt="blog1">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/fDGrvZC/blog2.jpg" alt="blog2">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-style-two">
+          <div class="date">10 January, 2024</div>
+          <div class="content">
+            <span>Social Media</span>
+            <h4><a href="blog-details.html">We Launch Pulsar Template this Week!</a></h4>
+          </div>
+          <a href="#" class="i-btn btn--lg btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+          <div class="blog-btn">
+          </div>
+          <div class="image">
+            <img src="https://i.ibb.co/nr0BqCr/blog3.jpg" alt="blog3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog section end -->
+
+<!-- Blog Details section start -->
+
+<section class="blog-details pt-110">
+  <div class="container">
+    <h3 class="title">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h3>
+    <ul class="date">
+      <li>13 Sept, 2024</li>
+      <li>10:52 PM</li>
+    </ul>
+    <div class="mb-30">
+      <img src="https://i.ibb.co/ZHZMVVR/blog-details.jpg" alt="blog-details">
+    </div>
+    <div class="row gy-5">
+      <div class="col-lg-8 pe-lg-5">
+        <p class="mb-30">Vestibulum egestas amet, morbi facilisis semper mi placerat ac. Et tristique mus vel eu libero, lacus sit consectetur. Tristique dapibus fringilla in lectus ullamcorper tristique risus id nunc. Enim mi a, sapien velit dolor sagittis. Erat posuere aliquam, sit maecenas a neque lectus commodo scelerisque. Volutpat purus facilisis egestas risus convallis libero morbi est orci. Senectus a senectus cursus consectetur egestas eu fringilla eu phasellus. Tristique mollis velit.</p>
+        <h4 class="sub-title mb-3">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4>
+        <p class="mb-3">Tincidunt et amet suspendisse venenatis neque ultricies eget. Aliquam duis amet amet lobortis. Elit risus ultrices gravida fringilla id odio tortor, vitae. In pretium purus ac potenti pretium ultrices. Aliquam velit scelerisque auctor in libero amet. Commodo faucibus consequat, dolor fringilla volutpat sed nibh. Amet, sit ut id eget. Egestas hendrerit.</p>
+        <p class="mb-60">Tempor lorem diam curabitur ac in nec, elementum arcu. Risus habitasse in aliquet mattis augue augue ornare in. Orci eu maecenas purus diam, sapien facilisis. Nunc tincidunt urna amet, et, in turpis sagittis, tristique purus. Facilisis sagittis nec et egestas leo lorem diam aenean egestas. Cras vestibulum, purus pretium nisl. Diam eleifend egestas gravida cursus in.</p>
+        <div class="share-blog">
+          <h6>Like what you see? Share with a friend.</h6>
+            <div class="footer-social">
+              <ul>
+                <li><a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a></li>
+                <li><a href="https://twitter.com/"><i class="bi bi-twitter"></i></a></li>
+                <li><a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a></li>
+                <li><a href="https://www.youtube.com/"><i class="bi bi-youtube"></i></a></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="mb-4 text-uppercase">Popular Posts</h5>
+        <ul class="popular-post-list">
+          <li>
+            <div class="image">
+              <img src="https://i.ibb.co/JyMzzhM/IMAGE-1.jpg" alt="IMAGE-1">
+            </div>
+            <div class="content">
+              <span>Technology</span>
+              <h6><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h6>
+            </div>
+          </li>
+          <li>
+            <div class="image">
+              <img src="https://i.ibb.co/wWkYg4H/IMAGE-2.jpg" alt="IMAGE-2">
+            </div>
+            <div class="content">
+              <span>SOCIAL</span>
+              <h6><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h6>
+            </div>
+          </li>
+          <li>
+            <div class="image">
+              <img src="https://i.ibb.co/JyMzzhM/IMAGE-1.jpg" alt="IMAGE-1">
+            </div>
+            <div class="content">
+              <span>Technology</span>
+              <h6><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h6>
+            </div>
+          </li>
+          <li>
+            <div class="image">
+              <img src="https://i.ibb.co/wWkYg4H/IMAGE-2.jpg" alt="IMAGE-2">
+            </div>
+            <div class="content">
+              <span>Productivity</span>
+              <h6><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h6>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Details section end -->
 
 
   @include('frontend.partials.page_section')

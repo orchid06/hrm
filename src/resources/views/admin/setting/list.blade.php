@@ -623,7 +623,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="p-4 mt-3 mb-4 bg--danger-light">
+                                        <div class="p-3 mt-3 mb-4 bg--danger-light">
                                             <p class="text--dark"><span class="bg--danger text-white py-0 px-2 d-inline-block me-2">{{translate("note")}}  :</span>  
                                               
                                                    {{trans("default.ftp_note")}}

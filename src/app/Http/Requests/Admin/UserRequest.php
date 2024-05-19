@@ -30,7 +30,6 @@ class UserRequest extends FormRequest
 
         $password =  request()->routeIs('admin.user.update') ? 'nullable' :"required";
   
-
         
         $rules = [
             'name'               => ["required","max:100",'string'],
@@ -49,11 +48,11 @@ class UserRequest extends FormRequest
         if(site_settings('strong_password') == StatusEnum::true->status()){
 
             $rules['password']    =  [ $password,"confirmed",Password::min(8)
-                                        ->mixedCase()
-                                        ->letters()
-                                        ->numbers()
-                                        ->symbols()
-                                        ->uncompromised()
+                                                                        ->mixedCase()
+                                                                        ->letters()
+                                                                        ->numbers()
+                                                                        ->symbols()
+                                                                        ->uncompromised()
                                     ];
         }
 
@@ -66,5 +65,24 @@ class UserRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+
+
+    /**
+     * Return validation error message
+     *
+     * @return array
+     */
+    public function messages() : array {
+
+        return [ 
+            'country_id.exists'      => translate('Invalid country'),
+            'id.exists'              => translate('Invalid user'),
+            'id.required'            => translate('Invalid user'),
+        
+        ];
+
+
     }
 }

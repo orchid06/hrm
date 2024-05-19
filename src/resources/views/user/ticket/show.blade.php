@@ -49,7 +49,6 @@
                                 {{ translate('Ticket Message') }}
                             </h4>
                         </div>
-
                         <div class="card-body">
                             <div class="message-wrapper" data-simplebar>
                                 @forelse($messages  as $message)
@@ -62,7 +61,7 @@
                                     @endphp
 
                                         <div class="message-item d-flex justify-content-between align-items-start ticket-admin-reply">
-                                            <div class="author-image me-3">
+                                            <div class="author-image me-2">
                                                 <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
                                             </div>
 
@@ -82,7 +81,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                 @empty
                                     @include('admin.partials.not_found')
                                 @endforelse
