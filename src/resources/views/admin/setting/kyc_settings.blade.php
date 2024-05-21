@@ -45,67 +45,67 @@
                             </thead>
                             <tbody id="ticketField">
                                 @foreach ($kycSettings as $input)
-                                <tr>
-                                    <td data-label='{{translate("Label")}}'>
-                                        <div class="form-inner mb-0">
-                                            <input type="text" name="custom_inputs[{{$loop->index}}][labels]"  value="{{$input['labels']}}">
-                                        </div>
-                                    </td>
-                                    <td data-label='{{translate("Type")}}'>
-                                        <div class="form-inner mb-0">
-
-                                            @if($input['default'] == App\Enums\StatusEnum::true->status())
-                                                <input disabled type="text" name="custom_inputs[type]"  value="{{$input['type']}}">
-                                                <input type="hidden" name="custom_inputs[{{$loop->index}}][type]"  value="{{$input['type']}}">
-                                            @else
-                                            <select  class="form-select" name="custom_inputs[{{$loop->index}}][type]" >
-                                                @foreach(['file','textarea','text','date','email'] as $type)
-                                                    <option {{$input['type'] == $type ?'selected' :""}} value="{{$type}}">
-                                                        {{ucfirst($type)}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @endif
-
-                                        </div>
-                                    </td>
-                                    <td  data-label='{{translate("Required")}}' >
-                                        <div class="form-inner mb-0">
-                                            @if($input['default'] == App\Enums\StatusEnum::true->status() && $input['type'] != 'file' )
-                                                <input disabled  type="text" name="custom_inputs[required]"  value="{{$input['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :'No'}}">
-                                                <input hidden  type="text" name="custom_inputs[{{$loop->index}}][required]"  value="{{$input['required']}}">
-                                            @else
-                                                <select class="form-select" name="custom_inputs[{{$loop->index}}][required]" >
-                                                    <option {{$input['required'] == App\Enums\StatusEnum::true->status() ?'selected' :""}} value="{{App\Enums\StatusEnum::true->status()}}">
-                                                        {{translate('Yes')}}
-                                                    </option>
-                                                    <option {{$input['required'] == App\Enums\StatusEnum::false->status() ?'selected' :""}} value="{{App\Enums\StatusEnum::false->status()}}">
-                                                        {{translate('No')}}
-                                                    </option>
-                                                </select>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td  data-label='{{translate("Placeholder")}}'>
-                                        <div class="form-inner mb-0">
-                                            <input type="text" name="custom_inputs[{{$loop->index}}][placeholder]"  value="{{$input['placeholder']}}">
-                                        </div>
-                                        <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
-                                        <input   type="hidden" name="custom_inputs[{{$loop->index}}][multiple]"  value="{{$input['multiple']}}">
-                                        <input   type="hidden" name="custom_inputs[{{$loop->index}}][name]"  value="{{$input['name']}}">
-                                    </td>
-                                    <td data-label='{{translate("Option")}}'>
-                                        @if($input['default'] == App\Enums\StatusEnum::true->status())
-                                            {{translate('N/A')}}
-                                            @else
-                                            <div>
-                                                <a href="javascript:void(0);" class="pointer icon-btn danger delete-option">
-                                                    <i class="las la-trash-alt"></i>
-                                                </a>
+                                    <tr>
+                                        <td data-label='{{translate("Label")}}'>
+                                            <div class="form-inner mb-0">
+                                                <input type="text" name="custom_inputs[{{$loop->index}}][labels]"  value="{{$input['labels']}}">
                                             </div>
-                                        @endif
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td data-label='{{translate("Type")}}'>
+                                            <div class="form-inner mb-0">
+
+                                                @if($input['default'] == App\Enums\StatusEnum::true->status())
+                                                    <input disabled type="text" name="custom_inputs[type]"  value="{{$input['type']}}">
+                                                    <input type="hidden" name="custom_inputs[{{$loop->index}}][type]"  value="{{$input['type']}}">
+                                                @else
+                                                <select  class="form-select" name="custom_inputs[{{$loop->index}}][type]" >
+                                                    @foreach(['file','textarea','text','date','email'] as $type)
+                                                        <option {{$input['type'] == $type ?'selected' :""}} value="{{$type}}">
+                                                            {{ucfirst($type)}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @endif
+
+                                            </div>
+                                        </td>
+                                        <td  data-label='{{translate("Required")}}' >
+                                            <div class="form-inner mb-0">
+                                                @if($input['default'] == App\Enums\StatusEnum::true->status() && $input['type'] != 'file' )
+                                                    <input disabled  type="text" name="custom_inputs[required]"  value="{{$input['required'] == App\Enums\StatusEnum::true->status()? 'Yes' :'No'}}">
+                                                    <input hidden  type="text" name="custom_inputs[{{$loop->index}}][required]"  value="{{$input['required']}}">
+                                                @else
+                                                    <select class="form-select" name="custom_inputs[{{$loop->index}}][required]" >
+                                                        <option {{$input['required'] == App\Enums\StatusEnum::true->status() ?'selected' :""}} value="{{App\Enums\StatusEnum::true->status()}}">
+                                                            {{translate('Yes')}}
+                                                        </option>
+                                                        <option {{$input['required'] == App\Enums\StatusEnum::false->status() ?'selected' :""}} value="{{App\Enums\StatusEnum::false->status()}}">
+                                                            {{translate('No')}}
+                                                        </option>
+                                                    </select>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td  data-label='{{translate("Placeholder")}}'>
+                                            <div class="form-inner mb-0">
+                                                <input type="text" name="custom_inputs[{{$loop->index}}][placeholder]"  value="{{$input['placeholder']}}">
+                                            </div>
+                                            <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
+                                            <input   type="hidden" name="custom_inputs[{{$loop->index}}][multiple]"  value="{{$input['multiple']}}">
+                                            <input   type="hidden" name="custom_inputs[{{$loop->index}}][name]"  value="{{$input['name']}}">
+                                        </td>
+                                        <td data-label='{{translate("Option")}}'>
+                                            @if($input['default'] == App\Enums\StatusEnum::true->status())
+                                                {{translate('N/A')}}
+                                                @else
+                                                <div>
+                                                    <a href="javascript:void(0);" class="pointer icon-btn danger delete-option">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -120,6 +120,7 @@
         </div>
     </div>
 </form>
+
 @endsection
 
 @push('script-push')

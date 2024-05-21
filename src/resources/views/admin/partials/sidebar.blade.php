@@ -661,7 +661,7 @@
                     <a class='sidebar-menu-link {{sidebar_awake("admin.setting.openAi")}}'  href='{{route("admin.setting.openAi")}}'>
                       <span></span>
                         <p>
-                          {{translate('Ai Configuration')}}
+                          {{translate('AI Configuration')}}
                         </p>
                     </a>
                 </li>
@@ -685,7 +685,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.setting.kyc")}}'  href='{{route("admin.setting.kyc")}}'>
                     <span></span>
                       <p>
-                        {{translate('Kyc Configuration')}}
+                        {{translate('KYC Configuration')}}
                       </p>
                   </a>
                 </li>

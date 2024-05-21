@@ -140,6 +140,7 @@
 
         // read Notification
         function readNotification(href,id){
+
             $.ajax({
                 method:'post',
                 url: "{{route('admin.read.notification')}}",
@@ -234,17 +235,23 @@
         // update seettings
         $(document).on('submit','.settingsForm',function(e){
 
-                var data =   new FormData(this)
-                var route = "{{route('admin.setting.store')}}"
-                if($(this).attr('data-route')){
-                    route = $(this).attr('data-route')
-                }
+                var data  =   new FormData(this)
+                var route =  $(this).attr('data-route') 
+                                    ? $(this).attr('data-route') 
+                                    :  "{{route('admin.setting.store')}}"
+          
+                var submitButton = $(e.originalEvent.submitter);
+
                 $.ajax({
                 method:'post',
                 url: route,
                 beforeSend: function() {
-                    $('.ai-btn').addClass('btn__dots--loading');
-                    $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+                        submitButton.find(".note-btn-spinner").remove();
+   
+                        submitButton.append(`<div class="ms-1 spinner-border spinner-border-sm text-white note-btn-spinner " role="status">
+                                <span class="visually-hidden"></span>
+                            </div>`);
+
                 },
                 dataType: 'json',
                 cache: false,
@@ -279,8 +286,7 @@
                     }
                 },
                 complete: function() {
-                    $('.ai-btn').removeClass('btn__dots--loading');
-                    $('.ai-btn').find('.btn__dots').remove();
+                    submitButton.find(".note-btn-spinner").remove();
                 },
                 
             })

@@ -91,42 +91,41 @@
 
     <div class="row mb-3">
         <div class="col-12">
-        <div class="i-card-md home home">
-            <div class="card--header">
-            <h4 class="card-title">
-                {{translate("Users By Countries")}}
-            </h4>
-            
-            </div>
-            <div class="card-body">
-            
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div id="usersByCountry" class="apex-chart h-330"></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h6>
-                            {{translate("Top 30 Countries")}}
-                        </h6>
-                        <div class="top-country-users ul">
-                                <ul>
-                                    @foreach ($top_countries as $country)
-
-                                        <li>
-                                            <span> {{ $country->name  }} </span> -  <span>  {{ $country->users_count  }}  </span> 
-                                        </li>
-                                        
-                                    @endforeach
-                                
-                                </ul>
-                        </div>
-
-                    </div>
+            <div class="i-card-md home home">
+                <div class="card--header">
+                        <h4 class="card-title">
+                            {{translate("Users By Countries")}}
+                        </h4>
                 </div>
+                <div class="card-body">
+                
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="usersByCountry" class="apex-chart h-330"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h6>
+                                {{translate("Top 30 Countries")}}
+                            </h6>
+                            <div class="top-country-users ul">
+                                    <ul>
+                                        @foreach ($top_countries as $country)
+
+                                            <li>
+                                                <span> {{ $country->name  }} </span> -  <span>  {{ $country->users_count  }}  </span> 
+                                            </li>
+                                            
+                                        @endforeach
+                                    
+                                    </ul>
+                            </div>
+
+                        </div>
+                    </div>
 
 
+                </div>
             </div>
-        </div>
         </div>
 
     </div>
@@ -204,7 +203,7 @@
 
            google.charts.load('current', {
 				'packages':['geochart'],
-				'mapsApiKey': 'AIzaSyA-VXd6jDN1Fzqg1HYU_OQOAFp2YECZbZM'
+				'mapsApiKey': '{{site_settings("map_api_key")}}'
 			});
 
 			google.charts.setOnLoadCallback(drawMapChart);
@@ -281,38 +280,37 @@
 
 
 
-   /** Current month users */
-
-    var monthlyLabel = @json(array_keys($user_by_month));
+       /** Current month users */
+        var monthlyLabel = @json(array_keys($user_by_month));
 
         var options = {
             chart: {
                 height: 350,
                 type: "line",
             },
-        dataLabels: {
-            enabled: false,
-        },
-        colors: ["var(--color-success)"],
-        series: [
-            {
-                name: "{{ translate('Total Users') }}",
-                data:  @json(array_values($user_by_month)),
+            dataLabels: {
+                enabled: false,
             },
-      
-        ],
-        xaxis: {
-            categories: monthlyLabel,
-        },
+            colors: ["var(--color-success)"],
+            series: [
+                {
+                    name: "{{ translate('Total Users') }}",
+                    data:  @json(array_values($user_by_month)),
+                },
+        
+            ],
+            xaxis: {
+                categories: monthlyLabel,
+            },
 
-        tooltip: {
-            shared: false,
-            intersect: true,
-            y: {
-                formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-                return parseInt(value);
+           tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return parseInt(value);
+                    }
                 }
-            }
 
             },
             markers: {
@@ -331,12 +329,8 @@
         chart.render();
 
 
-
-
         $(document).on('change','#months',function(e){
-
             window.location.href = "{{url()->current()}}/?"+"month="+$(this).val()
-
         });
 
 
