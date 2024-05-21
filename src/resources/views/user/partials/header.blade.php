@@ -17,10 +17,10 @@
                     <span></span>
                 </div>
             </div>
-        </div>
 
-        <div class="page-title-content d-lg-block d-none">
-            <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
+            <div class="page-title-content d-lg-block d-none">
+                <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
+            </div>
         </div>
 
         <div class="header-right">

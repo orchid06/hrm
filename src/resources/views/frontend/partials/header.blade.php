@@ -118,10 +118,10 @@
                 </svg>
             </div>
             <div class="header-shape-two">
-            <svg width="69" height="123" viewBox="0 0 69 123" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M48.3018 122.096L68.0442 122.096L68.0454 90.9967L68.0454 58.0006L1.54537 58.0006L1.53691 69.9713L1.49419 75.3686L33.1593 75.6192C42.1614 75.6205 48.4759 80.9764 48.2974 90.9967L48.3018 122.096Z" fill="white"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M48.1811 1.12326L67.9235 1.07375L67.9973 31.8737L68.0744 64.5525L1.57458 64.7195L1.53816 52.8639L1.48284 47.5186L33.1472 47.1908C42.1494 47.167 48.4513 41.8467 48.2494 31.9233L48.1811 1.12326Z" fill="white"/>
-            </svg>
+                <svg width="69" height="123" viewBox="0 0 69 123" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M48.3018 122.096L68.0442 122.096L68.0454 90.9967L68.0454 58.0006L1.54537 58.0006L1.53691 69.9713L1.49419 75.3686L33.1593 75.6192C42.1614 75.6205 48.4759 80.9764 48.2974 90.9967L48.3018 122.096Z" fill="white"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M48.1811 1.12326L67.9235 1.07375L67.9973 31.8737L68.0744 64.5525L1.57458 64.7195L1.53816 52.8639L1.48284 47.5186L33.1472 47.1908C42.1494 47.167 48.4513 41.8467 48.2494 31.9233L48.1811 1.12326Z" fill="white"/>
+                </svg>
             </div>
             <div class="currency">
                     <button class="dropdown-toggle"
@@ -141,6 +141,7 @@
                         </ul>
                     @endif
             </div>
+
 
             @if(auth_user('web'))
                 <div class="dropdown profile-dropdown">
@@ -185,6 +186,7 @@
                     </a>
                 </div>
             @endif
+            <a href="#" class="i-btn btn--md btn--dark capsuled">Get Started <span><i class="bi bi-arrow-up-right"></i></span></a>
         </div>
     </div>
 

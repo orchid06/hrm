@@ -5,6 +5,31 @@
 @endpush
 
 @section('content')
+    <div class="row mb-4">
+        <div class="col-lg-9">
+            <div class="i-card-md">
+                <div class="card-body">
+                    <div id="subscrition-report"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="i-card-md">
+                <div class="card--header">
+                    <h4 class="card-title">Summery</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="subcription-list">
+                        <li><span>Total Subscriber</span><span>200</span></li>
+                        <li><span>Paid Amount</span><span>$3454534</span></li>
+                        <li><span>Running Subscriber</span><span>400</span></li>
+                        <li><span>Expired Subscriber</span><span>234</span></li>
+                        <li><span>Subscription Type</span><span>Four</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -274,8 +299,10 @@
 
 @endsection
 
+
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -335,6 +362,38 @@
             modal.find('select[name="status"]').val(subscription.status)
             modal.modal('show')
         })
+
+        var options = {
+          series: [{
+          name: 'series1',
+          data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+          name: 'series2',
+          data: [11, 32, 45, 32, 34, 52, 41]
+        }],
+          chart: {
+          height: 350,
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+        },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#subscrition-report"), options);
+        chart.render();
 
 	})(jQuery);
 </script>

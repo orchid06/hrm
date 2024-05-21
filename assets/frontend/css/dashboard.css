@@ -2350,7 +2350,7 @@ select {
 }
 
 .sidebar-footer > a{
-  color: var(--color-primary);
+  color: var(--text-primary);
   font-size: 16px;
 }
 .sidebar-footer a span{
@@ -2368,6 +2368,7 @@ select {
 }
 .total-balance h4{
   font-size: 20px;
+  color: var(--color-primary);
 }
 
 @media (max-width: 1399px) {
@@ -2377,7 +2378,7 @@ select {
   }
   .aside .side-content .sidemenu-wrapper{
     overflow-y: scroll !important;
-    height: calc(100% - 175px) !important;
+            height: calc(100% - 325px) !important;
     margin-bottom: 175px;
   }
 }
@@ -3109,19 +3110,6 @@ aside.show-side-bar {
   background-color: var(--card-bg-light);
 }
 
-.main-wrapper::-webkit-scrollbar {
-  width: 8px;
-}
-
-.main-wrapper::-webkit-scrollbar-track {
-  background-color: var(--color-white);
-  border-left: 1px solid var(--color-primary-soft);
-}
-
-.main-wrapper::-webkit-scrollbar-thumb {
-  background-color: var(--border-light-two);
-  border-radius: 10px;
-}
 
 @media (max-width: 1199px) {
   .main .main-wrapper {
@@ -5159,17 +5147,58 @@ aside.show-side-bar {
 .slider-wrap{
   position: relative;
 }
+.swiper-arrow{
+  opacity: 0;
+  transition: 0.45s ease;
+}
+.slider-wrap:hover .swiper-arrow{
+  opacity: 1;
+}
 .slider-wrap .swiper-button-prev{
   position: absolute;
-  top: 50%;
-  left: 0px;
-  transform: translateY(-50%);
+  top: 22px;
+  left: -24px;
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--color-primary);
+}
+.slider-wrap .swiper-button-prev i{
+  color: var(--color-white);
+  font-weight: 600;
+  line-height: 1;
+  font-size: 15px;
+}
+.slider-wrap .swiper-button-prev::after{
+  content: unset;
 }
 .slider-wrap .swiper-button-next{
   position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%);
+  top: 22px;
+  right: -24px;
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--color-primary);
+  z-index: 9;
+}
+
+.slider-wrap .swiper-button-next i{
+  color: var(--color-white);
+  font-weight: 600;
+  line-height: 1;
+  font-size: 15px;
+}
+.slider-wrap .swiper-button-next::after{
+  content: unset;
+}
+
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+  opacity: 0;
 }
 
 ul.dropdown-menu.dropdown-menu-end.show {

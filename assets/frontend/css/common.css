@@ -1284,6 +1284,7 @@
   font-weight: 400;
   padding: 6px 15px;
   border-radius: 8px;
+  text-align: center;
 }
 
 .nav-tabs.style-1 .nav-link.active {
