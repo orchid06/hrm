@@ -5,9 +5,29 @@
 @endpush
 
 @section('content')
-    <div class="i-card-md mb-4">
-        <div class="card-body">
-            <div id="affiliate-report"></div>
+    <div class="row mb-4">
+        <div class="col-lg-9">
+            <div class="i-card-md mb-4">
+                <div class="card-body">
+                    <div id="affiliate-report"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="i-card-md">
+                <div class="card--header">
+                    <h4 class="card-title">Summery</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="subcription-list">
+                        <li><span>Total Users</span><span>200</span></li>
+                        <li><span>Reffered User</span><span>4534</span></li>
+                        <li><span>Commission Rate</span><span>4%</span></li>
+                        <li><span>Amount</span><span>$787565</span></li>
+                        <li><span>Subscription Package</span><span>N/A</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div class="i-card-md">
@@ -227,7 +247,6 @@
             { x: new Date('2024-01-09').getTime(), y: 1350000 },
             { x: new Date('2024-01-10').getTime(), y: 1370000 }
         ];
-
 
         var options = {
           series: [{
