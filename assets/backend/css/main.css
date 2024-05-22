@@ -1835,6 +1835,10 @@ table.dataTable.no-footer {
     padding: 20px 25px 0
 }
 
+.card--header select{
+    height: 40px;
+}
+
 @media(max-width: 576px) {
     .i-card-md>.card--header {
         padding: 15px 15px 0
@@ -6760,5 +6764,45 @@ ul.inbox-list li .col-mail-2 .date {
 .subcription-list li span:last-child{
     font-weight: 600;
     font-size: 16px;
+}
+
+#usersByCountry svg{
+    width: 100% !important;
+}
+.daterangepicker{
+    right: 110px !important;
+}
+@media (max-width: 768px) {
+    .daterangepicker{
+        right: 170px !important;
+    }
+
+    .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
+        white-space: nowrap;
+        text-align: center;
+        vertical-align: middle;
+        min-width: 25px;
+        width: 25px;
+        height: 25px;
+        line-height: 24px;
+        font-size: 11px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    table td {
+        padding: 5px 5px;
+        font-size: 13px;
+    }
+}
+
+.bg--linear-primary {
+    background: linear-gradient(
+        110deg,
+        rgba(107, 78, 255, 1),
+        rgb(169, 152, 255)
+    );
 }
 

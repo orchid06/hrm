@@ -15,10 +15,14 @@
         </div>
         <div class="col-lg-3">
             <div class="i-card-md">
-                <div class="card--header">
-                    <h4 class="card-title">Summery</h4>
-                </div>
                 <div class="card-body">
+                    <div class="card card--hover linear-card bg--linear-primary text-center mb-3">
+                        <div class="card-body p-3">
+                            <h6 class="text-white opacity-75 fw-normal fs-13">Total Balance</h6>
+                            <h4 class="fw-bold mt-1 mb-3 text-white fs-18">$2800</h4>
+                            <p class="text-white opacity-75">Running Subscriber Expired Subscriber Subscription Type</p>
+                        </div>
+                    </div>
                     <ul class="subcription-list">
                         <li><span>Total Subscriber</span><span>200</span></li>
                         <li><span>Paid Amount</span><span>$3454534</span></li>

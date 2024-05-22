@@ -10,7 +10,10 @@
             .top-country-users ul {
                 -moz-column-count: 3;
                 column-count: 3;
-                font-size: 12px;
+                font-size: 14px;
+            }
+            .top-country-users ul li{
+                padding: 3px 0;
             }
 
    </style>
@@ -99,12 +102,12 @@
                 </div>
                 <div class="card-body">
                 
-                    <div class="row">
+                    <div class="row gy-5">
                         <div class="col-lg-6">
                             <div id="usersByCountry" class="apex-chart h-330"></div>
                         </div>
                         <div class="col-lg-6">
-                            <h6>
+                            <h6 class="mb-3">
                                 {{translate("Top 30 Countries")}}
                             </h6>
                             <div class="top-country-users ul">
