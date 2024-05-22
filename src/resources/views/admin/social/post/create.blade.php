@@ -2,7 +2,7 @@
 
 @push('style-include')
     <link href="{{asset('assets/backend/css/post.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -688,7 +688,9 @@
 @push('script-include')
      @include('partials.ai_content_script');
     <script src="{{asset('assets/global/js/post.js')}}"></script>
-    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 
 @endpush
 

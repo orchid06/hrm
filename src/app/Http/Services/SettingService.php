@@ -21,7 +21,7 @@ class SettingService
      * update  settings
      * @param array $request_data
      */
-    public function updateSettings(array $request_data) :void{
+    public function updateSettings(array $request_data) :void {
        
 
         $json_keys = Arr::get(config('settings'),'json_object' ,[]);
@@ -60,13 +60,16 @@ class SettingService
         foreach($logoSections as $key){
             
             if(isset($request['site_settings'][$key]) && is_file($request['site_settings'][$key]->getPathname())){
-                $setting   = Setting::with('file')->where('key',$key)->first();
+                $setting   = Setting::with('file')
+                                     ->where('key',$key)
+                                     ->first();
                 if(!$setting){
                     $setting = Setting::create([
                         "key" => $key
                     ]);
                 }
                 $oldFile   = $setting->file()?->where('type',$key)->first();
+
                 $response  = $this->storeFile(
                     file        : $request['site_settings'][$key], 
                     location    : config("settings")['file_path'][$key]['path'],
@@ -190,7 +193,7 @@ class SettingService
 
         $status             =  false;
         $promptInputs       = [];
-        foreach ($request->custom_inputs as $index => $field) {
+        foreach ($request->input('custom_inputs') as $index => $field) {
             $newField = $field;
             if (is_null($field['name'])) {
                 $newField['name'] = t2k($newField['labels']);

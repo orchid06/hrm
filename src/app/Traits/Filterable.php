@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Enums\StatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 trait Filterable
@@ -94,15 +95,17 @@ trait Filterable
      */
     public function scopeDate(Builder $query, string $column = 'created_at') : Builder {
 
-        if (!request()->date) {
-            return $query;
-        }
-        $dateRangeString             = request()->date;
+        if (!request()->input('date'))   return $query;
+
+
+
+        $dateRangeString             = request()->input('date');
         $start_date                  = $dateRangeString;
         $end_date                    = $dateRangeString;
-        if (strpos($dateRangeString, ' to ') !== false) {
-            list($start_date, $end_date) = explode(" to ", $dateRangeString);
-        } 
+        if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
+
+        $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
+        $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
 
         return $query->where(function ($query) use ($start_date, $end_date ,$column ) {
             $query->whereBetween($column , [$start_date, $end_date])

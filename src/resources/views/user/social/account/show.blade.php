@@ -124,7 +124,9 @@
 
 @push('script-include')
   <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')

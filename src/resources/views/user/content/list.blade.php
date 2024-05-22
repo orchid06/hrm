@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
 

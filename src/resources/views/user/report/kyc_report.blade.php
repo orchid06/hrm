@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -158,7 +158,9 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -171,10 +173,7 @@
 
         });
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+
 
 
 

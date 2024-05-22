@@ -69,7 +69,8 @@ class SettingController extends Controller
         $status = true;
         $message = translate('Updated Successfully');
         try {
-            $this->settingService->updateSettings($request->site_settings);
+            $this->settingService->updateSettings($request->input('site_settings'));
+
             if(isset($request->site_settings['google_recaptcha'])){
                 if($request->site_settings['google_recaptcha']['status'] == (StatusEnum::true)->status()){
                     Setting::where('key','default_recaptcha')->update(
@@ -85,6 +86,7 @@ class SettingController extends Controller
             $message = $exception->getMessage();
         }
         Cache::forget('site_settings');
+
         return json_encode([
             'status'  => $status,
             'message' => $message
@@ -219,7 +221,7 @@ class SettingController extends Controller
 
         return view('admin.setting.open_ai_settings',[
             'breadcrumbs'     =>  ['home'=>'admin.home','Open Ai'=> null],
-            'title'           => "Ai Configuration",
+            'title'           => "AI Configuration",
         ]);
     }
 
@@ -271,8 +273,8 @@ class SettingController extends Controller
     {
         return view('admin.setting.kyc_settings',[
 
-            'title'       => 'Kyc Configuration',
-            'breadcrumbs' => ['home'=>'admin.home','Kyc Settings'=> null],
+            'title'       => 'KYC Configuration',
+            'breadcrumbs' => ['home'=>'admin.home','KYC Settings'=> null],
           
         ]);
     }
@@ -284,7 +286,7 @@ class SettingController extends Controller
      * @param CustomInputRequest $request
      * @return string
      */
-    public function kycSetting(CustomInputRequest $request) :string{
+    public function kycSetting(CustomInputRequest $request) :string {
 
         $response = $this->settingService->customPrompt($request,'kyc_settings');
         optimize_clear();
