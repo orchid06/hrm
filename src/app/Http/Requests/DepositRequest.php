@@ -22,10 +22,25 @@ class DepositRequest extends FormRequest
     public function rules(): array
     {
 
-
         return [
             'method_id' => ['required','exists:payment_methods,id'],
-            "amount"    => ['required','numeric','min:-1']
+            "amount"    => ['required','numeric','min:0']
+        ];
+    }
+
+
+
+
+    public function messages(): array
+    {
+
+
+        return [
+            'method_id.required' => translate('Select a payment method'),
+            'method_id.exists'   => translate('Invalid payment method'),
+            'amount.required'    => translate('Enter deposit amount'),
+            'amount.numeric'     => translate('Amount should be a valid number'),
+            'amount.min'         => translate('Amount should be greater than -1'),
         ];
     }
 }

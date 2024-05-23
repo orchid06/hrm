@@ -271,7 +271,7 @@
 
         var options = {
             chart: {
-                height: 455,
+                height: 425,
                 type: "area",
             },
             dataLabels: {

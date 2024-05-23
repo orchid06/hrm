@@ -55,10 +55,13 @@ class DepositController extends Controller
     public function process(DepositRequest $request) : View | RedirectResponse {
 
     
-        $method           = PaymentMethod::with(['currency'])->findOrfail($request->input("method_id"));
+        $method           = PaymentMethod::with(['currency'])
+                                         ->findOrfail($request->input("method_id"));
         $request->merge([
             'remarks' => 'Deposit Via '.$method->name,
         ]);
+
+        @dd($request->all());
 
         $amount      = (double) $request->input('amount');
         $baseAmount  = round(convert_to_base($amount,5)*$method->currency->exchange_rate,5);

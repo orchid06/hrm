@@ -548,7 +548,6 @@ class UserService
  
         ];
 
-      
 
         $log = DB::transaction(function() use ($request,$params,$user,$method) {
 

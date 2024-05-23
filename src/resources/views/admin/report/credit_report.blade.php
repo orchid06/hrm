@@ -8,6 +8,11 @@
     <div class="row mb-4">
         <div class="col-lg-9">
             <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Credit Report (Current Year)')}}
+                    </h4>
+               </div>
                 <div class="card-body">
                     <div id="credit-report"></div>
                 </div>
@@ -181,11 +186,11 @@
                                     </td>
                                </tr>
                             @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                    </td>
+                                </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -269,7 +274,7 @@
                 data: data
             }],
             chart: {
-                height: 350,
+                height: 303,
                 type: 'line',
                 events: {
                     click: function(chart, w, e) {

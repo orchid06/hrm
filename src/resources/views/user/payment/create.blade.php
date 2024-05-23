@@ -3,25 +3,25 @@
 
 @section('content')
 
-@php
+            @php
 
-   $balance         = auth_user("web")->balance;
-   $currency        = session('currency')?session('currency'): base_currency();
-   $currencySymbol  = $currency->symbol;
-   $currencyCode    = $currency->code;
-   $exchangeRate    = $currency->exchange_rate;
+                        $balance         = auth_user("web")->balance;
 
-@endphp
+                        $currency        = session('currency')??base_currency();
+
+                        $currencySymbol  = $currency->symbol;
+                        $currencyCode    = $currency->code;
+                        $exchangeRate    = $currency->exchange_rate;
+
+            @endphp
 
 <div class="row">
     <div class="col-12">
-      <div
-        class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+      <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>
-          <h4>
-               {{translate(Arr::get($meta_data,'title'))}}
-          </h4>
-
+            <h4>
+                {{translate(Arr::get($meta_data,'title'))}}
+            </h4>
         </div>
 
         <div>
@@ -50,9 +50,9 @@
 
                         @foreach ($methods as $method )
 
-                        <option data-method ="{{$method}}" {{old("method_id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
-                            {{$method->name}}
-                        </option>
+                            <option data-method ="{{$method}}" {{old("method_id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
+                                {{$method->name}}
+                            </option>
 
                         @endforeach
 
@@ -89,7 +89,7 @@
 
 
 @php
-    $fromRate    = session()->get("currency") ? session()->get("currency")->exchange_rate :0;
+    $fromRate    = session()->get("currency") ? session()->get("currency")->exchange_rate : 0;
 @endphp
 
 @endsection
