@@ -219,7 +219,7 @@
 
         @if(check_permission('view_user'))
           <li class="sidebar-menu-title">
-            {{translate('User , Reports & Support')}}
+            {{translate('User Statistics & Support')}}
           </li>
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
@@ -314,7 +314,7 @@
               aria-expanded="false" aria-controls="report">
               <span><i class="las la-file-alt"></i></span>
                 <p>
-                  {{translate('Reports')}}
+                  {{translate('Report')}}
                     @if($pending_deposits > 0 || $pending_withdraws > 0 || $pending_kycs > 0  )
                       <span class="i-badge danger">
                           <i class="las la-info"></i>

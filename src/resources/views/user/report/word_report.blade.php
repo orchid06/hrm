@@ -8,6 +8,7 @@
 
 
 <div class="row">
+
     <div class="col-xl-12 mx-auto">
       <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
             <h4>
@@ -34,40 +35,40 @@
             </div>
       </div>
 
-      <div class="collapse filterTwo mb-3" id="tableFilter">
-      <div class="search-action-area">
-              <div class="search-area">
-                <form action="{{route(Route::currentRouteName())}}">
+       <div class="collapse filterTwo mb-3" id="tableFilter">
+            <div class="search-action-area">
+                <div class="search-area">
+                    <form action="{{route(Route::currentRouteName())}}">
 
-                    <div class="form-inner">
-                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                    </div>
+                        <div class="form-inner">
+                            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
+                        </div>
 
-                    <div class="form-inner">
-                        <select name="template" id="template" class="select2">
-                            <option value="">
-                                {{translate('Select Template')}}
-                            </option>
-                            @foreach($templates as $template)
-                                <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
+                        <div class="form-inner">
+                            <select name="template" id="template" class="select2">
+                                <option value="">
+                                    {{translate('Select Template')}}
                                 </option>
-                            @endforeach
-                        </select>
-                    </div>
+                                @foreach($templates as $template)
+                                    <option  {{$template->slug ==   request()->input('template') ? 'selected' :""}} value="{{$template->slug}}"> {{$template->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="i-btn primary btn--lg capsuled">
-                            <i class="bi bi-search"></i>
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="i-btn primary btn--lg capsuled">
+                                <i class="bi bi-search"></i>
+                            </button>
 
-                        <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </a>
-                    </div>
-                </form>
-              </div>
+                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-      </div>
+        </div>
 
       <div class="i-card-md">
             <div class="card-body p-0">
@@ -246,9 +247,6 @@
         $(".select2").select2({
 
         });
-
-   
-
 
 	})(jQuery);
 </script>

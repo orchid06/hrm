@@ -87,23 +87,46 @@ class ActivityHistoryController extends Controller
      */
     public function templateReport() :View{
 
+        $templates       = AiTemplate::whereHas("templateUsages")->get();
+     
 
-        return view('admin.report.word_report',[
+        return view('admin.report.template_report',[
 
             'breadcrumbs'     =>  ['Home'=>'admin.home','Templates Reports'=> null],
             'title'           => 'Templates Reports',
-            "genarated_words" => TemplateUsage::filter(['template:slug',"user:username"])
-                                  ->date()
-                                  ->sum("total_words"),
+
 
             "reports"         => TemplateUsage::with(['template','admin','user'])
-                                        ->filter(['template:slug',"user:username"])
-                                        ->date()               
-                                        ->latest()
-                                        ->paginate(paginateNumber())
-                                        ->appends(request()->all()),
+                                                ->filter(['template:slug',"user:username"])
+                                                ->date()               
+                                                ->latest()
+                                                ->paginate(paginateNumber())
+                                                ->appends(request()->all()),
                                     
-            "templates"      => AiTemplate::whereHas("templateUsages")->get(),
+            "templates"       => $templates ,
+
+            'summaries'       => [
+                                    'total_words' => truncate_price(TemplateUsage::sum("total_words")),
+                                    
+                                    'this_year'   => truncate_price(TemplateUsage::whereYear('created_at', '=',date("Y"))
+                                                                        ->sum("total_words"),1),
+                                    'this_month'  => truncate_price(TemplateUsage::whereMonth('created_at', '=',date("M"))
+                                                                        ->sum("total_words"),0),
+                                    'this_week'  => truncate_price(TemplateUsage::whereBetween('created_at', 
+                                    [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                                                        ->sum("total_words"),0),
+                                    'today'       => truncate_price(TemplateUsage::whereDate('created_at', Carbon::today())
+                                                                        ->sum("total_words"),0),
+                                                        
+                                    'total_template_usages' => $templates->count(),
+                        
+            ],
+
+            'graph_data'       => sortByMonth(TemplateUsage::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                    ->whereYear('created_at', '=',date("Y"))
+                                                    ->groupBy('months')
+                                                    ->pluck('total', 'months')
+                                                    ->toArray())
            
          
         ]);
