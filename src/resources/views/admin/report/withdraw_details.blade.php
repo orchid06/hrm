@@ -1,14 +1,107 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="row g-4 mb-4">
-        @php
+        <!-- @php
            $col    = 6;
            if(is_array($report->custom_data) && count($report->custom_data) < 1){
               $col = 12;
            }
-        @endphp
+        @endphp -->
 
-        <div class="col-xl-{{$col}}">
+
+        <div class="col-xl-8">
+            <div class="i-card-md">
+                <div class="card-body">
+                    <ul class="nav nav-tabs style-1 gap-3 mb-4" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#basic-tab" aria-selected="true" role="tab">{{translate("Custom Information")}}</a>
+                        </li>
+                        <li class="nav-item " role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#custom-tab" aria-selected="false" role="tab" tabindex="-1">{{translate("Basic Information")}}</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active show" id="basic-tab" role="tabpanel">
+                            <div class="card--header">
+                                <h4 class="card-title mb-3">
+                                    {{ translate('Custom  Information') }}
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="withdraw-info-list list-group-flush">
+                                    @foreach ($report->custom_data as $k => $v)
+                                        <li><span>{{ translate(ucfirst($k)) }} :</span>
+                                            @if ($v->type == 'file')
+                                                @php
+                                                    $file = $report
+                                                        ->file
+                                                        ->where('type', $k)
+                                                        ->first();
+                                    
+                                                @endphp
+                                                <div class="width-draw-profile">
+                                                    <img src='{{imageUrl($file,"withdraw",true)}}'
+                                                    alt="{{ @$file->name }}">
+                                                </div>
+                                            @else
+                                                <span>{{ $v->field_name }}</span>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                @if(App\Enums\WithdrawStatus::value("PENDING",true) == $report->status)
+                                    <div class="d-flex justify-content-end p-4 gap-2">
+                                        <div class="action">
+                                            <a href="javascript:void(0)" data-status = '{{App\Enums\WithdrawStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">
+                                                <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
+                                            </a>
+                                        </div>
+                                        <div class="action">
+                                            <a href="javascript:void(0)"   data-status = '{{App\Enums\WithdrawStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
+                                                <i class="las la-times-circle me-1"></i> {{translate('Reject')}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom-tab" role="tabpanel">
+                            <div class="card--header">
+                                <h4 class="card-title mb-3">
+                                    {{ translate('Basic Information') }}
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="withdraw-info-list list-group-flush">
+                                    <li><span>{{ translate('User') }}:</span> <a href='{{route("admin.user.show",$report->user->uid)}}'>
+                                    {{$report->user->name}}</a></li>
+                                    <li><span>{{ translate('Transaction Id') }} :</span> <span>{{ $report->trx_code }}</span></li>
+                                    <li><span>{{ translate('Payment Method') }} :</span> <span>{{ $report->method->name }}</span></li>
+                                    <li><span>{{ translate('Amount') }} :</span>   <span>{{num_format($report->amount,@$report->currency)}}</span></li>
+                                    <li><span>{{ translate('Charge') }} :</span>
+                                        <span>
+                                            {{num_format($report->charge,@$report->currency)}}
+                                        </span>
+                                    </li>
+                                    <li><span>{{ translate('Final Amount') }} :</span>
+                                        <span>{{num_format($report->final_amount,@$report->currency)}}</span>
+                                    </li>
+                                    <li><span>{{ translate('Date') }} :</span> <span>{{ diff_for_humans($report->created_at) }}</span>
+                                    </li>
+                                    <li><span>{{ translate('Status') }} :</span>     @php echo   withdraw_status($report->status)  @endphp
+                                    </li>
+                                    <li><span>{{ translate('Feedback') }} :</span>
+                                        <span>{{ $report->feedback ? $report->feedback : translate('N/A') }}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-xl-12">
             <div class="i-card-md">
                 <div class="card--header">
                     <h4 class="card-title">
@@ -16,30 +109,32 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ translate('User') }} : <a href='{{route("admin.user.show",$report->user->uid)}}'>
+                    <ul class="withdraw-info-list list-group-flush">
+                        <li>{{ translate('User') }} : <a href='{{route("admin.user.show",$report->user->uid)}}'>
                         {{$report->user->name}}</a></li>
-                        <li class="list-group-item">{{ translate('Transaction Id') }} : {{ $report->trx_code }}</li>
-                        <li class="list-group-item">{{ translate('Payment Method') }} : {{ $report->method->name }}</li>
-                        <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
-                        <li class="list-group-item">{{ translate('Charge') }} :
-                            {{num_format($report->charge,@$report->currency)}}
+                        <li>{{ translate('Transaction Id') }} : <span>{{ $report->trx_code }}</span></li>
+                        <li>{{ translate('Payment Method') }} : <span>{{ $report->method->name }}</span></li>
+                        <li>{{ translate('Amount') }} :   <span>{{num_format($report->amount,@$report->currency)}}</span></li>
+                        <li>{{ translate('Charge') }} :
+                            <span>
+                                {{num_format($report->charge,@$report->currency)}}
+                            </span>
                         </li>
-                        <li class="list-group-item">{{ translate('Final Amount') }} :
-                            {{num_format($report->final_amount,@$report->currency)}}
+                        <li>{{ translate('Final Amount') }} :
+                            <span>{{num_format($report->final_amount,@$report->currency)}}</span>
                         </li>
-                        <li class="list-group-item">{{ translate('Date') }} : {{ diff_for_humans($report->created_at) }}
+                        <li>{{ translate('Date') }} : <span>{{ diff_for_humans($report->created_at) }}</span>
                         </li>
-                        <li class="list-group-item">{{ translate('Status') }} :     @php echo   withdraw_status($report->status)  @endphp
+                        <li>{{ translate('Status') }} :     @php echo   withdraw_status($report->status)  @endphp
                         </li>
-                        <li class="list-group-item">{{ translate('Feedback') }} :
-                            {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
+                        <li>{{ translate('Feedback') }} :
+                            <span>{{ $report->feedback ? $report->feedback : translate('N/A') }}</span></li>
                     </ul>
                 </div>
             </div>
-        </div>
-        @if ($col == 6)
-            <div class="col-xl-6 col-lg-6 col-md-6">
+        </div> -->
+        <!-- @if ($col == 6)
+            <div class="col-xl-12 col-lg-6 col-md-6">
                 <div class="i-card-md">
                     <div class="card--header">
                         <h4 class="card-title">
@@ -47,9 +142,9 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
+                        <ul class="withdraw-info-list list-group-flush">
                             @foreach ($report->custom_data as $k => $v)
-                                <li class="list-group-item">{{ translate(ucfirst($k)) }} :
+                                <li>{{ translate(ucfirst($k)) }} :
                                     @if ($v->type == 'file')
                                         @php
                                             $file = $report
@@ -58,10 +153,12 @@
                                                 ->first();
                                
                                         @endphp
-                                        <img src='{{imageUrl($file,"withdraw",true)}}'
+                                        <div class="width-draw-profile">
+                                            <img src='{{imageUrl($file,"withdraw",true)}}'
                                             alt="{{ @$file->name }}">
+                                        </div>
                                     @else
-                                        {{ $v->field_name }}
+                                        <span>{{ $v->field_name }}</span>
                                     @endif
                                 </li>
                             @endforeach
@@ -84,7 +181,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif -->
     </div>
 @endsection
 

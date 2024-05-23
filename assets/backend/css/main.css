@@ -1845,7 +1845,7 @@ table.dataTable.no-footer {
     }
 }
 
-.i-card-md>.card--header .card-title {
+.card-title {
     font-size: 18px;
     color: var(--text-primary);
     line-height: 1;
@@ -1854,7 +1854,7 @@ table.dataTable.no-footer {
     line-height: 1.4
 }
 
-.i-card-md>.card--header .card-title::after {
+.card-title::after {
     content: "";
     position: absolute;
     left: 0;
@@ -4146,14 +4146,14 @@ textarea {
 
 .nav-tabs.style-1 .nav-link {
     color: var(--text-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    background-color: var(--site-bg)
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
 }
 
 .nav-tabs.style-1 .nav-link.active {
     background-color: var(--color-primary);
-    color: var(--color-white)
+    color: var(--color-white);
+    border: 2px solid var(--color-primary);
 }
 
 .nav-tabs.style-2 {
@@ -6806,3 +6806,74 @@ ul.inbox-list li .col-mail-2 .date {
     );
 }
 
+.withdraw-info-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.withdraw-info-list li{
+    padding: 14px 20px;
+    border-radius: 5px;
+    background-color: #F5F5F5;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+}
+.withdraw-info-list li span:first-child{
+    min-width: 230px;
+    font-weight: 500;
+}
+.withdraw-info-list li span:last-child{
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.withdraw-info-list li span{
+    display: inline-block;
+    font-size: 16px;
+}
+.withdraw-info-list li a{
+    font-weight: 600;
+    display: block;
+}
+.withdraw-info-list li i{
+    display: inline-block;
+    min-width: 25px;
+    height: 25px;
+    line-height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: var(--color-primary-light);
+    border: 1px solid var(--color-primary-light);
+    color: var(--color-primary);
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.width-draw-profile img{
+    max-width: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 3px solid var(--color-white);
+}
+
+
+@media (max-width: 768px) {
+    .withdraw-info-list li {
+        padding: 10px 15px;
+        border-radius: 5px;
+        flex-wrap: wrap;
+    }
+    .withdraw-info-list li span{
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .withdraw-info-list li span:first-child{
+        min-width: 100%;
+        font-weight: 500;
+    }
+}
