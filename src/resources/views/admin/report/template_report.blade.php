@@ -19,7 +19,7 @@
         <div class="i-card-md">
             <div class="card--header text-end">
                  <h4 class="card-title">
-                      {{ date('Y')}}
+                      {{ translate('Word Generation (Current Year)')}}
                  </h4>
             </div>
             <div class="card-body">
@@ -144,7 +144,7 @@
                                                 <i class="las la-info"></i></a>
 
                                             @if(check_permission('delete_report') )
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.template.report.destroy',$report->id)}}"  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" class="pointer delete-item icon-btn danger">
+                                                <a  href="javascript:void(0);" data-href="{{route('admin.template.report.destroy',$report->id)}}"  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
                                             @endif
                                         </div>
@@ -230,8 +230,8 @@
             colors: colors,
             plotOptions: {
                 bar: {
-                columnWidth: '45%',
-                distributed: true,
+                    columnWidth: '45%',
+                    distributed: true,
                 }
             },
             dataLabels: {
@@ -254,6 +254,8 @@
 
         var chart = new ApexCharts(document.querySelector("#template-report"), options);
         chart.render();
+
+
 
 	})(jQuery);
 </script>

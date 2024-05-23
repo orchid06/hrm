@@ -263,12 +263,24 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('sortByMonth')) {
-      function sortByMonth(array $data , bool $numFormat = false) :array{
+      function sortByMonth(array $data , bool $numFormat = false , int | array $default  = null) :array{
          $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
          $sortedArray = [];
          foreach($months as $month){
-             $amount =  Arr::get($data,$month,0);
-             $sortedArray[$month] = $numFormat ? currency_conversion(number :round($amount)) :round($amount);
+             $amount =  Arr::get($data,$month, $default ?? 0);
+
+             switch (is_array($amount)) {
+               case true:
+                  $amount = collect($amount)->map(fn(int | float $value, string $key)  :int | float => 
+                            $numFormat ? currency_conversion(number :round($value)) : round($value) )->all();
+                  break;
+               
+               default:
+                  $amount = $numFormat ? currency_conversion(number :round($amount)) : round($amount);
+                  break;
+             }
+
+             $sortedArray[$month] =  $amount;
          }
          return $sortedArray;
       }

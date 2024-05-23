@@ -1278,6 +1278,7 @@
     $primary_light3 = "rgba(".$primaryRgba.",0.5)";
     $primary_light4 = "rgba(".$primaryRgba.",0.3)";
     $secondary_light = "rgba(".$secondaryRgba.",0.1)";
+    $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
   @endphp
   @endsection
 
@@ -1427,13 +1428,14 @@
     chart.render();
 
     function formatCurrency(value) {
+        var symbol =  "{{  $symbol }}" ;
         var suffixes = ["", "K", "M", "B", "T"];
         var order = Math.floor(Math.log10(value) / 3);
         var suffix = suffixes[order];
         if(value < 1)
-        {return "$"+value}
+        {return symbol+value}
         var scaledValue = value / Math.pow(10, order * 3);
-        return "$" + scaledValue.toFixed(2) + suffix;
+        return symbol + scaledValue.toFixed(2) + suffix;
     }
 
 

@@ -6806,3 +6806,7 @@ ul.inbox-list li .col-mail-2 .date {
     );
 }
 
+input[type="date"]::after{
+    content: unset !important;
+}
+

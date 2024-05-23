@@ -34,6 +34,7 @@ use App\Traits\ModelAction;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use App\Traits\Notifyable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Redirect;
 
 class ActivityHistoryController extends Controller
@@ -106,23 +107,30 @@ class ActivityHistoryController extends Controller
             "templates"       => $templates ,
 
             'summaries'       => [
-                                    'total_words' => truncate_price(TemplateUsage::sum("total_words")),
+                                    'total_words' => truncate_price(TemplateUsage::filter(['template:slug',"user:username"])
+                                                                                    ->sum("total_words")),
                                     
-                                    'this_year'   => truncate_price(TemplateUsage::whereYear('created_at', '=',date("Y"))
+                                    'this_year'   => truncate_price(TemplateUsage::filter(['template:slug',"user:username"])
+                                                                        ->whereYear('created_at', '=',date("Y"))
                                                                         ->sum("total_words"),1),
-                                    'this_month'  => truncate_price(TemplateUsage::whereMonth('created_at', '=',date("M"))
+
+                                    'this_month'  => truncate_price(TemplateUsage::filter(['template:slug',"user:username"])
+                                                                        ->whereMonth('created_at', '=',date("M"))
                                                                         ->sum("total_words"),0),
-                                    'this_week'  => truncate_price(TemplateUsage::whereBetween('created_at', 
-                                    [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-                                                                        ->sum("total_words"),0),
-                                    'today'       => truncate_price(TemplateUsage::whereDate('created_at', Carbon::today())
-                                                                        ->sum("total_words"),0),
+
+                                    'this_week'  => truncate_price(TemplateUsage::filter(['template:slug',"user:username"])
+                                                                                    ->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])
+                                                                                    ->sum("total_words"),0),
+                                    'today'       => truncate_price(TemplateUsage::filter(['template:slug',"user:username"])
+                                                                                ->whereDate('created_at', Carbon::today())
+                                                                                ->sum("total_words"),0),
                                                         
                                     'total_template_usages' => $templates->count(),
                         
-            ],
+             ],
 
-            'graph_data'       => sortByMonth(TemplateUsage::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+            'graph_data'       => sortByMonth(TemplateUsage::filter(['template:slug',"user:username"])
+                                                    ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
                                                     ->whereYear('created_at', '=',date("Y"))
                                                     ->groupBy('months')
                                                     ->pluck('total', 'months')
@@ -141,7 +149,7 @@ class ActivityHistoryController extends Controller
      */
     public function templateReportdestroy(string | int $id) :RedirectResponse{
 
-        $report  = TemplateUsage::custom()->where('id',$id)->firstOrfail();
+        $report  = TemplateUsage::where('id',$id)->firstOrfail();
         $report->delete();
         return  back()->with(response_status('Item deleted succesfully'));
     }
@@ -157,15 +165,38 @@ class ActivityHistoryController extends Controller
 
         return view('admin.report.credit_report',[
 
-            'breadcrumbs'     =>  ['Home'=>'admin.home','Credit Reports'=> null],
+            'breadcrumbs'     => ['Home'=>'admin.home','Credit Reports'=> null],
             'title'           => 'Credit Reports',
             "reports"         => CreditLog::with(['user'])
-                                    ->search(['remark','trx_code'])
-                                    ->filter(["user:username",'type'])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                            ->search(['remark','trx_code'])
+                                            ->filter(["user:username",'type'])
+                                            ->date()               
+                                            ->latest()
+                                            ->paginate(paginateNumber())
+                                            ->appends(request()->all()),
+
+
+            
+            'summaries'       => [
+                                        'total_log'    => (CreditLog::filter(["user:username",'type'])->count()),
+                                        
+                                        'this_year'    => truncate_price(CreditLog::whereYear('created_at', '=',date("Y"))
+                                                                            ->filter(["user:username",'type'])->count(),0),
+                                        'this_month'   => truncate_price(CreditLog::whereMonth('created_at', '=',date("M"))
+                                                                            ->filter(["user:username",'type'])->count(),0),
+                                        'this_week'    => truncate_price(CreditLog::whereBetween('created_at', 
+                                        [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                                                            ->filter(["user:username",'type'])->count(),0),
+                                        'today'        => truncate_price(CreditLog::whereDate('created_at', Carbon::today())
+                                                                            ->filter(["user:username",'type'])->count(),0),
+            ],
+    
+            'graph_data'       => sortByMonth(CreditLog::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                                    ->filter(["user:username",'type'])
+                                                                    ->whereYear('created_at', '=',date("Y"))
+                                                                    ->groupBy('months')
+                                                                    ->pluck('total', 'months')
+                                                                    ->toArray())
 
 
          
@@ -220,12 +251,12 @@ class ActivityHistoryController extends Controller
             'breadcrumbs'     =>  ['Home'=>'admin.home','Transaction Reports'=> null],
             'title'           => 'Transaction Reports',
             "reports"         => Transaction::with(['user','admin','currency'])
-                                    ->search(['remarks','trx_code'])
-                                    ->filter(["user:username",'trx_type'])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                                    ->search(['remarks','trx_code'])
+                                                    ->filter(["user:username",'trx_type'])
+                                                    ->date()               
+                                                    ->latest()
+                                                    ->paginate(paginateNumber())
+                                                    ->appends(request()->all()),
 
         ]);
 
@@ -281,17 +312,50 @@ class ActivityHistoryController extends Controller
 
             'breadcrumbs'     =>  ['Home'=>'admin.home','Subscription Reports'=> null],
             'title'           => 'Subscription Reports',
-            "reports"         => Subscription::with(['user','package','oldPackage'])
-                                    ->search(['trx_code'])
-                                    ->filter(["user:username",'package:slug'])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+            "reports"         =>  Subscription::with(['user','package','oldPackage'])
+                                        ->search(['trx_code'])
+                                        ->filter(["user:username",'package:slug'])
+                                        ->date()               
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
 
+            "packages"                        => Package::all(),
+            "total_subscription_amount"       => num_format(number: Subscription::filter(["user:username",'package:slug'])->sum('payment_amount'), calC:true),
 
-            "packages"       => Package::all(),
-         
+            'summaries'      => [
+
+                            'total_subscription'    => truncate_price(Subscription::filter(["user:username",'package:slug'])->count(),0),
+                            
+                            'this_year'             => truncate_price(Subscription::filter(["user:username",'package:slug'])
+                                                                      ->whereYear('created_at', '=',date("Y"))
+                                                                      ->count(),0),
+
+                            'this_month'            => truncate_price(Subscription::filter(["user:username",'package:slug'])
+                                                                            ->whereMonth('created_at', '=',date("M"))
+                                                                            ->count(),0),
+
+                            'this_week'             => truncate_price(Subscription::filter(["user:username",'package:slug'])
+                                                                ->whereBetween('created_at', 
+                                                                [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                                                ->count(),0),
+    
+
+                            'today'                => truncate_price(Subscription::filter(["user:username",'package:slug'])->whereDate('created_at', Carbon::today())
+                                                                ->count(),0),
+                                                
+
+                
+            ],
+
+            'graph_data'       => sortByMonth(Subscription::date()
+                                                    ->filter(["user:username",'package:slug'])
+                                                    ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
+                                                    ->whereYear('created_at', '=',date("Y"))
+                                                    ->groupBy('months')
+                                                    ->pluck('total', 'months')
+                                                    ->toArray(),true),
+                                                
         ]);
 
     
@@ -311,12 +375,14 @@ class ActivityHistoryController extends Controller
         ]);
 
         $subscription             = Subscription::with(['user','package'])
-                                      ->where('id',$request->input('id'))
-                                      ->firstOrFail();
+                                                        ->where('id',$request->input('id'))
+                                                        ->firstOrFail();
         $subscription->status     = $request->input("status");
         $subscription->remarks    = $request->input("remarks");
         $subscription->expired_at = $request->input("expired_at");
         $subscription->save();
+
+
         $code = [
             "link"          => route("user.subscription.report.list"), 
             "plan_name"     => $subscription->package->title,
@@ -362,7 +428,41 @@ class ActivityHistoryController extends Controller
      *
      * @return View
      */
-    public function depositReport() :View{
+    public function depositReport() :View {
+
+
+       $graphData = [];
+
+
+        PaymentLog::date()
+            ->filter(["user:username", 'method_id', 'status'])
+            ->whereYear('created_at',  date('Y'))
+            ->filter(["user:username", 'package:slug'])
+            ->selectRaw("MONTH(created_at) as month, 
+                            MONTHNAME(created_at) as months,
+                            SUM(base_final_amount) as total,
+                            SUM(CASE WHEN status = '-1'  THEN base_final_amount END) AS initiate,
+                            SUM(CASE WHEN status =  '1'  THEN base_final_amount END) AS paid,
+                            SUM(CASE WHEN status =  '2'  THEN base_final_amount END) AS cancel,
+                            SUM(CASE WHEN status =  '3'  THEN base_final_amount END) AS pending,
+                            SUM(CASE WHEN status =  '5'  THEN base_final_amount END) AS rejected")
+
+            ->groupBy('month', 'months')
+            ->orderBy('month')
+            ->chunk(1000, function (Collection $logs) use (&$graphData) : void {
+                $graphData  = $logs->map(fn(PaymentLog $log) : array =>
+                        [$log->months =>  [
+                            'total'    => $log->total ?? 0,
+                            'initiate' => $log->initiate ?? 0,
+                            'success'  => $log->paid ?? 0,
+                            'cancel'   => $log->cancel ?? 0,
+                            'pending'  => $log->pending ?? 0,
+                            'rejected' => $log->rejected ?? 0,
+                        ]]
+                );
+            });
+
+
 
 
         return view('admin.report.deposit_report',[
@@ -377,8 +477,50 @@ class ActivityHistoryController extends Controller
                                         ->paginate(paginateNumber())
                                         ->appends(request()->all()),
                                         
-            'methods'         => PaymentMethod::active()->get()
+            'methods'            => PaymentMethod::active()->get(),
+
+            'total_deposit'      =>  num_format(number:PaymentLog::filter(["user:username",'method_id','status'])
+                                                                ->sum('base_final_amount'),calC :true),
+
+
             
+            'summaries'      => [
+
+                    'success_deposit'         => num_format(number:PaymentLog::paid()
+                                                                        ->filter(["user:username",'method_id','status'])
+                                                                        ->sum('base_final_amount'),calC :true),
+                    
+                    'this_year'               => num_format(number:PaymentLog::paid()
+                                                                        ->filter(["user:username",'method_id','status'])
+                                                                        ->whereYear('created_at', '=',date("Y"))
+                                                                        ->sum('base_final_amount'),calC :true),
+
+                    'this_month'              => num_format(number:PaymentLog::paid()
+                                                                        ->filter(["user:username",'method_id','status'])
+                                                                        ->whereMonth('created_at', '=',date("M"))
+                                                                        ->sum('base_final_amount'),calC :true),
+
+                    'this_week'               => num_format(number:PaymentLog::paid()->filter(["user:username",'method_id','status'])
+                                                                        ->whereBetween('created_at', 
+                                                                        [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                                                        ->sum('base_final_amount'),calC :true),
+
+
+                    'today'                   => num_format(number:PaymentLog::paid()
+                                                                        ->filter(["user:username",'method_id','status'])
+                                                                        ->whereDate('created_at', Carbon::today())
+                                                                        ->sum('base_final_amount'),calC :true),
+              ],
+
+              'graph_data'       => sortByMonth($graphData->collapse()->all(),true,['total'   => 0,
+                                                                'initiate' => 0,
+                                                                'success'  => 0,
+                                                                'cancel'   => 0,
+                                                                'pending'  => 0,
+                                                                'rejected' => 0]), 
+
+         
+                                
 
          
         ]);
@@ -494,8 +636,8 @@ class ActivityHistoryController extends Controller
         ]);
 
         $log           = WithdrawLog::with(['user','method',"currency"])->where('id',$request->input("id"))
-                            ->pending()
-                            ->firstOrfail();
+                                                                        ->pending()
+                                                                        ->firstOrfail();
         
         $response      =  response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error');
 

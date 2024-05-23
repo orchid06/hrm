@@ -99,11 +99,11 @@ class HomeController extends Controller
                                                                                ),
             
                                      "monthly_subscriptions"      =>  sortByMonth(Subscription::date()
-                                                                        ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
-                                                                        ->whereYear('created_at', '=',date("Y"))
-                                                                        ->groupBy('months')
-                                                                        ->pluck('total', 'months')
-                                                                        ->toArray()),
+                                                                            ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                                            ->whereYear('created_at', '=',date("Y"))
+                                                                            ->groupBy('months')
+                                                                            ->pluck('total', 'months')
+                                                                            ->toArray()),
                     
                                      "monthly_income"             =>   sortByMonth(Subscription::date()
                                                                             ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")

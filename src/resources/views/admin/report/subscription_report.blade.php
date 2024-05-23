@@ -8,30 +8,24 @@
     <div class="row mb-4">
         <div class="col-lg-9">
             <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Subscription Revenue (Current Year)')}}
+                    </h4>
+               </div>
                 <div class="card-body">
                     <div id="subscrition-report"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div class="card card--hover linear-card bg--linear-primary text-center mb-3">
-                        <div class="card-body p-3">
-                            <h6 class="text-white opacity-75 fw-normal fs-13">Total Balance</h6>
-                            <h4 class="fw-bold mt-1 mb-3 text-white fs-18">$2800</h4>
-                            <p class="text-white opacity-75">Running Subscriber Expired Subscriber Subscription Type</p>
-                        </div>
-                    </div>
-                    <ul class="subcription-list">
-                        <li><span>Total Subscriber</span><span>200</span></li>
-                        <li><span>Paid Amount</span><span>$3454534</span></li>
-                        <li><span>Running Subscriber</span><span>400</span></li>
-                        <li><span>Expired Subscriber</span><span>234</span></li>
-                        <li><span>Subscription Type</span><span>Four</span></li>
-                    </ul>
-                </div>
-            </div>
+            @include('admin.partials.summary',['header' => true , "header_info" => [
+                'title' => translate("Total subscription amount"),
+                'total' => $total_subscription_amount,
+                'note'  => translate('The total revenue generated from all subscription payments collected by the system'),
+            ]])
+
+    
         </div>
     </div>
     <div class="i-card-md">
@@ -54,8 +48,8 @@
                                                 {{translate('Select User')}}
                                             </option>
                                             @foreach(system_users() as $user)
-                                            <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                            </option>
+                                                <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -65,9 +59,9 @@
                                                 {{translate('Select Package')}}
                                             </option>
                                             @foreach($packages as $package)
-                                            <option  {{$package->slug ==  request()->input('package') ? 'selected' :""}}
-                                                value="{{$package->slug}}"> {{$package->title}}
-                                            </option>
+                                                <option  {{$package->slug ==  request()->input('package') ? 'selected' :""}}
+                                                    value="{{$package->slug}}"> {{$package->title}}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -97,7 +91,7 @@
                                #
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
                                 {{translate('Expired In')}}
@@ -134,6 +128,9 @@
                                     <td data-label="{{translate('Expired In')}}">
                                         @if($report->expired_at)
                                            {{ get_date_time($report->expired_at) }}
+                                           <div>
+                                               {{ diff_for_humans($report->expired_at) }}
+                                           </div>
                                         @else
                                             {{translate("N/A")}}
                                         @endif
@@ -144,7 +141,7 @@
                                         </a>
                                     </td>
                                     <td data-label='{{translate("Package")}}'>
-                                         {{@$report->package->title}}
+                                         {{@$report->package?->title}}
                                     </td>
                                     <td data-label='{{translate("Status")}}'>
                                          @php echo subscription_status($report->status) @endphp
@@ -158,6 +155,9 @@
                                     <td data-label='{{translate("Date")}}'>
                                         @if($report->created_at)
                                            {{ get_date_time($report->created_at) }}
+                                           <div>
+                                               {{ diff_for_humans($report->created_at) }}
+                                           </div>
                                         @else
                                             {{translate("N/A")}}
                                         @endif
@@ -180,18 +180,18 @@
                                                 ];
                                             @endphp
 
-                                            <a title="{{translate('Info')}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
                                         </div>
                                     </td>
                                </tr>
                             @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                    </td>
+                                </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -201,113 +201,20 @@
             </div>
         </div>
     </div>
-
+    @php
+        $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
+    @endphp 
 @endsection
 @section('modal')
-
-    <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        {{translate('Subscription Information')}}
-                    </h5>
-                    <button class="close-btn" data-bs-dismiss="modal">
-                        <i class="las la-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-inner">
-                                <label for="content" class="form-label" >
-                                    {{translate('Note')}}
-                                </label>
-                                <textarea disabled name="content" id="content" cols="30" rows="4"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <ul class="list-group list-group-flush" id="additionalInfo">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark danger" data-anim="ripple" data-bs-dismiss="modal">
-                        {{translate("Close")}}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="updatesubscription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updatesubscription" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" >
-                        {{translate('Update Subscription')}}
-                    </h5>
-                    <button class="close-btn" data-bs-dismiss="modal">
-                        <i class="las la-times"></i>
-                    </button>
-                </div>
-                <form action="{{route('admin.subscription.report.update')}}" id="updateModalForm" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="id" class="form-control" >
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="Status">
-                                        {{translate('Status')}}   <span class="text-danger">*</span>
-                                    </label>
-                                    <select class="form-select" name="status"  id="Status">
-                                        @foreach ( App\Enums\SubscriptionStatus::toArray() as $k => $v )
-                                           <option value="{{$v}}">{{$k}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="expired_at">
-                                        {{translate('Expire Date')}} <span class="text-danger">*
-                                            </span>
-                                    </label>
-                                    <input type="date" required name="expired_at" id="expired_at">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-inner">
-                                    <label for="remarks">
-                                        {{translate('Remarks')}}
-                                            <small class="text-danger">*</small>
-                                    </label>
-                                       <textarea required placeholder='{{translate("Type Here ...")}}' name="remarks" id="remarks" cols="30" rows="5"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
-                            {{translate("Close")}}
-                        </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-                            {{translate("Submit")}}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    @include('admin.partials.modal.subscription_report')
+    @include('admin.partials.modal.update_subscription')
 @endsection
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
@@ -317,22 +224,11 @@
 
         "use strict";
 
-        $(".select2").select2({
-
-        });
-        $(".user").select2({
-
-        });
-        $(".package").select2({
-
-        });
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".package").select2({});
 
 
-
-        flatpickr("#expired_at", {
-            dateFormat: "Y-m-d",
-
-        });
 
         $(document).on('click','.show-info',function(e){
 
@@ -366,37 +262,73 @@
             modal.modal('show')
         })
 
+
+
+
+        
+        var labels = @json(array_keys($graph_data));
+        var data   = @json(array_values($graph_data));
+
         var options = {
-          series: [{
-          name: 'series1',
-          data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-          name: 'series2',
-          data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-          chart: {
-          height: 350,
-          type: 'area'
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'smooth'
-        },
-        xaxis: {
-          type: 'datetime',
-          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-        },
-        tooltip: {
-          x: {
-            format: 'dd/MM/yy HH:mm'
-          },
-        },
+            chart: {
+                height: 455,
+                type: "area",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+           colors: ['var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"],
+            series: [
+                {
+                name: "{{ translate('Subscriptions Income') }}",
+                data: data,
+                },
+
+            ],
+            xaxis: {
+                categories: labels,
+            },
+
+            tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return formatCurrency(value);
+                    }
+                }
+            },
+            markers: {
+                size: 6,
+            },
+            stroke: {
+                width: [4, 4],
+            },
+            legend: {
+                horizontalAlign: "left",
+                offsetX: 40,
+            },
         };
+
 
         var chart = new ApexCharts(document.querySelector("#subscrition-report"), options);
         chart.render();
+
+
+        
+        function formatCurrency(value) {
+            var symbol =  "{{  $symbol }}" ;
+            var suffixes = ["", "K", "M", "B", "T"];
+            var order = Math.floor(Math.log10(value) / 3);
+            var suffix = suffixes[order];
+            if(value < 1)
+            {return symbol+value}
+            var scaledValue = value / Math.pow(10, order * 3);
+            return symbol + scaledValue.toFixed(2) + suffix;
+        }
+
+
+
 
 	})(jQuery);
 </script>

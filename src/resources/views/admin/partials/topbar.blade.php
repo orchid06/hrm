@@ -1,7 +1,7 @@
 
 <header class="header">
   @php
-            $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
+            $currencies = site_currencies()->where("code",'!=',session()->get('currency')?->code);
   @endphp
   <div class="header-container">
     <div class="d-flex align-items-center gap-lg-3 gap-2">
@@ -34,10 +34,10 @@
       @if(site_settings('database_notifications') ==  App\Enums\StatusEnum::true->status() && check_permission('view_notification'))
           @php
                $notifications = \App\Models\Notification::where('notificationable_type','App\Models\Admin')
-                                  ->unread()
-                                  ->latest()
-                                  ->take(8)
-                                  ->get();
+                                                          ->unread()
+                                                          ->latest()
+                                                          ->take(8)
+                                                          ->get();
           @endphp
 
           <div class="header-icon">

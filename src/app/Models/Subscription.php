@@ -42,10 +42,9 @@ class Subscription extends Model
     public function scopeExpired(Builder $q) :Builder{
 
         $currentDate = now()->toDateString();
-        return $q->where(function (Builder $query) use ($currentDate) {
+        return $q->where(fn (Builder $query)   : Builder => 
             $query->whereNotNull('expired_at')
-                ->where('expired_at', '<', $currentDate);
-        });
+                ->where('expired_at', '<', $currentDate));
     }
 
 

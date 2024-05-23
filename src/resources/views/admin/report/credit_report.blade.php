@@ -14,20 +14,7 @@
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card--header">
-                    <h4 class="card-title">Credit Summery</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="subcription-list">
-                        <li><span>Total User</span><span>200</span></li>
-                        <li><span>Total Credit</span><span>+4545</span></li>
-                        <li><span>Total Post Credit</span><span>67847</span></li>
-                        <li><span>Approved</span><span>234</span></li>
-                        <li><span>Rejected</span><span>989</span></li>
-                    </ul>
-                </div>
-            </div>
+            @include('admin.partials.summary')
         </div>
     </div>
     <div class="i-card-md">
@@ -122,7 +109,7 @@
                                 {{translate('User')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
                                 {{translate('Credit')}}
@@ -149,10 +136,13 @@
                                     </td>
                                     <td data-label="{{translate('Date')}}">
                                         {{ get_date_time($report->created_at) }}
+                                          <div>
+                                               {{ diff_for_humans($report->created_at)}}
+                                          </div>
                                     </td>
                                     <td data-label="{{translate('User')}}">
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
-                                            {{$report->user->name}}
+                                            {{$report?->user->name}}
                                         </a>
                                     </td>
                                     <td  data-label="{{translate('Trx Code')}}">
@@ -180,13 +170,12 @@
                                     </td>
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-                                            <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                             @if(check_permission('delete_report') )
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.credit.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.credit.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a> 
-                                            @else
-                                                {{translate('N/A')}}
+                                 
                                             @endif
                                         </div>
                                     </td>
@@ -234,13 +223,14 @@
             </div>
         </div>
     </div>
+    
 @endsection
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
-    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
+     <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -249,15 +239,9 @@
 
          "use strict";
 
-        $(".select2").select2({
-
-        });
-        $(".user").select2({
-
-        });
-        $(".type").select2({
-
-        });
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".type").select2({});
 
      
 
@@ -273,51 +257,43 @@
         });
 
 
-        var colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8'];
+
+        var  colors = ['var(--color-success)'];
+
+        var labels = @json(array_keys($graph_data));
+        var data   = @json(array_values($graph_data));
 
         var options = {
-        series: [{
-            data: [21, 22, 10, 28, 16, 21, 13, 30]
-        }],
-        chart: {
-            height: 350,
-            type: 'bar',
-            events: {
-            click: function(chart, w, e) {
+            series: [{
+                name: "{{ translate('Total log') }}",
+                data: data
+            }],
+            chart: {
+                height: 350,
+                type: 'line',
+                events: {
+                    click: function(chart, w, e) {
+                    }
+                }
+            },
+            colors: colors,
+          
+            dataLabels: {
+                enabled: false
+            },
+
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: labels,
+                labels: {
+                    style: {
+                        colors: colors,
+                        fontSize: '12px'
+                    }
+                }
             }
-            }
-        },
-        colors: colors,
-        plotOptions: {
-            bar: {
-            columnWidth: '45%',
-            distributed: true,
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        legend: {
-            show: false
-        },
-        xaxis: {
-            categories: [
-            ['Excellent'],
-            ['Mindblowing'],
-            ['Very God'],
-            ['Average'],
-            ['Poor'],
-            ['Very Poor'],
-            ['Worst'],
-            ['Very Bad'],
-            ],
-            labels: {
-            style: {
-                colors: colors,
-                fontSize: '12px'
-            }
-            }
-        }
         };
 
         var chart = new ApexCharts(document.querySelector("#credit-report"), options);
