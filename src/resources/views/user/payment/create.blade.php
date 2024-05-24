@@ -32,6 +32,226 @@
 
       <div class="i-card-md">
         <div class="card-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h6 class="mb-3">Automatic</h6>
+                    <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="payment-card-item">
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 ps-lg-5">
+                    <div class="payment-flip-card">
+                        <div class="balance-info-card d-none">  
+                            <span class="balance-icon">
+                                <i class="bi bi-wallet2"></i>
+                            </span>
+
+                            <p>Your Balance</p>
+                            <h5>$3000.00</h4>
+
+                            <span class="balance-shape">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve" class=""><g><g fill="none" stroke="#0a1c28" stroke-linejoin="round" data-name="cradit card"><g stroke-width="2"><path d="M38 34a2 2 0 1 0-2-2 2 2 0 1 1-2-2M30 32h2M40 32h2M35 57h5" fill="" opacity="1"></path><path d="M49 48V10a3 3 0 0 1-3-3H26a3 3 0 0 1-3 3v27" fill="" opacity="1"></path><path d="M19 37V3h34v45M40 61H19M53 48 40 61V50a2 2 0 0 1 2-2z" fill="" opacity="1"></path><path d="M46 55h8a3 3 0 0 1 3-3V12a3 3 0 0 1-3-3h-1" fill="" opacity="1"></path><path d="M53 5h8v54H42M28.52 37A9 9 0 1 1 36 41h-1" fill="" opacity="1"></path><rect width="32" height="24" x="3" y="37" rx="2" fill="" opacity="1"></rect></g><path stroke-width="4" d="M3 44h32" fill="" opacity="1"></path><circle cx="29" cy="55" r="2" stroke-width="2" fill="" opacity="1"></circle><path stroke-width="2" d="M6 57h2M10 57h2" fill="" opacity="1"></path></g></g></svg>
+                            </span>
+                        </div>
+    
+                        <div class="payment-card-form">
+                            <div class="d-flex align-items-center justify-content-between bg-light payment-form-top">
+                                <h5>Master Card</h5>
+                                <span class="payment-img">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="">
+                                </span>
+                            </div>
+                            <form>
+
+                                <div>
+                                    <div class="form-inner">
+                                        <label for="amount">
+                                            Amount
+                                            <small class="text-danger">*</small></label>
+                                        <div class="input-group">
+                                            <input placeholder="Enter Amount" name="amount" type="number" class="form-control" id="amount">
+                                            <span class="input-group-text">
+                                                $
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="i-btn btn--lg btn--primary capsuled">Submit</button>                               
+                                </div>
+
+                                <div class="payment-details-wrapper mt-4">
+                                    <ul class="payment-details deposit-details list-group mb-4">
+                                        <li class="list-group-item active" aria-current="true">
+                                            <h6>
+                                                Deposit Details
+                                            </h6>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <p>
+                                                Limit
+                                            </p>
+                                            <h6>
+                                                BDT1 -  BDT100000
+
+                                            </h6>
+                                        </li>
+                                        
+                                        <li class="list-group-item">
+                                            <p> Charge</p>
+                                            <h6> $0.000  (  $0 - 0% )</h6>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <p> Amount With Charge</p>
+                                            <h6> $20</h6>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <p> Exchange Rate</p>
+                                            <h6> $1 = BDT109.95</h6>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <p> Payable Amount</p>
+                                            <h6>
+                                                BDT2199.00 ($20.00)
+                                            </h6>
+                                        </li>
+                                    </ul>
+
+                                    <button type="button" class="i-btn btn--lg btn--primary capsuled">Submit</button>
+                                </div>
+
+
+                                <div class="">
+                                    <div class="form-inner">
+                                        <label for="">Card Number</label>
+                                        <input type="text" Placeholder="0000 0000 0000 0000">
+                                    </div>
+
+                                    <div class="form-inner">
+                                        <label for="">Card Holder Name</label>
+                                        <input type="text" Placeholder="Enter Name">
+                                    </div>
+
+                                    <div class="form-inner">
+                                        <label for="">Valid Through</label>
+                                        <input type="text" Placeholder="12/12">
+                                    </div>
+
+                                    <div class="form-inner">
+                                        <label for="">CV2/CV2</label>
+                                        <input type="text" Placeholder="***8">
+                                    </div>
+
+                                    <button type="submit" class="i-btn btn--lg btn--primary capsuled">Submit</button>
+                                </div>
+
+                            </form>
+                        </div> 
+                        
+                        <div class="loader-wrapper">
+                            <div class="spinner-border" role="status">
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- <div class="i-card-md">
+        <div class="card-body">
           <form action="{{route('user.deposit.process')}}" method="post">
              @csrf
                 <div class="form-inner">
@@ -82,7 +302,7 @@
                 </div>
           </form>
         </div>
-      </div>
+      </div> -->
     </div>
 </div>
 
@@ -214,8 +434,6 @@
 
             return  amount.toFixed(2);
         }
-
-
 
 	})(jQuery);
 </script>
