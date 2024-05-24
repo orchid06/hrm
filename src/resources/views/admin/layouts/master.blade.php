@@ -71,9 +71,20 @@
         })
 
         window.onload = function () {
-          $('.table-loader').addClass("d-none");
+           $('.table-loader').addClass("d-none");
 
         }
+
+
+        $(document).on('click', '.copy-trx ', function (e) {
+            var data = $(this).parent().find('.trx-number').html()
+            var $tempInput = $('<input>');
+            $('body').append($tempInput);
+            $tempInput.val(data.trim()).select();
+            document.execCommand('copy');
+            $tempInput.remove();
+            toastr('Copied Successfully', 'success')
+        })
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {

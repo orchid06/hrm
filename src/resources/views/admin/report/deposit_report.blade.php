@@ -32,8 +32,6 @@
      
     </div>
 
-
-
     <div class="i-card-md">
         <div class="card-body">
                <div class="search-action-area">
@@ -124,7 +122,10 @@
                                     {{translate('TRX Number')}}
                                 </th>
                                 <th scope="col">
-                                    {{translate('Final Amount')}}
+                                    {{translate('Receivable Amount')}}
+                                </th>
+                                <th scope="col">
+                                    {{translate('Payment Amount')}}
                                 </th>
                                 <th scope="col">
                                     {{translate('Status')}}
@@ -155,7 +156,15 @@
                                             {{$report->method->name}}
                                         </td>
                                         <td  data-label='{{translate("Trx Code")}}'>
-                                            {{$report->trx_code}}
+                                            <span class="trx-number me-1">
+                                                {{$report->trx_code}}
+                                            </span>
+
+                                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
+
+                                        </td>
+                                        <td  data-label='{{translate("Final Amount")}}'>
+                                            {{num_format($report->amount,@$report->currency)}}
                                         </td>
                                         <td  data-label='{{translate("Final Amount")}}'>
                                             {{num_format($report->final_amount,@$report->method->currency)}}
@@ -185,7 +194,6 @@
         </div>
     </div>
 
-
     @php
         $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
     @endphp 
@@ -212,17 +220,21 @@
 
         var options = {
             chart: {
-              height: 403,
+              height: 468,
               type: "area",
             },
           dataLabels: {
             enabled: false,
           },
-          colors: ['var(--color-info)','var(--color-success)','var(--color-warning-light)',  'var(--color-warning)' ,"var(--color-danger)"],
+          colors: ['var(--color-info)','var(--color-primary-light)','var(--color-success)','var(--color-warning-light)',  'var(--color-warning)' ,"var(--color-danger)"],
           series: [
             {
               name: "{{ translate('Total Deposit') }}",
               data: @json(array_column($graph_data , 'total')),
+            },
+            {
+              name: "{{ translate('Total Charge') }}",
+              data: @json(array_column($graph_data , 'charge')),
             },
             {
               name: "{{ translate('Success Deposit') }}",
