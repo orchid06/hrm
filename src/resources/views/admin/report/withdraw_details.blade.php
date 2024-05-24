@@ -37,7 +37,7 @@
                                                 @endphp
                                                 <div class="custom-profile">
                                             
-                                                    <a href="{{imageUrl($file,"withdraw",true)}}" class="image-link" title="{{ k2t($k) }}">
+                                                    <a href="{{imageUrl($file,"withdraw",true)}}" class="image-v-preview" title="{{ k2t($k) }}">
                                                         <img src="{{imageUrl($file,"withdraw",true)}}" alt="{{ ucfirst($k) }}">
                                                     </a>
                                                    
@@ -74,27 +74,51 @@
                                 </h4>
                             </div>
                             <div class="card-body">
-                                <ul class="custom-info-list list-group-flush">
-                                    <li><span>{{ translate('User') }}:</span> <a href='{{route("admin.user.show",$report->user->uid)}}'>
-                                    {{$report->user->name}}</a></li>
-                                    <li><span>{{ translate('Transaction Id') }} :</span> <span>{{ $report->trx_code }}</span></li>
-                                    <li><span>{{ translate('Payment Method') }} :</span> <span>{{ $report->method->name }}</span></li>
-                                    <li><span>{{ translate('Amount') }} :</span>   <span>{{num_format($report->amount,@$report->currency)}}</span></li>
-                                    <li><span>{{ translate('Charge') }} :</span>
-                                        <span>
-                                            {{num_format($report->charge,@$report->currency)}}
-                                        </span>
-                                    </li>
-                                    <li><span>{{ translate('Final Amount') }} :</span>
-                                        <span>{{num_format($report->final_amount,@$report->currency)}}</span>
-                                    </li>
-                                    <li><span>{{ translate('Date') }} :</span> <span>{{ diff_for_humans($report->created_at) }}</span>
-                                    </li>
-                                    <li><span>{{ translate('Status') }} :</span>     @php echo   withdraw_status($report->status)  @endphp
-                                    </li>
-                                    <li><span>{{ translate('Feedback') }} :</span>
-                                   <span>{{ $report->feedback ? $report->feedback : translate('N/A') }}</span></li>
-                                </ul>
+                                @php
+                                    $lists  =  [
+                                                        
+                                                    [
+                                                                    "title"  =>  translate('User'),
+                                                                    "href"   =>  route("admin.user.show",$report->user?->uid),
+                                                                    "value"  =>  $report->user?->name,
+                                                    ],
+                                                    [
+                                                                    "title"  =>  translate('Transaction Id'),
+                                                                    "value"  =>  $report->trx_code
+                                                    ],
+                                                    [
+                                                                    "title"  =>  translate('Receivable Amount'),
+                                                                    "value"  =>  num_format($report->amount,@$report->currency)
+                                                    ],
+                                                    [
+                                                                    "title"  =>  translate('Charge'),
+                                                                    "value"  =>  num_format($report->charge,@$report->currency)
+                                                    ],
+                                                    [
+                                                                    "title"  =>  translate('Final Amount'),
+                                                                    "value"  =>  num_format($report->final_amount,@$report->currency)
+                                                    ],
+                                                    [
+                                                                    "title"   =>  translate('Date'),
+                                                                    "value"   =>  diff_for_humans($report->created_at)
+                                                    ],
+                                                    [
+                                                                    "title"     =>  translate('Status'),
+                                                                    "is_html"   =>  true,
+                                                                    "value"     =>  withdraw_status($report->status)
+                                                    ],
+                                                    [
+                                                                    "title"     =>  translate('Feedback'),
+                                                                    "value"     =>  $report->feedback ? $report->feedback : translate('N/A')
+                                                    ],
+                                                        
+                                            ];
+
+                                @endphp
+
+                                @include('admin.partials.custom_list',['list'  => $lists])
+                               
+
                             </div>
                         </div>
                     </div>
@@ -165,7 +189,7 @@
 
         "use strict";
 
-        $('.image-link').viewbox();
+        $('.image-v-preview').viewbox();
 
         $(document).on('click','.update',function(e){
 
