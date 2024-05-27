@@ -441,6 +441,7 @@ class ActivityHistoryController extends Controller
             ->selectRaw("MONTH(created_at) as month, 
                             MONTHNAME(created_at) as months,
                             SUM(base_final_amount) as total,
+                            SUM(charge) as charge,
                             SUM(CASE WHEN status = '-1'  THEN base_final_amount END) AS initiate,
                             SUM(CASE WHEN status =  '1'  THEN base_final_amount END) AS paid,
                             SUM(CASE WHEN status =  '2'  THEN base_final_amount END) AS cancel,
@@ -453,6 +454,7 @@ class ActivityHistoryController extends Controller
                 $graphData  = $logs->map(fn(PaymentLog $log) : array =>
                         [$log->months =>  [
                             'total'    => $log->total ?? 0,
+                            'charge'   => $log->charge ?? 0,
                             'initiate' => $log->initiate ?? 0,
                             'success'  => $log->paid ?? 0,
                             'cancel'   => $log->cancel ?? 0,
@@ -486,9 +488,13 @@ class ActivityHistoryController extends Controller
             
             'summaries'      => [
 
+                    'total_income_by_charge'  => num_format(number:PaymentLog::paid()
+                                                                ->filter(["user:username",'method_id','status'])
+                                                                ->sum('charge'),calC :true),
                     'success_deposit'         => num_format(number:PaymentLog::paid()
                                                                         ->filter(["user:username",'method_id','status'])
                                                                         ->sum('base_final_amount'),calC :true),
+                                                                        
                     
                     'this_year'               => num_format(number:PaymentLog::paid()
                                                                         ->filter(["user:username",'method_id','status'])
@@ -510,9 +516,9 @@ class ActivityHistoryController extends Controller
                                                                         ->filter(["user:username",'method_id','status'])
                                                                         ->whereDate('created_at', Carbon::today())
                                                                         ->sum('base_final_amount'),calC :true),
-              ],
+            ],
 
-              'graph_data'       => sortByMonth($graphData->collapse()->all(),true,['total'   => 0,
+            'graph_data'       => sortByMonth($graphData->collapse()->all(),true,['total'   => 0,
                                                                 'initiate' => 0,
                                                                 'success'  => 0,
                                                                 'cancel'   => 0,
@@ -581,17 +587,97 @@ class ActivityHistoryController extends Controller
     public function withdrawReport() :View{
 
 
+        $graphData = [];
+
+
+
+        WithdrawLog::date()
+                        ->filter(["user:username", 'method_id', 'status'])
+                        ->filter(["user:username",'status'])
+                        ->selectRaw("
+                                        MONTH(created_at) as month, 
+                                        SUM(charge) as charge,
+                                        MONTHNAME(created_at) as months,
+                                        SUM(base_final_amount) as total,
+                                        SUM(CASE WHEN status =  '1'  THEN base_final_amount END) AS approved,
+                                        SUM(CASE WHEN status =  '2'  THEN base_final_amount END) AS rejected,
+                                        SUM(CASE WHEN status =  '3'  THEN base_final_amount END) AS pending
+                                      
+                                    ")
+
+                        ->groupBy('month', 'months')
+                        ->orderBy('month')
+                        ->chunk(1000, function (Collection $logs) use (&$graphData) : void {
+                            $graphData  = $logs->map(fn(WithdrawLog $log) : array =>
+                                    [$log->months =>  [
+                                        'total'    => $log->total ?? 0,
+                                        'charge'   => $log->charge ?? 0,
+                                        'rejected' => $log->rejected ?? 0,
+                                        'approved' => $log->approved ?? 0,
+                                        'pending'  => $log->pending ?? 0,
+                                    ]]
+                            );
+                        });
+
+
+ 
+
+
         return view('admin.report.withdraw_report',[
 
             'breadcrumbs'     =>  ['Home'=>'admin.home','Withdraw Report'=> null],
             'title'           => 'Withdraw Reports',
             "reports"         =>  WithdrawLog::with(['user','method','currency'])
-                                    ->search(['trx_code'])
-                                    ->filter(["user:username",'status'])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                            ->search(['trx_code'])
+                                            ->filter(["user:username",'status'])
+                                            ->date()               
+                                            ->latest()
+                                            ->paginate(paginateNumber())
+                                            ->appends(request()->all()),
+            'total_withdraw'  =>  num_format(number:WithdrawLog::filter(["user:username",'status'])
+                                                    ->sum('base_final_amount'),calC :true),
+
+            'summaries'       => [
+
+                'total_income_by_charge'  => num_format(number:WithdrawLog::approved()
+                                                            ->filter(["user:username",'status'])
+                                                            ->sum('charge'),calC :true),
+                'success_withdraw'         => num_format(number:WithdrawLog::approved()
+                                                                    ->filter(["user:username",'status'])
+                                                                    ->sum('base_final_amount'),calC :true),
+                                                                    
+                
+                'this_year'               => num_format(number:WithdrawLog::approved()
+                                                                   ->filter(["user:username",'status'])
+                                                                    ->whereYear('created_at', '=',date("Y"))
+                                                                    ->sum('base_final_amount'),calC :true),
+
+                'this_month'              => num_format(number:WithdrawLog::approved()
+                                                                    ->filter(["user:username",'status'])
+                                                                    ->whereMonth('created_at', '=',date("M"))
+                                                                    ->sum('base_final_amount'),calC :true),
+
+                'this_week'               => num_format(number:WithdrawLog::approved()->filter(["user:username",'status'])
+                                                                    ->whereBetween('created_at', 
+                                                                    [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                                                                    ->sum('base_final_amount'),calC :true),
+
+
+                'today'                   => num_format(number:WithdrawLog::approved()
+                                                                    ->filter(["user:username",'status'])
+                                                                    ->whereDate('created_at', Carbon::today())
+                                                                    ->sum('base_final_amount'),calC :true),
+        ],
+
+        'graph_data'       => sortByMonth($graphData->collapse()->all(),true,
+                                                            [
+                                                             'total'     => 0,
+                                                             'charge'    => 0,
+                                                             'approved'  => 0,
+                                                             'rejected'  => 0,
+                                                             'pending'   => 0,
+                                                            ]), 
+                            
 
         ]);
 
@@ -658,7 +744,7 @@ class ActivityHistoryController extends Controller
      *
      * @return View
      */
-    public function affiliateReport() :View{
+    public function affiliateReport() :View {
 
 
         return view('admin.report.affiliate_report',[

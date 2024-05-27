@@ -61,7 +61,7 @@ class DepositController extends Controller
             'remarks' => 'Deposit Via '.$method->name,
         ]);
 
-        @dd($request->all());
+        // @dd($request->all());
 
         $amount      = (double) $request->input('amount');
         $baseAmount  = round(convert_to_base($amount,5)*$method->currency->exchange_rate,5);

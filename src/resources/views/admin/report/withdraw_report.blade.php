@@ -7,29 +7,24 @@
 @section('content')
 
     <div class="row mb-4">
-        <div class="col-lg-9">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div id="withdraw-report"></div>
-                </div>
-            </div>
-        </div>
+      
         <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card--header">
-                    <h4 class="card-title">Summery</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="subcription-list">
-                        <li><span>Total User</span><span>200</span></li>
-                        <li><span>Final Amount</span><span>$3454534</span></li>
-                        <li><span>Pending</span><span>350</span></li>
-                        <li><span>Approved</span><span>234</span></li>
-                        <li><span>Rejected</span><span>989</span></li>
-                    </ul>
-                </div>
-            </div>
+            @include('admin.partials.summary',['header' => true , "header_info" => [
+                'title' => translate("Total withdraw amount"),
+                'total' => $total_withdraw,
+                'note'  => translate('The Total Withdraw Amount Accumulated From All Users Within The System.'),
+            ]])
+
         </div>
+
+
+          <div class="col-lg-9">
+              <div class="i-card-md">
+                  <div class="card-body">
+                      <div id="withdraw-report"></div>
+                  </div>
+              </div>
+          </div>
     </div>
 
     <div class="i-card-md">
@@ -104,10 +99,13 @@
                                 {{translate('Method')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
-                                {{translate('Final Amount')}}
+                                {{translate('Receivable Amount')}}
+                           </th>
+                            <th scope="col">
+                                {{translate('Payment Amount')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}
@@ -126,6 +124,9 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                     <div>
+                                             {{ diff_for_humans($report->created_at) }}
+                                     </div>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -135,9 +136,19 @@
                                 <td data-label='{{translate("Payment Method")}}'>
                                     {{$report->method->name}}
                                 </td>
-                                <td  data-label='{{translate("Trx Code")}}'>
-                                      {{$report->trx_code}}
+                                <td  data-label="{{translate('Trx Code')}}">
+                                    <span class="trx-number me-1">
+                                        {{$report->trx_code}}
+                                    </span>
+
+                                    <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                 </td>
+
+
+                                <td  data-label='{{translate("Receivable Amount")}}'>
+                                    {{num_format($report->amount,@$report->currency)}}
+                                </td>
+                        
                                 <td  data-label='{{translate("Final Amount")}}'>
                                       {{num_format($report->final_amount,@$report->currency)}}
                                 </td>
@@ -151,12 +162,12 @@
                                     </div>
                                 </td>
                            </tr>
-                            @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
+                        @empty
+                              <tr>
+                                  <td class="border-bottom-0" colspan="90">
+                                      @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                  </td>
+                              </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -166,12 +177,18 @@
             </div>
         </div>
     </div>
+    
+
+    @php
+          $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
+    @endphp 
+
 @endsection
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
@@ -181,150 +198,86 @@
 
         "use strict";
 
-        $(".select2").select2({
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".status").select2({});
 
-        });
-        $(".user").select2({
 
-        });
-        $(".status").select2({
 
-        });
+        var options = {
+            chart: {
+              height: 468,
+              type: "line",
+            },
+          dataLabels: {
+            enabled: false,
+          },
+          colors: ['var(--color-info)','var(--color-primary)','var(--color-success)','var(--color-warning)',  'var(--color-danger)'],
+          series: [
+            {
+              name: "{{ translate('Total Withdraw') }}",
+              data: @json(array_column($graph_data , 'total')),
+            },
+            {
+              name: "{{ translate('Total Charge') }}",
+              data: @json(array_column($graph_data , 'charge')),
+            },
+            {
+              name: "{{ translate('Success Withdraw') }}",
+              data: @json(array_column($graph_data , 'approved')),
+            },
+            {
+              name: "{{ translate('Pending Withdraw') }}",
+              data: @json(array_column($graph_data , 'pending')),
+            },
+            {
+              name: "{{ translate('Rejected Withdraw') }}",
+              data: @json(array_column($graph_data , 'rejected')),
+            },
+          ],
+          xaxis: {
+            categories: @json(array_keys($graph_data)),
+          },
+
+          tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return formatCurrency(value);
+                    }
+                }
+            },
+          markers: {
+            size: 6,
+          },
+          stroke: {
+            width: [4, 4],
+          },
+          legend: {
+            horizontalAlign: "left",
+            offsetX: 40,
+          },
+        };
 
  
 
-        var options = {
-          series: [
-          {
-            name: 'Actual',
-            data: [
-              {
-                x: '2011',
-                y: 1292,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 1400,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2012',
-                y: 4432,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 5400,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2013',
-                y: 5423,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 5200,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2014',
-                y: 6653,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 6500,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2015',
-                y: 8133,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 6600,
-                    strokeHeight: 13,
-                    strokeWidth: 0,
-                    strokeLineCap: 'round',
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2016',
-                y: 7132,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 7500,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2017',
-                y: 7332,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 8700,
-                    strokeHeight: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2018',
-                y: 6553,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 7300,
-                    strokeHeight: 2,
-                    strokeDashArray: 2,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-          chart: {
-          height: 350,
-          type: 'bar'
-        },
-        plotOptions: {
-          bar: {
-            columnWidth: '60%'
-          }
-        },
-        colors: ['#00E396'],
-        dataLabels: {
-          enabled: false
-        },
-        legend: {
-          show: true,
-          showForSingleSeries: true,
-          customLegendItems: ['Actual', 'Expected'],
-          markers: {
-            fillColors: ['#00E396', '#775DD0']
-          }
-        }
-        };
+ 
 
         var chart = new ApexCharts(document.querySelector("#withdraw-report"), options);
         chart.render();
+
+
+        function formatCurrency(value) {
+            var symbol =  "{{  $symbol }}" ;
+            var suffixes = ["", "K", "M", "B", "T"];
+            var order = Math.floor(Math.log10(value) / 3);
+            var suffix = suffixes[order];
+            if(value < 1)
+            {return symbol+value}
+            var scaledValue = value / Math.pow(10, order * 3);
+            return symbol + scaledValue.toFixed(2) + suffix;
+        }
 
 	})(jQuery);
 </script>

@@ -123,7 +123,11 @@
                                         {{$loop->iteration}}
                                     </td>
                                     <td  data-label="{{translate('Trx Code')}}">
-                                        {{$report->trx_code}}
+                                        <span class="trx-number me-1">
+                                            {{$report->trx_code}}
+                                        </span>
+
+                                        <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                     </td>
                                     <td data-label="{{translate('Expired In')}}">
                                         @if($report->expired_at)
