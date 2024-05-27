@@ -83,7 +83,7 @@
             </div>
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-                <table >
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">
@@ -134,7 +134,7 @@
                                     </a>
                                 </td>
                                 <td data-label='{{translate("Payment Method")}}'>
-                                    {{$report->method->name}}
+                                    {{$report->method?->name}}
                                 </td>
                                 <td  data-label="{{translate('Trx Code')}}">
                                     <span class="trx-number me-1">
@@ -158,7 +158,7 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.withdraw.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.withdraw.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                     </div>
                                 </td>
                            </tr>
