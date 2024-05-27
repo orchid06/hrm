@@ -38,100 +38,120 @@
                     <h6 class="mb-3">Automatic</h6>
                     <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
-
                         <div class="col">
-                            <div class="payment-card-item">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
                                 <div class="image">
                                     <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
                                 </div>
                                 <h5 class="title">Mastercard</h5>
-                            </div>
+                            </label>
                         </div>
+                        <div class="col">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="payment-card-item">
+                                <input name="plan" class="radio" type="radio" checked>
+                                <div class="image">
+                                    <img src="https://i.ibb.co/Q9jn8tP/master.png" alt="master">
+                                </div>
+                                <h5 class="title">Mastercard</h5>
+                            </label>
+                        </div>
+                        
                     </div>
                 </div>
 
                 <div class="col-lg-4 ps-lg-5">
                     <div class="payment-flip-card">
-                        <div class="balance-info-card d-none">  
+                        <div class="balance-info-card" id="balanceCard">  
                             <span class="balance-icon">
                                 <i class="bi bi-wallet2"></i>
                             </span>
@@ -144,7 +164,7 @@
                             </span>
                         </div>
     
-                        <div class="payment-card-form">
+                        <div class="payment-card-form" id="formStepOne">
                             <div class="d-flex align-items-center justify-content-between bg-light payment-form-top">
                                 <h5>Master Card</h5>
                                 <span class="payment-img">
@@ -152,25 +172,15 @@
                                 </span>
                             </div>
                             <form>
-
-                                <div>
-                                    <div class="form-inner">
-                                        <label for="amount">
-                                            Amount
-                                            <small class="text-danger">*</small></label>
-                                        <div class="input-group">
-                                            <input placeholder="Enter Amount" name="amount" type="number" class="form-control" id="amount">
-                                            <span class="input-group-text">
-                                                $
-                                            </span>
-                                        </div>
+                                <div class="payment-details-wrapper">
+                                    <div class="p-3 mb-4 bg-danger-soft rounded-2">
+                                        <p class="text--dark"><span class="bg-danger text-white py-0 px-2 d-inline-block me-2 rounded-1">Note  :</span>  
+                                        
+                                            To utilize FTP storage, kindly enable the FTP extension. This action is imperative for seamless functionality. Your cooperation in this matter is greatly appreciated
+                                        
+                                        </p>
                                     </div>
-
-                                    <button type="button" class="i-btn btn--lg btn--primary capsuled">Submit</button>                               
-                                </div>
-
-                                <div class="payment-details-wrapper mt-4">
-                                    <ul class="payment-details deposit-details list-group mb-4">
+                                                <ul class="payment-details deposit-details list-group mb-4">
                                         <li class="list-group-item active" aria-current="true">
                                             <h6>
                                                 Deposit Details
@@ -209,12 +219,25 @@
                                             </h6>
                                         </li>
                                     </ul>
+                                </div>
+                                <div>
+                                    <div class="form-inner">
+                                        <label for="amount">
+                                            Amount
+                                            <small class="text-danger">*</small></label>
+                                        <div class="input-group">
+                                            <input placeholder="Enter Amount" name="amount" type="number" class="form-control" id="amount">
+                                            <span class="input-group-text">
+                                                $
+                                            </span>
+                                        </div>
+                                    </div>
 
-                                    <button type="button" class="i-btn btn--lg btn--primary capsuled">Submit</button>
+                                    <button type="button" class="i-btn btn--lg btn--primary capsuled">Submit</button>                               
                                 </div>
 
 
-                                <div class="">
+                                <div class="card-input-form mt-5">
                                     <div class="form-inner">
                                         <label for="">Card Number</label>
                                         <input type="text" Placeholder="0000 0000 0000 0000">

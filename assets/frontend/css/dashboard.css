@@ -354,6 +354,10 @@ body {
   height: 100px;
   width: 100px;
 }
+.avatar-120 {
+  height: 120px;
+  width: 120px;
+}
 .avatar-title {
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -3175,82 +3179,18 @@ aside.show-side-bar {
 }
 
 /* =================Plan Upgrade Card================= */
-.plan-upgrade-card {
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
+
+.bg--linear-primary{
+  background:  linear-gradient(60deg,rgba(107, 78, 255, 1),rgb(169, 152, 255));
+  border-radius: 12px;
 }
-.plan-upgrade-card::after {
-  content: "";
-  position: absolute;
-  width: 150px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  -webkit-filter: blur(200px);
-  filter: blur(80px);
-  background-color: var(--color-primary);
-  opacity: 0.4;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
+.plan-upgrade .title span{
+  display: inline-block;
 }
-.plan-upgrade-card .plan-upgrade-body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  gap: 18px;
-  height: inherit;
+.plan-upgrade .title span img{
+  max-width: 35px;
 }
-.plan-upgrade-card .plan-upgrade-body .existing-plan {
-  background-color: var(--color-secondary);
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 10px 14px;
-  font-size: 18px;
-  color: var(--color-secondary-text);
-  margin: 0 auto 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 4px;
-}
-.plan-upgrade-card .plan-upgrade-body > h6 {
-  font-weight: 600;
-  font-size: 18px;
-}
-@media (max-width: 576px) {
-  .plan-upgrade-card .plan-upgrade-body > h6 {
-    font-size: 16px;
-  }
-}
-.plan-upgrade-card .plan-upgrade-body .plan-upgrade-img {
-  max-width: 55%;
-  margin: 0 auto;
-}
-.plan-upgrade-card .plan-upgrade-bg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
+
 .package-badge {
   position: absolute;
   width: 150px;
@@ -3273,6 +3213,48 @@ aside.show-side-bar {
   line-height: 1;
   color: var(--color-primary);
   margin-bottom: 15px;
+}
+
+.current-plan-card{
+  border: 2px solid var(--color-primary-light-2);
+  padding: 30px;
+  border-radius: 40px;
+  background-color: var(--color-white);
+  position: relative;
+}
+
+.plan-upgrade{
+  border: 1px solid var(--color-primary-light-2);
+  border-radius: 30px;
+  padding: 30px;
+  background: linear-gradient(90deg, var(--color-primary-light), transparent);
+}
+
+.current-plan-bg{
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+}
+.current-info-single{
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-light-2);;
+  padding: 14px 15px;
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.current-info-single p{
+  margin-bottom: 0;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 16px;
+}
+.current-info-single h5{
+  font-size: 16px;
 }
 /* =================Channel Profile List================= */
 .channel-list li:first-of-type .channel-item {
@@ -3563,7 +3545,7 @@ aside.show-side-bar {
 
 /* ==================Payment Details Start================== */
 .payment-details {
-  border-color: var(--border-one) !important;
+  border: 1px solid var(--color-primary-light-2) !important;
 }
 .payment-details .list-group-item {
   display: -webkit-box;
@@ -3576,8 +3558,7 @@ aside.show-side-bar {
 }
 .payment-details .list-group-item.active {
   background-color: var(--color-primary-soft);
-  border-color: var(--border-one);
-  border-bottom: none;
+  border-bottom: 1px solid var(--color-primary);
 }
 .payment-details .list-group-item.active h5 {
   color: var(--text-secondary);
@@ -5210,42 +5191,131 @@ ul.dropdown-menu.dropdown-menu-end.show {
   padding: 18px;
   border: 2px solid #eee;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 8px !important;
   transition: 0.3s ease-in-out;
   cursor: pointer;
-}
-.payment-card-item:hover{
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-.payment-card-item:hover .title{
-  color: #fff;
+  position: relative;
 }
 
-.payment-card-item.active .title{
-  color: #fff;
+.payment-card-item {
+  background-color: #fff;
+  border-radius: var(--card-radius);
+  position: relative;
+  display: block;
 }
-.payment-card-item.active{
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
+.payment-card-item:hover {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.08);
 }
 
 .payment-card-item .image{
-  width: 100%;
-  max-width: 90px;
-  margin: 0 auto 15px;
-}
-.payment-card-item .title{
-  font-size: 16px;
-  margin-bottom: 0;
+  max-width: 80px;
+  margin: 0 auto;
 }
 
-@media (max-width: 767px) {
-  .payment-card-item .title{
-    font-size: 14px;
-    margin-bottom: 0;
+.payment-card-item .title{
+  font-size: 16px;
+  margin-top: 20px;
+} 
+
+.radio {
+  font-size: inherit;
+  margin: 0;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  .radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff;
+    border: 2px solid var(--color-gray);
+    border-radius: 3px;
+    cursor: pointer;
+    height: 25px !important;
+    outline: none;
+    transition: background 0.2s ease-out, border-color 0.2s ease-out;
+    width: 25px !important;
+ }
+  .radio::after {
+    border: 2px solid #fff;
+    border-top: 0;
+    border-left: 0;
+    content: '';
+    display: block;
+    height: 0.75rem;
+    left: 25%;
+    position: absolute;
+    top: 50%;
+    transform: rotate(45deg) translate(-50%, -50%);
+    width: 0.375rem;
   }
+  .radio:checked {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  .payment-card-item:hover .radio {
+    border-color: #ddd;
+  }
+  .payment-card-item:hover .radio:checked {
+    border-color: var(--color-primary);
+  }
+}
+
+.payment-card-item:hover .plan-details {
+  border-color: #ddd;
+}
+.radio:checked ~ .plan-details {
+  border-color: var(--color-primary);
+}
+.radio:focus ~ .plan-details {
+  box-shadow: 0 0 0 2px #ddd;
+}
+.radio:disabled ~ .plan-details {
+  color: #ddd;
+  cursor: default;
+}
+.radio:disabled ~ .plan-details .plan-type {
+  color: #ddd;
+}
+.payment-card-item:hover .radio:disabled ~ .plan-details {
+  border-color: var(--color-gray);
+  box-shadow: none;
+}
+.payment-card-item:hover .radio:disabled {
+  border-color: var(--color-gray);
+}
+.plan-type {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1em;
+}
+.plan-cost {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 0.5rem 0;
+}
+.slash {
+  font-weight: normal;
+}
+.plan-cycle {
+  font-size: 2rem;
+  font-variant: none;
+  border-bottom: none;
+  cursor: inherit;
+  text-decoration: none;
+}
+.hidden-visually {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 
@@ -5262,13 +5332,28 @@ ul.dropdown-menu.dropdown-menu-end.show {
   border: 2px solid #f1f1f1;
   overflow: hidden;
   border-radius: 12px;
+  display: none;
+  visibility: hidden;
+}
+.payment-card-form.show{
+  display: block;
+  visibility: visible;
+  animation: show 1s;
+}
+@keyframes show {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
 }
 
 .payment-card-form form{
   padding: 25px;
 }
 .payment-form-top{
-  padding: 25px;
+  padding: 20px;
 }
 .payment-img{
   width: 50px;
@@ -5327,18 +5412,27 @@ ul.dropdown-menu.dropdown-menu-end.show {
 }
 
 .payment-details-wrapper .payment-details .list-group-item > p{
-  flex: 0 0 35%;
+  flex: 0 0 40%;
 }
 
 .payment-details-wrapper .payment-details .list-group-item{
   flex-wrap: wrap;
-  border: none;
+  border: 1px solid var(--color-primary-light);
+  padding: 12px;
+  justify-content: space-between;
+}
+.payment-details-wrapper .payment-details .list-group-item.active{
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-primary-light);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light-2);
+}
+.payment-details-wrapper .payment-details .list-group-item.active h6{
+  color: var(--text-primary);
 }
 
-.payment-details-wrapper .payment-details .list-group-item:nth-child(odd){
-  background: #f4f4f4;
-}
 .payment-details-wrapper .payment-details .list-group-item > h6{
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
+  text-transform: uppercase;
 }

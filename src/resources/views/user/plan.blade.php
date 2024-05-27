@@ -8,6 +8,295 @@
         $currentPlan            = $subscription && $subscription->package ? $subscription->package: null;
     @endphp
 
+    <div class="row mb-4">
+      <div class="current-plan-card">
+        
+        <h4 class="card--title mb-4">Current Plan</h4>
+        <div class="row align-items-center">
+          <div class="col-lg-5">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="bg--linear-primary text-center">
+                  <div class="card-body p-3">
+                      <h6 class="text-white opacity-75 fw-normal fs-13">
+                          Total Deposit Amount
+                      </h6>
+                      <h3 class="fw-bold mt-1 mb-3 text-white fs-19">Title</h3>
+                      <p class="text-white opacity-75">The Total Deposit Amount Accumulated From All Users Within The System.</p>
+                  </div>
+              </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>word left</p>
+                  <h5>455</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>Characters</p>
+                  <h5>3453458</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>word left</p>
+                  <h5>455</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>Remaining Minutes</p>
+                  <h5>75</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>word left</p>
+                  <h5>455</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>Characters</p>
+                  <h5>3453458</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>word left</p>
+                  <h5>455</h5>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="current-info-single">
+                  <p>Remaining Minutes</p>
+                  <h5>75</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 ps-lg-5">
+              <div class="plan-upgrade">
+                <h4 class="mb-4 title"><span><img src="https://i.ibb.co/rbjn4Cr/forward.png" class="me-1" alt="forward"></span> Upgrade Your Plan</h4>
+                 <div class="avatar-120 mb-3">
+                  <img src="https://i.ibb.co/FBv78WT/upgrade.png" alt="upgrade">
+                 </div>
+                <p class="mb-4">Updating your plan is a crucial step in ensuring that your goals and strategies remain relevant and effective in a dynamic environment. As circumstances change, whether due to shifts in the market, new technological advancements, or evolving personal or organizational priorities</p>
+                <a href="#" class="i-btn btn--primary-outline btn--lg capsuled text-uppercase">Update Plan<i class="bi bi-arrow-up-circle"></i></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <div class="i-card-md">
+      <div class="card-body">
+      <div class="row gy-4 gx-4">
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="plan-detail-card">
+          <div class="plan-detail-top">
+            <p class="mb-0">For Mini Business</p>
+            <span>title</span>
+            <p>description</p>
+
+            <div class="price">
+              <h4>
+                $66
+                <span>$55</span>
+              </h4>
+            </div>
+          </div>
+          <div class="plan-detail-body">
+            <h5 class="mb-4">What’s included</h5>
+            <ul class="mb-0">
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social profile</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Pre-built ai template</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Facebook platform access</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Schedule post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Gpt-3.5-turbo Open ai model</p>
+              </li> 
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>20 Word token</p>
+              </li> 
+            </ul>
+          </div>
+          <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="plan-detail-card">
+          <div class="plan-detail-top">
+            <p class="mb-0">For Mini Business</p>
+            <span>title</span>
+            <p>description</p>
+
+            <div class="price">
+              <h4>
+                $66
+                <span>$55</span>
+              </h4>
+            </div>
+          </div>
+          <div class="plan-detail-body">
+            <h5 class="mb-4">What’s included</h5>
+            <ul class="mb-0">
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social profile</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Pre-built ai template</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Facebook platform access</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Schedule post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Gpt-3.5-turbo Open ai model</p>
+              </li> 
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>20 Word token</p>
+              </li> 
+            </ul>
+          </div>
+          <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="plan-detail-card">
+          <div class="plan-detail-top">
+            <p class="mb-0">For Mini Business</p>
+            <span>title</span>
+            <p>description</p>
+
+            <div class="price">
+              <h4>
+                $66
+                <span>$55</span>
+              </h4>
+            </div>
+          </div>
+          <div class="plan-detail-body">
+            <h5 class="mb-4">What’s included</h5>
+            <ul class="mb-0">
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social profile</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Pre-built ai template</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Facebook platform access</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Schedule post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Gpt-3.5-turbo Open ai model</p>
+              </li> 
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>20 Word token</p>
+              </li> 
+            </ul>
+          </div>
+          <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="plan-detail-card">
+          <div class="plan-detail-top">
+            <p class="mb-0">For Mini Business</p>
+            <span>title</span>
+            <p>description</p>
+
+            <div class="price">
+              <h4>
+                $66
+                <span>$55</span>
+              </h4>
+            </div>
+          </div>
+          <div class="plan-detail-body">
+            <h5 class="mb-4">What’s included</h5>
+            <ul class="mb-0">
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social profile</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Social post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>1 Pre-built ai template</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Facebook platform access</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Schedule post</p>
+              </li>
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>Gpt-3.5-turbo Open ai model</p>
+              </li> 
+              <li>
+                <span><i class="bi bi-check-circle-fill"></i></span>
+                <p>20 Word token</p>
+              </li> 
+            </ul>
+          </div>
+          <a href="#" class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto">Subscribe</a>
+        </div>
+      </div>
+    </div>
+      </div>
+   </div>
+
 
     <!-- <div class="i-card mb-4">
       <div class="row">

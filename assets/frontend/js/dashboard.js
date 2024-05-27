@@ -166,6 +166,35 @@
       rightSidebar.classList.toggle('show');
     })
   }
+
+  var paymentCards = document.querySelectorAll('.payment-card-item');
+
+  var balanceCard = document.querySelector('#balanceCard');
+  var formStepOne = document.querySelector('#formStepOne');
+
+  paymentCards.forEach((paycard)=>{
+    paycard.addEventListener('click', ()=>{
+      balanceCard.style.display = 'none';
+      formStepOne.classList.add('show');
+    })
+  })
+
+
+
+
+  // var paymentCardItems = document.querySelectorAll('.payment-card-item');
+
+  //   var form = document.getElementById('payment-form');
+
+
+  //   paymentCardItems.forEach(function (card) {
+  //       card.addEventListener('click', function () {
+
+  //           form.classList.remove('highlight');
+
+  //           form.classList.add('highlight');
+  //       });
+  //   });
   
 
 

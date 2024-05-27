@@ -21,7 +21,7 @@
 
 @section('content')
 
-    <div class="row g-3 mb-3 row-cols-xl-5">
+    <div class="row g-3 mb-3 row-cols-xl-5 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1">
 
 
         @php
