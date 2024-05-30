@@ -79,10 +79,22 @@
                                                 </div>
 
                                                 <div class="collapse mt-2" id="selectProfile">
+
+                                                <select id="profile-select" multiple="multiple" style="width: 100%;">
+                                                    <option value="1" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Raju Ahmed</option>
+                                                    <option value="2" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Kamrul Hasan</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">polash</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Rakibul Islam</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Nafiz Khan</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Anamul Haque</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Rayhan Ulla</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Nurul Amin</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Nasif Ahmed</option>
+                                                    <option value="3" data-image="https://i.ibb.co/VHmD5nt/user2.jpg">Shakil Khan</option>
+                                                </select>
+
+
                                                     <div class="choose-profile-body">
-                                                        <div>
-                                                            <input placeholder="Search profile"  type="search" id="searchProfile" class="form-control">
-                                                        </div>
 
                                                         <ul class="profile-list mt-3" data-simplebar>
                                                             @foreach ($accounts as $account )
@@ -112,7 +124,7 @@
                                                         </ul>
 
                                                         <div class="choose-profile-footer">
-                                                            <a href="{{route('user.social.account.list')}}" class="i-btn btn--primary btn--sm capsuled">
+                                                            <a href="{{route('user.social.account.list')}}" class="i-btn btn--primary btn--lg capsuled">
                                                                 {{translate('Create New Account')}}
                                                                 <i class="bi bi-plus-lg"></i>
                                                             </a>
@@ -1286,20 +1298,20 @@
             document.body.removeChild(link);
         });
 
-        flatpickr("#schedule_date", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#schedule_date", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
-        flatpickr("#time_post", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#time_post", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
-        flatpickr("#repost", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#repost", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
         // Choose Profiles
         $(document).on('click','.check_account',function(e) {
@@ -1392,6 +1404,23 @@
             slidesPerView: 4,
         },
       },
+    });
+
+
+    function formatState (state) {
+    if (!state.id) {
+        return state.text;
+    }
+    var baseUrl = $(state.element).data('image');
+    var $state = $(
+        '<span class="image-option"><img src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
+    );
+    return $state;
+    }
+
+    $('#profile-select').select2({
+        templateResult: formatState,
+        templateSelection: formatState
     });
 
 

@@ -47,13 +47,14 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="row row-cols-xl-9 row-cols-lg-7 row-cols-md-7 g-3 mt-1">
+                        <div class="row row-cols-xl-6 row-cols-lg-4 row-cols-md-4 g-3 mt-1">
                             <div class="col">
                                 <button class="prompt-btn">
                                     <div class="icon">
                                         <i class="bi bi-magic"></i>
                                     </div>
                                     <h5>Suggested</h5>
+                                    <p>AI's impact on social media, from personalized content curation</p>
                                 </button>
                             </div>
                             <div class="col">
@@ -62,6 +63,7 @@
                                         <i class="bi bi-facebook"></i>
                                     </div>
                                     <h5>Facebook</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -70,6 +72,7 @@
                                         <i class="bi bi-twitter"></i>
                                     </div>
                                     <h5>Twitter</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -78,6 +81,7 @@
                                         <i class="bi bi-instagram"></i>
                                     </div>
                                     <h5>Instagram</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -86,6 +90,7 @@
                                         <i class="bi bi-linkedin"></i>
                                     </div>
                                     <h5>Linkedin</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -94,6 +99,7 @@
                                         <i class="bi bi-tiktok"></i>
                                     </div>
                                     <h5>Tiktok</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -102,6 +108,7 @@
                                         <i class="bi bi-lightbulb"></i>
                                     </div>
                                     <h5>Inspirational</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -110,6 +117,7 @@
                                         <i class="bi bi-mortarboard-fill"></i>
                                     </div>
                                     <h5>Educational</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                             <div class="col">
@@ -118,6 +126,7 @@
                                         <i class="bi bi-cup-hot-fill"></i>
                                     </div>
                                     <h5>Restaurant</h5>
+                                    <p>AI's impact on social media, from personalized content curation </p>
                                 </button>
                             </div>
                         </div>
