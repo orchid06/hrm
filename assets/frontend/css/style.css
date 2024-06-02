@@ -3473,12 +3473,12 @@ footer{
 
 .newsletter-wrapper{
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: 0;
   border-radius: 45px 0 0 45px;
   background-color: rgba(234, 236, 240, 1);
-  padding: 15px;
+  padding: 10px;
   position: relative;
 }
 .newsletter-wrapper::before{
@@ -5673,6 +5673,74 @@ footer{
   .service-tab-wrapper{
     padding: 20px;
   }
+}
+
+.service-d-image img{
+  border-radius: 30px;
+}
+
+.service-details ul{
+  margin-top: 35px;
+  margin-bottom: 40px;
+}
+
+.service-details ul li{
+  margin-bottom: 7px;
+  font-weight: 500;
+}
+
+.service-details ul li:last-child{
+  margin-bottom: 0;
+}
+
+.service-details ul li i{
+  font-size: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  color: var(--text-primary);
+}
+
+input,textarea{
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 15px;
+}
+textarea{
+  min-height: 100px;
+}
+.form-inner{
+  margin-bottom: 20px;
+} 
+
+.sidebar-wigt {
+  padding: 30px;
+  border-radius: 30px;
+  background-color: var(--card-bg-light);
+}
+.sidebar-wigt h4{
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.sidebar-wigt ul li{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.sidebar-wigt ul li:last-child{
+  margin-bottom: 0;
+}
+.sidebar-wigt ul li a{
+  color: inherit;
+  transition: 0.3s ease;
+}
+.sidebar-wigt ul li:hover a{
+  color: var(--color-primary);
+}
+.sidebar-wigt ul li i{
+  font-size: 15px;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 
 .power-feature-list li{

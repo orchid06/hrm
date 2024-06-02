@@ -194,7 +194,12 @@ body {
   background-color: var(--color-info-light);
   color: var(--color-info);
 }
+
 .icon-btn.info:hover {
+  background-color: var(--color-info);
+  color: var(--color-white);
+}
+.icon-btn.solid-info {
   background-color: var(--color-info);
   color: var(--color-white);
 }
@@ -3222,6 +3227,13 @@ aside.show-side-bar {
   position: relative;
 }
 
+@media (max-width:768px) {
+  
+.current-plan-card{
+  padding: 20px;
+}
+}
+
 .plan-upgrade{
   border: 1px solid var(--color-primary-light-2);
   border-radius: 16px;
@@ -3232,7 +3244,7 @@ aside.show-side-bar {
 
 @media (max-width: 768px) {
   .plan-upgrade{
-    padding: 20px 20px;
+    padding: 20px 15px;
   }  
 }
 
@@ -4774,7 +4786,7 @@ aside.show-side-bar {
   color: var(--color-white);
 }
 .prompt-btn .icon{
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 15px;
   color: var(--color-primary);
   transition: 0.4s;
@@ -4791,8 +4803,11 @@ aside.show-side-bar {
 }
 
 @media (max-width: 768px) {
+  .prompt-btn{
+    padding: 15px;
+  } 
   .prompt-btn h5{
-    font-size: 14px;
+    font-size: 15px;
   } 
 }
 
@@ -5060,7 +5075,7 @@ aside.show-side-bar {
 }
 .copy-icon{
   width: 50px;
-  height: 45px;
+  height: 48px;
   line-height: 45px;
   background-color: var(--color-primary-light);
   position: absolute;
@@ -5473,6 +5488,11 @@ ul.dropdown-menu.dropdown-menu-end.show {
   color: var(--color-primary-light-2);
   opacity: 0.35;
   z-index: -1;
+}
+@media (max-width: 768px){
+  .how-single .serail-no {
+    font-size: 50px;
+  }
 }
 .how-single .icon{
   width: 50px;

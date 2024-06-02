@@ -7,7 +7,7 @@
 @section('content')
 
 <div> 
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col-lg-9">
             <div class="i-card-md">
                 <div class="card-body">
@@ -47,7 +47,7 @@
 
     <div>
         <button
-        class="icon-btn icon-btn-lg info circle"
+        class="icon-btn icon-btn-lg solid-info circle"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#tableFilter"

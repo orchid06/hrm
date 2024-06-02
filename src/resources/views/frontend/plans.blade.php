@@ -54,6 +54,9 @@
                   <div class="row gy-4 gx-4">
                     <div class="col-xl-4 col-md-6">
                       <div class="plan-detail-card">
+                        <div class="icon">
+                          <i class="bi bi-gem"></i>
+                        </div>
                         <div class="plan-detail-top">
                           <p class="mb-0">For Mini Business</p>
                           <span>title</span>
@@ -104,6 +107,9 @@
                     </div>
                     <div class="col-xl-4 col-md-6">
                       <div class="plan-detail-card">
+                        <div class="icon">
+                          <i class="bi bi-gem"></i>
+                        </div>
                         <div class="plan-detail-top">
                           <p class="mb-0">For Mini Business</p>
                           <span>title</span>
@@ -154,6 +160,9 @@
                     </div>
                     <div class="col-xl-4 col-md-6">
                       <div class="plan-detail-card">
+                        <div class="icon">
+                          <i class="bi bi-gem"></i>
+                        </div>
                         <div class="plan-detail-top">
                           <p class="mb-0">For Mini Business</p>
                           <span>title</span>

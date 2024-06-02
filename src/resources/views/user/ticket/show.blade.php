@@ -89,7 +89,6 @@
                                         <span>06.36 PM</span><i class="bi bi-check2-all"></i>
                                     </div>
                                 </div>
-                                
                             </div>
 
                             <div class="message-single message-left d-flex flex-column">
@@ -110,6 +109,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="message-single message-right d-flex flex-column">
                                 <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
                                     <div class="meta">
@@ -118,13 +118,13 @@
                                     <div class="image">
                                         <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
                                     </div>
-                                    <div class="message-body">
-                                        <p>
-                                            Information Technology (IT) revolutionizes industries by enhancing efficiency, fostering innovation, and connecting the world. It drives economic growth, empowers individuals, and transforms societies, shaping a future of limitless possibilities
-                                        </p>
-                                        <div class="message-time">
-                                            <span>05.22 PM</span><i class="bi bi-check2-all"></i>
-                                        </div>
+                                </div>
+                                <div class="message-body">
+                                    <p>
+                                        Information Technology (IT) revolutionizes industries by enhancing efficiency, fostering innovation, and connecting the world. It drives economic growth, empowers individuals, and transforms societies, shaping a future of limitless possibilities
+                                    </p>
+                                    <div class="message-time">
+                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
                                     </div>
                                 </div>
                             </div>

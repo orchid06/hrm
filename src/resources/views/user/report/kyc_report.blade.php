@@ -17,7 +17,7 @@
 
               <div>
                 <button
-                  class="icon-btn icon-btn-lg info circle"
+                  class="icon-btn icon-btn-lg solid-info circle"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#tableFilter"

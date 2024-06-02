@@ -123,6 +123,5 @@
 
 @include('frontend.sections.blog')
 
-
 @endsection
 
