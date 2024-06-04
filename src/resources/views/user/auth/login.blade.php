@@ -31,11 +31,10 @@
     <div class="container-fluid px-0">
       <div class="auth-wrapper">
         <div class="row g-0">
-           @include("user.partials.auth_slider")
-          <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
+          <div class="col-xl-7 col-lg-7">
             <div class="auth-right">
               <div class="auth-content">
-                <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
+                <a href="{{route('home')}}" class="site-log text-center mb-5 d-inline-block">
 
                   <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
@@ -51,7 +50,8 @@
                   @csrf
 
                   <div class="auth-input">
-                    <input required type="text" name="login_data"    placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
+                    <label for="phone">Phone</label>
+                    <input required type="text" name="login_data" id="phone"  placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
                     <span class="auth-input-icon">
                         <i class="bi bi-envelope"></i>
                     </span>
@@ -59,7 +59,8 @@
 
                     @if($otpFlag == App\Enums\StatusEnum::false->status())
                         <div class="auth-input">
-                            <input name="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
+                          <label for="password">Password</label>
+                            <input name="password" id="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
                             <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
                             </span>
@@ -102,7 +103,7 @@
                    @endif
 
                     <div>
-                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--secondary btn--lg capsuled w-100"
+                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--primary-2 btn--lg capsuled w-100"
                             data-sitekey="{{$googleCaptcha->key}}"
                             data-callback='onSubmit'
                             data-action='register'
@@ -119,7 +120,7 @@
                 @if($socialAuth == App\Enums\StatusEnum::true->status())
 
                     <span class="or">
-                       {{translate('Or')}}
+                       {{translate('Or continue with')}}
                     </span>
 
                     <div class="sign-option">
@@ -148,6 +149,7 @@
               <div class="glass-bg"></div>
             </div>
           </div>
+          @include("user.partials.auth_slider")
         </div>
       </div>
     </div>

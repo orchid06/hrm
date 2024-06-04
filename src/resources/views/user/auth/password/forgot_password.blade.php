@@ -14,7 +14,7 @@
 
            @include("user.partials.auth_slider")
 
-          <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
+          <div class="col-xl-7 col-lg-7 order-lg-1 order-0">
             <div class="auth-right">
               <div class="auth-content">
                 <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
@@ -33,14 +33,15 @@
                   @csrf
 
                     <div class="auth-input">
-                        <input required type="text" name="email"  placeholder="{{translate('Enter email')}}" />
+                        <label for="email">Email</label>
+                        <input required type="text" id="email" name="email"  placeholder="{{translate('Enter email')}}" />
                         <span class="auth-input-icon">
                             <i class="bi bi-envelope"></i>
                         </span>
                     </div>
 
                     <div>
-                        <button type="submit"    class="i-btn btn--secondary btn--lg capsuled w-100">
+                        <button type="submit"    class="i-btn btn--primary-2 btn--lg capsuled w-100">
                             {{trans("Submit")}}
                         </button>
                     </div>

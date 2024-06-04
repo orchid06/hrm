@@ -3,7 +3,7 @@
 @endphp
 
 
-<div class="col-xl-4 col-lg-5 order-lg-0 order-1">
+<div class="col-xl-5 col-lg-5">
     <div class="auth-left">
     <div class="auth-left-content">
         <div class="auth-slider-wrapper">

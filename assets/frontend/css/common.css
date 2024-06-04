@@ -170,6 +170,20 @@
   background-color: transparent;
 }
 
+.i-btn.btn--primary-2{
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary-text);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+.i-btn.btn--primary-2:hover{
+  background-color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+}
+
 /* btn dark */
 .i-btn.btn--dark {
   background-color: var(--text-primary);
