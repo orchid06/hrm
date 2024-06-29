@@ -16,12 +16,9 @@ class FrontendSeeder extends Seeder
     public function run(): void
     {
         
-
-
         $frontendsKeys = Frontend::distinct()->pluck('key')->toArray();
 
         $sections =  [
-
 
             "contact_us" => [
 
@@ -734,7 +731,6 @@ class FrontendSeeder extends Seeder
                 
             ],
 
-            
             "social_icon" => [
 
                 "element"  => [
@@ -781,7 +777,6 @@ class FrontendSeeder extends Seeder
                 
             ],
 
-            
             "mega_menu" => [
 
                 "content"  => [

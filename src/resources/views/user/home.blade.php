@@ -57,7 +57,7 @@
                           </svg>
                         </div>
                         <span class="icon-image position-absolute top-0 end-0">
-                          <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+                          <img src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{imageURL(@$platform->file,'platform',true)}}"/>
                         </span>
                         <div class="p-3">
                           <h5 class="card--title-sm">

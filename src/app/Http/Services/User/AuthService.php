@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Http;
 
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
+use Illuminate\Database\Eloquent\Model;
+
 class AuthService 
 {
 
@@ -26,7 +28,7 @@ class AuthService
      *
      * @return array
      */
-    public function sendOtp(mixed $sendTo ,string $template = "PASSWORD_RESET" , string $medium = 'email' ) :array {
+    public function sendOtp(Model $sendTo ,string $template = "PASSWORD_RESET" , string $medium = 'email' ) :array {
         
         #send mail
         $code = generateOTP();

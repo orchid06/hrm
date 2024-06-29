@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\KYCStatus;
 use App\Enums\WithdrawStatus;
 use App\Models\Core\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,24 +17,70 @@ class KycLog extends Model
     use HasFactory , Filterable;
     protected $guarded = [];
 
-
     protected $casts = [
         'kyc_data' => 'object',
     ];
 
 
-    public function file() :MorphMany{
-        
+    /**
+     * Get KYC files
+     *
+     * @return MorphMany
+     */
+    public function file(): MorphMany{
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function scopePending(Builder $q) :Builder{
-
-        return $q->where('status',WithdrawStatus::value("PENDING",true));
+    /**
+     * Get pending log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopePending(Builder $q): Builder{
+        return $q->where('status',KYCStatus::value("PENDING",true));
     }
 
-    public function user() :BelongsTo{
-        
+    /**
+     * Get approved log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeApproved(Builder $q): Builder{
+        return $q->where('status',KYCStatus::value("APPROVED",true));
+    }
+
+
+
+    /**
+     * Get hold log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeHold(Builder $q): Builder{
+        return $q->where('status',KYCStatus::value("HOLD",true));
+    }
+
+
+    /**
+     * Get rejected log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeRejected(Builder $q): Builder{
+        return $q->where('status',KYCStatus::value("REJECTED",true));
+    }
+
+
+    /**
+     * Get the user of the log
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo{
         return $this->belongsTo(User::class,'user_id');
     }
 }

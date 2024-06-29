@@ -53,10 +53,10 @@
                             <div class="message-wrapper" data-simplebar>
                                 @forelse($messages  as $message)
                                     @php
-                                        $imgUrl = imageUrl(@$ticket->user->file,"profile,user",true);
+                                        $imgUrl = imageURL(@$ticket->user->file,"profile,user",true);
                                         if ($message->admin_id) {
 
-                                            $imgUrl = imageUrl($message->admin->file,"profile,admin",true);;
+                                            $imgUrl = imageURL($message->admin->file,"profile,admin",true);;
                                         }
                                     @endphp
 

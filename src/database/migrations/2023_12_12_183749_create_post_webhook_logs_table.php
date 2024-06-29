@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::create('post_webhook_logs', function (Blueprint $table) {
             $table->id();
             $table->string('uid',100)->index()->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');;
+            $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');;
             $table->longText('webhook_response')->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

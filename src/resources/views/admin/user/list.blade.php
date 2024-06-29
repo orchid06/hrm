@@ -112,7 +112,7 @@
                                 </td>
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"  src='{{imageUrl($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
+                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->runningSubscription)
                                             <small data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Running Plan")}}" class="i-badge success">{{@$user->runningSubscription?->package->title}}</small>
@@ -156,7 +156,7 @@
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Show/Update")}}" class="icon-btn info"><i class="las la-pen"></i>
+                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Show")}}" class="icon-btn info"><i class="las la-eye"></i>
                                                 
                                                 </a>
 
@@ -195,6 +195,7 @@
 
 @section('modal')
     @include('modal.delete_modal')
+    
     <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">

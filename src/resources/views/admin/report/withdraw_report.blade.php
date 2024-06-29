@@ -20,6 +20,11 @@
 
           <div class="col-lg-9">
               <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Withdraw Report (Current Year)')}}
+                    </h4>
+               </div>
                   <div class="card-body">
                       <div id="withdraw-report"></div>
                   </div>
@@ -65,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inner">
-                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                                     </div>
                                     <button class="i-btn btn--md info w-100">
                                         <i class="las la-sliders-h"></i>

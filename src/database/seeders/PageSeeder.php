@@ -15,27 +15,18 @@ class PageSeeder extends Seeder
     public function run(): void
     {
 
-        $keys = Page::pluck('slug')->toArray();
-        $pages =  [
-            "terms-and-conditions",
-            "cookies-policy",
-            "privacy-policy",
-        ];
-
-        foreach($pages as $index => $key){
-            if(!in_array($key ,$keys )){
-
-                Page::create([
-                    "serial_id"      => $index,
-                    "title"          => k2t($key),
-                    "slug"           => $key,
-                    'description'    => 'description',
-                    'show_in_footer' => StatusEnum::true->status(),
-
-                ]);
-              
-            }
-        }
-        
+        collect([
+                "terms-and-conditions",
+                "cookies-policy",
+                "privacy-policy"
+           ])->except(Page::pluck('slug')->toArray())
+            ->each(fn(string $title ,int $index): Page=>
+                       Page::create([
+                            'title'       => k2t($title),
+                            'serial_id'   => $index,
+                            'description' => $title,
+                            'slug'        => $title])
+                    );
+                
     }
 }

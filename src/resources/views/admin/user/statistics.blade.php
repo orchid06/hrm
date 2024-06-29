@@ -1,8 +1,6 @@
 @extends('admin.layouts.master')
-
 @push('styles')
    <style>
-
             .h-330 {
                 height: 330px;
             }
@@ -26,70 +24,45 @@
 
         @php
                     $cards = ([
-                                [         
+                                [       
+                                    "class"  => 'col',  
                                     "title"  => translate("Total users"),
                                     "total"  => count(system_users()),
                                     "icon"   => '<i class="las la-user-friends"></i>',
-                                    "class"  => 'primary',
+                                    "bg"     => 'primary',
                                 ],
-                                [         
+                                [     
+                                    "class"  => 'col',      
                                     "title"  => translate("Active users"),
                                     "total"  => $active_users,
                                     "icon"   => '<i class="las la-user-check"></i>',
-                                    "class"  => 'info',
+                                    "bg"     => 'info',
                                 ],
                                 [         
+                                    "class"  => 'col',  
                                     "title"  => translate("Inactive users"),
                                     "total"  => $banned_users,
                                     "icon"   => '<i class="las la-user-minus"></i>',
-                                    "class"  => 'danger',
+                                    "bg"     => 'danger',
                                 ],
                                 [         
+                                    "class"  => 'col',  
                                     "title"  => translate("Subscribed users"),
                                     "total"  => $subscribed_users,
                                     "icon"   => '<i class="las la-user-tag"></i>',
-                                    "class"  => 'success',
+                                    "bg"     => 'success',
                                 ],
                                 [         
+                                    "class"  => 'col',  
                                     "title"  => translate("Unsubscribed users"),
                                     "total"  => $unsubscribed_users,
                                     "icon"   => '<i class="las la-user-injured"></i>',
-                                    "class"  => 'warning',
+                                    "bg"     => 'warning',
                                 ]
                            ]);
         @endphp
+        @include("admin.partials.report_card")
 
-
-
-        @foreach ($cards as  $card)
-
-
-                <div class="col">
-                    <div class="i-card-sm style-2  {{
-                        Arr::get( $card,'class')}} ">
-                        <div class="card-info">
-                                <h3>
-                                    {{
-                                        Arr::get( $card,'total')
-                                   }}
-                                </h3>
-                                <h5 class="title">
-                                    {{
-                                         Arr::get( $card,'title')
-                                    }}
-                                </h5>
-                    
-                        </div>
-                        <div class="d-flex flex-column align-items-end gap-4">
-                                <div class="icon">
-                                     @php echo     Arr::get( $card,'icon') @endphp
-                                </div>
-                        </div>
-                    </div>
-                </div>
-
-            
-        @endforeach
     </div>
 
     <div class="row mb-3">
@@ -113,11 +86,9 @@
                             <div class="top-country-users ul">
                                     <ul>
                                         @foreach ($top_countries as $country)
-
                                             <li>
                                                 <span> {{ $country->name  }} </span> -  <span>  {{ $country->users_count  }}  </span> 
                                             </li>
-                                            
                                         @endforeach
                                     
                                     </ul>
@@ -227,8 +198,6 @@
 				var chart = new google.visualization.GeoChart(document.getElementById('usersByCountry'));
 				chart.draw(data, options);
 			}
-
-
 
 
              

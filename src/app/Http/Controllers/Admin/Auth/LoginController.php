@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Enums\LoginKeyEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,30 +14,32 @@ class LoginController extends Controller
 {
     
     /**
-     * show login form
+     * Show login form
      *
      * @return void
      */
-    public function login() :View{
-        return view("admin.auth.login",[
-            'title' => 'Login'
-        ]);
+    public function login(): View{
+        return view("admin.auth.login",[ 'title' => 'Login']);
     }
 
     
     /**
-     * authenticate request user
+     * Authenticate  user
      *
      * @param Request $request
-     * @return void
+     * @return RedirectResponse
      */
-    public function authenticate(Request $request) :RedirectResponse{
+    public function authenticate(Request $request): RedirectResponse{
 
         $response = response_status('Server Error!! Please Reload Then Try Again ','error');
+
         try {
             $this->validateLogin($request);
   
-            if (Auth::guard('admin')->attempt([$this->username($request->input('login')) => $request->input('login') , "password"=>$request->input('password')])){
+            if (Auth::guard('admin')->attempt([
+                                                $this->username($request->input('login')) => $request->input('login'),
+                                                "password"=>$request->input('password')
+                                             ])){
                 return redirect()->intended('/admin/dashboard')->with(response_status('Successfully Loggedin'));
             }
 
@@ -50,24 +53,19 @@ class LoginController extends Controller
     }
 
     /**
-     * get username
+     * Get username
      *
      * @param string $login
      * @return string
      */
-    
-     public function username(string $login) :string 
-    {
+     public function username(string $login): string{
+
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-
-            return 'email';
-
+            return LoginKeyEnum::EMAIL->value;
         } elseif (preg_match('/^[0-9]+$/', $login)) {
-
-            return 'phone_number';
+            return LoginKeyEnum::PHONE_NUMBER->value;
         }
-        
-        return 'username';
+        return LoginKeyEnum::USERNAME->value;;
     }
 
     /**
@@ -80,7 +78,6 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
-
         $request->validate([
             'login'              => 'required|string',
             'password'           => 'required|string',
@@ -92,13 +89,12 @@ class LoginController extends Controller
     }
 
     /**
-     * logout
+     * Logout
      *
      * @param Request $request
-     * @return void
+     * @return RedirectResponse
      */
-    public function logout(Request $request) :RedirectResponse
-    {
+    public function logout(Request $request): RedirectResponse{
         Auth::guard('admin')->logout();
         return redirect('/admin');
     }

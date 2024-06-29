@@ -20,7 +20,7 @@
           <div class="col-xl-3 col-lg-4">
             <div class="profile-info">
               <div class="profile-img">
-                  <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}" />
+                  <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}" />
               </div>
 
               <div class="profile-meta">

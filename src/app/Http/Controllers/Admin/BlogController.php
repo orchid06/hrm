@@ -6,7 +6,7 @@ use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Admin\Category;
-use App\Models\Article;
+use App\Models\Blog;
 use App\Models\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -17,13 +17,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Closure;
+use Illuminate\Database\Eloquent\Collection;
 
-class ArticleController extends Controller
+class BlogController extends Controller
 {
 
 
     use ModelAction , Fileable;
-    protected $categories;
+    protected Collection $categories;
     /**
      *
      * @return void
@@ -36,11 +37,7 @@ class ArticleController extends Controller
         $this->middleware(['permissions:update_blog'])->only(['updateStatus','update','edit','bulk']);
         $this->middleware(['permissions:delete_blog'])->only(['destroy','bulk']);
         
-        $this->middleware(function (Request $request, Closure $next) {
-            $this->categories = Category::article()->get();
-            return $next($request);
-        });
-
+        $this->categories = Category::article()->get();
     }
 
 
@@ -51,11 +48,11 @@ class ArticleController extends Controller
      */
     public function list() :View{
 
-        return view('admin.article.list',[
+        return view('admin.blog.list',[
 
             'breadcrumbs'  => ['Home'=>'admin.home','Blogs'=> null],
             'title'        => 'Manage Blogs',
-            'articles'     => Article::search(['title'])
+            'articles'     => Blog::search(['title'])
                                 ->filter(["status",'category:slug','is_feature'])
                                 ->latest()
                                 ->paginate(paginateNumber())
@@ -77,8 +74,8 @@ class ArticleController extends Controller
      */
     public function create() :View{
 
-        return view('admin.article.create',[
-            'breadcrumbs' =>  ['Home'=>'admin.home','Blogs'=> 'admin.article.list',"Create"=>null],
+        return view('admin.blog.create',[
+            'breadcrumbs' =>  ['Home'=>'admin.home','Blogs'=> 'admin.blog.list',"Create"=>null],
             'title'       => 'Create Blog',
             'categories'  =>  $this->categories,
         ]);
@@ -96,7 +93,7 @@ class ArticleController extends Controller
 
         DB::transaction(function() use ($request) {
 
-            $article                  =  new Article();
+            $article                  =  new Blog();
             $article->title           =  $request->input("title");
             $article->category_id     =  $request->input("category_id");
             $article->description     =  $request->input("description");
@@ -131,10 +128,10 @@ class ArticleController extends Controller
     public function edit(string $uid) :View{
 
         return view('admin.article.edit',[
-            'breadcrumbs' => ['Home'=>'admin.home','Blogs'=> 'admin.article.list',"Edit"=>null],
+            'breadcrumbs' => ['Home'=>'admin.home','Blogs'=> 'admin.blog.list',"Edit"=>null],
             'title'       => 'Update Blog',
             'categories'  => $this->categories,
-            'article'     => Article::where('uid',$uid)->firstOrfail()
+            'article'     => Blog::where('uid',$uid)->firstOrfail()
         ]);
 
     }
@@ -153,7 +150,7 @@ class ArticleController extends Controller
 
         DB::transaction(function() use ($request) {
 
-            $article                  =  Article::where('id',$request->input('id'))->firstOrfail();
+            $article                  =  Blog::where('id',$request->input('id'))->firstOrfail();
             $article->title           =  $request->input("title");
             $article->category_id     =  $request->input("category_id");
             $article->description     =  $request->input("description");
@@ -198,14 +195,14 @@ class ArticleController extends Controller
         ]);
 
         return $this->changeStatus($request->except("_token"),[
-            "model"    => new Article(),
+            "model"    => new Blog(),
         ]);
     }
 
 
     public function destroy(string | int $uid) :RedirectResponse{
 
-        $article  = Article::where('uid',$uid)->firstOrfail();
+        $article  = Blog::where('uid',$uid)->firstOrfail();
         $this->unlink(
             location    : config("settings")['file_path']['article']['path'],
             file        : $article->file()->where('type','feature')->first()
@@ -225,7 +222,7 @@ class ArticleController extends Controller
 
         try {
             $response =  $this->bulkAction($request,[
-                "model"        => new Article(),
+                "model"        => new Blog(),
                 "file_unlink"  => [
                     "feature"   =>  config("settings")['file_path']['article']['path']
                 ],

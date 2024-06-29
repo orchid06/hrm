@@ -1,47 +1,39 @@
 <?php
 
+use App\Enums\InputEnum;
+use App\Enums\LoginKeyEnum;
+use App\Enums\SecurityType;
 use App\Enums\StatusEnum;
+use App\Enums\StorageKey;
+use App\Enums\ThemeColor;
 use Carbon\Carbon;
-use Predis\Response\Status;
+
 
 return [
 
-    "site_name"      => "FeedsWiz",
+    "site_name"      => "demo",
     "logo_icon"      => "@@",
     "site_logo"      => "@@",
     "user_site_logo" => "@@",
     "favicon"        => "@@",
     "phone"          => "0xxxxxxxx",
-    "address"        => "",
-
-    "email"               => "feedwiz@gmail.com",
+    "address"        => "demo",
+    "email"               => "demo@gmail.com",
     "last_corn_run"       => Carbon::now(),
-    "user_authentication" => json_encode([
-        'registration'   => StatusEnum::true->status(),
-        'login'          => StatusEnum::true->status(),
-        'login_with'     => [
-            'user_name',
-            'email',
-            'phone',
-        ]
-    ]),
+
+    'registration'   => StatusEnum::true->status(),
+    'login'          => StatusEnum::true->status(),
 
     "login_with" => json_encode([
-        'user_name',
-        'email',
-        'phone',
+        LoginKeyEnum::EMAIL->value,
+        LoginKeyEnum::PHONE->value,
+        LoginKeyEnum::USERNAME->value
     ]),
 
 
     "default_sms_template"  => "hi {{name}}, {{message}}",
     "default_mail_template" => "hi {{name}}, {{message}}",
     "two_factor_auth"       => StatusEnum::false->status(),
-
-    "two_factor_auth_with" => json_encode([
-        'google' => StatusEnum::true->status(),
-        'sms'    => StatusEnum::false->status(),
-        'mail'   => StatusEnum::false->status(),
-    ]),
 
 
     "sms_otp_verification"          => StatusEnum::false->status(),
@@ -51,9 +43,8 @@ return [
     "email_verification"            => StatusEnum::false->status(),
     "email_notifications"           => StatusEnum::false->status(),
     "slack_notifications"           => StatusEnum::false->status(),
-    "browser_notifications"         => StatusEnum::false->status(),
     "currency_alignment"            => 0,
-    "num_of_decimal"                => "2",
+    "num_of_decimal"                => "0",
     "decimal_separator"             => ".",
     "thousands_separator"           => ",",
     "price_format"                  => StatusEnum::false->status(),
@@ -64,25 +55,24 @@ return [
     "site_seo"                      => StatusEnum::false->status(),
     "app_debug"                     => StatusEnum::false->status(),
     "maintenance_mode"              => StatusEnum::false->status(),
-    "demo_mode"                     => StatusEnum::false->status(),      
-    "pagination_number"             => '10',
-    "copy_right_text"               => '2023',
+    "pagination_number"             => 10,
+    "copy_right_text"               =>'@@@@',
     "same_site_name"                => StatusEnum::false->status(),
-    "country"                       => 'United States',
 
-    "user_site_name"   => "FeedsWiz",
+
+    "user_site_name"   => "demo_site",
     "google_recaptcha" => json_encode([
-        'key'        => '6Lc5PpImAAAAABM-m4EgWw8vGEb7Tqq5bMOSI1Ot',
-        'secret_key' => '6Lc5PpImAAAAACdUh5Hth8NXRluA04C-kt4Xdbw7',
+        'key'        => '@@@',
+        'secret_key' => '@@@',
         'status'     => StatusEnum::false->status()
     ]),
 
     "strong_password" => StatusEnum::true->status(),
 
     "captcha" => StatusEnum::false->status(),
-    "vistors" => '500',
+    "vistors" => 500,
 
-    "sign_up_bonus" => StatusEnum::false->status(),
+    "sign_up_bonus"             => StatusEnum::false->status(),
 
     "default_recaptcha"         => StatusEnum::false->status(),
     "captcha_with_login"        => StatusEnum::true->status(),
@@ -101,11 +91,9 @@ return [
         ],
     ]),
 
-    'google_map' => json_encode([
-        'key' => '#',
-    ]),
+    'google_map_api_key' => '@@@@',
 
-    'storage'    => "local",
+    'storage'    => StorageKey::LOCAL->value,
     'mime_types' => json_encode([
         'png',
         'jpg',
@@ -116,11 +104,10 @@ return [
     'max_file_size'   => 20000,
     "max_file_upload" => 4,
     'aws_s3' => json_encode( [
-        's3_key' => '@@',
+        's3_key'    => '@@',
         's3_secret' => '@@',
         's3_region' => '@@',
-        's3_bucket' => '@@',
-
+        's3_bucket' => '@@'
     ]),
 
     'ftp' => json_encode( [
@@ -128,16 +115,7 @@ return [
         'port'      => '@@',
         'user_name' => '@@',
         'password'  => '@@',
-        'root'      => '/',
-    ]),
-
-    'pusher_settings' => json_encode( [
-        'app_id'      => '@@',
-        'app_key'     => '@@',
-        'app_secret'  => '@@',
-        'app_cluster' => '@@',
-        'chanel'      => '@@',
-        'event'       => '@@',
+        'root'      => '/'
     ]),
 
     'database_notifications'    => StatusEnum::false->status(),
@@ -154,26 +132,25 @@ return [
     'api_route_rate_limit' => 1000,
     'web_route_rate_limit' => 1000,
 
-    'primary_color'   => "#10a37f",
-    'secondary_color' => "#c2fa6b",
-    'text_primary'    => '#24282c',
-    'text_secondary'  => '#545454',
-    'btn_text_primary'    => '#ffffff',
-    'btn_text_secondary'  => '#6a7b65',
+    'primary_color'       => ThemeColor::PRIMARY_COLOR->value,
+    'secondary_color'     => ThemeColor::SECONDARY_COLOR->value,
+    'text_primary'        => ThemeColor::TEXT_PRIMARY->value,
+    'text_secondary'      => ThemeColor::TEXT_SECONDARY->value,
+    'btn_text_primary'    => ThemeColor::BTN_TEXT_PRIMARY->value,
+    'btn_text_secondary'  => ThemeColor::BTN_TEXT_SECONDARY->value,
     
 
     /** newly added content */
     'site_description'       => 'demo description',
 
-    "telegram_notifications" => StatusEnum::false->status(),
     "sms_notification"       => StatusEnum::false->status(),
 
-    "max_pending_withdraw"   => "1",
+    "max_pending_withdraw"   => 1,
     "force_ssl"              => StatusEnum::false->status(),
     "dos_prevent"            => StatusEnum::false->status(),
     "dos_attempts"           => StatusEnum::false->status(),
-    "dos_attempts_in_second" => "5",
-    "dos_security"           => "captcha",
+    "dos_attempts_in_second" => 5,
+    "dos_security"           => SecurityType::CAPTCHA->value,
 
     "google_ads"                   => StatusEnum::false->status(),
     'google_adsense_publisher_id'  => "@@",
@@ -188,7 +165,7 @@ return [
     "site_meta_keywords" => json_encode(['demo']),
     "title_separator"    => ":",
 
-    'live_chat' => StatusEnum::true->status(),
+
 
     "ai_default_creativity" => 0.5,
     "ai_default_tone"       => "Casual",
@@ -210,62 +187,62 @@ return [
     "kyc_settings"          => json_encode(
     [
         [
-            'labels' => 'Name',
-            'name' => 'name',
+            'labels'      => 'Name',
+            'name'        => 'name',
             'placeholder' => 'Name',
-            'type' => 'text',
-            'required' => StatusEnum::true->status(),
-            'default' => StatusEnum::true->status(),
-            'multiple' => StatusEnum::false->status()
+            'type'        => InputEnum::TEXT->value,
+            'required'    => StatusEnum::true->status(),
+            'default'     => StatusEnum::true->status(),
+            'multiple'    => StatusEnum::false->status()
         ]
     ]),
     "kyc_verification"      => StatusEnum::false->status(),
     "ticket_settings" => json_encode(
     [
         [
-            'labels' => 'Name',
-            'name' => 'name',
+            'labels'      => 'Name',
+            'name'        => 'name',
             'placeholder' => 'Name',
-            'type' => 'text',
-            'required' => StatusEnum::true->status(),
-            'default' => StatusEnum::true->status(),
-            'multiple' => StatusEnum::false->status()
+            'type'        => InputEnum::TEXT->value,
+            'required'    => StatusEnum::true->status(),
+            'default'     => StatusEnum::true->status(),
+            'multiple'    => StatusEnum::false->status()
         ],
         [
-            'labels' => 'Subject',
-            'name' => 'subject',
+            'labels'      => 'Subject',
+            'name'        => 'subject',
             'placeholder' => 'Subject',
-            'type' => 'text',
-            'required' => StatusEnum::true->status(),
-            'default' => StatusEnum::true->status(),
-            'multiple' => StatusEnum::false->status()
+            'type'        => InputEnum::TEXT->value,
+            'required'    => StatusEnum::true->status(),
+            'default'     => StatusEnum::true->status(),
+            'multiple'    => StatusEnum::false->status()
         ],
         [
-            'labels' => 'Description',
-            'name' => 'description',
+            'labels'      => 'Description',
+            'name'        => 'description',
             'placeholder' => 'Description',
-            'type' => 'textarea',
-            'required' => StatusEnum::true->status(),
-            'default' => StatusEnum::true->status(),
-            'multiple' => StatusEnum::false->status()
-        ],
+            'type'        => InputEnum::TEXTAREA->value,
+            'required'    => StatusEnum::true->status(),
+            'default'     => StatusEnum::true->status(),
+            'multiple'    => StatusEnum::false->status()
+        ], 
         [
-            'labels' => 'File',
-            'name' => 'attachment',
+            'labels'      => 'File',
+            'name'        => 'attachment',
             'placeholder' => 'Upload file',
-            'type' => 'file',
-            'required' => StatusEnum::true->status(),
-            'default' => StatusEnum::true->status(),
-            'multiple' => StatusEnum::true->status()
-        ],
+            'type'        => InputEnum::FILE->value,
+            'required'    => StatusEnum::true->status(),
+            'default'     => StatusEnum::true->status(),
+            'multiple'    => StatusEnum::true->status()
+        ]
     ]),
-    "site_earning"          => StatusEnum::false->status(),
+
     "continuous_commission" => StatusEnum::false->status(),
     "affiliate_system"      => StatusEnum::false->status(),
 
     "multi_lang"            => StatusEnum::false->status(),
     "multi_currency"        => StatusEnum::false->status(),
-    "meta_image"            => null,
+    "meta_image"            => '@@',
 
 
 ];

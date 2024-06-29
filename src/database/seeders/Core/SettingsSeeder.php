@@ -3,9 +3,8 @@
 namespace Database\Seeders\Core;
 
 use App\Models\Core\Setting;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Enums\StatusEnum;
+use Illuminate\Support\Str;
 class SettingsSeeder extends Seeder
 {
     /**
@@ -14,19 +13,15 @@ class SettingsSeeder extends Seeder
     public function run(): void
     {
 
-        $existingSetup = Setting::pluck('key')->toArray();
-        $settings = config('site_settings');
-        $formatedSettings = [];
-        foreach($settings as $key=>$value){
-            if(!in_array($key,$existingSetup)){
-                array_push($formatedSettings , array(
+        $settings =  collect(config('site_settings'))
+        ->except(Setting::pluck('key')->toArray())
+        ->map(fn(mixed $value , string $key): array =>
+                 array(
+                    'uid' => Str::uuid(),
                     'key' => $key,
-                    'value' =>$value,
-                ));
-            }
-        }
-
-        Setting::insert($formatedSettings);
+                    'value' =>$value)
+            )->values()->all();
+        Setting::insert($settings);
         optimize_clear();
     }
 }

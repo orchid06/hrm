@@ -16,10 +16,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
+
+use App\Traits\Notifyable;
 class Admin extends Authenticatable
 {
     
-    use  HasFactory ,Filterable ,SoftDeletes;
+    use  HasFactory ,Filterable ,SoftDeletes ,Notifyable;
 
 
     /**

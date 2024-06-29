@@ -45,52 +45,52 @@
             </div>
           </div>
           <div class="row g-4">
-            <div class="col-12">
-              <div class="swiper service-slider-one">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+              <div class="col-12">
+                <div class="swiper service-slider-one">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -105,53 +105,53 @@
             </div>
           </div>
           <div class="row g-4">
-          <div class="col-12">
-              <div class="swiper service-slider-two">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+            <div class="col-12">
+                <div class="swiper service-slider-two">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="service-item">
-                      <div class="image">
-                        <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                       </div>
-                      <h4>Ai Content Create</h4>
-                      <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                      <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
         <div class="col-lg-1 d-lg-block d-none">
           <div class="service-type-icon">

@@ -28,7 +28,7 @@
             <div class="i-card-md">
                 <div class="card-body">
                     <ul class="report-list">
-                        <li><span>Trx Code</span><span>	ZXGRJFVDWNXJ</span></li>
+                        <li><span>TRX Code</span><span>	ZXGRJFVDWNXJ</span></li>
                         <li><span>User</span><span>Clinton Benson</span></li>
                         <li><span>Package</span><span>Starter</span></li>
                         <li><span>Paid Amount</span><span>$140.00</span></li>
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="form-inner">
-                    <input type="text"  name="search" value="{{request()->input('search')}}" placeholder='{{translate("Search by transaction id")}}'>
+                    <input type="text"  name="search" value="{{request()->input('search')}}" placeholder='{{translate("Search by Transaction ID")}}'>
                 </div>
 
                 <div class="d-flex gap-2">
@@ -120,7 +120,7 @@
                                             </span>
                                             <div>
                                                 <h6>
-                                                    {{translate("Trx Code")}}
+                                                    {{translate("TRX Code")}}
                                                 </h6>
                                                 <p> {{$report->trx_code}}</p>
                                             </div>

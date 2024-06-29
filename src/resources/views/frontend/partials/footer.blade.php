@@ -148,7 +148,7 @@
           </div>
         </div>
         <div class="cta-bg">
-          <img src='{{imageUrl(@$file,"frontend",true,@get_appearance()->cta->content->images->image->size)}}' alt="{{@$file->name}}" loading="lazy" />
+          <img src='{{imageURL(@$file,"frontend",true,@get_appearance()->cta->content->images->image->size)}}' alt="{{@$file->name}}" loading="lazy" />
         </div>
       </div>
 
@@ -192,7 +192,7 @@
               <div class="footer-left">
                 <a href="{{route('home')}}" class="site-log">
                     <img
-                    src='{{imageUrl(@site_logo("user_site_logo")->file,"user_site_logo",true)}}'
+                    src='{{imageURL(@site_logo("user_site_logo")->file,"user_site_logo",true)}}'
                     alt="{{@site_logo('user_site_logo')->file->name}}" />
                 </a>
 
@@ -210,7 +210,7 @@
                 </div>
 
                 <div class="payment-img">
-                     <img src="{{imageUrl(@$paymentImg,'frontend',true,@get_appearance()->footer->content->images->payment_image->size)}}" alt="{{@$paymentImg->name}}" />
+                     <img src="{{imageURL(@$paymentImg,'frontend',true,@get_appearance()->footer->content->images->payment_image->size)}}" alt="{{@$paymentImg->name}}" />
                 </div>
               </div>
             </div>

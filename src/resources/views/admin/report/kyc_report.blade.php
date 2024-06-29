@@ -9,7 +9,15 @@
     <div class="row mb-4">
         <div class="col-lg-12">
             <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('KYC Statistics (Current Year)')}}
+                    </h4>
+               </div>
                 <div class="card-body">
+                    <div class="row g-2 text-center mb-5">
+                        @include('admin.partials.summary',['style' => 'card','col' => 3])
+                    </div>
                     <div id="kyc-report"></div>
                 </div>
             </div>
@@ -97,6 +105,9 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                    <div>
+                                        {{ diff_for_humans($report->created_at)  }}
+                                    </div>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -113,7 +124,7 @@
                                     </div>
                                 </td>
                            </tr>
-                            @empty
+                        @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
@@ -133,10 +144,10 @@
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
-    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -145,28 +156,30 @@
 
         "use strict";
         
-        $(".user").select2({
+        $(".user").select2({});
+        $(".status").select2({});
 
-        });
-        $(".status").select2({
-
-        });
-
-    
         var options = {
-          series: [{
-          name: 'PRODUCT A',
-          data: [44, 55, 41, 67, 22, 43]
-        }, {
-          name: 'PRODUCT B',
-          data: [13, 23, 20, 8, 13, 27]
-        }, {
-          name: 'PRODUCT C',
-          data: [11, 17, 15, 15, 21, 14]
-        }, {
-          name: 'PRODUCT D',
-          data: [21, 7, 25, 13, 22, 8]
-        }],
+            series: [
+            {
+              name: "{{ translate('Total Log') }}",
+              data: @json(array_column($graph_data , 'total')),
+            },
+            {
+              name: "{{ translate('Approved Log') }}",
+              data: @json(array_column($graph_data , 'approved')),
+            },
+            {
+              name: "{{ translate('Pending Log') }}",
+              data: @json(array_column($graph_data , 'pending')),
+            },
+            {
+              name: "{{ translate('Rejected Log') }}",
+              data: @json(array_column($graph_data , 'rejected')),
+            },
+         
+          
+          ],
           chart: {
           type: 'bar',
           height: 350,
@@ -192,8 +205,8 @@
           bar: {
             horizontal: false,
             borderRadius: 10,
-            borderRadiusApplication: 'end', // 'around', 'end'
-            borderRadiusWhenStacked: 'last', // 'all', 'last'
+            borderRadiusApplication: 'end', 
+            borderRadiusWhenStacked: 'last', 
             dataLabels: {
               total: {
                 enabled: true,
@@ -206,10 +219,7 @@
           },
         },
         xaxis: {
-          type: 'datetime',
-          categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
-            '01/05/2011 GMT', '01/06/2011 GMT'
-          ],
+            categories: @json(array_keys($graph_data)),
         },
         legend: {
           position: 'right',

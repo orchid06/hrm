@@ -1,6 +1,7 @@
 {
 
     "banner": {
+        
         "builder": true,
         "name": "banner",
         "no_selection": true,

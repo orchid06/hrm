@@ -7,10 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfileRequest;
 
 use App\Models\Admin\Category;
-use App\Models\Article;
+
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
 use App\Models\AiTemplate;
+use App\Models\Blog;
 use App\Models\Core\File;
 use App\Models\Link;
 use App\Models\MediaPlatform;
@@ -120,7 +121,7 @@ class HomeController extends Controller
         $data['total_category']           = Category::date()->count();
         $data['total_package']            = Package::date()->count();
         $data['total_visitor']            = Visitor::date()->count();
-        $data['total_article']            = Article::date()->count();
+        $data['total_blog']               = Blog::date()->count();
         $data['total_template']           = AiTemplate::date()->count();
         $data['total_earning']            = num_format(
                                                 number: $subscripIncome + $charge + $withDrawCharge,

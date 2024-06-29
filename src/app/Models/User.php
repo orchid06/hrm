@@ -78,22 +78,18 @@ class User extends Authenticatable
     protected static function booted(){
 
         static::creating(function (Model $model) {
-
             $model->uid        = Str::uuid();
-
             $model->created_by = request()->routeIs('admin.*') ? auth_user('admin')?->id : null;
             $model->status     = StatusEnum::true->status();
 
         });
 
         static::updating(function(Model $model) {
-
             $model->updated_by = request()->routeIs('admin.*') ? auth_user('admin')?->id : null;
         });
 
         static::saved(function (Model $model) {
             Cache::forget('system_users');
-
         });
 
         static::deleted(function(Model $model) {
@@ -103,127 +99,192 @@ class User extends Authenticatable
 
 
 
-    public function createdBy() :BelongsTo{
+
+    /**
+     * Get the admin who crate the record
+     *
+     * @return BelongsTo
+     */
+    public function createdBy():BelongsTo {
         return $this->belongsTo(Admin::class,'created_by','id')->withDefault([
             'name'     => translate("System"),
             'username' => translate("System"),
         ]);
     }
-    public function updatedBy() :BelongsTo{
+
+
+
+    /**
+     * Get the admin who updated a record
+     *
+     * @return BelongsTo
+     */
+    public function updatedBy():BelongsTo {
         return $this->belongsTo(Admin::class,'updated_by','id')->withDefault([
             'name'     => translate("System"),
             'username' => translate("System"),
         ]);
     }
 
-
-    public function file() :MorphOne{
+    /**
+     * get user files
+     *
+     * @return MorphOne
+     */
+    public function file():MorphOne {
         return $this->morphOne(File::class, 'fileable');
     }
 
 
-    public function referral() :BelongsTo{
 
+    /**
+     * Get referral user
+     *
+     * @return BelongsTo
+     */
+    public function referral():BelongsTo {
         return  $this->belongsTo(User::class,"referral_id",'id');
     }
 
 
-    
-    public function affilateUser() :HasMany{
 
+    /**
+     * Get all affiliate users
+     *
+     * @return HasMany
+     */
+    public function affilateUser():HasMany {
         return  $this->hasMany(User::class,"referral_id",'id');
     }
 
-    public function otp() : MorphMany{
+
+    /**
+     * Get user OTP
+     *
+     * @return MorphMany
+     */
+    public function otp():MorphMany {
         return $this->morphMany(Otp::class, 'otpable');
     }
 
 
-    public function notifications() :MorphMany{
+    /**
+     * Get all notifications
+     *
+     * @return MorphMany
+     */
+    public function notifications(): MorphMany{
         return $this->morphMany(Notification::class, 'notificationable');
     }
 
-
-
-    public function tickets() :HasMany{
-
+    /**
+     * Get all tickets
+     *
+     * @return HasMany
+     */
+    public function tickets():HasMany {
         return $this->hasMany(Ticket::class,'user_id')->latest();
     }
 
-
-    public function subscriptions() :HasMany{
-
+    /**
+     * Get all subscriptions
+     *
+     * @return HasMany
+     */
+    public function subscriptions():HasMany {
         return $this->hasMany(Subscription::class,'user_id')->latest();
     }
-    public function runningSubscription() :HasOne {
 
+    
+    /**
+     * Get running subscription
+     *
+     * @return HasOne
+     */
+    public function runningSubscription(): HasOne{
         return $this->hasOne(Subscription::class,'user_id')->running();
     }
 
-
-    public function transactions() :HasMany{
-
+    /**
+     * Get all transactions
+     *
+     * @return HasMany
+     */
+    public function transactions(): HasMany{
         return $this->hasMany(Transaction::class,'user_id')->latest();
     }
 
-    public function paymentLogs() :HasMany{
 
+    /**
+     * Get all payment logs
+     *
+     * @return HasMany
+     */
+    public function paymentLogs(): HasMany{
         return $this->hasMany(PaymentLog::class,'user_id')->latest();
     }
 
-    public function withdraws() :HasMany{
 
+    /**
+     * Get withdraw logs
+     *
+     * @return HasMany
+     */
+    public function withdraws(): HasMany{
         return $this->hasMany(WithdrawLog::class,'user_id')->latest();
     }
 
-
-    public function pendingWithdraws() :HasMany{
-
-        return $this->hasMany(WithdrawLog::class,'user_id')->pending();
+    /**
+     * Get pending withdraws
+     *
+     * @return HasMany
+     */
+    public function pendingWithdraws(): HasMany{
+        return $this->withdraws()->pending();
     }
 
-
-    public function scopeActive(Builder $q) :Builder{
-        
+    /**
+     * Get active users
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeActive(Builder $q): Builder{
         return $q->where("status",StatusEnum::true->status());
     }
 
-    public function scopeBanned(Builder $q) :Builder{
 
+    /**
+     * Get banned users
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeBanned(Builder $q): Builder{
         return $q->where("status",StatusEnum::false->status());
     }
 
-    public function scopeKycverified(Builder $q) :Builder{
 
+    /**
+     * Get KYC verified users
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeKycverified(Builder $q): Builder{
         return $q->where("is_kyc_verified",StatusEnum::true->status());
     }
 
 
-        
-    public function scopeKycbanned(Builder $q) :Builder{
-
+    /**
+     * Get KYC banned user
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeKycbanned(Builder $q): Builder{
         return $q->where("is_kyc_verified",StatusEnum::false->status());
     }
-
-
-    public function scopeRoutefilter(Builder $q) :Builder{
-
-        return $q->when(request()->routeIs('admin.user.banned'),function($query) {
-            return $query->banned();
-        })->when(request()->routeIs('admin.user.active'),function($query) {
-            return $query->active();
-        })->when(request()->routeIs('admin.user.kyc.verfied'),function($query) {
-            return $query->kycverified();
-        })->when(request()->routeIs('admin.user.kyc.banned'),function($query) {
-            return $query->kycbanned();
-        })
-        ->when(request()->routeIs('admin.user.banned'),function($query) {
-            return $query->kycbanned();
-        });
-    }
-
-
-
 
 
     /**
@@ -231,8 +292,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function templates(): HasMany
-    {
+    public function templates(): HasMany{
         return $this->hasMany(AiTemplate::class, 'user_id', 'id');
     }
     
@@ -243,8 +303,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function templateUsages(): HasMany
-    {
+    public function templateUsages(): HasMany{
         return $this->hasMany(TemplateUsage::class, 'user_id');
     }
 
@@ -254,8 +313,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function kycLogs(): HasMany
-    {
+    public function kycLogs(): HasMany{
         return $this->hasMany(KycLog::class, 'user_id');
     }
 
@@ -264,8 +322,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function creditLogs(): HasMany
-    {
+    public function creditLogs(): HasMany{
         return $this->hasMany(CreditLog::class, 'user_id');
     }
 
@@ -276,8 +333,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function accounts(): HasMany
-    {
+    public function accounts(): HasMany{
         return $this->hasMany(SocialAccount::class, 'user_id');
     }
 
@@ -288,8 +344,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function posts(): HasMany
-    {
+    public function posts(): HasMany{
         return $this->hasMany(SocialPost::class, 'user_id');
     }
 
@@ -300,23 +355,16 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function webhookLogs(): HasMany
-    {
+    public function webhookLogs(): HasMany{
         return $this->hasMany(PostWebhookLog::class, 'user_id');
     }
 
-
-
-
-
-    
     /**
      * Get all of credit logs
      *
      * @return HasMany
      */
-    public function affiliates(): HasMany
-    {
+    public function affiliates(): HasMany{
         return $this->hasMany(AffiliateLog::class, 'user_id');
     }
 
@@ -326,13 +374,10 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function affiliateLogs(): HasMany
-    {
+    public function affiliateLogs(): HasMany{
         return $this->hasMany(AffiliateLog::class, 'referred_to');
     }
 
-
-    
 
 
     /**
@@ -340,11 +385,29 @@ class User extends Authenticatable
      *
      * @return BelongsTo
      */
-    public function country(): BelongsTo
-    {
+    public function country(): BelongsTo{
         return $this->belongsTo(Country::class, 'country_id')->withDefault([
             'name'=> "N/A"
         ]);
+    }
+
+
+
+
+
+    /**
+     * Scope route filter
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeRoutefilter(Builder $q): Builder{
+
+        return $q->when(request()->routeIs('admin.user.banned'),fn(Builder $query): Builder=> $query->banned())
+                 ->when(request()->routeIs('admin.user.active'),fn(Builder $query): Builder => $query->active())
+                 ->when(request()->routeIs('admin.user.kyc.verfied'),fn(Builder $query): Builder => $query->kycverified())
+                 ->when(request()->routeIs('admin.user.kyc.banned'),fn(Builder $query): Builder => $query->kycbanned())
+                 ->when(request()->routeIs('admin.user.banned'),fn(Builder $query): Builder =>  $query->kycbanned());
     }
 
 

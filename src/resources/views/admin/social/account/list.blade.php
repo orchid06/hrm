@@ -23,7 +23,7 @@
                                 </a>
                                 <a class="nav-link border-0 flex-grow-1 rounded-3 {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
                                         <p>	 {{$platform->name}}</p>
                                     </div>
                                 </a>

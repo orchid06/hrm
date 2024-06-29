@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{csrf_token()}}" />
     <title>{{@site_settings("site_name")}} {{site_settings('title_separator')}} {{@translate($title)}}</title>
-    <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}">
+    <link rel="shortcut icon" href="{{imageURL(@site_logo('favicon')->file,'favicon',true)}}">
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/line-awesome.min.css')}}" rel="stylesheet"  type="text/css"/>

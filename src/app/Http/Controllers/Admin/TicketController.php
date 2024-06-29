@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\StatusEnum;
-use App\Enums\TicketStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketRequest;
 use App\Http\Services\TicketService;
 use App\Http\Utility\SendNotification;
-use App\Http\Utility\SendSMS;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Core\File;
 use App\Models\Message;
 use App\Models\Ticket;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -50,12 +46,13 @@ class TicketController extends Controller
             "title"           => translate("Ticket List"),
             'breadcrumbs'     => ['Home'=>'admin.home','Tickets'=> null],
             'tickets'         => Ticket::with(['user','messages'])
-                                  ->search(['subject'])
-                                  ->filter(['ticket_number',"status",'user:username','priority'])
-                                  ->date()
-                                  ->latest()
-                                  ->paginate(paginateNumber())
-                                  ->appends(request()->all()),
+                                            ->search(['subject'])
+                                            ->filter(['ticket_number',"status",'user:username','priority'])
+                                            ->date()
+                                            ->latest()
+                                            ->paginate(paginateNumber())
+                                            ->appends(request()->all()),
+
             'counter'         => $this->counter(),
 
 
@@ -132,9 +129,9 @@ class TicketController extends Controller
             "title"        => translate("Ticket Details"),
             'breadcrumbs'  => ['Home'=>'admin.home','Tickets'=> "admin.ticket.list" ,"Reply" => null],
             'ticket'       => Ticket::with(['user',"user.file",'messages','messages.admin' ,'messages.admin.file'])
-                                ->where("ticket_number",$ticketNumber)
-                                ->latest()
-                                ->firstOrFail()
+                                                    ->where("ticket_number",$ticketNumber)
+                                                    ->latest()
+                                                    ->firstOrFail()
         ]);
     }
 
@@ -152,8 +149,12 @@ class TicketController extends Controller
             "message" => 'required'
         ]);
 
-        $ticket              = Ticket::with(['user'])->where('id',$request->input('id'))->firstOrFail();
+        $ticket              = Ticket::with(['user'])
+                                    ->where('id',$request->input('id'))
+                                    ->firstOrFail();
+        
         $message             = $this->ticketService->reply($ticket,$request ,auth_user()->id);
+
         if($message){
 
             $code = [

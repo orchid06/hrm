@@ -2,15 +2,13 @@
 
 namespace App\Traits;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Validation\ValidationException;
-
+use Illuminate\Database\Eloquent\Model;
 trait Notifyable
 {
 
 
-    protected function notify(array $notifications) :void{
+
+    protected function notify($notifications) :void {
 
         foreach ($notifications as $notification => $config) {
             if (notify($notification)) {

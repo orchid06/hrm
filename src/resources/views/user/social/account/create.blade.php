@@ -53,7 +53,7 @@
                                         <button class='nav-link
                                         {{$loop->index == 0 ? "active" :""}}
                                         ' id="lang-tab-{{t2k($k)}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{t2k($k)}}" type="button" role="tab" aria-controls="lang-tab-content-{{t2k($k)}}" aria-selected="true">
-                                            <img class="avatar-sm rounded-circle me-2" src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}">
+                                            <img class="avatar-sm rounded-circle me-2" src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}">
 
                                             <span>
                                                 {{ucfirst(strtolower(k2t($k)))}}

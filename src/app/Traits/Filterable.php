@@ -2,11 +2,8 @@
 
 namespace App\Traits;
 
-use App\Enums\StatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
-
 trait Filterable
 {
   
@@ -16,10 +13,8 @@ trait Filterable
      * @param Builder $q
      * @return Builder
      */
-    public function scopeRecycle(Builder $q) :Builder{
-        return $q->when(request()->routeIs('admin.*.recycle.list'),function($query) {
-            return $query->onlyTrashed();
-        });
+    public function scopeRecycle(Builder $q): Builder{
+        return $q->when(request()->routeIs('admin.*.recycle.list'),fn(Builder $query): Builder => $query->onlyTrashed());
     }
 
     /**
@@ -33,58 +28,40 @@ trait Filterable
     public function scopeSearch(Builder $query,array $params,bool $like = true)  :Builder{
 
         $search = request()->input("search");
-
         if (!$search) return $query;
         $search = $like ? "%$search%" : $search;
-        $query->where(function(Builder $q) use ($params, $search) {
-            collect($params)->map(function(string $param) use($q,$search) :void {
-                $relations = explode(':', $param);
-                switch (count($relations)) {
-                    case 2:
-                        $q = $this->searchRelationalData($q, $relations, $search);
-                        break;
-                    default:
-                        $q->orWhere($param, 'LIKE', $search);
-                        break;
-                }
-   
-            });
-        });
-
-        return $query;
+        
+        return $query->where(function(Builder $q) use ($params, $search) {
+               return collect($params)->map(function(string $param) use($q,$search)  {
+                    return $q->when((strpos($param, ':') !== false),
+                      fn(Builder $q) :Builder => $this->searchRelationalData($q, $param, $search),
+                          fn(Builder $q): Builder => $q->orWhere($param, 'LIKE', $search));});});
     }
 
 
     /**
-     * scope filter
+     * Scope filter
      *
      * @param Builder $query
      * @param array $params
      * @return Builder
      */
-    public function scopeFilter(Builder $query,array $params) :Builder {
+    public function scopeFilter(Builder $query,array $params): Builder{
 
-
-        collect($params)->map(function(string $param) use($query){
-
-            $relations = explode(':', $param);
-            $filters   = array_keys(request()->all());
-
-            switch (count($relations)) {
-                case 2:
-                    $query = $this->filterRelationalData($query, $relations, $filters);
-                    break;
-            
-                default:
-                   $query->when(in_array($param, $filters) && request()->input($param) !== null , fn(Builder $query) : Builder => 
-                        $query->when(gettype(request()->input($param)) === 'array' , fn(Builder $query) : Builder => $query->whereIn($param,  request()->input($param)), fn(Builder $query) : Builder =>  $query->where($param, request()->input($param)))
-                   );
-                break;
-            }
-
-        });
+        $filters   = array_keys(request()->all());
+        collect($params)->map(function(string $param) use($query,$filters) : Builder{
+            return $query->when((strpos($param, ':') !== false),
+                        fn(Builder $q): Builder => 
+                              $this->filterRelationalData($query, $param, $filters),
+                                    fn(Builder $query): Builder =>
+                                        $query->when(in_array($param, $filters) && request()->input($param) !== null , 
+                                            fn(Builder $query): Builder => $query->when(gettype(request()->input($param)) === 'array',
+                                                fn(Builder $query) : Builder => $query->whereIn($param,  request()->input($param)),
+                                                   fn(Builder $query) : Builder =>  $query->where($param, request()->input($param)))));
+                        });
 
         return $query;
+
 
     }
 
@@ -99,18 +76,18 @@ trait Filterable
 
         if (!request()->input('date'))   return $query;
 
-            $dateRangeString             = request()->input('date');
-            $start_date                  = $dateRangeString;
-            $end_date                    = $dateRangeString;
-            if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
+        $dateRangeString             = request()->input('date');
+        $start_date                  = $dateRangeString;
+        $end_date                    = $dateRangeString;
+        if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
 
-            $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
-            $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
+        $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
+        $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
 
-            return $query->where(fn (Builder $query) :Builder =>  
-                            $query->whereBetween($column , [$start_date, $end_date])
-                                    ->orWhereDate($column , $start_date)
-                                    ->orWhereDate($column , $end_date));
+        return $query->where(fn (Builder $query): Builder =>  
+                        $query->whereBetween($column , [$start_date, $end_date])
+                                ->orWhereDate($column , $start_date)
+                                ->orWhereDate($column , $end_date));
 
     }
 
@@ -119,14 +96,14 @@ trait Filterable
      * Search relational data
      *
      * @param Builder $query
-     * @param array  $relations
+     * @param string  $relations
      * @param string $search
      * @return Builder
      */
-    private function searchRelationalData(Builder $query,array $relations, string $search) :Builder{
+    private function searchRelationalData(Builder $query,string $relations, string $search): Builder{
 
-        $relation = Arr::get($relations , 0);
-        collect(explode(',', $relations[1]))->map(fn(string $column) : Builder => 
+        list($relation, $keys) = explode(":", $relations); 
+        collect(explode(',',$keys))->map(fn(string $column): Builder => 
             $query->orWhereHas( $relation , fn (Builder $q)  : Builder =>  $q->where($column,'like',$search))
         );
 
@@ -135,19 +112,19 @@ trait Filterable
 
 
     /**
-     * filter relational data
+     * Filter relational data
      *
      * @param Builder $query
-     * @param array $relations
+     * @param string $relations
      * @param array $filters
      * @return Builder
      */
-    private function filterRelationalData(Builder $query,array $relations,array $filters) :Builder {
-
-        $relation = Arr::get($relations , 0);
-        collect(explode(',', $relations[1]))->map( fn(string $column) :Builder =>
-                $query->when(in_array($relation, $filters) && request()->input($relation) != null ,fn(Builder $query) :Builder => $query->whereHas($relation,fn(Builder $q) :Builder => $q->where($column,request()->input($relation)))));
-
+    private function filterRelationalData(Builder $query,string $relations,array $filters): Builder{
+        list($relation, $keys) = explode(":", $relations); 
+        collect(explode(',', $keys))->map( fn(string $column): Builder =>
+                $query->when(in_array($relation, $filters) && request()->input($relation) != null ,
+                         fn(Builder $query) :Builder => $query->whereHas($relation,
+                                 fn(Builder $q) :Builder => $q->where($column,request()->input($relation)))));
         return $query;
     }
 

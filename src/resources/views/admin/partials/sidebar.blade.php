@@ -3,7 +3,7 @@
   <div class="sidebar-logo">
     <a href="{{route('admin.home')}}">
       <img
-        src='{{imageUrl(@site_logo("site_logo")->file,"site_logo",true)}}'
+        src='{{imageURL(@site_logo("site_logo")->file,"site_logo",true)}}'
         alt="{{@site_logo('site_logo')->file->name}}" />
     </a>
 
@@ -301,7 +301,7 @@
                 <span><i class="las la-question-circle"></i></span>
                 <p> {{translate("Support Tickets")}}
                     @if($pending_tickets > 0)
-                      <span class="i-badge danger">{{$pending_tickets}}</span>
+                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending tickets")}}" class="i-badge danger">{{$pending_tickets}}</span>
                     @endif
                 </p>
               </a>
@@ -358,7 +358,7 @@
                       {{translate('Deposit Reports')}}
 
                       @if($pending_deposits > 0 )
-                         <span class="i-badge danger">{{$pending_deposits}}</span>
+                         <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending deposit")}}" class="i-badge danger">{{$pending_deposits}}</span>
                       @endif
                     </p>
                   </a>
@@ -370,7 +370,7 @@
                       {{translate('Withdraw Reports')}}
 
                       @if($pending_withdraws > 0 )
-                          <span class="i-badge danger">{{$pending_withdraws}}</span>
+                          <span   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending withdraws")}}" class="i-badge danger">{{$pending_withdraws}}</span>
                       @endif
                     </p>
                   </a>
@@ -395,10 +395,10 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.kyc.report.*")}}'  href='{{route("admin.kyc.report.list")}}'>
                     <span></span>
                     <p>
-                      {{translate('Kyc Reports')}}
+                      {{translate('KYC Reports')}}
 
                         @if($pending_kycs > 0 )
-                          <span class="i-badge danger">{{$pending_kycs}}</span>
+                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending KYC logs")}}" class="i-badge danger">{{$pending_kycs}}</span>
                         @endif
                     </p>
                   </a>
@@ -553,7 +553,7 @@
             <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.article.*'],'drop_down')}} " id="article">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
-                    <a class='sidebar-menu-link {{sidebar_awake(["admin.article.list","admin.article.edit"])}}' href='{{route("admin.article.list")}}'>
+                    <a class='sidebar-menu-link {{sidebar_awake(["admin.blog.list","admin.article.edit"])}}' href='{{route("admin.blog.list")}}'>
                     <span></span>
                     <p>
                       {{translate('Blogs')}}
@@ -561,7 +561,7 @@
                     </a>
                 </li>
                 <li class="sub-menu-item">
-                  <a class="sidebar-menu-link  {{sidebar_awake('admin.article.create')}}" href="{{route('admin.article.create')}}">
+                  <a class="sidebar-menu-link  {{sidebar_awake('admin.blog.create')}}" href="{{route('admin.blog.create')}}">
                     <span></span>
                     <p>
                       {{translate('Add New')}}
@@ -847,7 +847,7 @@
                     <a class="sidebar-menu-link {{sidebar_awake('admin.smsGateway.*')}}" href="{{route('admin.smsGateway.list')}}">
                       <span></span>
                         <p>
-                          {{translate('Sms Gateway')}}
+                          {{translate('SMS Gateway')}}
                         </p>
                     </a>
                 </li>

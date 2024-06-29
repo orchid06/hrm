@@ -95,7 +95,7 @@
                                             @endphp
                 
                                             <div class="avatar-group-item">
-                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src='{{imageUrl(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}">
+                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src='{{imageURL(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}">
                                             </div>
                                         @endforeach
                                 </div>
@@ -137,7 +137,7 @@
 
                                         foreach (@$appearance->element->images as $imKey => $imVal) {
                                             $file     =  $appearance_element->file?->where('type', $imKey)->first();
-                                            $files[]  =  imageUrl(@$file,"frontend",true,$imVal->size);
+                                            $files[]  =  imageURL(@$file,"frontend",true,$imVal->size);
                                         }
                                     }
                                 @endphp

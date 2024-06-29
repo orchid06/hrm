@@ -9,14 +9,14 @@
     <div class="side-content">
         <a href="{{route('user.home')}}" class="sidebar-logo d-block d-sm-none">
             <div class="site-logo">
-                <img class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}" />
+                <img class="img-fluid"  src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}" />
             </div>
         </a> 
 
         <div class="sidemenu-wrapper">
             <div class="sidebar-body">
                 <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
-                    <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                    <img  class="img-fluid"  src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
                 </a>
                 <ul class="sidemenu-list">
                     <li class="side-menu-title">Main</li>

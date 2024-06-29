@@ -126,7 +126,7 @@
                                                       </h6>
 
                                                       <div class="report-img">
-                                                          <img src='{{imageUrl($file,"kyc",true)}}'
+                                                          <img src='{{imageURL($file,"kyc",true)}}'
                                                           alt="{{ @$file->name }}">
                                                       </div>
                                                   </li>

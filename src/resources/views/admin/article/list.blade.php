@@ -47,7 +47,7 @@
                             @if(check_permission('create_blog'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
-                                        <a href="{{route('admin.article.create')}}"    class="i-btn btn--sm success">
+                                        <a href="{{route('admin.blog.create')}}"    class="i-btn btn--sm success">
                                             <i class="las la-plus me-1"></i>  {{translate('Add New')}}
                                         </a>
                                     </div>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <div class="ms-3">
-                            <a href="{{route('admin.article.list')}}"  class="i-btn btn--sm danger">
+                            <a href="{{route('admin.blog.list')}}"  class="i-btn btn--sm danger">
                                 <i class="las la-sync"></i>
                             </a>
                         </div>
@@ -145,7 +145,7 @@
 
                                 <td data-label='{{translate("Title")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
 
                                         <p>	 {{$article->title}}</p>
                                     </div>

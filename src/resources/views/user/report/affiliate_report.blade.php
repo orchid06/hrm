@@ -62,7 +62,7 @@
                             @endif
 
                             <div class="form-inner">
-                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
                             </div>
 
 
@@ -100,7 +100,7 @@
                                                         </span>
                                                         <div>
                                                             <h6>
-                                                                {{translate("Trx Code")}}
+                                                                {{translate("TRX Code")}}
                                                             </h6>
                                                             <p> {{$report->trx_code}}</p>
                                                         </div>

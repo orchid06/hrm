@@ -187,13 +187,9 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('get_appearance')) {
       
       function get_appearance(bool $is_arr = false , bool $sortable = true) {
-
          $sectionJson = resource_path('views/partials/appearance.json');
          $appearances = json_decode(file_get_contents($sectionJson), $is_arr ? true :false);
-         if ($is_arr && $sortable) {
-             ksort($appearances);
-         }
-         
+         if ($is_arr && $sortable)  ksort($appearances);
          return $appearances;
       }
    }
@@ -326,8 +322,13 @@ use Illuminate\Database\Eloquent\Collection;
 
       function convert_to_base(int | float $amount , int $precision = null , ? Currency $currency =  null ) :int | float{
 
-         $fromRate    = session()->get("currency") ? session()->get("currency")->exchange_rate :0;
+
+         $fromRate    = $currency 
+                              ? $currency->exchange_rate 
+                              : session()->get("currency")->exchange_rate;
+
          $amountInUSD = $amount / $fromRate;
+
          return  round_amount( $amountInUSD ,$precision?? (int)site_settings('num_of_decimal'));
 
       }
@@ -797,20 +798,25 @@ use Illuminate\Database\Eloquent\Collection;
 		}
 	}
 
-   if (!function_exists('get_admin')){
-		function get_admin():Admin
-		{
+   if (!function_exists('get_superadmin')){
+
+      /**
+       * Get superadmin
+       *
+       * @return Admin
+       */
+		function get_superadmin(): Admin{
 			return Admin::where('super_admin',StatusEnum::true->status())->first();
 		}
 	}
 
 
-   if (!function_exists('imageUrl')){
+   if (!function_exists('imageURL')){
 
-      function imageUrl(mixed $file , string $path, bool $size = false ,?string $foreceSize = null) :string {
+      function imageURL(mixed $file , string $path, bool $size = false ,?string $foreceSize = null) :string {
 
          $helper = new HelperClass();
-         return $helper->getImageUrl($file, $path, $size , $foreceSize);
+         return $helper->getimageURL($file, $path, $size , $foreceSize);
       }
 
    }
@@ -969,7 +975,7 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
    if (!function_exists('plan_duration')){
-		function plan_duration(mixed  $status) :string
+		function plan_duration(string|int $status) :string
 		{
 
          $badges  = [
@@ -1032,10 +1038,10 @@ use Illuminate\Database\Eloquent\Collection;
 
          $badges  = [
             
-            PostStatus::Schedule->value       => "warning",
-            PostStatus::Failed->value         => "danger",
-            PostStatus::Success->value        => "success",
-            PostStatus::Pending->value        => "info",
+            PostStatus::SCHEDULE->value       => "warning",
+            PostStatus::FAILED->value         => "danger",
+            PostStatus::SUCCESS->value        => "success",
+            PostStatus::PENDING->value        => "info",
       
          ];
 
@@ -1239,6 +1245,22 @@ use Illuminate\Database\Eloquent\Collection;
             }
          }
      }
+   }
+
+
+
+   if (!function_exists('array_to_object')){
+
+
+      /**
+       * Convert array to object
+       *
+       * @param array $payload
+       * @return object
+       */
+      function array_to_object(array $payload): object{
+         return (object) $payload;
+      }
    }
 
 

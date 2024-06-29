@@ -14,14 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+         
+        Role::firstOrCreate([ 'name'        => 'Manager'],[
+            'name'        => 'Manager', 
+            'created_by'  => 1, 
+            'status'      => StatusEnum::true->status(), 
+            'permissions' => (config('settings')['role_permissions'])
+        ]);
         
-        if(Role::count() == 0){
-            Role::create([
-               'name'        => 'Manager', 
-               'created_by'  => 1, 
-               'status'      => StatusEnum::true->status(), 
-               'permissions' => (config('settings')['role_permissions'])
-            ]);
-        }
     }
 }

@@ -53,7 +53,7 @@
 
 
                     <div class="form-inner">
-                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                     </div>
 
                     <div class="d-flex gap-2">
@@ -90,7 +90,7 @@
                                                               </span>
                                                               <div>
                                                                   <h6>
-                                                                      {{translate("Trx Code")}}
+                                                                      {{translate("TRX Code")}}
                                                                   </h6>
                                                                   <p> {{$report->trx_code}}</p>
                                                               </div>
@@ -202,7 +202,7 @@
                                                                   @endphp
 
                                                                   <div class="report-img">
-                                                                      <img src='{{imageUrl($file,"withdraw",true)}}'
+                                                                      <img src='{{imageURL($file,"withdraw",true)}}'
                                                                           alt="{{ @$file->name }}">
                                                                   </div>
                                                               @else
