@@ -178,7 +178,7 @@
                                                             </p>
                                                         </div>
 
-                                                        <div class="upload-filed">
+                                                            <div class="upload-filed">
                                                                 <input id="media-file" multiple type="file"
                                                                     name="files[]">
                                                                 <label for="media-file">

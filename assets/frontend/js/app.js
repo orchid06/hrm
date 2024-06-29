@@ -440,6 +440,34 @@
     });
   }
 
+  function updateTabFunctionality() {
+    const tabItems = document.querySelectorAll(".nav-item");
+    const maxWidth = 991;
+
+    tabItems.forEach((item) => {
+      const tabLink = item.querySelector(".nav-link");
+      if (tabLink) {
+        var tabTrigger = new bootstrap.Tab(tabLink);
+
+        item.removeEventListener("mouseenter", tabTrigger.show);
+        item.removeEventListener("click", tabTrigger.show);
+
+        if (window.innerWidth <= maxWidth) {
+          item.addEventListener("click", function () {
+            tabTrigger.show();
+          });
+        } else {
+          item.addEventListener("mouseenter", function () {
+            tabTrigger.show();
+          });
+        }
+      }
+    });
+  }
+
+  updateTabFunctionality();
+
+  window.addEventListener("resize", updateTabFunctionality);
 
 
 })();

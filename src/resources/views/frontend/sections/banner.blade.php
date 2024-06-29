@@ -30,6 +30,12 @@
   </div>
 
   <div class="sponsors-area">
+    <div class="vector-right">
+    <svg width="50" height="150" viewBox="0 0 50 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path fill-rule="evenodd" clip-rule="evenodd" d="M0.246876 0C0.0835971 1.64453 0 3.3125 0 5V0H0.246876ZM50 150C22.3858 150 0 127.614 0 100V150H50Z"/>
+    </svg>
+
+    </div>
     <div class="swiper sponsor-slider">
       <div class="swiper-wrapper align-items-center">
         <div class="swiper-slide">
@@ -71,3 +77,8 @@
     </div>
   </div>
 </section>
+
+
+
+
+

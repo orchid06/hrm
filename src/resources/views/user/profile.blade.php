@@ -607,14 +607,18 @@
                     </div>
                     <div class="col-lg-12">
                       <label for="name">Phone Number</label>
-                      <div class="form-inner select-with-input">
-                          <select class="select2">
-                            <option value="+880">+880</option>
-                            <option value="+0092">+0092</option>
-                            <option value="+0091">+0091</option>
-                            <option value="+005">+005</option>
-                          </select>
-                          <input type="email" placeholder="92000000">
+                      <div class="form-inner select-with-input row gap-0">
+                          <div class="col-sm-3 col-4">
+                            <select class="select2">
+                              <option value="+880">+880</option>
+                              <option value="+0092">+0092</option>
+                              <option value="+0091">+0091</option>
+                              <option value="+005">+005</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-9 col-8">
+                            <input type="email" placeholder="92000000">
+                          </div>
                       </div>
                     </div>
                     <div class="col-lg-12">

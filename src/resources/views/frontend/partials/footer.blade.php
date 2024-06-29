@@ -51,55 +51,39 @@
   <div class="container">
       <div class="footer-bottom">
         <div class="row gy-5">
-          <div class="col-lg-7">
-            <div class="row gy-5">
-              <div class="col-md-4 col-sm-4 col-6">
-                <h4 class="footer-title">Quick link</h4>
-                <ul class="footer-list">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="$">Plans</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Contact</a></li>
-                </ul>
-              </div>
-              <div class="col-md-4 col-sm-4 col-6">
-                <h4 class="footer-title">Resources</h4>
-                <ul class="footer-list">
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="#">FAQ</a></li>
-                  <li><a href="#">Support</a></li>
-                </ul>
-              </div>
-              <div class="col-md-4 col-sm-4 col-6">
-                <h4 class="footer-title">Information</h4>
-                <ul class="footer-list">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">Terms & Conditions</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                </ul>
-              </div>
-            </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <h4 class="footer-title">Quick link</h4>
+            <ul class="footer-list">
+              <li><a href="#">Home</a></li>
+              <li><a href="$">Plans</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
           </div>
-          <div class="col-lg-5">
-            <div class="row gy-5">
-              <div class="col-md-6 col-sm-6">
-                <h4 class="footer-title">Services</h4>
-                <ul class="footer-list">
-                  <li><a href="#">Ai Content</a></li>
-                  <li><a href="#">Social Media Monitor</a></li>
-                  <li><a href="#">SEO Management</a></li>
-                  <li><a href="#">Social Engagement</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                <h4 class="footer-title">Blog</h4>
-                <ul class="footer-list">
-                  <li><a href="#">People saying about footer...</a><span>8 Nov, 2024</span></li>
-                  <li><a href="#">People saying footer...</a><span>8 Nov, 2024</span></li>
-                </ul>
-              </div>
-            </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <h4 class="footer-title">Information</h4>
+            <ul class="footer-list">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <h4 class="footer-title">Services</h4>
+            <ul class="footer-list">
+              <li><a href="#">Ai Content</a></li>
+              <li><a href="#">Social Media Monitor</a></li>
+              <li><a href="#">SEO Management</a></li>
+              <li><a href="#">Social Engagement</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <h4 class="footer-title">Blog</h4>
+            <ul class="footer-list">
+              <li><a href="#">People saying about footer...</a><span>8 Nov, 2024</span></li>
+              <li><a href="#">People saying footer...</a><span>8 Nov, 2024</span></li>
+            </ul>
           </div>
         </div>
       </div>

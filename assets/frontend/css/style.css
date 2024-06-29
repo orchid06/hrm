@@ -525,8 +525,7 @@
 }
 
 .nav-right {
-  background: #fff;
-  padding: 20px 0 20px 30px;
+  padding: 20px 20px 20px 30px;
   margin-top: -25px;
   margin-right: -25px;
   border-radius: 40px;
@@ -557,7 +556,7 @@
   }
   .nav-right {
     background: #fff;
-    padding: 0px 10px 0px 10px;
+    padding: 5px 5px 5px 5px;
     margin-top: 0px;
     margin-right: 0px;
     border-radius: 40px;
@@ -591,6 +590,13 @@
   max-width: 150px;
 }
 
+@media (max-width: 576px) {
+  .header-logo {
+    min-width: 120px;
+    max-width: 150px;
+  }
+}
+
 .header-logo img {
   width: 100%;
   height: 100%;
@@ -599,6 +605,8 @@
 .sidebar .sidebar-body {
   background-color: var(--color-white);
   display: inline-block;
+  padding: 0px 32px;
+  border-radius: 40px;
 }
 
 .sidebar .sidebar-body .mobile-logo-area {
@@ -615,7 +623,7 @@
 .sidebar .sidebar-body .menu-list {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 35px;
 }
 
 .sidebar .sidebar-body .menu-list .menu-item {
@@ -678,6 +686,8 @@
   box-shadow: 0 20px 32px -8px rgba(17, 16, 19, 0.15),
     0 0 1px rgba(17, 16, 19, 0.05);
   overflow: hidden;
+  border-radius: 20px;
+  border-top: 1px solid var(--border-one);
 }
 
 .mega-menu-wrapper .mega-menu-left {
@@ -966,7 +976,8 @@
 .mega-menu-wrapper .mega-menu-right .social-integra .mega-menu-integra {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 10px;
+  gap: 15px;
+  background-color: #f8f8f8;
 }
 
 .mega-menu-wrapper
@@ -974,13 +985,27 @@
   .social-integra
   .mega-menu-integra
   .menu-social-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 10px;
-  border-radius: 4px;
-  transition: 0.3s;
-  border: 1px solid transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    transition: 0.3s;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: var(--color-white);
+}
+
+@media (max-width: 768px){
+  .mega-menu-wrapper
+  .mega-menu-right
+  .social-integra
+  .mega-menu-integra
+  .menu-social-item {
+    gap: 15px;
+    padding: 15px;
+}
+
 }
 
 .mega-menu-wrapper
@@ -988,8 +1013,23 @@
   .social-integra
   .mega-menu-integra
   .menu-social-item:hover {
-  background: var(--color-white);
-  border-color: var(--color-primary-light);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.mega-menu-wrapper
+  .mega-menu-right
+  .social-integra
+  .mega-menu-integra
+  .menu-social-item:hover .content h6{
+  color: var(--color-white);
+}
+.mega-menu-wrapper
+  .mega-menu-right
+  .social-integra
+  .mega-menu-integra
+  .menu-social-item:hover .content p{
+  color: var(--color-white);
+  opacity: 0.8;
 }
 
 .mega-menu-wrapper
@@ -998,8 +1038,11 @@
   .mega-menu-integra
   .menu-social-item
   .social-item-img {
-  flex: 0 0 45px;
-  width: 100%;
+    flex: 0 0 50px;
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
 }
 
 @media (max-width: 1199px) {
@@ -1019,7 +1062,7 @@
   .mega-menu-integra
   .menu-social-item
   p {
-  font-size: 14px;
+  font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -1331,6 +1374,7 @@
     transform: translateX(-110%);
     transition: transform 0.3s;
     border-right: 1px solid var(--color-primary-light);
+    border-radius: 0px;
   }
 
   .header .sidebar .sidebar-body .mobile-menu-logo {
@@ -1385,7 +1429,7 @@
   .header .sidebar .sidebar-body nav .menu-list {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0;
+    gap: 15px;
   }
 
   .header .sidebar .sidebar-body nav .menu-list .menu-item {
@@ -1475,7 +1519,6 @@
     .menu-item
     .mega-menu
     .mega-menu-wrapper {
-    max-height: 50svh;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -1569,10 +1612,9 @@
   height: 100%;
   padding: 20px 20px 0 20px;
 }
-
-.banner-wrapper{
+.banner-wrapper {
   padding: 110px 8%;
-  background: linear-gradient(0deg,rgba(201, 240, 255, 1), rgba(233, 200, 249, 0.44));
+  background: linear-gradient(109deg, rgba(201, 240, 255, 1), rgb(198 129 231 / 44%));
   border-radius: 40px;
 }
 
@@ -1723,6 +1765,14 @@
   border-radius: 35px;
   border: 15px solid var(--color-white);
   z-index: 1;
+}
+.vector-right{
+  position: absolute;
+  right: -40px;
+  bottom: 0;
+}
+.vector-right svg path{
+  fill: var(--color-white);
 }
 
 @media (max-width: 991px) {
@@ -5729,7 +5779,7 @@ footer{
 }
 
 .service-details ul li{
-  margin-bottom: 7px;
+  margin-bottom: 6px;
   font-weight: 500;
 }
 

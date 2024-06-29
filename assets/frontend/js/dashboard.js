@@ -181,7 +181,6 @@
 
 
 
-
   // var paymentCardItems = document.querySelectorAll('.payment-card-item');
 
   //   var form = document.getElementById('payment-form');
