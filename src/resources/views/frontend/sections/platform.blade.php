@@ -20,7 +20,7 @@
                             @endphp
                             <div class="platform-content-img">
                                 <img
-                                src="{{imageUrl(@$file,'frontend',true,$val->size)}}"
+                                src="{{imageURL(@$file,'frontend',true,$val->size)}}"
                                 alt="{{@$file->name}}"
                                 loading="lazy"/>
                             </div>

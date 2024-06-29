@@ -495,7 +495,7 @@
 
                                 <td data-label='{{translate("Name")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                                         <p>	 {{$post->account->platform->name}}</p>
                                     </div>
 

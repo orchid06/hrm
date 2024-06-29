@@ -30,7 +30,7 @@ class Payment
         $val['currency']            = "$currency";
         $val['detail1_description'] = "$siteName";
         $val['detail1_text']        = "Deposit To  $siteName";
-        $val['logo_url']            = imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true);
+        $val['logo_url']            = imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true);
 
 
         $send['val']                = $val;

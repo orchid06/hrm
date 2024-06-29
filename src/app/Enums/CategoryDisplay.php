@@ -6,8 +6,8 @@ enum CategoryDisplay: int
 {
     use EnumTrait;
 
-    case Article      = 0;
-    case Template     = 1;
-    case Both         = 2;
+    case ARTICLE      = 0;
+    case TEMPLATE     = 1;
+    case BOTH         = 2;
 
 }

@@ -15,7 +15,7 @@
 
                 <div class="header-logo d-none d-sm-block">
                     <a href="{{route('home')}}">
-                        <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                        <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
                     </a>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         <div class="mobile-logo-wrap">
                             <a href="{{route('home')}}">
 
-                                <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                                <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
                             </a>
                         </div>
@@ -135,7 +135,7 @@
                 <div class="dropdown profile-dropdown">
                     <div class="profile-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" role="button">
                     <span class="profile-img">
-                        <img src="{{imageUrl(@auth_user('web')->file,'profile,user',true) }}" alt="{{@auth_user('web')->file->name}}" />
+                        <img src="{{imageURL(@auth_user('web')->file,'profile,user',true) }}" alt="{{@auth_user('web')->file->name}}" />
                     </span>
                     </div>
 

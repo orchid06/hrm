@@ -149,7 +149,7 @@
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
 
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$staff->file,"profile,admin",true)}}' alt="{{@$staff->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$staff->file,"profile,admin",true)}}' alt="{{@$staff->file->name}}">
 
                                         <p>	{{ $staff->name}}</p>
                                         <span class="i-badge capsuled success">

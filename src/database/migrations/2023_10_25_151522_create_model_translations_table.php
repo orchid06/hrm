@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('model_translations', function (Blueprint $table) {
             $table->id();
             $table->morphs('translateable');
             $table->string('locale',100)->index();
-            $table->string('key',155)->nullable();
+            $table->string('key',155)->index()->nullable();
             $table->text('value')->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

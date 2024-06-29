@@ -45,7 +45,7 @@ trait PostManager
                 $post->link               = Arr::get($request,"link", []);
                 $post->is_scheduled       = $scheduleTime ? StatusEnum::true->status() : StatusEnum::false->status() ;
                 $post->schedule_time      = $scheduleTime;
-                $post->status             = strval($scheduleTime ? PostStatus::value('Schedule',true): PostStatus::value('Pending',true));
+                $post->status             = strval($scheduleTime ? PostStatus::value('SCHEDULE',true): PostStatus::value('PENDING',true));
                 $post->post_type          = strval(PostType::value("Feed",true));
                 $post->save();
 
@@ -112,7 +112,7 @@ trait PostManager
         $response     = $service->send($post);
 
         $is_success   = Arr::get($response,'status' ,false);
-        $post->status =  strval($is_success ? PostStatus::value('Success') : PostStatus::value('Failed'));
+        $post->status =  strval($is_success ? PostStatus::value('SUCCESS') : PostStatus::value('FAILED'));
         $post->platform_response  = $response;
         $post->save();
 

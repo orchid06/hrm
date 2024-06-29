@@ -13,38 +13,37 @@ use Illuminate\Support\Arr;
 
 class NewPasswordController extends Controller
 {
-    private $authService;
-    public function __construct()
-    {
-        $this->authService = new AuthService();
+
+    public function __construct(protected AuthService $authService){
     }
 
 
     /**
-     * forget password 
+     * Get forget password view
      *
      * @return View
      */
-    public function create():View{
-
-        return view('admin.auth.forgot_password',[
-            'title'=> "Reset Passsword",
-        ]);
+    public function create(): View{
+        return view('admin.auth.forgot_password',['title'=> "Reset Passsword"]);
     }
 
 
+    
     /**
-     * forget password 
+     * Store OTP for forget password
      *
-     * @return mixed
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request):mixed{
+    public function store(Request $request): RedirectResponse{
 
         $request->validate([
             'email' => "required|email|exists:admins,email"
         ]);
-        $admin       = Admin::where('email',$request->email)->firstOrfail();
+        $admin       = Admin::where('email',$request->input('email'))
+                                          ->firstOrfail();
         $response    =  $this->authService->sendOtp($admin);
+        
         $message     = response_status(Arr::get($response,"message",translate("Mail Configuration Error")) , "error");
         
         if($response['status']){

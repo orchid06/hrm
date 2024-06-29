@@ -19,7 +19,7 @@
                                 @php
                                     $file =  $appearance_content?->file->where('type', $imK)->first()
                                 @endphp
-                                <img src='{{imageUrl(@$file,"frontend",true)}}' alt="{{@$file->name}}">
+                                <img src='{{imageURL(@$file,"frontend",true)}}' alt="{{@$file->name}}">
                     
                             </div>                      
                                             

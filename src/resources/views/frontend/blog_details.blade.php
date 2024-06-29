@@ -31,7 +31,7 @@
       <div class="row gx-4 gy-5">
         <div class="col-lg-8 pe-xl-5">
           <div class="blog-thumbnail">
-            <img src='{{imageUrl(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
+            <img src='{{imageURL(@$blog->file,"article",true)}}' alt="{{@$blog->file->name}}" />
           </div>
 
           <div class="blog-contents">
@@ -94,7 +94,7 @@
 
                             <div class="resource-item">
                                     <a href="{{route('blog.details',$relatedBlog->slug)}}" class="resource-thumbnail">
-                                        <img src="{{imageUrl(@$relatedBlog->file,'article',true)}}" alt="{{@$relatedBlog->file->name}}" />
+                                        <img src="{{imageURL(@$relatedBlog->file,'article',true)}}" alt="{{@$relatedBlog->file->name}}" />
                                     </a>
 
                                     <div class="resource-content">

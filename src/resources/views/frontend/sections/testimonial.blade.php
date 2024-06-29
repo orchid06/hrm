@@ -39,250 +39,194 @@ $testimonialElements = get_content("element_testimonial")->take(10);
                 </defs>
             </svg>
 
-            <div class="row h-625">
-                <div class="col-lg-1 d-lg-block d-none">
-                    <div class="service-type-icon">
-                        <i class="bi bi-laptop"></i>
-                    </div>
-                </div>
-                <div class="col-lg-11">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div class="section-title-two text-start mb-60">
-                                <h2>Empowering social media <span>insights</span></h2>
-                                <p>Discover the power of our secure and rewarding credit cards.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="swiper service-slider-one">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="row h-625">
+        <div class="col-lg-1 d-lg-block d-none">
+          <div class="service-type-icon">
+            <i class="bi bi-laptop"></i>
+          </div>
+        </div>
+        <div class="col-lg-11">
+          <div class="row">
+            <div class="col-lg-10">
+              <div class="section-title-two text-start mb-60">
+                <h2>Empowering social media <span>insights</span></h2>
+                <p>Discover the power of our secure and rewarding credit cards.</p>
+              </div>
             </div>
-            <div class="row h-625 mt-5">
-                <div class="col-lg-11">
-                    <div class="row justify-content-end">
-                        <div class="col-lg-10">
-                            <div class="section-title-two text-end mb-60">
-                                <h2>Empowering social media <span>insights</span></h2>
-                                <p>Discover the power of our secure and rewarding credit cards.</p>
-                            </div>
+          </div>
+          <div class="row g-4">
+              <div class="col-12">
+                <div class="swiper service-slider-one">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
                         </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
                     </div>
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="swiper service-slider-two">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <div class="image">
-                                                <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                                            </div>
-                                            <h4>Ai Content Create</h4>
-                                            <p>Discover the power of our secure and rewarding credit cards. Discover the
-                                                power of our secure and rewarding credit cards.</p>
-                                            <a href="service-details.html"
-                                                class="i-btn btn--md btn--white capsuled">More info<span><i
-                                                        class="bi bi-arrow-up-right"></i></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
                         </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
                     </div>
-                </div>
-                <div class="col-lg-1 d-lg-block d-none">
-                    <div class="service-type-icon">
-                        <i class="bi bi-laptop"></i>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
                     </div>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row h-625 mt-5">
+        <div class="col-lg-11">
+          <div class="row justify-content-end">
+            <div class="col-lg-10">
+              <div class="section-title-two text-end mb-60">
+                <h2>Empowering social media <span>insights</span></h2>
+                <p>Discover the power of our secure and rewarding credit cards.</p>
+              </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-lg-1 d-lg-block d-none">
-                    <div class="service-type-icon">
-                        <i class="bi bi-laptop"></i>
+          </div>
+          <div class="row g-4">
+            <div class="col-12">
+                <div class="swiper service-slider-two">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
                     </div>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="service-item">
+                        <div class="image">
+                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
+                        </div>
+                        <h4>Ai Content Create</h4>
+                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
+                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-lg-11">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div class="section-title-two text-start mb-60">
-                                <h2>Empowering social media <span>insights</span></h2>
-                                <p>Discover the power of our secure and rewarding credit cards.</p>
-                            </div>
-                        </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-1 d-lg-block d-none">
+          <div class="service-type-icon">
+            <i class="bi bi-laptop"></i>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-1 d-lg-block d-none">
+          <div class="service-type-icon">
+            <i class="bi bi-laptop"></i>
+          </div>
+        </div>
+        <div class="col-lg-11">
+          <div class="row">
+            <div class="col-lg-10">
+              <div class="section-title-two text-start mb-60">
+                <h2>Empowering social media <span>insights</span></h2>
+                <p>Discover the power of our secure and rewarding credit cards.</p>
+              </div>
+            </div>
+          </div>
+          <div class="service-tab-wrapper">
+            <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true">Create Post <span><i class="bi bi-arrow-up-right"></i></span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false" tabindex="-1">Ai Assistance <span><i class="bi bi-arrow-up-right"></i></span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-three" data-bs-toggle="tab" data-bs-target="#tab-three-pane" type="button" role="tab" aria-controls="tab-three-pane" aria-selected="false" tabindex="-1">Schedule Post <span><i class="bi bi-arrow-up-right"></i></span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-four" data-bs-toggle="tab" data-bs-target="#tab-four-pane" type="button" role="tab" aria-controls="tab-four-pane" aria-selected="false" tabindex="-1">Handle Multiple Account <span><i class="bi bi-arrow-up-right"></i></span>
+                </button></li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel" aria-labelledby="tab-one" tabindex="0">
+                    <div class="mb-4">
+                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
+                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
                     </div>
-                    <div class="service-tab-wrapper">
-                        <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="tab-one" data-bs-toggle="tab"
-                                    data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane"
-                                    aria-selected="true">Create Post <span><i
-                                            class="bi bi-arrow-up-right"></i></span></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="tab-two" data-bs-toggle="tab"
-                                    data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane"
-                                    aria-selected="false" tabindex="-1">Ai Assistance <span><i
-                                            class="bi bi-arrow-up-right"></i></span></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="tab-three" data-bs-toggle="tab"
-                                    data-bs-target="#tab-three-pane" type="button" role="tab"
-                                    aria-controls="tab-three-pane" aria-selected="false" tabindex="-1">Schedule Post
-                                    <span><i class="bi bi-arrow-up-right"></i></span></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="tab-four" data-bs-toggle="tab"
-                                    data-bs-target="#tab-four-pane" type="button" role="tab"
-                                    aria-controls="tab-four-pane" aria-selected="false" tabindex="-1">Handle Multiple
-                                    Account <span><i class="bi bi-arrow-up-right"></i></span>
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel"
-                                aria-labelledby="tab-one" tabindex="0">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                                    <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash,
-                                        and GIPHY. Boost your creative abilities and get access to a wide variety of
-                                        design elements.</p>
-                                </div>
-                                <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4"
-                                    alt="service-tab1">
-                            </div>
-                            <div class="tab-pane fade" id="tab-two-pane" role="tabpanel" aria-labelledby="tab-two"
-                                tabindex="0">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                                    <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash,
-                                        and GIPHY. Boost your creative abilities and get access to a wide variety of
-                                        design elements.</p>
-                                </div>
-                                <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4"
-                                    alt="service-tab1">
-                            </div>
-                            <div class="tab-pane fade" id="tab-three-pane" role="tabpanel" aria-labelledby="tab-three"
-                                tabindex="0">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                                    <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash,
-                                        and GIPHY. Boost your creative abilities and get access to a wide variety of
-                                        design elements.</p>
-                                </div>
-                                <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4"
-                                    alt="service-tab1">
-                            </div>
-                            <div class="tab-pane fade" id="tab-four-pane" role="tabpanel" aria-labelledby="tab-four"
-                                tabindex="0">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                                    <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash,
-                                        and GIPHY. Boost your creative abilities and get access to a wide variety of
-                                        design elements.</p>
-                                </div>
-                                <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4"
-                                    alt="service-tab1">
-                            </div>
-                        </div>
+                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
+                </div>
+                <div class="tab-pane fade" id="tab-two-pane" role="tabpanel" aria-labelledby="tab-two" tabindex="0">
+                    <div class="mb-4">
+                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
+                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
                     </div>
+                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
+                </div>
+                <div class="tab-pane fade" id="tab-three-pane" role="tabpanel" aria-labelledby="tab-three" tabindex="0">
+                    <div class="mb-4">
+                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
+                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
+                    </div>
+                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
+                </div>
+                <div class="tab-pane fade" id="tab-four-pane" role="tabpanel" aria-labelledby="tab-four" tabindex="0">
+                  <div class="mb-4">
+                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
+                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
+                    </div>
+                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
                 </div>
             </div>
         </div>

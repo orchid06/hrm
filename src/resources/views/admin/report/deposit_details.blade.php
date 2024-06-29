@@ -19,7 +19,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ translate('User') }} : <a href='{{route("admin.user.show",$report->user->uid)}}'>
                             {{$report->user->name}}</a></li>
-                        <li class="list-group-item">{{ translate('Transaction Id') }} : {{ $report->trx_code }}</li>
+                        <li class="list-group-item">{{ translate('Transaction ID') }} : {{ $report->trx_code }}</li>
                         <li class="list-group-item">{{ translate('Payment Method') }} : {{ $report->method->name }}</li>
                         <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
                         <li class="list-group-item">{{ translate('Charge') }} :
@@ -59,7 +59,7 @@
                                                 ->first();
                                
                                         @endphp
-                                        <img src='{{imageUrl($file,"payment",true)}}'
+                                        <img src='{{imageURL($file,"payment",true)}}'
                                             alt="{{ @$file->name }}">
                                     @else
                                         {{ $v->field_name }}

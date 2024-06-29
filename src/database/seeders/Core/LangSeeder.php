@@ -16,12 +16,11 @@ class LangSeeder extends Seeder
     {
         if(!(Language::where('code','en')->exists())){
 
-            Language::create([
-                'name'=> 'English',
-                'code'=> 'en',
-                'created_by'=> 1,
-                'is_default'=> StatusEnum::true->status(),
-                'status'=> StatusEnum::true->status(),
+            Language::firstOrCreate(['code'=> 'en',],[
+                'name'       => 'English',
+                'created_by' => get_superadmin()->id,
+                'is_default' => StatusEnum::true->status(),
+                'status'     => StatusEnum::true->status(),
             ]);
         }
     }

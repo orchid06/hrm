@@ -29,17 +29,13 @@ class SendMail
             "102SENDGRID"   => "sendGrid",
         ];
 
-        if(!$gateway){
-            $gateway = MailGateway::where('default',StatusEnum::true->status())->first();
-        }
+        if(!$gateway) $gateway = MailGateway::where('default',StatusEnum::true->status())->first();
 
         $template = Template::where('slug', $template)->first();
 
         $messages = notificationMessage($tmpCodes ,$template->body,$userinfo);
        
-        if(isset($gatewayCode[$gateway->code])){
-            return self::{$gatewayCode[$gateway->code]}($userinfo,$template,$gateway,$messages);
-        }
+        if(isset($gatewayCode[$gateway->code])) return self::{$gatewayCode[$gateway->code]}($userinfo,$template,$gateway,$messages);
 
         return [
             "status"  => false,

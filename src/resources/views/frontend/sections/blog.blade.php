@@ -55,7 +55,7 @@
                             <div class="blog-item">
                               <div class="blog-img">
                                 <img
-                                  src='{{imageUrl(@$blog->file,"article",true)}}'
+                                  src='{{imageURL(@$blog->file,"article",true)}}'
                                   alt="{{@$blog->file->name}}"
                                   loading="lazy"/>
 

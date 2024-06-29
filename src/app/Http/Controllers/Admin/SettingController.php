@@ -9,7 +9,6 @@ use App\Http\Requests\Admin\LogoSettingRequest;
 use App\Http\Requests\Admin\CustomInputRequest;
 use App\Http\Services\SettingService;
 use App\Models\Core\Setting;
-use App\Models\Country;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -192,7 +191,6 @@ class SettingController extends Controller
             'server_detail'   => $_SERVER,
         ];
         return view('admin.server_info',[
-            
             'breadcrumbs'     =>  ['home'=>'admin.home','Server Information'=> null],
             'title'           => "Server Information",
             'systemInfo'      =>  $systemInfo
@@ -234,10 +232,8 @@ class SettingController extends Controller
     public function webhook() :View
     {
         return view('admin.setting.webhook',[
-            
             'title'       => 'Webhook Settings',
             'breadcrumbs' => ['home'=>'admin.home','Webhook'=> null],
-          
         ]);
     }
 
@@ -253,10 +249,8 @@ class SettingController extends Controller
     public function affiliate() :View
     {
         return view('admin.setting.affiliate',[
-            
             'title'       => 'Affiliate Settings',
             'breadcrumbs' => ['home'=>'admin.home','Affiliate Settings'=> null],
-          
         ]);
     }
 
@@ -272,16 +266,14 @@ class SettingController extends Controller
     public function kycConfig() :View
     {
         return view('admin.setting.kyc_settings',[
-
             'title'       => 'KYC Configuration',
             'breadcrumbs' => ['home'=>'admin.home','KYC Settings'=> null],
-          
         ]);
     }
 
 
     /**
-     * kyc settings
+     * KYC settings
      *
      * @param CustomInputRequest $request
      * @return string
@@ -291,7 +283,6 @@ class SettingController extends Controller
         $response = $this->settingService->customPrompt($request,'kyc_settings');
         optimize_clear();
         return json_encode([
-
             'status'      => Arr::get($response,'status',false),
             'message'     => Arr::get($response,'message',Arr::get(config('server_error'),'server_error',''))
         ]);

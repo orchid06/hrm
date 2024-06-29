@@ -190,7 +190,7 @@ class Account
                         foreach ($post->file as $file) {
                         
                             $upload_params = [
-                                'image_url'        => imageUrl($file,"post",true),
+                                'image_url'        => imageURL($file,"post",true),
                                 'caption'          => $post->content??"feed",
                                 'is_carousel_item' => true
                             ];
@@ -221,7 +221,7 @@ class Account
                         $file = $post->file->first();
            
                         $upload_params = [
-                            'image_url' => imageUrl($file,"post",true),
+                            'image_url' => imageURL($file,"post",true),
                             'caption'   => $post->content??"feed"
                         ];
                         $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
@@ -273,7 +273,7 @@ class Account
                 $medias = [];
 
                 foreach ($post->file as $file) {
-                    $medias[] = imageUrl($file,"post",true);
+                    $medias[] = imageURL($file,"post",true);
                 }
                 
                 if(count($medias) < 2){

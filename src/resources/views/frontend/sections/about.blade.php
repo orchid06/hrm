@@ -50,7 +50,7 @@
         </div>
 
         <div class="about-image">
-          <img src='{{imageUrl(@$aboutImg,"frontend",true,@get_appearance()->about->content->images->image->size)}}' alt="{{@$aboutImg->name}}" />
+          <img src='{{imageURL(@$aboutImg,"frontend",true,@get_appearance()->about->content->images->image->size)}}' alt="{{@$aboutImg->name}}" />
         </div>
 
       </div>

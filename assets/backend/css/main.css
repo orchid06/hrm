@@ -6696,11 +6696,14 @@ ul.inbox-list li .col-mail-2 .date {
     margin-right: 10px;
 }
 .user-profile-image{
-    width: 80px;
+    width: 80px !important;
     height: 80px;
     border-radius: 50%;
     margin-left: 0;
     overflow: hidden;
+    flex-grow: 1;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .subscription-card{

@@ -74,7 +74,7 @@
                     <div class="form-inner">
                         <select name="trx_type" id="type" class="type">
                             <option value="">
-                                {{translate('Select Trx type')}}
+                                {{translate('Select TRX Type')}}
                             </option>
                             <option {{ App\Models\Transaction::$PLUS == request()->input('trx_type') ? 'selected' :""  }} value="{{App\Models\Transaction::$PLUS}}">{{translate("Plus")}}</option>
                             <option {{ App\Models\Transaction::$MINUS == request()->input('trx_type') ? 'selected' :""  }} value="{{App\Models\Transaction::$MINUS}}">{{translate("Minus")}}</option>
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="form-inner">
-                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                     </div>
 
 
@@ -121,7 +121,7 @@
                                                     </span>
                                                     <div>
                                                         <h6>
-                                                            {{translate("Trx Code")}}
+                                                            {{translate("TRX Code")}}
                                                         </h6>
                                                         <p> {{$report->trx_code}}</p>
                                                     </div>

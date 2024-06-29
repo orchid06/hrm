@@ -217,7 +217,7 @@
 
                                                 <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" data-id="{{$account->id}}" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0 check_account" name="selected-profile" type="checkbox"
                                                 data-account_name="{{$account->name}}" data-platform_name="{{$account->platform->name}}"
-                                                data-platform_image="{{imageUrl(@$account->platform->file,"platform",true)}}"
+                                                data-platform_image="{{imageURL(@$account->platform->file,"platform",true)}}"
                                                 data-profile_image = "{{@$account->account_information->avatar}}">
                                             </label>
                                         </li>
@@ -319,7 +319,7 @@
                             aria-selected="false"
                             tabindex="-1">
                               <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
-                                <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+                                <img src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{imageURL(@$platform->file,'platform',true)}}"/>
                               </div>
                           </a>
                         @endforeach

@@ -73,7 +73,7 @@
                 <h5 class="title">
                     {{translate('Pending Post')}}
                 </h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Pending->value])}}" class="i-btn btn--sm btn--primary-outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::PENDING->value])}}" class="i-btn btn--sm btn--primary-outline">
                       {{translate("View All")}}
                 </a>
               </div>
@@ -89,7 +89,7 @@
           <div class="card-info">
             <h3>{{Arr::get($data,"schedule_post",0)}} </h3>
             <h5 class="title">{{translate('Schedule Post')}}</h5>
-            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Schedule->value])}}" class="i-btn btn--sm btn--primary-outline">
+            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SCHEDULE->value])}}" class="i-btn btn--sm btn--primary-outline">
                 {{translate("View All")}}
             </a>
           </div>
@@ -108,7 +108,7 @@
                 {{Arr::get($data,"success_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Success Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--primary-outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SUCCESS->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -126,7 +126,7 @@
                 {{Arr::get($data,"failed_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Failed Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--primary-outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SUCCESS->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -294,7 +294,7 @@
                   </td>
                   <td data-label='{{translate("Name")}}'>
                       <div class="user-meta-info d-flex align-items-center gap-2">
-                          <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
+                          <img class="rounded-circle avatar-sm" src='{{imageURL(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                           <p>	 {{$post->account->platform->name}}</p>
                       </div>
 

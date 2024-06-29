@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,20 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
             $table->string('uid',100)->index()->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
-            $table->string('name',191)->unique();
-            $table->string('code',191)->unique();
+            $table->unsignedBigInteger('created_by')->index()->nullable()->constrained(table: 'admins');
+            $table->unsignedBigInteger('updated_by')->index()->nullable()->constrained(table: 'admins');
+            $table->string('name',191)->index()->unique();
+            $table->string('code',191)->index()->unique();
             $table->string('symbol',191);
-            $table->double('exchange_rate');
-            $table->enum('status',[0,1])->default(1)->comment('Active: 1, Deactive: 0');
-            $table->enum('default',[0,1])->nullable()->comment('Yes: 1, No: 0');
-            $table->enum('base',[0,1])->nullable()->comment('Active: 1, Deactive: 0');
+            $table->double('exchange_rate',20,5)->default(0.00000);
+            $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
+            $table->enum('default',array_values(StatusEnum::toArray()))->default(StatusEnum::false->status())->comment('Yes: 1, No: 0');
+            $table->enum('base',array_values(StatusEnum::toArray()))->default(StatusEnum::false->status())->comment('Active: 1, Inactive: 0');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

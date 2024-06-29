@@ -74,7 +74,7 @@
                                 </td>
                                 <td data-label='{{translate("Name")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
                                         <p>	 {{ucfirst($platform->name)}}</p>
                                     </div>
                                 </td>
@@ -127,7 +127,7 @@
                                                @endif
                                                 <a  title="{{translate('Configuration')}}" data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
                                                 </a>
-                                                <a title="{{translate('Update')}}"   href="javascript:void(0);" data-img ='{{imageUrl(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
+                                                <a title="{{translate('Update')}}"   href="javascript:void(0);" data-img ='{{imageURL(@$platform->file,"platform",true)}}'   data-platform = "{{$platform}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i>
                                                 </a>
                                             @endif
                                     

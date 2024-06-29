@@ -26,11 +26,8 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
 
-
-
         $password =  request()->routeIs('admin.user.update') ? 'nullable' :"required";
   
-        
         $rules = [
             'name'               => ["required","max:100",'string'],
             'username'           => ['required',"string","max:155","alpha_dash",'unique:users,username,'.request()->id],
@@ -57,11 +54,9 @@ class UserRequest extends FormRequest
         }
 
         if(request()->routeIs('admin.user.update')){
-
             $rules['id']  = 'required|exists:users,id';
             $remove       = ['status'];
             $rules        = array_diff_key($rules, array_flip($remove));
-
         }
 
         return $rules;

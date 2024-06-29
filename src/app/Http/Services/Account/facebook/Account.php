@@ -186,8 +186,6 @@ class Account
            ];
         }
     
-
-
     }
 
 
@@ -244,7 +242,7 @@ class Account
 
                         $uploadParams = [
                             'access_token'  => $token,
-                            'url'           => imageUrl($file,"post",true),
+                            'url'           => imageURL($file,"post",true),
                             'published'     => false,
                         ];
         

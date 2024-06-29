@@ -16,34 +16,19 @@ class PlatformSeeder extends Seeder
     public function run(): void
     {
 
+        collect(Arr::get(config('settings'),'platforms' ,[]))->except(MediaPlatform::pluck('slug')->toArray())
+                           ->each(fn(array $config,string $name): MediaPlatform=>
+                                    MediaPlatform::create([
+                                            "name"            =>  Arr::get($config,'name',$name),
+                                            "slug"            => make_slug($name),
+                                            "url"             => '@@',
+                                            "description"     => '@@',
+                                            "configuration"   => Arr::get($config,'credential',[]),
+                                            "is_integrated"   => Arr::get($config,'is_integrated',StatusEnum::false->status()),
+                                            "is_feature"      => Arr::get($config,'is_feature',StatusEnum::false->status()),
+                                    ])
+         );
 
-
-        
-        $existsPlatform = MediaPlatform::pluck('slug')->toArray();
-        $platforms      = Arr::get(config('settings'),'platforms' ,[]);
-
-        try {
-            foreach($platforms as $name => $config){
-
-                if(! in_array($name,$existsPlatform)){
-                    MediaPlatform::create([
-                        "name"            => ucfirst($name),
-                        "slug"            => make_slug($name),
-                        "url"             => '@@',
-                        "description"     => Arr::get($config,'is_integrated',StatusEnum::false->status()) == StatusEnum::false->status() 
-                                              ? "Comming Soon" 
-                                              : 'Seamlessly execute social media management and social customer care on '.$name.' from a single,   scalable platform',
-                        "configuration"   => Arr::get($config,'credential',[]),
-                        "is_integrated"   => Arr::get($config,'is_integrated',StatusEnum::false->status()),
-                        "is_feature"      => Arr::get($config,'is_feature',StatusEnum::false->status()),
-                    ]);
-                }
-            }
-        } catch (\Throwable $th) {
-          
-        }
-
-      
       
     }
 }

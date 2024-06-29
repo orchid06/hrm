@@ -186,16 +186,16 @@ class CoreController extends Controller
      */
     public function handleSchedulePost() :void{
 
-        $posts = SocialPost::whereIn('status',[strval(PostStatus::value('Pending',true)) ,strval(PostStatus::value('Schedule',true))])->cursor();
+        $posts = SocialPost::whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])->cursor();
 
         foreach($posts->chunk(20) as $chunkPosts){
             foreach($chunkPosts as $post){
                 sleep(1);
                 if($post->schedule_time <= Carbon::now()){
-                    $post->status = strval(PostStatus::value('Pending',true));
+                    $post->status = strval(PostStatus::value('PENDING',true));
                     $post->save();
                 }
-                if($post->status ==  strval(PostStatus::value('Pending',true))){
+                if($post->status ==  strval(PostStatus::value('PENDING',true))){
                     $this->publishPost($post);
                 }
             }
@@ -213,7 +213,6 @@ class CoreController extends Controller
      */
     public function handleExpireSubscriptions() :void{
 
-        $userService   = new UserService();
         $subscriptions = Subscription::with(['user','package'])
                             ->running()
                             ->expired()

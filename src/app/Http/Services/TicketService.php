@@ -49,6 +49,7 @@ class TicketService
             $ticket->save();
 
             if(isset($request["ticket_data"] ['attachment'][0])){
+                
                 foreach($request["ticket_data"] ['attachment'] as $file){
                     $response = $this->storeFile(
                         file        : $file, 
@@ -160,6 +161,7 @@ class TicketService
         $message->ticket_id  = $ticket->id;
         $message->message    = $request->input("message");
         $message->save();
+        
         return $message;
     }
 

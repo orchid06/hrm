@@ -31,38 +31,96 @@ class SocialPost extends Model
         });
     }
 
-    public function file() :MorphMany{
+
+
+    /**
+     * Get file
+     *
+     * @return MorphMany
+     */
+    public function file(): MorphMany{
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function user() :BelongsTo{
+
+    /**
+     * Get user
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo{
         return $this->belongsTo(User::class, 'user_id');
     }
 
 
-    public function admin() :BelongsTo{
+
+    /**
+     * Get admin
+     *
+     * @return BelongsTo
+     */
+    public function admin(): BelongsTo{
         return $this->belongsTo(Admin::class, 'admin_id');
     }
 
 
+
+
+    /**
+     * Get the account of the post
+     *
+     * @return BelongsTo
+     */
     public function account() :BelongsTo{
         return $this->belongsTo(SocialAccount::class, 'account_id');
     }
 
-    public function scopePending(Builder $q) :Builder{
-        return $q->where('status',strval(PostStatus::Pending->value));
+
+    /**
+     * Pending post
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopePending(Builder $q):Builder {
+        return $q->where('status',strval(PostStatus::PENDING->value));
     }
 
-    public function scopeSuccess(Builder $q) :Builder{
-        return $q->where('status',strval(PostStatus::Success->value));
+
+
+    /**
+     * Success post
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeSuccess(Builder $q):Builder {
+        return $q->where('status',strval(PostStatus::SUCCESS->value));
     }
 
-    public function scopeSchedule(Builder $q) :Builder{
-        return $q->where('status',strval(PostStatus::Schedule->value));
+
+
+    /**
+     * Scheule post
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeSchedule(Builder $q):Builder {
+        return $q->where('status',strval(PostStatus::SCHEDULE->value));
     }
 
-    public function scopeFailed(Builder $q) :Builder{
-        return $q->where('status',strval(PostStatus::Failed->value));
+
+    
+
+    /**
+     * Failed post
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeFailed(Builder $q):Builder {
+        return $q->where('status',strval(PostStatus::FAILED->value));
     }
 
 }

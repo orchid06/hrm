@@ -63,7 +63,7 @@
                                     <div class="d-flex gap-3 mt-2">
                                         @foreach ($post->file as $file)
                                 
-                                                <img src='{{imageUrl($file,"post",true)}}'
+                                                <img src='{{imageURL($file,"post",true)}}'
                                                     alt="{{ @$file->name }}">
                                     
                                         @endforeach

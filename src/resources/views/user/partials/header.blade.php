@@ -62,7 +62,7 @@
                                             <li>
                                                 <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                                     <div class="notify-icon">
-                                                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                                                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
 
                                                     </div>
 
@@ -141,7 +141,7 @@
                     aria-expanded="false"
                     role="button">
                     <span class="profile-img">
-                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
                     </span>
                 </div>
 

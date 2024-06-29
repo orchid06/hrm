@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}" />
    <title>{{@site_settings("user_site_name",site_settings('site_name'))}} {{site_settings('title_separator')}} {{Arr::get($meta_data,"title",trans("default.home"))}}</title>
     @include('partials.meta_content')
-    <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}" >
+    <link rel="shortcut icon" href="{{imageURL(@site_logo('favicon')->file,'favicon',true)}}" >
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
@@ -48,7 +48,7 @@
 
       <style>
           .integration .scrolling-presets{
-              background-image: url("{{imageUrl(@$intregrationsImg,'frontend',true,@get_appearance()->integration->content->images->image->size)}}");
+              background-image: url("{{imageURL(@$intregrationsImg,'frontend',true,@get_appearance()->integration->content->images->image->size)}}");
           }
       </style>
     @endif
@@ -61,7 +61,7 @@
         <div class="preloader">
             <div class="preloader-content">
                 <div class="preloader-logo">
-                     <img src="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="{{imageUrl(@site_logo('loader_icon')->file,'loader_icon',true)}}">
+                     <img src="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}">
                 </div>
                 <div class="loader">
                     <span></span>

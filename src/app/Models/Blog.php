@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 use App\Traits\ModelAction;
 use App\Traits\Filterable;
-class Article extends Model
+class Blog extends Model
 {
     use HasFactory ,ModelAction ,Filterable;
 
@@ -28,57 +28,95 @@ class Article extends Model
 
         static::addGlobalScope(new ActiveScope());
 
-        static::addGlobalScope('autoload', function (Builder $builder) {
-            $builder->with(['category' ,'file','createdBy']);
-        });
+        static::addGlobalScope('autoload', fn (Builder $builder): Builder => 
+                                       $builder->with(['category' ,'file','createdBy']));
 
-        static::creating(function (Model $model) {
-
+        static::creating(function (Model $model): void{
             $model->uid        = Str::uuid();
             $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
         });
 
-        static::updating(function(Model $model) {
+        static::updating(function(Model $model): void{
             $model->updated_by = auth_user()?->id;
         });
 
         
-        static::saving(function (Model $model) {
+        static::saving(function(Model $model): void{
 
             if(request()->input('slug') || request()->input('title') ){
                 $model->slug       = make_slug(request()->input('slug')?request()->input('slug'):request()->input('title'));
             }
-          
+        
             ModelAction::saveSeo($model);
         });
         
     }
 
-    public function file() :MorphOne{
+
+
+    /**
+     * Get blog image
+     *
+     * @return MorphOne
+     */
+    public function file(): MorphOne{
          return $this->morphOne(File::class, 'fileable');
     }
 
-    public function scopeActive(Builder $q) :Builder{
+
+    /**
+     * Get active blogs
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeActive(Builder $q): Builder{
         return $q->where("status",StatusEnum::true->status());
     }
 
-    public function scopeFeature(Builder $q) :Builder{
+
+    /**
+     * Get featured blogs
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeFeature(Builder $q): Builder{
         return $q->where("is_feature",StatusEnum::true->status());
     }
 
-    public function category() :BelongsTo{
+
+
+    /**
+     * Get blog category
+     *
+     * @return BelongsTo
+     */
+    public function category():BelongsTo {
         return $this->belongsTo(Category::class, 'category_id','id');
     }
 
 
-    public function createdBy() :BelongsTo{
+
+    /**
+     * Get the admin who create this record
+     *
+     * @return BelongsTo
+     */
+    public function createdBy(): BelongsTo{
         return $this->belongsTo(Admin::class,'created_by','id')->withDefault([
             'username' => 'N/A',
             'name' => 'N/A'
         ]);
     }
-    public function updatedBy() :BelongsTo{
+
+    /**
+     * Get the admin who update this record
+     *
+     * @return BelongsTo
+     */
+    public function updatedBy(): BelongsTo{
         return $this->belongsTo(Admin::class,'updated_by','id')->withDefault([
             'username' => 'N/A',
             'name' => 'N/A'

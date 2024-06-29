@@ -116,7 +116,7 @@
                                                                         <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input check_account mt-0" name="selected-profile" type="checkbox"
                                                                         data-id="{{$account->id}}"
                                                                         data-account_name="{{$account->name}}"
-                                                                        data-platform_image="{{imageUrl(@$account->platform->file,"platform",true)}}"
+                                                                        data-platform_image="{{imageURL(@$account->platform->file,"platform",true)}}"
                                                                         data-profile_image = "{{@$account->account_information->avatar}}">
                                                                     </label>
                                                                 </li>

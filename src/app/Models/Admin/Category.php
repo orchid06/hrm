@@ -6,7 +6,7 @@ use App\Enums\CategoryDisplay;
 use App\Enums\StatusEnum;
 use App\Models\Admin;
 use App\Models\AiTemplate;
-use App\Models\Article;
+
 use App\Models\ModelTranslation;
 use App\Models\Scopes\Global\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

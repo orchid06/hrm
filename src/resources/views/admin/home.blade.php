@@ -377,7 +377,7 @@
                             </th>
 
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Code')}}
                             </th>
                             <th scope="col">
                                 {{translate('Final Amount')}}
@@ -409,7 +409,7 @@
                                     <td data-label='{{translate("Payment Method")}}'>
                                         {{$report->method->name}}
                                     </td>
-                                    <td  data-label='{{translate("Trx Code")}}'>
+                                    <td  data-label='{{translate("TRX Code")}}'>
                                           {{$report->trx_code}}
                                     </td>
                                     <td  data-label='{{translate("Final Amount")}}'>

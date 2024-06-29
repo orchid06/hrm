@@ -8,26 +8,19 @@
     <div class="row mb-4">
         <div class="col-lg-9">
             <div class="i-card-md mb-4">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                        {{ translate('Affilitate Report (Current Year)')}}
+                    </h4>
+                </div>
+
                 <div class="card-body">
                     <div id="affiliate-report"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card--header">
-                    <h4 class="card-title">Summery</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="subcription-list">
-                        <li><span>Total Users</span><span>200</span></li>
-                        <li><span>Reffered User</span><span>4534</span></li>
-                        <li><span>Commission Rate</span><span>4%</span></li>
-                        <li><span>Amount</span><span>$787565</span></li>
-                        <li><span>Subscription Package</span><span>N/A</span></li>
-                    </ul>
-                </div>
-            </div>
+            @include('admin.partials.summary')
         </div>
     </div>
     <div class="i-card-md">
@@ -56,7 +49,7 @@
                                     </select>
                                 </div>
                                 <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
                                 </div>
                                 <button class="i-btn btn--md info w-100">
                                     <i class="las la-sliders-h"></i>
@@ -84,7 +77,7 @@
                                 {{translate('Date')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
                                 {{translate('User')}}
@@ -114,9 +107,16 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                    <div>
+                                         {{ diff_for_humans($report->created_at)  }}
+                                    </div>
                                 </td>
-                                <td data-label='{{translate("Trx Code ")}}'>
-                                    {{ ($report->trx_code) }}
+                                <td  data-label="{{translate('Trx Code')}}">
+                                    <span class="trx-number me-1">
+                                        {{$report->trx_code}}
+                                    </span>
+
+                                    <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -146,12 +146,12 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                        <a  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                             <i class="las la-info"></i></a>
                                     </div>
                                 </td>
                            </tr>
-                            @empty
+                        @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
@@ -166,11 +166,16 @@
             </div>
         </div>
     </div>
+
+    @php
+        $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
+    @endphp
 @endsection
 
 @section('modal')
     @include('modal.delete_modal')
     @include('modal.bulk_modal')
+
     <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
             <div class="modal-content">
@@ -193,12 +198,13 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
@@ -208,106 +214,85 @@
 
         "use strict";
 
-        $(".select2").select2({
-
-        });
-        $(".user").select2({
-
-        });
-        $(".type").select2({
-
-        });
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".type").select2({});
 
 
         $(document).on('click','.show-info',function(e){
-
             var modal = $('#report-info');
-
             var report = JSON.parse($(this).attr('data-report'))
-
             $('.content').html(report.note)
-
             modal.modal('show')
-
         });
 
-
-        var dates = [
-            { x: new Date('2024-01-01').getTime(), y: 1200000 },
-            { x: new Date('2024-01-02').getTime(), y: 1250000 },
-            { x: new Date('2024-01-03').getTime(), y: 1230000 },
-            { x: new Date('2024-01-04').getTime(), y: 1270000 },
-            { x: new Date('2024-01-05').getTime(), y: 1220000 },
-            { x: new Date('2024-01-06').getTime(), y: 1280000 },
-            { x: new Date('2024-01-07').getTime(), y: 1260000 },
-            { x: new Date('2024-01-08').getTime(), y: 1300000 },
-            { x: new Date('2024-01-09').getTime(), y: 1350000 },
-            { x: new Date('2024-01-10').getTime(), y: 1370000 }
-        ];
+        var  colors = ['var(--color-danger)','var(--color-danger-light)','var(--color-success)','var(--color-success-light)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"];
+        
+        var labels = @json(array_keys($graph_data));
+        var data   = @json(array_values($graph_data));
 
         var options = {
-          series: [{
-          name: 'XYZ MOTORS',
-          data: dates
-        }],
-          chart: {
-          type: 'area',
-          stacked: false,
-          height: 350,
-          zoom: {
-            type: 'x',
-            enabled: true,
-            autoScaleYaxis: true
-          },
-          toolbar: {
-            autoSelected: 'zoom'
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        markers: {
-          size: 0,
-        },
-        title: {
-          text: 'Stock Price Movement',
-          align: 'left'
-        },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100]
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: function (val) {
-              return (val / 1000000).toFixed(0);
+            series: [{
+                name: "{{ translate('Total Earning') }}",
+                data: data
+            }],
+            chart: {
+                height: 300,
+                type: 'bar',
+                events: {
+                    click: function(chart, w, e) {
+                    }
+                }
             },
-          },
-          title: {
-            text: 'Price'
-          },
-        },
-        xaxis: {
-          type: 'datetime',
-        },
-        tooltip: {
-          shared: false,
-          y: {
-            formatter: function (val) {
-              return (val / 1000000).toFixed(0)
+            colors: colors,
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+
+            tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return formatCurrency(value);
+                    }
+                }
+            },
+  
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: labels,
+                labels: {
+                    style: {
+                        colors: colors,
+                        fontSize: '12px'
+                    }
+                }
             }
-          }
-        }
         };
 
         var chart = new ApexCharts(document.querySelector("#affiliate-report"), options);
         chart.render();
+
+        function formatCurrency(value) {
+            var symbol =  "{{  $symbol }}" ;
+            var suffixes = ["", "K", "M", "B", "T"];
+            var order = Math.floor(Math.log10(value) / 3);
+            var suffix = suffixes[order];
+            if(value < 1)
+            {return symbol+value}
+            var scaledValue = value / Math.pow(10, order * 3);
+            return symbol + scaledValue.toFixed(2) + suffix;
+        }
+
 
 	})(jQuery);
 </script>

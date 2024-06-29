@@ -28,43 +28,78 @@ class PaymentLog extends Model
     ];
 
 
-    public function user() :BelongsTo {
 
-        return $this->belongsTo(User::class,'user_id','id')->withDefault([
-            'username' => 'N/A',
-            'name'     => 'N/A',
-        ]);
-    }
-    public function method() :BelongsTo {
-        return $this->belongsTo(PaymentMethod::class,'method_id','id')->withDefault([
-            'name' => 'N/A',
-        ]);
+    /**
+     * Get the user of the  payment log
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo{
+        return $this->belongsTo(User::class,'user_id','id')->withDefault(['username' => 'N/A','name'     => 'N/A']);
     }
 
-    public function currency() :BelongsTo {
 
-        return $this->belongsTo(Currency::class,'currency_id','id')->withDefault([
-            'name' => 'N/A',
-        ]);
+    /**
+     * Get payment method
+     *
+     * @return BelongsTo
+     */
+    public function method(): BelongsTo{
+        return $this->belongsTo(PaymentMethod::class,'method_id','id')
+                                 ->withDefault(['name' => 'N/A']);
+    }
+
+
+
+    /**
+     * Get currency of the log
+     *
+     * @return BelongsTo
+     */
+    public function currency(): BelongsTo{
+        return $this->belongsTo(Currency::class,'currency_id','id')->withDefault(['name' => 'N/A']);
     }
   
 
-    public function file() :MorphMany {
+    /**
+     * Get files of a speficic payment log
+     *
+     * @return MorphMany
+     */
+    public function file(): MorphMany{
         return $this->morphMany(File::class, 'fileable');
     }
 
 
-    public function scopePending(Builder $q) :Builder{
-
+    /**
+     * Get pending payment log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopePending(Builder $q): Builder{
         return $q->where('status',DepositStatus::value("PENDING",true));
     }
 
-    public function scopeInitiate(Builder $q) :Builder{
 
+    /**
+     * Get initiate payment log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopeInitiate(Builder $q): Builder{
         return $q->where('status',DepositStatus::value("INITIATE",true));
     }
-    public function scopePaid(Builder $q) :Builder{
 
+
+    /**
+     * Get  paid  payment log
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopePaid(Builder $q): Builder{
         return $q->where('status',DepositStatus::value("PAID",true));
     }
 

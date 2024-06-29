@@ -70,10 +70,10 @@ class SocialPostController extends Controller
 
 
         $data['latest_post']               = SocialPost::with(['user','admin','account','account.platform','account.platform.file'])
-                                                ->date()               
-                                                ->latest()
-                                                ->take(6)
-                                                ->get();
+                                                                ->date()               
+                                                                ->latest()
+                                                                ->take(6)
+                                                                ->get();
 
         $data['total_account']            = SocialAccount::date()->count();
         $data['total_post']               = SocialPost::date()->count();
@@ -102,39 +102,39 @@ class SocialPostController extends Controller
 
                
     $data['monthly_post_graph']          = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray(),true);
 
      $data['monthly_pending_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->pending()
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->pending()
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray(),true);
 
      $data['monthly_schedule_post']     = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->schedule()
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->schedule()
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray(),true);
 
      $data['monthly_success_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->success()
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->success()
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray(),true);
 
      $data['monthly_failed_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->failed()
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray(),true);
-                        
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->failed()
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray(),true);
+                                
     
 
 

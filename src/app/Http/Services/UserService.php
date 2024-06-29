@@ -1,56 +1,96 @@
 <?php
 namespace App\Http\Services;
 
+use App\Enums\BalanceTransferType;
 use App\Enums\DepositStatus;
+use App\Enums\FileKey;
 use App\Enums\PlanDuration;
 use App\Enums\StatusEnum;
 use App\Enums\SubscriptionStatus;
 use App\Enums\WithdrawStatus;
-use App\Http\Services\Gateway\bkash\Payment;
-use App\Http\Utility\SendMail;
+use App\Http\Requests\Admin\BalanceUpdateRequest;
 use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
-use App\Models\Admin;
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
 use App\Models\AffiliateLog;
 use App\Models\User;
 use App\Models\Core\File;
+use App\Models\Country;
 use App\Models\CreditLog;
+use App\Models\KycLog;
 use App\Models\Package;
 use App\Models\PaymentLog;
 use App\Models\SocialAccount;
+use App\Models\SocialPost;
 use App\Models\Subscription;
+use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Fileable;
-use Twilio\Rest\Events\V1\SubscriptionPage;
-use App\Traits\Notifyable;
+use App\Traits\ModelAction;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
+
 class UserService
 {
 
 
-    use Fileable , Notifyable;
+    use Fileable,ModelAction;
 
-    public  $paymentService;
+    protected PaymentService $paymentService;
+    public function __construct(){}
 
-    public function __construct()
-    {
-       $this->paymentService  = new PaymentService();
+
+
+    /**
+     * Get user list view informations
+     *
+     * @return array
+     */
+    public function getList(): array{
+
+        return [
+
+                'breadcrumbs'  =>  ['Home'=>'admin.home','Users'=> null],
+                'title'        => 'Manage Users',
+
+                'users'        =>  User::with([
+                                                'file',
+                                                'createdBy',
+                                                'country',
+                                                "runningSubscription",
+                                                "runningSubscription.package"                                       
+                                            ])
+                                        ->routefilter()
+                                        ->search(['name','email',"phone"])
+                                        ->filter(['country:name'])
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
+
+                "countries"    => get_countries(),
+    
+            ];
     }
 
-    use Fileable;
-   
-    public function save(Request $request) :User{
 
-        $user = 
-            DB::transaction(function() use ($request) {
+   
+    /**
+     * Save a specific user 
+     *
+     * @param Request $request
+     * @return User
+     */
+    public function save(Request $request): User{
+
+        return  DB::transaction(function() use ($request): User | null{
  
                 $user                       =  User::with('file')->firstOrNew(['id' => $request->input("id")]);
                 $user->name                 =  $request->input('name');
@@ -60,40 +100,314 @@ class UserService
                 $user->address              =  $request->input('address',[]);
                 $user->password             =  $request->input('password');
                 $user->country_id           =  $request->input('country_id');
-                $user->email_verified_at    =  $request->input('email_verified') ?  Carbon::now() : null ;
+                $user->email_verified_at    =  $request->input('email_verified')?Carbon::now() : null ;
                 $user->auto_subscription    =  $request->input('auto_subscription',StatusEnum::false->status());
-                $user->is_kyc_verified      =  $request->input('is_kyc_verified', StatusEnum::false->status());
+                $user->is_kyc_verified      =  $request->input('is_kyc_verified',StatusEnum::false->status());
                 $user->save();
 
                 if($request->hasFile('image')){
-
-                    $oldFile = $user->file()->where('type','profile')->first();
-                    $response = $this->storeFile(
-                        file        : $request->file('image'), 
-                        location    : config("settings")['file_path']['profile']['user']['path'],
-                        removeFile  : $oldFile
-                    );
-                    
-                    if(isset($response['status'])){
-                        $image = new File([
-                            'name'      => Arr::get($response, 'name', '#'),
-                            'disk'      => Arr::get($response, 'disk', 'local'),
-                            'type'      => 'profile',
-                            'size'      => Arr::get($response, 'size', ''),
-                            'extension' => Arr::get($response, 'extension', ''),
-                        ]);
-                        $user->file()->save($image);
-                    }
+                    $this->saveFile($user ,$this->storeFile(
+                                                $request->file('image'), 
+                                                config("settings")['file_path']['profile']['user']['path'])
+                                                ,FileKey::AVATAR->value);
                 }
-                
                 return $user;
         
             });
-        
+    }
 
-       return $user;
+
+
+
+    /**
+     * Get user report & statistics 
+     *
+     * @return array
+     */
+    public function getReport(): array{
+
+        $currentYear   = date("Y");
+        $currentMonth  = request()->input('month', date("m"));
+
+        $usersByCountries    =   User::with(['country'])
+                                        ->select(DB::raw("count(id) as total, country_id"))
+                                        ->groupBy('country_id')
+                                        ->orderBy('total')
+                                        ->lazyById(paginateNumber(),'country_id')->mapWithKeys(fn(User $user) =>
+                                            [$user->country->name => $user->total]
+                                        )->toJson();
+
+        $topCountries        =   Country::withCount('users')
+                                        ->orderBy('users_count', 'desc')
+                                        ->take(30)
+                                        ->get();  
+                                           
+      
+        $currentYearUsers    =  sortByMonth(User::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                ->whereYear('created_at', '=',date("Y"))
+                                                ->groupBy('months')
+                                                ->pluck('total', 'months')
+                                                ->toArray());
+
+
+        $daysInMonth      = Carbon::createFromDate($currentYear, $currentMonth, 1)->daysInMonth;
+        $days             = array_fill(1, $daysInMonth, 0);
+        $currentMonthData = DB::table('users')
+                                ->selectRaw("DAY(created_at) as day, count(*) as total")
+                                ->whereYear('created_at', '=', $currentYear)
+                                ->whereMonth('created_at', '=', $currentMonth)
+                                ->groupBy('day')
+                                ->pluck('total', 'day')
+                                ->toArray();
+
+        $currentMonthUsers = array_replace($days, $currentMonthData);
+
+        return [
+
+            'title'                    =>  'User statistics',
+            'user_by_countries'        =>  $usersByCountries ,
+            'top_countries'            =>  $topCountries ,
+            'subscribed_users'         =>  User::whereHas('subscriptions')->count(),
+            'unsubscribed_users'       =>  User::whereDoesntHave('subscriptions')->count(),
+            'active_users'             =>  User::active()->count(),
+            'banned_users'             =>  User::banned()->count(),
+            'user_by_year'             =>  $currentYearUsers,
+            'user_by_month'            =>  $currentMonthUsers,
+        ];
 
     }
+
+
+
+
+
+
+    /**
+     * Get a specific user details
+     *
+     * @param string $uid
+     * @return array
+     */
+    public function getUserDetails(string $uid): array{
+
+
+        $user  = User::with([   
+                            'file',
+                            'kycLogs',
+                            'posts',
+                            'accounts',
+                            'templates',
+                            'paymentLogs',
+                            'creditLogs',
+                            'transactions',
+                            'subscriptions',
+                            'runningSubscription',
+                            'runningSubscription.package',
+                            'tickets',
+                            'withdraws',
+                            'affiliates',
+                            "referral"
+                        ])->where('uid',$uid)
+                          ->firstOrFail();
+
+
+        $graphData = new Collection();
+
+        SocialPost::whereYear('created_at',  date('Y'))
+            ->where('user_id',$user->id)
+            ->selectRaw("MONTH(created_at) as month, 
+                            MONTHNAME(created_at) as months,
+                            count(*) as total,
+                            SUM(CASE WHEN status =  '0'  THEN id END) AS pending,
+                            SUM(CASE WHEN status =  '1'  THEN id END) AS success,
+                            SUM(CASE WHEN status =  '2'  THEN id END) AS failed,
+                            SUM(CASE WHEN status =  '3'  THEN id END) AS schedule")
+
+            ->groupBy('month', 'months')
+            ->orderBy('month')
+            ->chunk(1000, function (Collection $logs) use (&$graphData) : void {
+                $graphData  = $logs->map(fn(SocialPost $log): array =>
+                        [$log->months =>  [
+                            'total'    => $log->total ?? 0,
+                            'pending'  => $log->pending ?? 0,
+                            'success'  => $log->success ?? 0,
+                            'failed'   => $log->failed ?? 0,
+                            'schedule' => $log->schedule ?? 0
+                        ]]
+                );
+            });
+
+        
+
+        return [
+            'breadcrumbs'          => ['Home'=>'admin.home','Users'=> 'admin.user.list' ,'Show' => null],
+            'title'                => 'Show Users',
+            'user'                 => $user,
+            'packages'             => Package::active()->get(),
+            'withdraw_methods'     => Withdraw::active()->get(),
+            'methods'              => PaymentMethod::active()->get(),
+            "countries"            => get_countries(),
+            "graph_data"           => sortByMonth(@$graphData->collapse()->all() ?? [],true,
+                                                    [
+                                                        'total'       => 0,
+                                                        'pending'     => 0,
+                                                        'success'     => 0,
+                                                        'failed'      => 0,
+                                                        'schedule'    => 0
+                                                    ])
+        
+        ];
+
+    }
+
+
+
+
+    /**
+     * Delete a specific users
+     *
+     * @param integer|string $uid
+     * @return array
+     */
+    public function delete(int|string $uid): array{
+
+        try {
+            DB::transaction(function() use ($uid): void{
+
+                $user      = User::with(
+                                     [
+                                        'file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts','posts','posts.file','webhookLogs'
+                                     ])->where('uid',$uid)
+                                       ->firstOrfail();
+    
+    
+                #DELETE SUBSCRIPTIONS
+                $user->subscriptions()->delete();
+    
+                #DELETE AFFLIATES
+                $user->affiliates()->delete();
+    
+                #DELETE ACCOUNTS
+                $user->accounts()->delete();
+    
+                #DELETE OTP
+                $user->otp()->delete();
+    
+                #DELETE TRANSACTIONS
+                $user->transactions()->delete();
+    
+                #DELETE NOTIFICATIONS
+                $user->notifications()->delete();
+    
+                #DELETE CREDIT LOG
+                $user->creditLogs()->delete();
+    
+                #DELERE TEMPLATE REPORTS
+                $user->templates()->delete();
+    
+                #DELETE TEMPLATE REPORT
+                $user->templateUsages()->delete();
+    
+                #DELETE WEBHOOK
+                $user->webhookLogs()->delete();
+    
+                #DELETE SOCIAL POST WITH FILES
+                $user->post?->map(fn(SocialPost $post):bool => $this->unlinkLogFile($post ,config("settings")['file_path']['post']['path']));
+                $user->posts()->delete();
+    
+    
+                #DELETE PAYMENT LOGS
+                $user->paymentLogs?->map(fn(PaymentLog $paymentLog):bool => $this->unlinkLogFile($paymentLog ,config("settings")['file_path']['payment']['path']));
+                $user->paymentLogs()->delete();
+    
+    
+                #DELETE WITHDRAW LOGS
+                $user->withdraws?->map(fn(Withdraw $withdraw):bool => $this->unlinkLogFile($withdraw ,config("settings")['file_path']['withdraw']['path']));
+                $user->withdraws()->delete();
+    
+                #DELETE TICKET LOGS
+                $user->tickets?->map(function(Ticket $ticket): bool{ 
+                    $ticket->messages()->delete();
+                    return $this->unlinkLogFile($ticket ,config("settings")['file_path']['ticket']['path']);
+                });
+                $user->tickets()->delete();
+    
+    
+                #DELETE KYC LOGS
+                $user->kycLogs?->map(fn(KycLog $kycLog):bool => $this->unlinkLogFile($kycLog ,config("settings")['file_path']['kyc']['path']));
+                $user->kycLogs()->delete();
+    
+    
+                #UNLINK USER IMAGE
+                $this->unlink(
+                    location    : config("settings")['file_path']['profile']['user']['path'],
+                    file        : $user->file()->where('type',FileKey::AVATAR->value)->first()
+                );
+              
+                $user->delete();
+            });
+        } catch (\Exception $ex) {
+         
+            return [ 'status' => false , 'message' => strip_tags($ex->getMessage()) ];
+        }
+                 
+        return ['status' => true , 'message' => translate("Deleted Successfully") ];
+
+    }
+
+
+    /**
+     * Unlink log files
+     *
+     * @param mixed $log
+     * @param string $path
+     * @return bool
+     */
+    public function unlinkLogFile(Model $model ,string $path): bool{
+
+        try {
+            $model->file->map(fn(File $file):bool =>  $this->unlink(
+                location    : $path,
+                file        : $file
+            ));
+    
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+
+    }
+
+
+
+    /**
+     * Transfer balance for a specific user
+     *
+     * @param BalanceUpdateRequest $request
+     * @return array
+     */
+    public function transferBalance(BalanceUpdateRequest $request): array{
+
+        $user          =   User::findOrfail($request->input('id'));
+        switch ($request->input('type')) {
+            case BalanceTransferType::DEPOSIT->value:
+                      $method    = PaymentMethod::with(['currency'])
+                                                   ->findOrfail($request->input('payment_id'));
+                      $response  = Arr::get($this->createDepositLog($request ,$user ,$method),"response",[]);
+                break;
+            case BalanceTransferType::DEPOSIT->value:
+                        $method    = Withdraw::findOrfail($request->input("method_id"));
+                        $response  = $this->createWithdrawLog($request ,$user ,$method);
+                break;
+        }
+
+        return $response;
+
+    }
+
+
+
 
 
 
@@ -239,8 +553,6 @@ class UserService
         
             $oldSubscription = $user->runningSubscription;
 
-
-    
             if($user->balance <   $price){
     
                 return [
@@ -524,6 +836,8 @@ class UserService
      */
     public function createDepositLog(Request $request , User $user ,PaymentMethod $method , mixed $status = null) :array{
 
+
+
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
         $amount                    = (float)$request->input("amount");
         $charge                    = round_amount( (float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100));
@@ -533,7 +847,6 @@ class UserService
         $finalAmount               = round_amount($finalBase*$method->currency->exchange_rate,2);
 
         $params                    = [
-
             'currency_id'          =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id ,
             "amount"               =>  $amount,
             "base_amount"          =>  convert_to_base($amount),
@@ -545,7 +858,6 @@ class UserService
             "notes"                =>  $request->input("remarks"),
             "trx_code"             =>  trx_number(),
             "rate"                 =>  exchange_rate($method->currency,5)
- 
         ];
 
 
@@ -570,7 +882,7 @@ class UserService
 
             $route          =  route("admin.deposit.report.list");
             $userRoute      =  route("user.deposit.report.list");
-            $admin          = get_admin();
+            // $admin          =  get_superadmin();
 
 
             if($log->status  == DepositStatus::value("PAID",true)){
@@ -614,7 +926,10 @@ class UserService
                 ],
             ];
 
-            $this->notify($notifications);
+            // $this->notify($admin);
+
+
+            get_superadmin()->notify('');
 
             return $log;
 
@@ -822,9 +1137,7 @@ class UserService
 
     public function deductSubscriptionCredit(Subscription $subscription , string $key , int $value = 1) :Subscription{
         $subscription->decrement($key,$value);
-
         return $subscription;
-        
     }
   
 }

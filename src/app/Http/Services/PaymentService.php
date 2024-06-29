@@ -245,7 +245,7 @@ class PaymentService
           
                 $log->update([
                     'status'   => Arr::get($request , 'status' ,WithdrawStatus::value('PENDING')),
-                    'notes' => Arr::get($request , 'notes' ,translate("Failed to update")),
+                    'notes'    => Arr::get($request , 'feedback' ,translate("Failed to update")),
                 ]);
 
                 if($log->status  == WithdrawStatus::value("APPROVED",true)){
@@ -271,7 +271,7 @@ class PaymentService
                     "amount"          => num_format($log->amount,$log->currency),
                     "time"            => Carbon::now(),
                     "method"          => $log->method->name,
-                    "reason"          => Arr::get($request , 'notes' ,translate("Unknown Error"))
+                    "reason"          => Arr::get($request , 'feedback' ,translate("Unknown Error"))
                 ];
 
                 $route      =  route("user.withdraw.report.list");

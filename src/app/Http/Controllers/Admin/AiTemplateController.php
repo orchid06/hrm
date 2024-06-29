@@ -23,7 +23,6 @@ use Illuminate\Validation\Rule;
 class AiTemplateController extends Controller
 {
    
-
     use ModelAction;
     protected $categories , $aiService;
     /**

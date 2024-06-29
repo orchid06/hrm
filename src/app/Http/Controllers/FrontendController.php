@@ -7,7 +7,6 @@ use App\Http\Services\FrontendService;
 use App\Models\Admin\Category;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
-use App\Models\Article as Blog;
 use App\Models\Package;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
@@ -78,7 +77,7 @@ class FrontendController extends Controller
 
         $metaData = [
             "title"               =>  $blog->meta_title,
-            "og_image"            =>  imageUrl(@$blog->file,"article",true),
+            "og_image"            =>  imageURL(@$blog->file,"article",true),
             "img_size"            =>  config("settings")['file_path']['article']['size'],
             "meta_description"    =>  $blog->meta_description,
             "meta_keywords"       =>  (array) $blog->meta_keywords,

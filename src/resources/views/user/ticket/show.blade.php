@@ -51,12 +51,36 @@
                             </h4>
                         </div>
                         <div class="card-body">
+                            <div class="message-wrapper" data-simplebar>
+                                @forelse($messages  as $message)
+                                    @php
+                                        $imgUrl = imageURL(@$ticket->user->file,"profile,user",true);
+                                        if ($message->admin_id) {
 
-                            <div class="ticket-wrapper message-wrapper" data-simplebar>
-                                <div class="message-single message-left d-flex flex-column">
-                                    <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
-                                        <div class="image">
-                                            <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                            $imgUrl = imageURL($message->admin->file,"profile,admin",true);;
+                                        }
+                                    @endphp
+
+                                        <div class="message-item d-flex justify-content-between align-items-start ticket-admin-reply">
+                                            <div class="author-image me-2">
+                                                <img class="rounded-circle avatar-sm" src="{{ $imgUrl }}" alt="profile.jpg" />
+                                            </div>
+
+                                            <div class="author-content flex-grow-1 ">
+                                                <div class="mesg-meta mb-1">
+                                                    <h6>
+                                                        @if ($message->admin_id)
+                                                            {{ $message->admin?->name }}
+                                                        @else
+                                                            {{ translate("Me") }}
+                                                        @endif
+                                                    </h6>
+                                                    <small> {{ diff_for_humans($message->created_at) }}</small>
+                                                </div>
+                                                <div class="mesg-body">
+                                                    @php echo $message->message  @endphp
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="meta">
                                             <h6>John Doe</h6>

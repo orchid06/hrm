@@ -51,7 +51,7 @@
                                 </label>
                                 <input data-size = "120x120" id="image" name="image" type="file" class="preview">
                                 <div class="mt-2 payment-preview image-preview-section mb-2" >
-                                    <img   src='{{imageUrl(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
+                                    <img   src='{{imageURL(@$article->file,"article",true)}}' alt="{{@$article->file->name}}">
                                 </div>
                             </div>
                         </div>

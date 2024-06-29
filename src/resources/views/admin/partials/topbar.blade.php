@@ -63,7 +63,7 @@
                               <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                 <div class="notify-icon">
                                   <img class="rounded-circle"
-                                    src='{{imageUrl(auth_user()->file,"profile,admin",true) }}'
+                                    src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
                                     alt="{{@auth_user()->file->name}}" />
                                 </div>
                                 <div class="notification-item-content">
@@ -151,7 +151,7 @@
       <div class="header-icon">
         <div class="profile-dropdown">
           <div class="topbar-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src='{{imageUrl(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
+            <img src='{{imageURL(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
           </div>
           <div class="dropdown-menu dropdown-menu-end">
             <ul>

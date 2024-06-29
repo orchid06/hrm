@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::create('affiliate_logs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('referred_to')->nullable();
-            $table->unsignedBigInteger('subscription_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');
+            $table->unsignedBigInteger('referred_to')->index()->nullable()->constrained(table: 'users');
+            $table->unsignedBigInteger('subscription_id')->index()->nullable()->constrained(table: 'subscriptions');
             $table->double('commission_amount',25,5)->default(0.00000);
-            $table->integer('commission_rate')->default(0);
+            $table->double('commission_rate',25,5)->default(0.00000);
             $table->string('trx_code',200);
             $table->string('note',255)->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
