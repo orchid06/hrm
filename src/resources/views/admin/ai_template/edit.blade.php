@@ -9,7 +9,8 @@
         <div class="row g-4">
             <input type="text" hidden name="id" value="{{$template->id}}">
             <div class="col-xl-12">
-                <div class="i-card-md">
+                <div class="i-card-md position-relative">
+                    @include('admin.partials.card_loader')
                     <div class="card--header">
                         <h4 class="card-title">
                             {{translate('Basic Information')}}
@@ -102,9 +103,14 @@
                                         <div class="form-group mb-10">
                                             <div class="input-group">
                                                 <input data-counter = {{ $counter }} name="field_name[]" class="form-control field-name"
-                                                    type="text" value="{{$v->field_label}}" required
+                                                    type="text" value="{{$v->field_name}}" required
                                                     placeholder="{{translate('Field Name')}}">
 
+                                                <input data-counter = {{ $counter }} name="field_label[]" class="form-control field-label"
+                                                            type="text" value="{{$v->field_label}}" required
+                                                            placeholder="{{translate('Field Label')}}">
+
+                                                
                                                 <select name="type[]" class="form-control">
                                                     <option value="text"
                                                             @if($v->type == 'text') selected @endif>{{translate('Input Text')}}</option>
@@ -210,6 +216,10 @@
                 method:'get',
                 url: url,
                 dataType: 'json',
+                beforeSend: function() {
+                            $('.card-loader').removeClass('d-none');
+                        },
+
 
                 success: function(response){
                     var sub_category =  "{{$template->sub_category_id}}";
@@ -249,6 +259,10 @@
                         toastr(error.message,'danger')
                     }
                 },
+
+                complete: function() {
+                            $('.card-loader').addClass('d-none');
+                        },
              })
             }
 

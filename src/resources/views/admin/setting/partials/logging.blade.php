@@ -16,7 +16,7 @@
                 <div class="col-xl-6 ">
                     <div class="form-inner">
                         <label for="sentry_dns">
-                            {{translate('Sentry Dns')}} <small class="text-danger" >*</small>
+                            {{translate('Sentry DNS')}} <small class="text-danger" >*</small>
                         </label>
                         <input type="text" name="site_settings[sentry_dns]" id="sentry_dns"  value="{{is_demo() ? '@@@' :site_settings('sentry_dns')}}" required placeholder='{{translate("Enter Dns")}}'>
                     </div>

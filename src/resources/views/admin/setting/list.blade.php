@@ -12,21 +12,20 @@
 	$loginAttributes        = Arr::get(config('settings'),'login_attribute', []);
     $authSetup              = json_decode(site_settings('login_with'),true);
     $tabs = [ 
-                'basic'                   => [
+                    'basic'                   => [
                                                     "title" => translate("Basic Settings"),
                                                     "icon"  => 'las la-cog',
                                                 ],
-                'seo'                     => ["title" => translate("Seo Settings"),  "icon"  => 'las la-stream'],
-                'logging'                 => ["title" => translate("Logging"),"icon"  => 'las la-bug'],
-                'rate_limiting'           => ["title" => translate("Rate Limiting") , "icon"  => 'las la-wave-square'],
-                'theme'                   => ["title" => translate("Theme Settings") ,"icon"  => 'las la-palette'],
-                'storage'                 => ["title" => translate("Storage Settings") ,"icon"  => 'las la-box'],
-                'slack'                   => ["title" => translate("Slack Settings") ,"icon"  => 'lab la-slack'],
-                'recaptcha'               => ["title" => translate("Recaptcha Settings") ,"icon"  => 'las la-shield-alt'],
-                'social_login'            => ["title" => translate("Social Login Settings") ,"icon"  => 'las la-hashtag'],
-                'login'                   => ["title" => translate('Login Settings') ,"icon"  => 'las la-sign-in-alt'],
-                'logo'                    => ["title" => translate('Logo Settings') ,"icon"  => 'las la-image'],
-                'ticket'                  => ["title" => translate('Ticket Settings') ,"icon"  => 'las la-envelope'],
+                    'seo'                     => ["title" => translate("SEO Settings"),  "icon"  => 'las la-stream'],
+                    'logging'                 => ["title" => translate("Logging"),"icon"  => 'las la-bug'],
+                    'rate_limiting'           => ["title" => translate("Rate Limiting") , "icon"  => 'las la-wave-square'],
+                    'theme'                   => ["title" => translate("Theme Settings") ,"icon"  => 'las la-palette'],
+                    'storage'                 => ["title" => translate("Storage Settings") ,"icon"  => 'las la-box'],
+                    'recaptcha'               => ["title" => translate("Recaptcha Settings") ,"icon"  => 'las la-shield-alt'],
+                    'social_login'            => ["title" => translate("Social Login Settings") ,"icon"  => 'las la-hashtag'],
+                    'login'                   => ["title" => translate('Login Settings') ,"icon"  => 'las la-sign-in-alt'],
+                    'logo'                    => ["title" => translate('Logo Settings') ,"icon"  => 'las la-image'],
+                    'ticket'                  => ["title" => translate('Ticket Settings') ,"icon"  => 'las la-envelope'],
 
                 ];
 

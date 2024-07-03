@@ -49,7 +49,7 @@
 
                                     <span class="status i-badge info">
                                         @php
-                                            $postTypeKey = $account->account_type == App\Enums\AccountType::Page->value ? 'status_type' :'type';
+                                            $postTypeKey = $account->account_type == App\Enums\AccountType::PAGE->value ? 'status_type' :'type';
                                         @endphp
                                         {{k2t(Arr::get($data,$postTypeKey,'status'))}}
                                     </span>
@@ -87,7 +87,7 @@
      </div>
 
 
-     @if( $account->account_type == App\Enums\AccountType::Page->value)
+     @if( $account->account_type == App\Enums\AccountType::PAGE->value)
         <div class="i-card-md mt-4">
             <div class="card-header">
                 <h4 class="card-title">
@@ -100,15 +100,12 @@
                $insightData         = Arr::get($response ,'page_insights', []);
                $dailyInsight        = (Arr::get($insightData ,0, []));
                $dailyInsightValues  = collect(Arr::get($dailyInsight,'values',[]));
-
-
-
             @endphp
             <div class="card-body">
                 <div class="row g-2">
                         @php
-                            $graphLabel =  $dailyInsightValues->pluck("end_time")->toArray();
-                            $graphValue =  $dailyInsightValues->pluck("value")->toArray();
+                            $graphLabel  =  $dailyInsightValues->pluck("end_time")->toArray();
+                            $graphValue  =  $dailyInsightValues->pluck("value")->toArray();
                         @endphp
                         <div class="col-12">
                             <div id="engagementReport" class="apex-chart"></div>

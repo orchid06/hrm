@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-lg-3">
-            @include('admin.partials.summary')
+                @include('admin.partials.summary')
         </div>
     </div>
     <div class="i-card-md">
@@ -175,7 +175,7 @@
                                         @endif
                                     </td>
                                     <td  data-label='{{translate("Remark")}}'>
-                                            {{k2t($report->remark)}}
+                                            {{k2t($report->remarks)}}
                                     </td>
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">

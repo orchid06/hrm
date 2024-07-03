@@ -103,8 +103,9 @@ trait Fileable
      */
     public function unlink(string $location ,?CoreFile $file = null): bool{
 
+
         try {
-            switch ($file->disk) {
+            switch (@$file->disk) {
                 case StorageKey::LOCAL->value:
                     if (file_exists($location . '/' . @$file->name) && is_file($location . '/' . @$file->name)) @unlink($location . '/' . @$file->name);
                     break;
@@ -117,7 +118,6 @@ trait Fileable
 
             @$file->delete();
 
- 
  
         } catch (\Exception $ex) {
             return false;

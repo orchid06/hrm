@@ -44,7 +44,7 @@
                                   <option value="">
                                       {{translate('Select status')}}
                                   </option>
-                                  @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
+                                  @foreach(App\Enums\KYCStatus::toArray() as $k => $v)
                                       <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">
                                           {{ucfirst(t2k($k))}}
                                      </option>
@@ -100,7 +100,7 @@
                                                       <h6>
                                                           {{translate("Status")}}
                                                       </h6>
-                                                      @php echo withdraw_status($report->status) @endphp
+                                                      @php echo kyc_status($report->status) @endphp
                                                   </div>
                                               </div>
                                           </div>
@@ -159,7 +159,7 @@
 
 @push('script-include')
     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
@@ -172,10 +172,6 @@
         $(".status").select2({
 
         });
-
-
-
-
 
 	})(jQuery);
 </script>

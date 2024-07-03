@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Template;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
+
 use Illuminate\View\View;
 
 
@@ -40,9 +37,9 @@ class TemplateController extends Controller
             'breadcrumbs'   =>  ['Home'=>'admin.home','Templates'=> null],
             'title'         =>  'Manage Template',
             'templates'     =>  Template::search(['name','subject'])->with(['updatedBy'])     
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all())
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all())
         ]);
     }
 
@@ -86,7 +83,6 @@ class TemplateController extends Controller
 
 
         return view('admin.template.edit',[
-            
             'breadcrumbs'  =>  ['Home'=>'admin.home','Templates'=> "admin.template.list" ,"Update" => null],
             'title'        => 'Update Template',
             'template'     =>  Template::where('uid',$uid)->firstOrFail()

@@ -10,7 +10,7 @@
                  <div class="col-lg-6">
                     <div class="form-inner">
                         <label for="webhook_api_key"
-                        class="form-label">{{ translate('Api Key') }} 
+                        class="form-label">{{ translate('API Key') }} 
                             <small class="text-danger" >*</small>
                         </label>
                         <div class="input-group">
@@ -22,7 +22,7 @@
                  <div class="col-lg-6">
                     <div class="form-inner">
                         <label for="webhook_url"
-                        class="form-label">{{ translate('Webhook Url') }} 
+                        class="form-label">{{ translate('Webhook URL') }} 
                         </label>
                         <div class="input-group">
                             <input readonly id="webhook_url" value="{{route('webhook')}}"  type="text" class="form-control" >

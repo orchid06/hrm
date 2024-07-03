@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->index()->nullable()->constrained(table: 'admins');
             $table->unsignedBigInteger('updated_by')->index()->nullable()->constrained(table: 'admins');
             $table->string('title',191)->index()->unique();
+            $table->string('icon',191)->nullable();
             $table->string('slug',191)->index()->unique();
             $table->enum('duration',array_values(PlanDuration::toArray()))->comment('MONTHLY = 1; YEARLY = 2; UNLIMITED = -1');
             $table->double('price',25, 2)->default(0.00);

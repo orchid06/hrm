@@ -4,7 +4,11 @@ namespace App\Http\Services\Admin;
 use App\Enums\KYCStatus;
 use App\Enums\StatusEnum;
 use App\Enums\WithdrawStatus;
+use App\Http\Utility\SendNotification;
+use App\Jobs\SendMailJob;
+use App\Jobs\SendSmsJob;
 use App\Models\KycLog;
+use App\Traits\Notifyable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,6 +18,7 @@ class KycService
 {
 
 
+    use Notifyable;
     /**
      * Get all KYC log  statistics
      *
@@ -99,10 +104,10 @@ class KycService
      * Get specific KYC report
      *
      * @param integer|string $id
-     * @param WithdrawStatus|null $status
+     * @param KYCStatus|null $status
      * @return KycLog|null
      */
-    public function getSpecificReport(int|string $id , ?WithdrawStatus $status = null): ?KycLog{
+    public function getSpecificReport(int|string $id , ?KYCStatus $status = null): ?KycLog{
 
         return  KycLog::with(['user','file'])
                                   ->when($status , fn(Builder $q): Builder => $q->where("status",(string)$status->value))
@@ -125,48 +130,45 @@ class KycService
         $log->notes   = Arr::get($request,'notes');
         $log->save();
 
-        if($log->user && $log->status == KYCStatus::value('APPROVED',true)) {
+        if($log->user && $log->status == KYCStatus::APPROVED->value) {
             $log->user->is_kyc_verified  = StatusEnum::true->status();
             $log->user->save();
         }
 
+        $code = [
+            "name"            => $log->user->name,
+            "status"          => Arr::get(array_flip(KYCStatus::toArray()),$log->status ,"Requested")
+        ];
 
-        #todo : notify users
+        $route      =  route("user.kyc.report.list");
 
-        // $code = [
-        //     "name"            => $report->user->name,
-        //     "status"          => Arr::get(array_flip(WithdrawStatus::toArray()),$report->status ,"Pending")
-        // ];
+        $notifications = [
 
-        // $route      =  route("user.kyc.report.list");
-
-        // $notifications = [
-
-        //     'database_notifications' => [
+            'database_notifications' => [
                 
-        //         'action' => [SendNotification::class, 'database_notifications'],
-        //         'params' => [
-        //            [ $report->user, 'KYC_UPDATE', $code, $route ]
-        //         ],
-        //     ],
+                'action' => [SendNotification::class, 'database_notifications'],
+                'params' => [
+                   [ $log->user, 'KYC_UPDATE', $code, $route ]
+                ],
+            ],
           
-        //     'email_notifications' => [
+            'email_notifications' => [
 
-        //         'action' => [SendMailJob::class, 'dispatch'],
-        //         'params' => [
-        //            [$report->user, 'KYC_UPDATE', $code],
-        //         ],
-        //     ],
-        //     'sms_notifications' => [
+                'action' => [SendMailJob::class, 'dispatch'],
+                'params' => [
+                   [$log->user, 'KYC_UPDATE', $code],
+                ],
+            ],
+            'sms_notifications' => [
 
-        //         'action' => [SendSmsJob::class, 'dispatch'],
-        //         'params' => [
-        //             [$report->user, 'KYC_UPDATE', $code],
-        //         ],
-        //     ],
-        // ];
+                'action' => [SendSmsJob::class, 'dispatch'],
+                'params' => [
+                    [$log->user, 'KYC_UPDATE', $code],
+                ],
+            ],
+        ];
 
-        // $this->notify($notifications);
+        $this->notify($notifications);
 
 
         return true;

@@ -12,7 +12,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Traits\ModelAction;
-use Illuminate\Support\Facades\Route;
 use App\Traits\Fileable;
 use Illuminate\Database\Eloquent\Builder;
 

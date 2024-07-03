@@ -73,7 +73,7 @@ class TicketService
             $route          =  route("admin.ticket.list");
             $userRoute      =  route("user.ticket.list");
 
-            $admin          = get_admin();
+            $admin          = get_superadmin();
             $priority       = Arr::get(array_flip(PriorityStatus::toArray()), $ticket->priority, 'Low');
 
             $code           = [
@@ -94,14 +94,7 @@ class TicketService
                     ],
                 ],
 
-                'slack_notifications' => [
-                    'action' => [SendNotification::class, 'slack_notifications'],
-                    'params' => [
-                        [
-                            $admin, 'NEW_TICKET', $code, $route
-                        ]
-                    ],
-                ],
+              
 
                 'email_notifications' => [
                     'action' => [SendMailJob::class, 'dispatch'],

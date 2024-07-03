@@ -57,6 +57,10 @@
                 url: url,
                 dataType: 'json',
 
+                beforeSend: function() {
+                    $('.card-loader').removeClass('d-none');
+                },
+
                 success: function(response){
                     $('#sub_category_id').html('')
                     if(response.status){
@@ -84,6 +88,10 @@
                         toastr(error.message,'danger')
                     }
                 },
+
+                complete: function() {
+                    $('.card-loader').addClass('d-none');
+                },
             })
         }
 
@@ -97,6 +105,9 @@
                 method:'post',
                 url:"{{route('get.template')}}",
                 dataType: 'json',
+                beforeSend: function() {
+                    $('.card-loader').removeClass('d-none');
+                },
 
                 data: {
                     "category_id"     :categoryId,
@@ -134,6 +145,10 @@
                         toastr(error.message,'danger')
                     }
                 },
+
+                complete: function() {
+                    $('.card-loader').addClass('d-none');
+                },
             
             })
 
@@ -151,6 +166,10 @@
                     method:'get',
                     url:url,
                     dataType: 'json',
+                    beforeSend: function() {
+                        $('.card-loader').removeClass('d-none');
+                    },
+
                     success: function(response){
 
                         if(response.status){
@@ -183,6 +202,9 @@
                         else{
                             toastr(error.message,'danger')
                         }
+                    },
+                    complete: function() {
+                        $('.card-loader').addClass('d-none');
                     },
                 
                 })

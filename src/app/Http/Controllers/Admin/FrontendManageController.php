@@ -43,9 +43,7 @@ class FrontendManageController extends Controller
     public function list(string $key) :View
     {
         $appearance = @get_appearance()->{$key};
-        if (!$appearance) {
-            abort(404);
-        }
+        if (!$appearance)   abort(404);
         return view('admin.frontend.list',[
             'breadcrumbs'            =>  ['Home'=>'admin.home','Frontends'=> null],
             'title'                  =>  ucFirst(str_replace("_"," ",$appearance->name)),
@@ -100,14 +98,12 @@ class FrontendManageController extends Controller
         DB::transaction(function() use ($id) {
 
             $frontend  =  Frontend::with('file')
-                            ->withCount('file')
-                            ->where('id',$id)
-                            ->firstOrFail();
+                                ->withCount('file')
+                                ->where('id',$id)
+                                ->firstOrFail();
 
             if(0 < $frontend->file_count){
-                
                 foreach($frontend->file as $file){
-
                         $this->unlink(
                             location    : config("settings")['file_path']['frontend']['path'],
                             file        :  $file

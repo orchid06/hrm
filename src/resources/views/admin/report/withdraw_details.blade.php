@@ -72,23 +72,27 @@
                     </div>
                     <div class="card-body">
                         
-                        @include('admin.partials.custom_list',['db_list'  => true , 'lists' => $report->custom_data ])
+                        @if($report->custom_data)
+                            @include('admin.partials.custom_list',['db_list'  => true , 'lists' => $report->custom_data,'file_path'=> "withdraw"])
 
-                        @if(App\Enums\WithdrawStatus::value("PENDING",true) == $report->status)
+                            @if(App\Enums\WithdrawStatus::value("PENDING",true) == $report->status)
 
-                            <div class="d-flex justify-content-center p-4 gap-2">
-                                <div class="action">
-                                    <a href="javascript:void(0)" data-status = '{{App\Enums\WithdrawStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">
-                                        <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
-                                    </a>
+                                <div class="d-flex justify-content-center p-4 gap-2">
+                                    <div class="action">
+                                        <a href="javascript:void(0)" data-status = '{{App\Enums\WithdrawStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">
+                                            <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
+                                        </a>
+                                    </div>
+                                    <div class="action">
+                                        <a href="javascript:void(0)"   data-status = '{{App\Enums\WithdrawStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
+                                            <i class="las la-times-circle me-1"></i> {{translate('Reject')}}
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="action">
-                                    <a href="javascript:void(0)"   data-status = '{{App\Enums\WithdrawStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
-                                        <i class="las la-times-circle me-1"></i> {{translate('Reject')}}
-                                    </a>
-                                </div>
-                            </div>
 
+                            @endif
+                        @else
+                           @include('admin.partials.not_found',['custom_message' => "No Data found!!"])
                         @endif
                     </div>
                 </div>

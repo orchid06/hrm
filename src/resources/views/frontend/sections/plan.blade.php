@@ -2,13 +2,163 @@
 @php
    $content  = get_content("content_plan")->first();
    $plans    = App\Models\Package::active()
-                                  ->feature()
-                                  ->get();
+                                        ->feature()
+                                        ->get();
 
 @endphp
+<section class="pricing-plan pb-110">
+  <div class="container">
+  
+      <div class="row justify-content-start align-items-center mb-60 g-4">
+        <div class="col-lg-6">
+            <div class="section-title-one text-start">
+                <div class="subtitle">{{@$content->value->sub_title}}</div>
+                <h2>
+                  @php echo @$content->value->title @endphp
+                </h2>
+                <p>{{@$content->value->description}}</p>
+            </div>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-end align-items-center">
+            <a href="" class="i-btn btn--lg btn--white capsuled">CCC<span><i
+                        class="bi bi-arrow-up-right"></i></span></a>
+        </div>
+    </div>
+
+      <ul class="nav  plan-tab d-flex justify-content-center mx-auto mb-60"  role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Yearly</a>
+        </li>
+       
+       
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <div class="row g-4">
+              <div class="col-lg-4 col-md-6">
+                  <div class="pricing-item">
+                      <div class="radius-one">
+                          <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      </div>
+                      <div class="radius-two">
+                          <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
+                      </div>
+                      <div class="icon">
+                          <i class="bi bi-send"></i>
+                      </div>
+                      <div class="pricing-header">
+                          <span>For Mini Business</span>
+                          <h5>Solo</h5>
+                          <p>Show social proof notifications to increase leads and sales.</p>
+                      </div>
+                      <div class="price">
+                          <h3>$0.00<span>/Monthly</span></h3>
+                      </div>
+                      <div class="body">
+                          <h6>What’s included</h6>
+                          <ul>
+                              <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Social post</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
+                              <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
+                              <li><span><i class="bi bi-check"></i></span>Schedule post</li>
+                              <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
+                              <li><span><i class="bi bi-check"></i></span>20 Word token</li>
+                          </ul>
+                      </div>
+                      <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <div class="pricing-item style-dark">
+                      <div class="radius-one">
+                          <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      </div>
+                      <div class="radius-two">
+                          <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
+                      </div>
+                      <div class="icon">
+                          <i class="bi bi-rocket-takeoff"></i>
+                      </div>
+                      <div class="pricing-header">
+                          <span>Recommended Plan</span>
+                          <h5>Accelerate</h5>
+                          <p>Show social proof notifications to increase leads and sales.</p>
+                      </div>
+                      <div class="price">
+                          <h3>$0.00<span>/Monthly</span></h3>
+                      </div>
+                      <div class="body">
+                          <h6>What’s included</h6>
+                          <ul>
+                              <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Social post</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
+                              <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
+                              <li><span><i class="bi bi-check"></i></span>Schedule post</li>
+                              <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
+                              <li><span><i class="bi bi-check"></i></span>20 Word token</li>
+                          </ul>
+                      </div>
+                      <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <div class="pricing-item">
+                      <div class="radius-one">
+                          <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
+                      </div>
+                      <div class="radius-two">
+                          <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
+                      </div>
+                      <div class="icon">
+                          <i class="bi bi-gem"></i>
+                      </div>
+                      <div class="pricing-header">
+                          <span>For Mini Business</span>
+                          <h5>Pro</h5>
+                          <p>Show social proof notifications to increase leads and sales.</p>
+                      </div>
+                      <div class="price">
+                          <h3>$0.00<span>/Monthly</span></h3>
+                      </div>
+                      <div class="body">
+                          <h6>What’s included</h6>
+                          <ul>
+                              <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Social post</li>
+                              <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
+                              <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
+                              <li><span><i class="bi bi-check"></i></span>Schedule post</li>
+                              <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
+                              <li><span><i class="bi bi-check"></i></span>20 Word token</li>
+                          </ul>
+                      </div>
+                      <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
+                  </div>
+              </div>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+            sadsd
+
+        </div>
+     
+      </div>
 
 
-<section class="plan pb-110">
+
+
+    
+  </div>
+</section>
+
+{{-- <section class="plan pb-110">
     <div class="container">
       <div class="row gy-5">
         <div class="col-xl-5 col-lg-4">
@@ -147,4 +297,4 @@
         </div>
       </div>
     </div>
-</section>
+</section> --}}

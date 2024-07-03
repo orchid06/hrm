@@ -7,12 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AiTemplateRequest;
 use App\Http\Services\AiService;
 use App\Models\Admin\Category;
-use App\Models\Admin\Template;
 use App\Models\AiTemplate;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\ModelAction;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Closure;
@@ -108,10 +105,7 @@ class AiTemplateController extends Controller
      }
 
 
-    /**
-     * create a  new ai content usign a template
-     * 
-     */
+
 
      public function contentGenrate(Request $request) :string {
 

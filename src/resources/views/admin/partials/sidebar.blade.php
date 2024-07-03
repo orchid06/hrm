@@ -540,8 +540,8 @@
 
         @if(check_permission('view_blog'))
           <li class="sidebar-menu-item">
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#article" role="button"
-              aria-expanded="false" aria-controls="article">
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#blog" role="button"
+              aria-expanded="false" aria-controls="blog">
               <span><i class="las la-newspaper"> </i> </span>
               <p>
                 {{translate('Blogs')}}
@@ -550,10 +550,10 @@
                 <i class="las la-angle-down"></i>
               </small>
             </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.article.*'],'drop_down')}} " id="article">
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.blog.*'],'drop_down')}} " id="blog">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
-                    <a class='sidebar-menu-link {{sidebar_awake(["admin.blog.list","admin.article.edit"])}}' href='{{route("admin.blog.list")}}'>
+                    <a class='sidebar-menu-link {{sidebar_awake(["admin.blog.list","admin.blog.edit"])}}' href='{{route("admin.blog.list")}}'>
                     <span></span>
                     <p>
                       {{translate('Blogs')}}

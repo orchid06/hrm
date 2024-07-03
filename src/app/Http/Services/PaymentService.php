@@ -49,11 +49,14 @@ class PaymentService
      */
     public function paymentLog(User $user, PaymentMethod $method ,array $params): PaymentLog{
 
+
+
+
         $log                       = PaymentLog::firstOrNew(
                                         [
                                             'method_id'   => $method->id,
                                             'user_id'     => $user->id,
-                                            'status'      => DepositStatus::value("INITIATE",true),
+                                            'status'      => DepositStatus::INITIATE->value,
                                         ]
                                     );
 
@@ -70,6 +73,7 @@ class PaymentService
         $log->status               = Arr::get($params,"status",null);
         $log->feedback             = Arr::get($params,"notes",null);
         $log->save();
+
 
         return $log;
     }

@@ -38,7 +38,7 @@ class KycLog extends Model
      * @return Builder
      */
     public function scopePending(Builder $q): Builder{
-        return $q->where('status',KYCStatus::value("PENDING",true));
+        return $q->where('status',KYCStatus::value("REQUESTED",true));
     }
 
     /**

@@ -2,9 +2,10 @@
     <div class="i-card-md">
         <div class="card--header">
             <h4 class="card-title">
-                {{translate('Seo Settings')}}
+                {{translate('SEO Settings')}}
             </h4>
         </div>
+      
         <div class="card-body">                                               
             <div class="form-inner">                                               
                 <label class="form-label" for="metaTitle">

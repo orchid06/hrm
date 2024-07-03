@@ -83,15 +83,15 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="form-inner">
-                            <label for="description">
+                            <label for="note">
                                 {{translate('Notes')}}
                             </label>
-                            <textarea required type="text"  placeholder="{{translate('Type here')}}"  id="description" name="description" rows="4">{{$withdraw->description}}</textarea>
+                            <textarea required type="text"  placeholder="{{translate('Type here')}}"  id="note" name="note" rows="4">{{$withdraw->note}}</textarea>
                         </div>
                     </div>  
                     <div class="col-lg-12">
                         <div class="form-inner">
-                            <a href="javascript:void(0)" class="i-btn btn--sm btn--success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add Field')}}</a>
+                            <a href="javascript:void(0)" class="i-btn btn--sm success" id="addNew">  <i class="las la-plus me-1"></i> {{translate('Add Field')}}</a>
                         </div>
                     </div>
                     <div class="col-12">

@@ -34,6 +34,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
+use App\Traits\Notifyable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,10 +43,12 @@ class UserService
 {
 
 
-    use Fileable,ModelAction;
-
+    use Fileable,ModelAction,Notifyable;
     protected PaymentService $paymentService;
-    public function __construct(){}
+    public function __construct(){
+        $this->paymentService = new PaymentService();
+
+    }
 
 
 
@@ -106,9 +109,13 @@ class UserService
                 $user->save();
 
                 if($request->hasFile('image')){
+
+                    $oldFile = $user->file()->where('type',FileKey::AVATAR->value)->first();
                     $this->saveFile($user ,$this->storeFile(
-                                                $request->file('image'), 
-                                                config("settings")['file_path']['profile']['user']['path'])
+                                                   file       : $request->file('image'), 
+                                                   location   : config("settings")['file_path']['profile']['user']['path'],
+                                                   removeFile : @$oldFile
+                                                )
                                                 ,FileKey::AVATAR->value);
                 }
                 return $user;
@@ -396,7 +403,7 @@ class UserService
                                                    ->findOrfail($request->input('payment_id'));
                       $response  = Arr::get($this->createDepositLog($request ,$user ,$method),"response",[]);
                 break;
-            case BalanceTransferType::DEPOSIT->value:
+            case BalanceTransferType::WITHDRAW->value:
                         $method    = Withdraw::findOrfail($request->input("method_id"));
                         $response  = $this->createWithdrawLog($request ,$user ,$method);
                 break;
@@ -481,7 +488,7 @@ class UserService
     
                     $route          =  route("admin.withdraw.report.list");
                     $userRoute      =  route("user.withdraw.report.list");
-                    $admin          = get_admin();
+                    $admin          = get_superadmin();
 
                     $notifications = [
                         'database_notifications' => [
@@ -491,14 +498,7 @@ class UserService
                                 ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code ,$userRoute] : null,
                             ],
                         ],
-                        'slack_notifications' => [
-                            'action' => [SendNotification::class, 'slack_notifications'],
-                            'params' => [
-                                [
-                                    $admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code, $route
-                                ]
-                            ],
-                        ],
+                     
                         'email_notifications' => [
                             'action' => [SendMailJob::class, 'dispatch'],
                             'params' => [
@@ -576,7 +576,7 @@ class UserService
                 "old_package_id"  =>  $oldSubscription?->package_id,
                 "payment_amount"  =>  $price,
                 "payment_status"  =>  DepositStatus::value('PAID',true) ,
-                "status"          =>  SubscriptionStatus::value('Running',true),
+                "status"          =>  SubscriptionStatus::value('RUNNING',true),
             ];
     
     
@@ -695,7 +695,7 @@ class UserService
                     $log['user_id']          = $user->id;
                     $log['subscription_id']  = $subscription->id;
                     $log['trx_code']         = trx_number();
-                    $log['remark']           = k2t($key);
+                    $log['remarks']           = k2t($key);
                     $log['details']          = $transaction->details;
                     $log['type']             = Transaction::$PLUS;
 
@@ -718,7 +718,7 @@ class UserService
 
                 $route             =  route("admin.subscription.report.list");
                 $userRoute         =  route("user.subscription.report.list");
-                $admin             = get_admin();
+                $admin             = get_superadmin();
                 $code =  [
                     'name'         => $user->name,
                     'start_date'   => date('Y-m-d'),
@@ -735,14 +735,7 @@ class UserService
                             [ $user, 'SUBSCRIPTION_CREATED', $code, $userRoute ],
                         ],
                     ],
-                    'slack_notifications' => [
-                        'action' => [SendNotification::class, 'slack_notifications'],
-                        'params' => [
-                            [
-                                $admin, 'SUBSCRIPTION_CREATED', $code, $route
-                            ]
-                        ],
-                    ],
+              
                     'email_notifications' => [
                         'action' => [SendMailJob::class, 'dispatch'],
                         'params' => [
@@ -836,13 +829,11 @@ class UserService
      */
     public function createDepositLog(Request $request , User $user ,PaymentMethod $method , mixed $status = null) :array{
 
-
-
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
         $amount                    = (float)$request->input("amount");
         $charge                    = round_amount( (float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100));
         $total                     = $amount + $charge;
-        $status                    = $status ?  $status : DepositStatus::value("PAID",true);
+        $status                    = $status ?  $status : (string)DepositStatus::PAID->value;
         $finalBase                 = convert_to_base($total);
         $finalAmount               = round_amount($finalBase*$method->currency->exchange_rate,2);
 
@@ -882,10 +873,10 @@ class UserService
 
             $route          =  route("admin.deposit.report.list");
             $userRoute      =  route("user.deposit.report.list");
-            // $admin          =  get_superadmin();
+            $admin          =  get_superadmin();
 
 
-            if($log->status  == DepositStatus::value("PAID",true)){
+            if($log->status  == (string)DepositStatus::PAID->value){
 
                 $params ['trx_code']       =  $log->trx_code;
                 $transaction               =  PaymentService::makeTransaction($user,$params);
@@ -899,37 +890,28 @@ class UserService
                     'action' => [SendNotification::class, 'database_notifications'],
                     'params' => [
                         [ $admin, 'NEW_DEPOSIT', $code, $route ],
-                        $log->status  == DepositStatus::value("PAID",true) ?  [ $user, 'DEPOSIT_REQUEST_ACCEPTED', $code, $userRoute ] : [ $user, 'DEPOSIT_REQUEST', $code, $userRoute ],
+                        $log->status  == (string)DepositStatus::PAID->value ?  [ $user, 'DEPOSIT_REQUEST_ACCEPTED', $code, $userRoute ] : [ $user, 'DEPOSIT_REQUEST', $code, $userRoute ],
                     ],
                 ],
-                'slack_notifications' => [
-                    'action' => [SendNotification::class, 'slack_notifications'],
-                    'params' => [
-                        [
-                            $admin, 'NEW_DEPOSIT', $code, $route
-                        ]
-                    ],
-                ],
+               
                 'email_notifications' => [
                     'action' => [SendMailJob::class, 'dispatch'],
                     'params' => [
                         [$admin,'NEW_DEPOSIT',$code],
-                        $log->status  == DepositStatus::value("PAID",true) ?   [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
+                        $log->status  == (string)DepositStatus::PAID->value  ?   [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
                     ],
                 ],
                 'sms_notifications' => [
                     'action' => [SendSmsJob::class, 'dispatch'],
                     'params' => [
                         [$admin,'NEW_DEPOSIT',$code],
-                        $log->status  == DepositStatus::value("PAID",true) ? [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
+                        $log->status  == (string)DepositStatus::PAID->value  ? [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
                     ],
                 ],
             ];
 
-            // $this->notify($admin);
+            $this->notify($notifications);
 
-
-            get_superadmin()->notify('');
 
             return $log;
 
@@ -977,7 +959,6 @@ class UserService
                                 try {
              
                                     $response = $this->storeFile(
-
                                         file        : $request->file($inKey), 
                                         location    :  config("settings")['file_path'][$fileLocation]['path'],
                                     );
@@ -1071,7 +1052,7 @@ class UserService
         $log->gateway_response  =   $responseData;
         $log->save();
 
-        if($log->status  == DepositStatus::value("PAID",true)){
+        if($log->status  == (string)DepositStatus::value("PAID",true)){
 
             $params  = [
                 'trx_code'     => $log->trx_code,
@@ -1127,7 +1108,7 @@ class UserService
         foreach($subscriptions as $subscription){   
             
             $subscription->expired_at =  date('Y-m-d');
-            $subscription->status     =  SubscriptionStatus::value('Expired',true);
+            $subscription->status     =  SubscriptionStatus::value('EXPIRED',true);
             $subscription->save();
             $this->inactiveSocialAccounts($subscription);
         }

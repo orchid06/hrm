@@ -6,9 +6,7 @@ use App\Enums\AccountType;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountRequest;
-use App\Http\Services\Account\facebook\Account;
 use App\Models\MediaPlatform;
-use App\Models\Package;
 use App\Models\SocialAccount;
 use App\Traits\ModelAction;
 use Illuminate\Http\RedirectResponse;
@@ -61,9 +59,9 @@ class SocialAccountController extends Controller
 
 
         $platform = MediaPlatform::with(['file'])->active()
-                        ->integrated()
-                        ->where('slug', $slug)
-                        ->firstOrfail();
+                                ->integrated()
+                                ->where('slug', $slug)
+                                ->firstOrfail();
 
         $route   = route('admin.social.account.list',['platform' => $platform->slug]);
 
@@ -86,9 +84,9 @@ class SocialAccountController extends Controller
 
 
         $platform = MediaPlatform::where('id',request()->input("platform_id"))
-                        ->active()
-                        ->integrated()
-                        ->firstOrfail();
+                                            ->active()
+                                            ->integrated()
+                                            ->firstOrfail();
 
 
         $class   = 'App\\Http\\Services\\Account\\'.$platform->slug.'\\Account';
@@ -120,8 +118,8 @@ class SocialAccountController extends Controller
         $request->merge([
             'account_type' => $account->account_type,
             'account_id'   => $account->id,
-            'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
-            'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
+            'page_id'      => $account->account_type == AccountType::PAGE->value ? $account->account_id : null,
+            'group_id'     => $account->account_type == AccountType::GROUP->value ? $account->account_id : null,
         ]);
 
         

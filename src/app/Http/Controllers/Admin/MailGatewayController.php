@@ -53,7 +53,7 @@ class MailGatewayController extends Controller
 
         return view('admin.mail_gateway.edit',[
             'breadcrumbs' =>  ['Home'=>'admin.home','Gateways'=> "admin.mailGateway.list","Edit" => null],
-            'title'       => 'Update '.$gateway->name,
+            'title'       => 'Update '.strtoupper($gateway->name),
             'gateway'     =>  $gateway
         ]);
     }

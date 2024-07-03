@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\DepositStatus;
+use App\Enums\KYCStatus;
 use App\Enums\SubscriptionStatus;
 use App\Enums\WithdrawStatus;
 use App\Http\Controllers\Controller;
@@ -359,11 +360,11 @@ class ActivityHistoryController extends Controller
      public function kycUpdate(Request $request): RedirectResponse{
         $request->validate([
             "id"        => ['required',"exists:kyc_logs,id"],
-            "status"    => ['required',Rule::in([WithdrawStatus::value('APPROVED'),WithdrawStatus::value('REJECTED')])],
+            "status"    => ['required',Rule::in([KYCStatus::value('APPROVED'),KYCStatus::value('REJECTED')])],
             "notes"     => ['required',"string",'max:255'],
         ]);
 
-        $report   = $this->kycService->getSpecificReport($request->input("id"),WithdrawStatus::PENDING);
+        $report   = $this->kycService->getSpecificReport($request->input("id"),KYCStatus::REQUESTED);
         $response = $this->kycService->update($report ,$request->except(['_token']));
         return back()->with(response_status("Updated successfully"));
 

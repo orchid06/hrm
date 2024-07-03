@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@push('style-include')
+    <link href="{{asset('assets/global/css/viewbox/viewbox.css')}}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
     <div class="row g-4 mb-4">
         @php
@@ -32,11 +35,11 @@
                                     [
                                                     "title"     =>  translate('Status'),
                                                     "is_html"   =>  true,
-                                                    "value"     =>  withdraw_status($report->status)
+                                                    "value"     =>  kyc_status($report->status)
                                     ],
                                     [
                                                     "title"     =>  translate('Note'),
-                                                    "value"     =>  $report->note ?? translate('N/A')
+                                                    "value"     =>  $report->notes ?? translate('N/A')
                                     ],
                                         
                         ];
@@ -56,9 +59,10 @@
                         </h4>
                     </div>
                     <div class="card-body">
+
+
                         <ul class="list-group list-group-flush">
 
-                            
                             @foreach ($report->kyc_data as $k => $v)
                                 <li class="list-group-item">{{ translate(k2t($k)) }} :
                                     {{ $v }}
@@ -67,24 +71,26 @@
 
                             @foreach ($report->file as $file)
                                 <li class="list-group-item">{{ translate(k2t($file->type)) }} :
-                                    <img src='{{imageURL($file,"kyc",true)}}'
-                                    alt="{{ @$file->name }}">
+                                    <a href="{{imageURL($file,'kyc',true)}}" class="image-v-preview">
+                                            <img class="image-v-preview" src='{{imageURL($file,"kyc",true)}}'
+                                            alt="{{ @$file->name }}">
+                                    </a>
                                 </li>
                             @endforeach
 
                         </ul>
 
 
-                        @if(App\Enums\WithdrawStatus::value("PENDING",true) == $report->status)
+                        @if(App\Enums\KYCStatus::value("REQUESTED",true) == $report->status)
                         
                             <div class="d-flex justify-content-center p-4 gap-2">
                                 <div class="action">
-                                    <a href="javascript:void(0)" data-status = '{{App\Enums\WithdrawStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">
+                                    <a href="javascript:void(0)" data-status = '{{App\Enums\KYCStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">
                                         <i class="las la-check-double me-1"></i>  {{translate('Approve')}}
                                     </a>
                                 </div>
                                 <div class="action">
-                                    <a href="javascript:void(0)"   data-status = '{{App\Enums\WithdrawStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
+                                    <a href="javascript:void(0)"   data-status = '{{App\Enums\KYCStatus::value("REJECTED")}}'  class="i-btn btn--sm danger update">
                                         <i class="las la-times-circle me-1"></i> {{translate('Reject')}}
                                     </a>
                                 </div>
@@ -102,11 +108,17 @@
     @include('admin.partials.modal.kyc_update')
 @endsection
 
+@push('script-include')
+    <script src="{{asset('assets/global/js/viewbox/jquery.viewbox.min.js')}}"></script>
+@endpush
+
 @push('script-push')
 <script>
 	(function($){
 
         "use strict";
+
+        $('.image-v-preview').viewbox();
 
         $(document).on('click','.update',function(e){
             var status =($(this).attr('data-status'))

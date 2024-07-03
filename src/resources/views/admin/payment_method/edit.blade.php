@@ -149,10 +149,10 @@
                     @if(request()->route('type')  == 'manual')
                         <div class="col-12">
                             <div class="form-inner">
-                                <label for="paymentNote">
+                                <label for="note">
                                     {{translate('Payment Notes')}}
                                 </label>                          
-                                <textarea  placeholder="{{translate('Enter Payment Notes')}}" name="payment_notes" id="paymentNote" cols="30" rows="3">{{$method->payment_notes}}</textarea>                         
+                                <textarea  placeholder="{{translate('Enter Payment Notes')}}" name="note" id="note" cols="30" rows="3">{{$method->note}}</textarea>                         
                             </div>
                         </div>
                         <div class="col-12 mb-20">

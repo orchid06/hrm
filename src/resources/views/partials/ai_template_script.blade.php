@@ -8,7 +8,9 @@
                             <div class="form-group mb-10">
                                 <div class="input-group">
 
-                                    <input name="field_name[]" data-counter = ${counter} class="form-control field-name" type="text" value="" required placeholder="{{translate('Field Name')}}">
+                                    <input name="field_name[]" data-counter = ${counter} class="form-control field-name" type="text" value="" required placeholder="{{translate('Enter Field Name')}}">
+
+                                    <input name="field_label[]" data-counter = ${counter} class="form-control field-label" type="text" value="" required placeholder="{{translate('Enter Field Label')}}">
 
                                     <select name="type[]"  class="form-control ">
                                         <option value="text">{{translate('Input Text')}}</option>

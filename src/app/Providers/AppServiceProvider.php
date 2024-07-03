@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
                 
                 $view->with([
                     'menus'      => Menu::active()
-                                              ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Header->value ])
+                                              ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
                                               ->get(),
 
                     'pages'      => Page::active()
@@ -81,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
                 
                 $view->with([
                     'menus'      => Menu::active()
-                                              ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Header->value ])
+                                              ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
                                               ->get(),
 
                     'pages'      => Page::active()
@@ -96,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
                 
                 $view->with([
                     'menus'      => Menu::active()
-                                        ->whereIn('status',[MenuVisibilty::Both->value , MenuVisibilty::Footer->value ])
+                                        ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
                                         ->get(),
 
                     'pages'      => Page::active()

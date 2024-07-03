@@ -56,7 +56,7 @@ class TemplateActivityService
              ],
 
             'graph_data'       => sortByMonth(TemplateUsage::filter(['template:slug',"user:username"])
-                                                    ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                    ->selectRaw("MONTHNAME(created_at) as months,  sum(total_words) as total")
                                                     ->whereYear('created_at', '=',date("Y"))
                                                     ->groupBy('months')
                                                     ->pluck('total', 'months')

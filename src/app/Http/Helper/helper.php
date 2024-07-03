@@ -3,6 +3,7 @@
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\DepositStatus;
+use App\Enums\KYCStatus;
 use App\Enums\PlanDuration;
 use App\Enums\PostStatus;
 use App\Enums\PostType;
@@ -814,7 +815,6 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('imageURL')){
 
       function imageURL(mixed $file , string $path, bool $size = false ,?string $foreceSize = null) :string {
-
          $helper = new HelperClass();
          return $helper->getimageURL($file, $path, $size , $foreceSize);
       }
@@ -921,9 +921,9 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            SubscriptionStatus::Running->value     => "success",
-            SubscriptionStatus::Expired->value     => "danger",
-            SubscriptionStatus::Inactive->value    => "warning",
+            SubscriptionStatus::RUNNING->value     => "success",
+            SubscriptionStatus::EXPIRED->value     => "danger",
+            SubscriptionStatus::INACTIVE->value    => "warning",
          ];
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(SubscriptionStatus::toArray()) ,$status , 'Pending')));
@@ -974,6 +974,27 @@ use Illuminate\Database\Eloquent\Collection;
 		}
    }
 
+
+   if (!function_exists('kyc_status')){
+		function kyc_status(mixed  $status) :string
+		{
+
+         $badges  = [
+            
+            KYCStatus::REQUESTED->value   => "warning",
+            KYCStatus::APPROVED->value     => "success",
+            KYCStatus::REJECTED->value     => "danger",
+      
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(KYCStatus::toArray()) ,$status , 'Requested')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
    if (!function_exists('plan_duration')){
 		function plan_duration(string|int $status) :string
 		{
@@ -1001,9 +1022,9 @@ use Illuminate\Database\Eloquent\Collection;
 
          $badges  = [
             
-            AccountType::Profile->value      => "info",
-            AccountType::Page->value         => "success",
-            AccountType::Group->value        => "warning",
+            AccountType::PROFILE->value      => "info",
+            AccountType::PAGE->value         => "success",
+            AccountType::GROUP->value        => "warning",
       
          ];
 
@@ -1131,10 +1152,8 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('get_content')){
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
         
-         $frontends = Cache::remember('frontend_content',24 * 60, function ()   {
-            return Frontend::with('file')->active()->get();
-         });
-
+         $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')->active()->get());
+         
          return ($frontends->where("key", $key));
       }
    }
@@ -1263,6 +1282,23 @@ use Illuminate\Database\Eloquent\Collection;
       }
    }
 
+
+
+
+   
+   if (!function_exists('get_appearance_img_size')){
+
+
+      /**
+       * Convert array to object
+       *
+       * @param array $payload
+       * @return object
+       */
+      function get_appearance_img_size(string $sectionKey, string $type, string $imgKey): string{
+         return (@get_appearance()->{$sectionKey}->{$type}->images->{$imgKey}->size);
+      }
+   }
 
    
 

@@ -28,22 +28,22 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             
-            AdminSeeder::class,
-            CurrencySeeder::class,
-            SettingsSeeder::class,
-            LangSeeder::class,
-            RoleSeeder::class,
-            PaymentMethodSeeder::class,
-            TemplateSeeder::class,
-            SMSGatewaySeeder::class,
-            MailGatewaySeeder::class,
-            CountrySeeder::class,
-            PackageSeeder::class,
+            // AdminSeeder::class,
+            // CurrencySeeder::class,
+            // SettingsSeeder::class,
+            // LangSeeder::class,
+            // RoleSeeder::class,
+            // PaymentMethodSeeder::class,
+            // TemplateSeeder::class,
+            // SMSGatewaySeeder::class,
+            // MailGatewaySeeder::class,
+            // CountrySeeder::class,
+            // PackageSeeder::class,
             // SeedersFrontendSeeder::class,
             // MenuSeeder::class,
-            PageSeeder::class,
+            // PageSeeder::class,
             TemplateSeeder::class,
-            PlatformSeeder::class,
+            // PlatformSeeder::class,
 
 
         ]);

@@ -138,7 +138,7 @@ class TicketController extends Controller
 
         $message             = $this->ticketService->reply($ticket,$request);
 
-        $admin               = get_admin();
+        $admin               = get_superadmin();
 
         if($message){
 
@@ -164,14 +164,7 @@ class TicketController extends Controller
                     ],
                 ],
 
-                'slack_notifications' => [
-                    'action' => [SendNotification::class, 'slack_notifications'],
-                    'params' => [
-                        [
-                            $admin, 'NEW_TICKET', $code, Arr::get( $code , "link", null)
-                        ]
-                    ],
-                ],
+             
 
                 'sms_notifications' => [
                     'action' => [SendSmsJob::class, 'dispatch'],

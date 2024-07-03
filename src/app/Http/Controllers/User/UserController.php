@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\KYCStatus as EnumsKYCStatus;
 use App\Enums\StatusEnum;
 use App\Enums\WithdrawStatus;
 use App\Http\Controllers\Controller;
@@ -245,7 +246,7 @@ class UserController extends Controller
             return redirect()->route('user.home');
         }
         return view('user.kyc_form',[
-            'meta_data' => $this->metaData(['title'=> translate("Kyc Applications")]),
+            'meta_data' => $this->metaData(['title'=> translate("KYC Application form")]),
         ]);
 
     }
@@ -277,7 +278,7 @@ class UserController extends Controller
 
                         $kycLog                  = new KycLog();
                         $kycLog->user_id         = $this->user->id;
-                        $kycLog->status          = KycStatus::value("PENDING",true);
+                        $kycLog->status          = EnumsKYCStatus::value("REQUESTED",true);
                         $kycLog->kyc_data        = (Arr::except($request['kyc_data'],['files']));
                         $kycLog->save();
 
@@ -302,7 +303,7 @@ class UserController extends Controller
                         }
 
                         $route          =  route("admin.kyc.report.details",$kycLog->id);
-                        $admin          = get_admin();
+                        $admin          = get_superadmin();
                         $code           = [
                             "name"          =>  $this->user->name,
                             "time"          =>  Carbon::now(),
@@ -318,14 +319,7 @@ class UserController extends Controller
                                 ],
                             ],
 
-                            'slack_notifications' => [
-                                'action' => [SendNotification::class, 'slack_notifications'],
-                                'params' => [
-                                    [
-                                        $admin, 'KYC_APPLIED', $code, $route
-                                    ]
-                                ],
-                            ],
+                       
 
                             'email_notifications' => [
                                 'action' => [SendMailJob::class, 'dispatch'],

@@ -215,11 +215,7 @@
               <h4 class="card-title">
                   {{translate("Subscriptions & Income")}}
               </h4>
-              <div class="d-flex justify-content-end align-items-center gap-2">
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">Y</a>
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">M</a>
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">D</a>
-              </div>
+              
             </div>
             <div class="card-body">
                 <div class="row g-2 text-center mb-5">
@@ -258,11 +254,7 @@
               <h4 class="card-title">
                   {{translate("Subscriptions & Income")}}
               </h4>
-              <div class="d-flex justify-content-end align-items-center gap-2">
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">Y</a>
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">M</a>
-                  <a href="#" class="i-btn btn--sm btn--primary-transparent">D</a>
-              </div>
+            
             </div>
             <div class="card-body">
                 <div class="row g-2 text-center mb-5">
@@ -356,84 +348,92 @@
 
             <div class="card-body">
                 <div class="table-container">
-                  <table >
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                #
-                            </th>
+             
 
-                            <th scope="col">
-                                {{translate('Date')}}
-                            </th>
+                     <table>
+                      <thead>
+                          <tr>
+                              <th scope="col">
+                                  #
+                              </th>
+                              <th scope="col">
+                                  {{translate('Date')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('User')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('Method')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('TRX Number')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('Receivable Amount')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('Payment Amount')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('Status')}}
+                              </th>
+                              <th scope="col">
+                                  {{translate('Options')}}
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                                @forelse(Arr::get($data,'latest_log',[]) as $report)
+                                  <tr>
+                                      <td data-label="#">
+                                          {{$loop->iteration}}
+                                      </td>
+                                      <td data-label='{{translate("Date")}}'>
+                                          {{ get_date_time($report->created_at) }}
+                                          <div>
+                                              {{ diff_for_humans($report->created_at)  }}
+                                          </div>
+                                      </td>
+                                      <td data-label='{{translate("User")}}'>
+                                          <a href="{{route('admin.user.show',$report->user->uid)}}">
+                                              {{$report->user->name}}
+                                          </a>
+                                      </td>
+                                      <td data-label='{{translate("Payment Method")}}'>
+                                          {{$report->method->name}}
+                                      </td>
+                                      <td  data-label='{{translate("Trx Code")}}'>
+                                          <span class="trx-number me-1">
+                                              {{$report->trx_code}}
+                                          </span>
 
+                                          <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
 
-                            <th scope="col">
-                                {{translate('User')}}
-                            </th>
-
-                            <th scope="col">
-                                {{translate('Method')}}
-                            </th>
-
-                            <th scope="col">
-                                {{translate('TRX Code')}}
-                            </th>
-                            <th scope="col">
-                                {{translate('Final Amount')}}
-                            </th>
-                            <th scope="col">
-                                {{translate('Status')}}
-                            </th>
-
-                            <th scope="col">
-                                {{translate('Options')}}
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @forelse(Arr::get($data,'latest_log',[]) as $report)
-                                <tr>
-                                    <td data-label="#">
-                                        {{$loop->iteration}}
-                                    </td>
-                                    <td data-label='{{translate("Date")}}'>
-                                        {{ get_date_time($report->created_at) }}
-                                    </td>
-                                    <td data-label='{{translate("User")}}'>
-                                        <a href="{{route('admin.user.show',$report->user->uid)}}">
-                                            {{$report->user->name}}
-                                        </a>
-                                    </td>
-                                    <td data-label='{{translate("Payment Method")}}'>
-                                        {{$report->method->name}}
-                                    </td>
-                                    <td  data-label='{{translate("TRX Code")}}'>
-                                          {{$report->trx_code}}
-                                    </td>
-                                    <td  data-label='{{translate("Final Amount")}}'>
+                                      </td>
+                                      <td  data-label='{{translate("Final Amount")}}'>
+                                          {{num_format($report->amount,@$report->currency)}}
+                                      </td>
+                                      <td  data-label='{{translate("Final Amount")}}'>
                                           {{num_format($report->final_amount,@$report->method->currency)}}
-                                    </td>
-                                    <td  data-label='{{translate("Status")}}'>
-                                        @php echo  payment_status($report->status)  @endphp
-                                    </td>
-                                    <td data-label='{{translate("Options")}}'>
-                                        <div class="table-action">
-                                            <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
-                                        </div>
-                                    </td>
-                              </tr>
-                            @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
-                        @endforelse
-
-                    </tbody>
-                </table>
+                                      </td>
+                                      <td  data-label='{{translate("Status")}}'>
+                                          @php echo  payment_status($report->status)  @endphp
+                                      </td>
+                                      <td data-label='{{translate("Options")}}'>
+                                          <div class="table-action">
+                                              <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              @empty
+                                  <tr>
+                                      <td class="border-bottom-0" colspan="90">
+                                          @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                      </td>
+                                  </tr>
+                             @endforelse
+                      </tbody>
+                  </table>
                 </div>
             </div>
           </div>

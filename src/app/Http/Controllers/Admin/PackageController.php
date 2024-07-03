@@ -6,16 +6,12 @@ use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PackageRequest;
 use App\Http\Services\SettingService;
-use App\Models\Admin\Category;
 use App\Models\AiTemplate;
 use App\Models\MediaPlatform;
 use App\Models\Package;
 use App\Traits\ModelAction;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -48,9 +44,9 @@ class PackageController extends Controller
             'breadcrumbs'  => ['Home'=>'admin.home','Packages'=> null],
             'title'        => 'Subscription Packages',
             'packages'     => Package::search(['title'])->with(['updatedBy','createdBy'])
-                                ->withCount(["subscriptions"])
-                                ->latest()
-                                ->get()
+                                        ->withCount(["subscriptions"])
+                                        ->latest()
+                                        ->get()
 
         ]);
     }
@@ -72,9 +68,7 @@ class PackageController extends Controller
                             ->latest()
                             ->simplePaginate(paginateNumber());
         $pages = true;
-        if (empty($users->nextPageUrl())){
-            $pages = false;
-        }
+        if (empty($users->nextPageUrl())) $pages = false;
         $results = array(
           "results"    => $users->items(),
           "pagination" => array(
@@ -136,6 +130,7 @@ class PackageController extends Controller
 
         $package                           =  new Package();
         $package->title                    =  $request->input("title");
+        $package->icon                     =  $request->input("icon");
         $package->duration                 =  $request->input("duration");
         $package->description              =  $request->input("description");
         $package->price                    =  $request->input("price");
@@ -186,9 +181,9 @@ class PackageController extends Controller
 
         $package                           =  Package::where("id",$request->input('id'))->firstOrfail();
 
-
         $package->duration                 =  $request->input("duration");
         $package->title                    =  $request->input("title");
+        $package->icon                     =  $request->input("icon");
         $package->description              =  $request->input("description");
         $package->price                    =  $request->input("price");
         $package->discount_price           =  $request->input("discount_price");
@@ -231,7 +226,6 @@ class PackageController extends Controller
         }
 
         if(!$package){
-
             $response['status']   = false;
             $response['message']  = translate(trans('default.failed_to_update'));
         }
@@ -255,7 +249,6 @@ class PackageController extends Controller
         if(1  > $package->subscriptions_count){
             $package->delete();
             $response =  response_status('Item deleted succesfully');
-
         }
         return  back()->with($response);
     }

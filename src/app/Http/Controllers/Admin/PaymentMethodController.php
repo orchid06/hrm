@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PaymentMethodRequest;
@@ -10,10 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Models\Core\File;
 use App\Traits\ModelAction;
 class PaymentMethodController extends Controller
 {
@@ -50,11 +49,11 @@ class PaymentMethodController extends Controller
             'breadcrumbs' =>  ['Home'=>'admin.home','Payment Method'=> null],
             'title'       => 'Manage Payment Methods',
             'methods'     => PaymentMethod::with(['createdBy','updatedBy','currency','file'])
-                             ->type()
-                             ->search(['name'])
-                             ->latest()
-                             ->paginate(paginateNumber())
-                             ->appends(request()->all())
+                                        ->type()
+                                        ->search(['name'])
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all())
         ]);
     }
 
@@ -114,26 +113,15 @@ class PaymentMethodController extends Controller
             $method->fixed_charge       = $request->input("fixed_charge");
             $method->minimum_amount     = $request->input('minimum_amount');
             $method->maximum_amount     = $request->input('maximum_amount');
-            $method->payment_notes      = $request->input("payment_notes");
+            $method->note               = $request->input("note");
             $method->setParameters();
             $method->save();
 
             if($request->hasFile('image')){
-
-                $response = $this->storeFile(
+                $this->saveFile($method ,$this->storeFile(
                     file        : $request->file('image'), 
-                    location    : config("settings")['file_path']['payment_method']['path'],
-                );
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $method->file()->save($image);
-                }
+                    location    : config("settings")['file_path']['payment_method']['path'])
+                    ,FileKey::FEATURE->value);
             }
 
         });
@@ -158,30 +146,21 @@ class PaymentMethodController extends Controller
             $method->currency_id        = $request->input("currency_id");
             $method->percentage_charge  = $request->input("percentage_charge");
             $method->fixed_charge       = $request->input("fixed_charge");
-            $method->payment_notes      = $request->input("payment_notes");
+            $method->note               = $request->input("note");
             $method->minimum_amount     = $request->input('minimum_amount');
             $method->maximum_amount     = $request->input('maximum_amount');
             $method->setParameters();
             $method->save();
 
             if($request->hasFile('image')){
-
-                $oldFile = $method->file()->where('type','feature')->first();
-                $response = $this->storeFile(
+                $oldFile = $method->file()->where('type',FileKey::FEATURE->value)->first();
+                $this->saveFile($method ,$this->storeFile(
                     file        : $request->file('image'), 
                     location    : config("settings")['file_path']['payment_method']['path'],
                     removeFile  : $oldFile
-                );
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $method->file()->save($image);
-                }
+                    )
+                    ,FileKey::FEATURE->value);
+             
             }
 
         });
@@ -219,16 +198,16 @@ class PaymentMethodController extends Controller
     public function destroy(string |int $id) :RedirectResponse{
 
         $method  =  PaymentMethod::with('file')
-                    ->manual()
-                    ->withCount(['deposits'])
-                    ->where('id',$id)
-                    ->firstOrFail();
+                                ->manual()
+                                ->withCount(['deposits'])
+                                ->where('id',$id)
+                                ->firstOrFail();
 
        $response =  response_status('Can not be deleted!! item has related data','error');
 
         if(1  > $method->deposits_count ){
 
-            $oldFile = $method->file()->where('type','feature')->first();
+            $oldFile = $method->file()->where('type',FileKey::FEATURE->value)->first();
             $this->unlink(
                 location    : config("settings")['file_path']['payment_method']['path'],
                 file        : $oldFile
@@ -239,7 +218,6 @@ class PaymentMethodController extends Controller
         }
 
 
-        
         return  back()->with($response);
     }
 

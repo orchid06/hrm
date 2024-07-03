@@ -221,7 +221,7 @@ class CoreController extends Controller
         foreach($subscriptions as $subscription){
 
             $subscription->update([
-                'status'     => SubscriptionStatus::value('Expired', true),
+                'status'     => SubscriptionStatus::value('EXPIRED', true),
                 'expired_at' => date('Y-m-d'),
             ]);
 

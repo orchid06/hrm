@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StaffRequest;
@@ -54,9 +55,9 @@ class StaffController extends Controller
             'breadcrumbs'  =>  ['Home'=>'admin.home','Staffs'=> null],
             'title'        => 'Manage'.(request()->routeIs('admin.*.recycle.list') ? " recycled":"")." staff",
             'staffs'       =>  Staff::with(['file', 'createdBy'])
-                              ->recycle()
-                              ->search(['username','name','email','phone','role:name'])
-                              ->staff()->latest()->paginate(paginateNumber())->appends(request()->all())
+                                            ->recycle()
+                                            ->search(['username','name','email','phone','role:name'])
+                                            ->staff()->latest()->paginate(paginateNumber())->appends(request()->all())
         ]);
     }
 
@@ -82,17 +83,11 @@ class StaffController extends Controller
             ]);
 
             if($request->hasFile('image')){
-                $response = $this->storeFile($request->file('image'), config("settings")['file_path']['profile']['admin']['path']);
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'avatar',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $staff->file()->save($image);
-                }
+
+                $this->saveFile($staff ,$this->storeFile(
+                    $request->file('image'), 
+                    config("settings")['file_path']['profile']['admin']['path'])
+                    ,FileKey::AVATAR->value);
             }
         });
 
@@ -122,23 +117,14 @@ class StaffController extends Controller
 
             if($request->hasFile('image')){
                 
-                $oldFile = $staff->file()->where('type','avatar')->first();
-                $response = $this->storeFile(
-                    file        : $request->file('image'), 
-                    location    : config("settings")['file_path']['profile']['admin']['path'],
-                    removeFile  : $oldFile
-                );
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'avatar',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $staff->file()->save($image);
-                }
-             
+                $oldFile = $staff->file()->where('type',FileKey::AVATAR->value)->first();
+               
+                $this->saveFile($staff ,$this->storeFile(
+                        file        : $request->file('image'), 
+                        location    : config("settings")['file_path']['profile']['admin']['path'],
+                        removeFile  : $oldFile
+                    )
+                    ,FileKey::AVATAR->value);
             }
         });
 
@@ -207,11 +193,11 @@ class StaffController extends Controller
      */
     public function permanentDestroy(string $uid) :RedirectResponse {
 
-        $staff  = Staff::with(['file','notification','otp'])->staff()->where('uid',$uid)
-        ->onlyTrashed()
-        ->firstOrfail();
+        $staff  = Staff::with(['file','notifications','otp'])->staff()->where('uid',$uid)
+                                                                ->onlyTrashed()
+                                                                ->firstOrfail();
         $staff->otp()->delete();
-        $staff->notification()->delete();
+        $staff->notifications()->delete();
         $oldFile = $staff->file()->where('type','avatar')->first();
         $this->unlink(
             location    : config("settings")['file_path']['profile']['admin']['path'],
@@ -274,7 +260,7 @@ class StaffController extends Controller
             $response =  $this->bulkAction($request,[
                 "model"        => new Admin(),
                 'recycle'      => true,
-                "with"         => ['file','notification','otp'],
+                "with"         => ['file','notifications','otp'],
                 "file_unlink"  => [
                     "avatar"   =>  config("settings")['file_path']['profile']['admin']['path']
                 ],

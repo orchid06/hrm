@@ -86,17 +86,17 @@
 
                                             <div class="form-inner d-none page-id" >
                                                 <label  for="page_id">
-                                                    {{translate("Page Id")}}  <span class="text-danger">*</span>
+                                                    {{translate("Page ID")}}  <span class="text-danger">*</span>
                                                 </label>
-                                                <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page Id")}}'
+                                                <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page ID")}}'
                                                     value="{{old('page_id')}}">
                                             </div>
 
                                             <div class="form-inner d-none  group-id">
                                                 <label  for="group_id">
-                                                    {{translate("Group Id")}}  <span class="text-danger">*</span>
+                                                    {{translate("Group ID")}}  <span class="text-danger">*</span>
                                                 </label>
-                                                <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter group id")}}'
+                                                <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter group ID")}}'
                                                     value="{{old('group_id')}}">
                                             </div>
 
@@ -113,7 +113,7 @@
                                         <div class="text-center mt-4">
                                             @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                 <div class="d-flex gap-2 justify-content-center">
-                                                    <a href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--primary btn--lg capsuled">
+                                                    <a href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}' class="i-btn btn--primary btn--lg capsuled">
                                                       {{translate('Connect Profile')}}
                                                         <i class="bi bi-link-45deg"></i>
                                                     </a>
@@ -174,12 +174,12 @@
 
             function inputControl(val){
 
-                if(val  == "{{App\Enums\AccountType::Group->value}}"){
+                if(val  == "{{App\Enums\AccountType::GROUP->value}}"){
                     $('.page-id').addClass('d-none');
                     $('.group-id').removeClass('d-none');
                  }
 
-                 else if(val  == "{{App\Enums\AccountType::Page->value}}"){
+                 else if(val  == "{{App\Enums\AccountType::PAGE->value}}"){
                     $('.page-id').removeClass('d-none');
                     $('.group-id').addClass('d-none');
 

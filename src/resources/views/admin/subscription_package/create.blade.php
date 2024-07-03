@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@push('style-include')
+    <link rel="stylesheet" href="{{asset('assets/global/css/bootstrapicons-iconpicker.css')}}">
+@endpush
 
 @section('content')
     <form action="{{route('admin.subscription.package.store')}}" class="add-listing-form" enctype="multipart/form-data" novalidate method="post">
@@ -6,7 +9,7 @@
         <div class="i-card-md">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-inner">
                             <label for="title">
                                 {{translate('Title')}} <small class="text-danger">*</small>
@@ -15,7 +18,16 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
+                        <div class="form-inner">
+                            <label for="Icon">
+                                {{translate('Icon')}} <span class="text-danger">*</span>
+                            </label>
+                            <input placeholder='{{translate("Search Icon")}}' class="icon-picker" value='{{old("icon")}}' type="text" name="icon" id="Icon">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
                         <label for="duration">
                             {{translate('Duration')}} <small class="text-danger">*</small>
                         </label>
@@ -109,7 +121,9 @@
                                         aria-expanded="true"
                                         aria-controls="socailSection">
                                             {{translate("Platform Configuration")}}
-                                            <i title="{{translate('Social Platform Configuration')}}" class="ms-1 las la-question-circle"></i>
+                    
+                                            <i 
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Social Platform Configuration')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
                                         </button>
                                     </h2>
                                     <div id="socailSection" class="accordion-collapse collapse show" aria-labelledby="socailConfig" data-bs-parent="#advanceOption">
@@ -144,9 +158,14 @@
                                                </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
-                                                        <label for="post"
-                                                        >{{ translate('Total Post') }}
-                                                        <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
+                                                        <label for="post">
+                                                            {{ translate('Total Post') }}
+                                                        <small class="text-danger" >*</small> 
+
+                                                        <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Set -1 make to it unlimited')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
+
+                           
+                                                       </label>
 
                                                         <input type="number" min="-1"
                                                         value="{{old('social_access.post')}}" name="social_access[post]" id="post" placeholder="{{translate('Total Post')}}" required   >
@@ -179,8 +198,10 @@
                                         data-bs-target="#aiSection"
                                         aria-expanded="true"
                                         aria-controls="aiSection">
-                                            {{translate("Ai Configuration")}}
-                                            <i title="{{translate('Configure ai settings that package should include')}}" class="ms-1 las la-question-circle"></i>
+                                            {{translate("AI Configuration")}}
+                               
+                                            <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Configure AI settings that package should include')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
+
                                         </button>
                                     </h2>
                                     <div id="aiSection" class="accordion-collapse collapse " aria-labelledby="aiConfig" data-bs-parent="#advanceOption">
@@ -189,7 +210,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
                                                         <label for="open_ai_model">
-                                                            {{translate("Ai Model")}}
+                                                            {{translate("AI Model")}}
                                                         </label>
                                                         <select   class="ai-select2 form-select" id="open_ai_model" name="ai_configuration[open_ai_model]" >
                                                             <option  value="">
@@ -205,9 +226,13 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-inner">
-                                                        <label for="word_limit"
-                                                        >{{ translate('No. Of Words') }}
-                                                        <small class="text-danger" >*</small> <i title="{{translate('Set -1 make to it unlimited')}}" class="las la-question-circle pointer"></i></label>
+                                                        <label for="word_limit">{{ translate('No. Of Words') }}
+                                                            <small class="text-danger" >*</small> 
+
+                                                            <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Set -1 make to it unlimited')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
+                                                        
+
+                                                       </label>
 
                                                         <input type="number" min="-1"
                                                         value="{{old('ai_configuration.word_limit')}}" name="ai_configuration[word_limit]" id="word_limit" placeholder="{{translate('No. of Words')}}"   >
@@ -232,6 +257,10 @@
    </form>
 @endsection
 
+@push('script-include')
+    <script src="{{asset('assets/global/js/bootstrapicon-iconpicker.js')}}"></script>
+@endpush
+
 @push('script-push')
 <script>
 	(function($){
@@ -239,6 +268,12 @@
            $(".select2").select2({
 			   placeholder:"{{translate('Select Item')}}",
 	     	})
+
+            
+             $('.icon-picker').iconpicker({
+                   title: "{{translate('Search Here !!')}}",
+             });
+
 
             $(".platformSelect").select2({
                 placeholder:"{{translate('Select Item')}}",

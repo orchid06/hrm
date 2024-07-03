@@ -29,8 +29,11 @@ class Frontend extends Model
         static::saved(function(Model $model) {
             $model->updated_by = auth_user()?->id;
             Cache::forget('frontend_content');
-
         });
+
+        static::deleted(function(Model $model) {
+	        Cache::forget('frontend_content');
+	    });
     }
     public function file() :MorphMany{
         return $this->morphMany(File::class, 'fileable');

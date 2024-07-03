@@ -50,7 +50,7 @@ class Subscription extends Model
 
     public function scopeRunning(Builder $q) :Builder {
         
-        return $q->where("status",SubscriptionStatus::value("Running",true));
+        return $q->where("status",SubscriptionStatus::value("RUNNING",true));
     }
 
 

@@ -3,7 +3,6 @@
 namespace App\Enums;
 
 use App\Enums\EnumTrait;
-use App\Enums\StatusEnum;
 use Illuminate\Support\Arr;
 
 enum NotificationTemplateEnum :string {
@@ -30,6 +29,11 @@ enum NotificationTemplateEnum :string {
     case USER_ACTION                    = 'USER_ACTION';
     case KYC_UPDATE                     = 'KYC_UPDATE';
     case KYC_APPLIED                    = 'KYC_APPLIED';
+    case SUBSCRIPTION_CREATED           = 'SUBSCRIPTION_CREATED';
+    case SUBSCRIPTION_STATUS            = 'SUBSCRIPTION_STATUS';
+    case SUBSCRIPTION_FAILED            = 'SUBSCRIPTION_FAILED';
+    case SUBSCRIPTION_EXPIRED           = 'SUBSCRIPTION_EXPIRED';
+    case CONTACT_REPLY                  = 'CONTACT_REPLY';
 
 
 
@@ -276,6 +280,91 @@ enum NotificationTemplateEnum :string {
                             "template_key" => ([
                                 'name'       => "User name",
                                 'time'     => "Time"
+                            ])
+                        ],
+
+                        /** new template */
+                        self::SUBSCRIPTION_CREATED->value => [
+                            "name"      => k2t(self::SUBSCRIPTION_CREATED->value),
+                            "subject"   => "New Subscription Created",
+                            "body"      => "A new subscription has been created.
+                                              Subscription Details:
+                                            - User: {{name}}
+                                            - Subscription Plan: {{package_name}}
+                                            - Start Date: {{start_date}}
+                                            - End Date: {{end_date}",
+                            "sms_body"  => "A new subscription has been created.
+                                              Subscription Details:
+                                            - User: {{name}}
+                                            - Subscription Plan: {{package_name}}
+                                            - Start Date: {{start_date}}
+                                            - End Date: {{end_date}}",
+                            "template_key" => ([
+                                'name'           => "User name",
+                                'start_date'     => "Start Date",
+                                'end_date'       => "End Date",
+                                'package_name'   => "Package name",
+                            ])
+                        ],
+
+                        self::SUBSCRIPTION_STATUS->value => [
+                            "name"      => k2t(self::SUBSCRIPTION_STATUS->value),
+                            "subject"   => "Subscription Status Updated",
+                            "body"      => "We wanted to inform you that the status of your subscription has been updated.
+                                                Subscription Details:
+                                                - Plan: {{plan_name}}
+                                                - Status: {{status}}
+                                                - Time :{{time}}",
+                            "sms_body"  => "We wanted to inform you that the status of your subscription has been updated.
+                                                Subscription Details:
+                                                - Plan: {{plan_name}}
+                                                - Status: {{status}}
+                                                - Time :{{time}}",
+                            "template_key" => ([
+                                'status'         => "Status",
+                                'time'           => "Time",
+                                'plan_name'      => "Package name"
+                            ])
+                        ],
+
+
+                        self::SUBSCRIPTION_FAILED->value => [
+                            "name"      => k2t(self::SUBSCRIPTION_FAILED->value),
+                            "subject"   => "Auto Subscription Renewal Failed",
+                            "body"      => "We regret to inform you that the automatic renewal of your subscription has failed. 
+                                                Subscription Details:
+                                                - Plan: {{name}}
+                                                - Reason: {{reason}}
+                                                - Time :{{time}}",
+                            "sms_body"  => "We regret to inform you that the automatic renewal of your subscription has failed. 
+                                                Subscription Details:
+                                                - Plan: {{name}}
+                                                - Reason: {{reason}}
+                                                - Time :{{time}}",
+                            "template_key" => ([
+                                'reason'         => "Failed Reason",
+                                'time'           => "Time",
+                                'name'           => "Package name"
+                            ])
+                        ],
+                        self::SUBSCRIPTION_EXPIRED->value => [
+                            "name"      => k2t(self::SUBSCRIPTION_EXPIRED->value),
+                            "subject"   => "Subscription Expired",
+                            "body"      => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
+                            "sms_body"  => "Your {{name}} Package Subscription Has Been Expired!! at time {{time}}",
+                            "template_key" => ([
+                                'time'           => "Time",
+                                'name'           => "Package name"
+                            ])
+                        ],
+                        self::CONTACT_REPLY->value => [
+                            "name"      => k2t(self::CONTACT_REPLY->value),
+                            "subject"   => "Contact Message reply",
+                            "body"      => "Hello Dear! {{email}} {{message}}",
+                            "sms_body"  => "Hello Dear! {{email}} {{message}}",
+                            "template_key" => ([
+                                'email'           => "email",
+                                'message'           => "message"
                             ])
                         ],
                        

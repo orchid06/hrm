@@ -63,8 +63,11 @@ trait ModelAction
         if (request()->has('field_name')) {
             for ($i = 0; $i < count(request()->field_name); $i++) {
                 $arr = [];
+
+                $label = @request()->field_label[$i] ??  request()->field_name[$i];
+
                 $arr['field_name']             = t2k(request()->field_name[$i]);
-                $arr['field_label']            = request()->field_name[$i];
+                $arr['field_label']            = $label;
                 $arr['type']                   = request()->type[$i];
                 $arr['validation']             = request()->validation[$i];
                 $parameter[$arr['field_name']] = $arr;
@@ -107,6 +110,7 @@ trait ModelAction
                 break;
         
             default:
+       
                 $model->when(in_array($type, [ActionType::RESTORE->value,ActionType::FORCE_DELETE->value]),
                     fn (Builder $q) :Builder => $q->withTrashed())
                     ->withCount(Arr::get($actionData, 'with_count', []))
@@ -201,10 +205,8 @@ trait ModelAction
      * @return void
      */
     private function handleForceDelete(mixed $record, array $actionData) :void {
-
-        isset($modelData['force_flag']) 
-            ? $this->unlinkData($record , $actionData) 
-            : $record->forceDelete();
+        if(isset($actionData['force_flag'])) $this->unlinkData($record , $actionData);
+        $record->forceDelete();
     }
     
    
@@ -216,15 +218,12 @@ trait ModelAction
      * @param array $actionData
      * @return void
      */
-    private function handleDefaultDelete(Model $record, array $actionData) :void {
-
-        $flag = !in_array(true, array_map(fn (string $relation) :bool => 
-                                    $record->{$relation . "_count"} > 0
-                                    , Arr::get($actionData, 'with_count', [])));
-        if ($flag) {
-             !isset($actionData['force_flag']) 
-                ?  $this->unlinkData($record , $actionData) 
-                :  $record->delete();
+    private function handleDefaultDelete(Model $record, array $actionData): void{
+        if (!in_array(true, array_map(fn (string $relation) :bool => 
+        $record->{$relation . "_count"} > 0
+        , Arr::get($actionData, 'with_count', [])))) {
+             if(!isset($actionData['force_flag'])) $this->unlinkData($record , $actionData);
+             $record->delete();
         }
     }
 
@@ -234,14 +233,15 @@ trait ModelAction
     /**
      * Unlink and delete relational data
      *
-     * @param mixed $record
+     * @param Model $record
      * @param array $modelData
      * @return void
      */
-    private function unlinkData(mixed $record , array $modelData): void{
+    private function unlinkData(Model $record , array $modelData): void{
 
         $fileTypes =  collect(Arr::get($modelData ,'file_unlink',[] ));
         $relations =  collect(Arr::get($modelData ,'with',[] ));
+
 
         //unlink files
         $fileTypes->each(fn(string $path , string $type ):bool =>
@@ -252,7 +252,9 @@ trait ModelAction
         $relations->filter(fn(string $relation) : bool => $relation !=  'file'
                  )->each(function(string $relation) use ($record): void{
                             if($relation != 'file')  $record->{$relation}()->delete();
-                        });                                            
+                        });   
+                        
+    
     }
 
 
@@ -265,6 +267,8 @@ trait ModelAction
      * @return void
      */
     public static function saveSeo(Model $model) :void {
+
+
         $model->fill(Arr::collapse(Arr::map(['meta_title', 'meta_description', 'meta_keywords'],fn (string $key): array =>
              [$key => request()->input($key)]
         )));
@@ -285,7 +289,7 @@ trait ModelAction
 
         if(is_array($response) && Arr::has($response,'status')){
             $image = new File([
-                'name'      => Arr::get($response, 'name', '#'),
+                'name'      => Arr::get($response, 'name', 'default'),
                 'disk'      => Arr::get($response, 'disk', 'local'),
                 'type'      => $type,
                 'size'      => Arr::get($response, 'size', ''),
@@ -308,10 +312,9 @@ trait ModelAction
     private function saveTranslation(Model $model ,array $data ,string $key): void{
 
         DB::transaction(function() use ($model ,$data , $key) {
-
             $model->translations()->where("key",$key)->delete();
             $translations = collect($data)
-                                ->reject(fn (string $value, string $locale) : bool =>  !$value || $locale === 'default')
+                                ->reject(fn (string | null $value, string $locale) : bool =>  !$value || $locale === 'default')
                                 ->map(fn (string $value, string $locale) : ModelTranslation =>
                                      new ModelTranslation([
                                         'locale' => $locale,

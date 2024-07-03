@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-<link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
 @endpush
 
 @section('content')
@@ -26,7 +26,7 @@
                         <label for="smsBody">
                             {{translate('Sms Body')}} <small class="text-danger">*</small>
                         </label>
-                        <textarea class="form-control form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template") @endphp</textarea>
+                        <textarea class="form-control form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template")@endphp</textarea>
                     </div> 
                     <div>
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">

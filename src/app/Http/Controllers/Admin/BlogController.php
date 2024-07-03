@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\ArticleRequest as BlogRequest;
 use App\Models\Admin\Category;
 use App\Models\Blog;
 use App\Models\Core\File;
@@ -16,7 +17,6 @@ use App\Traits\Fileable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Closure;
 use Illuminate\Database\Eloquent\Collection;
 
 class BlogController extends Controller
@@ -42,7 +42,7 @@ class BlogController extends Controller
 
 
     /**
-     * Article list
+     * Blog list
      *
      * @return View
      */
@@ -53,10 +53,10 @@ class BlogController extends Controller
             'breadcrumbs'  => ['Home'=>'admin.home','Blogs'=> null],
             'title'        => 'Manage Blogs',
             'articles'     => Blog::search(['title'])
-                                ->filter(["status",'category:slug','is_feature'])
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
+                                        ->filter(["status",'category:slug','is_feature'])
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
 
             "categories"   => $this->categories
         ]);
@@ -69,7 +69,7 @@ class BlogController extends Controller
     
     
     /**
-     * craate a  new article
+     * craate a  new Blog
      *
      */
     public function create() :View{
@@ -84,37 +84,30 @@ class BlogController extends Controller
 
 
     /**
-     * store a  new Article
+     * store a  new Blog
      *
-     * @param ArticleRequest $request
+     * @param BlogRequest $request
      * @return RedirectResponse
      */
-    public function store(ArticleRequest $request) :RedirectResponse{
+    public function store(BlogRequest $request) :RedirectResponse{
 
         DB::transaction(function() use ($request) {
 
-            $article                  =  new Blog();
-            $article->title           =  $request->input("title");
-            $article->category_id     =  $request->input("category_id");
-            $article->description     =  $request->input("description");
-            $article->save();
+            $blog                  =  new Blog();
+            $blog->title           =  $request->input("title");
+            $blog->category_id     =  $request->input("category_id");
+            $blog->description     =  $request->input("description");
+            $blog->save();
             if($request->hasFile('image')){
-
-                $response = $this->storeFile($request->file('image'), config("settings")['file_path']['article']['path']);
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $article->file()->save($image);
-                }
+                $this->saveFile($blog ,$this->storeFile(
+                    file        : $request->file('image'), 
+                    location    : config("settings")['file_path']['blog']['path'],
+                    )
+                    ,FileKey::FEATURE->value);
             }
         });
 
-        return  back()->with(response_status('Article created successfully'));
+        return  back()->with(response_status('Blog created successfully'));
     }
 
 
@@ -122,12 +115,12 @@ class BlogController extends Controller
 
 
     /**
-     * edit a  new article
+     * edit a  new Blog
      *
      */
     public function edit(string $uid) :View{
 
-        return view('admin.article.edit',[
+        return view('admin.blog.edit',[
             'breadcrumbs' => ['Home'=>'admin.home','Blogs'=> 'admin.blog.list',"Edit"=>null],
             'title'       => 'Update Blog',
             'categories'  => $this->categories,
@@ -139,49 +132,39 @@ class BlogController extends Controller
 
 
     /**
-     * Update a specific Article
+     * Update a specific Blog
      *
-     * @param ArticleRequest $request
+     * @param BlogRequest $request
      * @return RedirectResponse
      */
-    public function update(ArticleRequest $request) :RedirectResponse {
+    public function update(BlogRequest $request) :RedirectResponse {
 
 
 
         DB::transaction(function() use ($request) {
 
-            $article                  =  Blog::where('id',$request->input('id'))->firstOrfail();
-            $article->title           =  $request->input("title");
-            $article->category_id     =  $request->input("category_id");
-            $article->description     =  $request->input("description");
-            $article->save();
+            $blog                  =  Blog::where('id',$request->input('id'))->firstOrfail();
+            $blog->title           =  $request->input("title");
+            $blog->category_id     =  $request->input("category_id");
+            $blog->description     =  $request->input("description");
+            $blog->save();
             if($request->hasFile('image')){
-                
-                $oldFile = $article->file()->where('type','feature')->first();
-                $response = $this->storeFile(
-                    file        : $request->file('image'), 
-                    location    : config("settings")['file_path']['article']['path'],
-                    removeFile  : $oldFile
-                );
 
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $article->file()->save($image);
-                }
+                $oldFile = $blog->file()->where('type',FileKey::FEATURE->value)->first();
+                $this->saveFile($blog ,$this->storeFile(
+                    file        : $request->file('image'), 
+                    location    : config("settings")['file_path']['blog']['path'],
+                    removeFile  : $oldFile)
+                    ,FileKey::FEATURE->value);
+    
             }
         });
       
-        return  back()->with(response_status('Article Updated Successfully'));
+        return  back()->with(response_status('Blog Updated Successfully'));
     }
 
     /**
-     * Update a specific Article status
+     * Update a specific Blog status
      *
      * @param Request $request
      * @return string
@@ -189,7 +172,7 @@ class BlogController extends Controller
     public function updateStatus(Request $request) :string{
 
         $request->validate([
-            'id'      => 'required|exists:articles,uid',
+            'id'      => 'required|exists:blogs,uid',
             'status'  => ['required',Rule::in(StatusEnum::toArray())],
             'column'  => ['required',Rule::in(['status','is_feature'])],
         ]);
@@ -202,12 +185,12 @@ class BlogController extends Controller
 
     public function destroy(string | int $uid) :RedirectResponse{
 
-        $article  = Blog::where('uid',$uid)->firstOrfail();
+        $blog  = Blog::where('uid',$uid)->firstOrfail();
         $this->unlink(
-            location    : config("settings")['file_path']['article']['path'],
-            file        : $article->file()->where('type','feature')->first()
+            location    : config("settings")['file_path']['blog']['path'],
+            file        : $blog->file()->where('type',FileKey::FEATURE->value)->first()
         );
-        $article->delete();
+        $blog->delete();
         return  back()->with(response_status('Item deleted succesfully'));
     }
     
@@ -224,7 +207,7 @@ class BlogController extends Controller
             $response =  $this->bulkAction($request,[
                 "model"        => new Blog(),
                 "file_unlink"  => [
-                    "feature"   =>  config("settings")['file_path']['article']['path']
+                    "feature"   =>  config("settings")['file_path']['blog']['path']
                 ],
             ]);
     

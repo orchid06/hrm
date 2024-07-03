@@ -26,8 +26,8 @@ class ArticleRequest extends FormRequest
     {
         
         $rules = [
-            'title'            => ["required","unique:articles,title,".request()->id],
-            'slug'             => ['unique:articles,slug,'.request()->id],
+            'title'            => ["required","unique:blogs,title,".request()->id],
+            'slug'             => ['unique:blogs,slug,'.request()->id],
             'category_id'      => ["required","exists:categories,id"],
             'description'      => ["required"],
             'is_feature'       => ["nullable", Rule::in(StatusEnum::toArray())],
@@ -37,8 +37,8 @@ class ArticleRequest extends FormRequest
             'meta_keywords'    => ['array'],
             'meta_keywords.*'  => ['max:150'],
         ];
-        if(request()->routeIs('admin.article.update')){
-            $rules['id'] = ["required",'exists:articles,id'];
+        if(request()->routeIs('admin.blog.update')){
+            $rules['id'] = ["required",'exists:blogs,id'];
         }
         return  $rules;
     }

@@ -32,9 +32,7 @@
                                             ' id="lang-tab-{{$code}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{$code}}" type="button" role="tab" aria-controls="lang-tab-content-{{$code}}" aria-selected="true">
                                                 <img class="lang-img me-2 rounded" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" height="18">
                                                 <span class="align-middle">
-                                                   
                                                    {{$code}}
-                                                    
                                                 </span>
                                             </button>
                                         </li>
@@ -110,12 +108,12 @@
                                         {{translate("Display In")}}
                                     </label>
                                     @foreach (App\Enums\CategoryDisplay::toArray() as $k => $v )
-                                        <input @if(request()->routeIs('admin.ai.template.category.create') && $v == App\Enums\CategoryDisplay::value("Template")) checked @endif 
+                                        <input @if(request()->routeIs('admin.ai.template.category.create') && $v == App\Enums\CategoryDisplay::TEMPLATE->value) checked @endif 
                                         
                                         {{old("display_in")  == $v ? "checked" : ""}}
                                         id="{{ $k }}" value="{{ $v }}" class="form-check-input" name="display_in" type="radio">
                                         <label for="{{ $k }}" class="form-check-label me-2">
-                                            {{translate($v == App\Enums\CategoryDisplay::Article->value ? "Blog" :$k)}}
+                                            {{translate($k)}}
                                         </label>
                                     @endforeach
                                 </div>

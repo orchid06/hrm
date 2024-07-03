@@ -254,9 +254,9 @@ return [
             'path' => 'assets/images/global/frontend',
         ],
 
-        'article' => [
-            'path' => 'assets/images/global/article',
-            'size' => '960x480',
+        'blog' => [
+            'path' => 'assets/images/global/blog',
+            'size' => '1380x800',
         ],
 
 
@@ -353,16 +353,14 @@ return [
 
     
     "open_ai_model" => [
-        "gpt-4-0613"              => 'ChatGPT 4 Gpt-4-32k3',
-        "gpt-3.5-turbo-16k"       => 'ChatGPT 3.5 Turbo-16k',
-        "gpt-4"                   => 'ChatGPT 4 (Beta)',
-        "gpt-3.5-turbo"           => 'ChatGPT 3.5',
-        "text-davinci-001"        => 'Davinci',
-        "text-ada-001"            => "Ada",
-        "text-babbage-001"        => 'Babbage (Average)',
-        "text-curie-001"          => "Curie"
+        "gpt-4-0613"                => 'ChatGPT 4 Gpt-4-32k',
+        "gpt-3.5-turbo-16k"         => 'ChatGPT 3.5 Turbo-16k',
+        "gpt-3.5-turbo-1106"        => 'GPT 3.5 Turbo (Modified)',
+        "gpt-4"                     => 'ChatGPT 4 (Beta)',
+        "gpt-3.5-turbo"             => 'ChatGPT 3.5',
+        "gpt-4-1106-preview"        => 'GPT-4 Turbo',
+        "gpt-4-vision-preview"      => 'GPT-4 Turbo (vision)',
     ],
-
 
 
     #PLATFORM CONFIGURATION

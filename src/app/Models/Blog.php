@@ -20,6 +20,8 @@ class Blog extends Model
 
     protected $guarded = [];
 
+    protected $table = 'blogs';
+
     protected $casts = [
         'meta_keywords' => 'object',
     ];

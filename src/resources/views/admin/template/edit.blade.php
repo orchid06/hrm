@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('style-include')
-<link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/global/css/summnernote.css')}}">
 @endpush
 
 @section('content')
@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center d-flex gap-2 flex-column">
-                        @foreach(($template->sort_code) as $key => $value)
+                        @foreach(($template->template_key) as $key => $value)
                             <div class="d-flex  align-items-center justify-content-between">
                                 <div class="me-2 ">
                                     <p>{{ucfirst($value)}}</p>

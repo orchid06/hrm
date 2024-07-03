@@ -81,7 +81,7 @@
                                             <label for="default_max_result"
                                             class="form-label">{{ translate('Default Max Result Length') }} 
                                                 <small class="text-danger" >*</small>
-                                                <i title="{{translate('Insert -1 to make it unlimited')}}" class="ms-1  pointer las la-question-circle"></i>
+                                                <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Insert -1 to make it unlimited')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
                                             </label>
                                             <input placeholder='{{translate("Max Result")}}' type="number" id="default_max_result"name="site_settings[default_max_result]"
                                                 class="form-control" value='{{ site_settings("default_max_result") }}'
@@ -109,9 +109,9 @@
                                             <label for="ai_bad_words"
                                                 class="form-label">{{ translate('Bad Words') }}
                                                 <small class="text-danger">*</small>
-                                                <i title="{{translate('These words will be filtered from user inputs while generating contents')}}" class="pointer ms-1 las la-question-circle"></i>
+                                                <i  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('These words will be filtered from user inputs while generating contents')}}" class="text--danger pointer ms-1 las la-question-circle"></i>
                                             </label>
-                                            <textarea  name="site_settings[ai_bad_words]" id="ai_bad_words" cols="30" rows="2">{{site_settings("ai_bad_words")}}</textarea>
+                                            <textarea placeholder="{{translate('Enter words')}}"  name="site_settings[ai_bad_words]" id="ai_bad_words" cols="30" rows="2">{{site_settings("ai_bad_words")}}</textarea>
                                             <small>
                                                 {{translate("Comma Separated: One, Two")}}
                                             </small>

@@ -115,7 +115,7 @@
                                     </a>
                                 </td>
                                 <td  data-label='{{translate("Status")}}'>
-                                    @php echo  withdraw_status($report->status)  @endphp
+                                    @php echo  kyc_status($report->status)  @endphp
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
