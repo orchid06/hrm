@@ -42,7 +42,7 @@ class AiTemplate extends Model
     }
 
 
-    public function setParameters() :void{
+    public function setParameters() :void {
 
         $this->prompt_fields =  $this->parseManualParameters();
     }

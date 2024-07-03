@@ -12,20 +12,18 @@
     @endphp
 
 
-    <div class="basic-setting">
-
+    <div>
         <div class="basic-setting-left">
-            <div class="setting-tab sticky-side-div">
-                <ul class="nav nav-tabs gap-4 social-account-list" role="tablist">
+            <div class="sticky-side-div mb-4">
+                <ul class="nav nav-tabs account-tab gap-3 social-account-list flex-row border-0" role="tablist">
                     @forelse ($platforms as $platform )
                         @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
-                            <li class="d-flex nav-item justify-content-between align-items-center gap-md-2 gap-1 px-3">
-                                <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn danger"><i class="las la-tools"></i>
+                            <li class="d-flex nav-item justify-content-between align-items-center gap-md-2 gap-1">
+                                <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn info"><i class="las la-tools"></i>
                                 </a>
-                                <a class="nav-link border-0 flex-grow-1 {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
+                                <a class="nav-link border-0 flex-grow-1 rounded-3 {{$platform->slug == request()->input('platform') ? 'active' :''}}"  href="{{route('admin.social.account.list',['platform' => $platform->slug])}}" >
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
-
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name}}">
                                         <p>	 {{$platform->name}}</p>
                                     </div>
                                 </a>
@@ -42,10 +40,7 @@
         </div>
 
         <div class="basic-setting-right">
-             
-               
             <div class="i-card-md">
-
                 <div class="card-body">
                     @if(request()->input("platform"))
                         <div class="search-action-area">
@@ -208,7 +203,7 @@
                                                           $url          = 'javascript:void(0)';
                                                           $connectionClass  =   true;
                                                           if($account->platform->slug != 'facebook'){
-                                                              $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ]);
+                                                              $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
                                                               $connectionClass  =   false;
   
                                                           }

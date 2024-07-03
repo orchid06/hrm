@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -10,21 +10,18 @@
 @endphp
 
 <div>
+    <div class="w-100 d-flex align-items-center justify-content-between flex-md-nowrap flex-wrap gap-lg-5 gap-3 mb-4">
+    <h4>
+        {{translate(Arr::get($meta_data,'title'))}}
+    </h4>
+    <div class="d-flex align-items-center gap-2">
+        <button class="icon-btn icon-btn-lg bg-info-solid text--light circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
+            aria-controls="tableFilter">
+            <i class="bi bi-sliders text-white  "></i>
+        </button>
+    </div>
+    </div>
     <div class="i-card-md">
-
-      <div class="card-header">
-
-            <h4 class="card-title">
-                {{translate(Arr::get($meta_data,'title'))}}
-            </h4>
-            <div class="d-flex align-items-center gap-2">
-                <button class="icon-btn icon-btn-lg bg-info-solid text--light circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter"     aria-expanded="false"
-                    aria-controls="tableFilter">
-                    <i class="bi bi-funnel"></i>
-                </button>
-            </div>
-      </div>
-
       <div class="collapse" id="tableFilter">
         <div class="search-action-area">
             <div class="search-area">
@@ -126,7 +123,9 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -139,10 +138,7 @@
 
         });
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+   
 
 	})(jQuery);
 </script>

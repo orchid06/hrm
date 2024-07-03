@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -15,7 +15,7 @@
             <h5 class="title">
                {{translate("Pending Ticket")}}
             </h5>
-            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::PENDING->value])}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::PENDING->value])}}" class="i-btn btn--sm btn--primary-outline">
               {{translate("View All")}}
            </a>
           </div>
@@ -31,7 +31,7 @@
           <h5 class="title">
              {{translate("Closed Ticket")}}
           </h5>
-          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::CLOSED->value])}}" class="i-btn btn--outline btn--sm">
+          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::CLOSED->value])}}" class="i-btn btn--primary-outline btn--sm">
             {{translate("View All")}}
          </a>
         </div>
@@ -47,7 +47,7 @@
             <h5 class="title">
                 {{translate("Holds Ticket")}}
             </h5>
-            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::HOLD->value])}}" class="i-btn btn--outline btn--sm">
+            <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::HOLD->value])}}" class="i-btn btn--primary-outline btn--sm">
                {{translate("View All")}}
             </a>
           </div>
@@ -63,7 +63,7 @@
           <h5 class="title">
              {{translate("Solved Ticket")}}
           </h5>
-          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::SOLVED->value])}}" class="i-btn btn--outline btn--sm">
+          <a href="{{route('admin.ticket.list',['status' => App\Enums\TicketStatus::SOLVED->value])}}" class="i-btn btn--primary-outline btn--sm">
              {{translate("View All")}}
           </a>
         </div>
@@ -242,7 +242,9 @@
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -263,10 +265,7 @@
             placeholder:"{{translate('Select User')}}",
         })
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+  
 
 	})(jQuery);
 </script>

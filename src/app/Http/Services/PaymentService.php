@@ -49,11 +49,14 @@ class PaymentService
      */
     public function paymentLog(User $user, PaymentMethod $method ,array $params): PaymentLog{
 
+
+
+
         $log                       = PaymentLog::firstOrNew(
                                         [
                                             'method_id'   => $method->id,
                                             'user_id'     => $user->id,
-                                            'status'      => DepositStatus::value("INITIATE",true),
+                                            'status'      => DepositStatus::INITIATE->value,
                                         ]
                                     );
 
@@ -70,6 +73,7 @@ class PaymentService
         $log->status               = Arr::get($params,"status",null);
         $log->feedback             = Arr::get($params,"notes",null);
         $log->save();
+
 
         return $log;
     }
@@ -245,7 +249,7 @@ class PaymentService
           
                 $log->update([
                     'status'   => Arr::get($request , 'status' ,WithdrawStatus::value('PENDING')),
-                    'notes' => Arr::get($request , 'notes' ,translate("Failed to update")),
+                    'notes'    => Arr::get($request , 'feedback' ,translate("Failed to update")),
                 ]);
 
                 if($log->status  == WithdrawStatus::value("APPROVED",true)){
@@ -271,7 +275,7 @@ class PaymentService
                     "amount"          => num_format($log->amount,$log->currency),
                     "time"            => Carbon::now(),
                     "method"          => $log->method->name,
-                    "reason"          => Arr::get($request , 'notes' ,translate("Unknown Error"))
+                    "reason"          => Arr::get($request , 'feedback' ,translate("Unknown Error"))
                 ];
 
                 $route      =  route("user.withdraw.report.list");

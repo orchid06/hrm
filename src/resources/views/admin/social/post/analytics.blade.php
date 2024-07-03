@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
 
@@ -33,7 +33,7 @@
               <h5 class="title">
                 {{translate("Total Account")}}
               </h5>
-              <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--outline">
+              <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
               </a>
             </div>
@@ -53,7 +53,7 @@
             <h5 class="title">
               {{translate("Total Post")}}
             </h5>
-            <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--primary-outline">
               {{translate("View All")}}
             </a>
           </div>
@@ -73,7 +73,7 @@
                 <h5 class="title">
                     {{translate('Pending Post')}}
                 </h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Pending->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::PENDING->value])}}" class="i-btn btn--sm btn--primary-outline">
                       {{translate("View All")}}
                 </a>
               </div>
@@ -89,7 +89,7 @@
           <div class="card-info">
             <h3>{{Arr::get($data,"schedule_post",0)}} </h3>
             <h5 class="title">{{translate('Schedule Post')}}</h5>
-            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Schedule->value])}}" class="i-btn btn--sm btn--outline">
+            <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SCHEDULE->value])}}" class="i-btn btn--sm btn--primary-outline">
                 {{translate("View All")}}
             </a>
           </div>
@@ -108,7 +108,7 @@
                 {{Arr::get($data,"success_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Success Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SUCCESS->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -119,8 +119,6 @@
           </div>
         </div>
       </div>
-
-
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 danger">
           <div class="card-info">
@@ -128,7 +126,7 @@
                 {{Arr::get($data,"failed_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Failed Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::Success->value])}}" class="i-btn btn--sm btn--outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SUCCESS->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>
@@ -158,7 +156,7 @@
         <div class="row g-2 mt-4 text-center">
 
           <div class="col-6 col-sm-6">
-              <div class="p-3 border border-dashed border-start-0">
+              <div class="p-3 border border-dashed border-start-0 rounded-2">
                   <h5 class="mb-1">
                       <span>
                         {{Arr::get($data,"platform",0)}}
@@ -171,7 +169,7 @@
           </div>
 
           <div class="col-6 col-sm-6">
-              <div class="p-3 border border-dashed border-start-0">
+              <div class="p-3 border border-dashed border-start-0 rounded-2">
                   <h5 class="mb-1"><span>
                     {{Arr::get($data,"total_post",0)}}
                   </span></h5>
@@ -196,7 +194,7 @@
           <div class="row row-cols-lg-5 row-cols-md-5 row-cols-sm-2 row-cols-2 g-2 text-center mb-5">
 
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1">
                         <span>
                           {{Arr::get($data,"total_post",0)}}
@@ -209,7 +207,7 @@
             </div>
 
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"pending_post",0)}}
                     </span></h5>
@@ -219,7 +217,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"success_post",0)}}
                     </span></h5>
@@ -229,7 +227,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"schedule_post",0)}}
                     </span></h5>
@@ -239,7 +237,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="p-3 border border-dashed border-start-0">
+                <div class="p-3 border border-dashed border-start-0 rounded-2">
                     <h5 class="mb-1"><span>
                       {{Arr::get($data,"failed_post",0)}}
                     </span></h5>
@@ -296,7 +294,7 @@
                   </td>
                   <td data-label='{{translate("Name")}}'>
                       <div class="user-meta-info d-flex align-items-center gap-2">
-                          <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
+                          <img class="rounded-circle avatar-sm" src='{{imageURL(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                           <p>	 {{$post->account->platform->name}}</p>
                       </div>
 
@@ -356,8 +354,9 @@
                   <td data-label='{{translate("Action")}}'>
                       <div class="table-action">
 
-                          <a  title="{{translate('Show')}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                          <a title="{{translate('Show')}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                           </a>
+
                           @if(check_permission('delete_post') )
                               <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
                                   <i class="las la-trash-alt"></i>
@@ -415,8 +414,10 @@
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -577,10 +578,6 @@
     var chart = new ApexCharts(document.querySelector("#platformReport"), options);
     chart.render();
 
-    flatpickr("#datePicker", {
-              dateFormat: "Y-m-d",
-              mode: "range",
-    });
 
 </script>
 @endpush

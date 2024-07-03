@@ -73,4 +73,17 @@ class Country extends Model
     }
 
 
+
+
+    /**
+     * Get the users of a country
+     *
+     * @return HasMany
+     */
+    public function users() :HasMany {
+
+        return $this->hasMany(User::class,'country_id');
+    }
+
+
 }

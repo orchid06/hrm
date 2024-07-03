@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('ticket_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');
+            $table->unsignedBigInteger('ticket_id')->index()->nullable()->constrained(table: 'tickets');
             $table->longText('message')->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

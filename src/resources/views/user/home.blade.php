@@ -1,688 +1,1217 @@
 @extends('layouts.master')
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
+    integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @section('content')
 
-   @php
-       $user = auth_user('web');
-       $subscription           = $user->runningSubscription;
-       $remainingToken         = $subscription ? $subscription->remaining_word_balance : 0;
-       $remainingProfile       = $subscription ? $subscription->total_profile : 0;
-       $remainingPost          = $subscription ? $subscription->remaining_post_balance : 0;
-       $totalPlatforms         = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
+@php
+$user = auth_user('web');
+$subscription = $user->runningSubscription;
+$remainingToken = $subscription ? $subscription->remaining_word_balance : 0;
+$remainingProfile = $subscription ? $subscription->total_profile : 0;
+$remainingPost = $subscription ? $subscription->remaining_post_balance : 0;
+$totalPlatforms = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
 
 
-       $subscriptionDetails =  [
-                                  'Remaining Word'    => $remainingToken,
-                                  'Remaining Profile' => $remainingProfile,
-                                  'Remaining Post'    => $remainingPost,
-                                  'Total Platforms'   => count($totalPlatforms),
-                                ];
-       if( $remainingToken  ==  App\Enums\PlanDuration::value('UNLIMITED')){
-          unset($subscriptionDetails['Remaining Word']);
-       }
-       if( $remainingPost  ==  App\Enums\PlanDuration::value('UNLIMITED')){
-          unset($subscriptionDetails['Remaining Post']);
-       }
-   @endphp
+$subscriptionDetails = [
+'Remaining Word' => $remainingToken,
+'Remaining Profile' => $remainingProfile,
+'Remaining Post' => $remainingPost,
+'Total Platforms' => count($totalPlatforms),
+];
+if( $remainingToken == App\Enums\PlanDuration::value('UNLIMITED')){
+unset($subscriptionDetails['Remaining Word']);
+}
+if( $remainingPost == App\Enums\PlanDuration::value('UNLIMITED')){
+unset($subscriptionDetails['Remaining Post']);
+}
+@endphp
 
-    <div class="page-title-content">
-        <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
-    </div>
+<!-- updated start -->
 
-    <div class="row g-4">
-      <div class="col-xxl-9">
-        <div class="dash-intro">
-            <div class="posting-summary">
-            <div class="row g-3">
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--info">
-                    <i class="bi bi-border-all"></i>
-                    </span>
+<div id="overlay" class="overlay"></div>
 
-                    <div>
-                    <h6>
-                        {{Arr::get($data,'total_post',0)}}
-                    </h6>
-                    <p>
-                        {{translate("Total Post")}}
-                    </p>
-                    </div>
-                </div>
-                </div>
+<button id="right-sidebar-btn" class="right-sidebar-btn fs-20">
+    <i class="bi bi-activity"></i>
+</button>
 
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                    <i class="bi bi-calendar-check"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'pending_post',0)}}</h6>
-                    <p>   {{translate("Pending Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--warning">
-                    <i class="bi bi-clock-history"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'schedule_post',0)}}</h6>
-                    <p>   {{translate("Schedule Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                        <i class="bi bi-check-all"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'success_post',0)}}</h6>
-                    <p>   {{translate("Success Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--danger">
-                    <i class="bi bi-journal-x"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data,'failed_post',0)}}</h6>
-
-                    <p>   {{translate("Failed Post")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--info">
-                    <i class="bi bi-person-gear"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'total_account',0)}}</h6>
-
-                    <p>   {{translate("Total Account")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--success">
-                    <i class="bi bi-person-check-fill"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'active_account',0)}}</h6>
-
-                    <p>   {{translate("Active Account")}}</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
-                <div class="summary-card">
-                    <span class="text--danger">
-                    <i class="bi bi-person-exclamation"></i>
-                    </span>
-
-                    <div>
-                    <h6>  {{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
-
-                    <p>   {{translate("Inactive Account")}}</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="col-xxl-3 col-md-6">
-      
-       <div class="i-card-md card-height-100 plan-upgrade-card">
-          <div class="card-body plan-upgrade-body">
-            <span class="package-badge">{{translate("Current Plan")}}</span>
-
-            <div class="current-package">
-                <div class="ai-icon">
-                    <i class="bi bi-robot"></i>
-                </div>
-                <h3>
-                    @if($user->runningSubscription)
-                    {{$user->runningSubscription->package->title}}
-                    @else
-                        {{translate('No subscription')}}
-                    @endif
-                </h3>
-
-
-            </div>
-            <p>
-               {{trans('default.dashboard_plan_title')}}
-            </p>
-
-            <a
-              href="{{route('user.plan')}}"
-              class="i-btn btn--primary btn--lg capsuled">
-              @if($user->runningSubscription)
-                {{translate('Upgrade Now')}}
-              @else
-                {{translate('Subscribe Now')}}
-              @endif
-            </a>
-
-          </div>
-
-        </div>
- 
-      </div>
-
-      <div class="col-xxl-4 col-md-6">
-        <div class="i-card-md card-height-100">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Connected Account")}}
-            </h4>
-            <div>
-              <a href="{{route('user.social.account.list')}}" class="i-btn info btn--sm capsuled">
-                   {{translate('See all')}}
-              </a>
-            </div>
-          </div>
-
-          <div class="card-body">
-            <ul class="channel-list">
-               @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
-
-                  <li>
-                    <div class="channel-item">
-                      <div class="channel-meta">
-                        <span class="channel-img">
-                          <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+<div class="row g-4 mb-4">
+    <div class="col">
+        <div class="row g-4">
+            <div class="col-xxl-5 col-xl-5">
+                <div class="i-card h-550">
+                    <h4 class="card--title mb-4">Connected Social Accounts</h4>
+                    <div class="row g-3">
+                        @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="i-card no-border p-0 border position-relative bg--light">
+                                <div class="shape-one">
+                                    <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                                <div class="shape-two">
+                                    <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                                <span class="icon-image position-absolute top-0 end-0">
+                                    <img src="{{imageUrl(@$platform->file,'platform',true)}}"
+                                        alt="{{imageUrl(@$platform->file,'platform',true)}}" />
+                                </span>
+                                <div class="p-3">
+                                    <h5 class="card--title-sm">
+                                        {{$platform->name}}
+                                    </h5>
+                                </div>
+                                <div class="p-3 border-top">
+                                    <p class="card--title-sm mb-1">00</p>
+                                    <p class="mb-3 fs-14">Total Posts</p>
+                                    <a href="#" class="i-btn btn--sm btn--outline capsuled"><i
+                                            class="ri-add-line"></i>Create post</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shape-two">
+                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
+                          </svg>
+                        </div>
+                        <span class="icon-image position-absolute top-0 end-0">
+                          <img src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{imageURL(@$platform->file,'platform',true)}}"/>
                         </span>
-
-                        <div class="channel-info">
-                          <h5>
+                        <div class="p-3">
+                          <h5 class="card--title-sm">
                               {{$platform->name}}
                           </h5>
                         </div>
+                        <div class="p-3 border-top">
+                          <p class="card--title-sm mb-1">00</p>
+                          <p class="mb-3 fs-14">Total Posts</p>
+                          <a href="#" class="i-btn btn--sm btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
+                        </div>
                       </div>
-
-                      <div class="channel-action">
-                        <span class="i-badge-solid success">
-                          {{$platform->accounts_count}} {{translate("Profiles")}}
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                @empty
-                    @include('admin.partials.not_found')
-                @endempty
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xxl-8">
-        <div class="i-card-md card-height-100">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Social Post")}}
-            </h4>
-          </div>
-          <div class="card-body">
-            <div id="postReport"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xxl-4">
-        <div class="i-card-md card-height-100">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Subscription Specification")}}
-            </h4>
-
-          </div>
-
-          <div class="card-body">
-            <div class="posts-wrap">
-
-                <div class="row">
-                    <div class="col-lg-12">
-                       <div id="subscriptionChart">
-
-                       </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-xxl-7 col-xl-7">
+                <div class="i-card">
+                    <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false"
+                                role="tab" tabindex="-1">All</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true"
+                                role="tab">Facebook</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true"
+                                role="tab">Instagram</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true"
+                                role="tab">Twitter</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true"
+                                role="tab">Linkedin</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent3" class="tab-content">
+                        <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
+                            <div id="postReport"></div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-two" role="tabpanel">
+
+                        </div>
+                        <div class="tab-pane fade" id="tab-three" role="tabpanel">
+
+                        </div>
+                        <div class="tab-pane fade" id="tab-four" role="tabpanel">
+
+                        </div>
+                        <div class="tab-pane fade" id="tab-five" role="tabpanel">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-xl-12">
+                <div class="i-card h-550">
+                    <div class="row align-items-center g-2 mb-4">
+                        <div class="col-md-9">
+                            <h4 class="card--title">
+                                Post Activity
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="content-category" class="select2">
+                                <option>Category One</option>
+                                <option>Category Two</option>
+                                <option>Category Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-line-chart-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">
+                                            {{translate("Total Post")}}
+                                        </p>
+                                        <h6>
+                                            {{Arr::get($data,'total_post',0)}}
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-calendar-2-line fs-28"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Pending Post")}}</p>
+                                        <h6>{{Arr::get($data,'pending_post',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-time-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Schedule Post")}}</p>
+                                        <h6>{{Arr::get($data,'schedule_post',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-checkbox-circle-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Success Post")}}</p>
+                                        <h6>{{Arr::get($data,'success_post',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-close-circle-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Failed Post")}}</p>
+                                        <h6>{{Arr::get($data,'failed_post',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-account-circle-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Total Account")}}</p>
+                                        <h6>{{Arr::get($data['account_report'],'total_account',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-user-follow-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Active Account")}}</p>
+                                        <h6>{{Arr::get($data['account_report'],'active_account',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
+                            <div class="i-card border p-0">
+                                <div class="p-3">
+                                    <div class="icon text--primary mb-30">
+                                        <i class="ri-user-unfollow-line fs-30"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p class="card--title-sm mb-1">{{translate("Inactive Account")}}</p>
+                                        <h6>{{Arr::get($data['account_report'],'inactive_account',0)}}</h6>
+                                    </div>
+                                </div>
+                                <div class="footer border-top d-flex justify-content-between flex-wrap">
+                                    <div class="text--success">
+                                        <i class="bi bi-arrow-up"></i>
+                                        <span class="fs-14">+12%</span>
+                                    </div>
+                                    <p class="mb-0 fs-14">This week</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-auto right-side-col">
+        <div class="swiper latest-post-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="i-card shadow-one mb-4 pb-5">
+                        <h4 class="card--title mb-20">Latest Post</h4>
+                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                        <div class="d-flex mb-1">
+                            <a href="#">#miami</a>
+                            <a href="#">#holiday</a>
+                        </div>
+                        <div class="date mb-3">
+                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
+                                PM</span>
+                        </div>
+                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                        </ul>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="i-card shadow-one mb-4 pb-5">
+                        <h4 class="card--title mb-20">Latest Post</h4>
+                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                        <div class="d-flex mb-1">
+                            <a href="#">#miami</a>
+                            <a href="#">#holiday</a>
+                        </div>
+                        <div class="date mb-3">
+                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
+                                PM</span>
+                        </div>
+                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                        </ul>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="i-card shadow-one mb-4 pb-5">
+                        <h4 class="card--title mb-20">Latest Post</h4>
+                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
+                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
+                        <div class="d-flex mb-1">
+                            <a href="#">#miami</a>
+                            <a href="#">#holiday</a>
+                        </div>
+                        <div class="date mb-3">
+                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
+                                PM</span>
+                        </div>
+                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
+                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
+                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
+                        </ul>
+                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
+                    </div>
+                </div>
+            </div>
+            <div class="latest-post-pagination"></div>
+        </div>
+
+        <div class="i-card upgrade-card mb-4">
+            <h4 class="card--title text-white">Upgrade Premium to Get More Space</h4>
+            <p>
+                3 Social account and and Enjoy all new environments with pro plan
+            </p>
+            <a href="{{route('user.plan')}}" class="i-btn btn--md btn--white capsuled mx-auto">
+                @if($user->runningSubscription)
+                {{translate('Upgrade Now')}}
+                @else
+                {{translate('Subscribe Now')}}
+                @endif
+                <span><i class="bi bi-arrow-up-right"></i></span>
+            </a>
+        </div>
+        <div class="i-card-md share-card">
+            <h4 class="card--title mb-3">
+                Shared Files
+            </h4>
+            <ul>
+                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span> One of
+                    the largest social media platforms.</li>
+                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>The
+                    largest video-sharing platform.</li>
+                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
+                    discovery and bookmarking platform.</li>
+                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
+                    discovery and bookmarking platform.</li>
+                <li class="mb-0 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
+                    discovery and bookmarking platform.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!-- updated end -->
+
+<div class="row g-4">
+    <div class="col-xxl-9">
+
+    </div>
+    <div class="col-xxl-3 col-md-6">
+
+    </div>
+
+    <div class="col-xxl-4 col-md-6">
+        <div class="i-card-md card-height-100">
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{translate("Connected Account")}}
+                </h4>
+                <div>
+                    <a href="{{route('user.social.account.list')}}" class="i-btn info btn--sm capsuled">
+                        {{translate('See all')}}
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <ul class="channel-list">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-8">
+        <div class="i-card-md card-height-100">
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{translate("Social Post")}}
+                </h4>
+            </div>
+            <div class="card-body">
 
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      <div class="col-xxl-8">
+    <div class="col-xxl-4">
         <div class="i-card-md card-height-100">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Latest Transaction Log")}}
-            </h4>
-          </div>
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{translate("Subscription Specification")}}
+                </h4>
 
-          <div class="card-body px-0">
-            <div class="table-accordion">
-              @php
-                $reports = Arr::get($data,'latest_transactiions',null);
+            </div>
 
-              @endphp
-              @if($reports &&    $reports->count() > 0)
-                  <div class="accordion" id="wordReports">
-                      @forelse(Arr::get($data,'latest_transactiions',[])  as $report)
-                          <div class="accordion-item">
-                              <div class="accordion-header">
-                                  <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
-                                      aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                                      <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
-                                          <div class="col-lg-3 col-sm-4 col-12">
-                                              <div class="table-accordion-header transfer-by">
-                                                  <span class="icon-btn icon-btn-sm info circle">
-                                                      <i class="bi bi-arrow-up-left"></i>
-                                                  </span>
-                                                  <div>
-                                                      <h6>
-                                                          {{translate("Trx Code")}}
-                                                      </h6>
-                                                      <p> {{$report->trx_code}}</p>
-                                                  </div>
-                                              </div>
-                                          </div>
+            <div class="card-body">
+                <div class="posts-wrap">
 
-                                          <div class="col-lg-3 col-sm-4 col-6 text-lg-center text-sm-center text-start">
-                                              <div class="table-accordion-header">
-                                                  <h6>
-                                                      {{translate("Date")}}
-                                                  </h6>
-                                                  <p>
-                                                      {{ get_date_time($report->created_at) }}
-                                                  </p>
-                                              </div>
-                                          </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="subscriptionChart">
 
-                                          <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
-                                              <div class="table-accordion-header">
-                                                  <h6>
-                                                      {{translate("Balance")}}
-                                                  </h6>
+                            </div>
+                        </div>
+                    </div>
 
-                                                  <p class='text--{{$report->trx_type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
-                                                      <i class='bi bi-{{$report->trx_type == App\Models\Transaction::$PLUS ? "plus" :"dash" }}'></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                      {{num_format($report->amount,$report->currency)}}
+    <div class="col-xxl-8">
+        <div class="i-card-md card-height-100">
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{translate("Latest Transaction Log")}}
+                </h4>
+            </div>
 
-                                                  </p>
+            <div class="card-body px-0">
+                <div class="table-accordion">
+                    @php
+                    $reports = Arr::get($data,'latest_transactiions',null);
 
-                                              </div>
-                                          </div>
+                    @endphp
+                    @if($reports && $reports->count() > 0)
+                    <div class="accordion" id="wordReports">
+                        @forelse(Arr::get($data,'latest_transactiions',[]) as $report)
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{$report->id}}" aria-expanded="false"
+                                    aria-controls="collapse{{$report->id}}">
+                                    <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
+                                        <div class="col-lg-3 col-sm-4 col-12">
+                                            <div class="table-accordion-header transfer-by">
+                                                <span class="icon-btn icon-btn-sm primary circle">
+                                                    <i class="bi bi-file-text"></i>
+                                                </span>
+                                                <div>
+                                                    <h6>
+                                                        {{translate("Trx Code")}}
+                                                    </h6>
+                                                    <p> {{$report->trx_code}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                          <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
-                                              <div class="table-accordion-header">
-                                                  <h6>
-                                                      {{translate("Post Balance")}}
-                                                  </h6>
+                                        <div class="col-lg-3 col-sm-4 col-6 text-lg-center text-sm-center text-start">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Date")}}
+                                                </h6>
+                                                <p>
+                                                    {{ get_date_time($report->created_at) }}
+                                                </p>
+                                            </div>
+                                        </div>
 
-                                                  <p>
-                                                      {{@num_format(
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Balance")}}
+                                                </h6>
+
+                                                <p
+                                                    class='text--{{$report->trx_type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
+                                                    <i
+                                                        class='bi bi-{{$report->trx_type == App\Models\Transaction::$PLUS ? "plus" :"dash" }}'></i>
+
+                                                    {{num_format($report->amount,$report->currency)}}
+
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Post Balance")}}
+                                                </h6>
+
+                                                <p>
+                                                    {{@num_format(
                                                           number : $report->post_balance??0,
                                                           calC   : true
                                                       )}}
-                                                  </p>
+                                                </p>
 
-                                              </div>
-                                          </div>
+                                            </div>
+                                        </div>
 
-                                          <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
-                                              <div class="table-accordion-header">
-                                                  <h6>
-                                                      {{translate("Remark")}}
-                                                  </h6>
-                                                  <p>
-                                                      {{k2t($report->remarks)}}
-                                                  </p>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Remark")}}
+                                                </h6>
+                                                <p>
+                                                    {{k2t($report->remarks)}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                              <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports">
-                                  <div class="accordion-body">
-                                      <ul class="list-group list-group-flush">
-                                          <li class="list-group-item">
-                                              <h6 class="title">
-                                                  {{translate("Report Information")}}
-                                              </h6>
-                                              <p class="value">
-                                                  {{$report->details}}
-                                              </p>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      @empty
-                      @endforelse
+                            <div id="collapse{{$report->id}}" class="accordion-collapse collapse"
+                                data-bs-parent="#wordReports">
+                                <div class="accordion-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <h6 class="title">
+                                                {{translate("Report Information")}}
+                                            </h6>
+                                            <p class="value">
+                                                {{$report->details}}
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @empty
+                        @endforelse
 
-                  </div>
-              @else
-                  @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-              @endif
+                    </div>
+                    @else
+                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                    @endif
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="i-card-md card-height-100">
+            <div class="card-header">
+                <h4 class="card-title">
+                    {{translate("Latest Subscription Log")}}
+                </h4>
 
             </div>
 
-          </div>
-        </div>
-      </div>
+            <div class="card-body px-0">
+                <div class="table-accordion">
+                    @php
+                    $reports = Arr::get($data,'subscription_log',null);
 
-      <div class="col-12">
-        <div class="i-card-md card-height-100">
-          <div class="card-header">
-            <h4 class="card-title">
-               {{translate("Latest Subscription Log")}}
-            </h4>
+                    @endphp
 
-          </div>
+                    @if($reports && $reports->count() > 0)
+                    <div class="accordion" id="wordReports-2">
+                        @forelse($reports as $report)
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{$report->id}}" aria-expanded="false"
+                                    aria-controls="collapse{{$report->id}}">
+                                    <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
+                                        <div class="col-lg-2 col-sm-4 col-12">
+                                            <div class="table-accordion-header transfer-by">
+                                                <span class="icon-btn icon-btn-sm primary circle">
+                                                    <i class="bi bi-file-text"></i>
+                                                </span>
+                                                <div>
+                                                    <h6>
+                                                        {{translate("Trx Code")}}
+                                                    </h6>
+                                                    <p> {{$report->trx_code}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
 
-          <div class="card-body px-0">
-            <div class="table-accordion">
-              @php
-                $reports = Arr::get($data,'subscription_log',null);
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-center text-start">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Expired In")}}
+                                                </h6>
 
-              @endphp
+                                                <p>
+                                                    @if($report->expired_at)
+                                                    {{ get_date_time($report->expired_at,'d M, Y') }}
+                                                    @else
+                                                    {{translate("N/A")}}
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        </div>
 
-              @if($reports && $reports->count() > 0)
-                <div class="accordion" id="wordReports-2">
-                @forelse($reports as $report)
-                  <div class="accordion-item">
-                      <div class="accordion-header">
-                          <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$report->id}}"
-                              aria-expanded="false" aria-controls="collapse{{$report->id}}">
-                              <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
-                                  <div class="col-lg-2 col-sm-4 col-12">
-                                      <div class="table-accordion-header transfer-by">
-                                          <span class="icon-btn icon-btn-sm info circle">
-                                              <i class="bi bi-arrow-up-left"></i>
-                                          </span>
-                                          <div>
-                                              <h6>
-                                                  {{translate("Trx Code")}}
-                                              </h6>
-                                              <p> {{$report->trx_code}}</p>
-                                          </div>
-                                      </div>
-                                  </div>
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Package")}}
+                                                </h6>
 
-                                  <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-center text-start">
-                                      <div class="table-accordion-header">
-                                          <h6>
-                                              {{translate("Expired In")}}
-                                          </h6>
+                                                <p>
+                                                    {{@$report->package->title}}
+                                                </p>
+                                            </div>
+                                        </div>
 
-                                          <p>
-                                              @if($report->expired_at)
-                                              {{ get_date_time($report->expired_at,'d M, Y') }}
-                                              @else
-                                                  {{translate("N/A")}}
-                                              @endif
-                                          </p>
-                                      </div>
-                                  </div>
+                                        <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Status")}}
+                                                </h6>
+                                                @php echo subscription_status($report->status) @endphp
+                                            </div>
+                                        </div>
 
-                                  <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-sm-end text-end">
-                                      <div class="table-accordion-header">
-                                          <h6>
-                                              {{translate("Package")}}
-                                          </h6>
-
-                                          <p>
-                                              {{@$report->package->title}}
-                                          </p>
-                                      </div>
-                                  </div>
-
-                                  <div class="col-lg-2 col-sm-4 col-6 text-lg-center text-start">
-                                      <div class="table-accordion-header">
-                                          <h6>
-                                              {{translate("Status")}}
-                                          </h6>
-                                          @php echo subscription_status($report->status) @endphp
-                                      </div>
-                                  </div>
-
-                                  <div class="col-lg-2 col-sm-4 col-6 text-sm-center text-end">
-                                      <div class="table-accordion-header">
-                                          <h6>
-                                              {{translate("Payment Amount")}}
-                                          </h6>
-                                          <p>
-                                              {{@num_format(
+                                        <div class="col-lg-2 col-sm-4 col-6 text-sm-center text-end">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Payment Amount")}}
+                                                </h6>
+                                                <p>
+                                                    {{@num_format(
                                                   number : $report->payment_amount??0,
                                                   calC   : true
                                               )}}
-                                          </p>
-                                      </div>
-                                  </div>
+                                                </p>
+                                            </div>
+                                        </div>
 
-                                  <div class="col-lg-2 col-sm-4 col-6 text-sm-end text-start">
-                                      <div class="table-accordion-header">
-                                          <h6>
-                                              {{translate("Date")}}
-                                          </h6>
+                                        <div class="col-lg-2 col-sm-4 col-6 text-sm-end text-start">
+                                            <div class="table-accordion-header">
+                                                <h6>
+                                                    {{translate("Date")}}
+                                                </h6>
 
-                                          <p>
+                                                <p>
 
-                                              @if($report->created_at)
-                                                  {{ get_date_time($report->created_at) }}
-                                              @else
-                                                  {{translate("N/A")}}
-                                              @endif
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                                                    @if($report->created_at)
+                                                    {{ get_date_time($report->created_at) }}
+                                                    @else
+                                                    {{translate("N/A")}}
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                      <div id="collapse{{$report->id}}" class="accordion-collapse collapse" data-bs-parent="#wordReports-2">
-                          <div class="accordion-body">
-                              <ul class="list-group list-group-flush">
-                                  @php
-                                      $informations = [
+                            <div id="collapse{{$report->id}}" class="accordion-collapse collapse"
+                                data-bs-parent="#wordReports-2">
+                                <div class="accordion-body">
+                                    <ul class="list-group list-group-flush">
+                                        @php
+                                        $informations = [
 
-                                          "Ai Word Balnace"          => $report->word_balance,
-                                          "Remaining Word Balance"   => $report->remaining_word_balance,
-                                          "Carried Word Balnace"     => $report->carried_word_balance,
-                                          "Total Social Profile"     => $report->total_profile,
-                                          "Carried Profile Balnace"  => $report->carried_profile,
-                                          "Social Post Balnace"      => $report->post_balance,
-                                          "Remaining Post Balance"   => $report->remaining_post_balance,
-                                          "Carried Post Balnace"     => $report->carried_post_balance,
-                                      ];
-                                  @endphp
+                                        "Ai Word Balnace" => $report->word_balance,
+                                        "Remaining Word Balance" => $report->remaining_word_balance,
+                                        "Carried Word Balnace" => $report->carried_word_balance,
+                                        "Total Social Profile" => $report->total_profile,
+                                        "Carried Profile Balnace" => $report->carried_profile,
+                                        "Social Post Balnace" => $report->post_balance,
+                                        "Remaining Post Balance" => $report->remaining_post_balance,
+                                        "Carried Post Balnace" => $report->carried_post_balance,
+                                        ];
+                                        @endphp
 
-                                  @foreach ($informations  as  $key => $val)
+                                        @foreach ($informations as $key => $val)
 
-                                      <li class="list-group-item">
-                                          <h6 class="title">
-                                              {{k2t($key)}}
-                                          </h6>
-                                          <p class="value">
-                                              {{$val == App\Enums\PlanDuration::UNLIMITED->value ? App\Enums\PlanDuration::UNLIMITED->name : $val }}
-                                          </p>
-                                      </li>
+                                        <li class="list-group-item">
+                                            <h6 class="title">
+                                                {{k2t($key)}}
+                                            </h6>
+                                            <p class="value">
+                                                {{$val == App\Enums\PlanDuration::UNLIMITED->value ? App\Enums\PlanDuration::UNLIMITED->name : $val }}
+                                            </p>
+                                        </li>
 
-                                  @endforeach
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                @empty
-                @endforelse
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @empty
+                        @endforelse
+                    </div>
+                    @else
+                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                    @endif
+
                 </div>
-              @else
-                  @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-              @endif
 
             </div>
-
-          </div>
         </div>
-      </div>
     </div>
+</div>
+
+<div class="chat-area">
+    <div class="row g-lg-0 g-3">
+        <div class="col-lg-3">
+            <div class="chat-left-sidebar">
+                <div class="session-toolbar">
+                    <h5>Richman Lubnan</h5>
+                </div>
+                <div class="session-list">
+                    <div class="session-single active">
+                        <div class="seller-icon">
+                            <img src="https://i.ibb.co/N7m6yzV/Mask-group.png" alt="Mask-group">
+                        </div>
+                        <div class="content">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <div class="title w-auto">Richman Lubnan</div>
+                                <div class="time">05.09</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                              <p>Your product that have been bought</p>
+                              <span class="message-num">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="session-single">
+                        <div class="seller-icon">
+                          <img src="https://i.ibb.co/2yk2LsY/two.jpg" alt="two">
+                        </div>
+                        <div class="content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="title w-auto">Richman Lubnan</div>
+                                <div class="time">05.09</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p>Your product that have been bought</p>
+                              <span class="message-num">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row g-3">
+                <div class="col-lg-8">
+                    <div class="seller-message-view" data-simplebar>
+                        <div class="seller-store">
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://i.ibb.co/N7m6yzV/Mask-group.png" class="avatar--sm" alt="Mask-group"><h5>Richman Lubnan</h5>
+                            <span class="status-active"></span>
+                          </div>
+                        </div>
+                        <div class="messages">
+                            <div class="message-single message-left d-flex flex-column">
+                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <p>
+                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
+                                        fostering
+                                        innovation, and connecting the world. It drives economic growth, empowers
+                                        individuals, and
+                                        transforms societies, shaping a future of limitless possibilities
+                                    </p>
+                                    <div class="message-time">
+                                        <span>12.56 PM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-single message-right d-flex flex-column">
+                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <p>
+                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
+                                        fostering
+                                        innovation, and connecting the world. It drives economic growth, empowers
+                                        individuals, and
+                                        transforms societies, shaping a future of limitless possibilities
+                                    </p>
+                                    <div class="message-time">
+                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-single message-left d-flex flex-column">
+                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <p>
+                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
+                                        fostering
+                                        innovation, and connecting the world. It drives economic growth, empowers
+                                        individuals, and
+                                        transforms societies, shaping a future of limitless possibilities
+                                    </p>
+                                    <div class="message-time">
+                                        <span>02.07 PM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-single message-right d-flex flex-column">
+                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <p>
+                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
+                                        fostering
+                                        innovation, and connecting the world. It drives economic growth, empowers
+                                        individuals, and
+                                        transforms societies, shaping a future of limitless possibilities
+                                    </p>
+                                    <div class="message-time">
+                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-single message-left d-flex flex-column">
+                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <div class="message-file">
+                                        <a href="#"><i class="bi bi-file-pdf"></i>instructions_all.pdf</a>
+                                    </div>
+                                    <div class="message-time">
+                                        <span>11.04 AM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message-single message-right d-flex flex-column">
+                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
+                                    <div class="meta">
+                                        <h6>John Doe</h6>
+                                    </div>
+                                    <div class="image">
+                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <div class="chat-image-wrapper d-flex gap-2 justify-content-end flex-wrap">
+                                        <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                                        <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                                        <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                                    </div>
+                                    <div class="message-time">
+                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-inputs">
+                            <div class="upload-filed image-upload">
+                                <input id="media-file" multiple type="file"
+                                    name="files[]">
+                                <label for="media-file mb-0">
+                                    <span class="d-flex align-items-center flex-row gap-2">
+                                        <span class="upload-drop-file">
+                                            <i class="bi bi-image"></i>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <textarea name="chat" placeholder="Write Message"></textarea>
+                            <button type="submit" class="message-submit"><i class="bi bi-send"></i></button>
+                        </div>
+
+                        <ul class="file-list"></ul>
+                        <!-- <ul class="image-select-list">
+                            <li>
+                                <span class="remove-list" data-name="view-picnic-french-alpine-mountains-with-lake.jpg">
+                                    <i class="bi bi-x"></i>
+                                </span>
+                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                            </li>
+                            <li>
+                                <span class="remove-list" data-name="8390439_43586.jpg">
+                                    <i class="bi bi-x"></i>
+                                </span>
+                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                            </li>
+                            <li>
+                                <span class="remove-list" data-name="8390439_43586.jpg">
+                                    <i class="bi bi-x"></i>
+                                </span>
+                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="chat-right-sidebar" data-simplebar>
+                        <div class="profile-image">
+                          <img src="https://i.ibb.co/D89mbsS/author2.jpg" alt="author2">
+                        </div>
+                        <div class="profile-desig">
+                          <h5>Alex paul</h5>
+                          <span>Designer UI/UX</span>
+                        </div>
+                        <div class="profile-meta">
+                          <ul>
+                            <li><a href="#"><i class="bi bi-telephone"></i></a></li>
+                            <li><a href="#"><i class="bi bi-camera-video"></i></a></li>
+                            <li><a href="#"><i class="bi bi-person"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="profile-shared">
+                          <h6>Shared Files</h6>
+                          <ul>
+                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>File of E-commerce</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Products that sold</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Group of custom products</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Amazon Products altogater</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Inifnite possibilities of sold products</a></li>
+                          </ul>
+                        </div>
+                        <div class="profile-shared">
+                          <h6>Previous Images</h6>
+                            <div class="chat-image-wrapper d-flex gap-2 justify-content-start flex-wrap">
+                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
+                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
+                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+<script src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+<script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+<script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+<script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
 <script>
-  "use strict";
+"use strict";
 
-  var subscriptionValues =  @json(array_values($subscriptionDetails));
-  var subscriptionLabel  =  @json(array_keys($subscriptionDetails));
+var subscriptionValues = @json(array_values($subscriptionDetails));
+var subscriptionLabel = @json(array_keys($subscriptionDetails));
 
-  var options = {
-          series:subscriptionValues,
-            chart: {
-                type: "donut",
-                width: "100%",
-            },
-        colors: [
+var options = {
+    series: subscriptionValues,
+    chart: {
+        type: "donut",
+        width: "100%",
+    },
+    colors: [
         "var(--color-primary)",
         "var(--color-secondary)",
         "var(--color-warning)",
         "var(--color-info)",
-        "var(--color-danger)"],
-        labels: subscriptionLabel,
-        plotOptions: {
-          pie: {
+        "var(--color-danger)"
+    ],
+    labels: subscriptionLabel,
+    plotOptions: {
+        pie: {
             startAngle: -90,
             endAngle: 270
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-
-
-        legend: {
-            position: 'bottom'
         }
-        };
+    },
+    dataLabels: {
+        enabled: false
+    },
 
-        var chart = new ApexCharts(document.querySelector("#subscriptionChart"), options);
-        chart.render();
 
+    legend: {
+        position: 'bottom'
+    }
+};
 
-
-    var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
-
-    var accountValues = [];
-    var totalPost =   @json(array_values($data['monthly_post_graph']));
-    var pendigPost =   @json(array_values($data['monthly_pending_post']));
-    var schedulePost =   @json(array_values($data['monthly_schedule_post']));
-    var successPost =   @json(array_values($data['monthly_success_post']));
-    var failedPost =   @json(array_values($data['monthly_failed_post']));
+var chart = new ApexCharts(document.querySelector("#subscriptionChart"), options);
+chart.render();
 
 
 
-    var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
-    var options = {
-      chart: {
+var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
+
+var accountValues = [];
+var totalPost = @json(array_values($data['monthly_post_graph']));
+var pendigPost = @json(array_values($data['monthly_pending_post']));
+var schedulePost = @json(array_values($data['monthly_schedule_post']));
+var successPost = @json(array_values($data['monthly_success_post']));
+var failedPost = @json(array_values($data['monthly_failed_post']));
+
+
+
+var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
+var options = {
+    chart: {
         height: 380,
         type: "line",
-      },
-      dataLabels: {
+    },
+    dataLabels: {
         enabled: false,
-      },
-        colors: [
+    },
+    colors: [
         "var(--color-primary)",
         "var(--color-secondary)",
         "var(--color-warning)",
         "var(--color-info)",
-        "var(--color-danger)"],
-      series: [
-        {
-          name: "{{ translate('Total Post') }}",
-          data: totalPost,
+        "var(--color-danger)"
+    ],
+    series: [{
+            name: "{{ translate('Total Post') }}",
+            data: totalPost,
         },
         {
-          name: "{{ translate('Pending Post') }}",
-          data: pendigPost,
+            name: "{{ translate('Pending Post') }}",
+            data: pendigPost,
         },
         {
-          name: "{{ translate('Success Post') }}",
-          data: successPost,
+            name: "{{ translate('Success Post') }}",
+            data: successPost,
         },
         {
-          name: "{{ translate('Schedule Post') }}",
-          data: schedulePost,
+            name: "{{ translate('Schedule Post') }}",
+            data: schedulePost,
         },
         {
-          name: "{{ translate('Failed Post') }}",
-          data: failedPost,
+            name: "{{ translate('Failed Post') }}",
+            data: failedPost,
         },
-      ],
-      xaxis: {
+    ],
+    xaxis: {
         categories: monthlyLabel,
-      },
+    },
 
-      tooltip: {
-          shared: false,
-          intersect: true,
-          y: {
-            formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-              return parseInt(value);
+    tooltip: {
+        shared: false,
+        intersect: true,
+        y: {
+            formatter: function(value, {
+                series,
+                seriesIndex,
+                dataPointIndex,
+                w
+            }) {
+                return parseInt(value);
             }
-          }
+        }
 
-        },
-      markers: {
+    },
+    markers: {
         size: 6,
-      },
-      stroke: {
+    },
+    stroke: {
         width: [4, 4],
-      },
-      legend: {
+    },
+    legend: {
         horizontalAlign: "center",
         offsetY: 5,
-      },
-    };
+    },
+};
 
-    var chart = new ApexCharts(document.querySelector("#postReport"), options);
-    chart.render();
+var chart = new ApexCharts(document.querySelector("#postReport"), options);
+chart.render();
 
+var swiper = new Swiper(".latest-post-slider", {
+    pagination: {
+        el: ".latest-post-pagination",
+    },
+    effect: 'fade',
+    fadeEffect: {
+        crossFade: true
+    },
+});
 
+$(".select2").select2({
 
-
+});
 
 </script>
 @endpush

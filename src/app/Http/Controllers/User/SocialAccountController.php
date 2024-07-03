@@ -155,8 +155,8 @@ class SocialAccountController extends Controller
             $request->merge([
                 'account_id'   => $account->id,
                 'account_type' => $account->account_type,
-                'page_id'      => $account->account_type == AccountType::Page->value ? $account->account_id : null,
-                'group_id'     => $account->account_type == AccountType::Group->value ? $account->account_id : null,
+                'page_id'      => $account->account_type == AccountType::PAGE->value ? $account->account_id : null,
+                'group_id'     => $account->account_type == AccountType::GROUP->value ? $account->account_id : null,
             ]);
     
             $class   = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';

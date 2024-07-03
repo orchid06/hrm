@@ -3,7 +3,7 @@
 @endphp
 
 
-<div class="col-xl-4 col-lg-5 order-lg-0 order-1">
+<div class="col-xl-5 col-lg-5">
     <div class="auth-left">
     <div class="auth-left-content">
         <div class="auth-slider-wrapper">
@@ -22,7 +22,7 @@
                                         @endphp
                                         <div class="platform-content-img">
                                         <img
-                                            src="{{imageUrl(@$file,'frontend',true,$val->size)}}"
+                                            src="{{imageURL(@$file,'frontend',true,$val->size)}}"
                                             alt="{{@$file->name}}"
                                             loading="lazy"/>
                                         </div>

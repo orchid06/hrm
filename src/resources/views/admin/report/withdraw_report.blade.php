@@ -1,10 +1,36 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
+
+    <div class="row mb-4">
+      
+        <div class="col-lg-3">
+            @include('admin.partials.summary',['header' => true , "header_info" => [
+                'title' => translate("Total withdraw amount"),
+                'total' => $total_withdraw,
+                'note'  => translate('The Total Withdraw Amount Accumulated From All Users Within The System.'),
+            ]])
+
+        </div>
+
+
+          <div class="col-lg-9">
+              <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Withdraw Report (Current Year)')}}
+                    </h4>
+               </div>
+                  <div class="card-body">
+                      <div id="withdraw-report"></div>
+                  </div>
+              </div>
+          </div>
+    </div>
 
     <div class="i-card-md">
         <div class="card-body">
@@ -44,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inner">
-                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                                     </div>
                                     <button class="i-btn btn--md info w-100">
                                         <i class="las la-sliders-h"></i>
@@ -62,7 +88,7 @@
             </div>
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
-                <table >
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">
@@ -78,10 +104,13 @@
                                 {{translate('Method')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
-                                {{translate('Final Amount')}}
+                                {{translate('Receivable Amount')}}
+                           </th>
+                            <th scope="col">
+                                {{translate('Payment Amount')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}
@@ -100,6 +129,9 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                     <div>
+                                             {{ diff_for_humans($report->created_at) }}
+                                     </div>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -107,11 +139,21 @@
                                     </a>
                                 </td>
                                 <td data-label='{{translate("Payment Method")}}'>
-                                    {{$report->method->name}}
+                                    {{$report->method?->name}}
                                 </td>
-                                <td  data-label='{{translate("Trx Code")}}'>
-                                      {{$report->trx_code}}
+                                <td  data-label="{{translate('Trx Code')}}">
+                                    <span class="trx-number me-1">
+                                        {{$report->trx_code}}
+                                    </span>
+
+                                    <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                 </td>
+
+
+                                <td  data-label='{{translate("Receivable Amount")}}'>
+                                    {{num_format($report->amount,@$report->currency)}}
+                                </td>
+                        
                                 <td  data-label='{{translate("Final Amount")}}'>
                                       {{num_format($report->final_amount,@$report->currency)}}
                                 </td>
@@ -121,16 +163,16 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        <a data-toggle="tooltip" data-placement="top" title='{{translate("Update")}}'  href="{{route('admin.withdraw.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.withdraw.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                     </div>
                                 </td>
                            </tr>
-                            @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
+                        @empty
+                              <tr>
+                                  <td class="border-bottom-0" colspan="90">
+                                      @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                  </td>
+                              </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -140,10 +182,19 @@
             </div>
         </div>
     </div>
+    
+
+    @php
+          $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
+    @endphp 
+
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -152,20 +203,86 @@
 
         "use strict";
 
-        $(".select2").select2({
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".status").select2({});
 
-        });
-        $(".user").select2({
 
-        });
-        $(".status").select2({
 
-        });
+        var options = {
+            chart: {
+              height: 468,
+              type: "line",
+            },
+          dataLabels: {
+            enabled: false,
+          },
+          colors: ['var(--color-info)','var(--color-primary)','var(--color-success)','var(--color-warning)',  'var(--color-danger)'],
+          series: [
+            {
+              name: "{{ translate('Total Withdraw') }}",
+              data: @json(array_column($graph_data , 'total')),
+            },
+            {
+              name: "{{ translate('Total Charge') }}",
+              data: @json(array_column($graph_data , 'charge')),
+            },
+            {
+              name: "{{ translate('Success Withdraw') }}",
+              data: @json(array_column($graph_data , 'approved')),
+            },
+            {
+              name: "{{ translate('Pending Withdraw') }}",
+              data: @json(array_column($graph_data , 'pending')),
+            },
+            {
+              name: "{{ translate('Rejected Withdraw') }}",
+              data: @json(array_column($graph_data , 'rejected')),
+            },
+          ],
+          xaxis: {
+            categories: @json(array_keys($graph_data)),
+          },
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+          tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return formatCurrency(value);
+                    }
+                }
+            },
+          markers: {
+            size: 6,
+          },
+          stroke: {
+            width: [4, 4],
+          },
+          legend: {
+            horizontalAlign: "left",
+            offsetX: 40,
+          },
+        };
+
+ 
+
+ 
+
+        var chart = new ApexCharts(document.querySelector("#withdraw-report"), options);
+        chart.render();
+
+
+        function formatCurrency(value) {
+            var symbol =  "{{  $symbol }}" ;
+            var suffixes = ["", "K", "M", "B", "T"];
+            var order = Math.floor(Math.log10(value) / 3);
+            var suffix = suffixes[order];
+            if(value < 1)
+            {return symbol+value}
+            var scaledValue = value / Math.pow(10, order * 3);
+            return symbol + scaledValue.toFixed(2) + suffix;
+        }
 
 	})(jQuery);
 </script>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
     <div class="i-card-md">
@@ -103,7 +103,7 @@
                                 </td>
                                 <td data-label='{{translate("Name")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file}}">
                                         <p>	 {{$post->account->platform->name}}</p>
                                     </div>
 
@@ -224,7 +224,9 @@
 @endsection
 
 @push('script-include')
-  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 @push('script-push')
 <script>
@@ -242,10 +244,6 @@
 
         });
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        })
 
         $(document).on('click','.show-info',function(e){
 

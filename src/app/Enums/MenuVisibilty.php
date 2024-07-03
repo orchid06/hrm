@@ -6,8 +6,8 @@ enum MenuVisibilty: int
 {
     use EnumTrait;
 
-    case Header       = 0;
-    case Footer       = 1;
-    case Both         = 2;
+    case HEADER           = 0;
+    case FOOTER           = 1;
+    case BOTH             = 2;
 
 }

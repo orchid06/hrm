@@ -131,7 +131,7 @@ class Account
             if($post->file && $post->file->count() > 0){
 
                 foreach ($post->file as $file) {
-                    $image      = $twitter->tweets()->upload(imageUrl($file,"post",true));
+                    $image      = $twitter->tweets()->upload(imageURL($file,"post",true));
                     if(isset($image->media_id_string)){
 
                         $mediaIds[] = $image->media_id_string;

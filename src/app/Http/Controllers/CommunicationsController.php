@@ -94,14 +94,7 @@ class CommunicationsController extends Controller
                     [ $admin, 'USER_ACTION', $code, $route ],
                 ],
             ],
-            'slack_notifications' => [
-                'action' => [SendNotification::class, 'slack_notifications'],
-                'params' => [
-                    [
-                        $admin, 'USER_ACTION', $code, $route
-                    ]
-                ],
-            ],
+           
             'email_notifications' => [
                 'action' => [SendMailJob::class, 'dispatch'],
                 'params' => [

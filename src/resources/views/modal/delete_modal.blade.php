@@ -6,21 +6,22 @@
       <div class="modal-body">
         <div class="modal-delete-noti">
           <div class="notification-modal-icon">
-              <img src="{{asset('assets/images/default/trash-bin.gif')}}" class="action-img" alt="trash-bin.gif">
+              <!-- <img src="{{asset('assets/images/default/trash-bin.gif')}}" class="action-img" alt="trash-bin.gif"> -->
+              <i class="bi bi-trash3-fill"></i>
           </div>
           <div class="notification-modal-content">
               <h5>   {{trans('default.are_you_sure')}}</h5>
               <p class="warning-message"></p>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex">
           <button type="button"
-              class="i-btn btn--lg warning"
+              class="i-btn btn--lg btn--outline radius-8 flex-grow-1"
               data-bs-dismiss="modal">
               {{translate("No")}}
           </button>
-            <div class="actionbtn">
-                <a href="javascript:void(0)" class="i-btn btn--lg delete-btn btn-delete danger"
+            <div class="actionbtn flex-grow-1">
+                <a href="javascript:void(0)" class="i-btn btn--lg btn--danger w-100 radius-8"
                 id="action-href">
                 {{translate('Yes')}}
                </a>

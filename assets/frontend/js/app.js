@@ -48,6 +48,40 @@
     toolsColor: "#000",
   });
 
+  // sponsor slider
+    // Review Slider
+    const sponsor = document.querySelector(".sponsor-slider");
+    if (sponsor) {
+      new Swiper(sponsor, {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        speed: 1000,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        autoplay: {
+          delay:4000,
+        },
+  
+        breakpoints: {
+          0: {
+            spaceBetween: 15,
+            slidesPerView: 2,
+          },
+          768: {
+            spaceBetween: 20,
+            slidesPerView: 3,
+          },
+          1200: {
+            spaceBetween: 25,
+            slidesPerView: 4,
+          },
+        },
+      });
+    }
+
   // Review Slider
   const reviewSlider = document.querySelector(".review-slider");
   if (reviewSlider) {
@@ -55,28 +89,21 @@
       slidesPerView: 1,
       spaceBetween: 15,
       loop: true,
+      navigation: {
+        nextEl: '.review-button-next',
+        prevEl: '.review-button-prev',
+      },
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
       },
-      autoplay: {
-        delay:4000,
-        disableOnInteraction: false,
-      },
-
-      breakpoints: {
-        0: {
-          spaceBetween: 15,
-          slidesPerView: 1,
-        },
-        768: {
-          spaceBetween: 20,
-          slidesPerView: 2,
-        },
-        1200: {
-          spaceBetween: 25,
-          slidesPerView: 2,
-        },
+      // autoplay: {
+      //   delay:4000,
+      //   disableOnInteraction: false,
+      // },
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
       },
     });
   }
@@ -308,4 +335,139 @@
       }
     });
   });
+
+  // $(".counter-single").each(function () {
+  //   $(this).isInViewport(function (status) {
+  //   if (status === "entered") {
+  //       for (var i = 0; i < document.querySelectorAll(".odometer").length; i++) {
+  //       var el = document.querySelectorAll('.odometer')[i];
+  //       el.innerHTML = el.getAttribute("data-odometer-final");
+  //       }
+  //   }
+  //   });
+  // });
+
+  var swiper = new Swiper(".team-slider", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+    },
+  });
+
+  const service = document.querySelector(".service-slider-one");
+  if (service) {
+    new Swiper(service, {
+      slidesPerView: 1,
+      spaceBetween: 15,
+      speed: 1000,
+      autoplay: true,
+      loop: false,
+      mousewheel: {
+        invert: false,
+      },
+      grabCursor: true,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay:4000,
+      },
+
+      breakpoints: {
+        0: {
+          spaceBetween: 15,
+          slidesPerView: 1,
+        },
+        768: {
+          spaceBetween: 20,
+          slidesPerView: 2,
+        },
+        1200: {
+          spaceBetween: 25,
+          slidesPerView: 3,
+        },
+      },
+    });
+  }
+
+  const service2 = document.querySelector(".service-slider-two");
+  if (service2) {
+    new Swiper(service2, {
+      slidesPerView: 1,
+      spaceBetween: 15,
+      speed: 1000,
+      autoplay: true,
+      loop: false,
+      grabCursor: true,
+      mousewheel: {
+        invert: false,
+      },
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay:4000,
+      },
+
+      breakpoints: {
+        0: {
+          spaceBetween: 15,
+          slidesPerView: 1,
+        },
+        768: {
+          spaceBetween: 20,
+          slidesPerView: 2,
+        },
+        1200: {
+          spaceBetween: 25,
+          slidesPerView: 3,
+        },
+      },
+    });
+  }
+
+  // function updateTabFunctionality() {
+  //   const tabItems = document.querySelectorAll(".nav-item");
+  //   const maxWidth = 991;
+
+  //   tabItems.forEach((item) => {
+  //     const tabLink = item.querySelector(".nav-link");
+  //     if (tabLink) {
+  //       var tabTrigger = new bootstrap.Tab(tabLink);
+
+  //       item.removeEventListener("mouseenter", tabTrigger.show);
+  //       item.removeEventListener("click", tabTrigger.show);
+
+  //       if (window.innerWidth <= maxWidth) {
+  //         item.addEventListener("click", function () {
+  //           tabTrigger.show();
+  //         });
+  //       } else {
+  //         item.addEventListener("mouseenter", function () {
+  //           tabTrigger.show();
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
+
+  // updateTabFunctionality();
+
+  // window.addEventListener("resize", updateTabFunctionality);
+
+
 })();

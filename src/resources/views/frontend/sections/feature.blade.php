@@ -3,106 +3,58 @@
 
    $featureContent   = get_content("content_feature")->first();
    $featureElements  = get_content("element_feature");
+   $featureImageSize  = get_appearance_img_size('feature','content','feature_image');
+
+   $featureImage          = @$featureContent->file?->where("type",'feature_image')->first();
+
+
 @endphp
 
-<section class="features bg--light pt-110 pb-110 sectionWithBg">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-7 col-lg-8 mx-auto">
-            <div class="section-title text-center">
-              <span>{{$featureContent->value->sub_title}}</span>
-              <h3 class="title-anim">
-                  {{$featureContent->value->title}}
-              </h3>
-              <p>
-                {{$featureContent->value->description}}
-              </p>
-            </div>
+<section class="feature-section pb-110">
+  <div class="container">
+      <div class="row justify-content-start">
+          <div class="col-lg-8 col-xl-6">
+              <div class="section-title-one text-start mb-60">
+                  <div class="subtitle">{{@$featureContent->value->sub_title}}</div>
+                  <h2>  @php echo @$featureContent->value->title @endphp </h2>
+              </div>
           </div>
-        </div>
-
-        <div class="row g-xxl-5 gx-4 gy-5">
-          <div class="col-xl-4 col-lg-4">
-            <div
-              class="nav feature-list tab-on-hover"
-              id="v-pills-tab"
-              role="tablist"
-              aria-orientation="vertical">
-              @foreach ($featureElements as  $element)
-                  <a
-                    class='nav-link {{$loop->index ==  0 ? "active" :""}}'
-                    id="v-pills-{{$loop->index}}-tab"
-                    data-bs-toggle="pill"
-                    href="#v-pills-{{$loop->index}}"
-                    role="tab"
-                    aria-controls="v-pills-{{$loop->index}}"
-                    aria-selected="true">
-                    <div class="feature-card-item">
-                      <span>
-                        <i class="{{$element->value->icon}}"></i>
-                      </span>
-                      <div>
-                        <h4>
-                           {{$element->value->title}}
-                        </h4>
-                        <p>
-                          {{$element->value->sub_title}}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-              @endforeach
-            </div>
-          </div>
-
-          <div class="col-xl-8 col-lg-8">
-            <div
-              class="tab-content text-muted"
-              id="v-pills-tabContent">
-
-                @foreach ($featureElements as  $element)
-                    <div class='tab-pane fade {{$loop->index  == 0 ? "show active" :"" }} ' id="v-pills-{{$loop->index}}" role="tabpanel"
-                      aria-labelledby="v-pills-{{$loop->index}}-tab">
-                      {{-- <div class="row g-4 align-items-xxl-start align-items-center">
-                          <div class="col-xxl-8 col-xl-7">
-                              @foreach (@get_appearance()->feature->element->images as  $key => $val)
-                                @php
-                                    $file =  $element->file->where("type",$key)->first();
-                                @endphp
-                                <div class="platform-content-img">
-                                  <img
-                                    src='{{imageUrl(@$file,"frontend",true,$val->size)}}'
-                                    alt="{{@$file->name}}"
-                                    loading="lazy"/>
-                                </div>
-                              @endforeach
-
-                          </div>
-
-                          <div class="col-xxl-4 col-xl-5">
-                              @php  echo  $element->value->description   @endphp
-                          </div>
-                      </div> --}}
-
-                      <div class="feature-tab-body">
-                            @foreach (@get_appearance()->feature->element->images as  $key => $val)
-                                @php
-                                    $file =  $element->file->where("type",$key)->first();
-                                @endphp
-                                <div class="platform-content-img">
-                                  <img
-                                    src='{{imageUrl(@$file,"frontend",true,$val->size)}}'
-                                    alt="{{@$file->name}}"
-                                    loading="lazy"/>
-                                </div>
-                              @endforeach
-
-                            @php  echo  $element->value->description   @endphp
-                      </div>
-                    </div>
-                @endforeach
-            </div>
-          </div>
-        </div>
       </div>
+      <div class="row align-items-center">
+          <div class="col-lg-5">
+              @if($featureElements->count() > 0)
+                  <div class="faq-wrap-two">
+                      <div class="accordion" id="featureAccordion">
+
+                        @foreach ($featureElements as $feature )
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button {{$loop->index != 0 ? 'collapsed' :''}}" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-feature-{{$loop->index}}" aria-expanded="true" aria-controls="collapse-feature-{{$loop->index}}">
+                                        {{$feature->value->title}}
+                                    </button>
+                                </h2>
+                                <div id="collapse-feature-{{$loop->index}}" class="accordion-collapse collapse {{$loop->index == 0 ? 'show' :''}} "
+                                    data-bs-parent="#featureAccordion">
+                                    <div class="accordion-body">
+                                        {{$feature->value->description}}
+                                    </div>
+                                </div>
+                            </div>
+          
+                        @endforeach
+                      
+                      
+                      </div>
+                  </div>
+              @else
+                   @include("frontend.partials.not_found")
+              @endif
+          </div>
+          <div class="col-lg-7">
+              <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}">
+          </div>
+      </div>
+  </div>
 </section>

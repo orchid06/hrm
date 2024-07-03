@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,24 +12,26 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('ai_templates', function (Blueprint $table) {
             $table->id();
             $table->string('uid',100)->index()->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('sub_category_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->string('name',100)->unique();
-            $table->string('slug',100)->unique();
+            $table->unsignedBigInteger('category_id')->index()->nullable()->constrained(table: 'categories');
+            $table->unsignedBigInteger('sub_category_id')->index()->nullable()->constrained(table: 'categories');
+            $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');
+            $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');
+            $table->string('name',191)->index()->unique();
+            $table->string('slug',191)->index()->unique();
             $table->string('icon',100);
             $table->text('description');
             $table->longText('prompt_fields')->nullable();
             $table->text('custom_prompt')->nullable();
             $table->integer('total_words')->default(0);
-            $table->enum('status',[0,1])->comment('Active : 1,Inactive : 0');
-            $table->enum('is_default',[0,1])->comment('Yes : 1,No : 0');
+            $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->index()->comment('Active : 1,Inactive : 0');
+            $table->enum('is_default',array_values(StatusEnum::toArray()))->index()->comment('Yes : 1,No : 0');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

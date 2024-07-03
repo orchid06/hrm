@@ -1,6 +1,6 @@
 @php
    $content             = get_content("content_why_us")->first();
-   $elemets             = get_content("element_why_us");
+   $elements             = get_content("element_why_us");
 @endphp
 
 
@@ -33,7 +33,7 @@
         <div class="col-lg-7 ps-4 ps-lg-3 ps-0">
           <div class="row g-4 justify-content-center">
 
-            @foreach ($elemets  as $element)
+            @foreach ($elements  as $element)
 
 
               <div class="col-md-6">

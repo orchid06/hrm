@@ -84,10 +84,10 @@
                     </div>
                     <div class="col-12">
                         <div class="form-inner">
-                            <label for="description">
+                            <label for="note">
                                 {{translate('Notes')}}
                             </label>
-                            <textarea  placeholder="{{translate('Enter Description Notes')}}" name="description" id="description" cols="3" rows="3">{{old("description")}}</textarea> 
+                            <textarea  placeholder="{{translate('Enter Description Notes')}}" name="note" id="note" cols="3" rows="3">{{old("note")}}</textarea> 
                         </div>
                     </div>
                     <div class="col-12 mb-20">
@@ -113,7 +113,6 @@
         (function($){
             "use strict";
           
-
 
             $(document).on('click','#addNew',function () {
                 var form = `

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -17,13 +17,13 @@
 
         <div>
           <button
-            class="icon-btn icon-btn-lg info circle"
+            class="icon-btn icon-btn-lg solid-info circle"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#tableFilter"
             aria-expanded="false"
             aria-controls="tableFilter">
-            <i class="bi bi-funnel"></i>
+            <i class="bi bi-sliders"></i>
           </button>
         </div>
       </div>
@@ -40,13 +40,13 @@
                     </div>
 
                     <div class="d-flex gap-2">
-                            <button type="submit" class="i-btn primary btn--lg capsuled">
-                                <i class="bi bi-search"></i>
-                            </button>
+                        <button type="submit" class="i-btn primary btn--lg capsuled">
+                            <i class="bi bi-search"></i>
+                        </button>
 
-                            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
+                        <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
                     </div>
                 </form>
               </div>
@@ -127,7 +127,9 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -140,11 +142,7 @@
 
         });
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
-
+  
 
 
 	})(jQuery);

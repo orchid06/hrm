@@ -43,12 +43,11 @@
                                     @php
                                       $modelTranslations ['default'] = $category->getRawOriginal('title');
                                     
-                                     if( 0 < $category->translations->count()){
-                                         foreach ($category->translations as $translation) {
-
-                                            $modelTranslations[$translation->locale] =  $translation->value;
-                                         }
-                                     }
+                                        if( 0 < $category->translations->count()){
+                                            foreach ($category->translations as $translation) {
+                                                $modelTranslations[$translation->locale] =  $translation->value;
+                                            }
+                                        }
                                     
                                    @endphp
                                     @foreach($sortedArray as $code)
@@ -125,7 +124,7 @@
                                     @foreach (App\Enums\CategoryDisplay::toArray() as $k => $v )
                                         <input id="{{ $k }}" @if($category->display_in == $v ) checked  @endif value="{{ $v }}" class="form-check-input" name="display_in" type="radio">
                                         <label for="{{ $k }}" class="form-check-label me-2">
-                                            {{translate($v == App\Enums\CategoryDisplay::Article->value ? "Blog" :$k)}}
+                                            {{translate($k)}}
 
                                         </label>
                                     @endforeach

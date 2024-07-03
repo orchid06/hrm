@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\AccountType;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,24 +13,26 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::create('social_accounts', function (Blueprint $table) {
-            
             $table->id();
             $table->string('uid',100)->index()->nullable();
-            $table->unsignedBigInteger('platform_id');
-            $table->unsignedBigInteger('subscription_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->string('name',155)->nullable();
-            $table->string('account_id',191)->nullable();
+            $table->unsignedBigInteger('platform_id')->index()->constrained(table: 'media_platforms');
+            $table->unsignedBigInteger('subscription_id')->index()->nullable()->constrained(table: 'subscriptions');
+            $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');
+            $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');
+            $table->string('name',155)->index()->nullable();
+            $table->string('account_id',191)->index()->nullable();
             $table->text('account_information')->nullable();
-            $table->enum('status',[0,1])->default(1)->comment('Disconnected: 0, Connected: 1');
-            $table->enum('is_official',[0,1])->default(1)->comment('Yes: 1, No: 1');
-            $table->enum('is_connected',[0,1])->default(1)->comment('Yes: 1, No: 1');
-            $table->enum('account_type',[0,1,2])->comment('Profile: 0, Page: 1 ,Group:2');
+            $table->enum('status',array_values(StatusEnum::toArray()))->index()->default(StatusEnum::true->status())->comment('Disconnected: 0, Connected: 1');
+            $table->enum('is_official',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Yes: 1, No: 1');
+            $table->enum('is_connected',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Yes: 1, No: 1');
+            $table->enum('account_type',array_values(AccountType::toArray()))->comment('Profile: 0, Page: 1 ,Group:2');
             $table->string('details',255)->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

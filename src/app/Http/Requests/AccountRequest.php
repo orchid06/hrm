@@ -34,13 +34,13 @@ class AccountRequest extends FormRequest
             'platform_id'  => ["required","exists:media_platforms,id"],
             'account_type' => ["required", Rule::in(AccountType::toArray())],
             "group_id"     => [Rule::requiredIf(function () use( $platform ) {
-                    if(request()->input("account_type") == AccountType::Group->value ) {
+                    if(request()->input("account_type") == AccountType::GROUP->value ) {
                         return true;
                     }
                     return false;
                 })],
             "page_id"  => [Rule::requiredIf(function ()  use( $platform ) {
-                    if(request()->input("account_type") == AccountType::Page->value ) {
+                    if(request()->input("account_type") == AccountType::PAGE->value ) {
                         return true;
                     }
 

@@ -1,10 +1,28 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('KYC Statistics (Current Year)')}}
+                    </h4>
+               </div>
+                <div class="card-body">
+                    <div class="row g-2 text-center mb-5">
+                        @include('admin.partials.summary',['style' => 'card','col' => 3])
+                    </div>
+                    <div id="kyc-report"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="i-card-md">
         <div class="card-body">
@@ -87,6 +105,9 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                    <div>
+                                        {{ diff_for_humans($report->created_at)  }}
+                                    </div>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -94,7 +115,7 @@
                                     </a>
                                 </td>
                                 <td  data-label='{{translate("Status")}}'>
-                                    @php echo  withdraw_status($report->status)  @endphp
+                                    @php echo  kyc_status($report->status)  @endphp
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
@@ -103,7 +124,7 @@
                                     </div>
                                 </td>
                            </tr>
-                            @empty
+                        @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
@@ -123,7 +144,10 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -132,17 +156,82 @@
 
         "use strict";
         
-        $(".user").select2({
+        $(".user").select2({});
+        $(".status").select2({});
 
-        });
-        $(".status").select2({
+        var options = {
+            series: [
+            {
+              name: "{{ translate('Total Log') }}",
+              data: @json(array_column($graph_data , 'total')),
+            },
+            {
+              name: "{{ translate('Approved Log') }}",
+              data: @json(array_column($graph_data , 'approved')),
+            },
+            {
+              name: "{{ translate('Pending Log') }}",
+              data: @json(array_column($graph_data , 'pending')),
+            },
+            {
+              name: "{{ translate('Rejected Log') }}",
+              data: @json(array_column($graph_data , 'rejected')),
+            },
+         
+          
+          ],
+          chart: {
+          type: 'bar',
+          height: 350,
+          stacked: true,
+          toolbar: {
+            show: true
+          },
+          zoom: {
+            enabled: true
+          }
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              offsetX: -10,
+              offsetY: 0
+            }
+          }
+        }],
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            borderRadius: 10,
+            borderRadiusApplication: 'end', 
+            borderRadiusWhenStacked: 'last', 
+            dataLabels: {
+              total: {
+                enabled: true,
+                style: {
+                  fontSize: '13px',
+                  fontWeight: 900
+                }
+              }
+            }
+          },
+        },
+        xaxis: {
+            categories: @json(array_keys($graph_data)),
+        },
+        legend: {
+          position: 'right',
+          offsetY: 40
+        },
+        fill: {
+          opacity: 1
+        }
+        };
 
-        });
-
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+        var chart = new ApexCharts(document.querySelector("#kyc-report"), options);
+        chart.render();
 
 	})(jQuery);
 

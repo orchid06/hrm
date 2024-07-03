@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
-use App\Models\Core\File;
 use App\Models\MediaPlatform;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Traits\ModelAction;
 use App\Traits\Fileable;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 class PlatformController extends Controller
@@ -96,24 +95,14 @@ class PlatformController extends Controller
             $platform->save();
 
             if($request->hasFile('image')){
-
-                $oldFile = $platform->file()->where('type','feature')->first();
-                $response = $this->storeFile(
+                $oldFile = $platform->file()->where('type',FileKey::FEATURE->value)->first();
+                $this->saveFile($platform ,$this->storeFile(
                     file        : $request->file('image'), 
                     location    : config("settings")['file_path']['platform']['path'],
                     removeFile  : $oldFile
-                );
+                    )
+                    ,FileKey::FEATURE->value);
 
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $platform->file()->save($image);
-                }
             }
         });
       

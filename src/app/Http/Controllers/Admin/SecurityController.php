@@ -69,9 +69,9 @@ class SecurityController extends Controller
             'breadcrumbs'  => ['Home'=>'admin.home','Countries'=> null],
             'title'        => 'Manage Country',
             'countries'    => Country::withCount(['ip'])->search(['name','code'])->filter(["is_blocked"])
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all())
+                                                ->latest()
+                                                ->paginate(paginateNumber())
+                                                ->appends(request()->all())
 
         ]);
     }
@@ -183,7 +183,6 @@ class SecurityController extends Controller
 
 
     public function ipDestroy(string | int $id) :RedirectResponse{
-
         Visitor::where('id',$id)->delete();
         return  back()->with(response_status('Item deleted succesfully'));
     }
@@ -200,7 +199,6 @@ class SecurityController extends Controller
         try {
             $response =  $this->bulkAction($request,[
                 "model"        => new Visitor(),
-               
             ]);
     
         } catch (\Exception $exception) {

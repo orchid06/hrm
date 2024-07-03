@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
 use App\Traits\ModelAction;
 
 class CommunicationsController extends Controller

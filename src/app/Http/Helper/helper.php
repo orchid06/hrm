@@ -3,6 +3,7 @@
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\DepositStatus;
+use App\Enums\KYCStatus;
 use App\Enums\PlanDuration;
 use App\Enums\PostStatus;
 use App\Enums\PostType;
@@ -187,13 +188,9 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('get_appearance')) {
       
       function get_appearance(bool $is_arr = false , bool $sortable = true) {
-
          $sectionJson = resource_path('views/partials/appearance.json');
          $appearances = json_decode(file_get_contents($sectionJson), $is_arr ? true :false);
-         if ($is_arr && $sortable) {
-             ksort($appearances);
-         }
-         
+         if ($is_arr && $sortable)  ksort($appearances);
          return $appearances;
       }
    }
@@ -211,8 +208,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('paginateNumber')) {
-      function paginateNumber(){
-         return site_settings('pagination_number');
+      function paginateNumber(int $default = 10){
+         return site_settings('pagination_number' ,$default);
       }
    }
 
@@ -263,12 +260,24 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('sortByMonth')) {
-      function sortByMonth(array $data , bool $numFormat = false) :array{
+      function sortByMonth(array $data , bool $numFormat = false , int | array $default  = null) :array{
          $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
          $sortedArray = [];
          foreach($months as $month){
-             $amount =  Arr::get($data,$month,0);
-             $sortedArray[$month] = $numFormat ? currency_conversion(number :round($amount)) :round($amount);
+             $amount =  Arr::get($data,$month, $default ?? 0);
+
+             switch (is_array($amount)) {
+               case true:
+                  $amount = collect($amount)->map(fn(int | float $value, string $key)  :int | float => 
+                            $numFormat ? currency_conversion(number :round($value)) : round($value) )->all();
+                  break;
+               
+               default:
+                  $amount = $numFormat ? currency_conversion(number :round($amount)) : round($amount);
+                  break;
+             }
+
+             $sortedArray[$month] =  $amount;
          }
          return $sortedArray;
       }
@@ -314,8 +323,13 @@ use Illuminate\Database\Eloquent\Collection;
 
       function convert_to_base(int | float $amount , int $precision = null , ? Currency $currency =  null ) :int | float{
 
-         $fromRate    = session()->get("currency") ? session()->get("currency")->exchange_rate :0;
+
+         $fromRate    = $currency 
+                              ? $currency->exchange_rate 
+                              : session()->get("currency")->exchange_rate;
+
          $amountInUSD = $amount / $fromRate;
+
          return  round_amount( $amountInUSD ,$precision?? (int)site_settings('num_of_decimal'));
 
       }
@@ -785,20 +799,24 @@ use Illuminate\Database\Eloquent\Collection;
 		}
 	}
 
-   if (!function_exists('get_admin')){
-		function get_admin():Admin
-		{
+   if (!function_exists('get_superadmin')){
+
+      /**
+       * Get superadmin
+       *
+       * @return Admin
+       */
+		function get_superadmin(): Admin{
 			return Admin::where('super_admin',StatusEnum::true->status())->first();
 		}
 	}
 
 
-   if (!function_exists('imageUrl')){
+   if (!function_exists('imageURL')){
 
-      function imageUrl(mixed $file , string $path, bool $size = false ,?string $foreceSize = null) :string {
-
+      function imageURL(mixed $file , string $path, bool $size = false ,?string $foreceSize = null) :string {
          $helper = new HelperClass();
-         return $helper->getImageUrl($file, $path, $size , $foreceSize);
+         return $helper->getimageURL($file, $path, $size , $foreceSize);
       }
 
    }
@@ -903,9 +921,9 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            SubscriptionStatus::Running->value     => "success",
-            SubscriptionStatus::Expired->value     => "danger",
-            SubscriptionStatus::Inactive->value    => "warning",
+            SubscriptionStatus::RUNNING->value     => "success",
+            SubscriptionStatus::EXPIRED->value     => "danger",
+            SubscriptionStatus::INACTIVE->value    => "warning",
          ];
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(SubscriptionStatus::toArray()) ,$status , 'Pending')));
@@ -956,8 +974,29 @@ use Illuminate\Database\Eloquent\Collection;
 		}
    }
 
+
+   if (!function_exists('kyc_status')){
+		function kyc_status(mixed  $status) :string
+		{
+
+         $badges  = [
+            
+            KYCStatus::REQUESTED->value   => "warning",
+            KYCStatus::APPROVED->value     => "success",
+            KYCStatus::REJECTED->value     => "danger",
+      
+         ];
+
+         $class    = Arr::get($badges , $status , 'info');
+         $status   = ucfirst(t2k(Arr::get(array_flip(KYCStatus::toArray()) ,$status , 'Requested')));
+         return "<span class=\"i-badge $class\">$status</span>";
+         
+		}
+   }
+
+
    if (!function_exists('plan_duration')){
-		function plan_duration(mixed  $status) :string
+		function plan_duration(string|int $status) :string
 		{
 
          $badges  = [
@@ -983,9 +1022,9 @@ use Illuminate\Database\Eloquent\Collection;
 
          $badges  = [
             
-            AccountType::Profile->value      => "info",
-            AccountType::Page->value         => "success",
-            AccountType::Group->value        => "warning",
+            AccountType::PROFILE->value      => "info",
+            AccountType::PAGE->value         => "success",
+            AccountType::GROUP->value        => "warning",
       
          ];
 
@@ -1020,10 +1059,10 @@ use Illuminate\Database\Eloquent\Collection;
 
          $badges  = [
             
-            PostStatus::Schedule->value       => "warning",
-            PostStatus::Failed->value         => "danger",
-            PostStatus::Success->value        => "success",
-            PostStatus::Pending->value        => "info",
+            PostStatus::SCHEDULE->value       => "warning",
+            PostStatus::FAILED->value         => "danger",
+            PostStatus::SUCCESS->value        => "success",
+            PostStatus::PENDING->value        => "info",
       
          ];
 
@@ -1113,10 +1152,8 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('get_content')){
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
         
-         $frontends = Cache::remember('frontend_content',24 * 60, function ()   {
-            return Frontend::with('file')->active()->get();
-         });
-
+         $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')->active()->get());
+         
          return ($frontends->where("key", $key));
       }
    }
@@ -1229,6 +1266,39 @@ use Illuminate\Database\Eloquent\Collection;
      }
    }
 
+
+
+   if (!function_exists('array_to_object')){
+
+
+      /**
+       * Convert array to object
+       *
+       * @param array $payload
+       * @return object
+       */
+      function array_to_object(array $payload): object{
+         return (object) $payload;
+      }
+   }
+
+
+
+
+   
+   if (!function_exists('get_appearance_img_size')){
+
+
+      /**
+       * Convert array to object
+       *
+       * @param array $payload
+       * @return object
+       */
+      function get_appearance_img_size(string $sectionKey, string $type, string $imgKey): string{
+         return (@get_appearance()->{$sectionKey}->{$type}->images->{$imgKey}->size);
+      }
+   }
 
    
 

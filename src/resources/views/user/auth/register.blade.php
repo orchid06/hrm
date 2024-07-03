@@ -40,12 +40,12 @@
            @include("user.partials.auth_slider")
 
 
-          <div class="col-xl-8 col-lg-7 order-lg-1 order-0">
+          <div class="col-xl-7 col-lg-7">
             <div class="auth-right">
               <div class="auth-content">
                 <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
 
-                  <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                  <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
 
                 </a>
 
@@ -64,7 +64,8 @@
                 <div class="row gy-3 gx-xl-4 gx-3 mb-2">
                     <div class="col-md-6">
                         <div class="auth-input">
-                            <input required type="text" value="{{old('name')}}" name="name" placeholder="{{translate('Enter your name')}}" />
+                            <label for="fullName">Enter Name</label>
+                            <input required type="text" value="{{old('name')}}" name="name" id="fullName" placeholder="{{translate('Enter your name')}}" />
                             <span class="auth-input-icon">
                                 <i class="bi bi-person"></i>
                             </span>
@@ -73,7 +74,8 @@
 
                      <div class="col-md-6">
                           <div class="auth-input">
-                              <input required type="text" value="{{old('username')}}" name="username" placeholder="{{translate('Enter your username')}}" />
+                              <label for="userName">Enter Username</label>
+                              <input required type="text" id="userName" value="{{old('username')}}" name="username" placeholder="{{translate('Enter your username')}}" />
                               <span class="auth-input-icon">
                                   <i class="bi bi-person"></i>
                               </span>
@@ -82,7 +84,8 @@
 
                      <div class="col-md-6">
                         <div class="auth-input">
-                            <input required type="email" value="{{old('email')}}" name="email" placeholder="{{translate('Enter your email')}}"/>
+                            <label for="email">Enter Email</label>
+                            <input required type="email" value="{{old('email')}}" id="email" name="email" placeholder="{{translate('Enter your email')}}"/>
                             <span class="auth-input-icon">
                                 <i class="bi bi-envelope"></i>
                             </span>
@@ -91,18 +94,17 @@
 
                     <div class="col-md-6">
                         <div class="auth-input">
-                          <input required type="text" value="{{old('phone')}}"   name="phone" placeholder="{{translate('Enter your phone')}}"/>
+                          <label for="phone">Enter Phone</label>
+                          <input required type="text" value="{{old('phone')}}" id="phone"  name="phone" placeholder="{{translate('Enter your phone')}}"/>
                           <span class="auth-input-icon">
                             <i class="bi bi-telephone"></i>
                           </span>
                         </div>
                     </div>
-                  
-                
 
                     <div class="col-12">
                         <div class="auth-input">
-
+                                <label for="email">Country</label>
                                 <select class="select-two" name="country_id" id="country_id">
                                     <option value="">
                                         {{translate("Select country")}}
@@ -123,7 +125,8 @@
 
                      <div class="col-md-6">
                         <div class="auth-input">
-                            <input name="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" autocomplete="new-password" />
+                            <label for="password">Enter Password</label>
+                            <input name="password" required type="password" id="password"  placeholder="{{translate('Password')}}" class="toggle-input" autocomplete="new-password" />
                             <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
                             </span>
@@ -132,7 +135,8 @@
 
                      <div class="col-md-6">
                         <div class="auth-input">
-                            <input name="password_confirmation" required type="password" placeholder="{{translate('Confrim password')}}" class="toggle-input" />
+                            <label for="conPassword">Confirm Password</label>
+                            <input name="password_confirmation" id="conPassword" required type="password" placeholder="{{translate('Confrim password')}}" class="toggle-input" />
                             <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
                             </span>
@@ -174,7 +178,7 @@
                     </div>
                    @endif
                     <div>
-                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--secondary btn--lg capsuled w-100"
+                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--primary-2 btn--lg capsuled w-100"
                             data-sitekey="{{$googleCaptcha->key}}"
                             data-callback='onSubmit'
                             data-action='register'

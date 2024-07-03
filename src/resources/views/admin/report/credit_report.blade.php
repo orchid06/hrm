@@ -1,10 +1,27 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
+    <div class="row mb-4">
+        <div class="col-lg-9">
+            <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Credit Report (Current Year)')}}
+                    </h4>
+               </div>
+                <div class="card-body">
+                    <div id="credit-report"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+                @include('admin.partials.summary')
+        </div>
+    </div>
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -64,7 +81,7 @@
                                         </select>
                                     </div>
                                     <div class="form-inner">
-                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                                     </div>
                                     <button class="i-btn btn--md info w-100">
                                         <i class="las la-sliders-h"></i>
@@ -97,7 +114,7 @@
                                 {{translate('User')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
                                 {{translate('Credit')}}
@@ -124,14 +141,21 @@
                                     </td>
                                     <td data-label="{{translate('Date')}}">
                                         {{ get_date_time($report->created_at) }}
+                                          <div>
+                                               {{ diff_for_humans($report->created_at)}}
+                                          </div>
                                     </td>
                                     <td data-label="{{translate('User')}}">
                                         <a href="{{route('admin.user.show',$report->user->uid)}}">
-                                            {{$report->user->name}}
+                                            {{$report?->user->name}}
                                         </a>
                                     </td>
                                     <td  data-label="{{translate('Trx Code')}}">
-                                          {{$report->trx_code}}
+                                        <span class="trx-number me-1">
+                                            {{$report->trx_code}}
+                                        </span>
+
+                                        <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                     </td>
                                     <td  data-label="{{translate('Credit')}}">
                                         <span class='text--{{$report->type == App\Models\Transaction::$PLUS ? "success" :"danger" }}'>
@@ -151,27 +175,26 @@
                                         @endif
                                     </td>
                                     <td  data-label='{{translate("Remark")}}'>
-                                            {{k2t($report->remark)}}
+                                            {{k2t($report->remarks)}}
                                     </td>
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
-                                            <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                             @if(check_permission('delete_report') )
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.credit.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.credit.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a> 
-                                            @else
-                                                {{translate('N/A')}}
+                                 
                                             @endif
                                         </div>
                                     </td>
                                </tr>
                             @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                    </td>
+                                </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -209,10 +232,14 @@
             </div>
         </div>
     </div>
+    
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+     <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -221,20 +248,11 @@
 
          "use strict";
 
-        $(".select2").select2({
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".type").select2({});
 
-        });
-        $(".user").select2({
-
-        });
-        $(".type").select2({
-
-        });
-
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+     
 
         $(document).on('click','.show-info',function(e){
 
@@ -246,6 +264,50 @@
 
             modal.modal('show')
         });
+
+
+
+        var  colors = ['var(--color-success)'];
+
+        var labels = @json(array_keys($graph_data));
+        var data   = @json(array_values($graph_data));
+
+        var options = {
+            series: [{
+                name: "{{ translate('Total log') }}",
+                data: data
+            }],
+            chart: {
+                height: 303,
+                type: 'line',
+                events: {
+                    click: function(chart, w, e) {
+                    }
+                }
+            },
+            colors: colors,
+          
+            dataLabels: {
+                enabled: false
+            },
+
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: labels,
+                labels: {
+                    style: {
+                        colors: colors,
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#credit-report"), options);
+        chart.render();
+ 
 
 	})(jQuery);
 </script>

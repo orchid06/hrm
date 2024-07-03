@@ -7,7 +7,7 @@ use App\Http\Services\FrontendService;
 use App\Models\Admin\Category;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
-use App\Models\Article as Blog;
+use App\Models\Blog;
 use App\Models\Package;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
@@ -45,17 +45,21 @@ class FrontendController extends Controller
      */
     public function blog() :View{
 
+        $blogContent  = get_content("content_blog")->first();
         return view('frontend.blogs',[
             'meta_data'   => $this->metaData([
-                "title"   => trans('default.blogs')
+                "title"    => trans('default.blogs')
             ]),
 
-            'blogs'       => Blog::search(['title'])
-                                ->filter(['category:slug'])
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
-            "categories"  => Category::active()->whereHas("articles")->get(),
-            'menu'        => Menu::where('url',$this->lastSegment)->active()->firstOrfail()
+            'blogs'        => Blog::search(['title'])
+                                            ->filter(['category:slug'])
+                                            ->paginate(paginateNumber())
+                                            ->appends(request()->all()),
+                                            
+            'menu'         => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
+
+            'breadcrumbs'  => ['Home'=>'home',"Blogs" => null],
+            'banner'       => (object) ['title' => $blogContent->value->sub_title , 'description' => $blogContent->value->description]
         ]);
     }
 
@@ -71,15 +75,15 @@ class FrontendController extends Controller
                             ->firstOrfail();
 
         $relatedBlogs  = Blog::active()
-                          ->where("category_id",$blog->category_id)
-                          ->where('id','!=',$blog->id)
-                          ->take(4)
-                          ->get();
+                                ->where("category_id",$blog->category_id)
+                                        ->where('id','!=',$blog->id)
+                                        ->take(6)
+                                        ->get();
 
         $metaData = [
             "title"               =>  $blog->meta_title,
-            "og_image"            =>  imageUrl(@$blog->file,"article",true),
-            "img_size"            =>  config("settings")['file_path']['article']['size'],
+            "og_image"            =>  imageURL(@$blog->file,"blog",true),
+            "img_size"            =>  config("settings")['file_path']['blog']['size'],
             "meta_description"    =>  $blog->meta_description,
             "meta_keywords"       =>  (array) $blog->meta_keywords,
         ];
@@ -88,6 +92,8 @@ class FrontendController extends Controller
             'meta_data'         => $this->metaData($metaData),
             'blog'              => $blog,
             'related_blogs'     => $relatedBlogs,
+            'breadcrumbs'      => ['Home'=>'home',"Blogs" => 'blog',$blog->title => null],
+            'banner'           => (object) ['title' => $blog->title , 'description' => limit_words(strip_tags($blog->description),100)]
         ]);
   
     }
@@ -122,7 +128,7 @@ class FrontendController extends Controller
 
 
         $page          = Page::active()->where('slug',$slug)
-                          ->firstOrfail();
+                                          ->firstOrfail();
 
         $metaData = [
             "title"               =>  $page->meta_title,
@@ -131,8 +137,11 @@ class FrontendController extends Controller
         ];
 
         return view('frontend.page',[
-            'meta_data'   => $this->metaData($metaData),
-            'page'        => $page,
+            'meta_data'    => $this->metaData($metaData),
+            'page'         => $page,
+            'breadcrumbs'  =>  ['Home'=>'home',$page->title => null],
+            'banner'       => (object) ['title' => $page->title , 'description' => limit_words(strip_tags($page->description),100)]
+
         ]);
     }
 

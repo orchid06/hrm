@@ -29,7 +29,6 @@ class CategoryService
             $category                   = new Category();
             $category->parent_id        = $request->input('parent_id');
             $category->title            = Arr::get($request->input('title'),'default','');
-            $category->is_feature       = $request->has('is_feature') ? $request->input('is_feature') : StatusEnum::false->status();
             $category->display_in       = $request->input('display_in');
             $category->icon             = $request->input('icon');
             $category->description      = $request->input('description');

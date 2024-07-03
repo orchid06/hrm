@@ -20,7 +20,6 @@
         };
         reader.readAsDataURL(file);
       });
-
   }
 
   var uploadedFiles = [];
@@ -30,7 +29,7 @@
     fileInput = this;
     uploadedFiles = Array.from(uploadedFiles);
     handleFileUpload(fileInput.files);
-    handelFilePreview(fileInput.files);
+    // handelFilePreview(fileInput.files);
     uploadedFiles = createFileList(uploadedFiles);
     fileInput.files = uploadedFiles;
   });
@@ -57,7 +56,6 @@
       fileInput.files = newFileList.files;
       handelFilePreview(uploadedFiles);
   })
-
 
 
   function handelFilePreview(files) {

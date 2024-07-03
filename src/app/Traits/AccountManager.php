@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Enums\AccountType;
 use App\Enums\StatusEnum;
 use App\Http\Services\UserService;
 use App\Models\CreditLog;
@@ -10,15 +9,9 @@ use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
 use App\Models\Transaction;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Cookie\CookieJar;
-use Illuminate\Support\Facades\Artisan;
+
 
 trait AccountManager
 {

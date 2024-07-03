@@ -48,10 +48,10 @@ class LanguageController extends Controller
             'title'         =>  translate("Manage Language"),
             'breadcrumbs'   =>  ['home'=>'admin.home','language'=> null],
             'languages'     =>  Language::with(['updatedBy','createdBy'])
-                                ->search(['name','code'])
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
+                                        ->search(['name','code'])
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
             'countryCodes'  =>  json_decode(file_get_contents(resource_path(config('constants.options.country_code')) . 'countries.json'),true)
         ]);
     }
@@ -103,7 +103,6 @@ class LanguageController extends Controller
             $response['status']    = true;
             $response['message']   = translate('Updated Successfully');
             if(session()->get('locale') == $language->code || $language->is_default == (StatusEnum::true)->status()){
-
                 $response['status']  = false;
                 $response['message'] = translate('System Current and default language Status Can not be Updated');
             }

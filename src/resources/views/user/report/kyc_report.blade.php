@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
 
 <div class="row">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-lg-12 mx-auto">
         <div>
             <div
               class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
@@ -17,13 +17,13 @@
 
               <div>
                 <button
-                  class="icon-btn icon-btn-lg info circle"
+                  class="icon-btn icon-btn-lg solid-info circle"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#tableFilter"
                   aria-expanded="false"
                   aria-controls="tableFilter">
-                  <i class="bi bi-funnel"></i>
+                  <i class="bi bi-sliders"></i>
                 </button>
               </div>
             </div>
@@ -44,7 +44,7 @@
                                   <option value="">
                                       {{translate('Select status')}}
                                   </option>
-                                  @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
+                                  @foreach(App\Enums\KYCStatus::toArray() as $k => $v)
                                       <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">
                                           {{ucfirst(t2k($k))}}
                                      </option>
@@ -83,8 +83,8 @@
                                           <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                               <div class="col-lg-6 col-sm-4 col-12">
                                                   <div class="table-accordion-header transfer-by">
-                                                      <span class="icon-btn icon-btn-sm info circle">
-                                                          <i class="bi bi-arrow-up-left"></i>
+                                                      <span class="icon-btn icon-btn-sm primary circle">
+                                                          <i class="bi bi-file-text"></i>
                                                       </span>
                                                       <div>
                                                           <h6>
@@ -100,7 +100,7 @@
                                                       <h6>
                                                           {{translate("Status")}}
                                                       </h6>
-                                                      @php echo withdraw_status($report->status) @endphp
+                                                      @php echo kyc_status($report->status) @endphp
                                                   </div>
                                               </div>
                                           </div>
@@ -126,7 +126,7 @@
                                                       </h6>
 
                                                       <div class="report-img">
-                                                          <img src='{{imageUrl($file,"kyc",true)}}'
+                                                          <img src='{{imageURL($file,"kyc",true)}}'
                                                           alt="{{ @$file->name }}">
                                                       </div>
                                                   </li>
@@ -158,7 +158,9 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -170,13 +172,6 @@
         $(".status").select2({
 
         });
-
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
-
-
 
 	})(jQuery);
 </script>

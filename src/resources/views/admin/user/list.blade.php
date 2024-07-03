@@ -102,6 +102,7 @@
                     </thead>
                     <tbody>
                         @forelse($users  as $user)
+                          
                             <tr>
                                 <td data-label="#">
                                     @if( check_permission('update_user') )
@@ -111,11 +112,10 @@
                                 </td>
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"  src='{{imageUrl($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
+                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
-                                        @if($user->subscriptions->count() > 0)
-                                       
-                                            <small class="i-badge success">{{@$user->subscriptions->first()->package->title}}</small>
+                                        @if($user->runningSubscription)
+                                            <small data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Running Plan")}}" class="i-badge success">{{@$user->runningSubscription?->package->title}}</small>
                                         @endif
                                     </div>
                                 </td>
@@ -123,7 +123,7 @@
                                     <div class="d-block">
                                         {{$user->email}} 
                                     </div>
-                                    <span class="i-badge success">{{$user->phone}}</span>
+                                    <span class="i-badge info">{{$user->phone}}</span>
                                 </td>
                                 <td  data-label="{{translate('Country')}}">
                                     {{$user->country->name}}
@@ -136,7 +136,7 @@
                                     )}} @endif</span>
                                 </td>
                                 <td data-label="{{translate('Created By')}}">
-                                    <span class="i-badge capsuled info">
+                                    <span class="i-badge capsuled success">
                                         {{$user->createdBy->name}}
                                     </span>
                                 </td>
@@ -156,12 +156,18 @@
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a title="{{translate('Show')}}"  href="{{route('admin.user.show', $user->uid)}}"  data-toggle="tooltip" data-placement="top" title="{{translate('Update/Show')}}" class="icon-btn info"><i class="las la-pen"></i></a>
-                                                <a title="{{translate('Login')}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success" data-toggle="tooltip" data-placement="top" title="{{translate('Login')}}"><i class="las la-sign-in-alt"></i></a>
+                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Show")}}" class="icon-btn info"><i class="las la-eye"></i>
+                                                
+                                                </a>
+
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Login")}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success">
+                                                    <i class="las la-sign-in-alt"></i>
+                                                </a>
+
                                             @endif
 
                                             @if(check_permission('delete_user'))
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
+                                                <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                             @endif
                                         @else
@@ -189,6 +195,7 @@
 
 @section('modal')
     @include('modal.delete_modal')
+    
     <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">

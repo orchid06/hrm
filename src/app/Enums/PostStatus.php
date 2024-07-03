@@ -6,10 +6,11 @@ enum PostStatus: int
 {
     use EnumTrait;
 
-    case Pending         = 0;
-    case Success         = 1;
-    case Failed          = 2;
-    case Schedule        = 3;
+    case PENDING         = 0;
+    case SUCCESS         = 1;
+    case FAILED          = 2;
+    case SCHEDULE        = 3;
+
 
 
 

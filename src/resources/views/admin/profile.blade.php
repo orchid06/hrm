@@ -8,7 +8,7 @@
 				<div class="image">
 
 					
-					<img src='{{imageUrl(@$user->file,"profile,admin",true)}}' alt="{{@$user->file->name}}" />
+					<img src='{{imageURL(@$user->file,"profile,admin",true)}}' alt="{{@$user->file->name}}" />
 				</div>
 				<div class="designation">
 				<a href="javascript: void(0);">

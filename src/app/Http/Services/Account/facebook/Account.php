@@ -47,15 +47,15 @@ class Account
             $fields = 'id,name,picture,link';
 
             switch ($type) {
-                case AccountType::Profile->value:
+                case AccountType::PROFILE->value:
                     $api =   $api."/me";
                     $fields = 'id,name,email,picture,link';
                     break;
-                case AccountType::Page->value:
+                case AccountType::PAGE->value:
                     $api =   $api."/".$pageId;
                     break;
 
-                case AccountType::Group->value:
+                case AccountType::GROUP->value:
                     $api =   $api."/".$groupId;
                     break;
             }
@@ -76,10 +76,10 @@ class Account
             }
 
             switch ($type) {
-                case AccountType::Profile->value:
+                case AccountType::PROFILE->value:
                     $identification = Arr::get($apiResponse,'email',null);
                     break;
-                case AccountType::Page->value || AccountType::Group->value:
+                case AccountType::PAGE->value || AccountType::GROUP->value:
                     $identification = Arr::get($apiResponse,'id',null);
                     $fields = 'id,name,picture,link';
                     $link   = $platform->configuration->group_url."/".$identification;
@@ -124,15 +124,15 @@ class Account
 
             $fields = 'full_picture,type,caption,message,permalink_url,link,privacy,created_time';
             switch ($account->account_type) {
-                case AccountType::Profile->value:
+                case AccountType::PROFILE->value:
                     $api =   $api."/me/feed";
                     break;
-                case AccountType::Page->value:
+                case AccountType::PAGE->value:
                     $fields = 'status_type,message,full_picture,created_time,permalink_url';
                     $api    =  $api."/".$account->account_id."/feed";
                     break;
 
-                case AccountType::Group->value:
+                case AccountType::GROUP->value:
                     $api =   $api."/".$account->account_id."/feed";
                 break;
             }
@@ -146,7 +146,7 @@ class Account
 
             $apiResponse       = $apiResponse->json();
 
-            if($account->account_type == AccountType::Page->value) {
+            if($account->account_type == AccountType::PAGE->value) {
                 $since = strtotime('-1 month');
                 $until = strtotime('now');
                 $insightApi = Http::get($baseApi."/".$apiVersion."/".$account->account_id."/insights/page_post_engagements", [
@@ -186,8 +186,6 @@ class Account
            ];
         }
     
-
-
     }
 
 
@@ -213,14 +211,14 @@ class Account
                 $api         =  $baseApi .$apiVersion;
 
                 switch ($account->account_type) {
-                    case AccountType::Profile->value:
+                    case AccountType::PROFILE->value:
                         $api =   $api."/me/feed";
                         break;
-                    case AccountType::Page->value:
+                    case AccountType::PAGE->value:
                         $api    =  $api."/".$account->account_id."/feed";
                         break;
     
-                    case AccountType::Group->value:
+                    case AccountType::GROUP->value:
                         $api =   $api."/".$account->account_id."/feed";
                     break;
                 }
@@ -244,7 +242,7 @@ class Account
 
                         $uploadParams = [
                             'access_token'  => $token,
-                            'url'           => imageUrl($file,"post",true),
+                            'url'           => imageURL($file,"post",true),
                             'published'     => false,
                         ];
         

@@ -5,26 +5,26 @@
         "name": "banner",
         "no_selection": true,
         "content": {
-            
             "images": {
-                "image": {
-                    "size": "1800x1200"
+                "banner_image": {
+                    "size": "900x880"
+                },
+                "title_vector_image": {
+                    "size": "70x58"
                 }
             },
             "title": "text",
-            "motion_text": "text",
-            "motion_button_url": "text",
             "description": "textarea",
-            "button_left_name": "text",
-            "button_left_url": "text",
-            "button_right_name": "text",
-            "button_right_url": "text"
+            "button_name": "text",
+            "button_icon": "icon",
+            "button_URL": "text",
+            "video_URL": "text"
     
         },
         "element": {
             "images": {
                 "image": {
-                    "size": "200x200"
+                    "size": "165x60"
                 }
            
             },
@@ -36,27 +36,31 @@
     "about": {
         "builder": true,
         "name": "about_us",
-        "no_selection": true,
         "content": {
-
-            "images": {
-                "image": {
-                    "size": "1800x1200"
-                }
-           
-            },
             "title": "text",
             "sub_title": "text",
-            "button_name": "text",
-            "button_url": "text",
             "description": "textarea"
     
         },
         "element": {
             "icon": "icon",
-            "name": "text",
+            "title": "text",
+            "description": "textarea",
             "modal": true
         }
+    },
+
+      
+    "about_counter": {
+        "builder": true,
+        "name": "about_counter",
+        "no_selection": true,
+        "element": {
+            "counter_value" : "number",
+            "counter_text"  : "text",
+            "modal": true
+        }
+
     },
 
     "platform": {
@@ -66,7 +70,7 @@
             "title": "text",
             "sub_title": "text",
             "description": "textarea"
-    
+
         },
         "element": {
             "images": {
@@ -83,24 +87,6 @@
         }
     },
     
-    "integration": {
-        "builder": true,
-        "name": "integration_section",
-        "content": {
-
-            "images": {
-                "image": {
-                    "size": "1650x2750"
-                }
-           
-            },
-            "title": "text",
-            "sub_title": "text",
-            "description": "textarea"
-    
-        }
-      
-    },
 
 
     "feature": {
@@ -109,23 +95,66 @@
         "content": {
             "title": "text",
             "sub_title": "text",
-            "description": "textarea"
-    
-        },
-        "element": {
             "images": {
-                "image": {
-                    "size": "1920x1080"
+                "feature_image": {
+                    "size": "880x540"
                 }
            
-            },
-            "icon": "icon",
+            }
+        },
+        "element": {
+          
             "title": "text",
-            "sub_title": "text",
-            "description": "textarea-editor",
+            "description": "textarea",
             "modal": true
         }
     },
+
+
+    "powerful_feature": {
+        "builder": true,
+        "name": "powerful_feature",
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea",
+            "images": {
+                "feature_image": {
+                    "size": "700x700"
+                }
+           
+            }
+        },
+        "element": {
+          
+            "title": "text",
+            "description": "textarea",
+            "modal": true
+        }
+    },
+
+
+    "social_feed": {
+        "builder": true,
+        "name": "social_feed",
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "images": {
+                "feature_image": {
+                    "size": "710x600"
+                }
+        
+            }
+        },
+        "element": {
+        
+            "number": "number",
+            "description": "textarea",
+            "modal": true
+        }
+    },
+
 
 
     "content": {
@@ -146,6 +175,22 @@
     
     },
 
+    
+    "breadcrumb": {
+        "builder": true,
+        "name": "breadcrumb",
+        "no_selection": true,
+        "content": {
+            "images": {
+                "banner_image": {
+                    "size": "1700x500"
+                }
+            }
+
+        }
+
+    },
+
 
     "cookie": {
         "builder": true,
@@ -160,7 +205,7 @@
             "description": "textarea"
     
         }
-    
+
     },
 
     "contact_us": {
@@ -187,16 +232,13 @@
     
     },
 
-
     "template": {
         "builder": true,
         "name": "template_section",
         "content": {
             "title": "text",
-            "sub_title": "text",
-            "description": "textarea"
+            "sub_title": "text"
         }
-    
     },
 
     "analytics": {
@@ -224,7 +266,6 @@
         "builder": true,
         "name": "why_choose_us",
         "content": {
-
             "title": "text",
             "sub_title": "text",
             "button_name": "text",
@@ -232,13 +273,11 @@
             "description": "textarea"
         },
         "element": {
-           
             "icon": "icon",
             "title": "text",
             "description": "textarea",
             "modal": true
         }
-    
     },
     
     "faq": {
@@ -250,9 +289,28 @@
             "description": "textarea"
         },
         "element": {
-            "icon": "icon",
+
             "question": "text",
             "answer"  : "textarea",
+            "modal": true
+        }
+    },
+
+
+    "team": {
+        "builder": true,
+        "name": "team_section",
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "550x395"
+                }
+            },
             "modal": true
         }
     },
@@ -312,12 +370,9 @@
         "content": {
             "title": "text",
             "sub_title": "text",
-            "banner_title": "text",
-            "banner_description": "text",
+            "description": "textarea",
             "button_name": "text",
-            "button_url": "text",
-            "description": "textarea"
-
+            "button_URL": "text"
         }
     },
     
@@ -346,30 +401,8 @@
         }
     },
 
-    "cta": {
-        "builder": true,
-        "no_selection": true,
-        "name": "CTA_section ",
-        "content": {
-            "images": {
-                "image": {
-                    "size": "2800x1200"
-                }
-            },
-            "title": "text",
-            "description": "textarea"
-        },
-        "element": {
-           
-            "button_name": "text",
-            "url": "text",
-            "modal": true
-        
-        }
-    },
 
     "newsletter": {
-
         "builder": true,
         "no_selection": true,
         "name": "newsletter_section ",
@@ -380,6 +413,7 @@
     },
    
     "authentication_section": {
+
         "builder": true,
         "no_selection": true,
         "name": "authentication_section",

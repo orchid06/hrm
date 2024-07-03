@@ -8,6 +8,9 @@
         });
     }
 
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     const fileUploader = document.getElementById('image-preview');
     if (fileUploader) {
         const images = document.querySelector('.preview-images');

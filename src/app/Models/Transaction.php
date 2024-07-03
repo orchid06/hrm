@@ -40,7 +40,8 @@ class Transaction extends Model
     public function currency() :BelongsTo{
 
         return $this->belongsTo(Currency::class,'currency_id','id')->withDefault([
-            'name' => 'N/A',
+            'name'           => 'N/A',
+            'exchange_rate'  => 1,
         ]);
     }
 

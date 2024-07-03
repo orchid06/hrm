@@ -14,7 +14,7 @@ class Template extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'sort_code' => 'object',
+        'template_key' => 'object',
     ];
 
 

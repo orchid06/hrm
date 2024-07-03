@@ -34,18 +34,19 @@ class UserRegisterRequest extends FormRequest
             "country_id"         => ['nullable',"exists:countries,id"],
             'phone'              => ['unique:users,phone'],
             'email'              => ['email','required','unique:users,email'],
-            'password'           => [Password::min(6),"confirmed"],
+            'password'           => ['required',Password::min(6),"confirmed"],
             'terms_condition'    => ["required"],
         ];
 
         if(site_settings('strong_password') == StatusEnum::true->status()){
 
-            $rules['password']    =  ["required","confirmed",Password::min(8)
-                                        ->mixedCase()
-                                        ->letters()
-                                        ->numbers()
-                                        ->symbols()
-                                        ->uncompromised()
+            $rules['password']    =  [
+                                      "required","confirmed",Password::min(8)
+                                                ->mixedCase()
+                                                ->letters()
+                                                ->numbers()
+                                                ->symbols()
+                                                ->uncompromised()
                                     ];
         }
 

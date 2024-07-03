@@ -18,7 +18,6 @@ class CountrySeeder extends Seeder
         DB::table('countries')->truncate();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country_file.json')),true)['countries'];
         Country::insert($countries);
-
         Cache::forget('countries');
     }
 }

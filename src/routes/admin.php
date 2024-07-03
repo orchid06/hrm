@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\FrontendManageController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ActivityHistoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\MailGatewayController;
 use App\Http\Controllers\Admin\MenuController;
 
@@ -41,6 +42,7 @@ try {
 } catch (\Throwable $th) {
 
 }
+
 
 Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('admin')->name('admin.')->group(function () use( $hitLimit){
 
@@ -138,10 +140,12 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           Route::controller(UserController::class)->prefix("/user")->name('user.')->group(function(){
 
                Route::get('/list','list')->name('list');
+               Route::get('/statistics','statistics')->name('statistics');
                Route::get('/banned','list')->name('banned');
                Route::get('/active','list')->name('active');
                Route::get('/kyc-verified','list')->name('kyc.verfied');
                Route::get('/kyc-banned','list')->name('kyc.banned');
+               Route::get('/edit/{uid}','show')->name('edit');
                Route::post('/store','store')->name('store');
                Route::post('/update','update')->name('update');
                Route::post('/update/status','updateStatus')->name('update.status');
@@ -151,7 +155,6 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/balance','balance')->name('balance');
                Route::post('/subscription','subscription')->name('subscription');
-
                Route::get('/select/search','selectSearch')->name('selectSearch');
 
            
@@ -280,7 +283,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/update/status', 'updateStatus')->name('update.status');
                Route::get('/cache/clear', 'cacheClear')->name('cache.clear');
                Route::prefix('configurations')->name('configuration.')->group(function () {
-                   Route::get('/', 'systemConfiguration')->name('index');
+                  Route::get('/', 'systemConfiguration')->name('index');
                });
 
                Route::get('server/info','serverInfo')->name('server.info');
@@ -316,7 +319,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           });
 
           #Article section
-          Route::controller(ArticleController::class)->prefix("/blog")->name('article.')->group(function(){
+          Route::controller(BlogController::class)->prefix("/blog")->name('blog.')->group(function(){
 
                Route::get('/list','list')->name('list');
                Route::get('/create','create')->name('create');

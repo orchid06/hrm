@@ -9,21 +9,17 @@
 
 <div class="cookie">
     <div class="cookie-content">
+    <p>
+      {{@$cookie->value->description}}
+    </p>
       <div class="cookie-icon">
 
-         <img src='{{imageUrl(@$file,"frontend",true,@get_appearance()->cookie->content->images->image->size)}}'
+         <img src='{{imageURL(@$file,"frontend",true,@get_appearance()->cookie->content->images->image->size)}}'
          alt="{{@$file->name}}" />
-
       </div>
-
-      <p>
-      
-        {{@$cookie->value->description}}
-      </p>
     </div>
 
     <div class="cookie-action">
-
         <button class="i-btn btn--primary btn--lg capsuled cookie-control"  data-route='{{route("accept.cookie")}}'>
             {{translate("Accept")}}
         </button>

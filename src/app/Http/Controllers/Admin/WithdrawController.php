@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -40,9 +41,9 @@ class WithdrawController extends Controller
             'title'        => 'Withdraw List',
             'breadcrumbs'  => ['Dashboard' => 'admin.home', 'Withdraw methods' => null],
             'withdraws'    => Withdraw::with(['file'])->search(['name'])
-                              ->latest()
-                              ->paginate(paginateNumber())
-                              ->appends(request()->all())
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all())
         ]);
     }
 
@@ -81,25 +82,15 @@ class WithdrawController extends Controller
             $withdraw->maximum_amount    = $request->input('maximum_amount');
             $withdraw->fixed_charge      = $request->input('fixed_charge');
             $withdraw->percent_charge    = $request->input('percent_charge');
-            $withdraw->description       = $request->input('description');
+            $withdraw->note              = $request->input('note');
             $withdraw->save();
 
             if($request->hasFile('image')){
+                $this->saveFile($withdraw ,$this->storeFile(
+                    $request->file('image'), 
+                    config("settings")['file_path']['withdraw_method']['path'])
+                    ,FileKey::FEATURE->value);
 
-                $response = $this->storeFile(
-                    file        : $request->file('image'), 
-                    location    : config("settings")['file_path']['withdraw_method']['path'],
-                );
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $withdraw->file()->save($image);
-                }
             }
 
 
@@ -146,30 +137,20 @@ class WithdrawController extends Controller
             $withdraw->maximum_amount    = $request->input('maximum_amount');
             $withdraw->fixed_charge      = $request->input('fixed_charge');
             $withdraw->percent_charge    = $request->input('percent_charge');
-            $withdraw->description       = $request->input('description');
+            $withdraw->note              = $request->input('note');
             $withdraw->setParameters();
             $withdraw->save();
 
             if($request->hasFile('image')){
 
-                $oldFile = $withdraw->file()->where('type','feature')->first();
-                $response = $this->storeFile(
+                $oldFile = $withdraw->file()->where('type',FileKey::FEATURE->value)->first();
+                $this->saveFile($withdraw ,$this->storeFile(
                     file        : $request->file('image'), 
                     location    : config("settings")['file_path']['withdraw_method']['path'],
                     removeFile  : $oldFile
-                );
-              
-                if(isset($response['status'])){
+                    )
+                    ,FileKey::FEATURE->value);
 
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'feature',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
-                    $withdraw->file()->save($image);
-                }
             }
 
 
@@ -181,14 +162,14 @@ class WithdrawController extends Controller
     public function destroy(string $uid) :RedirectResponse{
 
         $withdraw = Withdraw::with(['file','log'])->withCount(['log'])
-                   ->where('uid', $uid)
-                   ->firstOrFail();
+                                    ->where('uid', $uid)
+                                    ->firstOrFail();
 
         $response =  response_status('Can not be deleted!! item has related data','error');
 
         if(1  > $withdraw->log_count){
 
-            $oldFile = $withdraw->file()->where('type','feature')->first();
+            $oldFile = $withdraw->file()->where('type',FileKey::FEATURE->value)->first();
             $this->unlink(
                 location    : config("settings")['file_path']['withdraw_method']['path'],
                 file        : $oldFile
@@ -198,7 +179,6 @@ class WithdrawController extends Controller
 
         }
 
-        
         return  back()->with($response);
      
     }

@@ -116,7 +116,7 @@ $(document).on('click', '.copy-text ', function (e) {
     document.execCommand('copy');
     $tempInput.remove();
 
-    toastr('Text/ Url Copied Successfully', 'success')
+    toastr('URL Copied Successfully', 'success')
 })
 
 function send_browser_notification(heading, icon, message, route) {

@@ -25,7 +25,7 @@
                         <div class="col-lg-7 ps-lg-5 gs_reveal fromRight">
                             <div>
                             <img
-                                src='{{imageUrl(@$contentBanner,"frontend",true,@get_appearance()->content->content->images->image->size)}}'
+                                src='{{imageURL(@$contentBanner,"frontend",true,@get_appearance()->content->content->images->image->size)}}'
                                 alt="{{@$contentBanner->name}}"
                                 loading="lazy"/>
                             </div>

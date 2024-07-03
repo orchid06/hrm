@@ -27,7 +27,7 @@
                 </li>
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-3 justify-content-between align-items-center">
                     <div>
-                        <h6 class="mb-0">{{ translate('Sms Notification') }}</h6>
+                        <h6 class="mb-0">{{ translate('SMS Notification') }}</h6>
                         <p>
                             <small>{{ translate('When enabled, this module sends necessary emails to users. If disabled, no emails will be sent. Prior to disabling, ensure there are no pending emails.') }}</small>
                         </p>
@@ -87,29 +87,10 @@
                         </div>
                     </div>
                </li>
+       
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
-                        <h6 class="mb-0">{{ translate('Slack Notification') }}</h6>
-                        <p class="mb-0">
-                            <small>{{ translate("Enabling this module ensures the activation of Slack notifications, enhancing real-time communication and fostering seamless collaboration within our professional environment") }}</small>
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check form-switch form-switch-md" dir="ltr">
-                            <input
-                                {{ site_settings('slack_notifications') == App\Enums\StatusEnum::true->status() ? 'checked' : '' }}
-                                type="checkbox" class="form-check-input status-update"
-                                data-key='slack_notifications'
-                                data-status='{{ site_settings('slack_notifications') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status() }}'
-                                data-route="{{ route('admin.setting.update.status') }}" id="slack_notifications">
-                            <label class="form-check-label" for="slack_notifications"></label>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-0">{{ translate('Force Ssl') }}</h6>
+                        <h6 class="mb-0">{{ translate('Force SSL') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("Enabling this feature mandates the use of HTTPS for your site.") }}</small>
                         </p>
@@ -150,7 +131,7 @@
 
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
-                        <h6 class="mb-0">{{ translate('Kyc Verification') }}</h6>
+                        <h6 class="mb-0">{{ translate('KYC Verification') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("Activating this feature enables the user KYC verification module, enhancing security and regulatory compliance for a more robust and reliable system") }}</small>
                         </p>
@@ -288,7 +269,7 @@
                 </li>
                 <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                     <div>
-                        <h6 class="mb-0">{{ translate('Seo Configuration') }}</h6>
+                        <h6 class="mb-0">{{ translate('SEO Configuration') }}</h6>
                         <p class="mb-0">
                             <small>{{ translate("Enabling this feature activates SEO functionalities, optimizing online visibility and enhancing search engine performance for improved digital presence and accessibility") }}</small>
                         </p>

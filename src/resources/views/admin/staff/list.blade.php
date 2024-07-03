@@ -149,7 +149,7 @@
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
 
-                                        <img class="rounded-circle avatar-sm" src='{{imageUrl(@$staff->file,"profile,admin",true)}}' alt="{{@$staff->file->name}}">
+                                        <img class="rounded-circle avatar-sm" src='{{imageURL(@$staff->file,"profile,admin",true)}}' alt="{{@$staff->file->name}}">
 
                                         <p>	{{ $staff->name}}</p>
                                         <span class="i-badge capsuled success">
@@ -200,11 +200,11 @@
                                         @if(check_permission('update_staff') ||  check_permission('delete_staff'))
 
                                             @if(check_permission('update_staff') && request()->routeIs('admin.staff.list'))
-                                                <a title="{{translate('Login')}}"  target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class="icon-btn success"><i class="las la-sign-in-alt"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Login')}}"   target="_blank" href="{{route('admin.staff.login', $staff->uid)}}" class="icon-btn success"><i class="las la-sign-in-alt"></i></a>
 
-                                                <a title="{{translate('Delete')}}"  href="javascript:void(0);" data-uid ="{{$staff->uid}}" class="passwordUpdate   icon-btn warning"><i class="las la-key"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update Password')}}"  href="javascript:void(0);" data-uid ="{{$staff->uid}}" class="passwordUpdate   icon-btn warning"><i class="las la-key"></i></a>
 
-                                                <a title="{{translate('Update')}}"  href="javascript:void(0);" data-staff ="{{$staff}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}"  href="javascript:void(0);" data-staff ="{{$staff}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                             @endif
 
                                             @if(check_permission('delete_staff'))
@@ -212,7 +212,7 @@
 
                                                 @if(request()->routeIs('admin.staff.recycle.list'))
                                                 
-                                                    <a href="javascript:void(0);" data-href="{{route('admin.staff.restore',$staff->uid)}}" class="pointer restore-item icon-btn success">
+                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Restore')}}"   data-href="{{route('admin.staff.restore',$staff->uid)}}" class="pointer restore-item icon-btn success">
                                                         <i class="las la-sync"></i>
                                                     </a>
                                                 @endif
@@ -223,7 +223,7 @@
                                             
                                                 @endphp
 
-                                                <a href="javascript:void(0);"    data-href="{{$destoryRoute}}" class="pointer delete-item icon-btn danger">
+                                                <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}"   data-href="{{$destoryRoute}}" class="pointer delete-item icon-btn danger">
 													<i class="las la-trash-alt"></i>
                                                 </a>
                                                 

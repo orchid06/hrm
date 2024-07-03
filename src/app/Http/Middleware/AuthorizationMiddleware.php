@@ -35,7 +35,6 @@ class AuthorizationMiddleware
         
     
                 if($user->status == StatusEnum::false->status()){
-                    
                     return  $authControl->logout()->with(response_status('Your account has been suspended indefinitely due to a violation of our terms and conditions. For further assistance, please contact our support team.','error'));
                 }
     
@@ -44,6 +43,7 @@ class AuthorizationMiddleware
                     if(session()->get("otp_expire_at",Carbon::now()) <= Carbon::now()){
                         $authService->otpConfiguration($user,'email','REGISTRATION_VERIFY');
                     }
+                    
                     return redirect()->route("auth.email.verification")->with('success',translate("An email verification code has been dispatched to your registered email address. Kindly check your inbox for further instructions."));
                 }
 

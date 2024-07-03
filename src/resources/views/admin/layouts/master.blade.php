@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{csrf_token()}}" />
     <title>{{@site_settings("site_name")}} {{site_settings('title_separator')}} {{@translate($title)}}</title>
-    <link rel="shortcut icon" href="{{imageUrl(@site_logo('favicon')->file,'favicon',true)}}">
+    <link rel="shortcut icon" href="{{imageURL(@site_logo('favicon')->file,'favicon',true)}}">
     <link href="{{asset('assets/global/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/bootstrap-icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/line-awesome.min.css')}}" rel="stylesheet"  type="text/css"/>
     <link href="{{asset('assets/global/css/nice-select.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/simplebar.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link href="{{asset('assets/global/css/dataTables.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/main.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
@@ -29,7 +30,7 @@
     <div class="dashboard-wrapper">
         @include('admin.partials.sidebar')
         <div class="main-content">
-            @if(!request()->routeIs('admin.home') && !request()->routeIs('admin.social.post.analytics'))
+            @if(!request()->routeIs('admin.home') && !request()->routeIs('admin.social.post.analytics') && !request()->routeIs('admin.user.statistics') )
                 @include('admin.partials.breadcrumb')
             @endif
             @yield('content')
@@ -46,6 +47,7 @@
     <script src="{{asset('assets/global/js/main.js')}}"></script>
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 
@@ -69,9 +71,20 @@
         })
 
         window.onload = function () {
-          $('.table-loader').addClass("d-none");
+           $('.table-loader').addClass("d-none");
 
         }
+
+
+        $(document).on('click', '.copy-trx ', function (e) {
+            var data = $(this).parent().find('.trx-number').html()
+            var $tempInput = $('<input>');
+            $('body').append($tempInput);
+            $tempInput.val(data.trim()).select();
+            document.execCommand('copy');
+            $tempInput.remove();
+            toastr('Copied Successfully', 'success')
+        })
 
         // update status event start
         $(document).on('click', '.status-update', function (e) {
@@ -138,6 +151,7 @@
 
         // read Notification
         function readNotification(href,id){
+
             $.ajax({
                 method:'post',
                 url: "{{route('admin.read.notification')}}",
@@ -232,17 +246,23 @@
         // update seettings
         $(document).on('submit','.settingsForm',function(e){
 
-                var data =   new FormData(this)
-                var route = "{{route('admin.setting.store')}}"
-                if($(this).attr('data-route')){
-                    route = $(this).attr('data-route')
-                }
+                var data  =   new FormData(this)
+                var route =  $(this).attr('data-route') 
+                                    ? $(this).attr('data-route') 
+                                    :  "{{route('admin.setting.store')}}"
+          
+                var submitButton = $(e.originalEvent.submitter);
+
                 $.ajax({
                 method:'post',
                 url: route,
                 beforeSend: function() {
-                    $('.ai-btn').addClass('btn__dots--loading');
-                    $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+                        submitButton.find(".note-btn-spinner").remove();
+   
+                        submitButton.append(`<div class="ms-1 spinner-border spinner-border-sm text-white note-btn-spinner " role="status">
+                                <span class="visually-hidden"></span>
+                            </div>`);
+
                 },
                 dataType: 'json',
                 cache: false,
@@ -277,8 +297,7 @@
                     }
                 },
                 complete: function() {
-                    $('.ai-btn').removeClass('btn__dots--loading');
-                    $('.ai-btn').find('.btn__dots').remove();
+                    submitButton.find(".note-btn-spinner").remove();
                 },
                 
             })
@@ -295,18 +314,8 @@
             $(this).closest(".modal").modal("hide");
         });
 
-        $(document).on('click', '.note-btn.dropdown-toggle', function (e) {
-            var $clickedDropdown = $(this).next();
-            $('.note-dropdown-menu.show').not($clickedDropdown).removeClass('show');
-            $clickedDropdown.toggleClass('show');
-            e.stopPropagation();
-        });
+        
 
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.note-btn.dropdown-toggle').length) {
-                $(".note-dropdown-menu").removeClass("show");
-            }
-        });
 
     })(jQuery);
     </script>

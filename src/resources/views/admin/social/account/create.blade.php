@@ -47,7 +47,7 @@
                                             <button class='nav-link  
                                             {{$loop->index == 0 ? "active" :""}}
                                             ' id="lang-tab-{{t2k($k)}}" data-bs-toggle="pill" data-bs-target="#lang-tab-content-{{t2k($k)}}" type="button" role="tab" aria-controls="lang-tab-content-{{t2k($k)}}" aria-selected="true">
-                                                <img class="lang-img me-2 rounded w-30" src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}" height="18">
+                                                <img class="lang-img me-2 rounded w-30" src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}" height="18">
                                                 <span class="align-middle">
                                                 
                                                 {{ucfirst(strtolower(k2t($k)))}}
@@ -81,16 +81,16 @@
 
                                                 <div class="form-inner d-none page-id" >  
                                                     <label  for="page_id">
-                                                        {{translate("Page Id")}}  <span class="text-danger">*</span>
+                                                        {{translate("Page ID")}}  <span class="text-danger">*</span>
                                                     </label>
-                                                    <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page Id")}}'
+                                                    <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page ID")}}'
                                                         value="{{old('page_id')}}">
                                                 </div>  
                                                 <div class="form-inner d-none  group-id">  
                                                     <label  for="group_id">
-                                                        {{translate("Group Id")}}  <span class="text-danger">*</span>
+                                                        {{translate("Group ID")}}  <span class="text-danger">*</span>
                                                     </label>
-                                                    <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter Group Id")}}'
+                                                    <input  id="group_id" type="text" name="group_id"   placeholder='{{translate("Enter Group ID")}}'
                                                         value="{{old('group_id')}}">
                                                 </div>  
                                                  @foreach ($inputs as $key )
@@ -106,7 +106,7 @@
                                             <div class="text-center mt-4">
                                                 @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                   <div class="d-flex gap-2 justify-content-center">
-                                                        <a href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ])}}' class="i-btn btn--sm info">
+                                                        <a href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}' class="i-btn btn--sm info">
                                                             <i class="las la-user-alt me-1"></i>   {{translate('Connect Profile')}}
                                                         </a>
                                                   </div>
@@ -116,8 +116,8 @@
                                                     </button>
                                                 @endif
                                             </div>
-                                            <div class="p-4 mt-4 bg--danger-light">
-                                                <p class="text--dark"><span class="bg--danger text-white py-0 px-2 d-inline-block me-2">{{translate("note")}}  :</span>  
+                                            <div class="p-4 mt-4 bg--danger-light rounded-2">
+                                                <p class="text--dark"><span class="bg--danger text-white py-0 px-2 d-inline-block me-2 rounded-1">{{translate("note")}}  :</span>  
                                                     @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                        {{trans("default.on_click_note")}}
                                                     @else
@@ -167,12 +167,12 @@
 
             function inputControl(val){
 
-                if(val  == "{{App\Enums\AccountType::Group->value}}"){
+                if(val  == "{{App\Enums\AccountType::GROUP->value}}"){
                     $('.page-id').addClass('d-none');
                     $('.group-id').removeClass('d-none');
                  }
 
-                 else if(val  == "{{App\Enums\AccountType::Page->value}}"){
+                 else if(val  == "{{App\Enums\AccountType::PAGE->value}}"){
                     $('.page-id').removeClass('d-none');
                     $('.group-id').addClass('d-none');
 

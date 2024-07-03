@@ -3,7 +3,7 @@
   <div class="sidebar-logo">
     <a href="{{route('admin.home')}}">
       <img
-        src='{{imageUrl(@site_logo("site_logo")->file,"site_logo",true)}}'
+        src='{{imageURL(@site_logo("site_logo")->file,"site_logo",true)}}'
         alt="{{@site_logo('site_logo')->file->name}}" />
     </a>
 
@@ -59,7 +59,6 @@
                     </li>
                   @endif
 
-              
                 </ul>
               </div>
           </li>
@@ -220,7 +219,7 @@
 
         @if(check_permission('view_user'))
           <li class="sidebar-menu-title">
-            {{translate('User , Reports & Support')}}
+            {{translate('User Statistics & Support')}}
           </li>
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
@@ -234,6 +233,17 @@
              </a>
             <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.user.*'],'drop_down')}} " id="users">
               <ul class="sub-menu">
+
+                <li class="sub-menu-item">
+                  <a class='sidebar-menu-link {{sidebar_awake(["admin.user.statistics"])}}'  href='{{route("admin.user.statistics")}}'>
+                    <span></span>
+                    <p>
+                        {{translate('Statistics')}}
+                    </p>
+                  </a>
+                </li>
+
+
                 <li class="sub-menu-item">
                   <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show"])}}'  href='{{route("admin.user.list")}}'>
                     <span></span>
@@ -263,7 +273,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.verfied")}}'  href='{{route("admin.user.kyc.verfied")}}'>
                     <span></span>
                     <p>
-                        {{translate('Kyc Verified')}}
+                        {{translate('KYC Verified')}}
                     </p>
                   </a>
                 </li>
@@ -272,7 +282,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.banned")}}'  href='{{route("admin.user.kyc.banned")}}'>
                     <span></span>
                     <p>
-                        {{translate('Kyc Banned')}}
+                        {{translate('KYC Banned')}}
                     </p>
                   </a>
                 </li>
@@ -291,7 +301,7 @@
                 <span><i class="las la-question-circle"></i></span>
                 <p> {{translate("Support Tickets")}}
                     @if($pending_tickets > 0)
-                      <span class="i-badge danger">{{$pending_tickets}}</span>
+                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending tickets")}}" class="i-badge danger">{{$pending_tickets}}</span>
                     @endif
                 </p>
               </a>
@@ -304,7 +314,7 @@
               aria-expanded="false" aria-controls="report">
               <span><i class="las la-file-alt"></i></span>
                 <p>
-                  {{translate('Reports')}}
+                  {{translate('Report')}}
                     @if($pending_deposits > 0 || $pending_withdraws > 0 || $pending_kycs > 0  )
                       <span class="i-badge danger">
                           <i class="las la-info"></i>
@@ -348,7 +358,7 @@
                       {{translate('Deposit Reports')}}
 
                       @if($pending_deposits > 0 )
-                         <span class="i-badge danger">{{$pending_deposits}}</span>
+                         <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending deposit")}}" class="i-badge danger">{{$pending_deposits}}</span>
                       @endif
                     </p>
                   </a>
@@ -360,7 +370,7 @@
                       {{translate('Withdraw Reports')}}
 
                       @if($pending_withdraws > 0 )
-                          <span class="i-badge danger">{{$pending_withdraws}}</span>
+                          <span   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending withdraws")}}" class="i-badge danger">{{$pending_withdraws}}</span>
                       @endif
                     </p>
                   </a>
@@ -385,10 +395,10 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.kyc.report.*")}}'  href='{{route("admin.kyc.report.list")}}'>
                     <span></span>
                     <p>
-                      {{translate('Kyc Reports')}}
+                      {{translate('KYC Reports')}}
 
                         @if($pending_kycs > 0 )
-                          <span class="i-badge danger">{{$pending_kycs}}</span>
+                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending KYC logs")}}" class="i-badge danger">{{$pending_kycs}}</span>
                         @endif
                     </p>
                   </a>
@@ -530,8 +540,8 @@
 
         @if(check_permission('view_blog'))
           <li class="sidebar-menu-item">
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#article" role="button"
-              aria-expanded="false" aria-controls="article">
+            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#blog" role="button"
+              aria-expanded="false" aria-controls="blog">
               <span><i class="las la-newspaper"> </i> </span>
               <p>
                 {{translate('Blogs')}}
@@ -540,10 +550,10 @@
                 <i class="las la-angle-down"></i>
               </small>
             </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.article.*'],'drop_down')}} " id="article">
+            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.blog.*'],'drop_down')}} " id="blog">
               <ul class="sub-menu">
                 <li class="sub-menu-item">
-                    <a class='sidebar-menu-link {{sidebar_awake(["admin.article.list","admin.article.edit"])}}' href='{{route("admin.article.list")}}'>
+                    <a class='sidebar-menu-link {{sidebar_awake(["admin.blog.list","admin.blog.edit"])}}' href='{{route("admin.blog.list")}}'>
                     <span></span>
                     <p>
                       {{translate('Blogs')}}
@@ -551,7 +561,7 @@
                     </a>
                 </li>
                 <li class="sub-menu-item">
-                  <a class="sidebar-menu-link  {{sidebar_awake('admin.article.create')}}" href="{{route('admin.article.create')}}">
+                  <a class="sidebar-menu-link  {{sidebar_awake('admin.blog.create')}}" href="{{route('admin.blog.create')}}">
                     <span></span>
                     <p>
                       {{translate('Add New')}}
@@ -651,7 +661,7 @@
                     <a class='sidebar-menu-link {{sidebar_awake("admin.setting.openAi")}}'  href='{{route("admin.setting.openAi")}}'>
                       <span></span>
                         <p>
-                          {{translate('Ai Configuration')}}
+                          {{translate('AI Configuration')}}
                         </p>
                     </a>
                 </li>
@@ -675,7 +685,7 @@
                   <a class='sidebar-menu-link {{sidebar_awake("admin.setting.kyc")}}'  href='{{route("admin.setting.kyc")}}'>
                     <span></span>
                       <p>
-                        {{translate('Kyc Configuration')}}
+                        {{translate('KYC Configuration')}}
                       </p>
                   </a>
                 </li>
@@ -837,7 +847,7 @@
                     <a class="sidebar-menu-link {{sidebar_awake('admin.smsGateway.*')}}" href="{{route('admin.smsGateway.list')}}">
                       <span></span>
                         <p>
-                          {{translate('Sms Gateway')}}
+                          {{translate('SMS Gateway')}}
                         </p>
                     </a>
                 </li>

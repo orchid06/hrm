@@ -7,10 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfileRequest;
 
 use App\Models\Admin\Category;
-use App\Models\Article;
+
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
 use App\Models\AiTemplate;
+use App\Models\Blog;
 use App\Models\Core\File;
 use App\Models\Link;
 use App\Models\MediaPlatform;
@@ -48,7 +49,6 @@ class HomeController extends Controller
      */
     public function home(Request $request) :View{
 
-
         return view('admin.home',[
             'title' => "Dashboard",
             'data'  => $this->getDashboardData()
@@ -62,13 +62,13 @@ class HomeController extends Controller
      * 
      */
 
-     public function getDashboardData() :array{
+     public function getDashboardData() :array {
 
         $data['latest_log']               = PaymentLog::with(['user','method','method.currency','currency'])
-                                                ->date()               
-                                                ->latest()
-                                                ->take(6)
-                                                ->get();
+                                                            ->date()               
+                                                            ->latest()
+                                                            ->take(6)
+                                                            ->get();
         $data['latest_subscriptions']     = Subscription::with(['package','admin','user'])
                                                 ->date()               
                                                 ->latest()
@@ -100,18 +100,18 @@ class HomeController extends Controller
                                                                                ),
             
                                      "monthly_subscriptions"      =>  sortByMonth(Subscription::date()
-                                                                        ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
-                                                                        ->whereYear('created_at', '=',date("Y"))
-                                                                        ->groupBy('months')
-                                                                        ->pluck('total', 'months')
-                                                                        ->toArray()),
+                                                                            ->selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
+                                                                            ->whereYear('created_at', '=',date("Y"))
+                                                                            ->groupBy('months')
+                                                                            ->pluck('total', 'months')
+                                                                            ->toArray()),
                     
                                      "monthly_income"             =>   sortByMonth(Subscription::date()
-                                                                        ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
-                                                                        ->whereYear('created_at', '=',date("Y"))
-                                                                        ->groupBy('months')
-                                                                        ->pluck('total', 'months')
-                                                                        ->toArray(),true)
+                                                                            ->selectRaw("MONTHNAME(created_at) as months, SUM(payment_amount) as total")
+                                                                            ->whereYear('created_at', '=',date("Y"))
+                                                                            ->groupBy('months')
+                                                                            ->pluck('total', 'months')
+                                                                            ->toArray(),true)
 
         ];
 
@@ -121,7 +121,7 @@ class HomeController extends Controller
         $data['total_category']           = Category::date()->count();
         $data['total_package']            = Package::date()->count();
         $data['total_visitor']            = Visitor::date()->count();
-        $data['total_article']            = Article::date()->count();
+        $data['total_blog']               = Blog::date()->count();
         $data['total_template']           = AiTemplate::date()->count();
         $data['total_earning']            = num_format(
                                                 number: $subscripIncome + $charge + $withDrawCharge,

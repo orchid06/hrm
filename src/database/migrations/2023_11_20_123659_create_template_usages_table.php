@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('template_usages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('template_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('package_id')->nullable();
+            $table->unsignedBigInteger('template_id')->index()->nullable()->constrained(table: 'ai_templates');
+            $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');
+            $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');
+            $table->unsignedBigInteger('package_id')->index()->nullable()->constrained(table: 'packages');
             $table->longText('content')->nullable();
             $table->integer('total_words')->default(0);
             $table->longText('open_ai_usage')->nullable();
-
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

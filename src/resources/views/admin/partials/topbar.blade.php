@@ -1,7 +1,7 @@
 
 <header class="header">
   @php
-            $currencies = site_currencies()->where("code",'!=',session()->get('currency')->code);
+            $currencies = site_currencies()->where("code",'!=',session()->get('currency')?->code);
   @endphp
   <div class="header-container">
     <div class="d-flex align-items-center gap-lg-3 gap-2">
@@ -34,10 +34,10 @@
       @if(site_settings('database_notifications') ==  App\Enums\StatusEnum::true->status() && check_permission('view_notification'))
           @php
                $notifications = \App\Models\Notification::where('notificationable_type','App\Models\Admin')
-                                  ->unread()
-                                  ->latest()
-                                  ->take(8)
-                                  ->get();
+                                                          ->unread()
+                                                          ->latest()
+                                                          ->take(8)
+                                                          ->get();
           @endphp
 
           <div class="header-icon">
@@ -63,7 +63,7 @@
                               <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                 <div class="notify-icon">
                                   <img class="rounded-circle"
-                                    src='{{imageUrl(auth_user()->file,"profile,admin",true) }}'
+                                    src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
                                     alt="{{@auth_user()->file->name}}" />
                                 </div>
                                 <div class="notification-item-content">
@@ -151,7 +151,7 @@
       <div class="header-icon">
         <div class="profile-dropdown">
           <div class="topbar-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src='{{imageUrl(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
+            <img src='{{imageURL(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
           </div>
           <div class="dropdown-menu dropdown-menu-end">
             <ul>

@@ -85,7 +85,6 @@ class RoleController extends Controller
         $permissions = array();
 
         foreach ($request->input("permissions") as $key => $value) {
-
             $permissions[$key] = array_values($value);
         }
 

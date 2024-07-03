@@ -1,16 +1,48 @@
 @extends('layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
 
+<div class="row mb-5">
+        <div class="col-lg-9">
+            <div class="i-card-md">
+                <div class="card-body">
+                    <div class="row justify-content-end mb-4">
+                        <div class="col-lg-3">
+                            <select name="content-category" class="select2">
+                                <option>Category One</option>
+                                <option>Category Two</option>
+                                <option>Category Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="subscription-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="i-card-md">
+                <div class="card-body">
+                    <ul class="report-list">
+                        <li><span>Trx Code</span><span>	ZXGRJFVDWNXJ</span></li>
+                        <li><span>User</span><span>Clinton Benson</span></li>
+                        <li><span>Package</span><span>Starter</span></li>
+                        <li><span>Paid Amount</span><span>$140.00</span></li>
+                        <li><span>Date</span><span>2024/01/13 11:32</span></li>
+                        <li><span>Expired In</span><span>2024/01/13 00:00</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <div class="row">
     <div class="col-xl-12 col-lg-12 mx-auto">
-      <div
-        class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+      <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>
             <h4>
                 {{translate(Arr::get($meta_data,'title'))}}
@@ -19,13 +51,13 @@
 
         <div>
           <button
-            class="icon-btn icon-btn-lg info circle"
+            class="icon-btn icon-btn-lg solid-info circle"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#tableFilter"
             aria-expanded="false"
             aria-controls="tableFilter">
-            <i class="bi bi-funnel"></i>
+            <i class="bi bi-sliders"></i>
           </button>
         </div>
       </div>
@@ -68,7 +100,7 @@
                     </div>
 
                     <div class="form-inner">
-                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id or remarks")}}'>
+                        <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID or remarks")}}'>
                     </div>
 
                     <div class="d-flex gap-2">
@@ -100,12 +132,12 @@
                                             <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                                 <div class="col-lg-3 col-sm-4 col-12">
                                                     <div class="table-accordion-header transfer-by">
-                                                        <span class="icon-btn icon-btn-sm info circle">
-                                                            <i class="bi bi-arrow-up-left"></i>
+                                                        <span class="icon-btn icon-btn-sm primary circle">
+                                                            <i class="bi bi-file-text"></i>
                                                         </span>
                                                         <div>
                                                             <h6>
-                                                                {{translate("Trx Code")}}
+                                                                {{translate("TRX Code")}}
                                                             </h6>
                                                             <p> {{$report->trx_code}}</p>
                                                         </div>
@@ -223,7 +255,7 @@
                                                             @endphp
 
                                                             <div class="report-img">
-                                                                <img src='{{imageUrl($file,"payment",true)}}'
+                                                                <img src='{{imageURL($file,"payment",true)}}'
                                                                     alt="{{ @$file->name }}">
                                                             </div>
                                                         @else
@@ -263,7 +295,9 @@
 
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -280,10 +314,7 @@
 
         });
 
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+
 
 	})(jQuery);
 </script>

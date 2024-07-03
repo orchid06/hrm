@@ -6,7 +6,7 @@ use App\Enums\CategoryDisplay;
 use App\Enums\StatusEnum;
 use App\Models\Admin;
 use App\Models\AiTemplate;
-use App\Models\Article;
+use App\Models\Blog;
 use App\Models\ModelTranslation;
 use App\Models\Scopes\Global\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -72,11 +72,11 @@ class Category extends Model
 
 
     public function scopeArticle(Builder $q) :Builder{
-        return $q->whereIn("display_in",CategoryDisplay::values(['Both','Article'],true));
+        return $q->whereIn("display_in",CategoryDisplay::values(['BOTH','BLOG'],true));
     }
 
     public function scopeTemplate(Builder $q) :Builder{
-        return $q->whereIn("display_in",CategoryDisplay::values(['Both','Template'],true));
+        return $q->whereIn("display_in",CategoryDisplay::values(['BOTH','TEMPLATE'],true));
     }
 
     
@@ -87,7 +87,7 @@ class Category extends Model
 
 
     public function articles() :HasMany{
-        return $this->hasMany(Article::class, 'category_id','id');
+        return $this->hasMany(Blog::class, 'category_id','id');
     }
 
 

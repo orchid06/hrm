@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Http;
 
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
+use Illuminate\Database\Eloquent\Model;
+
 class AuthService 
 {
 
@@ -26,7 +28,7 @@ class AuthService
      *
      * @return array
      */
-    public function sendOtp(mixed $sendTo ,string $template = "PASSWORD_RESET" , string $medium = 'email' ) :array {
+    public function sendOtp(Model $sendTo ,string $template = "PASSWORD_RESET" , string $medium = 'email' ) :array {
         
         #send mail
         $code = generateOTP();
@@ -58,18 +60,14 @@ class AuthService
             "sms"       => "App\Jobs\SendSmsJob",
         ];
 
-
-        
-    
         Arr::get($jobs, $medium,"")::dispatch($sendTo ,$template,$templateCode);
 
-        $response =  [
+        return [
             'otp'         => $otp,
             'status'      => true,
             'message'     => "Verification code has been dispatched",
         ];
-        return $response;
- 
+
 
     
     }
@@ -97,7 +95,7 @@ class AuthService
                     "response"=> $value,
                     "remoteip"=> request()->ip,
                 ]);
-
+                
                 if (!$g_response->json("success")) {
                     $fail(translate("Recaptcha validation failed"));
                 }

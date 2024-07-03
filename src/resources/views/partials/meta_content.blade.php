@@ -1,5 +1,3 @@
-
-
 <meta name="description" content='{{Arr::get($meta_data,"meta_description","")}}' />
 <meta property="og:site_name" content='{{@site_settings("user_site_name")}}' />
 <meta name='keywords' content='{{implode(",",Arr::get($meta_data,"meta_keywords",""))}}'>

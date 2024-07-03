@@ -2,15 +2,18 @@
 
       @php
            $generateRoute = route('admin.ai.template.content.generate');
-           $iconClass  = "las la-question-circle";
+           $iconClass  = "las la-question-circle text--danger";
 
             if(request()->routeIs('user.*')){
                 $generateRoute  =  route('user.ai.content.generate');
-                $iconClass      = "bi bi-info-circle";
+                $iconClass      = "bi bi-info-circle text--danger";
             }
       @endphp
 
-    <div class="i-card-md mt-4" id="ai-form">
+    <div class="i-card-md mt-4 position-relative" id="ai-form">
+
+        @include('admin.partials.card_loader')
+
         <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
             <h4 class="card-title">
                  {{translate("Generate Content")}}
@@ -91,7 +94,7 @@
 
                         <div class="faq-wrap style-2">
                                 <div class="accordion" id="advanceOption">
-                                    <div class="accordion-item">
+                                    <div class="accordion-item mb-0">
                                         <h2 class="accordion-header" id="advanceContent">
                                             <button
                                             class="accordion-button collapsed"
@@ -101,14 +104,16 @@
                                             aria-expanded="true"
                                             aria-controls="advanceAcc">
                                                 {{translate("Advance Options")}}
-                                                <i title="{{translate('Browse More Fields')}}" class="ms-1 {{$iconClass}}"></i>
+                                                <i  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Browse More Fields')}}" class="ms-1 {{$iconClass}}"></i>
+
+                                                
                                             </button>
                                         </h2>
                                         <div id="advanceAcc" class="accordion-collapse collapse {{request()->routeIs('user.*') ? 'show' :''}}" aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
                                             <div class="accordion-body">
                                                 <div class="form-inner">
                                                     <label for="max_result">
-                                                        {{translate("Max Results Length")}} <i title="{{translate('Maximum words for each result')}}" class="ms-1 pointer {{$iconClass}}"></i>
+                                                        {{translate("Max Results Length")}} <i  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Maximum words for each result')}}"  class="ms-1 pointer {{$iconClass}}"></i>
                                                         @if(request()->routeIs('user.*'))
                                                             <span class="text-danger">*</span>
                                                         @endif

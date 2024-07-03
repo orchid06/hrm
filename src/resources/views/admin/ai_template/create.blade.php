@@ -8,13 +8,15 @@
         @csrf
         <div class="row g-4">
             <div class="col-xl-12">
-                <div class="i-card-md">
+                <div class="i-card-md position-relative">
+                    @include('admin.partials.card_loader')
                     <div class="card--header">
                         <h4 class="card-title">
                             {{translate('Basic Information')}}
                         </h4>
                     </div>
                     <div class="card-body">
+               
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-inner">
@@ -187,6 +189,10 @@
                         url: url,
                         dataType: 'json',
 
+                        beforeSend: function() {
+                            $('.card-loader').removeClass('d-none');
+                        },
+
                         success: function(response){
 
                             if(response.status){
@@ -214,6 +220,10 @@
                                 toastr(error.message,'danger')
                             }
                         },
+                        complete: function() {
+                            $('.card-loader').addClass('d-none');
+                        },
+                        
     		    	})
                 }
 

@@ -49,6 +49,7 @@ class TicketService
             $ticket->save();
 
             if(isset($request["ticket_data"] ['attachment'][0])){
+                
                 foreach($request["ticket_data"] ['attachment'] as $file){
                     $response = $this->storeFile(
                         file        : $file, 
@@ -72,7 +73,7 @@ class TicketService
             $route          =  route("admin.ticket.list");
             $userRoute      =  route("user.ticket.list");
 
-            $admin          = get_admin();
+            $admin          = get_superadmin();
             $priority       = Arr::get(array_flip(PriorityStatus::toArray()), $ticket->priority, 'Low');
 
             $code           = [
@@ -93,14 +94,7 @@ class TicketService
                     ],
                 ],
 
-                'slack_notifications' => [
-                    'action' => [SendNotification::class, 'slack_notifications'],
-                    'params' => [
-                        [
-                            $admin, 'NEW_TICKET', $code, $route
-                        ]
-                    ],
-                ],
+              
 
                 'email_notifications' => [
                     'action' => [SendMailJob::class, 'dispatch'],
@@ -160,6 +154,7 @@ class TicketService
         $message->ticket_id  = $ticket->id;
         $message->message    = $request->input("message");
         $message->save();
+        
         return $message;
     }
 

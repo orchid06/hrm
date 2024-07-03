@@ -16,16 +16,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!(Admin::where('super_admin',StatusEnum::true->status())->exists())){
-             Admin::create([
-                'username' => 'admin',
-                'name' => 'SuperAdmin',
-                'phone' => '01616243666',
-                'email' => 'admin@gmail.com',
-                "email_verified_at" => Carbon::now(),
-                "password"=>    Hash::make('123123'),
-                'super_admin' => StatusEnum::true->status(),
-             ]);
-        }
+            Admin::firstOrCreate(['super_admin' => StatusEnum::true->status()],[
+                'username'          => 'admin',
+                'name'              => 'superadmin',
+                'phone'             => '011111111',
+                'email'             => 'admin@gmail.com',
+                "email_verified_at" =>  Carbon::now(),
+                "password"          =>  '123123',
+            ]);
     }
 }

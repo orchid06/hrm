@@ -1,10 +1,28 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
+    <div class="row mb-4">
+        <div class="col-lg-9">
+            <div class="i-card-md mb-4">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                        {{ translate('Affilitate Report (Current Year)')}}
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <div id="affiliate-report"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            @include('admin.partials.summary')
+        </div>
+    </div>
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -31,7 +49,7 @@
                                     </select>
                                 </div>
                                 <div class="form-inner">
-                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by transaction id")}}'>
+                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
                                 </div>
                                 <button class="i-btn btn--md info w-100">
                                     <i class="las la-sliders-h"></i>
@@ -59,7 +77,7 @@
                                 {{translate('Date')}}
                             </th>
                             <th scope="col">
-                                {{translate('Trx Code')}}
+                                {{translate('TRX Number')}}
                             </th>
                             <th scope="col">
                                 {{translate('User')}}
@@ -89,9 +107,16 @@
                                 </td>
                                 <td data-label='{{translate("Date")}}'>
                                     {{ get_date_time($report->created_at) }}
+                                    <div>
+                                         {{ diff_for_humans($report->created_at)  }}
+                                    </div>
                                 </td>
-                                <td data-label='{{translate("Trx Code ")}}'>
-                                    {{ ($report->trx_code) }}
+                                <td  data-label="{{translate('Trx Code')}}">
+                                    <span class="trx-number me-1">
+                                        {{$report->trx_code}}
+                                    </span>
+
+                                    <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                 </td>
                                 <td data-label='{{translate("User")}}'>
                                     <a href="{{route('admin.user.show',$report->user->uid)}}">
@@ -121,12 +146,12 @@
                                 </td>
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
-                                        <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                        <a  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                             <i class="las la-info"></i></a>
                                     </div>
                                 </td>
                            </tr>
-                            @empty
+                        @empty
                             <tr>
                                 <td class="border-bottom-0" colspan="90">
                                     @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
@@ -141,11 +166,16 @@
             </div>
         </div>
     </div>
+
+    @php
+        $symbol = @session()->get('currency')?->symbol ?? base_currency()->symbol;
+    @endphp
 @endsection
 
 @section('modal')
     @include('modal.delete_modal')
     @include('modal.bulk_modal')
+
     <div class="modal fade" id="report-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="report-info"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
             <div class="modal-content">
@@ -168,10 +198,14 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -180,33 +214,85 @@
 
         "use strict";
 
-        $(".select2").select2({
-
-        });
-        $(".user").select2({
-
-        });
-        $(".type").select2({
-
-        });
-
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
+        $(".select2").select2({});
+        $(".user").select2({});
+        $(".type").select2({});
 
 
         $(document).on('click','.show-info',function(e){
-
             var modal = $('#report-info');
-
             var report = JSON.parse($(this).attr('data-report'))
-
             $('.content').html(report.note)
-
             modal.modal('show')
-
         });
+
+        var  colors = ['var(--color-danger)','var(--color-danger-light)','var(--color-success)','var(--color-success-light)','var(--color-info)','var(--color-success)',  'var(--color-warning)' ,"var(--color-danger)"];
+        
+        var labels = @json(array_keys($graph_data));
+        var data   = @json(array_values($graph_data));
+
+        var options = {
+            series: [{
+                name: "{{ translate('Total Earning') }}",
+                data: data
+            }],
+            chart: {
+                height: 300,
+                type: 'bar',
+                events: {
+                    click: function(chart, w, e) {
+                    }
+                }
+            },
+            colors: colors,
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+
+            tooltip: {
+                shared: false,
+                intersect: true,
+                y: {
+                    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                    return formatCurrency(value);
+                    }
+                }
+            },
+  
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: labels,
+                labels: {
+                    style: {
+                        colors: colors,
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#affiliate-report"), options);
+        chart.render();
+
+        function formatCurrency(value) {
+            var symbol =  "{{  $symbol }}" ;
+            var suffixes = ["", "K", "M", "B", "T"];
+            var order = Math.floor(Math.log10(value) / 3);
+            var suffix = suffixes[order];
+            if(value < 1)
+            {return symbol+value}
+            var scaledValue = value / Math.pow(10, order * 3);
+            return symbol + scaledValue.toFixed(2) + suffix;
+        }
+
 
 	})(jQuery);
 </script>

@@ -147,4 +147,54 @@
   }
   window.addEventListener("resize", checkDeviceWidth);
   checkDeviceWidth();
+
+
+  const rightBtn = document.getElementById('right-sidebar-btn');
+  const rightSidebar = document.querySelector('.right-side-col');
+  const overlay = document.querySelector('.overlay');
+
+  if(rightBtn){
+    rightBtn.addEventListener('click', () => {
+      rightSidebar.classList.toggle('show');
+      overlay.classList.toggle('show');
+    });
+  
+  }
+  if(overlay){
+    overlay.addEventListener('click', ()=>{
+      overlay.classList.toggle('show');
+      rightSidebar.classList.toggle('show');
+    })
+  }
+
+  var paymentCards = document.querySelectorAll('.payment-card-item');
+
+  var balanceCard = document.querySelector('#balanceCard');
+  var formStepOne = document.querySelector('#formStepOne');
+
+  paymentCards.forEach((paycard)=>{
+    paycard.addEventListener('click', ()=>{
+      balanceCard.style.display = 'none';
+      formStepOne.classList.add('show');
+    })
+  })
+
+
+
+  // var paymentCardItems = document.querySelectorAll('.payment-card-item');
+
+  //   var form = document.getElementById('payment-form');
+
+
+  //   paymentCardItems.forEach(function (card) {
+  //       card.addEventListener('click', function () {
+
+  //           form.classList.remove('highlight');
+
+  //           form.classList.add('highlight');
+  //       });
+  //   });
+  
+
+
 })();

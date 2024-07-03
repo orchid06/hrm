@@ -1,7 +1,11 @@
 @extends('admin.layouts.master')
 @section('content')
 
-    <div class="i-card-md">
+    @if(check_permission('create_content'))
+            @include('partials.prompt_content',['content_route' => route("admin.content.store")])
+    @endif
+
+    <div class="i-card-md mt-2">
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
@@ -41,11 +45,7 @@
                             </div>
                          @endif
 
-                        @if(check_permission('create_content'))
-                            <a href="#generateContent" type="button" class="i-btn btn--sm success me-2 create">
-                                <i class="las la-plus me-1"></i>  {{translate('Add New')}}
-                            </a>
-                        @endif
+                  
                     </div>
                     @endif
                     <div class="col-md-6 d-flex justify-content-end">
@@ -111,13 +111,13 @@
                                         @if(check_permission('update_content') || check_permission('delete_content') )
                                             @if(check_permission('update_content'))
 
-                                                <a title="{{translate('Update')}}" href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}} "href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
 
                                             @endif
 
                                             @if(check_permission('delete_content'))
 
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.content.destroy',$content->id)}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i>
                                                 </a>
                                             @endif
@@ -144,9 +144,7 @@
         </div>
     </div>
 
-    <div class="ai-section d-none" id="generateContent">
-        @include('partials.prompt_content',['content_route' => route("admin.content.store")])
-    </div>
+ 
 
 @endsection
 @section('modal')

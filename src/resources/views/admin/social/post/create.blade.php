@@ -2,7 +2,7 @@
 
 @push('style-include')
     <link href="{{asset('assets/backend/css/post.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -217,7 +217,7 @@
 
                                                 <input @if(old('account_id') && in_array($account->id,@old('account_id'))) checked @endif name="account_id[]" data-id="{{$account->id}}" id="account-{{$account->id}}" value="{{$account->id}}" class="form-check-input mt-0 check_account" name="selected-profile" type="checkbox"
                                                 data-account_name="{{$account->name}}" data-platform_name="{{$account->platform->name}}"
-                                                data-platform_image="{{imageUrl(@$account->platform->file,"platform",true)}}"
+                                                data-platform_image="{{imageURL(@$account->platform->file,"platform",true)}}"
                                                 data-profile_image = "{{@$account->account_information->avatar}}">
                                             </label>
                                         </li>
@@ -230,7 +230,7 @@
                                       {{translate('Create New Account')}}
                                   </a>
 
-                                    <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
+                                    <button class="i-btn btn--md danger" type="button" data-bs-toggle="collapse" data-bs-target="#selectProfile" aria-expanded="false" aria-controls="selectProfile">
                                          <i class="bi bi-x-lg"></i>
                                     </button>
                               </div>
@@ -268,7 +268,7 @@
                                     </div>
 
                                     <div class="col-xl-4 col-md-3">
-                                        <button class="i-btn btn--md btn--danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
+                                        <button class="i-btn btn--md danger" type="button" data-bs-toggle="collapse" data-bs-target="#schedule" aria-expanded="false"
                                         aria-controls="schedule">
                                             <i class="bi bi-x-lg fs-5"></i>
                                         </button>
@@ -319,7 +319,7 @@
                             aria-selected="false"
                             tabindex="-1">
                               <div class="channel-img" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{$platform->slug}} preview">
-                                <img src="{{imageUrl(@$platform->file,'platform',true)}}" alt="{{imageUrl(@$platform->file,'platform',true)}}"/>
+                                <img src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{imageURL(@$platform->file,'platform',true)}}"/>
                               </div>
                           </a>
                         @endforeach
@@ -688,7 +688,9 @@
 @push('script-include')
      @include('partials.ai_content_script');
     <script src="{{asset('assets/global/js/post.js')}}"></script>
-    <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 
 @endpush
 

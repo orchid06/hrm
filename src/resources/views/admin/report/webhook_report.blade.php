@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @push('style-include')
-    <link href="{{asset('assets/global/css/flatpickr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -9,19 +9,18 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
-                
                     <div class="col-md-12 d-flex justify-content-end">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                <div class="form-inner">
-                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                                </div>
-                                <button class="i-btn btn--sm info">
-                                    <i class="las la-sliders-h"></i>
-                                </button>
-                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-                                    <i class="las la-sync"></i>
-                                </a>
+                                    <div class="form-inner">
+                                        <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
+                                    </div>
+                                    <button class="i-btn btn--sm info">
+                                        <i class="las la-sliders-h"></i>
+                                    </button>
+                                    <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                        <i class="las la-sync"></i>
+                                    </a>
                             </form>
                         </div>
                     </div>
@@ -29,6 +28,7 @@
             </div>
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
+
                 <table >
                     <thead>
                         <tr>
@@ -57,24 +57,23 @@
 
                                     <td data-label='{{translate("Date")}}'>
                                         {{ get_date_time($report->created_at) }}
+                                        <div>
+                                            {{ diff_for_humans($report->created_at) }}
+                                       </div>
                                     </td>
 
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @php
-                                            $responseData = $report->webhook_response;
-                                     
-                                          @endphp
-                                            <a title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$responseData ? recursiveDisplay($responseData) : translate('Webhook response data is null')}}" class="pointer show-info icon-btn info">
+                                               $responseData = $report->webhook_response;
+                                            @endphp
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$responseData ? recursiveDisplay($responseData) : translate('Webhook response data is null')}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                   
                                               
                                             @if(check_permission('delete_report') )
-                                                <a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
-
-                                            @else
-                                                {{translate('N/A')}}
                                             @endif
 
                                         </div>
@@ -129,7 +128,9 @@
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -138,23 +139,11 @@
 
         "use strict";
 
-
-        flatpickr("#datePicker", {
-            dateFormat: "Y-m-d",
-            mode: "range",
-        });
-
-
         $(document).on('click','.show-info',function(e){
-
             var modal = $('#report-info');
-
             var report =($(this).attr('data-report'))
-
             $('.content').html(report)
-
             modal.modal('show')
-
         });
 
 	})(jQuery);

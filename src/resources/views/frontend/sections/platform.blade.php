@@ -19,10 +19,7 @@
                                     $file =  $element->file->where("type",$key)->first();
                             @endphp
                             <div class="platform-content-img">
-                                <img
-                                src="{{imageUrl(@$file,'frontend',true,$val->size)}}"
-                                alt="{{@$file->name}}"
-                                loading="lazy"/>
+                                <img src="{{imageURL(@$file,'frontend',true,$val->size)}}" alt="{{@$file->name}}" loading="lazy"/>
                             </div>
                         @endforeach
 

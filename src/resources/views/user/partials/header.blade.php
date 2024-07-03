@@ -10,57 +10,20 @@
     <div class="container-fluid px-0">
       <div class="header-container">
         <div class="d-flex align-items-center gap-4">
-            <a href="{{route('user.home')}}" class="header-logo d-none d-sm-block">
-
-                <img  class="img-fluid"  src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-            </a>
-
-            <div class="mobile-menu-btn sidebar-trigger">
+            <div class="mobile-menu-btn sidebar-trigger d-xl-none d-flex">
                 <div class="burger">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </div>
+
+            <div class="page-title-content d-lg-block d-none">
+                <h2>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h2>
+            </div>
         </div>
 
-        <nav class="nav-bar">
-          <ul class="menu-list">
-
-            <li class="menu-item">
-              <a href="{{route('user.home')}}" class="menu-link">
-                {{translate("Home")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.plan')}}" class="menu-link">
-                {{translate("Plans")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.subscription.report.list')}}" class="menu-link">
-                  {{translate("Subscriptions")}}
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{route('user.transaction.report.list')}}" class="menu-link">
-                   {{translate("Transactions")}}
-               </a>
-            </li>
-          </ul>
-        </nav>
-
         <div class="header-right">
-            <div class="header-right-item">
-                <a target="_blank" href="{{route('home')}}" class="home-link-btn ">
-                    <i class="bi bi-globe-americas"></i>
-                </a>
-            </div>
-
             <!-- notifications -->
             @php
                 $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
@@ -74,8 +37,6 @@
 
             <div class="header-right-item">
                     <div class="dropdown noti-dropdown">
-
-                
                         <a
                             class="noti-dropdown-btn dropdown-toggle"
                             href="javascript:void(0)"
@@ -85,20 +46,13 @@
                             <i class="bi bi-bell"></i>
                             <span>{{$notificationCount}}</span>
                         </a>
-
-              
-
-
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="dropdown-menu-title">
                         <h6>
                             {{translate("Notifications")}}
                         </h6>
-
                             <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
-
                         </li>
-
                         <li>
                             <div class="notification-items" data-simplebar>
                                 <div class="notification-item">
@@ -108,7 +62,7 @@
                                             <li>
                                                 <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                                     <div class="notify-icon">
-                                                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                                                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
 
                                                     </div>
 
@@ -137,7 +91,6 @@
                                 </div>
                             </div>
                         </li>
-
                         <li>
                             <div class="dropdown-menu-footer">
                                 <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
@@ -159,12 +112,10 @@
                         aria-expanded="false" >
                         <span class="flag">
                             <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
-
                         </span>
                     </button>
                     @if(!$languages->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
-
                         @foreach($languages as $language)
                         <li>
                             <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
@@ -175,37 +126,12 @@
                             </a>
                         </li>
                         @endforeach
-
                     </ul>
                     @endif
                 </div>
             </div>
 
             <!-- currency -->
-            <div class="header-right-item">
-                <div class="dropdown currency">
-                    <button
-                        class="dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        >
-                        {{session()->get('currency')?->code}}
-                    </button>
-
-                    @if($currencies->count() > 0)
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                            @foreach($currencies as $currency)
-                                <li>
-                                    <a class="dropdown-item" href="{{route('currency.change',$currency->code)}}"> {{$currency->code}}</a>
-                                </li>
-                            @endforeach
-
-                        </ul>
-                    @endif
-                </div>
-            </div>
 
             <div class="header-right-item">
                 <div class="dropdown profile-dropdown">
@@ -215,17 +141,8 @@
                     aria-expanded="false"
                     role="button">
                     <span class="profile-img">
-                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
                     </span>
-
-                    <div class="balance d-none d-sm-block">
-                    <p>
-                        {{translate("Balance")}}
-                    </p>
-                    <h6>
-                        {{num_format(number:$user->balance,calC:true)}}
-                    </h6>
-                    </div>
                 </div>
 
                 <div class="dropdown-menu dropdown-menu-end">

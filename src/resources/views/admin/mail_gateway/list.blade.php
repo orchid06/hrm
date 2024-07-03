@@ -42,12 +42,13 @@
                     </thead>
                     <tbody>
                         @forelse($gateways as $gateway)
+          
                             <tr>
                                 <td data-label="#">
                                     {{$loop->iteration}}
                                 </td>
                                 <td data-label="{{translate('Name')}}">
-                                    {{$gateway->name}}
+                                    {{strtoupper($gateway->name)}}
                                 </td>
                                 <td data-label='{{translate("Status")}}'>
                                     <div class="form-check form-switch switch-center">

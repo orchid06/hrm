@@ -52,7 +52,6 @@ class SmsGatewayController extends Controller
         $gateway = SmsGateway::where('uid',$uid)->firstOrFail();
 
         return view('admin.sms_gateway.edit',[
-
             'breadcrumbs' =>  ['Home'=>'admin.home','Gateways'=> "admin.smsGateway.list", "Edit" => null],
             'title'       => 'Update '.$gateway->name,
             'gateway'     => $gateway
@@ -93,7 +92,6 @@ class SmsGatewayController extends Controller
             SmsGateway::where('uid',$request->input('id'))->update([
                 'default'    => $request->input("status"),
             ]);
-
             SmsGateway::where('uid',"!=",$request->input('id'))->update([
                 'default' =>  StatusEnum::false->status()  ,
             ]);

@@ -48,7 +48,7 @@
                                         </div>
                                     <span class="status i-badge info">
                                         @php
-                                           $postTypeKey = $account->account_type == App\Enums\AccountType::Page->value ? 'status_type' :'type';
+                                           $postTypeKey = $account->account_type == App\Enums\AccountType::PAGE->value ? 'status_type' :'type';
                                         @endphp
                                        {{k2t(Arr::get($data,$postTypeKey,'status'))}}
                                     </span>
@@ -86,7 +86,7 @@
      </div>
 
 
-     @if( $account->account_type == App\Enums\AccountType::Page->value)
+     @if( $account->account_type == App\Enums\AccountType::PAGE->value)
 
         <div class="i-card-md">
             <div class="card--header">
@@ -130,7 +130,9 @@
 
 @push('script-include')
   <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-  <script src="{{asset('assets/global/js/flatpickr.js')}}"></script>
+   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')

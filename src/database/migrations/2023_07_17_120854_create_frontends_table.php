@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('updated_by')->nullable(); 
-            $table->string("key",255)->nullable();
+            $table->string("key",191);
             $table->longText("value")->nullable();
-            $table->enum('status',[0,1])->default(0)->comment('Active: 1, Inactive: 0');
+            $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
             $table->timestamps();
         });
     }
