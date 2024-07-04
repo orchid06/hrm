@@ -5,7 +5,7 @@
 
 
 
-<section class="serivce-section pt-110">
+{{-- <section class="serivce-section pt-110">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -230,7 +230,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 <section class="reviews pb-110">
@@ -375,147 +375,9 @@
     </div>
 </section>
 
-<section class="pricing-plan pb-110">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="section-title-one text-center mb-60">
-                    <div class="subtitle">{{$testimonialContent->value->sub_title}}</div>
-                    <h2>What our <span>Clients</span> say.</h2>
-                    <p>{{$testimonialContent->value->description}}.</p>
-                </div>
-            </div>
-        </div>
-        <ul class="nav plan-tab d-flex justify-content-center mx-auto mb-60" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false" role="tab"
-                    tabindex="-1">Monthly</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true" role="tab">Yearly</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true" role="tab">Unlimited</a>
-            </li>
-        </ul>
-        <div id="myTabContent5" class="tab-content">
-            <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pricing-item">
-                            <div class="radius-one">
-                                <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
-                            </div>
-                            <div class="radius-two">
-                                <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
-                            </div>
-                            <div class="icon">
-                                <i class="bi bi-send"></i>
-                            </div>
-                            <div class="pricing-header">
-                                <span>For Mini Business</span>
-                                <h5>Solo</h5>
-                                <p>Show social proof notifications to increase leads and sales.</p>
-                            </div>
-                            <div class="price">
-                                <h3>$0.00<span>/Monthly</span></h3>
-                            </div>
-                            <div class="body">
-                                <h6>What’s included</h6>
-                                <ul>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social post</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
-                                    <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
-                                    <li><span><i class="bi bi-check"></i></span>Schedule post</li>
-                                    <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
-                                    <li><span><i class="bi bi-check"></i></span>20 Word token</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pricing-item style-dark">
-                            <div class="radius-one">
-                                <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
-                            </div>
-                            <div class="radius-two">
-                                <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
-                            </div>
-                            <div class="icon">
-                                <i class="bi bi-rocket-takeoff"></i>
-                            </div>
-                            <div class="pricing-header">
-                                <span>Recommended Plan</span>
-                                <h5>Accelerate</h5>
-                                <p>Show social proof notifications to increase leads and sales.</p>
-                            </div>
-                            <div class="price">
-                                <h3>$0.00<span>/Monthly</span></h3>
-                            </div>
-                            <div class="body">
-                                <h6>What’s included</h6>
-                                <ul>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social post</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
-                                    <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
-                                    <li><span><i class="bi bi-check"></i></span>Schedule post</li>
-                                    <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
-                                    <li><span><i class="bi bi-check"></i></span>20 Word token</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="pricing-item">
-                            <div class="radius-one">
-                                <img src="https://i.ibb.co/ZVtDdjL/shape-3.png" alt="shape-3">
-                            </div>
-                            <div class="radius-two">
-                                <img src="https://i.ibb.co/k6v39f8/shape-bread-1.png" alt="shape-bread-1">
-                            </div>
-                            <div class="icon">
-                                <i class="bi bi-gem"></i>
-                            </div>
-                            <div class="pricing-header">
-                                <span>For Mini Business</span>
-                                <h5>Pro</h5>
-                                <p>Show social proof notifications to increase leads and sales.</p>
-                            </div>
-                            <div class="price">
-                                <h3>$0.00<span>/Monthly</span></h3>
-                            </div>
-                            <div class="body">
-                                <h6>What’s included</h6>
-                                <ul>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social profile</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Social post</li>
-                                    <li><span><i class="bi bi-check"></i></span>1 Pre-built ai template</li>
-                                    <li><span><i class="bi bi-check"></i></span>Facebook platform access</li>
-                                    <li><span><i class="bi bi-check"></i></span>Schedule post</li>
-                                    <li><span><i class="bi bi-check"></i></span>Gpt-3.5-turbo Open ai model</li>
-                                    <li><span><i class="bi bi-check"></i></span>20 Word token</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="i-btn btn--lg btn--primary capsuled">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="tab-two" role="tabpanel">
 
-            </div>
-            <div class="tab-pane fade" id="tab-three" role="tabpanel">
 
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- <section class="service-details-section pt-110 pb-110">
+<section class="service-details-section pt-110 pb-110">
     <div class="container">
         <div class="row gy-5">
             <div class="col-lg-8">
@@ -582,7 +444,7 @@
             </div>
         </div>
     </div>
-</section> --}}
+</section>
 
 
 

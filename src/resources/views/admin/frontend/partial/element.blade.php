@@ -95,7 +95,10 @@
                                             @endphp
                 
                                             <div class="avatar-group-item">
-                                                <img title="{{$imK}}" class="rounded-circle avatar-sm" src='{{imageURL(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}">
+                                                 <a href="{{imageURL(@$file,"frontend",true,$imType->size)}}" class="me-4" target="_blank">
+
+                                                    <img data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($imK)}}"  class="rounded-circle avatar-sm" src='{{imageURL(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}"> 
+                                                 </a>
                                             </div>
                                         @endforeach
                                 </div>
