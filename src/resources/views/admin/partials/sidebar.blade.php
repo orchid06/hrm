@@ -487,22 +487,29 @@
             aria-expanded="false" aria-controls="frontend">
             <span><i class="las la-globe-europe"></i></span>
             <p>
-              {{translate('Appearances')}}
+                {{translate('Appearances')}}
             </p>
             <small >
               <i class="las la-angle-down"></i>
             </small>
           </a>
+
           <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.appearance.*','admin.menu.*','admin.page.*'],'drop_down')}} " id="frontend">
             <ul class="sub-menu">
               @if(check_permission('view_frontend'))
                 @php
                     $appearanceSegment = collect(request()->segments())->last();
+
+
                 @endphp
                 @foreach (get_appearance(true) as $key => $appearance)
                     @if (isset($appearance['builder']) && $appearance['builder'])
+
+                      
+
+                      
                       <li class="sub-menu-item">
-                          <a class="sidebar-menu-link @if ($key == $appearanceSegment) active @endif"  href='{{route("admin.appearance.list",$key)}}'>
+                          <a class="sidebar-menu-link @if ($key == $appearanceSegment || @$appearance['child_section'] == request()->route('key') ) active @endif"  href='{{route("admin.appearance.list",$key)}}'>
                             <span></span>
                             <p>
                               {{translate(k2t($appearance['name']))}}

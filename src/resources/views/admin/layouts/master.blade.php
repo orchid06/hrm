@@ -26,6 +26,7 @@
 
   </head>
   <body>
+
     @include('admin.partials.topbar')
     <div class="dashboard-wrapper">
         @include('admin.partials.sidebar')

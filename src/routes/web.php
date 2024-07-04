@@ -256,11 +256,12 @@ use Illuminate\Support\Facades\DB;
 
         Route::controller(FrontendController::class)->group(function (){
 
-                Route::get('/', 'home')->name('home');
-                Route::get('/plans', 'plan')->name('plan');
-                Route::get('/blogs', 'blog')->name('blog');
-                Route::get('/blogs/{slug}', 'blogDetails')->name('blog.details');
-                Route::get('/pages/{slug}', 'page')->name('page');
+            Route::get('/', 'home')->name('home');
+            Route::get('/plans', 'plan')->name('plan');
+            Route::get('/blogs', 'blog')->name('blog');
+            Route::get('/blogs/{slug}', 'blogDetails')->name('blog.details');
+            Route::get('/pages/{slug}', 'page')->name('page');
+            Route::get('/integration/{slug}/{uid}', 'integration')->name('integration');
 
         });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\StatusEnum;
 use App\Http\Services\FrontendService;
 use App\Models\Admin\Category;
+use App\Models\Admin\Frontend;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
 use App\Models\Blog;
@@ -16,7 +17,7 @@ class FrontendController extends Controller
 {
 
 
-    public $lastSegment;
+    public  $lastSegment;
 
     public function __construct()
     {
@@ -92,8 +93,8 @@ class FrontendController extends Controller
             'meta_data'         => $this->metaData($metaData),
             'blog'              => $blog,
             'related_blogs'     => $relatedBlogs,
-            'breadcrumbs'      => ['Home'=>'home',"Blogs" => 'blog',$blog->title => null],
-            'banner'           => (object) ['title' => $blog->title , 'description' => limit_words(strip_tags($blog->description),100)]
+            'breadcrumbs'       => ['Home'=>'home',"Blogs" => 'blog',$blog->title => null],
+            'banner'            => (object) ['title' => $blog->title , 'description' => limit_words(strip_tags($blog->description),100)]
         ]);
   
     }
@@ -106,11 +107,7 @@ class FrontendController extends Controller
      */
     public function plan() :View{
         return view('frontend.plans',[
-            'meta_data' => $this->metaData(
-                [
-                    "title"    =>  trans('default.plan')
-                ]
-            ),
+            'meta_data' => $this->metaData(["title"    =>  trans('default.plan')] ),
             'menu'      => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
             "plans"     => Package::active()->get()
         ]);
@@ -120,15 +117,14 @@ class FrontendController extends Controller
 
 
     /**
-     * view Pages
+     * View Pages
      *
      * @return View
      */
     public function page(string $slug) :View{
 
-
         $page          = Page::active()->where('slug',$slug)
-                                          ->firstOrfail();
+                                            ->firstOrfail();
 
         $metaData = [
             "title"               =>  $page->meta_title,
@@ -141,8 +137,27 @@ class FrontendController extends Controller
             'page'         => $page,
             'breadcrumbs'  =>  ['Home'=>'home',$page->title => null],
             'banner'       => (object) ['title' => $page->title , 'description' => limit_words(strip_tags($page->description),100)]
-
         ]);
+    }
+
+
+
+    /**
+     * View integration details
+     *
+     * @return View
+     */
+    public function integration(string $slug ,string $uid) :View{
+
+        $section          = Frontend::active()->where('uid',$uid)
+                                              ->firstOrfail();
+        return view('frontend.integration',[
+            'meta_data'    => $this->metaData([ "title" => $section->value->title]),
+            'section'      => $section,
+            'breadcrumbs'  =>  ['Home'=>'home',$section->value->title => null],
+            'banner'       => (object) ['title' => $section->value->title , 'description' => limit_words(strip_tags($section->value->short_description),100)]
+        ]);
+
     }
 
 
