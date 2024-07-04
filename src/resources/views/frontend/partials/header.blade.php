@@ -219,69 +219,112 @@
                         <ul class="menu-list">
 
                             @php
-                            $megaMenu = get_content("content_mega_menu")->first();
+                                    $megaMenu              = get_content("content_mega_menu")->first();
+                                    $intregrationsContent  = get_content("content_integration")->first();
+                                    $intregrationsElements = get_content("element_integration");
 
-                            $menuImg = $megaMenu->file->where("type",'image')->first();
+                                    $hoverImageSize        = get_appearance_img_size('integration','element','hover_image');
+                                    $featureImageSize      = get_appearance_img_size('integration','element','feature_image');
 
-                            $intregrationsContent = get_content("content_integration")->first();
-
-
-                            $platformContent = get_content("content_platform")->first();
-                            $platformElements = get_content("element_platform");
 
                             @endphp
 
                             @if($megaMenu->value->select_input->status == App\Enums\StatusEnum::true->status() )
-                            <li class="menu-item">
-                                <a href="javascript:void(0)" class="menu-link">
-                                    {{@$megaMenu->value->title}}
-                                    <div class="menu-link-icon">
-                                        <i class="bi bi-chevron-down"></i>
-                                    </div>
-                                </a>
+                                <li class="menu-item">
+                                    <a href="javascript:void(0)" class="menu-link">
+                                        {{@$megaMenu->value->title}}
+                                        <div class="menu-link-icon">
+                                            <i class="bi bi-chevron-down"></i>
+                                        </div>
+                                    </a>
 
-                                <!-- <div class="mega-menu container-lg px-0">
-                                    <div class="mega-menu-wrapper">
-                                        <div class="row g-0 h-100">
-                                            <div class="col-lg-12">
-                                                <div class="mega-menu-right">
-                                                    <div class="row g-0 h-100">
-                                                        <div class="col-lg-8">
-                                                            <div class="social-integra">
-                                                                <h5>    {{$intregrationsContent->value->sub_title }}</h5>
+                                    <div class="mega-menu container-lg px-0">
+                                        <div class="mega-menu-wrapper">
+                                            <div class="row g-4 h-100">
+                                                <div class="col-lg-12">
+                                                    <div class="mega-menu-right">
+                                                        <div class="row g-0 h-100">
+                                                            <div class="col-lg-8">
+                                                                <div class="social-integra">
+                                                                    <h5> 
+                                                                        {{@$intregrationsContent->value->title}}
+                                                                    </h5>
 
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mega-menu-integra">
-                                                                            @forelse ($platforms->where('is_integrated',App\Enums\StatusEnum::true->status())   as  $platform)
-                                                                                <a href="{{$platform->url}}" class="menu-social-item">
-                                                                                    <div class="social-item-img">
-                                                                                        <img src='{{imageUrl(@$platform->file,"platform",true)}}'
-                                                                                        alt="{{@$platform->file->name}}" loading="lazy"/>
-                                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            @if($intregrationsElements->count() > 0)
+                                                                                <div class="mega-menu-integra">
+                                                                                    <ul class="nav nav-tabs gap-3" id="customTab" role="tablist">
 
-                                                                                    <div class="content">
-                                                                                        <h6 class="mb-1"> {{$platform->name}}</h6>
-                                                                                        <p>     {{$platform->description}}</p>
-                                                                                    </div>
-                                                                                </a>
-                                                                            @empty
+                                                                                        @forelse ($intregrationsElements as $element)
 
-                                                                                <div class="text-center">
-                                                                                    {{translate('No data found')}}
+                                                                                            @php $file = $element->file->where('type',"feature_image")->first(); @endphp
+
+                                                                                            <li class="nav-item" role="presentation">
+                                                                                                <a href="@@" class="nav-link mega-menu-tab {{$loop->index == 0 ? "active" :""}} menu-social-item"
+                                                                                                    id="tab-{{$loop->index}}-tab"
+                                                                                                    data-bs-toggle="tab"
+                                                                                                    data-bs-target="#tab-{{$loop->index}}"
+                                                                                                    role="tab"
+                                                                                                    aria-controls="tab-{{$loop->index}}"
+                                                                                                    aria-selected="true">
+                                                                                                    <div class="social-item-img">
+                                                                                                        <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}"
+                                                                                                            alt="{{@$file->name ?? @$element->value->title."jpg" }}"
+                                                                                                            loading="lazy">
+                                                                                                    </div>
+
+                                                                                                    <div class="content">
+                                                                                                        <h6 class="mb-1">
+                                                                                                            {{$element->value->title}}
+                                                                                                        </h6>
+                                                                                                        <p> 
+                                                                                                            {{$element->value->short_description}}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                            
+                                                                                        @empty
+                                                                                            <li class="nav-item" role="presentation">
+                                                                                                @include("frontend.partials.not_found")
+                                                                                            </li>
+                                                                                            
+                                                                                        @endforelse
+                                                                                        
+                                                                                    
+                                                                                    </ul>
                                                                                 </div>
-
-                                                                            @endforelse
+                                                                            @else
+                                                                               @include("frontend.partials.not_found")
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
-                                                        </div>
 
-                                                        <div class="col-lg-4">
-                                                            <div class="mega-menu-banner">
-                                                                <img src='{{imageUrl(@$menuImg,"frontend",true,@get_appearance()->mega_menu->content->images->image->size)}}' alt="{{@$menuImg->name}}" />
+                                                            <div class="col-lg-4">
+
+                                                                @if($intregrationsElements->count() > 0)
+                                                                    <div class="tab-content" id="customTabContent">
+
+                                                                        @foreach ($intregrationsElements as $element)
+                                                                            @php 
+                                                                                           $file = $element->file->where('type',"hover_image")->first(); 
+                                                                            @endphp
+                                                                            <div class="tab-pane fade {{$loop->index == 0 ? 
+                                                                                "show active" :""}}  " id="tab-{{$loop->index}}"
+                                                                                role="tabpanel" aria-labelledby="tab-{{$loop->index}}-tab">
+                                                                                <img src="{{imageURL($file,'frontend',true,$hoverImageSize)}}"
+                                                                                alt="{{@$file->name?? "preview.jpg"}}">
+                                                                            </div>
+                                                                         
+                                                                        @endforeach
+                                                                    </div>
+                                                                @else
+                                                                    @include("frontend.partials.not_found")
+                                                                 @endif
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -289,182 +332,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </li>
 
-                                <div class="mega-menu container-lg px-0">
-                                    <div class="mega-menu-wrapper">
-                                        <div class="row g-4 h-100">
-                                            <div class="col-lg-12">
-                                                <div class="mega-menu-right">
-                                                    <div class="row g-0 h-100">
-                                                        <div class="col-lg-8">
-                                                            <div class="social-integra">
-                                                                <h5> Our Integrations</h5>
 
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mega-menu-integra">
-                                                                            <ul class="nav nav-tabs gap-3" id="customTab" role="tablist">
-                                                                                <li class="nav-item" role="presentation">
-                                                                                    <a href="http://localhost/engageHub/pages/cookies-policy" class="nav-link active menu-social-item"
-                                                                                        id="tab-one-tab"
-                                                                                        data-bs-toggle="tab"
-                                                                                        data-bs-target="#tab-one"
-                                                                                        role="tab"
-                                                                                        aria-controls="tab-one"
-                                                                                        aria-selected="true">
-                                                                                        <div class="social-item-img">
-                                                                                            <img src="http://localhost/EngageHub/default/image/50x50"
-                                                                                                alt="659fe0b52c9ac1704976565.png"
-                                                                                                loading="lazy">
-                                                                                        </div>
 
-                                                                                        <div class="content">
-                                                                                            <h6 class="mb-1"> Facebook
-                                                                                            </h6>
-                                                                                            <p> Seamlessly execute
-                                                                                                social media
-                                                                                                management and social
-                                                                                                customer
-                                                                                                care on Facebook from a
-                                                                                                single,
-                                                                                                scalable platform</p>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="nav-item" role="presentation">
-                                                                                    <a class="nav-link menu-social-item"
-                                                                                        id="tab-two-tab"
-                                                                                        data-bs-toggle="tab"
-                                                                                        data-bs-target="#tab-two"
-                                                                                        type="button" role="tab"
-                                                                                        aria-controls="tab-two"
-                                                                                        aria-selected="false">
-                                                                                        <div class="social-item-img">
-                                                                                            <img src="http://localhost/EngageHub/default/image/50x50"
-                                                                                                alt="659fe0bd0df891704976573.png"
-                                                                                                loading="lazy">
-                                                                                        </div>
-
-                                                                                        <div class="content">
-                                                                                            <h6 class="mb-1"> Instagram</h6>
-                                                                                            <p> Seamlessly execute social media
-                                                                                                management and social customer
-                                                                                                care on Instagram from a single,
-                                                                                                scalable platform</p>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="nav-item"
-                                                                                    role="presentation">
-                                                                                    <a class="nav-link menu-social-item"
-                                                                                        id="tab-three-tab"
-                                                                                        data-bs-toggle="tab"
-                                                                                        data-bs-target="#tab-three"
-                                                                                        type="button" role="tab"
-                                                                                        aria-controls="tab-three"
-                                                                                        aria-selected="false">
-                                                                                        <div class="social-item-img">
-                                                                                            <img src="http://localhost/EngageHub/default/image/50x50"
-                                                                                                alt="659fe0dc967521704976604.png"
-                                                                                                loading="lazy">
-                                                                                        </div>
-
-                                                                                        <div class="content">
-                                                                                            <h6 class="mb-1"> Twitter</h6>
-                                                                                            <p> Seamlessly execute social media
-                                                                                                management and social customer
-                                                                                                care on Twitter from a single,
-                                                                                                scalable platform</p>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="nav-item"
-                                                                                    role="presentation">
-                                                                                    <a class="nav-link menu-social-item"
-                                                                                        id="tab-four-tab"
-                                                                                        data-bs-toggle="tab"
-                                                                                        data-bs-target="#tab-four"
-                                                                                        type="button" role="tab"
-                                                                                        aria-controls="tab-four"
-                                                                                        aria-selected="false">
-                                                                                        <div class="social-item-img">
-                                                                                            <img src="http://localhost/EngageHub/default/image/50x50"
-                                                                                                alt="659fe10a6dbe71704976650.png"
-                                                                                                loading="lazy">
-                                                                                        </div>
-
-                                                                                        <div class="content">
-                                                                                            <h6 class="mb-1"> Linkedin</h6>
-                                                                                            <p> Seamlessly execute social media
-                                                                                                management and social customer
-                                                                                                care on Linkedin from a single,
-                                                                                                scalable platform</p>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-4">
-                                                            <div class="tab-content" id="customTabContent">
-                                                                <div class="tab-pane fade show active" id="tab-one"
-                                                                    role="tabpanel" aria-labelledby="tab-one-tab">
-                                                                    <img src="http://localhost/EngageHub/default/image/600x760"
-                                                                    alt="658909058249c1703479557.jpg">
-                                                                </div>
-                                                                <div class="tab-pane fade" id="tab-two" role="tabpanel"
-                                                                    aria-labelledby="tab-two-tab">
-                                                                    <img src="http://localhost/EngageHub/default/image/600x760"
-                                                                    alt="658909058249c1703479557.jpg">
-                                                                </div>
-                                                                <div class="tab-pane fade" id="tab-three"
-                                                                    role="tabpanel" aria-labelledby="tab-three-tab">
-                                                                    <img src="http://localhost/EngageHub/default/image/600x760"
-                                                                    alt="658909058249c1703479557.jpg">
-                                                                </div>
-                                                                <div class="tab-pane fade" id="tab-four" role="tabpanel"
-                                                                    aria-labelledby="tab-four-tab">
-                                                                    <img src="http://localhost/EngageHub/default/image/600x760"
-                                                                    alt="658909058249c1703479557.jpg">
-                                                                </div>
-                                                            </div>
-                                                            <!-- <div class="mega-menu-banner">
-                                                                <img src="http://localhost/EngageHub/default/image/600x760"
-                                                                    alt="658909058249c1703479557.jpg">
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                             @endif
 
                             @foreach ($menus as $menu)
-                            <li class="menu-item">
-                                <a href="{{url($menu->url)}}"
-                                    class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
-                                    {{$menu->name}}
-                                </a>
-                            </li>
+                                <li class="menu-item">
+                                    <a href="{{url($menu->url)}}"
+                                        class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
+                                        {{$menu->name}}
+                                    </a>
+                                </li>
                             @endforeach
                             @php
                             $lastSegment = collect(request()->segments())->last();
                             @endphp
                             @foreach ($pages as $page)
-                            <li class="menu-item">
-                                <a href="{{route('page',$page->slug)}}"
-                                    class="menu-link @if($lastSegment == $page->slug) active @endif ">
-                                    {{$page->title}}
-                                </a>
-                            </li>
+                                <li class="menu-item">
+                                    <a href="{{route('page',$page->slug)}}"
+                                        class="menu-link @if($lastSegment == $page->slug) active @endif ">
+                                        {{$page->title}}
+                                    </a>
+                                </li>
                             @endforeach
 
                         </ul>

@@ -25,7 +25,10 @@
           @forelse ($blogs as $blog)
               @include("frontend.partials.blog_component")
           @empty
-              @include("frontend.partials.not_found")
+              <div class="col-12">
+                   @include("frontend.partials.not_found")
+              </div>
+             
           @endforelse
       </div>
 

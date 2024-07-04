@@ -124,6 +124,8 @@
 
       @if(request()->routeIs('user.*'))
 
+
+
          // update status event start
          $(document).on('click', '.status-update', function (e) {
 
