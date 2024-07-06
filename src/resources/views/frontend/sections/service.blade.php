@@ -1,10 +1,21 @@
+
+@php
+
+  $content  = get_content("content_service")->first();
+  $services = get_content("element_service");
+  $serviceImageSize      = get_appearance_img_size('service','element','image');
+
+@endphp
+
+
 <section class="serivce-section pb-110">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="section-title-one text-center mb-60">
-                    <div class="subtitle">Service</div>
-                    <h2>Empowering social media <span>insights</span></h2>
+                    <div class="subtitle">{{@$content->value->sub_title}}</div>
+                    <h2>    @php echo @$content->value->title @endphp </h2>
+                    <p> {{@$content->value->description}}</p>
                 </div>
             </div>
         </div>
@@ -41,125 +52,39 @@
           <div class="row">
             <div class="col-lg-10">
               <div class="section-title-two text-start mb-60">
-                <h2>Empowering social media <span>insights</span></h2>
-                <p>Discover the power of our secure and rewarding credit cards.</p>
+                <h2>  @php echo @$content->value->section_top_title @endphp </h2>
+                <p>{{@$content->value->section_top_description}}</p>
               </div>
             </div>
           </div>
           <div class="row g-4">
               <div class="col-12">
-                <div class="swiper service-slider-one">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                   @include('frontend.partials.service_component',[ 'slider' => "service-slider-one",'services' => $services->take(6)])
               </div>
           </div>
         </div>
       </div>
       <div class="row h-625 mt-5">
-        <div class="col-lg-11">
-          <div class="row justify-content-end">
-            <div class="col-lg-10">
-              <div class="section-title-two text-end mb-60">
-                <h2>Empowering social media <span>insights</span></h2>
-                <p>Discover the power of our secure and rewarding credit cards.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row g-4">
-            <div class="col-12">
-                <div class="swiper service-slider-two">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                    <div class="swiper-slide">
-                      <div class="service-item">
-                        <div class="image">
-                          <img src="https://i.ibb.co/XkwQkzQ/Group-2.png" alt="Group-2">
-                        </div>
-                        <h4>Ai Content Create</h4>
-                        <p>Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.</p>
-                        <a href="#" class="i-btn btn--md btn--white capsuled">More info<span><i class="bi bi-arrow-up-right"></i></span></a>
-                      </div>
-                    </div>
-                  </div>
+          <div class="col-lg-11">
+            <div class="row justify-content-end">
+              <div class="col-lg-10">
+                <div class="section-title-two text-end mb-60">
+                  <h2>  @php echo @$content->value->section_bottom_title @endphp </h2>
+                  <p>{{@$content->value->section_bottom_description}}</p>
                 </div>
               </div>
             </div>
-        </div>
-        <div class="col-lg-1 d-lg-block d-none">
-          <div class="service-type-icon">
-            <i class="bi bi-laptop"></i>
+              <div class="row g-4">
+                      <div class="col-12">
+                            @include('frontend.partials.service_component',[ 'slider' => "service-slider-two",'services' => $services->skip(6)->take(PHP_INT_MAX)])
+                      </div>
+              </div>
           </div>
-        </div>
+          <div class="col-lg-1 d-lg-block d-none">
+              <div class="service-type-icon">
+                  <i class="bi bi-laptop"></i>
+              </div>
+          </div>
       </div>
       <div class="row mt-5">
         <div class="col-lg-1 d-lg-block d-none">

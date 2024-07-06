@@ -11,11 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View ;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+
 
 class LoginController extends Controller
 {
@@ -59,17 +57,14 @@ class LoginController extends Controller
         $credentials       = [$field => request()->input('login_data'), 'password' => request()->input('password')];
         $attemptValidtion  = site_settings("login_attempt_validation");
 
-        if($attemptValidtion == StatusEnum::true->status() && $this->hasTooManyLoginAttempts($request, $field)){
-            return $this->sendLockoutResponse($request, $field);
-        }
+        if($attemptValidtion == StatusEnum::true->status() && $this->hasTooManyLoginAttempts($request, $field)) return $this->sendLockoutResponse($request, $field);
         
         if($this->authService->loginWithOtp()){
             $user =  User::where("phone",request()->input('login_data'))->first();
 
-            if($user && $this->authService->otpConfiguration($user)){
-                return redirect(route('auth.otp.verification'))
-                ->with(response_status('Check your phone! An OTP has been sent successfully.'));
-            }
+            if($user && $this->authService->otpConfiguration($user))  return redirect(route('auth.otp.verification'))
+            ->with(response_status('Check your phone! An OTP has been sent successfully.'));
+        
             return redirect()->back()->with(response_status("Invalid credential","error"));
         }
 
@@ -80,9 +75,7 @@ class LoginController extends Controller
         }
         
 
-        if($attemptValidtion  == StatusEnum::true->status()){
-            $this->incrementLoginAttempts($request, $field);
-        }
+        if($attemptValidtion  == StatusEnum::true->status()) $this->incrementLoginAttempts($request, $field);
 
         return redirect()->back()->with(response_status("Invalid credential","error"));
     }

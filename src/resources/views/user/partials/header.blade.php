@@ -24,20 +24,27 @@
         </div>
 
         <div class="header-right">
-            <!-- notifications -->
+            <a target="_blank"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Browse Frontend')}}" href="{{route('home')}}">
+                <i class="bi bi-globe-americas"></i>
+            </a>
+             
             @php
                 $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
-                                ->where("notificationable_id",$user->id)
-                                ->unread()
-                                ->latest()
-                                ->take(8)
-                                ->get();
+                                                ->where("notificationable_id",$user->id)
+                                                ->unread()
+                                                ->latest()
+                                                ->take(8)
+                                                ->get();
                 $notificationCount = $notifications->count();
             @endphp
 
             <div class="header-right-item">
-                    <div class="dropdown noti-dropdown">
+
+          
+                
+                <div class="dropdown noti-dropdown">
                         <a
+                            
                             class="noti-dropdown-btn dropdown-toggle"
                             href="javascript:void(0)"
                             role="button"
@@ -46,63 +53,66 @@
                             <i class="bi bi-bell"></i>
                             <span>{{$notificationCount}}</span>
                         </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li class="dropdown-menu-title">
-                        <h6>
-                            {{translate("Notifications")}}
-                        </h6>
-                            <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
-                        </li>
-                        <li>
-                            <div class="notification-items" data-simplebar>
-                                <div class="notification-item">
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="dropdown-menu-title">
+                            <h6>
+                                {{translate("Notifications")}}
+                            </h6>
+                                <span class="i-badge danger">{{$notificationCount}} {{translate('New')}} </span>
+                            </li>
+                            <li>
+                                <div class="notification-items" data-simplebar>
+                                    <div class="notification-item">
 
-                                    <ul>
-                                        @forelse($notifications as $notification)
-                                            <li>
-                                                <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
-                                                    <div class="notify-icon">
-                                                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                                        <ul>
+                                            @forelse($notifications as $notification)
+                                                    <li>
+                                                        <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
+                                                            <div class="notify-icon">
+                                                            <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
 
-                                                    </div>
+                                                            </div>
 
-                                                    <div class="notification-item-content">
-                                                    <h5> {{$user->name}} <small>
-                                                        {{diff_for_humans($notification->created_at)}}
-                                                    </small></h5>
-                                                    <p>
-                                                        {{
-                                                        limit_words(strip_tags($notification->message),50)
-                                                        }}
-                                                    </p>
-                                                    </div>
-                                                    <span><i class="las la-times"></i></span>
-                                                </a>
-                                            </li>
-                                            @empty
-                                            <li class="text-center mx-auto my-3">
-                                                <p>
-                                                    {{translate("Nothing Found !!")}}
-                                                </p>
-                                            </li>
-                                        @endforelse
+                                                            <div class="notification-item-content">
+                                                            <h5> {{$user->name}} 
+                                                                <small>
+                                                                {{diff_for_humans($notification->created_at)}}
+                                                            </small>
+                                                        </h5>
+                                                            <p>
+                                                                {{ 
+                                                                limit_words(strip_tags($notification->message),50)
+                                                                }}
+                                                            </p>
+                                                            </div>
+                                                            <span><i class="las la-times"></i></span>
+                                                        </a>
+                                                    </li>
+                                                @empty
+                                                    <li class="text-center mx-auto my-3">
+                                                        <p>
+                                                            {{translate("Nothing Found !!")}}
+                                                        </p>
+                                                    </li>
+                                                @endforelse
 
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown-menu-footer">
-                                <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
-                                    {{translate("View All")}}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                            <li>
+                                <div class="dropdown-menu-footer">
+                                    <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
+                                        {{translate("View All")}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                 </div>
+
             </div>
 
-            <!-- languages -->
+       
             <div class="header-right-item">
                 <div class="dropdown lang">
                     <button
@@ -117,21 +127,21 @@
                     @if(!$languages->isEmpty())
                     <ul class="dropdown-menu dropdown-menu-end">
                         @foreach($languages as $language)
-                        <li>
-                            <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
-                                <span class="flag">
-                                    <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
-                                </span>
-                                {{$language->name}}
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
+                                    <span class="flag">
+                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code."jpg"}}" >
+                                    </span>
+                                    {{$language->name}}
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                     @endif
                 </div>
             </div>
 
-            <!-- currency -->
+
 
             <div class="header-right-item">
                 <div class="dropdown profile-dropdown">
@@ -141,7 +151,7 @@
                     aria-expanded="false"
                     role="button">
                     <span class="profile-img">
-                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                    <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name ?? 'user.jpg'}}"/>
                     </span>
                 </div>
 

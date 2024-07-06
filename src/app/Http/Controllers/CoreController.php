@@ -65,9 +65,7 @@ class CoreController extends Controller
         $response['status'] = "success";
         $response['message'] = translate('Language Switched Successfully');
 
-        if(!Language::where('code', $code)->exists()){
-            $code = 'en';
-        }
+        if(!Language::where('code', $code)->exists()) $code = 'en';
         
         optimize_clear();
         session()->put('locale', $code);
@@ -108,8 +106,7 @@ class CoreController extends Controller
         $fontSize     = $width > 100 && $height > 100 
                               ? 60 : 20;
 
-      
-
+    
         $img->text($text, $width / 2,  $height / 2, function ($font) use($fontSize) {
             $font->file(realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf'); 
             $font->color('#000');
@@ -214,9 +211,9 @@ class CoreController extends Controller
     public function handleExpireSubscriptions() :void{
 
         $subscriptions = Subscription::with(['user','package'])
-                            ->running()
-                            ->expired()
-                            ->cursor();
+                                    ->running()
+                                    ->expired()
+                                    ->cursor();
 
         foreach($subscriptions as $subscription){
 
@@ -227,7 +224,7 @@ class CoreController extends Controller
 
 
             // inactive  user profile
-            $userService->inactiveSocialAccounts($subscription);
+            (new UserService())->inactiveSocialAccounts($subscription);
 
             $code = [
                 'time'    => Carbon::now(),
@@ -380,9 +377,7 @@ class CoreController extends Controller
         $folderPath = storage_path('app');
         $filePath = $folderPath . '/cookie_data.json';
 
-        if (!file_exists($folderPath)) {
-            mkdir($folderPath, 0755, true);
-        }
+        if (!file_exists($folderPath))  mkdir($folderPath, 0755, true);
 
         $existingData = [];
 
@@ -400,9 +395,7 @@ class CoreController extends Controller
     {
         $path = storage_path('app/cookie_data.json');
 
-        if (file_exists($path)) {
-            return json_decode(file_get_contents($path), true);
-        }
+        if (file_exists($path))  return json_decode(file_get_contents($path), true);
 
         return [];
     }

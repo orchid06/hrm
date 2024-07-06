@@ -45,11 +45,16 @@ class CommunicationsController extends Controller
      */
     public function contact() :View{
 
+        $contactSection  = get_content("content_contact_us")->first();
+
         return view('frontend.contact',[
-            'meta_data' => $this->metaData([
-                "title"     => trans('default.contact'),
-            ]),
-            'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail()
+            'meta_data' => $this->metaData([ "title"     => trans('default.contact')]),
+            'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail(),
+
+            'breadcrumbs'       => ['Home'=>'home',"Contact Us" => null],
+            'banner'            => (object) ['title'       => $contactSection->value->breadcrumb_title ,
+                                             'description' => $contactSection->value->breadcrumb_description],
+            'contact_section' => $contactSection
 
         ]);
     }
@@ -155,11 +160,18 @@ class CommunicationsController extends Controller
      */
     public function feedback() :View{
         
+
+        $feedbackSection  = get_content("content_feedback")->first();
+
         return view('frontend.feedback',[
             'meta_data' => $this->metaData([
                 "title" => trans('default.feedback')
             ]),
-            'menu'      => Menu::where('url', $this->lastSegment )->active()->first()
+            'menu'      => Menu::where('url', $this->lastSegment )->active()->first(),
+            'breadcrumbs'       => ['Home'=>'home',"Feedback" => null],
+            'banner'            => (object) ['title'       => $feedbackSection->value->breadcrumb_title ,
+                                             'description' => $feedbackSection->value->breadcrumb_description],
+            'feedback_section'  => $feedbackSection
          
         ]);
     }
@@ -171,8 +183,6 @@ class CommunicationsController extends Controller
      * @return RedirectResponse
      */
     public function feedbackStore(Request $request) :RedirectResponse{
-
-
 
         $request->validate([
             "author"      => ['required',"max:155"],
@@ -190,8 +200,6 @@ class CommunicationsController extends Controller
         $frontend->value  = $requestData;
 
         $frontend->saveQuietly(); 
-
-
 
         $files = [];
 
@@ -213,9 +221,7 @@ class CommunicationsController extends Controller
             }
         }
 
-        if (!empty($files)) {
-            $frontend->file()->saveMany($files);
-        }
+        if (!empty($files))     $frontend->file()->saveMany($files);
 
         $route             =  route("admin.appearance.list","testimonial");
 

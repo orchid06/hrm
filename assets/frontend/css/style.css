@@ -4405,9 +4405,6 @@ footer{
   position: relative;
 }
 
-.contact.feedback {
-  padding-top: 110px;
-}
 
 @media (max-width: 767px) {
   .contact-wrapper{
@@ -4551,15 +4548,6 @@ footer{
   position: relative;
 }
 
-.auth .auth-left::before {
-  content: url('https://i.ibb.co/cvZvn4N/auth-bg.png');
-  display: block;
-  width: 94%;
-  height: 94%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
 
 
 

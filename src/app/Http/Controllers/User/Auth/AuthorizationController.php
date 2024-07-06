@@ -14,7 +14,6 @@ use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 class AuthorizationController extends Controller
 {
     
@@ -38,11 +37,8 @@ class AuthorizationController extends Controller
     public function otpVerification() :View {
 
         return view('user.auth.verification',[
-            
-            'meta_data'=> $this->metaData([
-                  "title" => trans("default.otp_verification")]),
+            'meta_data'=> $this->metaData(["title" => trans("default.otp_verification")]),
             "route"    => "auth.otp.verify",
-
         ]);
     
     }
@@ -65,6 +61,7 @@ class AuthorizationController extends Controller
         
         try {
             $identification = session()->get("user_identification");
+       
             if ($this->isValidIdentification($identification) && $this->processVerification($request, $identification)) {
                 $flag = StatusEnum::true->status();
                 $responseMessage = ('Verification process successfully completed. Your account is now verified and ready for use. Thank you for confirming your details with us.');
@@ -73,9 +70,9 @@ class AuthorizationController extends Controller
             $responseMessage = response_status(strip_tags($ex->getMessage()), 'error');
         }
         
-        return $flag == StatusEnum::true->status()
-        ? redirect()->route('user.home')->with($responseMessage)
-        : redirect()->back()->with($responseMessage);
+        return ($flag || \auth_user('web')) == StatusEnum::true->status()
+                        ? redirect()->route('user.home')->with($responseMessage)
+                        : redirect()->back()->with($responseMessage);
         
     }
 
@@ -108,9 +105,7 @@ class AuthorizationController extends Controller
             $user = User::where($identification['field'], $identification['value'])->firstOrFail();
             $otp  = $user->otp->where("otp", $request->input("otp_code"))->first();
 
-            if ($this->isValidOtp($otp)) {
-                $response = $this->completeVerification($user, $otp, $identification);
-            }
+            if ($this->isValidOtp($otp)) $response = $this->completeVerification($user, $otp, $identification);
 
             return $response;
         });
@@ -177,8 +172,7 @@ class AuthorizationController extends Controller
                 && session()->get("otp_expire_at",Carbon::now()) <= Carbon::now()
             ){
                 $user = User::with(['otp'])
-                ->where(Arr::get($identification,'field',"") ,Arr::get($identification,'value',"") )
-                ->firstOrfail();
+                                 ->where(Arr::get($identification,'field') ,Arr::get($identification,'value'))->firstOrfail();
                 $type = $identification['field'] == "email" ? "email":"sms";
 
                 $this->authService->otpConfiguration($user,$type);

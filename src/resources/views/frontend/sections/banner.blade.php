@@ -19,7 +19,7 @@
               <div class="banner-content">
                 <h1>
                   @php echo @$bannerContent->value->title @endphp
-                  <img src="{{imageURL($titleVector,'frontend',true,$titleVectorSize)}}" alt="{{@$titleVector->file->name??"vector.jpg"}}"></span>
+                  <img src="{{imageURL($titleVector,'frontend',true,$titleVectorSize)}}" alt="{{@$titleVector->name??"vector.jpg"}}"></span>
                 </h1>
                 <p>
                   {{@$bannerContent->value->description}}

@@ -62,13 +62,15 @@ class AppServiceProvider extends ServiceProvider
 
 
             view()->composer('frontend.partials.header', function ($view)  {
-                
+
                 $view->with([
                     'menus'      => Menu::active()
-                                              ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
+                                              ->orderBy('serial_id')
+                                              ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value,(string)MenuVisibilty::HEADER->value])
                                               ->get(),
 
                     'pages'      => Page::active()
+                                          ->orderBy('serial_id')
                                           ->header()
                                           ->get(),
                 ]);
@@ -77,29 +79,17 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-            view()->composer('frontend.partials.header', function ($view)  {
-                
-                $view->with([
-                    'menus'      => Menu::active()
-                                              ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
-                                              ->get(),
-
-                    'pages'      => Page::active()
-                                          ->header()
-                                          ->get(),
-                    'platforms'  => get_platform()->where("status",StatusEnum::true->status())
-                ]);
-            });
-
-
+        
             view()->composer('frontend.partials.footer', function ($view)  {
                 
                 $view->with([
                     'menus'      => Menu::active()
-                                        ->whereIn('status',[MenuVisibilty::BOTH->value , MenuVisibilty::HEADER->value ])
+                                        ->orderBy('serial_id')
+                                        ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value ,(string) MenuVisibilty::FOOTER->value ])
                                         ->get(),
 
                     'pages'      => Page::active()
+                                        ->orderBy('serial_id')
                                         ->footer()
                                         ->get(),
                 ]);

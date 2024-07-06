@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\StatusEnum;
-use App\Http\Services\FrontendService;
-use App\Models\Admin\Category;
 use App\Models\Admin\Frontend;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
 use App\Models\Blog;
 use App\Models\Package;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
 class FrontendController extends Controller
@@ -47,6 +43,7 @@ class FrontendController extends Controller
     public function blog() :View{
 
         $blogContent  = get_content("content_blog")->first();
+
         return view('frontend.blogs',[
             'meta_data'   => $this->metaData([
                 "title"    => trans('default.blogs')
@@ -101,15 +98,18 @@ class FrontendController extends Controller
 
 
     /**
-     * frontent view
-     *
      * @return View
      */
     public function plan() :View{
+
+        $planContent  = get_content("content_plan")->first();
+
         return view('frontend.plans',[
             'meta_data' => $this->metaData(["title"    =>  trans('default.plan')] ),
             'menu'      => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
-            "plans"     => Package::active()->get()
+            "plans"     => Package::active()->get(),
+            'breadcrumbs'       => ['Home'=>'home',"Plans" => null],
+            'banner'            => (object) ['title' => $planContent->value->sub_title , 'description' => $planContent->value->description]
         ]);
     }
 
@@ -135,7 +135,7 @@ class FrontendController extends Controller
         return view('frontend.page',[
             'meta_data'    => $this->metaData($metaData),
             'page'         => $page,
-            'breadcrumbs'  =>  ['Home'=>'home',$page->title => null],
+            'breadcrumbs'  => ['Home'=>'home',$page->title => null],
             'banner'       => (object) ['title' => $page->title , 'description' => limit_words(strip_tags($page->description),100)]
         ]);
     }
@@ -156,6 +156,26 @@ class FrontendController extends Controller
             'section'      => $section,
             'breadcrumbs'  =>  ['Home'=>'home',$section->value->title => null],
             'banner'       => (object) ['title' => $section->value->title , 'description' => limit_words(strip_tags($section->value->short_description),100)]
+        ]);
+
+    }
+
+
+
+    /**
+     * View Service details
+     *
+     * @return View
+     */
+    public function service(string $slug ,string $uid) :View{
+
+        $service          = Frontend::active()->where('uid',$uid)
+                                              ->firstOrfail();
+        return view('frontend.service',[
+            'meta_data'    => $this->metaData([ "title" => $service->value->title]),
+            'service'      => $service,
+            'breadcrumbs'  =>  ['Home'=>'home',$service->value->title => null],
+            'banner'       => (object) ['title' => $service->value->title , 'description' => limit_words(strip_tags($service->value->description),100)]
         ]);
 
     }
