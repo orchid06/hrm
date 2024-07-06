@@ -199,9 +199,6 @@
         }
     },
 
-
-
-
     
     "breadcrumb": {
         "builder": true,
@@ -236,7 +233,6 @@
     },
 
     "contact_us": {
-
         "builder": true,
         "name": "contact_us",
         "no_selection": true,

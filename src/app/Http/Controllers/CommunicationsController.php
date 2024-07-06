@@ -159,7 +159,7 @@ class CommunicationsController extends Controller
             'meta_data' => $this->metaData([
                 "title" => trans('default.feedback')
             ]),
-            'menu'      => Menu::where('url', $this->lastSegment )->active()->firstOrfail()
+            'menu'      => Menu::where('url', $this->lastSegment )->active()->first()
          
         ]);
     }
