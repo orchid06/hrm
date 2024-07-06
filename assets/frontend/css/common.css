@@ -1349,6 +1349,12 @@
   text-align: center;
 }
 
+@media (max-width:768px) {
+  .nav-tabs.style-1 .nav-link {
+    font-size: 14px;
+  }
+}
+
 .nav-tabs.style-1 .nav-link.active {
   background-color: var(--color-primary);
   color: var(--color-white)

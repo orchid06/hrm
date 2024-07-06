@@ -256,10 +256,6 @@
             modal.modal('show')
         });
 
-
-
-
-
 	})(jQuery);
 
 </script>

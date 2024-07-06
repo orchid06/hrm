@@ -317,7 +317,8 @@
 .frontend-section-image img {
   height: 100px;
   width: 100px;
-  border-radius: 2px;
+  border-radius: 0.375rem;
+  background-color: #f7f7f7;
 }
 
 .w-nowrap {

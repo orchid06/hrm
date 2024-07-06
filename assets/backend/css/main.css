@@ -86,7 +86,7 @@ body {
 img {
     max-width: 100%;
     height: auto;
-    display: block
+    display: block;
 }
 
 button,
@@ -176,7 +176,7 @@ button,
     border-radius: 3px;
     display: inline-block;
     padding: 5px 12px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     line-height: 1;
     text-align: center;
@@ -470,6 +470,11 @@ button {
     background-color: var(--color-danger);
     color: var(--color-primary-text)
 }
+.i-btn.btn--danger {
+    border: 1px solid var(--color-danger);
+    background-color: var(--color-danger);
+    color: var(--color-primary-text)
+}
 
 .i-btn.danger-transparent {
     background-color: var(--color-danger-light);
@@ -483,6 +488,12 @@ button {
 }
 
 .i-btn.info {
+    background-color: var(--color-info);
+    border: 1px solid var(--color-info);
+    color: var(--color-primary-text)
+}
+
+.i-btn.btn--info {
     background-color: var(--color-info);
     border: 1px solid var(--color-info);
     color: var(--color-primary-text)
@@ -748,17 +759,24 @@ button {
 
 .avatar-xs {
     height: 20px;
-    width: 20px
+    width: 20px;
+    border: 1px solid #eee;
+
 }
 
 .avatar-sm {
     height: 26px;
-    width: 26px
+    width: 26px;
+
 }
 
 .avatar-md {
     height: 40px;
-    width: 40px
+    width: 40px;
+    border: 1px solid #eee;
+    background-color: #e6e6e6;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .avatar-lg {
@@ -808,9 +826,9 @@ button {
 
 .avatar-group-item {
     margin-left: -12px;
-    border: 2px solid var(--color-warning-light);
-    border-radius: 50%;
-    transition: all .2s
+}
+.avatar-group-item a{
+    display: inline-block;
 }
 
 .avatar-group-item:hover {
@@ -2701,7 +2719,7 @@ textarea[type=radio]:focus {
 
 .input-group input,
 .input-group textarea {
-    border-radius: 0
+    border-radius: 5px;
 }
 
 .input-group .input-group-text {
@@ -3286,7 +3304,7 @@ textarea {
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-bottom: 1px dashed var(--color-border)
 }
 
@@ -6705,6 +6723,11 @@ ul.inbox-list li .col-mail-2 .date {
     margin-left: auto;
     margin-right: auto;
 }
+.user-profile-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .subscription-card{
     background: var(--color-primary);
@@ -6772,13 +6795,8 @@ ul.inbox-list li .col-mail-2 .date {
 #usersByCountry svg{
     width: 100% !important;
 }
-.daterangepicker{
-    right: 110px !important;
-}
+
 @media (max-width: 768px) {
-    .daterangepicker{
-        right: 170px !important;
-    }
 
     .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
         white-space: nowrap;
@@ -6885,3 +6903,72 @@ input[type="date"]::after{
         font-weight: 500;
     }
 }
+
+.slider-wrap {
+    position: relative;
+  }
+  
+  .swiper-arrow {
+    opacity: 0;
+    transition: 0.45s ease;
+  }
+  
+  .slider-wrap:hover .swiper-arrow {
+    opacity: 1;
+  }
+  
+  .slider-wrap .swiper-button-prev {
+    position: absolute;
+    top: 24px;
+    left: -24px;
+    width: 30px;
+    height: 30px;
+    line-height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: var(--text-primary);
+  }
+  
+  .slider-wrap .swiper-button-prev i {
+    color: var(--color-white);
+    font-weight: 600;
+    line-height: 15px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  
+  .slider-wrap .swiper-button-prev::after {
+    content: unset;
+  }
+  
+  .slider-wrap .swiper-button-next {
+    position: absolute;
+    top: 24px;
+    right: -24px;
+    width: 30px;
+    height: 30px;
+    line-height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: var(--text-primary);
+    z-index: 9;
+  }
+  
+  .slider-wrap .swiper-button-next i {
+    color: var(--color-white);
+    font-weight: 600;
+    line-height: 1;
+    font-size: 14px;
+    line-height: 15px;
+    vertical-align: middle;
+  }
+  
+  .slider-wrap .swiper-button-next::after {
+    content: unset;
+  }
+
+  
+
+  
+  
+
