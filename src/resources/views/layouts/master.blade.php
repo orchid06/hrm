@@ -18,6 +18,7 @@
     <link href="{{asset('assets/frontend/css/common.css')}}" rel="stylesheet" type="text/css" />
       @if(request()->routeIs('user.*'))
          <link href="{{asset('assets/frontend/css/dashboard.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('assets/global/css/remixicon.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('assets/frontend/css/simplebar.min.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('assets/frontend/css/all.min.css')}}" rel="stylesheet" type="text/css" />
       @else
@@ -40,35 +41,36 @@
           crossorigin="anonymous"></script>
     @endif
     @include('partials.theme')
-    @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && !request()->routeIs('user.*'))
-        @php
-          $intregrationsContent  = get_content("content_integration")->first();
-          $intregrationsImg      = $intregrationsContent->file->where("type",'image')->first();
-        @endphp
-
-      <style>
-          .integration .scrolling-presets{
-              background-image: url("{{imageURL(@$intregrationsImg,'frontend',true,@get_appearance()->integration->content->images->image->size)}}");
-          }
-      </style>
-    @endif
     @stack('styles')
     @stack('style-include')
+
+    <style>
+        .auth .auth-left::before {
+          content: url("{{asset('assets/images/default/auth-bg.png')}}");
+          display: block;
+          width: 94%;
+          z-index: 2;
+          height: 94%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+   </style>
   </head>
   <body>
 
       @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status())
-        <div class="preloader">
+        {{-- <div class="preloader">
             <div class="preloader-content">
                 <div class="preloader-logo">
-                     <img src="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}">
+                     <img src="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="loader-icon.jpg">
                 </div>
                 <div class="loader">
                     <span></span>
                 </div>
 
             </div>
-        </div>
+        </div> --}}
       @endif
 
     @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*"))

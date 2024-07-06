@@ -9,12 +9,9 @@ use App\Http\Services\User\AuthService;
 use App\Http\Services\UserService;
 use App\Models\Package;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Closure;
 
 class RegisterController extends Controller
 {
@@ -71,17 +68,16 @@ class RegisterController extends Controller
             $user->referral_id          =  @$refferedBy?->id;
             $user->save();
 
-            $package = Package::active()->where('id',site_settings('signup_bonus',-1))->first();
+            $package = Package::active()
+                                ->where('id',site_settings('signup_bonus',-1))
+                                ->first();
             
-            if($package){
-                $this->userService->createSubscription( $user ,  $package , "Sign up bonus");
-            }
+            if($package)    $this->userService->createSubscription( $user ,  $package , "Sign up bonus");
 
             Auth::guard('web')->loginUsingId($user->id);
             return redirect()->route('user.home');
 
         } catch (\Exception $ex) {
-
             $response = response_status(strip_tags($ex->getMessage(),'error'));
 
         }

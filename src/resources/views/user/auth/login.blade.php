@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('content')
 
 @php
@@ -50,8 +51,10 @@
                   @csrf
 
                   <div class="auth-input">
-                    <label for="phone">Phone</label>
-                    <input required type="text" name="login_data" id="phone"  placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
+                    <label for="login_key">
+                        {{ucfirst(str_replace("_"," ",implode(" / ",$loginAttributes)))}} <span class="text--danger">*</span>
+                    </label>
+                    <input required type="text" name="login_data" id="login_key"  placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
                     <span class="auth-input-icon">
                         <i class="bi bi-envelope"></i>
                     </span>
@@ -59,7 +62,9 @@
 
                     @if($otpFlag == App\Enums\StatusEnum::false->status())
                         <div class="auth-input">
-                          <label for="password">Password</label>
+                          <label for="password">
+                              {{translate('Password')}} <span class="text--danger">*</span>
+                          </label>
                             <input name="password" id="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
                             <span class="auth-input-icon toggle-password">
                                 <i class="bi bi-eye toggle-icon "></i>
@@ -69,8 +74,8 @@
 
                   <div class="d-flex align-items-center justify-content-between gap-3">
                     <div class="auth-checkbox">
-                      <input type="checkbox" id="remember" value="1" name="remember_me" />
-                      <label for="remember">{{translate("Remember me")}}</label>
+                          <input type="checkbox" id="remember" value="1" name="remember_me" />
+                          <label for="remember">{{translate("Remember me")}}</label>
                     </div>
 
                     <a href="{{route('auth.password.request')}}" class="forget-pass"> {{translate("Forgot password")}} ? </a>
@@ -120,7 +125,7 @@
                 @if($socialAuth == App\Enums\StatusEnum::true->status())
 
                     <span class="or">
-                       {{translate('Or continue with')}}
+                       {{translate('OR Continue With')}}
                     </span>
 
                     <div class="sign-option">
@@ -133,23 +138,21 @@
                 @endif
 
                 <div class="have-account">
-                  <p>
-                    {{translate("Create New")}} ?
-                    <a href="{{route('auth.register')}}">
-                        {{translate("Sign Up")}}
-                    </a>
-                  </p>
+                      <p>
+                            {{translate("Create New")}} ?
+                            <a href="{{route('auth.register')}}">
+                                {{translate("Sign Up")}}
+                            </a>
+                      </p>
                 </div>
               </div>
 
-
-                @include("user.partials.auth_shape")
 
 
               <div class="glass-bg"></div>
             </div>
           </div>
-          @include("user.partials.auth_slider")
+               @include("user.partials.auth_slider")
         </div>
       </div>
     </div>

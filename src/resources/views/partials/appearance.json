@@ -116,12 +116,17 @@
         "name": "service_section",
         "content": {
             "title": "text",
-            "sub_title": "text"
+            "sub_title": "text",
+            "description": "textarea",
+            "section_top_title": "text",
+            "section_bottom_title": "text",
+            "section_top_description": "textarea",
+            "section_bottom_description": "textarea"
         },
         "element": {
             "images": {
                 "image": {
-                    "size": "1070x570"
+                    "size": "190x150"
                 }
             },
             "title": "text",
@@ -239,18 +244,19 @@
         "content": {
             "images": {
                 "image": {
-                    "size": "1000x1000"
+                    "size": "280x180"
                 }
             },
-            "banner_title" :"text",
-            "banner_description": "text",
             "support_title": "text",
             "support_description": "text",
             "button_name" :"text",
             "button_url" :"text",
             "section_title" :"text",
             "section_heading" :"text",
-            "section_description" :"textarea"
+            "section_description" :"textarea",
+            "breadcrumb_title" :"text",
+            "opening_hour_text" :"text",
+            "breadcrumb_description" :"textarea"
         }
     
     },
@@ -357,8 +363,13 @@
         "name": "feedback",
         "no_selection": true,
         "content": {
-            "banner_title" :"text",
-            "banner_description": "text",
+            "images": {
+                "image": {
+                    "size": "270x330"
+                }
+            },
+            "breadcrumb_title" :"text",
+            "breadcrumb_description" :"textarea",
             "heading" :"text",
             "description" :"textarea"
         }
@@ -378,13 +389,12 @@
     },
     
     "social_icon": {
+        "name": "social_icon",
         "builder": true,
         "no_selection": true,
-        "name": "social_icons",
         "element": {
-            "social_icon": "icon",
-            "title": "text",
-            "url": "text",
+            "icon": "icon",
+            "button_url": "text",
             "modal": true
         }
     },
@@ -395,23 +405,24 @@
         "name": "footer_section",
         "content": {
             "images": {
+                "footer_background": {
+                    "size": "1580x650"
+                },
                 "payment_image": {
                     "size": "580x80"
                 }
-            }
-        }
-    },
-
-
-    "newsletter": {
-        "builder": true,
-        "no_selection": true,
-        "name": "newsletter_section ",
-        "content": {
-            "title": "text",
+            },
+            "title" :"text",
             "description": "textarea"
+        },
+        "element": {
+            "button_name": "text",
+            "button_URL": "text",
+            "button_icon": "icon",
+            "modal": true
         }
     },
+
    
     "authentication_section": {
 
@@ -424,15 +435,16 @@
         "element": {
             "images": {
                 "image": {
-                    "size": "1920x1080"
+                    "size": "550x310"
                 }
             },
             "title": "text",
             "description": "textarea",
             "modal": true
         }
-    }
-    ,
+    },
+
+
     "mega_menu": {
         "builder": true,
         "no_selection": true,

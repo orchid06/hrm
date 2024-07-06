@@ -184,7 +184,7 @@
                                                     required>
                                                 @foreach (App\Enums\StatusEnum::toArray() as $k => $v )
                                                     <option value="{{$v}}" {{site_settings("ai_key_usage") == $v  ? "selected" :""}} >
-                                                        {{ $v == 1 ? translate("Main Api key") : 'Random API Key'  }}
+                                                        {{ $v == 1 ? translate("Main API key") : 'Random API Key'  }}
                                                     </option>
                                                 @endforeach
                                            </select>                                       

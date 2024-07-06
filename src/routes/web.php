@@ -261,7 +261,8 @@ use Illuminate\Support\Facades\DB;
             Route::get('/blogs', 'blog')->name('blog');
             Route::get('/blogs/{slug}', 'blogDetails')->name('blog.details');
             Route::get('/pages/{slug}', 'page')->name('page');
-            Route::get('/integration/{slug}/{uid}', 'integration')->name('integration');
+            Route::get('/integrations/{slug}/{uid}', 'integration')->name('integration');
+            Route::get('/services/{slug}/{uid}', 'service')->name('service');
 
         });
 

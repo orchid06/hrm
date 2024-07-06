@@ -1,36 +1,28 @@
 @extends('layouts.master')
 @push('style-include')
-<link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
-    integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
 
 @php
-$user = auth_user('web');
-$subscription = $user->runningSubscription;
-$remainingToken = $subscription ? $subscription->remaining_word_balance : 0;
-$remainingProfile = $subscription ? $subscription->total_profile : 0;
-$remainingPost = $subscription ? $subscription->remaining_post_balance : 0;
-$totalPlatforms = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
+        $user             = auth_user('web');
+        $subscription     = $user->runningSubscription;
+        $remainingToken   = $subscription ? $subscription->remaining_word_balance : 0;
+        $remainingProfile = $subscription ? $subscription->total_profile : 0;
+        $remainingPost    = $subscription ? $subscription->remaining_post_balance : 0;
+        $totalPlatforms   = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
 
 
-$subscriptionDetails = [
-'Remaining Word' => $remainingToken,
-'Remaining Profile' => $remainingProfile,
-'Remaining Post' => $remainingPost,
-'Total Platforms' => count($totalPlatforms),
-];
-if( $remainingToken == App\Enums\PlanDuration::value('UNLIMITED')){
-unset($subscriptionDetails['Remaining Word']);
-}
-if( $remainingPost == App\Enums\PlanDuration::value('UNLIMITED')){
-unset($subscriptionDetails['Remaining Post']);
-}
+        $subscriptionDetails = [
+            'Remaining Word'    => $remainingToken,
+            'Remaining Profile' => $remainingProfile,
+            'Remaining Post'    => $remainingPost,
+            'Total Platforms'   => count($totalPlatforms)];
+        if( $remainingToken == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['Remaining Word']);
+        if( $remainingPost == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['Remaining Post']);
 @endphp
 
-<!-- updated start -->
+
 
 <div id="overlay" class="overlay"></div>
 
@@ -46,41 +38,44 @@ unset($subscriptionDetails['Remaining Post']);
                     <h4 class="card--title mb-4">Connected Social Accounts</h4>
                     <div class="row g-3">
                         @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="i-card no-border p-0 border position-relative bg--light">
-                                <div class="shape-one">
-                                    <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <div class="shape-two">
-                                    <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <span class="icon-image position-absolute top-0 end-0">
-                                    <img src="{{imageUrl(@$platform->file,'platform',true)}}"
-                                        alt="{{imageUrl(@$platform->file,'platform',true)}}" />
-                                </span>
-                                <div class="p-3">
-                                    <h5 class="card--title-sm">
-                                        {{$platform->name}}
-                                    </h5>
-                                </div>
-                                <div class="p-3 border-top">
-                                    <p class="card--title-sm mb-1">00</p>
-                                    <p class="mb-3 fs-14">Total Posts</p>
-                                    <a href="#" class="i-btn btn--sm btn--outline capsuled"><i
-                                            class="ri-add-line"></i>Create post</a>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="i-card no-border p-0 border position-relative bg--light">
+                                    <div class="shape-one">
+                                        <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
+                                                fill="white" />
+                                        </svg>
+                                    </div>
+                                    <div class="shape-two">
+                                        <svg width="65" height="65" viewBox="0 0 65 65" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z"
+                                                fill="white" />
+                                        </svg>
+                                    </div>
+                                    <span class="icon-image position-absolute top-0 end-0">
+                                        <img src="{{imageUrl(@$platform->file,'platform',true)}}"
+                                            alt="{{imageUrl(@$platform->file,'platform',true)}}" />
+                                    </span>
+                                    <div class="p-3">
+                                        <h5 class="card--title-sm">
+                                            {{$platform->name}}
+                                        </h5>
+                                    </div>
+                                    <div class="p-3 border-top">
+                                        <p class="card--title-sm mb-1">00</p>
+                                        <p class="mb-3 fs-14">Total Posts</p>
+                                        <a href="#" class="i-btn btn--sm btn--outline capsuled"><i
+                                                class="ri-add-line"></i>Create post</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @empty
+
+                        @endforelse
                         <div class="shape-two">
                           <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
@@ -338,7 +333,7 @@ unset($subscriptionDetails['Remaining Post']);
                 </div>
             </div>
         </div>
-    </div>
+   
     <div class="col-auto right-side-col">
         <div class="swiper latest-post-slider">
             <div class="swiper-wrapper">
@@ -413,9 +408,9 @@ unset($subscriptionDetails['Remaining Post']);
             </p>
             <a href="{{route('user.plan')}}" class="i-btn btn--md btn--white capsuled mx-auto">
                 @if($user->runningSubscription)
-                {{translate('Upgrade Now')}}
+                    {{translate('Upgrade Now')}}
                 @else
-                {{translate('Subscribe Now')}}
+                   {{translate('Subscribe Now')}}
                 @endif
                 <span><i class="bi bi-arrow-up-right"></i></span>
             </a>
@@ -440,7 +435,8 @@ unset($subscriptionDetails['Remaining Post']);
 
     </div>
 </div>
-<!-- updated end -->
+</div>
+
 
 <div class="row g-4">
     <div class="col-xxl-9">
@@ -793,425 +789,156 @@ unset($subscriptionDetails['Remaining Post']);
     </div>
 </div>
 
-<div class="chat-area">
-    <div class="row g-lg-0 g-3">
-        <div class="col-lg-3">
-            <div class="chat-left-sidebar">
-                <div class="session-toolbar">
-                    <h5>Richman Lubnan</h5>
-                </div>
-                <div class="session-list">
-                    <div class="session-single active">
-                        <div class="seller-icon">
-                            <img src="https://i.ibb.co/N7m6yzV/Mask-group.png" alt="Mask-group">
-                        </div>
-                        <div class="content">
-                            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                <div class="title w-auto">Richman Lubnan</div>
-                                <div class="time">05.09</div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                              <p>Your product that have been bought</p>
-                              <span class="message-num">3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="session-single">
-                        <div class="seller-icon">
-                          <img src="https://i.ibb.co/2yk2LsY/two.jpg" alt="two">
-                        </div>
-                        <div class="content">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="title w-auto">Richman Lubnan</div>
-                                <div class="time">05.09</div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p>Your product that have been bought</p>
-                              <span class="message-num">3</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="row g-3">
-                <div class="col-lg-8">
-                    <div class="seller-message-view" data-simplebar>
-                        <div class="seller-store">
-                          <div class="d-flex align-items-center gap-2">
-                            <img src="https://i.ibb.co/N7m6yzV/Mask-group.png" class="avatar--sm" alt="Mask-group"><h5>Richman Lubnan</h5>
-                            <span class="status-active"></span>
-                          </div>
-                        </div>
-                        <div class="messages">
-                            <div class="message-single message-left d-flex flex-column">
-                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <p>
-                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
-                                        fostering
-                                        innovation, and connecting the world. It drives economic growth, empowers
-                                        individuals, and
-                                        transforms societies, shaping a future of limitless possibilities
-                                    </p>
-                                    <div class="message-time">
-                                        <span>12.56 PM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="message-single message-right d-flex flex-column">
-                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <p>
-                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
-                                        fostering
-                                        innovation, and connecting the world. It drives economic growth, empowers
-                                        individuals, and
-                                        transforms societies, shaping a future of limitless possibilities
-                                    </p>
-                                    <div class="message-time">
-                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="message-single message-left d-flex flex-column">
-                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <p>
-                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
-                                        fostering
-                                        innovation, and connecting the world. It drives economic growth, empowers
-                                        individuals, and
-                                        transforms societies, shaping a future of limitless possibilities
-                                    </p>
-                                    <div class="message-time">
-                                        <span>02.07 PM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="message-single message-right d-flex flex-column">
-                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <p>
-                                        Information Technology (IT) revolutionizes industries by enhancing efficiency,
-                                        fostering
-                                        innovation, and connecting the world. It drives economic growth, empowers
-                                        individuals, and
-                                        transforms societies, shaping a future of limitless possibilities
-                                    </p>
-                                    <div class="message-time">
-                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="message-single message-left d-flex flex-column">
-                                <div class="user-area d-inline-flex align-items-center gap-3 mb-2">
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <div class="message-file">
-                                        <a href="#"><i class="bi bi-file-pdf"></i>instructions_all.pdf</a>
-                                    </div>
-                                    <div class="message-time">
-                                        <span>11.04 AM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="message-single message-right d-flex flex-column">
-                                <div class="user-area d-inline-flex justify-content-end align-items-center gap-3 mb-2">
-                                    <div class="meta">
-                                        <h6>John Doe</h6>
-                                    </div>
-                                    <div class="image">
-                                        <img src="https://i.ibb.co/sbCZhQb/author3.jpg" alt="author3">
-                                    </div>
-                                </div>
-                                <div class="message-body">
-                                    <div class="chat-image-wrapper d-flex gap-2 justify-content-end flex-wrap">
-                                        <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                                        <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                                        <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                                    </div>
-                                    <div class="message-time">
-                                        <span>06.36 PM</span><i class="bi bi-check2-all"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message-inputs">
-                            <div class="upload-filed image-upload">
-                                <input id="media-file" multiple type="file"
-                                    name="files[]">
-                                <label for="media-file mb-0">
-                                    <span class="d-flex align-items-center flex-row gap-2">
-                                        <span class="upload-drop-file">
-                                            <i class="bi bi-image"></i>
-                                        </span>
-                                    </span>
-                                </label>
-                            </div>
-                            <textarea name="chat" placeholder="Write Message"></textarea>
-                            <button type="submit" class="message-submit"><i class="bi bi-send"></i></button>
-                        </div>
-
-                        <ul class="file-list"></ul>
-                        <!-- <ul class="image-select-list">
-                            <li>
-                                <span class="remove-list" data-name="view-picnic-french-alpine-mountains-with-lake.jpg">
-                                    <i class="bi bi-x"></i>
-                                </span>
-                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                            </li>
-                            <li>
-                                <span class="remove-list" data-name="8390439_43586.jpg">
-                                    <i class="bi bi-x"></i>
-                                </span>
-                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                            </li>
-                            <li>
-                                <span class="remove-list" data-name="8390439_43586.jpg">
-                                    <i class="bi bi-x"></i>
-                                </span>
-                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                            </li>
-                        </ul> -->
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="chat-right-sidebar" data-simplebar>
-                        <div class="profile-image">
-                          <img src="https://i.ibb.co/D89mbsS/author2.jpg" alt="author2">
-                        </div>
-                        <div class="profile-desig">
-                          <h5>Alex paul</h5>
-                          <span>Designer UI/UX</span>
-                        </div>
-                        <div class="profile-meta">
-                          <ul>
-                            <li><a href="#"><i class="bi bi-telephone"></i></a></li>
-                            <li><a href="#"><i class="bi bi-camera-video"></i></a></li>
-                            <li><a href="#"><i class="bi bi-person"></i></a></li>
-                          </ul>
-                        </div>
-                        <div class="profile-shared">
-                          <h6>Shared Files</h6>
-                          <ul>
-                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>File of E-commerce</a></li>
-                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Products that sold</a></li>
-                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Group of custom products</a></li>
-                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Amazon Products altogater</a></li>
-                            <li><a href="#"><i class="bi bi-file-earmark-text"></i>Inifnite possibilities of sold products</a></li>
-                          </ul>
-                        </div>
-                        <div class="profile-shared">
-                          <h6>Previous Images</h6>
-                            <div class="chat-image-wrapper d-flex gap-2 justify-content-start flex-wrap">
-                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                                <img src="https://i.ibb.co/QbGsKtD/image-2-2.jpg" alt="image-2-2">
-                                <img src="https://i.ibb.co/2Ps0mgg/image-2-1.jpg" alt="image-2-1">
-                                <img src="https://i.ibb.co/2MHzQSr/image-1-2.jpg" alt="image-1-2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection
 
 
 @push('script-include')
-<script src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-<script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-<script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
-<script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
+    <script src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
+
 <script>
 "use strict";
 
-var subscriptionValues = @json(array_values($subscriptionDetails));
-var subscriptionLabel = @json(array_keys($subscriptionDetails));
+    var subscriptionValues = @json(array_values($subscriptionDetails));
+    var subscriptionLabel = @json(array_keys($subscriptionDetails));
 
-var options = {
-    series: subscriptionValues,
-    chart: {
-        type: "donut",
-        width: "100%",
-    },
-    colors: [
-        "var(--color-primary)",
-        "var(--color-secondary)",
-        "var(--color-warning)",
-        "var(--color-info)",
-        "var(--color-danger)"
-    ],
-    labels: subscriptionLabel,
-    plotOptions: {
-        pie: {
-            startAngle: -90,
-            endAngle: 270
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-
-
-    legend: {
-        position: 'bottom'
-    }
-};
-
-var chart = new ApexCharts(document.querySelector("#subscriptionChart"), options);
-chart.render();
-
-
-
-var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
-
-var accountValues = [];
-var totalPost = @json(array_values($data['monthly_post_graph']));
-var pendigPost = @json(array_values($data['monthly_pending_post']));
-var schedulePost = @json(array_values($data['monthly_schedule_post']));
-var successPost = @json(array_values($data['monthly_success_post']));
-var failedPost = @json(array_values($data['monthly_failed_post']));
-
-
-
-var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
-var options = {
-    chart: {
-        height: 380,
-        type: "line",
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    colors: [
-        "var(--color-primary)",
-        "var(--color-secondary)",
-        "var(--color-warning)",
-        "var(--color-info)",
-        "var(--color-danger)"
-    ],
-    series: [{
-            name: "{{ translate('Total Post') }}",
-            data: totalPost,
+    var options = {
+        series: subscriptionValues,
+        chart: {
+            type: "donut",
+            width: "100%",
         },
-        {
-            name: "{{ translate('Pending Post') }}",
-            data: pendigPost,
-        },
-        {
-            name: "{{ translate('Success Post') }}",
-            data: successPost,
-        },
-        {
-            name: "{{ translate('Schedule Post') }}",
-            data: schedulePost,
-        },
-        {
-            name: "{{ translate('Failed Post') }}",
-            data: failedPost,
-        },
-    ],
-    xaxis: {
-        categories: monthlyLabel,
-    },
-
-    tooltip: {
-        shared: false,
-        intersect: true,
-        y: {
-            formatter: function(value, {
-                series,
-                seriesIndex,
-                dataPointIndex,
-                w
-            }) {
-                return parseInt(value);
+        colors: [
+            "var(--color-primary)",
+            "var(--color-secondary)",
+            "var(--color-warning)",
+            "var(--color-info)",
+            "var(--color-danger)"
+        ],
+        labels: subscriptionLabel,
+        plotOptions: {
+            pie: {
+                startAngle: -90,
+                endAngle: 270
             }
+        },
+        dataLabels: {
+            enabled: false
+        },
+
+
+        legend: {
+            position: 'bottom'
         }
+    };
 
-    },
-    markers: {
-        size: 6,
-    },
-    stroke: {
-        width: [4, 4],
-    },
-    legend: {
-        horizontalAlign: "center",
-        offsetY: 5,
-    },
-};
+    var chart = new ApexCharts(document.querySelector("#subscriptionChart"), options);
+    chart.render();
 
-var chart = new ApexCharts(document.querySelector("#postReport"), options);
-chart.render();
 
-var swiper = new Swiper(".latest-post-slider", {
-    pagination: {
-        el: ".latest-post-pagination",
-    },
-    effect: 'fade',
-    fadeEffect: {
-        crossFade: true
-    },
-});
 
-$(".select2").select2({
+    var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
 
-});
+    var accountValues = [];
+    var totalPost = @json(array_values($data['monthly_post_graph']));
+    var pendigPost = @json(array_values($data['monthly_pending_post']));
+    var schedulePost = @json(array_values($data['monthly_schedule_post']));
+    var successPost = @json(array_values($data['monthly_success_post']));
+    var failedPost = @json(array_values($data['monthly_failed_post']));
+
+
+
+    var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
+    var options = {
+        chart: {
+            height: 380,
+            type: "line",
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        colors: [
+            "var(--color-primary)",
+            "var(--color-secondary)",
+            "var(--color-warning)",
+            "var(--color-info)",
+            "var(--color-danger)"
+        ],
+        series: [{
+                name: "{{ translate('Total Post') }}",
+                data: totalPost,
+            },
+            {
+                name: "{{ translate('Pending Post') }}",
+                data: pendigPost,
+            },
+            {
+                name: "{{ translate('Success Post') }}",
+                data: successPost,
+            },
+            {
+                name: "{{ translate('Schedule Post') }}",
+                data: schedulePost,
+            },
+            {
+                name: "{{ translate('Failed Post') }}",
+                data: failedPost,
+            },
+        ],
+        xaxis: {
+            categories: monthlyLabel,
+        },
+
+        tooltip: {
+            shared: false,
+            intersect: true,
+            y: {
+                formatter: function(value, {
+                    series,
+                    seriesIndex,
+                    dataPointIndex,
+                    w
+                }) {
+                    return parseInt(value);
+                }
+            }
+
+        },
+        markers: {
+            size: 6,
+        },
+        stroke: {
+            width: [4, 4],
+        },
+        legend: {
+            horizontalAlign: "center",
+            offsetY: 5,
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#postReport"), options);
+    chart.render();
+
+    var swiper = new Swiper(".latest-post-slider", {
+        pagination: {
+            el: ".latest-post-pagination",
+        },
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+    });
+
+    $(".select2").select2({
+
+    });
 
 </script>
 @endpush

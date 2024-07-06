@@ -499,17 +499,12 @@
               @if(check_permission('view_frontend'))
                 @php
                     $appearanceSegment = collect(request()->segments())->last();
-
-
                 @endphp
                 @foreach (get_appearance(true) as $key => $appearance)
                     @if (isset($appearance['builder']) && $appearance['builder'])
-
-                      
-
                       
                       <li class="sub-menu-item">
-                          <a class="sidebar-menu-link @if ($key == $appearanceSegment || @$appearance['child_section'] == request()->route('key') ) active @endif"  href='{{route("admin.appearance.list",$key)}}'>
+                          <a class="sidebar-menu-link @if ($key == $appearanceSegment ||  (@$appearance['child_section']  && @$appearance['child_section'] == request()->route('key')) ) active @endif"  href='{{route("admin.appearance.list",$key)}}'>
                             <span></span>
                             <p>
                               {{translate(k2t($appearance['name']))}}

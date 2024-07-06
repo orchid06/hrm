@@ -2,41 +2,31 @@
 @section('content')
 
 @php
-   $feedbackSection   = get_content("content_feedback")->first();
+
+   $file         = $feedback_section->file->where("type",'image')->first();
+   $size         = get_appearance_img_size('feedback','content','image');
+
 @endphp
-<section class="inner-banner">
-  <div class="container">
-    <div class="row align-items-center gy-4">
-      <div class="col-12">
-        <div class="inner-banner-content">
-          <h2>{{@$feedbackSection->value->banner_title}}</h2>
-          <p>
-            {{@$feedbackSection->value->banner_description}}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="primary-shade"></div>
-  <div class="banner-texture"></div>
-</section>
+
+
+@include("frontend.partials.breadcrumb")
 
 <section class="contact feedback pb-110">
   <div class="container">
     <div class="contact-wrapper linear-bg">
       <div class="row align-items-center g-5">
         <div class="col-lg-5">
-          <div class="contact-left gs_reveal fromLeft">
-          <div class="review-lef-image">
-              <img src="https://i.ibb.co/4RmbcQC/certificate-2.png" alt="certificate-2">
+            <div class="contact-left gs_reveal fromLeft">
+              <div class="review-lef-image">
+                    <img src="{{imageURL($file,'frontend',true,$size)}}" alt="{{@$file->name??"feedback.jpg"}}">
+              </div>
+                <div class="section-title light mb-50 text-center">
+                      <h3 class="mt-0 mb-3">{{@$feedback_section->value->heading}}</h3>
+                      <p>
+                          {{@$feedback_section->value->description}}
+                      </p>
+                </div>
             </div>
-            <div class="section-title light mb-50 text-center">
-              <h3 class="mt-0 mb-3">{{@$feedbackSection->value->heading}}</h3>
-              <p>
-                {{@$feedbackSection->value->description}}
-              </p>
-            </div>
-          </div>
         </div>
         <div class="col-lg-7">
           <div class="contact-form-wrapper">
@@ -44,7 +34,7 @@
               @csrf
               <div>
                 <h4 class="mb-4">
-                  {{Arr::get($meta_data,"title",'How do you rate our service')}}
+                    {{Arr::get($meta_data,"title",'How do you rate our service')}}
                 </h4>
 
                   <div class="rating">
@@ -123,5 +113,7 @@
 </section>
 
 @include('frontend.partials.page_section')
+
+
 @endsection
 

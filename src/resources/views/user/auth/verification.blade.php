@@ -30,7 +30,7 @@
 
                     @if(session()->has("user_identification") && \Carbon\Carbon::now()  <  session()->get("otp_expire_at"))
                         <div class="otp-expired-message">
-                            {{translate("Your otp will expire at")}} {{get_date_time(session()->get("otp_expire_at"))}}
+                            {{translate("Your OTP will expire at")}} {{get_date_time(session()->get("otp_expire_at"))}}
                         </div>
                     @endif
 
