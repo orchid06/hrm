@@ -6,8 +6,7 @@
       <div class="modal-body">
         <div class="modal-delete-noti">
           <div class="notification-modal-icon">
-              <!-- <img src="{{asset('assets/images/default/trash-bin.gif')}}" class="action-img" alt="trash-bin.gif"> -->
-              <i class="bi bi-trash3-fill"></i>
+              <img src="{{asset('assets/images/default/trash-bin.gif')}}" class="action-img" alt="trash-bin.gif">
           </div>
           <div class="notification-modal-content">
               <h5>   {{trans('default.are_you_sure')}}</h5>
