@@ -6,8 +6,10 @@ use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FrontendSectionRequest;
 use App\Http\Services\FrontendService;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\Admin\Frontend;
+use App\Models\Core\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Traits\Fileable;
@@ -29,38 +31,75 @@ class FrontendManageController extends Controller
     {
 
         $this->frontEndService = new FrontendService();
-        $this->middleware(['permissions:view_frontend'])->only('list');
+        $this->middleware(['permissions:view_frontend'])->only('list','children');
         $this->middleware(['permissions:update_frontend'])->only(['update','updateStatus','bulk','destroy']);
     }
 
 
 
+   
+
+
+
     /**
-     * manage frontend
-     *
-     * @return View
+     * Get appearance list 
+     * 
+     * @param  string  $key | string  $children , 
      */
-    public function list(string $key) :View
-    {
+    public function list(string $key , ? int $parent = null) :View{
+
+
         $appearance = @get_appearance()->{$key};
+
         if (!$appearance)   abort(404);
+
+        $title = ucFirst(str_replace("_"," ",$appearance->name));
+
+        if($parent){
+            $parentSection = Frontend::with(['file'])
+                                ->whereNull('parent_id')
+                                ->where('id',$parent )->firstOrfail();
+
+
+          $title =  ($parentSection->value->title ?? ucFirst(str_replace("_"," ",$appearance->name))) ." Details" ;
+        }
+
+
+        $frontend          =  Frontend::with(['file'])
+                                       ->when($parent , fn(Builder $q) :Builder =>  $q->where('parent_id',$parent))
+                                       ->where('key','content_'.$key )
+                                       ->first();
+        
+        $frontendElements  =  Frontend::with(['file'])
+                                      ->when($parent , fn(Builder $q) :Builder =>  $q->where('parent_id',$parent))
+                                      ->where('key', 'element_'.$key)
+                                      ->latest()->get();
+        
+    
+
         return view('admin.frontend.list',[
             'breadcrumbs'            =>  ['Home'=>'admin.home','Frontends'=> null],
-            'title'                  =>  ucFirst(str_replace("_"," ",$appearance->name)),
+            'title'                  =>  $title,
             "appearance"             =>  $appearance,
-            'appearance_content'     =>  Frontend::with(['file'])->where('key','content_'.$key )->first(),
-            'appearance_elements'    =>  Frontend::with(['file'])->where('key', 'element_'.$key)->latest()->get()
+            'appearance_content'     =>  $frontend,
+            'appearance_elements'    =>  $frontendElements,
+            'parent_section'          => @$parentSection,
         ]);
 
     }
 
 
+
+
     /**
      * update forntend section
+     * 
+     * @param FrontendSectionRequest $request
+     * 
+     * @return RedirectResponse
      */
 
-     public function update(FrontendSectionRequest $request) :RedirectResponse {
-
+     public function update(FrontendSectionRequest $request) :RedirectResponse{
         return back()->with( $this->frontEndService->save($request));
      }
 
@@ -80,11 +119,10 @@ class FrontendManageController extends Controller
             'column'  => ['required',Rule::in(['status'])],
         ]);
 
-        return $this->changeStatus($request->except("_token"),[
-            "model"    => new Frontend(),
-        ]);
+        return $this->changeStatus($request->except("_token"),["model"    => new Frontend()]);
 
     }
+
 
      /**
      * destroy a specific payment method
@@ -97,20 +135,33 @@ class FrontendManageController extends Controller
 
         DB::transaction(function() use ($id) {
 
+        
             $frontend  =  Frontend::with('file')
-                                ->withCount('file')
-                                ->where('id',$id)
-                                ->firstOrFail();
+                                    ->withCount('file')
+                                    ->where('id',$id)
+                                    ->firstOrFail();
 
             if(0 < $frontend->file_count){
-                foreach($frontend->file as $file){
-                        $this->unlink(
-                            location    : config("settings")['file_path']['frontend']['path'],
-                            file        :  $file
-                        );
-                }
-
+                $frontend->file->map(fn(File $file):bool =>
+                     $this->unlink(
+                        location    : config("settings")['file_path']['frontend']['path'],
+                        file        :  $file
+                    ));             
+             
             }
+
+            $frontend->childrens->map(function(Frontend $children): void{
+
+                    $children->file->map(fn(File $file):bool =>
+                        $this->unlink(
+                        location    : config("settings")['file_path']['frontend']['path'],
+                        file        :  $file
+                    ));  
+                    
+                    $children->delete();
+           });      
+
+
             $frontend->delete();
         });
     

@@ -168,59 +168,55 @@
           </div>
         </div>
         <div class="col-lg-11">
-          <div class="row">
-            <div class="col-lg-10">
-              <div class="section-title-two text-start mb-60">
-                <h2>Empowering social media <span>insights</span></h2>
-                <p>Discover the power of our secure and rewarding credit cards.</p>
+                @php
+                      $insight               = get_content("content_service_insight")->first();
+                      $insightElements       = get_content("element_service_insight");
+                      $featureImageSize      = get_appearance_img_size('service_insight','element','image');
+
+                @endphp
+              
+                <div class="row">
+                  <div class="col-lg-10">
+                    <div class="section-title-two text-start mb-60">
+                      <h2>  @php echo @$insight->value->title @endphp </h2>
+                      <p> {{@$insight->value->short_description}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="service-tab-wrapper">
+
+                    @if($insightElements->count() > 0)
+                      <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="insightTab" role="tablist">
+                        @foreach ($insightElements as $insightElement)
+                          
+                              <li class="nav-item" role="presentation">
+                                <button class="nav-link {{$loop->index == 0 ? 'active' : ''}} " id="tab-insight-{{$loop->index}}" data-bs-toggle="tab" data-bs-target="#tab-insight-{{$loop->index}}-pane" type="button" role="tab" aria-controls="tab-insight-{{$loop->index}}-pane" aria-selected="true">
+                                        {{$insightElement->value->sub_title}}
+                                      <span>
+                                          <i class="bi bi-arrow-up-right"> </i>
+                                      </span>
+                                </button>
+                              </li>
+                            
+                        @endforeach
+                      </ul>
+                      <div class="tab-content" id="insightTabContent">
+
+                          @foreach ($insightElements as $insightElement)
+                              <div class="tab-pane fade {{$loop->index == 0 ? 'show active' : ''}}" id="tab-insight-{{$loop->index}}-pane" role="tabpanel" aria-labelledby="tab-insight-{{$loop->index}}" tabindex="0">
+                                  <div class="mb-4">
+                                    @php $file = $insightElement->file?->first(); @endphp
+                                    <h5 class="mb-2">{{$insightElement->value->title}}</h5>
+                                    <p>{{$insightElement->value->description}}</p>
+                                  </div>
+                                  <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? "feature.jpg"}}"   class="rounded-4">
+                              </div>
+                          @endforeach
+                        
+                      </div>
+                    @else
+                      @include("frontend.partials.not_found")
+                    @endif
               </div>
-            </div>
-          </div>
-          <div class="service-tab-wrapper">
-            <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true">Create Post <span><i class="bi bi-arrow-up-right"></i></span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false" tabindex="-1">Ai Assistance <span><i class="bi bi-arrow-up-right"></i></span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-three" data-bs-toggle="tab" data-bs-target="#tab-three-pane" type="button" role="tab" aria-controls="tab-three-pane" aria-selected="false" tabindex="-1">Schedule Post <span><i class="bi bi-arrow-up-right"></i></span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-four" data-bs-toggle="tab" data-bs-target="#tab-four-pane" type="button" role="tab" aria-controls="tab-four-pane" aria-selected="false" tabindex="-1">Handle Multiple Account <span><i class="bi bi-arrow-up-right"></i></span>
-                </button></li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel" aria-labelledby="tab-one" tabindex="0">
-                    <div class="mb-4">
-                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
-                    </div>
-                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
-                </div>
-                <div class="tab-pane fade" id="tab-two-pane" role="tabpanel" aria-labelledby="tab-two" tabindex="0">
-                    <div class="mb-4">
-                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
-                    </div>
-                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
-                </div>
-                <div class="tab-pane fade" id="tab-three-pane" role="tabpanel" aria-labelledby="tab-three" tabindex="0">
-                    <div class="mb-4">
-                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
-                    </div>
-                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
-                </div>
-                <div class="tab-pane fade" id="tab-four-pane" role="tabpanel" aria-labelledby="tab-four" tabindex="0">
-                  <div class="mb-4">
-                      <h5 class="mb-2">Design visually appealing content for all your feeds</h5>
-                      <p>Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.</p>
-                    </div>
-                    <img src="https://i.ibb.co/pyq4TPn/service-tab1.jpg" class="rounded-4" alt="service-tab1">
-                </div>
-            </div>
         </div>
-    </div>
 </section>

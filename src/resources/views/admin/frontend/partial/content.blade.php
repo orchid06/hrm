@@ -2,6 +2,7 @@
     @csrf
     <input type="hidden" name="type" value="content">
     <input type="hidden" name="key" value='{{request()->route("key")}}'>
+    <input type="hidden" name="parent_id" value='{{@$parent_section->id}}'>
     <div class="row">
         @foreach($appearance->content as $k => $content)
             @if($k == 'images')
@@ -17,10 +18,10 @@
                             <div class="mt-2 image-preview-section frontend-section-image">
 
                                 @php
-                                    $file =  $appearance_content?->file->where('type', $imK)->first()
+                                     $file =  $appearance_content?->file->where('type', $imK)->first()
                                 @endphp
                                 <img src='{{imageURL(@$file,"frontend",true)}}' alt="{{@$file->name}}">
-                    
+                
                             </div>                      
                                             
                         </div>

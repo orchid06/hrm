@@ -34,9 +34,7 @@ class FrontendSectionRequest extends FormRequest
 
         foreach(request()->except('_token') as $k => $v){
             
-            if($k == "image_input"){
-              continue;
-            }
+            if($k == "image_input" ||  $k == "parent_id" ) continue;
             elseif($k == "slect_input"){
                 foreach($v as $selecKey => $selectInput){
     
