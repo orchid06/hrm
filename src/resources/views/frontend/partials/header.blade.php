@@ -261,7 +261,7 @@
                                                                                             @php $file = $element->file->where('type',"feature_image")->first(); @endphp
 
                                                                                             <li class="nav-item" role="presentation">
-                                                                                                <a href="@@" class="nav-link mega-menu-tab {{$loop->index == 0 ? "active" :""}} menu-social-item"
+                                                                                                <a href="{{route('integration',['slug' =>  make_slug($element->value->title) , 'uid' => $element->uid])}}" class="nav-link mega-menu-tab {{$loop->index == 0 ? "active" :""}} menu-social-item"
                                                                                                     id="tab-{{$loop->index}}-tab"
                                                                                                     data-bs-toggle="tab"
                                                                                                     data-bs-target="#tab-{{$loop->index}}"

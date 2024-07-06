@@ -110,26 +110,7 @@
     },
 
 
-    "social_feed": {
-        "builder": true,
-        "name": "social_feed",
-        "content": {
-            "title": "text",
-            "sub_title": "text",
-            "images": {
-                "feature_image": {
-                    "size": "710x600"
-                }
-        
-            }
-        },
-        "element": {
-            "number": "number",
-            "description": "textarea",
-            "modal": true
-        }
-    },
-
+ 
     "service": {
         "builder": true,
         "name": "service_section",
@@ -150,13 +131,38 @@
     },
 
 
+    "service_insight": {
+        "builder": true,
+        "no_selection": true,
+        "name": "service_insight_section",
+        "content": {
+            "title": "text",
+            "short_description": "text"
+        },
+        "element": {
+            "title": "text",
+            "sub_title": "text",
+            "description": "textarea",
+            "images": {
+                "image": {
+                    "size": "1315x705"
+                }
+            },
+
+            "modal": true
+        }
+    },
+
+
+
     "integration": {
         "builder": true,
+        "no_selection": true,
         "name": "integration_section",
+        "child_section" : "integration_details",
         "content": {
             "title": "text"
         },
-  
         "element": {
             "images": {
                 "feature_image": {
@@ -173,7 +179,25 @@
     },
 
 
-
+    "integration_details": {
+        "builder": false,
+        "name"   : "integration_details",
+        "no_selection": true,
+        "content": {
+            "title": "text",
+            "sub_title": "text",
+            "images": {
+                "feature_image": {
+                    "size": "710x600"
+                }
+        
+            }
+        },
+        "element": {
+            "description": "textarea",
+            "modal": true
+        }
+    },
 
     
     "breadcrumb": {
@@ -209,7 +233,6 @@
     },
 
     "contact_us": {
-
         "builder": true,
         "name": "contact_us",
         "no_selection": true,
@@ -317,7 +340,7 @@
         "element": {
             "images": {
                 "image": {
-                    "size": "200x200"
+                    "size": "150x150"
                 }
             },
             "author": "text",

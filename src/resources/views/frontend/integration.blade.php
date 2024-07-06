@@ -1,31 +1,36 @@
+@extends('layouts.master')
+@section('content')
+
+
+@include("frontend.partials.breadcrumb")
+
+
 @php
-   $feed          = get_content("content_social_feed")->first();
-   $feedElements = get_content("element_social_feed");
 
-
+   $feed          = $section->childrens?->where('key','content_integration_details')->first();
+   $feedElements  = $section->childrens?->where('key','!=','content_integration_details');
    $featureImage        = @$feed->file?->where("type",'feature_image')->first();
-   $featureImageSize    = get_appearance_img_size('social_feed','content','feature_image');
-
-
-
-
+   $featureImageSize    = get_appearance_img_size('integration_details','content','feature_image');
 
 @endphp
 
 <section class="social-feed pb-110">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-title-one text-center mb-60">
 
-                    <div class="subtitle">{{@$feed->value->sub_title}}</div>
-                    <h2>  @php echo @$feed->value->title @endphp </h2>
-                   
+        @if($feed)
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section-title-one text-center mb-60">
+
+                        <div class="subtitle">{{@$feed->value->sub_title}}</div>
+                        <h2>  @php echo @$feed->value->title @endphp </h2>
+                    
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
-        @foreach ($feedElements as $feed)
+        @forelse ($feedElements as $feed)
 
             @if($loop->index  == 0)
                     <div class="row justify-content-center">
@@ -41,7 +46,7 @@
                             </div>
                             <div class="feed-item">
                                 <div class="serial">
-                                   {{$feed->value->number}}
+                                    {{$loop->iteration}} 
                                 </div>
                                 <div class="text">
                                     <p>   {{$feed->value->description}}</p>
@@ -57,7 +62,8 @@
                             <div class="col-lg-5">
                                 <div class="feed-item">
                                     <div class="serial">
-                                       {{$feed->value->number}}
+                                        {{$loop->iteration}} 
+
                                     </div>
                                     <div class="text">
                                         <p>   {{$feed->value->description}}</p>
@@ -85,7 +91,8 @@
                         </div>
                         <div class="feed-item">
                             <div class="serial">
-                               {{$feed->value->number}}
+                                {{$loop->iteration}} 
+
                             </div>
                             <div class="text">
                                 <p>   {{$feed->value->description}}</p>
@@ -95,7 +102,19 @@
                 </div>
             @endif
             
-        @endforeach
+        @empty
+             <div class="row">
+                 <div class="col-12">
+                     @include("frontend.partials.not_found")
+                 </div>
+             </div>
+        @endforelse
        
     </div>
 </section>
+
+
+
+
+@endsection
+

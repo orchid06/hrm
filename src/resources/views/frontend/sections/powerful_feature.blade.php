@@ -1,12 +1,10 @@
 
 @php
 
-   $featureContent   = get_content("content_powerful_feature")->first();
-   $featureElements  = get_content("element_powerful_feature");
-   $featureImageSize  = get_appearance_img_size('powerful_feature','content','feature_image');
-
+   $featureContent        = get_content("content_powerful_feature")->first();
+   $featureElements       = get_content("element_powerful_feature");
+   $featureImageSize      = get_appearance_img_size('powerful_feature','content','feature_image');
    $featureImage          = @$featureContent->file?->where("type",'feature_image')->first();
-
 
 @endphp
 <section class="power-feature-section pb-110">

@@ -23,6 +23,7 @@
                 </div>
                 @php
                    $addOption = 1;
+
                    if(@$appearance->name == 'banner' && 6 <  @$appearance_elements->count()){
                          $addOption = 0;
                    }
@@ -62,7 +63,6 @@
                 </th>
 
                 @foreach($appearance->element as $k => $element)
-           
                     @if($k !='modal' && $element!= 'select'  )
                             <th scope="col">{{ translate(k2t($k)) }}</th>
                     @endif
@@ -136,7 +136,6 @@
                                 @php
                                     $files = [];
                                     if($appearance->element->modal && @$appearance->element->images){
-
                                         foreach (@$appearance->element->images as $imKey => $imVal) {
                                             $file     =  $appearance_element->file?->where('type', $imKey)->first();
                                             $files[]  =  imageURL(@$file,"frontend",true,$imVal->size);
@@ -144,9 +143,13 @@
                                     }
                                 @endphp
 
-                                <a title="{{translate('Update')}}" data-id ="{{$appearance_element->id}}"  data-files ="{{collect($files)}}" href="javascript:void(0)" data-appearance ="{{collect($appearance_element->value)}}" class="update fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                @if(@$appearance->child_section)
+                                       <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details Section')}}" href="{{route("admin.appearance.list",['parent' =>$appearance_element->id ,'key' => @$appearance->child_section])}}"  class="update fs-15 icon-btn info"><i class="las la-eye"></i></a>
+                                @endif
 
-                                <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.appearance.destroy',$appearance_element->id)}}" class="pointer delete-item icon-btn danger">
+                                <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}" data-id ="{{$appearance_element->id}}"  data-files ="{{collect($files)}}" href="javascript:void(0)" data-appearance ="{{collect($appearance_element->value)}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+
+                                <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}"  title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.appearance.destroy',$appearance_element->id)}}" class="pointer delete-item icon-btn danger">
                                     <i class="las la-trash-alt"></i>
                                 </a>
                             @else

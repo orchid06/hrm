@@ -41,8 +41,10 @@
                                 <input type="hidden" name="id">
                                 <input type="hidden" name="type" value="element">
                                 <input type="hidden" name="key" value='{{request()->route("key")}}'>
+                                <input type="hidden" name="parent_id" value='{{@$parent_section->id}}'>
 
                                 @foreach($appearance->element as $k => $content)
+                                
                                    @if($k != 'modal')
                                         @if($k == 'images')
                                             @foreach($content as $imK => $imV)
@@ -56,7 +58,6 @@
                                                         </div>                      
                                                     </div>
                                                 </div>
-
                                             @endforeach
                                         @elseif($k == 'select' )
                                             @foreach($content as $k => $v)
@@ -72,7 +73,7 @@
                                                                     @if($val == App\Enums\StatusEnum::true->status())
                                                                            {{ucfirst('Active')}}
                                                                     @elseif($val == App\Enums\StatusEnum::false->status())
-                                                                             {{ucfirst('Inctive')}}
+                                                                            {{ucfirst('Inctive')}}
                                                                     @else
                                                                             {{ucfirst($v)}}
                                                                     @endif

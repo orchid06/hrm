@@ -22,6 +22,7 @@ class FrontendService
      public function save (Request $request) :array {
 
         $response = response_status('Saved successfully');
+        
         try {
             DB::transaction(function() use ($request) {
 
@@ -32,16 +33,18 @@ class FrontendService
                         break;
                     
                     default:
+                           
                             $frontend = Frontend::with(['file'])
+                                      
                                                         ->when($request->input('id'),
                                                             fn (Builder $query) :Frontend  => $query->find($request->input('id'))
-                                                            ,fn (Builder $query)  :Frontend => $query->firstOrNew(['key' => $request->input('type') . "_" . $request->input('key')]));
+                                                            ,fn (Builder $query)  :Frontend => $query->firstOrNew(['key' => $request->input('type') . "_" . $request->input('key'),"parent_id" => $request->input('parent_id')]));
                         break;
                 }
 
 
-            
-                $frontend->value = $request->except(['_token', 'key', 'id', 'type', 'image_input','files']);
+                $frontend->value     = $request->except(['_token', 'key', 'id', 'type', 'image_input','files','parent_id']);
+                $frontend->parent_id = $request->input('parent_id');
                 $frontend->save();
 
                 if($request->input('image_input')){

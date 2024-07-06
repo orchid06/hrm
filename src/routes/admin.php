@@ -362,11 +362,12 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           #Appearance section refactored
           Route::controller(FrontendManageController::class)->prefix("/appearance")->name('appearance.')->group(function(){
 
-               Route::get('/{key}','list')->name('list');
+               Route::get('/{key}/{parent?}','list')->name('list');
                Route::post('/update','update')->name('update');
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/update/status','updateStatus')->name('update.status');
-               Route::get('/destroy/{uid}','destroy')->name('destroy');
+
+               Route::get('/destroy/{uid}/section','destroy')->name('destroy');
 
           });
 
