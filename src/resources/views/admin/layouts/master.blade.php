@@ -16,6 +16,7 @@
     <link href="{{asset('assets/backend/css/simplebar.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link href="{{asset('assets/global/css/dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/backend/css/post.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/main.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/toastr.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/custom.css')}}" rel="stylesheet" type="text/css" />
@@ -44,10 +45,10 @@
     <script src="{{asset('assets/global/js/simplebar.min.js')}}"></script>
     <script src="{{asset('assets/global/js/dataTables.min.js')}}"></script>
     <script src="{{asset('assets/backend/js/app.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{asset('assets/global/js/main.js')}}"></script>
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{asset('assets/global/js/toastify-js.js')}}"></script>
     <script src="{{asset('assets/global/js/helper.js')}}"></script>
 

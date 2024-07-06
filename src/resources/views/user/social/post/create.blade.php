@@ -95,7 +95,6 @@
 
 
                                                     <div class="choose-profile-body">
-
                                                         <ul class="profile-list mt-3" data-simplebar>
                                                             @foreach ($accounts as $account )
                                                                 <li class="profile-item">
@@ -303,7 +302,6 @@
                 </div>
             </div>
     
-
             <div class="col-xxl-4 col-xl-6 col-md-6">
                 <div class="i-card-md social-preview-user">
                     <div class="card-header">
@@ -345,151 +343,6 @@
 
                         <div class="col-md-12">
                             <div class="tab-content" id="preview-tabContent">
-                                <!-- @foreach ($platforms as $platform )
-                                    <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel"    aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
-                                        <div class="social-preview-body {{$platform->slug}}">
-                                            <div class="social-auth">
-                                                <div class="profile-img">
-                                                    <img
-                                                    src="{{get_default_img()}}"
-
-                                                    alt="{{get_default_img()}}"/>
-                                                </div>
-
-                                                <div class="profile-meta">
-                                                    <h6 class="user-name">
-                                                        <a href="javascript:void(0)">
-                                                            {{translate("Username")}}
-                                                        </a>
-                                                    </h6>
-                                                    @php
-                                                        $currentDate   = Carbon\Carbon::now();
-                                                        $formattedDate = $currentDate->format('M j');
-                                                    @endphp
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <p>
-                                                            {{$formattedDate}}
-                                                        </p>
-                                                        <i class="bi bi-globe-americas fs-12"></i>
-                                                    </div>
-                                                </div>
-
-                                                <span class="dots">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </span>
-                                            </div>
-                                            <div class="social-caption">
-                                                <div class="caption-text">
-                                                    <div class="line-loader">
-                                                        <div class="wrapper">
-                                                        <div class="line-1"></div>
-                                                        <div class="line-2"></div>
-                                                        <div class="line-3"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hash-tag"></div>
-
-                                                <div class="caption-imgs"></div>
-
-                                                <div class="caption-link"></div>
-
-                                                <div class="action-count d-flex justify-content-between align-items-center">
-                                                    <div class="emoji d-flex align-items-center gap-2">
-                                                        <ul class="d-flex gap-0 react-icon-list">
-                                                            <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
-                                                            <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
-                                                            <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
-                                                        </ul>
-                                                        <span class="fs-14">129</span>
-                                                    </div>
-                                                    <div class="comment-count py-2 px-0">
-                                                        <ul class="d-flex align-items-center gap-3">
-                                                            <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
-                                                            <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="caption-action">
-                                                    @if($platform->slug == 'facebook')
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-thumbs-up"></i>
-                                                            <span> {{translate("Like")}}</span>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-message"></i>
-                                                            <span>
-                                                                {{translate("Comment")}}
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-solid fa-share"></i>
-                                                            <span>
-                                                                {{translate("Share")}}
-                                                            </span>
-                                                        </div>
-                                                    @elseif($platform->slug == 'instagram')
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-comment"></i>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-paper-plane"></i>
-                                                        </div>
-
-                                                    @elseif($platform->slug == 'twitter')
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-comment"></i>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-solid fa-retweet"></i>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-
-                                                        @elseif($platform->slug == 'linkedin')
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-thumbs-up"></i>
-                                                            <span>  {{translate("Like")}}</span>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-regular fa-message"></i>
-                                                            <span>
-                                                                {{translate("Comment")}}
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-solid fa-retweet"></i>
-                                                            <span>{{translate("Repost")}}</span>
-                                                        </div>
-
-                                                        <div class="caption-action-item">
-                                                            <i class="fa-solid fa-paper-plane"></i>
-                                                            <span>
-                                                                {{translate("Send")}}
-                                                            </span>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach -->
-
                                 <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
                                     <div class="social-preview-body facebook mb-4">
                                         <div class="social-auth">
@@ -1014,6 +867,151 @@
         </div>
     </form>
 </div>
+
+ <!-- @foreach ($platforms as $platform )
+                                    <div class="tab-pane fade {{$loop->index ==  0 ? 'show active' :''}} " id="{{$platform->slug}}" role="tabpanel"    aria-labelledby="{{$platform->slug}}-tab" tabindex="0">
+                                        <div class="social-preview-body {{$platform->slug}}">
+                                            <div class="social-auth">
+                                                <div class="profile-img">
+                                                    <img
+                                                    src="{{get_default_img()}}"
+
+                                                    alt="{{get_default_img()}}"/>
+                                                </div>
+
+                                                <div class="profile-meta">
+                                                    <h6 class="user-name">
+                                                        <a href="javascript:void(0)">
+                                                            {{translate("Username")}}
+                                                        </a>
+                                                    </h6>
+                                                    @php
+                                                        $currentDate   = Carbon\Carbon::now();
+                                                        $formattedDate = $currentDate->format('M j');
+                                                    @endphp
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <p>
+                                                            {{$formattedDate}}
+                                                        </p>
+                                                        <i class="bi bi-globe-americas fs-12"></i>
+                                                    </div>
+                                                </div>
+
+                                                <span class="dots">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </span>
+                                            </div>
+                                            <div class="social-caption">
+                                                <div class="caption-text">
+                                                    <div class="line-loader">
+                                                        <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="hash-tag"></div>
+
+                                                <div class="caption-imgs"></div>
+
+                                                <div class="caption-link"></div>
+
+                                                <div class="action-count d-flex justify-content-between align-items-center">
+                                                    <div class="emoji d-flex align-items-center gap-2">
+                                                        <ul class="d-flex gap-0 react-icon-list">
+                                                            <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like"></li>
+                                                            <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love"></li>
+                                                            <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care"></li>
+                                                        </ul>
+                                                        <span class="fs-14">129</span>
+                                                    </div>
+                                                    <div class="comment-count py-2 px-0">
+                                                        <ul class="d-flex align-items-center gap-3">
+                                                            <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
+                                                            <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="caption-action">
+                                                    @if($platform->slug == 'facebook')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-thumbs-up"></i>
+                                                            <span> {{translate("Like")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-message"></i>
+                                                            <span>
+                                                                {{translate("Comment")}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-share"></i>
+                                                            <span>
+                                                                {{translate("Share")}}
+                                                            </span>
+                                                        </div>
+                                                    @elseif($platform->slug == 'instagram')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-paper-plane"></i>
+                                                        </div>
+
+                                                    @elseif($platform->slug == 'twitter')
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-retweet"></i>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+
+                                                        @elseif($platform->slug == 'linkedin')
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-thumbs-up"></i>
+                                                            <span>  {{translate("Like")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-regular fa-message"></i>
+                                                            <span>
+                                                                {{translate("Comment")}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-retweet"></i>
+                                                            <span>{{translate("Repost")}}</span>
+                                                        </div>
+
+                                                        <div class="caption-action-item">
+                                                            <i class="fa-solid fa-paper-plane"></i>
+                                                            <span>
+                                                                {{translate("Send")}}
+                                                            </span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach -->
 
 @endsection
 

@@ -18,7 +18,6 @@
                                 src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
                                 alt="{{@auth_user()->file->name}}" />
                             </div>
-
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="list-title">
                                     {{auth_user()->name}}
@@ -26,12 +25,9 @@
                                 <small>
                                     {{diff_for_humans($notification->created_at)}}
                                 </small>
+                                <p class="list-text">{{strip_tags($notification->message)}}</p>
                             </div>
                         </div>
-                        
-                        <p class="list-text">
-                            {{strip_tags($notification->message)}}
-                        </p>
                     </a>
                 @endif
             @endforeach

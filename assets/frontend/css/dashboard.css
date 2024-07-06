@@ -2614,7 +2614,7 @@ aside.show-side-bar {
 
 @media (max-width: 576px) {
   .aside .side-content .sidemenu-wrapper {
-    max-height: calc(100dvh - 180px);
+    max-height: calc(100dvh - 350px);
   }
 }
 
