@@ -25,7 +25,7 @@
                                 <h3 class="odometer" data-odometer-final="{{$counter->value->counter_value}}"> {{$counter->value->counter_value}}</h3><i class="bi bi-plus-lg"></i>
                             </div>
                             <p>
-                              {{$counter->value->counter_text}}
+                              {{@$counter->value->counter_text}}
                             </p>
                         </div>
                       </div>
@@ -57,8 +57,8 @@
                                      <i class="{{$about->value->icon}}"></i>
                                 </div>
                                 <div class="content">
-                                  <h4>{{$about->value->title}}</h4>
-                                  <p>{{$about->value->description}}</p>
+                                  <h4>{{@$about->value->title}}</h4>
+                                  <p>{{@$about->value->description}}</p>
                                 </div>
                               </div>
                             </div>

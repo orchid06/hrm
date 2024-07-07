@@ -37,13 +37,13 @@
 
         <div class="col-xl-4 col-lg-5 offset-lg-1 offset-0 order-0 order-lg-1">
           <div class="section-title">
-            <span>{{$platformContent->value->sub_title}}</span>
+            <span>{{@$platformContent->value->sub_title}}</span>
 
-            <h3 class="title-anim">{{$platformContent->value->title}}</h3>
+               <h3 class="title-anim">{{@$platformContent->value->title}}</h3>
 
-            <p>
-              {{$platformContent->value->description}}
-            </p>
+              <p>
+                {{@$platformContent->value->description}}
+              </p>
           </div>
 
           <div

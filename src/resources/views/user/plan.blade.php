@@ -2,10 +2,10 @@
 @section('content')
 
 @php
-$user = auth_user('web');
-$planSection = get_content("content_plan")->first();
-$subscription = $user->runningSubscription;
-$currentPlan = $subscription && $subscription->package ? $subscription->package: null;
+        $user = auth_user('web');
+        $planSection = get_content("content_plan")->first();
+        $subscription = $user->runningSubscription;
+        $currentPlan = $subscription && $subscription->package ? $subscription->package: null;
 @endphp
 
 <div class="current-plan-card mb-4">

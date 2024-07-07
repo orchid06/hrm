@@ -60,7 +60,7 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </span>
                                         <p>
-                                        {{translate('Create Post')}}
+                                           {{translate('Create Post')}}
                                         </p>
                                     </a>
                                 </li>
@@ -68,10 +68,10 @@
                                 <li class="sub-menu-item">
                                     <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
                                         <span>
-                                        <i class="bi bi-newspaper"></i>
+                                           <i class="bi bi-newspaper"></i>
                                         </span>
                                         <p>
-                                        {{translate('All Post')}}
+                                            {{translate('All Post')}}
                                         </p>
                                     </a>
                                 </li>
@@ -93,13 +93,13 @@
 
                     <li class="sidemenu-item">
                         <a href="{{route('user.social.account.list')}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? 'active' :''}}">
-                        <div class="sidemenu-icon">
-                            <i class="bi bi-person-gear"></i>
-                        </div>
+                            <div class="sidemenu-icon">
+                                <i class="bi bi-person-gear"></i>
+                            </div>
 
-                        <span>
-                            {{translate("Social Accounts")}}
-                        </span>
+                            <span>
+                                {{translate("Social Accounts")}}
+                            </span>
                         </a>
                     </li>
 
@@ -109,25 +109,27 @@
                             <i class="bi bi-box-seam"></i>
                             </div>
                             <span>
-                            {{translate("Plans")}}
+                               {{translate("Plans")}}
                             </span>
                         </a>
                     </li>
 
                     <li class="sidemenu-item">
                         <a href="javascript:void(0)" class='sidemenu-link
-                        @if($lastSegment == "reports")
-                            active
-                        @endif'>
-                        <div class="sidemenu-icon">
-                            <i class="bi bi-graph-up"></i>
-                        </div>
-                        <span>
-                            {{translate("Reports")}}  <small><i class="bi bi-chevron-down"></i></small>
-                        </span>
+                                @if($lastSegment == "reports")
+                                    active
+                                @endif'>
+                                <div class="sidemenu-icon">
+                                    <i class="bi bi-graph-up"></i>
+                                </div>
+                                <span>
+                                    {{translate("Reports")}}  <small><i class="bi bi-chevron-down"></i></small>
+                                </span>
                         </a>
 
-                        <div class="side-menu-dropdown">
+                        <div class="side-menu-dropdown  @if($lastSegment == "reports")
+                                    show-sideMenu
+                                @endif  ">
                             <ul class="sub-menu">
                                 <li class="sub-menu-item">
                                     <a class="sidebar-menu-link {{request()->routeIs('user.template.report.*') ? 'active' :''}}" href="{{route('user.template.report.list')}}">
@@ -135,7 +137,7 @@
                                             <i class="bi bi-layers"></i>
                                         </span>
                                         <p>
-                                        {{translate('Template Reports')}}
+                                            {{translate('Template Reports')}}
                                         </p>
                                     </a>
                                 </li>

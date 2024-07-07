@@ -32,9 +32,9 @@
               <div class="footer-top-content">
                    <img src="{{imageURL($footerbg,'frontend',true,$footerbgSize)}}" alt="{{@$footerbg->name ?? "footer-bg.jpg"}}" class="footer-top-img">
                     <h2>
-                       {{ $footer->value->title}}
+                       {{ @$footer->value->title}}
                     </h2>
-                    <p> {{ $footer->value->description}} </p>
+                    <p> {{ @$footer->value->description}} </p>
 
 
                     @if( $buttons->count() > 0)

@@ -7,38 +7,7 @@
 @section('content')
 
 <div> 
-    <div class="row mb-5">
-        <div class="col-lg-9">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div class="row justify-content-end mb-4">
-                        <div class="col-lg-3">
-                            <select name="content-category" class="select2">
-                                <option>Category One</option>
-                                <option>Category Two</option>
-                                <option>Category Three</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="subscription-chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <ul class="report-list">
-                        <li><span>TRX Code</span><span>	ZXGRJFVDWNXJ</span></li>
-                        <li><span>User</span><span>Clinton Benson</span></li>
-                        <li><span>Package</span><span>Starter</span></li>
-                        <li><span>Paid Amount</span><span>$140.00</span></li>
-                        <li><span>Date</span><span>2024/01/13 11:32</span></li>
-                        <li><span>Expired In</span><span>2024/01/13 00:00</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <div class="w-100 d-flex align-items-end justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
     <h4>
@@ -253,10 +222,8 @@
 
 @push('script-include')
     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
-
-   <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -268,38 +235,6 @@
         $(".package").select2({
 
         });
-
-        var options = {
-            series: [{
-                name: 'series1',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-            chart: {
-                height: 350,
-                type: 'area'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-            },
-            tooltip: {
-                x: {
-                    format: 'yyyy-MM-dd HH:mm:ss'
-                },
-            },
-        };
-
-        var chart = new ApexCharts(document.querySelector("#subscription-chart"), options);
-        chart.render();
 
         $(".select2").select2({
 

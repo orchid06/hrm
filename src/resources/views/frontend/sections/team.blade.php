@@ -36,7 +36,6 @@
                                 </div>
                         @endforeach 
 
-                        
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>

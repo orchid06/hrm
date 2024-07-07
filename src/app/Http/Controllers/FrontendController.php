@@ -57,7 +57,7 @@ class FrontendController extends Controller
             'menu'         => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
 
             'breadcrumbs'  => ['Home'=>'home',"Blogs" => null],
-            'banner'       => (object) ['title' => $blogContent->value->sub_title , 'description' => $blogContent->value->description]
+            'banner'       => (object) ['title' => @$blogContent->value->sub_title , 'description' => @$blogContent->value->description]
         ]);
     }
 
@@ -109,7 +109,7 @@ class FrontendController extends Controller
             'menu'      => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
             "plans"     => Package::active()->get(),
             'breadcrumbs'       => ['Home'=>'home',"Plans" => null],
-            'banner'            => (object) ['title' => $planContent->value->sub_title , 'description' => $planContent->value->description]
+            'banner'            => (object) ['title' => @$planContent->value->sub_title , 'description' => @$planContent->value->description]
         ]);
     }
 
@@ -155,7 +155,7 @@ class FrontendController extends Controller
             'meta_data'    => $this->metaData([ "title" => $section->value->title]),
             'section'      => $section,
             'breadcrumbs'  =>  ['Home'=>'home',$section->value->title => null],
-            'banner'       => (object) ['title' => $section->value->title , 'description' => limit_words(strip_tags($section->value->short_description),100)]
+            'banner'       => (object) ['title' => @$section->value->title , 'description' => limit_words(strip_tags(@$section->value->short_description),100)]
         ]);
 
     }
@@ -175,7 +175,7 @@ class FrontendController extends Controller
             'meta_data'    => $this->metaData([ "title" => $service->value->title]),
             'service'      => $service,
             'breadcrumbs'  =>  ['Home'=>'home',$service->value->title => null],
-            'banner'       => (object) ['title' => $service->value->title , 'description' => limit_words(strip_tags($service->value->description),100)]
+            'banner'       => (object) ['title' => @$service->value->title , 'description' => limit_words(strip_tags(@$service->value->description),100)]
         ]);
 
     }
