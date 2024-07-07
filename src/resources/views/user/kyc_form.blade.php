@@ -3,13 +3,11 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        
         <div class="i-card-md">
                 <div class="card-header">
-                <h4 class="card-title">
-                    {{translate(Arr::get($meta_data,'title'))}}
-                </h4>
-        
+                    <h4 class="card-title">
+                        {{translate(Arr::get($meta_data,'title'))}}
+                    </h4>
                 </div>
 
                 @php
@@ -18,7 +16,6 @@
                     $kycFields =  json_decode(site_settings("kyc_settings"),true);
                 @endphp
         
-  
 
                 <div class="card-body">
 
@@ -26,11 +23,9 @@
                          @csrf
                         <div class="row">
                             @foreach($kycFields as $kycField)
-                            @php
-                            if(isset($kycField['name'])){
-                                    $field_name = $kycField['name'];
-                                }
-                            @endphp
+                                @php
+                                    if(isset($kycField['name']))           $field_name = $kycField['name'];
+                                @endphp
                                 <div class="col-lg-{{$kycField['type'] == 'textarea'  ? 12 :6}}">
                                     
        
@@ -54,9 +49,6 @@
                                     
                                 </div>
                             @endforeach
-
-
-                           
 
                             <div class="col-12">
                                 <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">

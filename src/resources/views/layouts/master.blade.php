@@ -100,12 +100,7 @@
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-    @if(!request()->routeIs("*auth.*") && !request()->routeIs("dos.security") && !request()->routeIs("user.*"))
-        <script src="{{asset('assets/frontend/js/gsap.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/ScrollTrigger.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/SplitText.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/animation-init.js')}}"></script>
-    @endif
+
 
     <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('assets/frontend/js/venobox.min.js')}}"></script>

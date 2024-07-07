@@ -6,38 +6,6 @@
 
 @section('content')
 
-<div class="row mb-5">
-        <div class="col-lg-9">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div class="row justify-content-end mb-4">
-                        <div class="col-lg-3">
-                            <select name="content-category" class="select2">
-                                <option>Category One</option>
-                                <option>Category Two</option>
-                                <option>Category Three</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="subscription-chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <ul class="report-list">
-                        <li><span>Trx Code</span><span>	ZXGRJFVDWNXJ</span></li>
-                        <li><span>User</span><span>Clinton Benson</span></li>
-                        <li><span>Package</span><span>Starter</span></li>
-                        <li><span>Paid Amount</span><span>$140.00</span></li>
-                        <li><span>Date</span><span>2024/01/13 11:32</span></li>
-                        <li><span>Expired In</span><span>2024/01/13 00:00</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 <div class="row">

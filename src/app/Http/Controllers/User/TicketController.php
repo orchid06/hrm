@@ -51,12 +51,12 @@ class TicketController extends Controller
         return view('user.ticket.list',[
             'meta_data' => $this->metaData(["title" => translate("Ticket List")]),
             'tickets'   => Ticket::with(['user','messages'])
-                            ->where('user_id',$this->user->id)
-                            ->latest()
-                            ->search(['subject'])
-                            ->filter(['ticket_number',"status",'priority'])
-                            ->date()
-                            ->paginate(paginateNumber())
+                                    ->where('user_id',$this->user->id)
+                                    ->latest()
+                                    ->search(['subject'])
+                                    ->filter(['ticket_number',"status",'priority'])
+                                    ->date()
+                                    ->paginate(paginateNumber())
         ]);
     }
 
@@ -109,11 +109,11 @@ class TicketController extends Controller
 
             'meta_data'=> $this->metaData(["title" => translate("Ticket Details")]),
 
-            'ticket'   => Ticket::with(['user','messages','messages.admin' ,'messages.admin.file'])
-                            ->where('user_id',$this->user->id)
-                            ->where("ticket_number",$ticketNumber)
-                            ->latest()
-                            ->firstOrFail()
+            'ticket'   => Ticket::with(['user','user.file','messages','messages.admin' ,'messages.admin.file'])
+                                    ->where('user_id',$this->user->id)
+                                    ->where("ticket_number",$ticketNumber)
+                                    ->latest()
+                                    ->firstOrFail()
         ]);
     }
 
@@ -133,8 +133,8 @@ class TicketController extends Controller
 
     
         $ticket              = Ticket::with(['user'])
-                                 ->where('user_id',$this->user->id)
-                                 ->where('id',$request->input('id'))->firstOrFail();
+                                        ->where('user_id',$this->user->id)
+                                        ->where('id',$request->input('id'))->firstOrFail();
 
         $message             = $this->ticketService->reply($ticket,$request);
 
@@ -163,8 +163,6 @@ class TicketController extends Controller
                         [$admin, 'TICKET_REPLY', $code],
                     ],
                 ],
-
-             
 
                 'sms_notifications' => [
                     'action' => [SendSmsJob::class, 'dispatch'],
@@ -205,9 +203,9 @@ class TicketController extends Controller
     public function destroy(string $id) :RedirectResponse {
 
         $ticket   = Ticket::with(['messages','file'])
-                     ->where('id',$id)
-                     ->where('user_id',$this->user->id)
-                    ->firstOrFail();
+                                    ->where('id',$id)
+                                    ->where('user_id',$this->user->id)
+                                    ->firstOrFail();
         return back()->with($this->ticketService->delete($ticket));
 
     }

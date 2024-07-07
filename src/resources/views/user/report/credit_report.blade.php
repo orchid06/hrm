@@ -7,31 +7,7 @@
 @section('content')
 
 <div>
-    <div class="row mb-4">
-        <div class="col-lg-8">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div class="row justify-content-end mb-4">
-                        <div class="col-lg-3">
-                            <select name="content-category" class="select2">
-                                <option>Category One</option>
-                                <option>Category Two</option>
-                                <option>Category Three</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="credit-chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="i-card-md">
-                <div class="card-body">
-                    <div id="credit-chart-circle"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
         <div>
             <h4>
@@ -168,10 +144,10 @@
                                             <div class="col-lg-2 col-sm-4 col-6 text-lg-end text-md-center text-end">
                                                 <div class="table-accordion-header">
                                                     <h6>
-                                                        {{translate("Remark")}}
+                                                        {{translate("Remarks")}}
                                                     </h6>
                                                     <p>
-                                                        {{k2t($report->remark)}}
+                                                        {{k2t($report->remarks)}}
                                                     </p>
                                                 </div>
                                             </div>

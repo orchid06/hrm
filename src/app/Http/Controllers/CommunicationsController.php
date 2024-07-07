@@ -169,8 +169,8 @@ class CommunicationsController extends Controller
             ]),
             'menu'      => Menu::where('url', $this->lastSegment )->active()->first(),
             'breadcrumbs'       => ['Home'=>'home',"Feedback" => null],
-            'banner'            => (object) ['title'       => $feedbackSection->value->breadcrumb_title ,
-                                             'description' => $feedbackSection->value->breadcrumb_description],
+            'banner'            => (object) ['title'       => @$feedbackSection->value->breadcrumb_title ,
+                                             'description' => @$feedbackSection->value->breadcrumb_description],
             'feedback_section'  => $feedbackSection
          
         ]);

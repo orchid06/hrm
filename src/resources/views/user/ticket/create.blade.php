@@ -42,7 +42,7 @@
                                 </label>
 
                                 @if($ticket_field['type'] == 'textarea')
-                                <textarea id="{{$loop->index}}" {{$ticket_field['required'] == '1' ? "required" :""}} class="summernote"  name="ticket_data[{{ $field_name }}]" cols="30" rows="10" placeholder="{{$ticket_field['placeholder']}}">{{old('ticket_data.'.$field_name)}}</textarea>
+                                    <textarea id="{{$loop->index}}" {{$ticket_field['required'] == '1' ? "required" :""}} class="summernote"  name="ticket_data[{{ $field_name }}]" cols="30" rows="10" placeholder="{{$ticket_field['placeholder']}}">{{old('ticket_data.'.$field_name)}}</textarea>
                                 @elseif($ticket_field['type'] == 'file')
                                     <input id="{{$loop->index}}"  {{$ticket_field['required'] == '1' ? "required" :""}}   multiple  type="file" name="ticket_data[{{ $field_name }}][]" >
                                 @else

@@ -12,9 +12,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-5">
                 <div class="section-title-one text-center mb-60">
-                    <div class="subtitle">{{$testimonialContent->value->sub_title}}</div>
+                    <div class="subtitle">{{@$testimonialContent->value->sub_title}}</div>
                     <h2>  @php echo @$testimonialContent->value->title @endphp </h2>
-                    <p>{{$testimonialContent->value->description}}.</p>
+                    <p>{{@$testimonialContent->value->description}}.</p>
                 </div>
             </div>
         </div>

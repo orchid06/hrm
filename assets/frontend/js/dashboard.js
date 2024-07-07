@@ -80,7 +80,7 @@
       const sideBarDropdown = item.querySelector(".side-menu-dropdown");
 
       if (sideBarDropdown !== null) {
-        sideBarDropdown.classList.remove("show-sideMenu");
+       
 
         sideMenuLink.addEventListener("click", () => {
           if (sideBarDropdown !== null) {
@@ -181,20 +181,7 @@
 
 
 
-  // var paymentCardItems = document.querySelectorAll('.payment-card-item');
 
-  //   var form = document.getElementById('payment-form');
-
-
-  //   paymentCardItems.forEach(function (card) {
-  //       card.addEventListener('click', function () {
-
-  //           form.classList.remove('highlight');
-
-  //           form.classList.add('highlight');
-  //       });
-  //   });
-  
 
 
 })();

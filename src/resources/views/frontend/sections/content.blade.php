@@ -12,13 +12,13 @@
                     <div class="row align-items-center g-lg-5 g-0 overflow-hidden">
                         <div class="col-lg-5 gs_reveal fromLeft">
                             <div class="section-title mb-lg-0">
-                            <span>{{$contentSection->value->sub_title}}</span>
-                            <h3 class="title-anim">
-                                {{$contentSection->value->title}}
-                            </h3>
-                            <p>
-                                {{$contentSection->value->description}}
-                            </p>
+                               <span>{{@$contentSection->value->sub_title}}</span>
+                                <h3 class="title-anim">
+                                    {{@$contentSection->value->title}}
+                                </h3>
+                                <p>
+                                    {{@$contentSection->value->description}}
+                                </p>
                             </div>
                         </div>
 

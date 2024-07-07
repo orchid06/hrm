@@ -21,16 +21,16 @@
                 <div class="row g-4 justify-content-center">
                     @foreach ($elements  as $element)
                       <div class="col-md-6">
-                        <div class="choose-card fade-item">
+                        <div class="choose-card">
                           <div class="choose-card-icon">
                               <i class="{{$element->value->icon}}"></i>
                           </div>
                           <div>
                                 <h4>
-                                  {{$element->value->title}}
+                                    {{@$element->value->title}}
                                 </h4>
                                 <p>
-                                  {{$element->value->description}}
+                                    {{@$element->value->description}}
                                 </p>
                           </div>
                         </div>
