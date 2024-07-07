@@ -996,6 +996,10 @@
     background-color: var(--color-white);
 }
 
+.mega-menu-integra .nav-item{
+  width: 100%;
+}
+
 @media (max-width: 768px){
   .mega-menu-wrapper
   .mega-menu-right

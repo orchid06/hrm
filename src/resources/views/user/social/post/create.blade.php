@@ -1301,10 +1301,10 @@
         //     enableTime: true,
         // });
 
-        // flatpickr("#time_post", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
+        flatpickr("#time_post", {
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+        });
 
         // flatpickr("#repost", {
         //     dateFormat: "Y-m-d H:i",
