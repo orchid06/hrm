@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\AiTemplateController;
-use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\CannedContentController;

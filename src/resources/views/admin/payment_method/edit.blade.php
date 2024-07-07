@@ -146,15 +146,17 @@
                         </div>
                     </div>
 
-                    @if(request()->route('type')  == 'manual')
-                        <div class="col-12">
-                            <div class="form-inner">
-                                <label for="note">
-                                    {{translate('Payment Notes')}}
-                                </label>                          
-                                <textarea  placeholder="{{translate('Enter Payment Notes')}}" name="note" id="note" cols="30" rows="3">{{$method->note}}</textarea>                         
-                            </div>
+                    <div class="col-12">
+                        <div class="form-inner">
+                            <label for="note">
+                                {{translate('Payment Notes')}}
+                            </label>                          
+                            <textarea  placeholder="{{translate('Enter Payment Notes')}}" name="note" id="note" cols="30" rows="3">{{$method->note}}</textarea>                         
                         </div>
+                    </div>
+
+                    @if(request()->route('type')  == 'manual')
+                        
                         <div class="col-12 mb-20">
                             <a href="javascript:void(0)" class="i-btn btn--md success" id="addNew"> 
                                 <i class="las la-plus me-1"></i> {{translate('Add New Field')}}                     

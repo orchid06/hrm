@@ -17,7 +17,6 @@ use App\Models\Core\File;
 use App\Models\KycLog;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Enums\WithdrawStatus as KycStatus;
 use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Models\Admin;
@@ -51,11 +50,7 @@ class UserController extends Controller
 
         return view('user.plan',[
 
-            'meta_data' => $this->metaData(
-                [
-                    "title"    =>  trans('default.plan')
-                ]
-            ),
+            'meta_data' => $this->metaData(["title"    =>  trans('default.plan')]),
             "plans"     => Package::active()->get()
   
         ]);
@@ -114,9 +109,7 @@ class UserController extends Controller
         $gateway           = Withdraw::with(['file'])->findOrfail($gwId);
         $error             = $this->validateWithdrawRequest($gateway, $amount);
 
-        if($error !== null){
-            return back()->with("error",$error);
-        }
+        if($error !== null)            return back()->with("error",$error);
 
         $balance = ((int)$this->user->balance);
         

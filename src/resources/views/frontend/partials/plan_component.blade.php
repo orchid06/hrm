@@ -17,58 +17,58 @@
    @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
          <div class="tab-pane fade {{$loop->index == 0 ? "show active" :""}}" id="{{$value}}-tab-pane" role="tabpanel" aria-labelledby="{{$value}}-tab" tabindex="0">
 
-           @php
-                $purchasePlans = $plans->where('duration',$value);
-           @endphp
+              @php
+                    $purchasePlans = $plans->where('duration',$value);
+              @endphp
              <div class="row g-4">
 
                  @forelse ($purchasePlans as  $plan)
-                   <div class="col-lg-4 col-md-6">
-                     <div class="pricing-item {{ $plan->is_recommended ==  App\Enums\StatusEnum::true->status() ? 'style-dark' :'' }} ">
-                         <div class="radius-one">
-                             <img src="{{asset('assets/images/default/plan_shape.png')}}" alt="plan_shape.png">
-                         </div>
-                         <div class="radius-two">
-                             <img src="{{asset('assets/images/default/plan_shape_bread.png')}}" alt="plan_shape_bread.png">
-                         </div>
-                         <div class="icon">
-                             <i class="{{$plan->icon}}"></i>
-                         </div>
-                         <div class="pricing-header">
-                              @if($plan->is_recommended ==  App\Enums\StatusEnum::true->status())
-                                       <span>
-                                          {{translate('Recommended Plan')}}
-                                       </span>
-                             @endif
-                             <h5>{{ $plan->title}}</h5>
-                             <p> {{ $plan->description}} </p>
-                         </div>
-                         <div class="price">
-                             <h3>@if($plan->discount_price > 0) <del>
-                               {{num_format( number : $plan->price,
-                                   calC:true)}}</del> {{num_format( number : $plan->discount_price,
-                                   calC:true)}} @else {{num_format( number : $plan->price,
-                                   calC:true)}}@endif   <span>/{{$key}}</span></h3>
-                         </div>
-                         <div class="body">
-                             <h6>
-                                {{translate('What’s included')}}
-                             </h6>
-                             <ul>
-                               @foreach (plan_configuration( $plan) as $configKey => $configVal )
-                                   <li>
-                                         <span>
-                                             <i class="bi bi-check"></i>
-                                         </span>
-                                         {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
-                                   </li>
-                               @endforeach
+                    <div class="col-lg-4 col-md-6">
+                      <div class="pricing-item {{ $plan->is_recommended ==  App\Enums\StatusEnum::true->status() ? 'style-dark' :'' }} ">
+                          <div class="radius-one">
+                              <img src="{{asset('assets/images/default/plan_shape.png')}}" alt="plan_shape.png">
+                          </div>
+                          <div class="radius-two">
+                              <img src="{{asset('assets/images/default/plan_shape_bread.png')}}" alt="plan_shape_bread.png">
+                          </div>
+                          <div class="icon">
+                              <i class="{{$plan->icon}}"></i>
+                          </div>
+                          <div class="pricing-header">
+                                @if($plan->is_recommended ==  App\Enums\StatusEnum::true->status())
+                                        <span>
+                                            {{translate('Recommended Plan')}}
+                                        </span>
+                              @endif
+                              <h5>{{ $plan->title}}</h5>
+                              <p> {{ $plan->description}} </p>
+                          </div>
+                          <div class="price">
+                              <h3>@if($plan->discount_price > 0) <del>
+                                {{num_format( number : $plan->price,
+                                    calC:true)}}</del> {{num_format( number : $plan->discount_price,
+                                    calC:true)}} @else {{num_format( number : $plan->price,
+                                    calC:true)}}@endif   <span>/{{$key}}</span></h3>
+                          </div>
+                          <div class="body">
+                              <h6>
+                                  {{translate('What’s included')}}
+                              </h6>
+                              <ul>
+                                @foreach (plan_configuration( $plan) as $configKey => $configVal )
+                                    <li>
+                                          <span>
+                                              <i class="bi bi-check"></i>
+                                          </span>
+                                          {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
+                                    </li>
+                                @endforeach
 
-                             </ul>
-                         </div>
-                         <a href="{{route("user.plan.purchase",$plan->slug)}}" class="i-btn btn--lg btn--primary capsuled">{{translate("Subscribe")}}</a>
-                     </div>
-                   </div>
+                              </ul>
+                          </div>
+                          <a href="{{route("user.plan.purchase",$plan->slug)}}" class="i-btn btn--lg btn--primary capsuled">{{translate("Subscribe")}}</a>
+                      </div>
+                    </div>
                  @empty
 
                    <div class="col-12">

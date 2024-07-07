@@ -86,7 +86,7 @@
                             </div>
 
                             <span>
-                                {{translate("Ai Contents")}}
+                                {{translate("AI Contents")}}
                             </span>
                         </a>
                     </li>
@@ -244,7 +244,9 @@
                         </span>
                         </a>
                     </li>
-                    <li class="side-menu-title">Setting</li>
+                    <li class="side-menu-title">
+                         {{translate('Setting')}}
+                    </li>
                     <li class="sidemenu-item">
                         <a href="{{route('user.profile')}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? 'active' :''}}">
                         <div class="sidemenu-icon">
@@ -287,10 +289,16 @@
             </div>
 
             <div class="total-balance">
-                <h4>$34535</h4>
-                <p>Total Balance</p>
+                <h4>
+                    {{num_format(number:$user->balance,calC:true)}}
+                </h4>
+                <p>
+                    {{translate('Total Balance')}}
+                </p>
             </div>
-            <a href="#"><span><i class="bi bi-box-arrow-right"></i></span> Logout</a>
+            <a href="{{route('user.logout')}}"><span><i class="bi bi-box-arrow-right"></i></span>
+                 {{translate('Logout')}}
+            </a>
         </div>
     </div>
   </aside>

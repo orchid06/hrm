@@ -33,8 +33,8 @@ class Payment
         $response =  BkashPaymentTokenize::cPayment(json_encode($request));
 
         
-        $response['error']   = true;
-        $response['message'] = translate("Invalid Request");
+        $send['error']   = true;
+        $send['message'] = translate("Invalid Request");
 
         if (isset($response['bkashURL'])) {
 
@@ -97,7 +97,8 @@ class Payment
             $data['message']  = translate('Payment Cancel');
         }
 
-        UserService::updateDepositLog($depositLog,$status,$data);
+
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
 
         return $data;
     }

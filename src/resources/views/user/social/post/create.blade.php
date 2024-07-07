@@ -1139,8 +1139,8 @@
                                                     </div>
 
                                                     <div class="form-inner">
-                                                        <label for="ai_creativity">{{ translate('Ai Creativity Level') }}
-                                                        <small class="text-danger" >*</small></label>
+                                                        <label for="ai_creativity">{{ translate('AI Creativity Level') }}
+                                                       </label>
                                                         <select class="ai_creativity form-select" id="ai_creativity" name="ai_creativity" >
                                                             <option  value="">
                                                                 {{translate("Select Creativity")}}

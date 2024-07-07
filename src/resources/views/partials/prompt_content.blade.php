@@ -97,7 +97,7 @@
                                     <div class="accordion-item mb-0">
                                         <h2 class="accordion-header" id="advanceContent">
                                             <button
-                                            class="accordion-button collapsed"
+                                            class="accordion-button  @if(!request()->routeIs('user.*')) collapsed @endif"
                                             type="button"
                                             data-bs-toggle="collapse"
                                             data-bs-target="#advanceAcc"
@@ -109,13 +109,13 @@
                                                 
                                             </button>
                                         </h2>
-                                        <div id="advanceAcc" class="accordion-collapse collapse {{request()->routeIs('user.*') ? 'show' :''}}" aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
+                                        <div id="advanceAcc" class="accordion-collapse collapse @if(request()->routeIs('user.*')) collapse show" @endif aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
                                             <div class="accordion-body">
                                                 <div class="form-inner">
                                                     <label for="max_result">
                                                         {{translate("Max Results Length")}} <i  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Maximum words for each result')}}"  class="ms-1 pointer {{$iconClass}}"></i>
                                                         @if(request()->routeIs('user.*'))
-                                                            <span class="text-danger">*</span>
+                                                            <span class="text--danger">*</span>
                                                         @endif
                                                     </label>
                                                     <input placeholder="{{translate('Enter number')}}" type="number" min="1"
@@ -123,8 +123,8 @@
                                                 </div>
 
                                                 <div class="form-inner">
-                                                    <label for="ai_creativity" class="form-label">{{ translate('Ai Creativity Level') }}
-                                                    <small class="text-danger" >*</small></label>
+                                                    <label for="ai_creativity" class="form-label">{{ translate('AI Creativity Level') }}
+                                                   </label>
                                                     <select class="select2" id="ai_creativity" name="ai_creativity" >
                                                         <option  value="">
                                                             {{translate("Select Creativity")}}
@@ -138,7 +138,7 @@
                                                 </div>
 
                                                 <div class="form-inner">
-                                                    <label for="content_tone" class="form-label">{{ translate('Content Tone') }} <small class="text-danger" >*</small></label>
+                                                    <label for="content_tone" class="form-label">{{ translate('Content Tone') }} </label>
                                                     <select  class="select2" id="content_tone" name="content_tone">
                                                             <option value="">
                                                                 {{translate("Select Tone")}}
@@ -159,8 +159,12 @@
                     </div>
 
                    <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
-                        <button type="submit" class="ai-btn i-btn btn--primary btn--lg">
+                        <button type="submit" class="{{request()->routeIs('user.*') ? ' ai-btn i-btn btn--lg btn--primary capsuled' : 'ai-btn i-btn btn--primary btn--lg' }}">
                             {{translate("Generate")}}
+
+                            @if(request()->routeIs('user.*'))
+                               <span><i class="bi bi-arrow-up-right"></i></span>
+                            @endif
                         </button>
                    </div>
 
@@ -200,8 +204,11 @@
                     </div>
 
                     <div class="col-12">
-                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        <button type="submit" class=" {{request()->routeIs('user.*') ? 'i-btn btn--lg btn--primary capsuled' : 'i-btn btn--md btn--primary'}}  " data-anim="ripple">
                                 {{translate("Save")}}
+                                @if(request()->routeIs('user.*'))
+                                     <span><i class="bi bi-arrow-up-right"></i></span>
+                                @endif
                         </button>
                     </div>
                 </form>

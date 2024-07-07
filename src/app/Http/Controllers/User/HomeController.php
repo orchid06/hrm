@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\Core\File;
 use App\Models\MediaPlatform;
 use App\Models\Notification;
-use App\Models\PaymentLog;
 use App\Models\SocialAccount;
 use App\Models\SocialPost;
 use App\Models\Subscription;
@@ -202,24 +202,16 @@ class HomeController extends Controller
 
          if($request->hasFile('image')){
 
-                $oldFile = $user->file()->where('type','profile')->first();
-                $response = $this->storeFile(
-                    file        : $request->file('image'), 
-                    location    : config("settings")['file_path']['profile']['user']['path'],
-                    removeFile  : $oldFile
-                );
-                
-                if(isset($response['status'])){
-                    $image = new File([
-                        'name'      => Arr::get($response, 'name', '#'),
-                        'disk'      => Arr::get($response, 'disk', 'local'),
-                        'type'      => 'profile',
-                        'size'      => Arr::get($response, 'size', ''),
-                        'extension' => Arr::get($response, 'extension', ''),
-                    ]);
 
-                    $user->file()->save($image);
-                }
+
+                $oldFile = $user->file()->where('type',FileKey::AVATAR->value)->first();
+                $this->saveFile($user ,$this->storeFile(
+                                               file       : $request->file('image'), 
+                                               location   : config("settings")['file_path']['profile']['user']['path'],
+                                               removeFile : @$oldFile
+                                            )
+                                            ,FileKey::AVATAR->value);
+
             }
                 
     

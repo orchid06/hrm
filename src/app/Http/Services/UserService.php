@@ -831,10 +831,12 @@ class UserService
 
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
         $amount                    = (float)$request->input("amount");
-        $charge                    = round_amount( (float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100));
+        $charge                    = round_amount( (float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100),4);
         $total                     = $amount + $charge;
+
         $status                    = $status ?  $status : (string)DepositStatus::PAID->value;
         $finalBase                 = convert_to_base($total);
+
         $finalAmount               = round_amount($finalBase*$method->currency->exchange_rate,2);
 
         $params                    = [
@@ -923,7 +925,7 @@ class UserService
 
         return [
             "response" => $response,
-            "log"      => $log,
+            "log"      => $log->load(['user','user.country']),
         ];
 
         
@@ -1046,14 +1048,15 @@ class UserService
      * @param array $responseData
      * @return void
      */
-    public static function updateDepositLog(PaymentLog $log , mixed $status ,array $responseData) :void{
+    public static function updateDepositLog(PaymentLog $log , mixed $status ,array $responseData) :string{
 
         $log->status            =   $status;
         $log->gateway_response  =   $responseData;
         $log->save();
+        
+        $redirectRoute = 'payment.failed';
 
-        if($log->status  == (string)DepositStatus::value("PAID",true)){
-
+        if($log->status  == (string) DepositStatus::value("PAID",true)){
             $params  = [
                 'trx_code'     => $log->trx_code,
                 'currency_id'  => $log->currency_id,
@@ -1068,7 +1071,16 @@ class UserService
             $transaction  =  PaymentService::makeTransaction($log->user,$params);
             $log->user->balance +=$log->base_amount;
             $log->user->save();
+
+            $redirectRoute = 'payment.success';
         }
+
+
+
+        return route($redirectRoute,['payment_intent' => base64_encode(json_encode([
+            "trx_number" => $log->trx_code,
+            "type"       => $log->status  == (string)DepositStatus::value("PAID",true) ? "SUCCESS" : "FAILED",
+        ]))]);
 
     }
     

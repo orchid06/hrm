@@ -441,9 +441,7 @@ class CoreController extends Controller
         $templateAccess = [];
         if($request->input('user_id')) {
             $user          = User::with(['runningSubscription'])->find($request->input('user_id'));
-            if(!$user || !$user->runningSubscription){
-                return ['status'=> false,'message'=> translate('Invalid User!! No Template Found')];
-            }
+            if(!$user || !$user->runningSubscription)  return ['status'=> false,'message'=> translate('Invalid User!! No Template Found')];
             $subscription   = $user->runningSubscription;
             $templateAccess = $subscription ?  (array)subscription_value($subscription,"template_access",true) :[];
             $flag           = true;
@@ -490,7 +488,7 @@ class CoreController extends Controller
         $flag     = true;
 
         if($is_user){
-            $user          = auth_user('web');
+            $user          = auth_user('web')->load(['runningSubscription']);
             $flag          = false;
             if($user 
                   && $user->runningSubscription 
