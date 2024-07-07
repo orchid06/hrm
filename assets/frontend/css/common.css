@@ -905,12 +905,12 @@
 }
 
 .faq-wrap .accordion-item .accordion-button {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   background: var(--white);
   color: var(--text-primary);
   
-  padding: 30px 30px 30px 75px;
+  padding: 30px 30px 30px 65px;
   position: relative;
   transition: 0.4s ease-in;
   line-height: 1.6;
@@ -956,7 +956,7 @@
   content: "\F64D";
   font-size: 16px;
   position: absolute;
-  left: 25px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   transition: unset;

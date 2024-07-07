@@ -30,14 +30,13 @@
                         @foreach ($elements as $element )
                                 @php $file = $element->file?->first(); @endphp
                                 <div class="swiper-slide">
-                                    <div class="sponsor-item">
+                                    <div class="team-item">
                                         <img src="{{imageURL($file,'frontend',true,$teamImageSize)}}" alt="{{@$file->name ?? "team.jpg"}}">
                                     </div>
                                 </div>
                         @endforeach 
 
-                    </div>
-                    <div class="swiper-pagination"></div>
+                      </div>
                 </div>
 
             @else

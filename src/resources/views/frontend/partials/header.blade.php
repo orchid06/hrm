@@ -72,7 +72,7 @@
                                             <div class="row g-4 h-100">
                                                 <div class="col-lg-12">
                                                     <div class="mega-menu-right">
-                                                        <div class="row g-0 h-100">
+                                                        <div class="row g-0 h-100 align-items-center">
                                                             <div class="col-lg-8">
                                                                 <div class="social-integra">
                                                                     <h5> 
@@ -99,7 +99,7 @@
                                                                                                     aria-selected="true">
                                                                                                     <div class="social-item-img">
                                                                                                         <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}"
-                                                                                                            alt="{{@$file->name ?? @$element->value->title."jpg" }}"
+                                                                                                            alt="{{@$file->name ?? @$element->value->title.'jpg' }}"
                                                                                                             loading="lazy">
                                                                                                     </div>
 
