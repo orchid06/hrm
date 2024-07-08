@@ -91,7 +91,7 @@
                                             <div class="p-3 mb-4 bg-danger-soft rounded-2 d-none payment-note-section">
                                             
                                             </div>
-                                            <ul class="payment-details deposit-details list-group mb-4 d-none deposit-details">
+                                            <ul class="payment-details deposit-details list-group mb-4 d-none">
 
                                             </ul>
                                         </div>
@@ -120,7 +120,7 @@
                         </div>
                 
                 </div>
-           </form> 
+            </form> 
         </div>
       </div>
 

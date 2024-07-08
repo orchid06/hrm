@@ -9,9 +9,14 @@
         <div class="col-xl-6 col-lg-10">
             <div class="i-card-md ">
                 <div class="card-header">
+
+                    <div class="image">
+                        <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name."jpg"}}" >
+                    </div>
                     <h4 class="card-title">
                          {{@$log->method->name}}
                     </h4>
+
                 </div>
 
                 <div class="card-body">

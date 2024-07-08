@@ -25,6 +25,21 @@
 
               <div class="row g-4">
 
+                <div class="col-12">
+
+                  <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-lg-4 gap-3">
+                      <div class="avatar-100 profile-picture">
+                          <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name."jpg"}}" class="rounded-50">
+                      </div>
+                      <div class="text-start">
+                          <h4>
+                              {{@$method->name}}
+                          </h4>
+                        
+                      </div>
+                  </div>
+                   
+                </div>
     
                 <div class="col-12">
                   <div class="p-4  bg-danger-soft">
@@ -39,9 +54,9 @@
                 <div class="col-12">
                     <ul class="payment-details list-group">
                         <li class="list-group-item active" aria-current="true">
-                          <h5>
-                             {{translate("Withdraw Details")}}
-                          </h5>
+                            <h5>
+                                {{translate("Withdraw Details")}}
+                            </h5>
                         </li>
 
                         <li class="list-group-item">

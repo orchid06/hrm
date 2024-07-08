@@ -28,55 +28,98 @@
 
       <div class="i-card-md">
         <div class="card-body">
+    
           <form action="{{route('user.withdraw.request.process')}}" method="post">
-             @csrf
-            <div class="form-inner">
-                <label for="id">
-                     {{translate("Select Method")}}
-                    <small class="text-danger">*</small>
-                </label>
+            @csrf  
+            <div class="row">
+        
+                    <div class="col-lg-8">
+                        <h6 class="mb-3">
+                            {{translate('Withdraw methods')}}
+                        </h6>
+                        <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
 
-                <select name="id" class="form-select withdraw-method"
-                    id="id">
+                            @foreach ($methods as  $method)
 
-                    <option value="">
-                         {{translate('Select Method')}}
-                    </option>
+                                <div class="col">
+                                    <label class="payment-card-item">
+                                        <input name="id" data-method="{{$method}}" , data-img="{{imageURL(@$method->file,"withdraw_method",true)}}" value="{{$method->id}}" class="radio withdraw-method" type="radio" >
+                                        <div class="image">
+                                            <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name."jpg"}}" >
+                                        </div>
+                                        <h5 class="title">
+                                            {{$method->name}}
+                                        </h5>
+                                    </label>
+                                </div>
+                                
+                            @endforeach
+                            
+                            
+                        </div>
+                    </div>
 
-                    @foreach ($methods as $method )
+                    <div class="col-lg-4 ps-lg-5">
+                        <div class="payment-flip-card">
+                            <div class="balance-info-card" id="balanceCard">  
+                                <span class="balance-icon">
+                                    <i class="bi bi-wallet2"></i>
+                                </span>
 
-                      <option data-method ="{{$method}}" {{old("id")  ==  $method->id ? "selected" :""}} value="{{$method->id}}">
-                          {{$method->name}}
-                      </option>
+                                <p>
+                                    {{translate('Your Balance')}}
+                                </p>
+                                <h4>
+                                    {{num_format(number:$balance,calC:true)}}
+                                </h4>
 
-                    @endforeach
+                                <span class="balance-shape">
+                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve" class=""><g><g fill="none" stroke="#0a1c28" stroke-linejoin="round" data-name="cradit card"><g stroke-width="2"><path d="M38 34a2 2 0 1 0-2-2 2 2 0 1 1-2-2M30 32h2M40 32h2M35 57h5" fill="" opacity="1"></path><path d="M49 48V10a3 3 0 0 1-3-3H26a3 3 0 0 1-3 3v27" fill="" opacity="1"></path><path d="M19 37V3h34v45M40 61H19M53 48 40 61V50a2 2 0 0 1 2-2z" fill="" opacity="1"></path><path d="M46 55h8a3 3 0 0 1 3-3V12a3 3 0 0 1-3-3h-1" fill="" opacity="1"></path><path d="M53 5h8v54H42M28.52 37A9 9 0 1 1 36 41h-1" fill="" opacity="1"></path><rect width="32" height="24" x="3" y="37" rx="2" fill="" opacity="1"></rect></g><path stroke-width="4" d="M3 44h32" fill="" opacity="1"></path><circle cx="29" cy="55" r="2" stroke-width="2" fill="" opacity="1"></circle><path stroke-width="2" d="M6 57h2M10 57h2" fill="" opacity="1"></path></g></g></svg>
+                                </span>
+                            </div>
+        
+                            <div class="payment-card-form mt-4" id="formStepOne">
 
-                </select>
+                                <div class="d-flex align-items-center justify-content-between bg-light payment-form-top d-none payment-header">
+                                   
+                                </div>
+                    
+                                    <div class="payment-details-wrapper">
+                                        <div class="p-3 mb-4 bg-danger-soft rounded-2 d-none payment-note-section">
+                                        
+                                        </div>
+                                        <ul class="withdraw-details payment-details   list-group mb-4 d-none">
+
+                                        </ul>
+                                    </div>
+                                    <div class="p-4">
+
+                                            <div class="form-inner">
+
+                                                <label for="amount">
+                                                    {{translate("Amount")}} <span class="text--danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input required placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old('amount')}}"/>
+                                                    <span class="input-group-text">
+                                                        {{ $currencySymbol}}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="i-btn btn--lg btn--primary capsuled">
+                                                {{translate('Submit')}} 
+                                            </button>  
+                    
+                                    </div>
+                            </div> 
+                            
+                        </div>
+                    </div>
+            
             </div>
-
-            <div class="form-inner mb-0">
-              <label for="amount">
-                {{translate("Amount")}}
-                  <small class="text-danger">*</small></label>
-              <div class="input-group">
-                <input placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old('amount')}}"/>
-                <span class="input-group-text text--primary">
-                     {{ $currencySymbol}}
-                </span>
-              </div>
-            </div>
-
-            <ul class="payment-details withdraw-details list-group mt-4 d-none">
+         </form> 
 
 
-            </ul>
-
-            <div class="mt-4">
-              <button class="i-btn btn--primary btn--lg capsuled">
-                   {{translate("Submit")}}
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -91,17 +134,16 @@
 
         "use strict";
 
-        $(".withdraw-method").select2({
+      
 
-        });
+        $(document).on("click",'.withdraw-method',function(e){
 
-        $(document).on("change",'.withdraw-method',function(e){
-
-            var method =  JSON.parse($(this).find(':selected').attr('data-method'));
+            var method =  JSON.parse($(this).attr('data-method'));
+            var img =  ($(this).attr('data-img'));
             var amount = parseFloat($('#amount').val());
 
             if(method && amount){
-                withdrawCalculation(method,amount)
+                withdrawCalculation(method,img,amount)
             }
 
 
@@ -110,25 +152,16 @@
 
         $(document).on("keyup",'#amount',function(e){
 
-            var methodId = $(".withdraw-method").val()
+            var methodId =  $('input[name="id"]:checked').val();
             var amount = parseFloat($(this).val());
             if(methodId && amount){
-
-                var method =  JSON.parse($('.withdraw-method').find(':selected').attr('data-method'));
-
-                if({{$balance}} < amount){
-                    toastr("{{translate('Insufficient balance')}}",'danger')
-                    $(this).val('')
-                    $('.withdraw-details').addClass('d-none');
-                }
-                else{
-                    withdrawCalculation(method,amount)
-                }
+                var img =  ($('input[name="id"]:checked').attr('data-img'));
+                var method =  JSON.parse($('input[name="id"]:checked').attr('data-method'));
+                withdrawCalculation(method,img,amount)
             }
             else{
                 $('.withdraw-details').addClass('d-none');
                 if(!methodId){
-
                     toastr("{{translate('Select a method first')}}",'danger')
                 }
 
@@ -137,7 +170,22 @@
 
 
 
-        function withdrawCalculation(method , amount){
+        function withdrawCalculation(method , img,amount){
+
+
+                    var paymentNote = method.note?? "{{translate('Payment with')}} "+method.name ;
+
+                    $('.payment-note-section').removeClass('d-none');
+                    $('.payment-header').removeClass('d-none');
+                
+                    $('.payment-note-section').html(`<p class="text--dark"><span class="bg-danger text-white py-0 px-2 d-inline-block me-2 rounded-1">Note  :</span> ${paymentNote}</p>`)
+
+                    $('.payment-header').html(` <h5 class="payment-method-title">${method.name}
+                                        </h5>
+                                        <span class="payment-img">
+                                            <img src="${img}" alt="payment.jpg">
+                                        </span>`)
+
 
                     var fixedCharge   =  parseFloat(method.fixed_charge);
                     var percentCharge =  parseFloat(method.percent_charge);
