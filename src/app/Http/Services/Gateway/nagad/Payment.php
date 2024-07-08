@@ -30,7 +30,6 @@ class Payment
 
   
         if ($gateway->sandbox == StatusEnum::false->status()) {
-
             $sandbox   = false;
             $nagadHost = "https://api.mynagad.com/api/dfs";
         }
@@ -46,8 +45,8 @@ class Payment
                  
 
 
-        $response['error']   = true;
-        $response['message'] = translate("Invalid Request");
+        $send['error']   = true;
+        $send['message'] = translate("Invalid Request");
             
 
         if($redirectUrl){
@@ -85,15 +84,11 @@ class Payment
         $data['gw_response'] = $request->all();
         $status               = DepositStatus::value('FAILED',true);
         if($request->status && $request->status == "Success"){
-
             $data['status']   = 'success';
             $data['message']  = trans('default.deposit_success');
             $status           = DepositStatus::value('PAID',true);
-
         }
-
-        UserService::updateDepositLog($depositLog,$status ,$data);
-
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
         return $data;
 
     }

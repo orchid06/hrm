@@ -33,7 +33,6 @@ class Payment
 
         $status              = DepositStatus::value('FAILED',true);
 
-
         $url         = "https://api.paypal.com/v2/checkout/orders/{$type}";
         $params      = ($log->method->parameters);
         $client_id   = $params->cleint_id ?? '';
@@ -55,9 +54,9 @@ class Payment
                 $status           = DepositStatus::value('PAID',true);
 
             } 
-        } 
+        } ;
 
-        UserService::updateDepositLog($log,$status ,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         return $data;
     }
 }

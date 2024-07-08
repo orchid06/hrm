@@ -93,9 +93,9 @@ class AiService
             "content_tone"     => ['nullable',Rule::in(Arr::get(config('settings'),'ai_default_tone',[]))],
             "custom"           => ['nullable','array']
         ];
-        $template = AiTemplate::findOrfail($request->input('id'));
+        $template = AiTemplate::find($request->input('id'));
 
-        if($template->prompt_fields){
+        if($template && $template->prompt_fields){
 
             foreach($template->prompt_fields as $key => $input){
                 if($input->validation == "required"){

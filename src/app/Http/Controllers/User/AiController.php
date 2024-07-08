@@ -136,7 +136,7 @@ class AiController extends Controller
     public function generate(Request $request): string{
         
         $templateRules   =  $this->aiService->setRules($request);
-
+        $request->validate(Arr::get($templateRules, 'rules', []));
         $template        = Arr::get($templateRules,'template');
         $accessTemplates = $this->templates ? @$this->templates->pluck('id')->toArray() :[];
 
@@ -146,16 +146,13 @@ class AiController extends Controller
         ];
         
         if(in_array(@$template->id, $accessTemplates)){
-            $response ['message']  =   translate("Insufficient word tokens to utilize the template. Please acquire additional tokens for access");
+            $response ['message']    =   translate("Insufficient word tokens to utilize the template. Please acquire additional tokens for access");
             if($this->remainingToken == PlanDuration::UNLIMITED->value || $this->remainingToken > (int) $request->input('max_result') ){
                 $request->validate(Arr::get($templateRules, 'rules', []));
                 $response = $this->aiService->generatreContent($request,$templateRules['template']);
             }
         }
-        
         return json_encode( $response);
-
-        
     }
     
 
