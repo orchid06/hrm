@@ -7,7 +7,7 @@
 
 @include("frontend.partials.breadcrumb")
 
-<section class="blog-section">
+<section class="blog-section pb-110">
   <div class="container">
     <div class="row justify-content-start">
       <div class="col-lg-5">
@@ -30,7 +30,7 @@
         @endforelse
     </div>
 
-    <div class="pagination">
+    <div class="pagination mt-5">
           {{$blogs->links()}}
     </div>
   </div>

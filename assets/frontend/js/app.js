@@ -336,16 +336,6 @@
     });
   });
 
-  // $(".counter-single").each(function () {
-  //   $(this).isInViewport(function (status) {
-  //   if (status === "entered") {
-  //       for (var i = 0; i < document.querySelectorAll(".odometer").length; i++) {
-  //       var el = document.querySelectorAll('.odometer')[i];
-  //       el.innerHTML = el.getAttribute("data-odometer-final");
-  //       }
-  //   }
-  //   });
-  // });
 
   var swiper = new Swiper(".team-slider", {
     effect: "coverflow",
@@ -353,16 +343,33 @@
     centeredSlides: true,
     slidesPerView: "auto",
     coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
+      rotate: 30,
+      stretch: 1,
       depth: 100,
       modifier: 1,
       slideShadows: true,
     },
-    pagination: {
-      el: ".swiper-pagination",
-    },
+    loop: true,
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 10,
+      },
+      640: {
+        slidesPerView: 3, 
+        spaceBetween: 10,
+      },
+      1024: {
+        slidesPerView: 5, 
+        spaceBetween: 10,
+      },
+    }
   });
+
 
   const service = document.querySelector(".service-slider-one");
   if (service) {
