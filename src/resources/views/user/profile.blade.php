@@ -424,97 +424,99 @@ $affiliateLogs = $user->affiliates;
 
                 </div>
 
-                <div class="tab-pane fade" id="tab-subscription-pane" role="tabpanel" aria-labelledby="tab-subscription"
-                    tabindex="0">
-                    <div class="current-plan-card mb-4 p-0">
-                        <div class="row align-items-center gy-4">
-                            <div class="col-lg-8">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <div class="bg--linear-primary text-center">
-                                            <div class="card-body p-3">
-                                                <h6 class="text-white opacity-75 fw-normal fs-13">
-                                                    {{translate('Current Plan')}}
-                                                </h6>
-                                                <h3 class="fw-bold mt-1 mb-3 text-white fs-22">
-                                                    {{$package->title}}
-                                                </h3>
-                                                <p class="text-white opacity-75">{{$package->description}}</p>
+                @if($package)
+                    <div class="tab-pane fade" id="tab-subscription-pane" role="tabpanel" aria-labelledby="tab-subscription"
+                        tabindex="0">
+                        <div class="current-plan-card mb-4 p-0">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-lg-8">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="bg--linear-primary text-center">
+                                                <div class="card-body p-3">
+                                                    <h6 class="text-white opacity-75 fw-normal fs-13">
+                                                        {{translate('Current Plan')}}
+                                                    </h6>
+                                                    <h3 class="fw-bold mt-1 mb-3 text-white fs-22">
+                                                        {{@$package->title}}
+                                                    </h3>
+                                                    <p class="text-white opacity-75">{{@$package->description}}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-sm-6">
-                                        <div class="current-info-single">
-                                            <p>
-                                                {{translate("Affliate Commision")}}
-                                            </p>
-                                            <h5>
-                                                {{$package->affiliate_commission}}%
-                                            </h5>
+                                        <div class="col-sm-6">
+                                            <div class="current-info-single">
+                                                <p>
+                                                    {{translate("Affliate Commision")}}
+                                                </p>
+                                                <h5>
+                                                    {{$package->affiliate_commission}}%
+                                                </h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="current-info-single">
-                                            <p>{{translate("Expire date")}}</p>
-                                            <h5>
-                                                {{@$subscription->expired_at ? get_date_time($subscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
-                                            </h5>
+                                        <div class="col-sm-6">
+                                            <div class="current-info-single">
+                                                <p>{{translate("Expire date")}}</p>
+                                                <h5>
+                                                    {{@$subscription->expired_at ? get_date_time($subscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
+                                                </h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @foreach (plan_configuration(@$user->runningSubscription->package) as $configKey =>
-                                    $configVal )
+                                        @foreach (plan_configuration(@$user->runningSubscription->package) as $configKey =>
+                                        $configVal )
 
-                                    <div class="col-sm-6">
-                                        <div class="current-info-single">
-                                            <p>
-                                                {{
-                                                     k2t($configKey)
-                                                   }}
-                                            </p>
-                                            <h5>
-                                                @php
-                                                $value = !is_bool($configVal) ? $configVal : "<i
-                                                    class='bi bi-check'></i>";
-                                                @endphp
+                                        <div class="col-sm-6">
+                                            <div class="current-info-single">
+                                                <p>
+                                                    {{
+                                                        k2t($configKey)
+                                                    }}
+                                                </p>
+                                                <h5>
+                                                    @php
+                                                    $value = !is_bool($configVal) ? $configVal : "<i
+                                                        class='bi bi-check'></i>";
+                                                    @endphp
 
-                                                @php echo $value @endphp
-                                            </h5>
+                                                    @php echo $value @endphp
+                                                </h5>
+                                            </div>
                                         </div>
+                                        @endforeach
+
+
                                     </div>
-                                    @endforeach
-
-
                                 </div>
-                            </div>
-                            <div class="col-lg-4 ps-lg-4">
-                                <div class="plan-upgrade">
-                                    <h4 class="mb-4 title">
-                                        <span>
-                                            <img src="{{asset('assets/images/default/forward.png')}}" class="me-1"
-                                                alt="forward.png">
-                                        </span>
-                                        {{translate('Upgrade Your Plan')}}
-                                    </h4>
-                                    <div class="avatar-120 mb-3 mx-auto">
-                                        <img src="{{asset('assets/images/default/upgrade.png')}}" alt="upgrade.png">
+                                <div class="col-lg-4 ps-lg-4">
+                                    <div class="plan-upgrade">
+                                        <h4 class="mb-4 title">
+                                            <span>
+                                                <img src="{{asset('assets/images/default/forward.png')}}" class="me-1"
+                                                    alt="forward.png">
+                                            </span>
+                                            {{translate('Upgrade Your Plan')}}
+                                        </h4>
+                                        <div class="avatar-120 mb-3 mx-auto">
+                                            <img src="{{asset('assets/images/default/upgrade.png')}}" alt="upgrade.png">
+                                        </div>
+                                        <p class="mb-4">
+                                            {{translate('Updating your plan is a crucial step in ensuring that your goals and strategies
+                                            remain relevant and effective in a dynamic environment. As circumstances change, whether due to
+                                            shifts in the market, new technological advancements, or evolving personal or organizational
+                                            priorities')}}
+                                        </p>
+                                        <a href="{{route('user.plan')}}"
+                                            class="i-btn btn--primary-outline btn--lg capsuled text-uppercase mx-auto">
+                                            {{translate('Update Plan')}}
+                                            <i class="bi bi-arrow-up-circle"></i>
+                                        </a>
                                     </div>
-                                    <p class="mb-4">
-                                        {{translate('Updating your plan is a crucial step in ensuring that your goals and strategies
-                                        remain relevant and effective in a dynamic environment. As circumstances change, whether due to
-                                        shifts in the market, new technological advancements, or evolving personal or organizational
-                                        priorities')}}
-                                    </p>
-                                    <a href="{{route('user.plan')}}"
-                                        class="i-btn btn--primary-outline btn--lg capsuled text-uppercase mx-auto">
-                                        {{translate('Update Plan')}}
-                                        <i class="bi bi-arrow-up-circle"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="tab-pane fade" id="tab-webhook-pane" role="tabpanel" aria-labelledby="tab-webhook"
                     tabindex="0">
