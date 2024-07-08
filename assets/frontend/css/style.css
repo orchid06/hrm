@@ -5563,7 +5563,7 @@ footer{
 .pricing-item .price del{
   display: block;
   font-size: 18px;
-  color: var(--border-dark);
+  color: #b0b0b0;
 }
 .pricing-item .body h6{
   font-size: 18px;

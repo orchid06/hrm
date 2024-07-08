@@ -31,7 +31,7 @@
                             
                             <div class="tab-pane fade  {{$loop->index == 0 ? "show active" :""}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab"
                                 tabindex="0">
-                                <div class="row gy-4 gx-4">
+                                <div class="row gy-4 gx-3">
                                     @forelse ($purchasePlans as  $plan)
                                         <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                             <div class="plan-detail-card">
