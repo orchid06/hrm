@@ -1184,7 +1184,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 
          $accessedPlatforms =   @$plan->social_access->platform_access 
-                                  ? implode(",",get_platform(@$plan->social_access->platform_access)
+                                  ? implode(", ",get_platform(@$plan->social_access->platform_access)
                                       ->pluck('name')
                                       ->toArray())
                                     :null;
@@ -1200,27 +1200,17 @@ use Illuminate\Database\Eloquent\Collection;
          $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
          $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
 
-         if($accessedPlatforms ){
-            $config['platform_access']    =  $accessedPlatforms;
-         }
+         if($accessedPlatforms ) $config['platform_access']    =  $accessedPlatforms;
    
          
-         if(@($plan->social_access->schedule_post) ==  StatusEnum::true->status()){
-            $config['schedule_posting']   = true;
-         }
-         if(@($plan->social_access->webhook_access) ==  StatusEnum::true->status()){
-            $config['webhook_access']     = true;
-         }
+         if(@($plan->social_access->schedule_post) ==  StatusEnum::true->status()) $config['schedule_posting']   = true;
+         if(@($plan->social_access->webhook_access) ==  StatusEnum::true->status()) $config['webhook_access']     = true;
 
-         if(@($plan->ai_configuration->open_ai_model)){
-            $config['open_ai_model']         = $plan->ai_configuration->open_ai_model;
-         }
+         if(@($plan->ai_configuration->open_ai_model)) $config['open_ai_model']         = $plan->ai_configuration->open_ai_model;
 
          $config['word_token']               = $wordToken != -1 ? $wordToken : PlanDuration::keyVal($wordToken);
 
-         if(0 < $templates){
-            $config['prebuilt_ai_templates'] = $templates;
-         }
+         if(0 < $templates) $config['prebuilt_ai_templates'] = $templates;
 
 
          return $config  ;
@@ -1288,7 +1278,6 @@ use Illuminate\Database\Eloquent\Collection;
 
    
    if (!function_exists('get_appearance_img_size')){
-
 
       /**
        * Convert array to object

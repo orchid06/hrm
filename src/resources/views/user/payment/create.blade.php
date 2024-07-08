@@ -266,7 +266,7 @@
             var  rate    = parseFloat({{$currency->exchange_rate}})
 
             var exchangeRate = rate / (currency?currency.exchange_rate : rate);
-             amount       = 1 / exchangeRate;
+            amount       = 1 / exchangeRate;
             return  amount.toFixed(2);
         }
 

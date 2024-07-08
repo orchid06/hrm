@@ -16,8 +16,19 @@ class Payment
         $val['pay_method']    = " ";
         $val['amount']        = round($log->final_amount, 2);
         $val['currency']      = $log->method->currency->code;
-        $val['succes_url']    = route('success');
-        $val['cancel_url']    = route('failed');
+        $val['succes_url']    = route('payment.success',['payment_intent' => base64_encode(
+                                            json_encode([
+                                                    "trx_number" => $log->trx_code,
+                                                    "type"       =>"SUCCESS",
+                                            ]))
+                                        ]);
+        $val['cancel_url']    = route('payment.failed',['payment_intent' => base64_encode(
+                                            json_encode([
+                                                    "trx_number" => $log->trx_code,
+                                                    "type"       =>"FAILED",
+                                            ])
+                                            )
+                                        ]);
         $val['client_email']  = optional($log->user)->email;
         $val['web_id']        = $gateway->web_id;
         $val['order_id']      = $log->trx_code;
@@ -46,7 +57,7 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
         }
 
-        UserService::updateDepositLog($depositLog,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
 
         return $data;
 

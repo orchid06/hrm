@@ -29,7 +29,13 @@ class Payment
             'email'            => optional($log->user)->email ?? '',
             'productinfo'      => $log->trx_code ?? 'Order',
             'surl'             => route('ipn', [$log->trx_code]),
-            'furl'             => route('failed'),
+            'furl'             => route('payment.failed',['payment_intent' => base64_encode(
+                                            json_encode([
+                                                    "trx_number" => $log->trx_code,
+                                                    "type"       =>"FAILED",
+                                            ])
+                                            )
+                                        ]),
             'service_provider' => $siteName ,
         ];
 
@@ -68,7 +74,7 @@ class Payment
         } 
 
 
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
         return $data;
     }

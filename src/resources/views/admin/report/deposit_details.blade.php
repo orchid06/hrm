@@ -1,4 +1,9 @@
 @extends('admin.layouts.master')
+
+@push('style-include')
+    <link href="{{asset('assets/global/css/viewbox/viewbox.css')}}" rel="stylesheet" type="text/css" />
+@endpush
+
 @section('content')
     <div class="row g-4 mb-4">
         @php
@@ -16,26 +21,57 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ translate('User') }} : <a href='{{route("admin.user.show",$report->user->uid)}}'>
-                            {{$report->user->name}}</a></li>
-                        <li class="list-group-item">{{ translate('Transaction ID') }} : {{ $report->trx_code }}</li>
-                        <li class="list-group-item">{{ translate('Payment Method') }} : {{ $report->method->name }}</li>
-                        <li class="list-group-item">{{ translate('Amount') }} :   {{num_format($report->amount,@$report->currency)}}</li>
-                        <li class="list-group-item">{{ translate('Charge') }} :
-                            {{num_format($report->charge,@$report->currency)}}
-                        </li>
-                        <li class="list-group-item">{{ translate('Rate') }}:{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</li>
-                        <li class="list-group-item">{{ translate('Final Amount') }} :
-                            {{num_format($report->final_amount,@$report->method->currency)}}
-                        </li>
-                        <li class="list-group-item">{{ translate('Date') }} : {{ diff_for_humans($report->created_at) }}
-                        </li>
-                        <li class="list-group-item">{{ translate('Status') }} :     @php echo  payment_status($report->status)  @endphp
-                        </li>
-                        <li class="list-group-item">{{ translate('Feedback') }} :
-                            {{ $report->feedback ? $report->feedback : translate('N/A') }}</li>
-                    </ul>
+                 
+                    @php
+                       $lists  =  [
+                                        
+                                    [
+                                                    "title"  =>  translate('User'),
+                                                    "href"   =>  route("admin.user.show",$report->user?->uid),
+                                                    "value"  =>  $report->user?->name,
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Transaction ID'),
+                                                    "value"  =>  $report->trx_code
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Payment Method'),
+                                                    "value"  =>  $report->method->name
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Amount'),
+                                                    "value"  =>  num_format($report->amount,@$report->currency)
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Charge'),
+                                                    "value"  =>  num_format($report->charge,@$report->currency)
+                                    ],
+                                    [
+                                                    "title"   =>  translate('Rate'),
+                                                    "value"   => num_format(1,$report->currency) ." = ". num_format($report->rate,@$report->method->currency)
+                                    ],
+                                    [
+                                                    "title"   =>  translate('Final Amount'),
+                                                    "value"   =>  num_format($report->final_amount,@$report->method->currency)
+                                    ],
+                                    [
+                                                    "title"   =>  translate('Date'),
+                                                    "value"   =>  diff_for_humans($report->created_at)
+                                    ],
+                                    [
+                                                    "title"     =>  translate('Status'),
+                                                    "is_html"   =>  true,
+                                                    "value"     =>   payment_status($report->status)
+                                    ],
+                                    [
+                                                    "title"     =>  translate('Feedback'),
+                                                    "value"     =>  $report->feedback ?? translate('N/A')
+                                    ],
+                                        
+                            ];
+
+                    @endphp
+                    @include('admin.partials.custom_list',['list'  => $lists])
                 </div>
             </div>
         </div>
@@ -48,25 +84,9 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            @foreach ($report->custom_data as $k => $v)
-                                <li class="list-group-item">{{ translate(ucfirst($k)) }} :
-                                    @if ($v->type == 'file')
-                                        @php
-                                            $file = $report
-                                                ->file
-                                                ->where('type', $k)
-                                                ->first();
-                               
-                                        @endphp
-                                        <img src='{{imageURL($file,"payment",true)}}'
-                                            alt="{{ @$file->name }}">
-                                    @else
-                                        {{ $v->field_name }}
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
+
+                        @include('admin.partials.custom_list',['db_list'  => true , 'lists' => $report->custom_data,'file_path'=> "payment"])
+                     
                         @if(App\Enums\DepositStatus::value("PENDING",true) == $report->status)
                             <div class="d-flex justify-content-center p-4 gap-2">
                                 <div class="action">
@@ -133,14 +153,16 @@
 
 
 @endsection
-
+@push('script-include')
+    <script src="{{asset('assets/global/js/viewbox/jquery.viewbox.min.js')}}"></script>
+@endpush
 
 @push('script-push')
 <script>
 	(function($){
 
         "use strict";
-
+        $('.image-v-preview').viewbox();
         $(document).on('click','.update',function(e){
 
             var status =($(this).attr('data-status'))

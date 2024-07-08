@@ -160,8 +160,9 @@ class UserController extends Controller
         ]);
 
 
-        $method                    = Withdraw::with(['file'])->find($request->input("id"));
+        $method                    = Withdraw::with(['file'])->findOrfail($request->input("id"));
         $amount                    = (int) $request->input('amount');
+       
         $charge                    = round_amount((float)$method->fixed_charge + ($amount  * (float)$method->percent_charge / 100));
         $amountWithCharge          = convert_to_base($amount + $charge);
         
@@ -221,7 +222,7 @@ class UserController extends Controller
         $maxRequestLimit = (int) site_settings("max_pending_withdraw",100);
         $pendingRequest  = (int) $this->user?->pendingWithdraws->count();
 
-        if($amount  < $method->minimum_amount || $amount > $method->maximum_amount ){
+        if(convert_to_base($amount)  < $method->minimum_amount || convert_to_base($amount) > $method->maximum_amount ){
             return translate('Withdraw amount should be less than ').num_format(number :$method->maximum_amount ,calC:true). " and greter than ".num_format(number :$method->minimum_amount ,calC:true);
         }
 

@@ -27,9 +27,20 @@ class Payment
         $val['PAYMENT_UNITS']         = "$gateway_currency";
 
         $val['STATUS_URL']            = route('ipn',[$log->trx_code]);
-        $val['PAYMENT_URL']           = route('success');
+        $val['PAYMENT_URL']           = route('payment.success',['payment_intent' => base64_encode(
+                                                    json_encode([
+                                                            "trx_number" => $log->trx_code,
+                                                            "type"       =>"SUCCESS",
+                                                    ]))
+                                                ]);
         $val['PAYMENT_URL_METHOD']    = 'POST';
-        $val['NOPAYMENT_URL']         = route('failed');
+        $val['NOPAYMENT_URL']         = route('payment.failed',['payment_intent' => base64_encode(
+                                                json_encode([
+                                                        "trx_number" => $log->trx_code,
+                                                        "type"       =>"FAILED",
+                                                ])
+                                                )
+                                            ]);
         $val['NOPAYMENT_URL_METHOD']  = 'POST';
         $val['SUGGESTED_MEMO']        = $log->user->username;
         $val['BAGGAGE_FIELDS']        = 'IDENT';
@@ -82,7 +93,7 @@ class Payment
                 $status           = DepositStatus::value('PAID',true);
             }
         }
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
         return $data;
 

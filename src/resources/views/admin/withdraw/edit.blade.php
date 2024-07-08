@@ -53,10 +53,8 @@
                             <label for="fixed_charge" class="form-label">
                                 {{translate('Fixed Charge')}} <small class="text-danger">* </small>
                             </label>
-                            <div class="input-group mb-3">
-                                <input required type="number" step="any"  placeholder="{{translate('Enter Amount')}}" id="fixed_charge" name="fixed_charge" value="{{$withdraw->fixed_charge}}" class="form-control" >
-                                <span class="input-group-text"> {{(base_currency()->code)}} </span>
-                            </div>
+                            <input required type="number" step="any"  placeholder="{{translate('Enter Amount')}}" id="fixed_charge" name="fixed_charge" value="{{$withdraw->fixed_charge}}" class="form-control" >
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -64,10 +62,8 @@
                             <label for="percent_charge" class="form-label">
                                 {{translate('Percentage Charge')}} <small class="text-danger">* </small>
                             </label>
-                            <div class="input-group mb-3">
-                               <input required type="number" step="0.0000001"  placeholder="{{translate('Enter Number')}}" id="percent_charge" name="percent_charge" value="{{$withdraw->percent_charge}}" class="form-control" >
-                               <span class="input-group-text"> {{(base_currency()->code)}} </span>
-                            </div>
+                            <input required type="number" step="0.0000001"  placeholder="{{translate('Enter Number')}}" id="percent_charge" name="percent_charge" value="{{$withdraw->percent_charge}}" class="form-control" >
+
                         </div>
                     </div>
                     <div class="col-lg-12">

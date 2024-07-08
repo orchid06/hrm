@@ -13,8 +13,8 @@
                                 @endphp
                                 <div class="custom-profile">
                             
-                                    <a href="{{imageURL($file,@$imgKey,true)}}" class="image-v-preview" title="{{ k2t($k) }}">
-                                        <img src="{{imageURL($file,@$imgKey,true)}}" alt="{{ ucfirst($k) }}">
+                                    <a href="{{imageURL($file,@$file_path,true)}}" class="image-v-preview" title="{{ k2t($k) }}">
+                                        <img src="{{imageURL($file,@$file_path,true)}}" alt="{{ ucfirst($k) }}">
                                     </a>
                                 
                                 </div>

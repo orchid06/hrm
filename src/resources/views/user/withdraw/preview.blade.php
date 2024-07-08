@@ -29,7 +29,7 @@
                 <div class="col-12">
                   <div class="p-4  bg-danger-soft">
                       <p><span class="i-badge-solid danger me-2">{{translate("note")}}  :</span>
-                          {{@$method->description}}
+                          {{@$method->note}}
                       </p>
                   </div>
                </div>

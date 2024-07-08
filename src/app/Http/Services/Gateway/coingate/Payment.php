@@ -35,8 +35,19 @@ class Payment
             'price_currency'   => $log->method->currency->code,
             'receive_currency' => $log->method->currency->code,
             'callback_url'     => route('ipn',[$log->trx_code]),
-            'cancel_url'       => route('failed'),
-            'success_url'      => route('success'),
+            'cancel_url'       => route('payment.failed',['payment_intent' => base64_encode(
+                                        json_encode([
+                                                "trx_number" => $log->trx_code,
+                                                "type"       =>"FAILED",
+                                        ])
+                                        )
+                                    ]),
+            'success_url'      => route('payment.success',['payment_intent' => base64_encode(
+                                            json_encode([
+                                                    "trx_number" => $log->trx_code,
+                                                    "type"       =>"SUCCESS",
+                                            ]))
+                                        ]),
             'title'            => 'Deposit to ' . $siteName,
             'token'            => $log->trx_code
         );
@@ -82,7 +93,7 @@ class Payment
         }
 
 
-        UserService::updateDepositLog($depositLog,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
         return $data;
     
        
