@@ -227,11 +227,11 @@ class DepositController extends Controller
      public function processPaymentIntent(string  $payment_intent) :object{
 
         $queryParam = json_decode(base64_decode($payment_intent));
+    
         return (object)[
             'log'  => PaymentLog::with(['file','currency','method','user'])->where('trx_code',$queryParam->trx_number)->firstOrFail(),
             'type' => $queryParam->type,
         ];
-
 
      }
 

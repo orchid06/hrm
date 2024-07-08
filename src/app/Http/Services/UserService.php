@@ -1075,8 +1075,6 @@ class UserService
             $redirectRoute = 'payment.success';
         }
 
-
-
         return route($redirectRoute,['payment_intent' => base64_encode(json_encode([
             "trx_number" => $log->trx_code,
             "type"       => $log->status  == (string)DepositStatus::value("PAID",true) ? "SUCCESS" : "FAILED",

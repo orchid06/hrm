@@ -16,7 +16,7 @@ class Payment
         $gateway          = ($log->method->parameters);
         $send['key']      = $gateway->public_key ?? '';
         $send['email']    = optional($log->user)->email;
-        $send['amount']   = round($log->final_amount * 100);
+        $send['amount']   = round(($log->final_amount * 100),2);
         $send['currency'] = $log->method->currency->code;
         $send['ref']      = $log->trx_code;
         $send['view']     = 'user.payment.paystack';
@@ -41,11 +41,10 @@ class Payment
         $response = json_decode($response, true);
 
         if ($response && isset($response['data'])) {
-
             $data['message'] = Arr::get($response['data'],"gateway_response", translate('Invalid amount'));
-            
+    
             if ($response['data']['status'] == 'success') {
-                $payable = round(($log->final_amount * 100));
+                $payable = round(($log->final_amount * 100),2);
                 if (round($response['data']['amount']) == $payable && $response['data']['currency'] == $log->method->currency->code) {
                     $data['status']   = 'success';
                     $data['message']  = trans('default.deposit_success');
@@ -54,8 +53,7 @@ class Payment
             }
         } 
 
-        UserService::updateDepositLog($log,$status,$data);
-
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         return $data;
     }
 }

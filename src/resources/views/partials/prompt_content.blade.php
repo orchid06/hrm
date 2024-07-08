@@ -183,6 +183,24 @@
 
         <div class="card-body">
             <div class="row">
+
+                <div class="col-lg-12 d-flex justify-content-end">
+                    @if(request()->routeIs('admin.*'))
+                        <div class="action">
+                            <a href="{{route("admin.content.list")}}"    class="i-btn btn--sm success">
+                                <i class="las la-arrow-left me-1"></i>  {{translate('Back')}}
+                            </a>
+                        </div>
+                    @else
+                            <a   href="{{route('user.ai.content.list')}}" class="i-btn primary btn--sm capsuled">
+                                <i class="bi bi-arrow-left"></i>
+                                {{translate('Back')}}
+                            </a>
+                    @endif
+                </div>
+
+
+
                 <form action="{{$content_route}}" class="content-form" enctype="multipart/form-data" method="post">
                     @csrf
                    <div class="col-lg-12">

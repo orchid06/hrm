@@ -264,15 +264,16 @@
             dataType: 'json',
             beforeSend: function() {
 
-                @if("{{request()->routeIs('user.*')}}")
+                if("{{request()->routeIs('user.*')}}"){
                    $('.ai-btn').html(`{{translate('Generate')}} <span><i class="bi bi-arrow-up-right"></i></span>`)
                     $('.ai-btn').html(`{{translate('Generate')}}<div class="spinner-border text-success" role="status">
                                         <span class="visually-hidden"></span>
                                     </div>`)
-                @else
+                }
+                else{
                         $('.ai-btn').addClass('btn__dots--loading');
                         $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
-                @endif
+                }
 
             },
             cache: false,
@@ -313,12 +314,13 @@
             },
             complete: function() {
 
-                @if("{{request()->routeIs('user.*')}}")
+                if("{{request()->routeIs('user.*')}}"){
                     $('.ai-btn').html(`{{translate('Generate')}} <span><i class="bi bi-arrow-up-right"></i></span>`)
-                @else
+                }
+                else{
                     $('.ai-btn').removeClass('btn__dots--loading');
                     $('.ai-btn').find('.btn__dots').remove();
-                @endif
+                }
 
             },
             })

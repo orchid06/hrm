@@ -3,7 +3,7 @@
 namespace App\Http\Services\Gateway\payeer;
 
 use App\Enums\DepositStatus;
-use App\Enums\StatusEnum;
+use App\Http\Services\UserService;
 use App\Models\PaymentLog;
 
 use App\Models\User;
@@ -81,8 +81,8 @@ class Payment
                 } 
             }
         }
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
-        User::updateDepositLog($log,$status ,$data);
 
         return $data;
     }
