@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Gateway\authorizenet;
+namespace App\Http\Services\Gateway\authorizedotnet;
 
 use App\Enums\DepositStatus;
 use App\Http\Services\CurlService;
@@ -36,7 +36,6 @@ class Payment
     {
 
 
-   
         $request->validate([
             'cardNumber' => 'required',
             'cardExpiry' => 'required',
@@ -89,8 +88,7 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
         }
 
-
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         return $data;
 
        

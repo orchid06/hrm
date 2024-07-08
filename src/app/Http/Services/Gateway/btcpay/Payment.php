@@ -87,7 +87,8 @@ class Payment
         }
 
 
-        UserService::updateDepositLog($depositLog,$status,$data);
+
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
 
         session()->forget("trx_code");
 

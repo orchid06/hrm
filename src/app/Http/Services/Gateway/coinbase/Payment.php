@@ -30,8 +30,19 @@ class Payment
                 'trx' => $log->trx_code
             ],
             'pricing_type' => "fixed_price",
-            'redirect_url' => route('success'),
-            'cancel_url' => route('failed')
+            'redirect_url' => route('payment.success',['payment_intent' => base64_encode(
+                json_encode([
+                        "trx_number" => $log->trx_code,
+                        "type"       =>"SUCCESS",
+                ]))
+            ]),
+            'cancel_url' => route('payment.failed',['payment_intent' => base64_encode(
+                                        json_encode([
+                                                "trx_number" => $log->trx_code,
+                                                "type"       =>"FAILED",
+                                        ])
+                                        )
+                                    ])
         ];
 
         $jsonData = json_encode($array);
@@ -87,8 +98,8 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
             
         }
-
-        UserService::updateDepositLog($depositLog,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($depositLog,$status,$data);
+        
         session()->forget("trx_code");
         return $data;
     

@@ -18,6 +18,7 @@ class Payment
         $siteName    = site_settings('site_name');
         $gateway     = ($log->method->parameters);
         $url         = "https://api.mercadopago.com/checkout/preferences?access_token=" . $gateway->access_token;
+
         $headers = [
             "Content-Type: application/json",
         ];
@@ -36,9 +37,20 @@ class Payment
                 'email' => optional($log->user)->email ?? '',
             ],
             'back_urls' => [
-                'success' => route('success'),
+                'success' => route('payment.success',['payment_intent' => base64_encode(
+                    json_encode([
+                            "trx_number" => $log->trx_code,
+                            "type"       =>"SUCCESS",
+                    ]))
+                ]),
                 'pending' => '',
-                'failure' => route('failed'),
+                'failure' => route('payment.failed',['payment_intent' => base64_encode(
+                    json_encode([
+                            "trx_number" => $log->trx_code,
+                            "type"       =>"FAILED",
+                    ])
+                    )
+                ]),
             ],
             'notification_url' => route('ipn', [$log->trx_code]),
             'auto_return' => 'approved',
@@ -46,13 +58,15 @@ class Payment
         $response = CurlService::curlPostRequestWithHeaders($url, $headers, $postParam);
         $response = json_decode($response);
 
+  
+
 
         $send['preference']  =  $log->trx_code;
         $send['view']        = 'user.payment.mercado';
         
                 
         $send['error']   = true;
-        $send['message'] = translate("Invalid Request");
+        $send['message'] = @$response->message ?? translate("Invalid Request");
 
         if(isset($response->auto_return) && $response->auto_return == 'approved') {
 
@@ -89,7 +103,8 @@ class Payment
 
         }
       
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
+
 
         return $data;
     }

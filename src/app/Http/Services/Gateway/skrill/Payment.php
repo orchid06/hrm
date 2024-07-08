@@ -21,9 +21,20 @@ class Payment
         $val['pay_to_email']        = trim($gateway->skrill_email);
         $val['transaction_id']      = "$log->trx_code";
 
-        $val['return_url']          = route('success');
+        $val['return_url']          = route('payment.success',['payment_intent' => base64_encode(
+                                                json_encode([
+                                                        "trx_number" => $log->trx_code,
+                                                        "type"       =>"SUCCESS",
+                                                ]))
+                                            ]);
         $val['return_url_text']     = "Return   $siteName ";
-        $val['cancel_url']          =  route('failed');
+        $val['cancel_url']          =  route('payment.failed',['payment_intent' => base64_encode(
+                                                    json_encode([
+                                                            "trx_number" => $log->trx_code,
+                                                            "type"       =>"FAILED",
+                                                    ])
+                                                    )
+                                                ]);
         $val['status_url']          = route('ipn',[$log->trx_code]);
         $val['language']            = 'EN';
         $val['amount']              = round($log->final_amount,2);
@@ -72,7 +83,7 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
         }
 
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         
         return $data;
 

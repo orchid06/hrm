@@ -3,29 +3,27 @@
 
 @section('content')
 
-@php
-
-   $balance         = auth_user("web")->balance;
-   $currencySymbol  = session('currency')?session('currency')->symbol : base_currency()->symbol;
-
-@endphp
+    @php
+        $balance         = auth_user("web")->balance;
+        $currency        = session('currency')?? base_currency();
+        $currencySymbol  = $currency->symbol;
+    @endphp
 
 <div class="row">
     <div class="col-12">
       <div
         class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
-        <div>
-          <h4>
-               {{translate(Arr::get($meta_data,'title'))}}
-          </h4>
+          <div>
+              <h4>
+                  {{translate(Arr::get($meta_data,'title'))}}
+              </h4>
+          </div>
 
-        </div>
-
-        <div>
-          <a href="{{route('user.withdraw.report.list')}}" class="i-btn btn--primary-outline btn--md capsuled">
-                {{translate("Withdraw Reports")}}
-            <i class="bi bi-arrow-right"></i></a>
-        </div>
+          <div>
+              <a href="{{route('user.withdraw.report.list')}}" class="i-btn btn--primary-outline btn--md capsuled">
+                    {{translate("Withdraw Reports")}}
+                <i class="bi bi-arrow-right"></i></a>
+          </div>
       </div>
 
       <div class="i-card-md">
@@ -118,16 +116,13 @@
 
                 var method =  JSON.parse($('.withdraw-method').find(':selected').attr('data-method'));
 
-
                 if({{$balance}} < amount){
                     toastr("{{translate('Insufficient balance')}}",'danger')
                     $(this).val('')
                     $('.withdraw-details').addClass('d-none');
                 }
                 else{
-
                     withdrawCalculation(method,amount)
-
                 }
             }
             else{
@@ -149,6 +144,9 @@
 
                     var netCharge     =  parseFloat(fixedCharge + (amount  * percentCharge / 100));
                     var netAmount     =  (amount + netCharge);
+                    var  rate         = parseFloat({{$currency->exchange_rate}})
+                    var minLimit      = parseFloat(method.minimum_amount * rate)
+                    var maxLimit     = parseFloat(method.maximum_amount * rate)
 
                     var list  =  `<li class="list-group-item active" aria-current="true">
                                             <h5>
@@ -161,7 +159,7 @@
                                         {{translate("Limit")}}
                                     </p>
                                     <h6>
-                                        {{$currencySymbol}}${method.minimum_amount} - {{$currencySymbol}}${method.maximum_amount}
+                                        {{$currencySymbol}}${minLimit} - {{$currencySymbol}}${maxLimit}
 
                                     </h6>
                                 </li>

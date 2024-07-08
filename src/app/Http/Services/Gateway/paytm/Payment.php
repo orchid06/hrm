@@ -19,11 +19,12 @@ class Payment
         $gateway                      = ($log->method->parameters);
 
         $gateway_currency             = $log->method->currency->code;
+       
 
-        $val['MID']                   = trim($gateway->MID);
-        $val['WEBSITE']               = trim($gateway->WEBSITE);
-        $val['CHANNEL_ID']            = trim($gateway->CHANNEL_ID);
-        $val['INDUSTRY_TYPE_ID']      = trim($gateway->INDUSTRY_TYPE_ID);
+        $val['MID']                   = trim($gateway->mid);
+        $val['WEBSITE']               = trim($gateway->website);
+        $val['CHANNEL_ID']            = trim($gateway->channel_id);
+        $val['INDUSTRY_TYPE_ID']      = trim($gateway->industry_type_id);
 
         try {
             $checkSumHash = (new PayTM())->getChecksumFromArray($val, $gateway->merchant_key);
@@ -78,8 +79,7 @@ class Payment
             } 
         } 
 
-        UserService::updateDepositLog($log,$status,$data);
-
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         return $data;
 
     }

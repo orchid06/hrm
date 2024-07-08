@@ -27,7 +27,7 @@ enum PaymentGatewayEnum :string {
     case MERCADOPOGO         = 'mercadopago';
     case CASHMAAL            = 'cashmaal';
     case PAYTM               = 'paytm';
-    case VOGUEPAY            = 'voguepay';
+
     case AUTHORIZEDOTNET     = 'authorizedotnet';
     case NMI                 = 'nmi';
     case BTCPAY              = 'btcpay';
@@ -229,15 +229,7 @@ enum PaymentGatewayEnum :string {
                         
                     ],
 
-                    self::VOGUEPAY->value => [
-                        "name"             => self::VOGUEPAY->name,
-                        "serial_id"        => "15",
-                        "currency_id"      => base_currency()->id,
-                        "parameters"       => [
-                            "merchant_id" => "@@",
-                        ]
-                        
-                    ],
+                
                     
                     self::AUTHORIZEDOTNET->value => [
                         "name"             => self::AUTHORIZEDOTNET->name,

@@ -216,15 +216,18 @@
                                                         @if ($v->type == 'file')
                                                             @php
                                                                 $file = $report
-                                                                    ->file
-                                                                    ->where('type', $k)
-                                                                    ->first();
+                                                                                ->file
+                                                                                ->where('type', $k)
+                                                                                ->first();
 
                                                             @endphp
 
                                                             <div class="report-img">
-                                                                <img src='{{imageURL($file,"payment",true)}}'
-                                                                    alt="{{ @$file->name }}">
+                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($k)}}" target="_blank" href="{{imageURL($file,"payment",true)}}">
+                                                                        <img src='{{imageURL($file,"payment",true)}}'
+                                                                        alt="{{ @$file->name }}">
+                                                                    </a>
+                                                      
                                                             </div>
                                                         @else
                                                             <p class="value">

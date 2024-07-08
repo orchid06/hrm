@@ -169,19 +169,21 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @php
-                                                $informations = [
+                                             $informations = collect([
 
-                                                    "Ai Word Balnace"          => $report->word_balance,
-                                                    "Remaining Word Balance"   => $report->remaining_word_balance,
-                                                    "Carried Word Balnace"     => $report->carried_word_balance,
+                                                    "AI_word_balance"          => $report->word_balance,
+                                                    "remaining_word_balance"   => $report->remaining_word_balance,
+                                                    "carried_word_balance"     => $report->carried_word_balance,
 
-                                                    "Total Social Profile"     => $report->total_profile,
-                                                    "Carried Profile Balnace"  => $report->carried_profile,
+                                                    "total_social_profile"     => $report->total_profile,
+                                                    "carried_profile_balance"  => $report->carried_profile,
 
-                                                    "Social Post Balnace"      => $report->post_balance,
-                                                    "Remaining Post Balance"   => $report->remaining_post_balance,
-                                                    "Carried Post Balnace"     => $report->carried_post_balance,
-                                                ];
+                                                    "social_post_balance"      => $report->post_balance,
+                                                    "remaining_post_balance"   => $report->remaining_post_balance,
+                                                    "carried_post_balance"     => $report->carried_post_balance,
+                                                ])->mapWithKeys(fn($value,$key) :array =>  [k2t($key) => $value])->toArray();
+
+      
                                             @endphp
 
                                             <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">

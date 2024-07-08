@@ -26,7 +26,14 @@ class Payment
             'purpose'                 => 'Payment to ' . $siteName,
             'amount'                  => round($log->final_amount),
             'buyer_name'              => optional($log->user)->name ?? 'User Name',
-            'redirect_url'            => route('success'),
+            'redirect_url'            => route('payment.success',
+                                            ['payment_intent' => base64_encode(
+                                                json_encode([
+                                                        "trx_number" => $log->trx_code,
+                                                        "type"       =>"SUCCESS",
+                                                 ])
+                                                )
+                                            ]),
             'webhook'                 => route('ipn', [$log->trx_code]),
             'email'                   => optional($log->user)->email ?? 'example@example.com',
             'send_email'              => true,
@@ -73,7 +80,9 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
         }
 
-        UserService::updateDepositLog($log,$status,$data);
+
+
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
         return $data;
     }

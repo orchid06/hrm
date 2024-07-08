@@ -84,7 +84,7 @@ class Payment
 
 
         $data['gw_response'] =        $gwResponse;
-        if ($gwResponse->result == 1) {
+        if (@$gwResponse->result == 1) {
 
             $data['status']   = 'success';
             $data['message']  = trans('default.deposit_success');
@@ -92,7 +92,7 @@ class Payment
           
         }
 
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
         return $data;
 

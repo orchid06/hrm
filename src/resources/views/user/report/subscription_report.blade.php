@@ -173,14 +173,14 @@
                                     @php
                                         $informations = [
 
-                                            "Ai Word Balnace"          => $report->word_balance,
-                                            "Remaining Word Balance"   => $report->remaining_word_balance,
-                                            "Carried Word Balnace"     => $report->carried_word_balance,
-                                            "Total Social Profile"     => $report->total_profile,
-                                            "Carried Profile Balnace"  => $report->carried_profile,
-                                            "Social Post Balnace"      => $report->post_balance,
-                                            "Remaining Post Balance"   => $report->remaining_post_balance,
-                                            "Carried Post Balnace"     => $report->carried_post_balance,
+                                            "AI_word_balance"          => $report->word_balance,
+                                            "remaining_word_balance"   => $report->remaining_word_balance,
+                                            "carried_word_balance"     => $report->carried_word_balance,
+                                            "total_social_profile"     => $report->total_profile,
+                                            "carried_profile_balance"  => $report->carried_profile,
+                                            "social_post_balance"      => $report->post_balance,
+                                            "remaining_post_balance"   => $report->remaining_post_balance,
+                                            "carried_post_balance"     => $report->carried_post_balance,
                                         ];
                                     @endphp
 

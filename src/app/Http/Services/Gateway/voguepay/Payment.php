@@ -54,7 +54,7 @@ class Payment
             $status           = DepositStatus::value('PAID',true);
         }
 
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
         return $data;
 
     }

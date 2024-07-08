@@ -117,7 +117,7 @@
                                                            {{ $v }}
                                                       </p>
                                                   </li>
-                                             @endforeach
+                                               @endforeach
 
                                               @foreach ($report->file as $file)
                                                   <li class="list-group-item">
@@ -126,8 +126,11 @@
                                                       </h6>
 
                                                       <div class="report-img">
-                                                          <img src='{{imageURL($file,"kyc",true)}}'
-                                                          alt="{{ @$file->name }}">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($file->type)}}" target="_blank" href="{{imageURL($file,"kyc",true)}}">
+                                                            <img src='{{imageURL($file,"kyc",true)}}'
+                                                            alt="{{ @$file->name }}">
+                                                        </a>
+                                    
                                                       </div>
                                                   </li>
                                               @endforeach
