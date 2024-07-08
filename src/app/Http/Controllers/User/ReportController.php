@@ -185,10 +185,10 @@ class ReportController extends Controller
         return view('user.report.affiliate_user',[
             'meta_data'       => $this->metaData(['title'=> translate("Affiliate Users")]),
             'affliateUsers'   => User::with(['affiliateLogs','file','country'])
-                                    ->where("referral_id",$this->user->id)
-                                    ->search(['name','email',"phone"])
-                                    ->date()
-                                    ->paginate(paginateNumber())
+                                        ->where("referral_id",$this->user->id)
+                                        ->search(['name','email',"phone"])
+                                        ->date()
+                                        ->paginate(paginateNumber())
         ]);
 
     
@@ -210,13 +210,13 @@ class ReportController extends Controller
             'meta_data'       => $this->metaData(['title'=> translate("Affiliate Reports")]),
 
             "reports"         =>  AffiliateLog::with(['user','subscription','subscription.package','referral'])
-                                    ->where('user_id',$this->user->id)
-                                    ->search(['trx_code'])
-                                    ->filter(['referral:username'])
-                                    ->date()               
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                                                    ->where('user_id',$this->user->id)
+                                                                    ->search(['trx_code'])
+                                                                    ->filter(['referral:username'])
+                                                                    ->date()               
+                                                                    ->latest()
+                                                                    ->paginate(paginateNumber())
+                                                                    ->appends(request()->all()),
 
          
         ]);

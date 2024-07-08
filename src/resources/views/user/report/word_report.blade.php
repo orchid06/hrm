@@ -134,7 +134,7 @@
                                                       {{translate('Genarated Content')}}
                                                   </h6>
                                                   <p class="value">
-                                                  {{$report->content}}
+                                                      @php echo $report->content @endphp
                                                   </p>
                                               </li>
 

@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\DB;
             Route::controller(DepositController::class)->prefix('/deposit')->name('deposit.')->group(function(){
 
                 Route::get('/request','depositCreate')->name('create');
-                Route::any('/process','process')->name('process');
+                Route::post('/process','process')->name('process');
                 Route::any('/manual/confirm','manualPay')->name('manual');
 
             });
@@ -193,7 +193,7 @@ use Illuminate\Support\Facades\DB;
 
 
                 Route::prefix("/affiliate")->name('affiliate.')->group(function(){
-                    Route::get('/user/list','affiliateUsers')->name('user.list');
+                    Route::get('/user/reports','affiliateUsers')->name('user.list');
                     Route::get('/reports','affiliateReport')->name('report.list');
                 });
                 Route::prefix("/kyc/reports")->name('kyc.report.')->withoutMiddleware(['kyc'])->group(function(){

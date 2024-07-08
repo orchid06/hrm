@@ -117,12 +117,12 @@ class AiService
         $logData ['template_id'] = $template->id;
 
         $logData['admin_id']     = request()->routeIs('admin.*') 
-                                  ? auth_user('admin')?->id 
-                                  : null;
+                                            ? auth_user('admin')?->id 
+                                            : null;
 
         $logData['user_id']      = request()->routeIs('user.*') 
-                                  ? auth_user('web')?->id 
-                                  : null;
+                                            ? auth_user('web')?->id 
+                                            : null;
    
         $customPrompt = $template->custom_prompt;
 
@@ -236,7 +236,7 @@ class AiService
                         $token = (int) Arr::get($usage , "completion_tokens" ,0);
                         $user  = auth_user('web');
                         $this->generateCreditLog(
-                            user        : auth_user('web'),
+                            user        : auth_user('web')->load(['runningSubscription']),
                             trxType     : Transaction::$MINUS,
                             balance     : (int) $token,
                             postBalance : (int)$user->runningSubscription->remaining_word_balance,

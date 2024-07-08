@@ -1,6 +1,6 @@
 <?php
 
-namespace StripeJS\Util;
+namespace Stripe\Util;
 
 /**
  * Describes a logger instance.
@@ -29,8 +29,6 @@ interface LoggerInterface
      * be logged and monitored.
      *
      * @param string $message
-     * @param array $context
-     * @return null
      */
-    public function error($message, array $context = array());
+    public function error($message, array $context = []);
 }

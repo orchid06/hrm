@@ -9,8 +9,7 @@ use App\Http\Requests\DepositRequest;
 use App\Http\Services\UserService;
 use App\Models\Admin\PaymentMethod;
 use App\Models\PaymentLog;
-use App\Models\User;
-use Carbon\Carbon;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -31,16 +30,15 @@ class DepositController extends Controller
         });
     }
 
-
     public function depositCreate(Request $request){  
 
         return view('user.payment.create',[
 
             'meta_data'  => $this->metaData(['title'=> translate("Make Deposit")]),
             'methods'    => PaymentMethod::with(['file','currency'])
-                              ->active()
-                              ->orderBy('serial_id','asc')
-                              ->get(),
+                                    ->active()
+                                    ->orderBy('serial_id','asc')
+                                    ->get(),
   
         ]);
 
@@ -61,7 +59,6 @@ class DepositController extends Controller
             'remarks' => 'Deposit Via '.$method->name,
         ]);
 
-        // @dd($request->all());
 
         $amount      = (double) $request->input('amount');
         $baseAmount  = round(convert_to_base($amount,5)*$method->currency->exchange_rate,5);
@@ -70,7 +67,6 @@ class DepositController extends Controller
 
         try {
             $amount      = (double) $request->input('amount');
-
 
             if($baseAmount  >= $method->minimum_amount && $baseAmount <= $method->maximum_amount ){
 
@@ -115,7 +111,6 @@ class DepositController extends Controller
             $metaData = [
                 'title' => translate("Payment Confirm")
             ];
-
             return view('user.payment.manual',[
                 'log'        => $depositLog,
                 'meta_data'  => $this->metaData($metaData),
@@ -134,13 +129,9 @@ class DepositController extends Controller
         }
 
 
-        if (isset($data->redirect)) {
-            return redirect($data->redirect_url);
-        }
+        if (isset($data->redirect))            return redirect($data->redirect_url);
 
-        if (isset($data->error)) {
-            return back()->with(response_status($data->message,'error'));
-        }
+        if (isset($data->error))     return back()->with(response_status($data->message,'error'));
        
 
         return view($data->view,[
@@ -170,16 +161,15 @@ class DepositController extends Controller
       
             $trxCode    = $trxCode?? session()->get("trx_code");
             $depositLog = PaymentLog::with(['user','method','currency'])
-                            ->where('trx_code', $trxCode)
-                            ->initiate()
-                            ->first();
+                                                ->where('trx_code', $trxCode)
+                                                ->initiate()
+                                                ->first();
+            if(!$depositLog)   return redirect()->route('user.home')->with('error',translate("Invalid deposit request"));
 
 
             $gatewayService = 'App\\Http\\Services\\Gateway\\'.$depositLog->method->code.'\\Payment';
             $data           = $gatewayService::ipn($request, @$depositLog, @$type);
-            if (isset($data['redirect'])) {
-                return   Redirect::to($data['redirect'])->with($data['status'],$data['message']);
-            }
+            if (isset($data['redirect'])) return   Redirect::to($data['redirect'])->with($data['status'],$data['message']);
 
         } catch (\Exception $ex) {
             $responseStatus = response_status(strip_tags($ex->getMessage()),'error');
@@ -200,9 +190,9 @@ class DepositController extends Controller
     {
 
         $depositLog = PaymentLog::with(['user','method','currency'])
-                        ->where('trx_code', session()->get('trx_code'))
-                        ->initiate()
-                        ->firstOrfail();
+                                        ->where('trx_code', session()->get('trx_code'))
+                                        ->initiate()
+                                        ->firstOrfail();
 
         
         $depositLog->status = DepositStatus::value('PENDING',true);
@@ -213,21 +203,40 @@ class DepositController extends Controller
         $this->validate($request, $rules);
 
         $this->userService->saveCustomInfo($request , $depositLog , $depositLog->method->parameters,'custom_data','payment');
-
         session()->forget('trx_code');
-
         return redirect()->route('user.home')->with(response_status('Your deposit request is pending,Please Wait For Confirmation'));
     }
 
 
 
 
-    public function success(Request $request) :RedirectResponse{
-        return redirect()->route('user.home')->with(response_status('Payment Request Successfully Processed'));
+    public function success(Request $request) :View{
+        return view('user.payment.response',[
+            'meta_data'  => $this->metaData(['title'=> translate("Payment Success")]),
+            'response' => $this->processPaymentIntent(request()->query('payment_intent'))
+        ]);
+    }
+     public function failed(Request $request) :View{
+        return view('user.payment.response',[
+            'meta_data'  => $this->metaData(['title'=> translate("Payment Failed")]),
+            'response'   => $this->processPaymentIntent(request()->query('payment_intent'))
+        ]);
      }
-     public function failed(Request $request) :RedirectResponse{
-         return redirect()->route('user.home')->with(response_status('Invalid Payment Requrest !','error'));
+
+
+     public function processPaymentIntent(string  $payment_intent) :object{
+
+        $queryParam = json_decode(base64_decode($payment_intent));
+        return (object)[
+            'log'  => PaymentLog::with(['file','currency','method','user'])->where('trx_code',$queryParam->trx_number)->firstOrFail(),
+            'type' => $queryParam->type,
+        ];
+
+
      }
+
+
+
 
 
 

@@ -44,7 +44,6 @@ class PaymentService
      * @param PaymentMethod $method
      * @param mixed $charge
      * @param mixed $finalAmount
-     * @param [type] $amount
      * @return PaymentLog
      */
     public function paymentLog(User $user, PaymentMethod $method ,array $params): PaymentLog{
@@ -56,9 +55,11 @@ class PaymentService
                                         [
                                             'method_id'   => $method->id,
                                             'user_id'     => $user->id,
-                                            'status'      => DepositStatus::INITIATE->value,
+                                            'status'      => (string) DepositStatus::INITIATE->value,
                                         ]
                                     );
+
+
 
 
         $log->currency_id          = Arr::get($params,"currency_id",null);

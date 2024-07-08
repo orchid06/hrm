@@ -5353,8 +5353,7 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   border: 2px solid #f1f1f1;
   overflow: hidden;
   border-radius: 12px;
-  display: none;
-  visibility: hidden;
+
 }
 
 .payment-card-form.show {

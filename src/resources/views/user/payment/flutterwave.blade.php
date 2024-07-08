@@ -17,12 +17,12 @@
                             <ul class="list-group text-center">
                                 <li class="list-group-item d-flex justify-content-between primary-bg ">
                                    {{translate('You have to pay ')}}:
-                                   <strong>{{num_format($log->final_amount,$log->method->currency)}}  </strong>
+                                   <strong>{{num_format($log->final_amount,$log->method->currency,2)}}  </strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between primary-bg ">
                                    {{translate('You will get ')}}:
 
-                                    <strong>{{num_format($log->amount,$log->currency)}}</strong>
+                                    <strong>{{num_format($log->amount,$log->currency,2)}}</strong>
                                 </li>
                             </ul>
                             <button type="button" class="i-btn btn--lg btn--primary w-100 mt-4" id="btn-confirm"

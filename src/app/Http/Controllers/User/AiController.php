@@ -52,18 +52,18 @@ class AiController extends Controller
 
         return view('user.content.list',[
 
-            'meta_data'    => $this->metaData(['title'=> translate("Ai Contents")]),
+            'meta_data'    => $this->metaData(['title'=> translate("AI Contents")]),
 
             'contents'     => Content::where('user_id',$this->user->id)
-                                ->search(['name'])
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
+                                        ->search(['name'])
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
                                 
             'categories'  => Category::template()
-                                       ->doesntHave('parent')
-                                       ->whereIn('id',$accessCategories)
-                                       ->get()
+                                        ->doesntHave('parent')
+                                        ->whereIn('id',$accessCategories)
+                                        ->get()
 
         ]);
     }

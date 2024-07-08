@@ -130,7 +130,7 @@ trait AccountManager
         $creditLog->balance          = $balance;
         $creditLog->post_balance     = $postBalance;
         $creditLog->details          = $details;
-        $creditLog->remark           = $remark;
+        $creditLog->remarks          = $remark;
         $creditLog->save();
         return $creditLog;
 

@@ -56,7 +56,7 @@ class Payment
             } 
         } 
 
-        UserService::updateDepositLog($log,$status,$data);
+        $data['redirect'] = UserService::updateDepositLog($log,$status,$data);
 
         return $data;
     }

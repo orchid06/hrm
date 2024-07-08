@@ -88,22 +88,7 @@
                                                 min="-1">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-inner">
-                                            <label for="ai_result_length"
-                                                class="form-label">{{ translate('Default Number Of Results') }}
-                                                <small class="text-danger" >*</small>
-                                            </label>
-                                            <select class="select2" id="ai_result_length" name="site_settings[ai_result_length]"
-                                                required>
-                                                   @for ($i = 1 ; $i<25 ; $i++)
-                                                        <option value="{{$i}}" {{site_settings("ai_result_length") == $i  ? "selected" :""}} >
-                                                            {{ $i }}
-                                                        </option>
-                                                   @endfor
-                                            </select>
-                                        </div>
-                                    </div>
+                       
                                     <div class="col-lg-12">
                                         <div class="form-inner">
                                             <label for="ai_bad_words"

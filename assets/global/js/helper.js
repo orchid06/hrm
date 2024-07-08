@@ -53,11 +53,8 @@ $(document).on('change', '.preview', function (e) {
 
 
 $(document).on('click','.code-generate',function(e){
-
-
-    $("#referral_code").val(generateRandomNumber());
-
-    toastr( "New key generated",'success')
+     $("#referral_code").val(generateRandomNumber());
+     toastr("New Code generated",'success')
      e.preventDefault()
  })
 

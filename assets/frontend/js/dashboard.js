@@ -167,17 +167,7 @@
     })
   }
 
-  var paymentCards = document.querySelectorAll('.payment-card-item');
 
-  var balanceCard = document.querySelector('#balanceCard');
-  var formStepOne = document.querySelector('#formStepOne');
-
-  paymentCards.forEach((paycard)=>{
-    paycard.addEventListener('click', ()=>{
-      balanceCard.style.display = 'none';
-      formStepOne.classList.add('show');
-    })
-  })
 
 
 

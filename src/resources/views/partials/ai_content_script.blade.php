@@ -113,7 +113,7 @@
                     "category_id"     :categoryId,
                     "sub_category_id" :subcategory,
                     "user_id"         :"{{request()->routeIs('user.*') ? $user->id : null}}",
-                    "_token" :"{{csrf_token()}}",
+                    "_token"          :"{{csrf_token()}}",
                 },
                 success: function(response){
 
@@ -254,7 +254,6 @@
         }
 
 
-
         $(document).on('submit','.ai-content-form',function(e){
 
             var data =   new FormData(this)
@@ -265,8 +264,16 @@
             dataType: 'json',
             beforeSend: function() {
 
-                $('.ai-btn').addClass('btn__dots--loading');
-                $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+                @if("{{request()->routeIs('user.*')}}")
+                   $('.ai-btn').html(`{{translate('Generate')}} <span><i class="bi bi-arrow-up-right"></i></span>`)
+                    $('.ai-btn').html(`{{translate('Generate')}}<div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden"></span>
+                                    </div>`)
+                @else
+                        $('.ai-btn').addClass('btn__dots--loading');
+                        $('.ai-btn').append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+                @endif
+
             },
             cache: false,
             processData: false,
@@ -305,9 +312,14 @@
                 }
             },
             complete: function() {
-                $('.ai-btn').removeClass('btn__dots--loading');
-                $('.ai-btn').find('.btn__dots').remove();
-   
+
+                @if("{{request()->routeIs('user.*')}}")
+                    $('.ai-btn').html(`{{translate('Generate')}} <span><i class="bi bi-arrow-up-right"></i></span>`)
+                @else
+                    $('.ai-btn').removeClass('btn__dots--loading');
+                    $('.ai-btn').find('.btn__dots').remove();
+                @endif
+
             },
             })
 

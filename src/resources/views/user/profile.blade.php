@@ -2,564 +2,44 @@
 @section('content')
 
     @php
-        $user                = auth_user('web');
-        $content             = get_content("content_plan")->first();
+        $user                = auth_user('web')->load(['runningSubscription','runningSubscription.package','affilateUser','affiliates']);
         $subscription        = $user->runningSubscription;
+        $package             = @$user->runningSubscription?->package;
         $webhookAccess       = @optional($user->runningSubscription->package->social_access)->webhook_access;
+        $affiliateLogs       =  $user->affiliates;
 
     @endphp
-
-    <!-- <div class="profile-wrapper">
-      <div class="inner-banner">
-        <div class="primary-shade"></div>
-        <div class="banner-texture"></div>
-      </div>
-
-      <div class="profile-content">
-        <div class="row gy-5">
-          <div class="col-xl-3 col-lg-4">
-            <div class="profile-info">
-              <div class="profile-img">
-                  <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}" />
-              </div>
-
-              <div class="profile-meta">
-                <div class="profile-meta-content">
-                  <h5>
-                     {{$user->name}}
-                  </h5>
-                  <p>{{translate("Joined on")}} {{get_date_time($user->created_at)}}</p>
-
-                  <ul class="profile-meta-list">
-                    <li>
-                      <span>  {{translate("Email")}}: </span>
-                      <a href="mailto:{{$user->email}}"> {{$user->email}}</a>
-                    </li>
-
-                    <li>
-                        <span>  {{translate("Phone")}}: </span>
-                      <a href="tel:{{$user->phone}}">{{$user->phone}}</a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="user-balance">
-                  <p>
-                     {{translate("Balance")}}
-                  </p>
-                  <h6> {{num_format(number:$user->balance,calC:true)}}</h6>
-
-                  <div class="balance-action">
-                    <a
-                      href="{{route('user.deposit.create')}}"
-                      class="i-btn btn--primary btn--md capsuled">
-                      {{translate("Deposit")}}
-                    </a>
-
-                    <a
-                      href="{{route('user.withdraw.create')}}"
-                      class="i-btn btn--secondary btn--md capsuled">
-                      {{translate("Withdraw")}}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="i-card-md plan-upgrade-card mt-4">
-              <div class="card-body plan-upgrade-body">
-                <h3>{{@$content->value->title}}</h3>
-
-                <a
-                  href="{{route('user.plan')}}"
-                  class="i-btn btn--primary btn--lg capsuled">
-                    {{translate("Upgrade Now")}}
-                </a>
-
-                <div class="plan-upgrade-img">
-                  <img
-                    src="{{asset('assets/images/default/plan.gif')}}"
-                    alt="plan.gif"
-                    class="img-fluid"/>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-xl-9 col-lg-8">
-            <div class="profile-activity">
-              <div class="profile-tabs">
-                <ul class="nav" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <a
-                      class="nav-link active"
-                      data-bs-toggle="tab"
-                      href="#personal-details"
-                      role="tab"
-                      aria-selected="true">
-                      <i class="bi bi-person-gear"></i>
-                        {{translate("Account")}}
-                    </a>
-                  </li>
-
-                  @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
-                    <li class="nav-item" role="presentation">
-                            <a
-                            class="nav-link"
-                            data-bs-toggle="tab"
-                            href="#affiliate-configuration"
-                            role="tab"
-                            aria-selected="false"
-                            tabindex="-1">
-                            <i class="bi bi-share"></i>
-                            {{translate("Affiliate Configuration")}}
-                            </a>
-                    </li>
-                  @endif
-
-                  @if($user->runningSubscription)
-                    <li class="nav-item" role="presentation">
-                        <a
-                        class="nav-link"
-                        data-bs-toggle="tab"
-                        href="#plan-tab"
-                        role="tab"
-                        aria-selected="false"
-                        tabindex="-1">
-                        <i class="bi bi-tag"></i>
-                        {{translate("Current Plan")}}
-                        </a>
-                    </li>
-                  @endif
-
-
-                  @if($webhookAccess == App\Enums\StatusEnum::true->status())
-                    <li class="nav-item" role="presentation">
-                            <a
-                            class="nav-link"
-                            data-bs-toggle="tab"
-                            href="#webhook-configuration"
-                            role="tab"
-                            aria-selected="false"
-                            tabindex="-1">
-                            <i class="bi bi-arrow-left-right"></i>
-                            {{translate("Webhook Configuration")}}
-                            </a>
-                    </li>
-                  @endif
-
-                </ul>
-                <div class="under-line"></div>
-              </div>
-
-              <div class="profile-tab-content">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="personal-details" role="tabpanel">
-                        <div class="i-card-md">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    {{translate("User Info")}}
-                                </h4>
-
-                                <div class="capsuled-tab">
-                                    <ul class="nav" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="account-details-tab" data-bs-toggle="tab" data-bs-target="#account-details" type="button" role="tab" aria-controls="account-details" aria-selected="true">
-                                                {{translate("User Details")}}
-                                            </button>
-                                        </li>
-
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false">
-                                                 {{translate("Update Password")}}
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="account-details" role="tabpanel" aria-labelledby="account-details-tab" tabindex="0">
-                                        <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="row g-4">
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="name">
-                                                            {{translate("Name")}}
-                                                        </label>
-                                                        <input type="text" name="name" value="{{$user->name}}" id="name" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="Username">
-                                                            {{translate("Username")}} <small class="text-danger">*</small>
-                                                        </label>
-                                                        <input type="text" name="username" value="{{$user->username}}" id="Username" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="email">
-                                                            {{translate("email")}} <small class="text-danger">*</small>
-                                                        </label>
-                                                        <input type="text" name="email" value="{{$user->email}}" id="email" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-
-                                                    <label for="country">
-                                                        {{translate('Country')}}
-                                                    </label>
-
-                                                        <select name="country_id" id="country">
-                                                            <option value="">
-                                                                {{translate('Select Country')}}
-                                                            </option>
-                                                            @foreach (get_countries() as $country )
-                                                                <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
-                                                                    {{$country->name}}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="phone">
-                                                            {{translate("Phone")}}
-                                                        </label>
-                                                        <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="image">
-                                                            {{translate("Image")}}
-                                                        </label>
-
-                                                        <div>
-                                                            <label for="image" class="feedback-file">
-                                                                <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
-                                                                <span><i class="bi bi-image"></i>
-                                                                    {{translate("Select image")}}
-                                                                </span>
-                                                            </label>
-
-                                                            <div class="image-preview-section">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                @if(site_settings('auto_subscription') == App\Enums\StatusEnum::true->status())
-
-                                                <div class="col-12">
-                                                    <div class="form-inner">
-                                                        <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
-                                                        <label for="auto_subscription" class="form-check-label me-3">
-                                                            {{translate('Auto Subscription')}}
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                @endif
-
-                                                <div class="col-12">
-                                                    <button
-                                                        type="submit"
-                                                        class="i-btn btn--primary btn--lg capsuled">
-                                                        {{translate("Update")}}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
-                                        <form action="{{route('user.password.update')}}"  method="post">
-                                            @csrf
-                                            <div class="row g-4">
-                                                <div class="col-12">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="current-password">
-                                                            {{translate("Current Password")}} <small class="text-danger">*</small>
-                                                        </label>
-                                                        <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="new-password">
-                                                            {{translate("New Password")}} <small class="text-danger">*</small>
-                                                        </label>
-                                                        <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-inner mb-0">
-                                                        <label for="confirm-password">
-                                                            {{translate("Confirm Password")}} <small class="text-danger">*</small>
-                                                        </label>
-                                                        <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <button
-                                                        type="submit"
-                                                        class="i-btn btn--primary btn--lg capsuled">
-
-                                                        {{translate(
-                                                            "Update Password"
-                                                        )}}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
-                        <div class="tab-pane fade" id="affiliate-configuration" role="tabpanel">
-                            <div class="i-card-md">
-                                <div class="card-header">
-                                    <h4 class="card-title">
-                                        {{translate("Affiliate Configuration")}}
-                                    </h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <form action="{{route('user.affiliate.update')}}"  method="post">
-                                        @csrf
-                                        <div class="row g-4">
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="referral_code"
-                                                    class="form-label">{{ translate('Referral Code') }}
-                                                        <small class="text-danger" >*</small>
-                                                    </label>
-
-                                                    <div class="input-group">
-                                                        <input placeholder="{{translate('Referral Code')}}" id="referral_code" value="{{$user->referral_code}}" name="referral_code"  type="text" class="form-control" >
-                                                        <span class="input-group-text danger pointer code-generate"><i class="bi bi-arrow-repeat"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="ReferralURL"
-                                                    class="form-label">{{ translate('Referral URL') }}
-                                                    </label>
-
-                                                    <div class="input-group">
-                                                        <input readonly id="ReferralURL" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" class="form-control" >
-                                                        <span data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <button
-                                                    type="submit"
-                                                    class="i-btn btn--primary btn--lg capsuled">
-
-                                                    {{translate(
-                                                        "Update"
-                                                    )}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if($user->runningSubscription)
-                        <div class="tab-pane fade" id="plan-tab" role="tabpanel">
-                            <div class="i-card-md">
-                                <div class="card-header">
-                                    <h4 class="card-title d-flex align-items-center gap-2">
-                                        <span class="dot-spinner">
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                            <span class="dot-spinner__dot"></span>
-                                        </span>
-
-                                        {{translate('Current Plan')}}
-                                    </h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row align-items-center g-4">
-                                        <div class="col-xl-6 col-lg-12 col-md-6">
-                                            <div class="current-plan">
-                                                <div class="current-plan-img">
-                                                    <img
-                                                    src="{{asset('assets/images/default/current-plan.gif')}}"
-                                                    alt="current-plan.gif"/>
-                                                </div>
-                                                <h5 class="mb-2">
-                                                    {{@$user->runningSubscription->package->title}}
-                                                </h5>
-
-                                                <small>{{translate("Expire date")}}:
-                                                {{@$user->runningSubscription->expired_at ? get_date_time($user->runningSubscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
-
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-6 col-lg-12 col-md-6">
-                                            <div class="permissions">
-                                            <h6>
-                                                {{translate("specification")}}
-                                            </h6>
-                                            <ul class="list-group">
-
-
-                                                @foreach (plan_configuration(@$user->runningSubscription->package) as $configKey => $configVal )
-
-                                                    <li class="list-group-item">
-                                                        <i class="fa fa-check text-success"></i>
-                                                        {{!is_bool($configVal) ? $configVal : "" }} {{k2t($configKey)}}
-                                                    </li>
-
-                                                @endforeach
-
-
-                                            </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if($webhookAccess == App\Enums\StatusEnum::true->status())
-                        <div class="tab-pane fade" id="webhook-configuration" role="tabpanel">
-                            <div class="i-card-md">
-                                <div class="card-header">
-                                    <h4 class="card-title">
-                                        {{translate("Webhook Configuration")}}
-                                    </h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <form action="{{route('user.webhook.update')}}"  method="post">
-                                        @csrf
-                                        <div class="row g-4">
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="referral_code"
-                                                    class="form-label">{{ translate('Api Key') }}
-                                                        <small class="text-danger" >*</small>
-                                                    </label>
-
-                                                    <div class="input-group">
-                                                        <input placeholder="{{translate('Webhook api key')}}" id="webhook_api_key" value="{{$user->webhook_api_key}}" name="webhook_api_key"  type="text" class="form-control" >
-                                                        <span class="input-group-text danger pointer key-generate"><i class="bi bi-arrow-repeat"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-inner mb-0">
-                                                    <label for="webhookUrl"
-                                                    class="form-label">{{ translate('Webhook Url') }}
-                                                    </label>
-
-                                                    <div class="input-group">
-                                                        <input readonly id="webhookUrl" value="{{route('webhook',['uid' => $user->uid])}}"  type="text" class="form-control" >
-                                                        <span data-text ="{{route('webhook',['uid' => $user->uid])}}" class="input-group-text success pointer copy-text"><i class="bi bi-clipboard-check"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <button
-                                                    type="submit"
-                                                    class="i-btn btn--primary btn--lg capsuled">
-
-                                                    {{translate(
-                                                        "Update"
-                                                    )}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <div class="i-card mb-4">
       <div class="row g-4">
         <div class="col-xl-9 col-lg-8">
           <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-4">
               <div class="avatar-100 profile-picture">
-              <div class="file-input">
-                <input
-                  type="file"
-                  name="file-input"
-                  id="file-input"
-                  class="file-input__input"
-                />
-                <label class="file-input__label" for="file-input">
-                  <span><i class="bi bi-camera-fill"></i></span></label>
-              </div>
-              <img src="https://i.ibb.co/GC7Q0M2/Ellipse-82.png" class="rounded-50" alt="Ellipse-82">
+            
+                    <img src="{{imageUrl(@$user->file,'profile,user',true) }}" class="rounded-50" 
+                            alt="{{@$user->file->name ?? 'profile.jpg'}}">
               </div>
               <div class="text-start">
-                <h4>Olivia Clare</h4>
-                <p>Joined On 12 Feb 2028 30:25 PM</p>
+                <h4>
+                    {{@$user->name}}
+                </h4>
+                <p>  {{translate('Joined On')}}  {{get_date_time($user->created_at,"F j, Y")}},{{get_date_time($user->created_at," g a")}}</p>
                 <div class="mt-4">
-                  <div class="fs-18"><span class="text--dark fw-bold">Email:</span> olivia@gmail.com</div>
-                  <div class="fs-18"><span class="text--dark fw-bold">Phone:</span> 0123456789</div>
+                  <div class="fs-18"><span class="text--dark fw-bold">{{translate('Email')}} :</span>  {{$user->email}}  </div>
+                  <div class="fs-18"><span class="text--dark fw-bold"> {{translate('Phone')}} :</span> {{$user->phone}}</div>
                 </div>
               </div>
           </div>
         </div>
         <div class="col-xl-3 col-lg-4">
             <div class="p-gl-4 p-3 bg-light radius-16 border">
-                <h5 class="mb-2 fw-normal">Balance</h5>
-                <h3>$520.00</h3>
+                <h5 class="mb-2 fw-normal">
+                   {{translate('Balance')}}
+                </h5>
+                <h3> {{num_format(number:$user->balance,calC:true)}} </h3>
                 <div class="d-flex justify-content-start gap-3 mt-3">
-                  <a href="#" class="i-btn btn--lg btn--primary capsuled">Update</a>
-                  <a href="#" class="i-btn btn--lg btn--primary capsuled">Deposite</a>
+                  <a href="{{route('user.withdraw.create')}}" class="i-btn btn--lg btn--primary capsuled"> {{translate('Withdraw')}}     </a>
+                  <a href="{{route('user.deposit.create')}}" class="i-btn btn--lg btn--primary capsuled">  {{ translate('Deposite')}}  </a>
                 </div>
             </div>
         </div>
@@ -569,122 +49,481 @@
       <div class="plan-detail">
           <div class="container-fluid px-0">
             <div class="i-card mb-4 border">
-              <ul class="nav nav-tabs gap-lg-4 gap-3 style-2 mb-30" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab-one" data-bs-toggle="tab" data-bs-target="#tab-one-pane" type="button" role="tab" aria-controls="tab-one-pane" aria-selected="true">Edit Profile</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-two" data-bs-toggle="tab" data-bs-target="#tab-two-pane" type="button" role="tab" aria-controls="tab-two-pane" aria-selected="false">Password</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-three" data-bs-toggle="tab" data-bs-target="#tab-three-pane" type="button" role="tab" aria-controls="tab-three-pane" aria-selected="false">Affiliate Confiure</button>
-                  </li>
+              <ul class="nav nav-tabs gap-lg-4 gap-3 style-2 mb-30" id="settingTab" role="tablist">
+
+                    <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="tab-profile" data-bs-toggle="tab" data-bs-target="#tab-profile-pane" type="button" role="tab" aria-controls="tab-profile-pane" aria-selected="true">
+                              {{translate('Profile')}}
+                          </button>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-password" data-bs-toggle="tab" data-bs-target="#tab-password-pane" type="button" role="tab" aria-controls="tab-password-pane" aria-selected="false">
+                            {{translate('Password')}}
+                        </button>
+                    </li>
+
+                    @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
+                        <li class="nav-item" role="presentation">
+                              <button class="nav-link" id="tab-affiliate" data-bs-toggle="tab" data-bs-target="#tab-affiliate-pane" type="button" role="tab" aria-controls="tab-affiliate-pane" aria-selected="false">{{translate("Affiliate Configuration")}}</button>
+                        </li>
+                    @endif
+
+
+                    @if($user->runningSubscription && $package)
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="tab-subscription" data-bs-toggle="tab" data-bs-target="#tab-subscription-pane" type="button" role="tab" aria-controls="tab-subscription-pane" aria-selected="false">{{translate("Current Plan")}}</button>
+                        </li>
+                    @endif
+
+
+                    @if($webhookAccess == App\Enums\StatusEnum::true->status())
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-webhook" data-bs-toggle="tab" data-bs-target="#tab-webhook-pane" type="button" role="tab" aria-controls="tab-webhook-pane" aria-selected="false">{{translate("Webhook Configuration")}}</button>
+                          </li>
+                    @endif
+
                 </ul>
-                <p>Pick the plan that works best for you</p>
-                <p><span class="fw-bold text--dark">You are still in Solo Plans</span> You are still in solo plan and have decided to go ahead and start using the new plan?</p>
+
             </div>
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="tab-one-pane" role="tabpanel" aria-labelledby="tab-one" tabindex="0">
-                <form>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-inner">
-                        <label for="name">First Name</label>
-                        <input type="text" placeholder="First Name">
+            <div class="tab-content" id="settingTabContent">
+
+                <div class="tab-pane fade show active" id="tab-profile-pane" role="tabpanel" aria-labelledby="tab-profile" tabindex="0">
+                      <div class="p-2">
+                          <p>
+                            {{translate('Keep your profile information up-to-date to ensure seamless communication and a personalized experience. Update your details below')}}
+                          </p>
                       </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-inner">
-                        <label for="name">Last Name</label>
-                        <input type="text" placeholder="First Name">
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">Email</label>
-                        <input type="email" placeholder="Enter Email">
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <label for="name">Phone Number</label>
-                      <div class="form-inner select-with-input row gap-0">
-                          <div class="col-sm-3 col-4">
-                            <select class="select2">
-                              <option value="+880">+880</option>
-                              <option value="+0092">+0092</option>
-                              <option value="+0091">+0091</option>
-                              <option value="+005">+005</option>
-                            </select>
+
+                      <form action="{{route('user.profile.update')}}" method="post" enctype="multipart/form-data">
+                          @csrf
+                          <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-inner">
+                                        <label for="name">
+                                              {{translate("Name")}} <span class="text--danger">*</span>
+                                        </label>
+                                        <input required type="text" name="name" value="{{$user->name}}" id="name" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                  <div class="form-inner">
+                                      <label for="Username">
+                                          {{translate("Username")}} <span class="text--danger">*</span>
+                                      </label>
+                                      <input required type="text" name="username" value="{{$user->username}}" id="Username" />
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-inner">
+                                        <label for="email">
+                                            {{translate("email")}} 
+                                        </label>
+                                        <input type="text" name="email" value="{{$user->email}}" id="email" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-inner">
+                                          <label for="phone">
+                                              {{translate("Phone")}}
+                                          </label>
+                                          <input type="text" value="{{$user->phone}}" name="phone" id="phone" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-inner">
+                                        <label for="country">
+                                            {{translate('Country')}}
+                                        </label>
+
+                                        <select name="country_id" id="country">
+                                            <option value="">
+                                                {{translate('Select Country')}}
+                                            </option>
+                                            @foreach (get_countries() as $country )
+                                                <option {{$user->country_id == $country->id ? "selected" :""}} value="{{$country->id}}">
+                                                    {{$country->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                @foreach (['city','state','postal_code','address'] as  $addressKey)
+
+                                <div class="col-lg-6">
+                                    <div class="form-inner">
+                                        <label for="{{$addressKey}}">
+                                            {{translate(k2t($addressKey))}}
+                                        </label>
+
+                                        <input placeholder="{{translate('Enter ').$addressKey}}" type="text" value="{{@$user->address->$addressKey}}" name="address[{{$addressKey}}]" id="{{$addressKey}}">
+                                    </div>
+                                </div>
+                                    
+                                @endforeach
+
+                                <div class="col-12">
+                                      <div class="form-inner">
+                                          <label for="image">
+                                              {{translate("Image")}}
+                                          </label>
+
+                                          <div>
+                                              <label for="image" class="feedback-file">
+                                                  <input hidden  data-size = "100x100" type="file" name="image" id="image" class="preview">
+                                                  <span><i class="bi bi-image"></i>
+                                                      {{translate("Select image")}}
+                                                  </span>
+                                              </label>
+
+                                              <div class="image-preview-section">
+                                              </div>
+                                          </div>
+                                      </div>
+                                </div>
+
+                                @if(site_settings('auto_subscription') == App\Enums\StatusEnum::true->status())
+
+                                    <div class="col-12">
+                                        <div class="form-inner">
+                                            <input id="auto_subscription" value="{{App\Enums\StatusEnum::true->status()}}" {{$user->auto_subscription ? "checked" :""}} class="form-check-input me-1" name="auto_subscription" type="checkbox"   >
+                                            <label for="auto_subscription" class="form-check-label me-3">
+                                                {{translate('Auto Subscription')}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                @endif
+
+                                <div class="col-lg-12">
+                                    <button class="i-btn btn--lg btn--primary capsuled" type="submit"> 
+                                        {{translate('Update')}}
+                                        <span><i class="bi bi-arrow-up-right"></i></span>
+                                    </button>
+                                </div>
                           </div>
-                          <div class="col-sm-9 col-8">
-                            <input type="email" placeholder="92000000">
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <button class="i-btn btn--lg btn--primary capsuled" type="submit">Update <span><i class="bi bi-arrow-up-right"></i></span></button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="tab-two-pane" role="tabpanel" aria-labelledby="tab-two" tabindex="0">
-              <form>
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">Old Password</label>
-                        <input type="text" placeholder="Old Password">
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">New Password</label>
-                        <input type="text" placeholder="New Password">
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">Confirm Password</label>
-                        <input type="email" placeholder="Confirm Password">
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <button class="i-btn btn--lg btn--primary capsuled" type="submit">Update <span><i class="bi bi-arrow-up-right"></i></span></button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="tab-three-pane" role="tabpanel" aria-labelledby="tab-three" tabindex="0">
-                <form>
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">Referral Code</label>
-                        <div class="copy-input">
-                          <input type="text" placeholder="Referral Code">
-                          <div class="copy-icon">
-                            <i class="bi bi-clipboard"></i>
-                          </div>
+                      </form>
+                </div>
+
+                <div class="tab-pane fade" id="tab-password-pane" role="tabpanel" aria-labelledby="tab-password" tabindex="0">
+
+                      <p class="p-2">
+                          {{translate('Enhance your account security by updating your password regularly. Enter your current password and choose a new one below.')}}
+                      </p>
+                      <form action="{{route('user.password.update')}}"  method="post">
+                        @csrf
+                            <div class="row">
+                                  <div class="col-lg-12">
+                                      <div class="form-inner">
+                                          <label for="current-password">
+                                                {{translate("Current Password")}} <span class="text--danger">*</span>
+                                          </label>
+                                          <input  placeholder="{{translate('current password')}}" type="password" name="current_password" id="current-password" />
+                                      </div>
+                                  </div>
+
+                                  <div class="col-lg-12">
+                                      <div class="form-inner">
+                                          <label for="new-password">
+                                              {{translate("New Password")}} <span class="text--danger">*</span>
+                                          </label>
+                                          <input placeholder="{{translate('password')}}" name="password" type="password" id="new-password" />
+                                      </div>
+                                  </div>
+
+                                  <div class="col-lg-12">
+                                        <div class="form-inner">
+                                              <label for="confirm-password">
+                                                  {{translate("Confirm Password")}} <small class="text-danger">*</small>
+                                              </label>
+                                            <input placeholder="{{translate('Confirm password')}}" type="password" name="password_confirmation" id="confirm-password" />
+                                        </div>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <button class="i-btn btn--lg btn--primary capsuled" type="submit">
+                                        {{translate('Update')}}
+                                      <span><i class="bi bi-arrow-up-right"></i></span>
+                                    </button>
+                                  </div>
+                            </div>
+                      </form>
+                </div>
+
+                <div class="tab-pane fade" id="tab-affiliate-pane" role="tabpanel" aria-labelledby="tab-affiliate" tabindex="0">
+
+                      <div class="row align-items-center gy-5">
+                        <div class="col-lg-4">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="bg--linear-primary text-center mb-3">
+                                        <div class="card-body p-3">
+                                            <h3 class="fw-bold mt-1 mb-3 text-white fs-20">
+                                                {{translate('Affiliate Setting')}}
+                                            </h3>
+                                            <p class="text-white opacity-75">
+                                                {{translate('Configure your affiliate settings to optimize your referral program. ')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <ul class="subcription-list">
+
+                                      <li>
+                                          <span> {{translate('This Earning')}}   </span>
+                                          <span>  {{num_format(number:$affiliateLogs->sum('commission_amount'),calC:true)}} </span>
+                                      </li>
+                                      <li>
+                                          <span> {{translate('Total Reffered')}} </span>
+                                          <span>
+                                              {{ $user->affilateUser->count()}}
+                                          </span>
+                                      </li>
+                                         
+                                    </ul>
+                                    <form  action="{{route('user.affiliate.update')}}"  method="post" class="referral-form mt-5">
+                                        @csrf
+                                        <div class="form-inner">
+                                            <label for="referral_code" class="form-label">
+                                                {{ translate('Referral Code') }} <span class="text--danger" >*</span>
+                                            </label>
+
+                                            <div class="input-with-btn">
+                                              <input   placeholder="{{translate('Referral Code')}}" name="referral_code" value="{{$user->referral_code}}"  type="text" id="referral_code">
+                                                <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Generate Code')}}" type="button" class="code-generate" data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" ><i class="bi bi-arrow-repeat"></i></button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-inner">
+                                            <label for="ReferralURL" class="form-label">
+                                                {{ translate('Referral URL') }}
+                                            </label>
+
+                                            <div class="input-with-btn">
+                                              <input type="readonly" value="{{route('auth.register',['referral_code' => $user->referral_code])}}"  type="text" id="ReferralURL">
+                                                <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Copy')}}" type="button" class="copy-text" data-text ="{{route('auth.register',['referral_code' => $user->referral_code])}}" ><i class="bi bi-clipboard"></i></button>
+                                            </div>
+
+                                        </div>
+
+                                        <button class="i-btn btn--lg btn--primary capsuled" type="submit">
+                                           {{translate('Update')}}
+                                             <span><i class="bi bi-arrow-up-right"></i></span>
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="form-inner">
-                        <label for="name">Referral URL</label>
-                        <div class="copy-input">
-                          <input type="text" placeholder="Enter Value">
-                          <div class="copy-icon">
-                            <i class="bi bi-clipboard"></i>
-                          </div>
+                        <div class="col-lg-8 ps-lg-5">
+                            <div class="plan-upgrade">
+                                <h4 class="mb-4 title">
+                                    {{translate("How It Works")}}
+                                </h4>
+                                <div class="row g-4">
+                                    <div class="col-xxl-4 col-lg-6">
+                                        <div class="how-single">
+                                            <div class="serail-no">
+                                                {{translate('01')}}
+                                            </div>
+                                            <div class="icon">
+                                                <i class="bi bi-envelope-paper"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                     {{translate('Send Invitation')}}
+                                                </h6>
+                                                <p>
+                                                    {{translate('Send your referral link to your friends and tell them how cool it is!')}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-6">
+                                        <div class="how-single">
+                                            <div class="serail-no">
+                                                {{translate('02')}}
+                                            </div>
+                                            <div class="icon">
+                                                <i class="bi bi-envelope-paper"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                    {{translate('Register')}}
+                                                </h6>
+                                                <p>
+                                                    {{translate('Invite your friends to register using the referral link you have shared.')}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-lg-6">
+                                        <div class="how-single">
+                                            <div class="serail-no">
+                                                {{translate('03')}}
+                                            </div>
+                                            <div class="icon">
+                                                <i class="bi bi-envelope-paper"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h6>
+                                                    {{translate('Generate Commissions')}}
+                                                </h6>
+                                                <p>
+                                                    {{translate('Get commission for all the payments they make on their subscription plans.')}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                    <div class="col-lg-12">
-                      <button class="i-btn btn--lg btn--primary capsuled" type="submit">Update <span><i class="bi bi-arrow-up-right"></i></span></button>
+
+                </div>
+
+                <div class="tab-pane fade" id="tab-subscription-pane" role="tabpanel" aria-labelledby="tab-subscription" tabindex="0">
+
+  
+                      <div class="current-plan-card mb-4">
+            
+                        <div class="row align-items-center gy-5">
+                            <div class="col-lg-5">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="bg--linear-primary text-center">
+                                            <div class="card-body p-3">
+                                                <h6 class="text-white opacity-75 fw-normal fs-13">
+                                                     {{translate('Current Plan')}}
+                                                </h6>
+                                                <h3 class="fw-bold mt-1 mb-3 text-white fs-19">
+                                                    {{$package->title}}
+                                                </h3>
+                                                <p class="text-white opacity-75">{{$package->description}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="current-info-single">
+                                            <p>
+                                               {{translate("Affliate Commision")}}
+                                            </p>
+                                            <h5>
+                                                {{$package->affiliate_commission}}%
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="current-info-single">
+                                            <p>{{translate("Expire date")}}</p>
+                                            <h5> 
+                                                {{@$subscription->expired_at ? get_date_time($subscription->expired_at): ucfirst(strtolower(App\Enums\PlanDuration::UNLIMITED->name))}}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    @foreach (plan_configuration(@$user->runningSubscription->package) as $configKey => $configVal )
+
+                                        <div class="col-sm-6">
+                                            <div class="current-info-single">
+                                                <p>
+                                                   {{
+                                                     k2t($configKey)
+                                                   }}
+                                                </p>
+                                                <h5>
+                                                    @php
+                                                        $value = !is_bool($configVal) ? $configVal : "<i class='bi bi-check'></i>";
+                                                    @endphp
+
+                                                    @php  echo $value @endphp
+                                                </h5>
+                                            </div>
+                                        </div>
+                                     @endforeach
+    
+                                 
+                                </div>
+                            </div>
+                            <div class="col-lg-7 ps-lg-5">
+                                <div class="plan-upgrade">
+                                    <h4 class="mb-4 title">
+                                        <span>
+                                            <img src="{{asset('assets/images/default/forward.png')}}" class="me-1"
+                                                  alt="forward.png">
+                                        </span> 
+                                        {{translate('Upgrade Your Plan')}}
+                                    </h4>
+                                    <div class="avatar-120 mb-3 mx-auto">
+                                        <img src="{{asset('assets/images/default/upgrade.png')}}" alt="upgrade.png">
+                                    </div>
+                                    <p class="mb-4">
+                                         {{translate('Updating your plan is a crucial step in ensuring that your goals and strategies
+                                        remain relevant and effective in a dynamic environment. As circumstances change, whether due to
+                                        shifts in the market, new technological advancements, or evolving personal or organizational
+                                        priorities')}}
+                                    </p>
+                                    <a href="{{route('user.plan')}}" class="i-btn btn--primary-outline btn--lg capsuled text-uppercase mx-auto">
+                                         {{translate('Update Plan')}}
+                                      <i class="bi bi-arrow-up-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-webhook-pane" role="tabpanel" aria-labelledby="tab-webhook" tabindex="0">
+
+                    <p class="p-2">
+                        {{translate('Set up and manage your webhooks to integrate with external services. Configure your webhook URLs and settings below.')}}
+                    </p>
+                      <form action="{{route('user.webhook.update')}}"  method="post">
+                           @csrf
+                            <div class="row">
+                            
+                                  <div class="col-lg-12">
+                                     <div class="form-inner">
+                                          <label for="webhook_api_key" class="form-label">
+                                              {{ translate('API Key') }} <span class="text--danger" >*</span>
+                                          </label>
+
+                                          <div class="input-with-btn">
+                                            <input  placeholder="{{translate('Webhook API key')}}" id="webhook_api_key" value="{{$user->webhook_api_key}}" name="webhook_api_key"  type="text">
+                                              <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Generate API key')}}" type="button" class="key-generate" ><i class="bi bi-arrow-repeat"></i></button>
+                                          </div>
+                                     </div>
+                                  </div>
+                                  
+                                  <div class="col-lg-12">
+                                     <div class="form-inner">
+                                          <label for="webhookURL" class="form-label">
+                                            {{ translate('Webhook URL') }}
+                                          </label>
+
+                                          <div class="input-with-btn">
+                                            <input readonly id="webhookURL" value="{{route('webhook',['uid' => $user->uid])}}"  type="text">
+                                              <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Copy')}}" type="button" class="copy-text"data-text ="{{route('webhook',['uid' => $user->uid])}}" ><i class="bi bi-clipboard"></i></button>
+                                          </div>
+
+                          
+                                     </div>
+                                  </div>
+
+                                  <div class="col-lg-12">
+                                    <button class="i-btn btn--lg btn--primary capsuled" type="submit">
+                                         {{translate('Update')}}
+                                       <span><i class="bi bi-arrow-up-right"></i></span>
+                                    </button>
+                                  </div>
+                            </div>
+                      </form>
+                </div>
+
             </div>
           </div>
       </div>
