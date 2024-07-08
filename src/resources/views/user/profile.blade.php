@@ -72,12 +72,12 @@ $affiliateLogs = $user->affiliates;
                     </li>
 
                     @if(site_settings("affiliate_system") == App\Enums\StatusEnum::true->status())
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tab-affiliate" data-bs-toggle="tab"
-                            data-bs-target="#tab-affiliate-pane" type="button" role="tab"
-                            aria-controls="tab-affiliate-pane"
-                            aria-selected="false">{{translate("Affiliate Configuration")}}</button>
-                    </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-affiliate" data-bs-toggle="tab"
+                                data-bs-target="#tab-affiliate-pane" type="button" role="tab"
+                                aria-controls="tab-affiliate-pane"
+                                aria-selected="false">{{translate("Affiliate Configuration")}}</button>
+                        </li>
                     @endif
 
 
