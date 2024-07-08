@@ -4392,6 +4392,45 @@ aside.show-side-bar {
 }
 
 /* ======Social Account====== */
+
+
+.social-account-list-2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  border-bottom: 2px solid var(--border-two);
+  gap: 10px;
+}
+
+.social-account-list-2 li a {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 0px;
+  border: none;
+  padding: 0 0 5px 0;
+  opacity: 0.6;
+  text-align: center;
+  white-space: nowrap;
+}
+.social-account-list-2 li a span{
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.social-account-list-2 li a.active {
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--text-primary);
+  opacity: 1;
+}
+
+
+
+
+
 .social-account-list {
   width: 100%;
   display: flex;
