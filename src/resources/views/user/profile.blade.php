@@ -53,7 +53,7 @@ $affiliateLogs = $user->affiliates;
 <div class="i-card">
     <div class="plan-detail">
         <div class="container-fluid px-0">
-            <div class="i-card border">
+            <div>
                 <ul class="nav nav-tabs gap-lg-5 gap-3 style-2 mb-30" id="settingTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="tab-profile" data-bs-toggle="tab"
@@ -102,7 +102,7 @@ $affiliateLogs = $user->affiliates;
                 <div class="tab-content" id="settingTabContent">
                 <div class="tab-pane fade show active" id="tab-profile-pane" role="tabpanel"
                     aria-labelledby="tab-profile" tabindex="0">
-                    <div class="p-2">
+                    <div class="p-0">
                         <p>
                             {{translate('Keep your profile information up-to-date to ensure seamless communication and a personalized experience. Update your details below')}}
                         </p>
@@ -427,7 +427,7 @@ $affiliateLogs = $user->affiliates;
                 @if($package)
                     <div class="tab-pane fade" id="tab-subscription-pane" role="tabpanel" aria-labelledby="tab-subscription"
                         tabindex="0">
-                        <div class="current-plan-card mb-4 p-0">
+                        <div class="current-plan-card p-0">
                             <div class="row align-items-center gy-4">
                                 <div class="col-lg-8">
                                     <div class="row g-3">
