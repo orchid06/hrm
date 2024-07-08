@@ -11,7 +11,7 @@
 @endphp
 
 <section class="banner-section mb-110">
-  
+
   <div class="container-fluid px-0">
     <div class="banner-wrapper">
       <div class="row align-items-center gy-5">

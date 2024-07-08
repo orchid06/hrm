@@ -17,27 +17,26 @@
 
       <div class="faq-wrap">
           <div class="row gy-4">
-            @forelse($elements  as $element)
-              <div class="col-lg-6">
-                  <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button  {{$loop->index != 0  ? "collapsed" :""}}" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse-{{$loop->index}}" aria-expanded="true" aria-controls="collapse-{{$loop->index}}">
-                                    {{$element->value->question}}
-                                </button>
-                            </h2>
-                            <div id="collapse-{{$loop->index}}" class="accordion-collapse collapse {{$loop->index == 0  ? "show" :""}} "
-                                data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                  {{$element->value->answer}}
+                @forelse($elements  as $element)
+                <div class="col-lg-6">
+                    <div class="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button  {{$loop->index != 0  ? 'collapsed' : ''}}" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-{{$loop->index}}" aria-expanded="true" aria-controls="collapse-{{$loop->index}}">
+                                        {{$element->value->question}}
+                                    </button>
+                                </h2>
+                                <div id="collapse-{{$loop->index}}" class="accordion-collapse collapse {{$loop->index == 0  ? "show" :""}} "
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                    {{$element->value->answer}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-          
-                  </div>
-              </div>
-              @empty
+                    </div>
+                </div>
+                @empty
                   <div class="col-12">
                         @include("frontend.partials.not_found")
                   </div>
@@ -47,3 +46,6 @@
       </div>
   </div>
 </div>
+
+
+

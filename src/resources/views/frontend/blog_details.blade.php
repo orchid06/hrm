@@ -27,7 +27,7 @@
       <div class="col-lg-8 pe-lg-5">
           @php  echo @$blog->description @endphp
 
-          <div class="share-blog">
+          <div class="share-blog mt-5">
             <h6>Like what you see? Share with a friend.</h6>
               <div class="footer-social">
                 <ul>
