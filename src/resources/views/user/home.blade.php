@@ -37,7 +37,7 @@
                 <div class="i-card h-550">
                     <h4 class="card--title mb-4">Connected Social Accounts</h4>
                     <div class="row g-3">
-                        @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
+                    @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="i-card no-border p-0 border position-relative bg--light">
                                     <div class="shape-one">
@@ -76,25 +76,6 @@
                         @empty
 
                         @endforelse
-                        <div class="shape-two">
-                          <svg width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3006 64.8958L64.4805 64.9922L64.9908 0.510364L0.508992 1.7845e-05L0.412593 12.1799L35.5193 12.4578C45.016 12.533 52.6536 20.2924 52.5784 29.789L52.3006 64.8958Z" fill="white"/>
-                          </svg>
-                        </div>
-                        <span class="icon-image position-absolute top-0 end-0">
-                          <img src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{imageURL(@$platform->file,'platform',true)}}"/>
-                        </span>
-                        <div class="p-3">
-                          <h5 class="card--title-sm">
-                              {{$platform->name}}
-                          </h5>
-                        </div>
-                        <div class="p-3 border-top">
-                          <p class="card--title-sm mb-1">00</p>
-                          <p class="mb-3 fs-14">Total Posts</p>
-                          <a href="#" class="i-btn btn--sm btn--outline capsuled"><i class="ri-add-line"></i>Create post</a>
-                        </div>
-                      </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +123,7 @@
                 </div>
             </div>
             <div class="col-xxl-12 col-xl-12">
-                <div class="i-card h-550">
+                <div class="i-card h-550 overflow-x-hidden">
                     <div class="row align-items-center g-2 mb-4">
                         <div class="col-md-9">
                             <h4 class="card--title">
@@ -333,7 +314,7 @@
                 </div>
             </div>
         </div>
-   
+     </div>      
     <div class="col-auto right-side-col">
         <div class="swiper latest-post-slider">
             <div class="swiper-wrapper">
@@ -435,7 +416,7 @@
 
     </div>
 </div>
-</div>
+
 
 
 <div class="row g-4">
