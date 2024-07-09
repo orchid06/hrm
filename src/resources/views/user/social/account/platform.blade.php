@@ -32,7 +32,9 @@
                         </li>
                 @empty
                         <li class="text-center p-4">
-                             {{translate("You dont have any platform access")}}
+                             <div class="no--access">
+                               <P class="fs-20 text-danger">{{translate("You dont have any platform access")}}</P>
+                             </div>
                         </li>
                 @endforelse
             </ul>
