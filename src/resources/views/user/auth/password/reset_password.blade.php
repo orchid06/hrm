@@ -64,9 +64,6 @@
               </div>
 
 
-                @include("user.partials.auth_shape")
-
-
               <div class="glass-bg"></div>
             </div>
           </div>
