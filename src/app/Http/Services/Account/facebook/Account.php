@@ -121,8 +121,7 @@ class Account
             $api         = $baseApi."/".$apiVersion;
             $token       = $account->account_information->token;
             $insightData = [];
-
-            $fields = 'full_picture,type,caption,message,permalink_url,link,privacy,created_time,reactions';
+            $fields = 'id,full_picture,type,message,permalink_url,link,privacy,created_time,reactions.summary(true),comments.summary(true),shares';
             switch ($account->account_type) {
                 case AccountType::PROFILE->value:
 
@@ -172,11 +171,11 @@ class Account
                 ];
             }
 
-            return [
+            return( [
                 'status'        => true,
                 'response'      => $apiResponse,
                 'page_insights' => $insightData,
-            ];
+            ]);
 
 
         } catch (\Exception $ex) {
@@ -213,7 +212,7 @@ class Account
 
                 switch ($account->account_type) {
                     case AccountType::PROFILE->value:
-                        $api =   $api."/me/feed";
+                        $api    =   $api."/me/feed";
                         break;
                     case AccountType::PAGE->value:
                         $api    =  $api."/".$account->account_id."/feed";

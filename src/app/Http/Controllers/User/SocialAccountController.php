@@ -157,10 +157,10 @@ class SocialAccountController extends Controller
         ]);
         
         $account  = SocialAccount::with('platform')
-                    ->where('user_id',$this->user->id)
-                    ->where("id",request()->input("id"))
-                    ->where('subscription_id', @$this->subscription?->id)
-                    ->first();
+                                ->where('user_id',$this->user->id)
+                                ->where("id",request()->input("id"))
+                                ->where('subscription_id', @$this->subscription?->id)
+                                ->first();
 
         $response = response_status(translate('This account doesnot belongs to your current subscription'),'error');
 
@@ -199,10 +199,7 @@ class SocialAccountController extends Controller
 
         $response = $service->accountDetails($account);
 
-        @dd(  $response );
-
         if(@!$response['status']) return redirect()->route('user.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);
-
 
         return view('user.social.account.show',[
 

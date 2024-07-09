@@ -79,25 +79,13 @@
                         </div>
                     </li>
 
-                    <li class="sidemenu-item">
-                        <a href="{{route('user.ai.content.list')}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? 'active' :''}}">
-                            <div class="sidemenu-icon">
-                                <i class="bi bi-robot"></i>
-                            </div>
-
-                            <span>
-                                {{translate("AI Contents")}}
-                            </span>
-                        </a>
-                    </li>
-
 
 
                     <li class="sidemenu-item">
                         <a href="javascript:void(0)" class="sidemenu-link
-                        @if(request()->routeIs('user.social.account.*'))
-                            active
-                        @endif">
+                            @if(request()->routeIs('user.social.account.*'))
+                                active
+                            @endif">
                         <div
                             class="sidemenu-icon">
                             <i class="bi bi-person-gear"></i>
@@ -115,7 +103,7 @@
                             <ul class="sub-menu">
 
                                 <li class="sub-menu-item">
-                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.account.list') ? 'active' :''}}" href="{{route('user.social.account.list')}}">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.account.list') || request()->routeIs('user.social.account.show') || request()->routeIs('user.social.account.create')   ? 'active' :''}}" href="{{route('user.social.account.list')}}">
                                         <span>
                                             <i class="bi bi-person-lines-fill"></i>
                                         </span>
@@ -137,6 +125,18 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+
+                    <li class="sidemenu-item">
+                        <a href="{{route('user.ai.content.list')}}" class="sidemenu-link  {{request()->routeIs('user.ai.content.*') ? 'active' :''}}">
+                            <div class="sidemenu-icon">
+                                <i class="bi bi-robot"></i>
+                            </div>
+
+                            <span>
+                                {{translate("AI Contents")}}
+                            </span>
+                        </a>
                     </li>
 
                  
