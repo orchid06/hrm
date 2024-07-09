@@ -424,7 +424,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="social-preview-body instagram">
                                         <div class="social-auth">
                                             <div class="profile-img">
@@ -475,6 +474,126 @@
 
                                                 <div class="caption-action-item">
                                                     <i class="fa-regular fa-paper-plane"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="social-preview-body twitter">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="social-preview-body linkedin">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-message"></i>
+                                                    <span>
+                                                        Comment
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                    <span>Repost</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-paper-plane"></i>
+                                                    <span>
+                                                        Send
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1207,7 +1326,6 @@
                         {{translate("Close")}}
                     </button>
                 </div>
-
         </div>
     </div>
 </div>
@@ -1217,10 +1335,9 @@
 @push('script-include')
      @include('partials.ai_content_script');
     <script src="{{asset('assets/global/js/post.js')}}"></script>
-     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
-
 @endpush
 
 
@@ -1301,10 +1418,10 @@
         //     enableTime: true,
         // });
 
-        flatpickr("#time_post", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#time_post", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
         // flatpickr("#repost", {
         //     dateFormat: "Y-m-d H:i",
