@@ -4536,7 +4536,7 @@ aside.show-side-bar {
 }
 
 .post-detail-list .post-detail-img {
-  max-width: 120px;
+  max-width: 90px;
 }
 
 @media (max-width: 767px) {

@@ -1290,5 +1290,17 @@ use Illuminate\Database\Eloquent\Collection;
       }
    }
 
+
+   if (!function_exists('isValidImageUrl')){
+      function isValidImageUrl($url)
+      {
+         $headers = @get_headers($url);
+         if (!$headers)  return false;
+
+         $status = substr($headers[0], 9, 3);
+
+         return ($status == "200");
+      }
+   }
    
 

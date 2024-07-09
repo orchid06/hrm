@@ -10,15 +10,18 @@
             }
       @endphp
 
-    <div class="i-card-md mt-4 position-relative" id="ai-form">
+    <div class="i-card-md mt-4 position-relative @if(@$modal) border-0 @endif  " id="ai-form">
 
         @include('admin.partials.card_loader')
 
-        <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
-            <h4 class="card-title">
-                 {{translate("Generate Content")}}
-            </h4>
-        </div>
+        @if(!@$modal)
+            <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
+                <h4 class="card-title">
+                    {{translate("Generate Content")}}
+                </h4>
+            </div>
+        @endif
+
         <div class="card-body">
             <form data-route="{{$generateRoute}}" class="ai-content-form" >
                 @csrf
@@ -59,7 +62,7 @@
                     <div class="col-lg-6">
                         <div class="form-inner">
                             <label for="templates">
-                                 {{translate("Templates")}}
+                                {{translate("Templates")}}
                             </label>
                             <select name="id" class="selectTemplate" id="templates">
 
@@ -69,7 +72,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                           <div class="form-inner">
+                        <div class="form-inner">
                                 <label for="language">
                                     {{translate('Select input & output language')}} <small class="text-danger">*</small>
                                 </label>
@@ -81,7 +84,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                           </div>
+                        </div>
                     </div>
                 </div>
 
@@ -124,7 +127,7 @@
 
                                                 <div class="form-inner">
                                                     <label for="ai_creativity" class="form-label">{{ translate('AI Creativity Level') }}
-                                                   </label>
+                                                </label>
                                                     <select class="select2" id="ai_creativity" name="ai_creativity" >
                                                         <option  value="">
                                                             {{translate("Select Creativity")}}
@@ -158,80 +161,112 @@
 
                     </div>
 
-                   <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
+                <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
                         <button type="submit" class="{{request()->routeIs('user.*') ? ' ai-btn i-btn btn--lg btn--primary capsuled' : 'ai-btn i-btn btn--primary btn--lg' }}">
                             {{translate("Generate")}}
 
                             @if(request()->routeIs('user.*'))
-                               <span><i class="bi bi-arrow-up-right"></i></span>
+                            <span><i class="bi bi-arrow-up-right"></i></span>
                             @endif
                         </button>
-                   </div>
+                </div>
 
                 </div>
             </form>
         </div>
+  
 
     </div>
 
-    <div class="i-card-md mt-4 d-none ai-content-div">
-        <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
-            <h4 class="card-title">
-                {{translate("Content")}}
-            </h4>
-        </div>
 
-        <div class="card-body">
-            <div class="row">
+    @if(!@$modal)
+        <div class="i-card-md mt-4 d-none ai-content-div">
+            <div class="{{request()->routeIs('user.*') ? 'card-header' :'card--header' }}">
+                <h4 class="card-title">
+                    {{translate("Content")}}
+                </h4>
+            </div>
 
-                <div class="col-lg-12 d-flex justify-content-end">
-                    @if(request()->routeIs('admin.*'))
-                        <div class="action">
-                            <a href="{{route("admin.content.list")}}"    class="i-btn btn--sm success">
-                                <i class="las la-arrow-left me-1"></i>  {{translate('Back')}}
-                            </a>
-                        </div>
-                    @else
-                            <a   href="{{route('user.ai.content.list')}}" class="i-btn primary btn--sm capsuled">
-                                <i class="bi bi-arrow-left"></i>
-                                {{translate('Back')}}
-                            </a>
-                    @endif
-                </div>
+            <div class="card-body">
+                <div class="row">
 
-
-
-                <form action="{{$content_route}}" class="content-form" enctype="multipart/form-data" method="post">
-                    @csrf
-                   <div class="col-lg-12">
-                        <div class="form-inner">
-                            <label for="Name">
-                                {{translate('Name')}} <small class="text-danger">*</small>
-                            </label>
-                            <input placeholder="Enter name" id="Name" required="" type="text" name="name" value="">
-                        </div>
+                    <div class="col-lg-12 d-flex justify-content-end">
+                        @if(request()->routeIs('admin.*'))
+                            <div class="action">
+                                <a href="{{route("admin.content.list")}}"    class="i-btn btn--sm success">
+                                    <i class="las la-arrow-left me-1"></i>  {{translate('Back')}}
+                                </a>
+                            </div>
+                        @else
+                                <a   href="{{route('user.ai.content.list')}}" class="i-btn primary btn--sm capsuled">
+                                    <i class="bi bi-arrow-left"></i>
+                                    {{translate('Back')}}
+                                </a>
+                        @endif
                     </div>
 
+
+                    <form action="{{$content_route}}" class="content-form" enctype="multipart/form-data" method="post">
+                        @csrf
                     <div class="col-lg-12">
-                        <div class="form-inner">
-                            <label for="content">
-                                {{translate("Content")}} <small class="text-danger">*</small>
-                            </label>
-                            <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
+                            <div class="form-inner">
+                                <label for="Name">
+                                    {{translate('Name')}} <small class="text-danger">*</small>
+                                </label>
+                                <input placeholder="Enter name" id="Name" required="" type="text" name="name" value="">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12">
-                        <button type="submit" class=" {{request()->routeIs('user.*') ? 'i-btn btn--lg btn--primary capsuled' : 'i-btn btn--md btn--primary'}}  " data-anim="ripple">
-                                {{translate("Save")}}
-                                @if(request()->routeIs('user.*'))
-                                     <span><i class="bi bi-arrow-up-right"></i></span>
-                                @endif
-                        </button>
-                    </div>
-                </form>
+                        <div class="col-lg-12">
+                            <div class="form-inner">
+                                <label for="content">
+                                    {{translate("Content")}} <small class="text-danger">*</small>
+                                </label>
+                                <textarea placeholder="Enter Your Content" name="content" id="content" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class=" {{request()->routeIs('user.*') ? 'i-btn btn--lg btn--primary capsuled' : 'i-btn btn--md btn--primary'}}  " data-anim="ripple">
+                                    {{translate("Save")}}
+                                    @if(request()->routeIs('user.*'))
+                                        <span><i class="bi bi-arrow-up-right"></i></span>
+                                    @endif
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @else
+
+        <div class="i-card-md d-none ai-content-div">
+            <div class="card-body">
+                <div class="content-form">
+                    <div class="form-inner">
+                        <div class="d-flex gap-2 align-items-center mb-3">
+
+                            <label for="content" class="mb-0">
+                                {{translate("Content")}} <small class="text-danger">*</small>
+                            </label>
+                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}"
+                                class="icon-btn icon-btn-sm success copy-content">
+                                <i class="bi bi-clipboard-check"></i>
+                            </button>
+
+                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}"
+                                class="icon-btn icon-btn-sm info download-text">
+                                <i class="bi bi-download"></i>
+                            </button>
+                        </div>
+
+                        <textarea placeholder="Enter Your Content" name="content" id="content" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    @endif
+
 
 </div>
