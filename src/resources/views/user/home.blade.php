@@ -30,7 +30,7 @@
     <i class="bi bi-activity"></i>
 </button>
 
-<div class="row g-4 mb-4">
+<div class="row g-4">
     <div class="col">
         <div class="row g-4">
             <div class="col-xxl-5 col-xl-5">
