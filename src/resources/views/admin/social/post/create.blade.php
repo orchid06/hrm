@@ -1008,20 +1008,20 @@
             document.body.removeChild(link);
         });
 
-        // flatpickr("#schedule_date", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
+        flatpickr("#schedule_date", {
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+        });
 
-        // flatpickr("#time_post", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
+        flatpickr("#time_post", {
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+        });
 
-        // flatpickr("#repost", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
+        flatpickr("#repost", {
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+        });
 
         // Choose Profiles
         $(document).on('click','.check_account',function(e) {
