@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mt-5 compose-wrapper">
-    <form action="">
+    <form action="" class="compose-form">
         <div class="row gy-4">
             <div class="col-xxl-8">
                 <div class="i-card-md">
@@ -173,8 +173,7 @@
                                                                 <input id="media-file" multiple type="file"
                                                                     name="files[]">
                                                                 <label for="media-file">
-                                                                    <span
-                                                                        class="d-flex align-items-center flex-row gap-2">
+                                                                    <span class="d-flex align-items-center flex-row gap-2">
                                                                         <span class="upload-drop-file">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                 version="1.1"
@@ -354,7 +353,7 @@
 
 
             <div class="col-xxl-4 col-xl-6 col-md-6">
-                <div class="i-card-md social-preview-user">
+                <div class="i-card-md social-preview-admin">
                     <div class="card--header">
                         <h4 class="card-title">
                             {{translate("Network Preview")}}
@@ -1008,20 +1007,20 @@
             document.body.removeChild(link);
         });
 
-        flatpickr("#schedule_date", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#schedule_date", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
-        flatpickr("#time_post", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#time_post", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
-        flatpickr("#repost", {
-            dateFormat: "Y-m-d H:i",
-            enableTime: true,
-        });
+        // flatpickr("#repost", {
+        //     dateFormat: "Y-m-d H:i",
+        //     enableTime: true,
+        // });
 
         // Choose Profiles
         $(document).on('click','.check_account',function(e) {
@@ -1071,7 +1070,7 @@
         });
 
    var swiper = new Swiper(".social-btn-slider", {
-      slidesPerView: 4,
+      slidesPerView: 3,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -1082,19 +1081,19 @@
       },
       breakpoints: {
         640: {
-          slidesPerView: 4,
+          slidesPerView: 3,
         },
         768: {
-          slidesPerView: 4,
+          slidesPerView: 3,
         },
         1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
         },
       },
     });
 
     var swiper = new Swiper(".choose-profile-slider", {
-      slidesPerView: 4,
+      slidesPerView: 3,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -1105,13 +1104,13 @@
       },
       breakpoints: {
         640: {
-          slidesPerView: 4,
+          slidesPerView: 3,
         },
         768: {
-          slidesPerView: 4,
+          slidesPerView: 3,
         },
         1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
         },
       },
     });

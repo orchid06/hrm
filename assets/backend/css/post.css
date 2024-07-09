@@ -13,10 +13,8 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
 .compose-form .caption-wrapper .compose-body-bottom {
-  padding: 10px 20px;
-  background: var(--site-bg);
-  border-radius: 0 0 4px 4px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,8 +24,40 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-two);
+  width: 100%;
+  max-height: 330px;
+  overflow-y: auto;
 }
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar {
+  width: 8px;
+}
+
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+  border-left: 1px solid var(--color-primary-soft);
+}
+
+.compose-form .caption-wrapper .compose-body-bottom::-webkit-scrollbar-thumb {
+  background-color: var(--border-light-two);
+  border-radius: 10px;
+}
+
 .compose-form .caption-wrapper .compose-body-bottom .caption-action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 15px;
+  line-height: 1.1;
+}
+ .caption-action {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -54,9 +84,9 @@
   align-items: center;
   gap: 10px;
   font-size: 16px;
-  padding: 10px 15px;
+  padding: 8px 13px;
   border-radius: 12px;
-  border: 1px solid var(--border-two) !important;
+  border: 1px solid var(--border-two);
 }
 .compose-form
   .caption-wrapper
@@ -64,7 +94,7 @@
   .caption-action
   .action-item:hover
   p {
-  color: var(--color-white);
+  color: var(--color-primary);
 }
 .compose-form
   .caption-wrapper
@@ -219,6 +249,12 @@
 /* ==============================================================
                      Post Previewer List
 ================================================================= */
+.social-preview-admin {
+  height: auto;
+  max-height: 725px;
+  overflow-y: auto;
+}
+
 .pre-tab-list .nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -828,35 +864,17 @@
   display: none;
   visibility: hidden;
 }
-.upload-filed > label {
-  position: relative;
-  border: 1px dashed var(--color-primary);
-  background: var(--color-primary-light);
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  margin-bottom: 0;
-}
+
 .upload-filed .upload-drop-file {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 0 60px;
-  flex: 1 0 60px;
-  width: 60px;
-  height: 60px;
+  width: 20px;
+  height: 20px;
 }
 .upload-filed .upload-drop-file > svg {
   width: 100%;
   height: 100%;
+}
+.upload-filed .upload-drop-file span {
+  display: inline-block;
 }
 .upload-filed .upload-drop-file > svg .color1 {
   stop-color: var(--color-secondary);
