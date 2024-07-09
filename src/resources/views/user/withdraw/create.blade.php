@@ -84,7 +84,7 @@
                                    
                                 </div>
                     
-                                    <div class="payment-details-wrapper">
+                                    <div class="payment-details-wrapper p-3">
                                         <div class="p-3 mb-4 bg-danger-soft rounded-2 d-none payment-note-section">
                                         
                                         </div>

@@ -16,7 +16,7 @@
         <div class="i-card mb-4 border">
             <ul class="social-account-list-2">
                 <li>
-                        <a><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Facebook</a>
+                        <a class="active"><span><img src="https://i.ibb.co/NLk868y/facebook.png" alt="facebook"></span>Facebook</a>
                 </li>
                 <li>
                       <a ><span><img src="https://i.ibb.co/QJ7MCHY/instagram.png" alt="instagram"></span>Instagram</a>

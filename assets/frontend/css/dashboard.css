@@ -384,16 +384,31 @@ body {
 .avatar-lg {
   height: 50px;
   width: 50px;
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .avatar-xl {
   height: 60px;
   width: 60px;
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .avatar-xxl {
   height: 75px;
   width: 75px;
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .avatar-100 {
@@ -4398,9 +4413,9 @@ aside.show-side-bar {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 25px;
   border-bottom: 2px solid var(--border-two);
-  gap: 10px;
+  padding-bottom: 10px;
 }
 
 .social-account-list-2 li a {
@@ -4409,8 +4424,8 @@ aside.show-side-bar {
   font-weight: 500;
   border-radius: 0px;
   border: none;
-  padding: 0 0 5px 0;
-  opacity: 0.6;
+  padding: 0 0 13px 0;
+  opacity: 0.7;
   text-align: center;
   white-space: nowrap;
 }
@@ -4588,7 +4603,7 @@ aside.show-side-bar {
 }
 
 .share-card {
-  height: 285px !important;
+  height: 245px !important;
   overflow-y: auto;
   padding: 25px;
 }
@@ -6565,7 +6580,7 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   margin-bottom: 50px;
 }
 .plan-detail-card .plan-detail-body > ul li {

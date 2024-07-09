@@ -10,15 +10,15 @@
 @endphp
 
 <div class="row">
-    <div class="col-xl-8 col-lg-10 mx-auto">
+    <div class="col-xl-9 col-lg-10 mx-auto">
       <div class="i-card-md">
         <div class="card-body">
           <div class="manual-pay-card">
             <div class="manual-pay-top text-lg-center mb-4">
-              <h2>{{translate('Please follow the instruction below')}}</h2>
+              <h3>{{translate('Please follow the instruction below')}}</h3>
             </div>
 
-            <form action="{{route('user.withdraw.request.submit')}}" method="post" class="mt-5" enctype="multipart/form-data">
+            <form action="{{route('user.withdraw.request.submit')}}" method="post" enctype="multipart/form-data">
 
                 @csrf
               <input type="hidden" name="amount" value="{{($amount)}}">
@@ -27,14 +27,14 @@
 
                 <div class="col-12">
 
-                  <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-lg-4 gap-3">
-                      <div class="avatar-100 profile-picture">
+                  <div class="d-flex flex-column align-items-center justify-content-start gap-2">
+                      <div class="avatar-xl profile-picture">
                           <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name."jpg"}}" class="rounded-50">
                       </div>
                       <div class="text-start">
-                          <h4>
+                          <h5>
                               {{@$method->name}}
-                          </h4>
+                          </h5>
                         
                       </div>
                   </div>
@@ -42,18 +42,15 @@
                 </div>
     
                 <div class="col-12">
-                  <div class="p-4  bg-danger-soft">
+                  <div class="p-3  bg-danger-soft">
                       <p><span class="i-badge-solid danger me-2">{{translate("note")}}  :</span>
                           {{@$method->note}}
                       </p>
                   </div>
                </div>
-
-
-
                 <div class="col-12">
                     <ul class="payment-details list-group">
-                        <li class="list-group-item active" aria-current="true">
+                        <li class="list-group-item" aria-current="true">
                             <h5>
                                 {{translate("Withdraw Details")}}
                             </h5>
@@ -122,7 +119,7 @@
                 @if(optional($method)->parameters)
                     @foreach(optional($method)->parameters as $k => $v)
                          @if($v->type == "text" || $v->type == "password"  )
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-inner mb-0">
                                     <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
                                     <input value="{{old($k)}}" id="{{$k}}" placeholder="{{k2t($k)}}" type="{{$v->type}}" name="{{$k}}"   @if($v->validation == "required") required @endif>
@@ -139,7 +136,7 @@
                             </div>
 
                         @elseif($v->type == "file")
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-inner mb-0">
                                     <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
 

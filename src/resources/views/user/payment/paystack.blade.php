@@ -3,17 +3,15 @@
 
 
     <div class="row justify-content-center">
-        <div class="col-xl-6 col-lg-8 col-md-10">
+        <div class="col-xl-8 col-lg-8 col-md-10">
             <div class="i-card-md ">
                 <div class="card-header">
-                    
-                    <div class="image">
-                        <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name."jpg"}}" >
+                    <div class="d-flex justify-content-start align-items-center gap-4">
+                        <div class="image avatar-md">
+                            <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name."jpg"}}" >
+                        </div>
+                        <h4 class="card-title">{{@$log->method->name}}</h4>
                     </div>
-                    <h4 class="card-title">
-                        {{@$log->method->name}}
-                   </h4>
-
                 </div>
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -36,7 +34,7 @@
                                 </li>
                             </ul>
 
-                            <button type="button" class="i-btn btn--lg btn--primary w-100 mt-4" id="btn-confirm">
+                            <button type="button" class="i-btn btn--lg btn--primary mt-4 capsuled" id="btn-confirm">
                                 {{translate("Pay Now")}}
                             </button>
 

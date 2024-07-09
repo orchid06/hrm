@@ -1167,7 +1167,7 @@
 }
 
 .profile-picture img{
-  border: 3px solid var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .file-input{
