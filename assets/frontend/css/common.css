@@ -107,6 +107,7 @@
   width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
+  border-radius: 5px;
 }
 
 .i-btn.capsuled {

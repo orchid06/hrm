@@ -52,7 +52,9 @@
                         </span>
                         </a>
 
-                        <div class="side-menu-dropdown">
+                        <div class="side-menu-dropdown n @if(request()->routeIs('user.social.post.*'))
+                                    show-sideMenu
+                                @endif ">
                             <ul class="sub-menu">
                                 <li class="sub-menu-item">
                                     <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">

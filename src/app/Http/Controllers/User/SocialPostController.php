@@ -23,6 +23,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Traits\AccountManager;
 use App\Traits\PostManager;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -93,10 +94,25 @@ class SocialPostController extends Controller
     public function create() :View{
 
         $accounts = SocialAccount::where('user_id',$this->user->id)->with(['platform'])
-                     ->where('subscription_id', @$this->subscription?->id)
-                     ->active()
-                     ->connected()
-                     ->get();
+                                    ->where('subscription_id', @$this->subscription?->id)
+                                    ->active()
+                                    ->connected()
+                                    ->get();
+
+
+        $platforms = MediaPlatform::with(['file' ,'accounts' => fn($q):HasMany => 
+                         $q->where('user_id',$this->user->id)
+                                    ->where('subscription_id', @$this->subscription?->id)
+                                    ->active()
+                                    ->connected()
+                    ])
+                    ->whereIn('id',(array)$this->accessPlatforms)
+                    ->integrated()
+                    ->active()
+                    ->get();
+
+
+
 
         $accessCategories = (array)@$this->templates->pluck('category_id')->unique()->toArray();
 
@@ -105,16 +121,13 @@ class SocialPostController extends Controller
 
             'meta_data'       => $this->metaData(['title'=> translate("Create Post")]),
             'accounts'        => $accounts,
+            'platforms'       => $platforms,
             'contents'        => Content::where("user_id",$this->user->id)->get(),
             'categories'      => Category::template()
                                        ->doesntHave('parent')
                                        ->whereIn('id',$accessCategories)
                                        ->get(),
-            'platforms'       => MediaPlatform::with(['file'])
-                                    ->whereIn('id',(array)$this->accessPlatforms)
-                                    ->integrated()
-                                    ->active()
-                                    ->get(),
+                                       
 
         ]);
     }
@@ -127,6 +140,7 @@ class SocialPostController extends Controller
      */
     public function store(SocialPostRequest $request) :RedirectResponse{
         
+
         $status   = false ;
         $message  = translate("Unable to create a new post: Insufficient subscription balance. Please recharge to proceed with the post creation process. Thank you");
         $schedule = false;
@@ -145,9 +159,7 @@ class SocialPostController extends Controller
 
 
     public function checkRemainingPost() :bool{
-        if($this->remainingPost == PlanDuration::value('UNLIMITED') ||  $this->remainingPost > 0 ){
-            return true ;
-        }
+        if($this->remainingPost == PlanDuration::value('UNLIMITED') ||  $this->remainingPost > 0 ) return true ;
         return false;
 
     }

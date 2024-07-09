@@ -79,9 +79,13 @@ class HomeController extends Controller
                                         ->get()
         ];
 
+
+        $data['latest_post']  = SocialPost::with(['file','account','account.platform'])
+                                            ->where('user_id', $this->user->id)
+                                            ->latest()
+                                            ->take(10)
+                                            ->get();
         
-
-
 
         
         $data['latest_activities']           =  CreditLog::with(['user'])
