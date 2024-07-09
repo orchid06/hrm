@@ -316,68 +316,66 @@
         </div>
      </div>      
     <div class="col-auto right-side-col">
+        
+        <h4 class="card--title mb-20">
+             {{translate('Latest Post')}}
+        </h4>
+
+        @php
+            $latestPost = Arr::get($data,'latest_post',collect([]));
+        @endphp
+
         <div class="swiper latest-post-slider">
+
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="i-card shadow-one mb-4 pb-5">
-                        <h4 class="card--title mb-20">Latest Post</h4>
-                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
-                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
-                        <div class="d-flex mb-1">
-                            <a href="#">#miami</a>
-                            <a href="#">#holiday</a>
+                @foreach ($latestPost as $post )
+                    <div class="swiper-slide">
+                        <div class="i-card shadow-one mb-4 pb-5">
+
+                            @if($post->file->count() > 0)
+                                @php
+                                    $imgURL = $post->file->count() > 0 
+                                                    ? imageURL($post->file->first(),"post",true)
+                                                    : get_default_img();
+                                @endphp
+                                <img src="{{ $imgURL}}" class="radius-8 mb-3" alt="post.jpg">
+                            @endif
+                            @if($post->content)
+                                <h6 class="card--title-sm mb-1">
+                                     {{$post->content}}
+                                </h6>
+                            @endif
+                            @if($post->link)
+                                  <a target="_blank" href="{{$post->link}}">
+                                     {{translate('Link')}}
+                                  </a>
+                            @endif
+                            <div class="d-flex mb-1">
+                                @if(@$post->account->account_information->link)
+                                    <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Account name')}}"  target="_blank" href="{{@$post->account->account_information->link}}">
+                                        #{{ @$post->account->account_information->name}}
+                                    </a>
+                                @else
+                                    {{ @$post->account->account_information->name}}
+                                @endif
+
+                                @if(@$post->account->platform)
+                                   <a href="{{route('user.social.account.list',['platform' => $platform->slug])}}"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Platform')}}">
+                                        #{{@$post->account->platform->name}}
+                                   </a>
+                                @endif
+                            </div>
+                            <div class="date mb-3">
+                                <span class="fs-15 text--light">{{get_date_time($post->created_at,"F j, Y")}}</span> <span class="fs-15 text--light">{{get_date_time($post->created_at,"g a")}}</span>
+                            </div>
+                    
+                            <a href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="i-btn btn--primary btn--lg capsuled w-100">
+                                 {{translate('View Post')}}
+                            </a>
                         </div>
-                        <div class="date mb-3">
-                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
-                                PM</span>
-                        </div>
-                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
-                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
-                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
-                        </ul>
-                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="i-card shadow-one mb-4 pb-5">
-                        <h4 class="card--title mb-20">Latest Post</h4>
-                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
-                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
-                        <div class="d-flex mb-1">
-                            <a href="#">#miami</a>
-                            <a href="#">#holiday</a>
-                        </div>
-                        <div class="date mb-3">
-                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
-                                PM</span>
-                        </div>
-                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
-                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
-                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
-                        </ul>
-                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="i-card shadow-one mb-4 pb-5">
-                        <h4 class="card--title mb-20">Latest Post</h4>
-                        <img src="https://i.ibb.co/j3VTprj/blog.jpg" class="radius-8 mb-3" alt="blog">
-                        <h6 class="card--title-sm mb-1">Important things on holiday</h6>
-                        <div class="d-flex mb-1">
-                            <a href="#">#miami</a>
-                            <a href="#">#holiday</a>
-                        </div>
-                        <div class="date mb-3">
-                            <span class="fs-15 text--light">February 1, 2024</span> <span class="fs-15 text--light">8:85
-                                PM</span>
-                        </div>
-                        <ul class="meta-list d-flex gap-4 text-dark mb-4">
-                            <li class="fs-15"><i class="ri-heart-3-line me-1"></i>3k likes</li>
-                            <li class="fs-15"><i class="ri-eye-line me-1"></i>10k views</li>
-                        </ul>
-                        <a href="#" class="i-btn btn--primary btn--lg capsuled w-100">View Post</a>
-                    </div>
-                </div>
+                @endforeach
+               
             </div>
             <div class="latest-post-pagination"></div>
         </div>
@@ -443,39 +441,8 @@
 
     </div>
 
-    <div class="col-xxl-4 col-md-6">
-        <div class="i-card-md card-height-100">
-            <div class="card-header">
-                <h4 class="card-title">
-                    {{translate("Connected Account")}}
-                </h4>
-                <div>
-                    <a href="{{route('user.social.account.list')}}" class="i-btn info btn--sm capsuled">
-                        {{translate('See all')}}
-                    </a>
-                </div>
-            </div>
 
-            <div class="card-body">
-                <ul class="channel-list">
 
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xxl-8">
-        <div class="i-card-md card-height-100">
-            <div class="card-header">
-                <h4 class="card-title">
-                    {{translate("Social Post")}}
-                </h4>
-            </div>
-            <div class="card-body">
-
-            </div>
-        </div>
-    </div>
 
     <div class="col-xxl-4">
         <div class="i-card-md card-height-100">
@@ -513,8 +480,7 @@
             <div class="card-body px-0">
                 <div class="table-accordion">
                     @php
-                    $reports = Arr::get($data,'latest_transactiions',null);
-
+                       $reports = Arr::get($data,'latest_transactiions',null);
                     @endphp
                     @if($reports && $reports->count() > 0)
                     <div class="accordion" id="wordReports">

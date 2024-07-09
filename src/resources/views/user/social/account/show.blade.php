@@ -28,7 +28,7 @@
                                     <div class="social-auth">
                 
                                             <div class="profile-img">
-                                                <img src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
+                                                <img onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
                                             </div>
         
                                             <div class="profile-meta">

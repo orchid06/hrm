@@ -25,7 +25,7 @@
                                         <div class="user-meta-info d-flex align-items-center gap-2">
                                             <div class="image">
                                       
-                                                <img src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
+                                                <img onerror="this.onerror=null;this.src='{{ route('default.image', '400x400') }}';" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
                                             </div>
                                             <div class="content">
                                                 @if(@$account->account_information->link)

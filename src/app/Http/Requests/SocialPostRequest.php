@@ -26,6 +26,9 @@ class SocialPostRequest extends FormRequest
     public function rules(): array
     {
 
+        request()->merge([
+            'account_id' => array_unique(request()->input('account_id',[]))
+        ]);
 
         $rules = [  
 
