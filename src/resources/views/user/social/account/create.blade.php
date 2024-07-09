@@ -14,13 +14,10 @@
        $platforms           = Arr::get(config('settings'),'platforms' ,[]);
        $platformConfig      = Arr::get($platforms,$platform->slug ,null);
 
-       if(isset($platformConfig['unofficial'])){
-           Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
-       }
+       if(isset($platformConfig['unofficial'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
 
-       if(isset($platformConfig['official'])){
-           Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
-       }
+       if(isset($platformConfig['official'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
+       
        $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
 
     @endphp

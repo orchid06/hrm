@@ -292,7 +292,7 @@ class ReportController extends Controller
 
         return view('user.report.kyc_report',[
 
-            'meta_data'       => $this->metaData(['title'=> translate("Kyc Reports")]),
+            'meta_data'       => $this->metaData(['title'=> translate("KYC Reports")]),
             "reports"         => KycLog::with(['user','file'])
                                     ->where('user_id',$this->user->id)
                                     ->search(['notes'])

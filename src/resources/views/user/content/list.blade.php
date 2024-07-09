@@ -23,65 +23,99 @@
                 <h4 class="card-title">
                     {{translate(Arr::get($meta_data,'title'))}}
                 </h4>
+
+                <div class="d-flex justify-content-end align-items-end gap-2">
+
+                    <button class="icon-btn icon-btn-lg info circle" type="button" data-bs-toggle="collapse" data-bs-target="#tableFilter" aria-expanded="false"
+                        aria-controls="tableFilter">
+                        <i class="bi bi-sliders"></i>
+                    </button>
+               </div>
           </div>
-          <div class="card-body px-0">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                #
-                            </th>
-                            <th scope="col">{{translate('Name')}}</th>
-                            <th scope="col">{{translate('Status')}}</th>
-                            <th scope="col">{{translate('Action')}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($contents as $content)
+
+            <div class="collapse" id="tableFilter">
+                <div class="collapse" id="tableFilter">
+                    <div class="search-action-area mb-4">
+                            <div class="search-area">
+                                    <form action="{{ route(Route::currentRouteName()) }}" method="get">
+                                        
+                                        <div class="form-inner">
+                                            <input placeholder="{{translate('Search by name')}}" type="search" name="search" 
+                                            value="{{request()->input('search')}}">
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <button class="i-btn primary btn--lg capsuled">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                            <a href="{{ route(Route::currentRouteName())}}" class="i-btn danger btn--lg capsuled">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </a>
+                                        </div>
+                                    </form>
+                            </div>
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="card-body px-0">
+                <div class="table-container">
+                    <table>
+                        <thead>
                             <tr>
-                                <td data-label="#">
-                                    {{$loop->iteration}}
-                                </td>
-                                <td data-label='{{translate("name")}}'>
-                                    {{$content->name}}
-                                </td>
-                                <td data-label='{{translate("Status")}}'>
-                                    <div class="form-check form-switch switch-center">
-                                        <input  type="checkbox" class="status-update form-check-input"
-                                            data-column="status"
-                                            data-route="{{ route('user.ai.content.update.status') }}"
-                                            data-status="{{ $content->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                            data-id="{{$content->uid}}" {{$content->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-{{$content->id}}" >
-                                        <label class="form-check-label" for="status-switch-{{$content->id}}"></label>
-                                    </div>
-                                </td>
-                                <td data-label='{{translate("Action")}}'>
-                                    <div class="table-action">
-                                      
-                                        <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}" href="javascript:void(0);" data-content ="{{$content}}"
-                                            class="icon-btn icon-btn-sm info update">
-                                            <i class="bi bi-pen"></i>
-                                        </a>
-                                        <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('user.ai.content.destroy',$content->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
-                                            class="icon-btn icon-btn-sm danger delete-item">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <th scope="col">
+                                    #
+                                </th>
+                                <th scope="col">{{translate('Name')}}</th>
+                                <th scope="col">{{translate('Status')}}</th>
+                                <th scope="col">{{translate('Action')}}</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="90">
-                                    @include('admin.partials.not_found')
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($contents as $content)
+                                <tr>
+                                    <td data-label="#">
+                                        {{$loop->iteration}}
+                                    </td>
+                                    <td data-label='{{translate("name")}}'>
+                                        {{$content->name}}
+                                    </td>
+                                    <td data-label='{{translate("Status")}}'>
+                                        <div class="form-check form-switch switch-center">
+                                            <input  type="checkbox" class="status-update form-check-input"
+                                                data-column="status"
+                                                data-route="{{ route('user.ai.content.update.status') }}"
+                                                data-status="{{ $content->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                data-id="{{$content->uid}}" {{$content->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                            id="status-switch-{{$content->id}}" >
+                                            <label class="form-check-label" for="status-switch-{{$content->id}}"></label>
+                                        </div>
+                                    </td>
+                                    <td data-label='{{translate("Action")}}'>
+                                        <div class="table-action">
+                                        
+                                            <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}" href="javascript:void(0);" data-content ="{{$content}}"
+                                                class="icon-btn icon-btn-sm info update">
+                                                <i class="bi bi-pen"></i>
+                                            </a>
+                                            <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('user.ai.content.destroy',$content->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
+                                                class="icon-btn icon-btn-sm danger delete-item">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="border-bottom-0" colspan="90">
+                                        @include('admin.partials.not_found')
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
         </div>
         <div class="Paginations">
             {{ $contents->links() }}
@@ -92,59 +126,59 @@
 
 @section('modal')
 
-@include('modal.delete_modal')
+    @include('modal.delete_modal')
 
-<div class="modal fade" id="content-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="content-form"   aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
-        <div class="modal-content">
+    <div class="modal fade" id="content-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="content-form"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    {{translate('Add Content')}}
-                </h5>
-                <button class="close-btn" data-bs-dismiss="modal">
-                    <i class="las la-times"></i>
-                </button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Add Content')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
 
-            <form action="{{route('user.ai.content.store')}}" id="contentForm" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
+                <form action="{{route('user.ai.content.store')}}" id="contentForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
 
-                        <input disabled  hidden name="id" type="text">
-                        <div class="col-lg-12">
-                            <div class="form-inner">
-                                <label for="name" class="form-label" >
-                                    {{translate('Name')}} <small class="text-danger">*</small>
-                                </label>
-                                <input required type="text" placeholder="{{translate('Name')}}" id="name" name="name" value="{{old('name')}}">
+                            <input disabled  hidden name="id" type="text">
+                            <div class="col-lg-12">
+                                <div class="form-inner">
+                                    <label for="name" class="form-label" >
+                                        {{translate('Name')}} <small class="text-danger">*</small>
+                                    </label>
+                                    <input required type="text" placeholder="{{translate('Name')}}" id="name" name="name" value="{{old('name')}}">
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-inner">
-                                <label for="aiContent" class="form-label" >
-                                    {{translate('Content')}} <small class="text-danger">*</small>
-                                </label>
-                                <textarea placeholder='{{translate("Type Here...")}}' name="content" id="aiContent" cols="30" rows="10"></textarea>
+                            <div class="col-lg-12">
+                                <div class="form-inner">
+                                    <label for="aiContent" class="form-label" >
+                                        {{translate('Content')}} <small class="text-danger">*</small>
+                                    </label>
+                                    <textarea placeholder='{{translate("Type Here...")}}' name="content" id="aiContent" cols="30" rows="10"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
-                        {{translate("Close")}}
-                    </button>
-                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-                        {{translate("Submit")}}
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 @endsection
 

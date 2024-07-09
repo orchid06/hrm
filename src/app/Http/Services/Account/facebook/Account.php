@@ -122,9 +122,10 @@ class Account
             $token       = $account->account_information->token;
             $insightData = [];
 
-            $fields = 'full_picture,type,caption,message,permalink_url,link,privacy,created_time';
+            $fields = 'full_picture,type,caption,message,permalink_url,link,privacy,created_time,reactions';
             switch ($account->account_type) {
                 case AccountType::PROFILE->value:
+
                     $api =   $api."/me/feed";
                     break;
                 case AccountType::PAGE->value:

@@ -46,23 +46,36 @@ class SocialAccountController extends Controller
     public function list() :View{
 
 
-        if(request()->input('platform',null)){
-            $platform = MediaPlatform::whereIn('id',(array)$this->accessPlatforms)
-                         ->where('slug', request()->input('platform'))
-                         ->firstOrfail();
-        }
+        if(request()->input('platform',null)) $platform = MediaPlatform::whereIn('id',(array)$this->accessPlatforms)
+                                                                    ->where('slug', request()->input('platform'))
+                                                                    ->firstOrfail();
 
         return view('user.social.account.list',[
 
             'meta_data'       => $this->metaData(['title'=> translate("Social Accounts")]),
 
             'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform'])
-                                    ->where("user_id",$this->user->id)
-                                    ->filter(["status",'platform:slug','name'])
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                                    ->where("user_id",$this->user->id)
+                                                    ->filter(["status",'platform:slug','name'])
+                                                    ->latest()
+                                                    ->paginate(paginateNumber())
+                                                    ->appends(request()->all()),
 
+        ]);
+    }
+
+
+
+        
+    /**
+     * Social platform list
+     *
+     * @return View
+     */
+    public function platform() :View{
+
+        return view('user.social.account.platform',[
+            'meta_data'       => $this->metaData(['title'=> translate("Social Platform")])
         ]);
     }
 
@@ -177,18 +190,19 @@ class SocialAccountController extends Controller
     public function show(string $uid) :View | RedirectResponse{
 
         $account  = SocialAccount::with(['platform'])
-                        ->where('uid',$uid)
-                        ->where('user_id',$this->user->id)
-                        ->firstOrfail();
+                                ->where('uid',$uid)
+                                ->where('user_id',$this->user->id)
+                                ->firstOrfail();
 
         $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
         $service  =  new  $class();
 
         $response = $service->accountDetails($account);
 
-        if(!$response['status']){
-            return redirect()->route('user.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);
-        }
+        @dd(  $response );
+
+        if(@!$response['status']) return redirect()->route('user.social.account.list',['platform' => $account->platform->slug])->with('error',$response['message']);
+
 
         return view('user.social.account.show',[
 
