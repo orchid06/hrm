@@ -77,6 +77,18 @@ class SocialPost extends Model
 
 
     /**
+     * Get the platform of the post
+     *
+     * @return BelongsTo
+     */
+    public function platform() :BelongsTo{
+        return $this->belongsTo(MediaPlatform::class, 'platform_id');
+    }
+
+    
+
+
+    /**
      * Pending post
      *
      * @param Builder $q
@@ -85,6 +97,9 @@ class SocialPost extends Model
     public function scopePending(Builder $q):Builder {
         return $q->where('status',strval(PostStatus::PENDING->value));
     }
+
+
+    
 
 
 

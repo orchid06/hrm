@@ -6,7 +6,7 @@ enum PostType: int
 {
     use EnumTrait;
 
-    case Feed         = 0;
+    case FEED         = 0;
 
 
 

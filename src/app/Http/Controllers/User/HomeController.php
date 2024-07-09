@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Core\File;
+use App\Models\CreditLog;
 use App\Models\MediaPlatform;
 use App\Models\Notification;
 use App\Models\SocialAccount;
@@ -79,6 +80,20 @@ class HomeController extends Controller
         ];
 
         
+
+
+
+        
+        $data['latest_activities']           =  CreditLog::with(['user'])
+                                                            ->where('user_id',$this->user->id)
+                                                            ->search(['remark','trx_code'])
+                                                            ->filter(['type'])
+                                                            ->date()               
+                                                            ->latest()
+                                                            ->take(10)
+                                                            ->get();
+
+
         $data['latest_transactiions']           =  Transaction::with(['user','admin','currency'])
                                                         ->search(['remarks','trx_code'])
                                                         ->filter(["user:username",'trx_type'])
@@ -88,62 +103,84 @@ class HomeController extends Controller
                                                         ->take(5)
                                                         ->get();
 
-        $data['total_post']               = SocialPost::where('user_id', $this->user->id)->date()->count();
+        $data['total_post']               = SocialPost::where('user_id', $this->user->id)
+                                                       ->date()
+                                                       ->count();
  
-        $data['pending_post']             = SocialPost::where('user_id', $this->user->id)->pending()->date()->count();
-        $data['schedule_post']            = SocialPost::where('user_id', $this->user->id)->schedule()->date()->count();
-        $data['success_post']             = SocialPost::where('user_id', $this->user->id)->success()->date()->count();
+        $data['pending_post']             = SocialPost::where('user_id', $this->user->id)
+                                                       ->pending()
+                                                       ->date()
+                                                       ->count();
+        $data['schedule_post']            = SocialPost::where('user_id', $this->user->id)
+                                                       ->schedule()
+                                                       ->date()
+                                                       ->count();
+        $data['success_post']             = SocialPost::where('user_id', $this->user->id)
+                                                       ->success()
+                                                       ->date()
+                                                       ->count();
         $data['failed_post']              = SocialPost::where('user_id', $this->user->id)->failed()->date()->count();
+        
         $data['affiliate_earnings']       =  $this->user->affiliates->sum("commission_amount");
 
 
 
                         
-        $data['monthly_post_graph']          = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->groupBy('months')
-                                                    ->where('user_id', $this->user->id)
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+        $data['monthly_post_graph']          = sortByMonth(SocialPost::filter(["platform:slug"])
+                                                            ->date()
+                                                            ->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->groupBy('months')
+                                                            ->where('user_id', $this->user->id)
+                                                            ->pluck('total', 'months')
+                                                            ->toArray(),true);
 
-        $data['monthly_pending_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->pending()
-                                                    ->where('user_id', $this->user->id)
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+        $data['monthly_pending_post']      = sortByMonth(SocialPost::filter(["platform:slug"])
+                                                            ->date()
+                                                            ->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->pending()
+                                                            ->where('user_id', $this->user->id)
+                                                            ->groupBy('months')
+                                                            ->pluck('total', 'months')
+                                                            ->toArray(),true);
 
-        $data['monthly_schedule_post']     = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->schedule()
-                                                    ->where('user_id', $this->user->id)
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+        $data['monthly_schedule_post']     = sortByMonth(SocialPost::filter(["platform:slug"])
+                                                            ->date()
+                                                            ->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->schedule()
+                                                            ->where('user_id', $this->user->id)
+                                                            ->groupBy('months')
+                                                            ->pluck('total', 'months')
+                                                            ->toArray(),true);
 
-        $data['monthly_success_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->success()
-                                                    ->where('user_id', $this->user->id)
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+        $data['monthly_success_post']      = sortByMonth(SocialPost::filter(["platform:slug"])
+                                                            ->date()
+                                                            ->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->success()
+                                                            ->where('user_id', $this->user->id)
+                                                            ->groupBy('months')
+                                                            ->pluck('total', 'months')
+                                                            ->toArray(),true);
 
-        $data['monthly_failed_post']      = sortByMonth(SocialPost::date()->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->failed()
-                                                    ->where('user_id', $this->user->id)
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+        $data['monthly_failed_post']      = sortByMonth(SocialPost::filter(["platform:slug"])
+                                                            ->date()
+                                                            ->selectRaw("MONTHNAME(created_at) as months, COUNT(*) as total")
+                                                            ->whereYear('created_at', '=',date("Y"))
+                                                            ->failed()
+                                                            ->where('user_id', $this->user->id)
+                                                            ->groupBy('months')
+                                                            ->pluck('total', 'months')
+                                                            ->toArray(),true);
         
         $data['subscription_log']          = Subscription::with(['user','package','oldPackage'])
-                                                    ->where('user_id', $this->user->id)
-                                                    ->date()               
-                                                    ->latest()
-                                                    ->take(8)
-                                                    ->get();
+                                                            ->where('user_id', $this->user->id)
+                                                            ->date()               
+                                                            ->latest()
+                                                            ->take(8)
+                                                            ->get();
 
 
 
