@@ -265,7 +265,7 @@ class UserController extends Controller
 
 
         if($pendingKycs > 0){
-            return back()->with(response_status('You already have a pending kyc request, Please wait for our confirmation','error'));
+            return back()->with(response_status('You already have a pending KYC request, Please wait for our confirmation','error'));
         }
 
         $kycLog =   DB::transaction(function() use ($request ) {

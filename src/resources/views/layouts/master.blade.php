@@ -305,7 +305,7 @@
         $(document).on('click', ".delete-item", function (e) {
             e.preventDefault();
             var href = $(this).attr('data-href');
-            var message = 'Are you sure you want to remove these record ?'
+            var message = "{{translate('Are you sure you want to remove these record ?')}}"
             if (($(this).attr('data-message'))) {
                 message = $(this).attr('data-message')
             }
@@ -315,6 +315,21 @@
             $(".warning-message").html(message)
             $("#actionModal").modal("show");
         })
+
+
+          $(document).on('click', ".subscribe-plan", function (e) {
+                e.preventDefault();
+                var href = $(this).attr('data-href');
+                var message = "{{translate('Are you sure you want to subscribe in this plan?')}}"
+                if (($(this).attr('data-message'))) {
+                    message = $(this).attr('data-message')
+                }
+
+                $("#action-href").attr("href", href);
+                $(".warning-message").html(message)
+                $("#actionModal").modal("show");
+         })
+
 
         // Summer note
         $(document).on("click", ".close", function (e) {

@@ -1197,6 +1197,7 @@ use Illuminate\Database\Eloquent\Collection;
          $wordToken       = (int)@$plan->ai_configuration->word_limit; 
          $templates       = count((array)@$plan->template_access); 
 
+         $config['affiliate_commission']     = @$plan->affiliate_commission."%";
          $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
          $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
 

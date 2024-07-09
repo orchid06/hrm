@@ -170,23 +170,6 @@
 
                             <div class="col-lg-12">
                                 <div class="form-inner">
-                                    <label for="url" class="form-label" >
-                                        {{strtoupper(translate('URL'))}}<span class="text-danger">*</span>
-                                    </label>
-                                   <input required placeholder="{{translate("Enter Page URL")}}" type="text" name="url" id="url">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="form-inner">
-                                    <label for="description" class="form-label" >
-                                        {{translate('Description')}} 
-                                    </label>
-                                    <textarea placeholder='{{translate("Type Here...")}}' name="description" id="description" cols="30" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-inner">
                                     <label for="image"> 
                                         {{translate('Image')}} <small class="text-danger">({{config("settings")['file_path']['platform']['size']}})</small>
                                     </label>
@@ -269,8 +252,6 @@
             modal.find('.modal-title').html("{{translate('Update Platform')}}")
             modal.find('.image-preview-section').html(imgUrl)
             modal.find('input[name="id"]').val(platform.id)
-            modal.find('textarea[name="description"]').val(platform.description)
-            modal.find('input[name="url"]').val(platform.url)
             modal.modal('show')
         })
 

@@ -66,7 +66,7 @@
 
                               </ul>
                           </div>
-                          <a href="{{route("user.plan.purchase",$plan->slug)}}" class="i-btn btn--lg btn--primary capsuled">{{translate("Subscribe")}}</a>
+                          <a href="javascript:void(0)" data-href="{{route("user.plan.purchase",$plan->slug)}}" class="i-btn btn--lg subscribe-plan btn--primary capsuled">{{translate("Subscribe")}}</a>
                       </div>
                     </div>
                  @empty
