@@ -10,6 +10,7 @@ use App\Jobs\SocialPostJob;
 use App\Models\Admin;
 use App\Models\Core\File;
 use App\Models\MediaPlatform;
+use App\Models\SocialAccount;
 use App\Models\SocialPost;
 use App\Models\Transaction;
 use App\Models\User;
@@ -28,16 +29,17 @@ trait PostManager
      */
     protected function savePost(array $request , ? Admin $admin =  null  ,? User $user = null ) :array{
 
-        $accounts     = Arr::get($request,"account_id", []);
+        $accounts     = SocialAccount::whereIn('id',Arr::get($request,"account_id", [])) ->get();
         $scheduleTime = Arr::get($request,"schedule_date", null);
         $files        = Arr::get($request,"files", []);
 
         DB::transaction(function() use ($request ,$admin ,$user ,$accounts ,$scheduleTime ,$files ) {
             
-            foreach($accounts as $accountId){
+            foreach($accounts as $account){
             
                 $post                     = new SocialPost();
-                $post->account_id         = $accountId;
+                $post->account_id         = $account->id;
+                $post->platform_id        = $account->platform_id;
                 $post->subscription_id    = $user ? $user->runningSubscription->id : null;
                 $post->user_id            = $user ? $user->id : null;
                 $post->admin_id           = $admin ? $admin->id : null;
@@ -46,10 +48,11 @@ trait PostManager
                 $post->is_scheduled       = $scheduleTime ? StatusEnum::true->status() : StatusEnum::false->status() ;
                 $post->schedule_time      = $scheduleTime;
                 $post->status             = strval($scheduleTime ? PostStatus::value('SCHEDULE',true): PostStatus::value('PENDING',true));
-                $post->post_type          = strval(PostType::value("Feed",true));
+                $post->post_type          = strval(PostType::value("FEED",true));
                 $post->save();
 
                 foreach($files as $file){
+                    
                     $response = $this->storeFile(
                         file        : $file, 
                         location    : config("settings")['file_path']['post']['path'],

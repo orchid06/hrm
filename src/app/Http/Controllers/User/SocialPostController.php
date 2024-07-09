@@ -132,15 +132,9 @@ class SocialPostController extends Controller
         $schedule = false;
         if($this->subscription->package){
             $package = $this->subscription->package;
-            if(@$package->social_access->schedule_post == StatusEnum::true->status()){
-                $schedule = true;
-            }
+            if(@$package->social_access->schedule_post == StatusEnum::true->status()) $schedule = true;
         }
-        if($request->input("schedule_date") && !$schedule ){
-            $request->merge([
-                'schedule_date' => null
-            ]);
-        }
+        if($request->input("schedule_date") && !$schedule ) $request->merge(['schedule_date' => null]);
 
         if($this->checkRemainingPost()){
             $status   = true ;

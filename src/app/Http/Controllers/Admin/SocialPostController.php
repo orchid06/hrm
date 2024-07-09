@@ -3,26 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Enums\AccountType;
-use App\Enums\StatusEnum;
-use App\Http\Requests\AccountRequest;
+
 use App\Http\Requests\SocialPostRequest;
-use App\Http\Services\Account\facebook\Account;
 use App\Models\Admin\Category;
 use App\Models\Content;
 use App\Models\MediaPlatform;
-use App\Models\Package;
 use App\Models\SocialAccount;
 use App\Models\SocialPost;
 use App\Traits\ModelAction;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Traits\AccountManager;
 use App\Traits\PostManager;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+
 
 class SocialPostController extends Controller
 {

@@ -234,9 +234,9 @@ class AiService
 
                     if(request()->routeIs("user.*")){
                         $token = (int) Arr::get($usage , "completion_tokens" ,0);
-                        $user  = auth_user('web');
+                        $user  = auth_user('web')->load(['runningSubscription']);
                         $this->generateCreditLog(
-                            user        : auth_user('web')->load(['runningSubscription']),
+                            user        : $user,
                             trxType     : Transaction::$MINUS,
                             balance     : (int) $token,
                             postBalance : (int)$user->runningSubscription->remaining_word_balance,

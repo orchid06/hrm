@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string('uid',100)->index()->nullable();
             $table->unsignedBigInteger('account_id')->index()->constrained(table: 'social_accounts');
+            $table->unsignedBigInteger('platform_id')->index()->nullable();
             $table->unsignedBigInteger('subscription_id')->index()->nullable()->constrained(table: 'subscription');
             $table->unsignedBigInteger('user_id')->index()->nullable()->constrained(table: 'users');
             $table->unsignedBigInteger('admin_id')->index()->nullable()->constrained(table: 'admins');

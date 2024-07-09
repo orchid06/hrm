@@ -5,21 +5,26 @@
 @section('content')
 
 @php
-        $user             = auth_user('web');
+   
+        $user             = auth_user('web')->load(['runningSubscription','runningSubscription.package']);
         $subscription     = $user->runningSubscription;
         $remainingToken   = $subscription ? $subscription->remaining_word_balance : 0;
         $remainingProfile = $subscription ? $subscription->total_profile : 0;
         $remainingPost    = $subscription ? $subscription->remaining_post_balance : 0;
-        $totalPlatforms   = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
+        $accessPlatforms         = (array) ($subscription ? @$subscription->package->social_access->platform_access : []);
 
+        $platforms = get_platform()
+                        ->whereIn('id', $accessPlatforms )
+                        ->where("status",App\Enums\StatusEnum::true->status())
+                        ->where("is_integrated",App\Enums\StatusEnum::true->status());
 
-        $subscriptionDetails = [
-            'Remaining Word'    => $remainingToken,
-            'Remaining Profile' => $remainingProfile,
-            'Remaining Post'    => $remainingPost,
-            'Total Platforms'   => count($totalPlatforms)];
-        if( $remainingToken == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['Remaining Word']);
-        if( $remainingPost == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['Remaining Post']);
+        $subscriptionDetails = collect([
+            'remaining_word'    => $remainingToken,
+            'remaining_profile' => $remainingProfile,
+            'remaining_post'    => $remainingPost,
+            'total_patforms'   => count($accessPlatforms)])->mapWithKeys(fn($value,$key) :array =>  [k2t($key) => $value])->toArray();
+        if( $remainingToken == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['remaining_word']);
+        if( $remainingPost == App\Enums\PlanDuration::value('UNLIMITED')) unset($subscriptionDetails['remaining_profile']);
 @endphp
 
 
@@ -35,9 +40,11 @@
         <div class="row g-4">
             <div class="col-xxl-5 col-xl-5">
                 <div class="i-card h-550">
-                    <h4 class="card--title mb-4">Connected Social Accounts</h4>
+                    <h4 class="card--title mb-4">
+                         {{translate('Connected Social Accounts')}}
+                    </h4>
                     <div class="row g-3">
-                    @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
+                       @forelse(Arr::get($data['account_report'] ,'accounts_by_platform',[]) as $platform)
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="i-card no-border p-0 border position-relative bg--light">
                                     <div class="shape-one">
@@ -58,7 +65,7 @@
                                     </div>
                                     <span class="icon-image position-absolute top-0 end-0">
                                         <img src="{{imageUrl(@$platform->file,'platform',true)}}"
-                                            alt="{{imageUrl(@$platform->file,'platform',true)}}" />
+                                            alt="{{@$platform->name.".jpg"}}" />
                                     </span>
                                     <div class="p-3">
                                         <h5 class="card--title-sm">
@@ -66,14 +73,24 @@
                                         </h5>
                                     </div>
                                     <div class="p-3 border-top">
-                                        <p class="card--title-sm mb-1">00</p>
-                                        <p class="mb-3 fs-14">Total Posts</p>
-                                        <a href="#" class="i-btn btn--sm btn--outline capsuled"><i
-                                                class="ri-add-line"></i>Create post</a>
+                                        <p class="card--title-sm mb-1">
+                                            {{$platform->accounts_count}}
+                                        </p>
+                                        <p class="mb-3 fs-14">
+                                              {{translate('Total Posts')}}
+                                        </p>
+                                        <a href="{{route('user.social.account.create',['platform' => $platform->slug])}}" class="i-btn btn--sm btn--outline capsuled"><i
+                                                class="ri-add-line"></i>
+                                              {{translate('Create Account')}}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         @empty
+                         
+                             <div class="col-12">
+                                  @include('admin.partials.not_found')
+                             </div>
 
                         @endforelse
                     </div>
@@ -81,45 +98,34 @@
             </div>
             <div class="col-xxl-7 col-xl-7">
                 <div class="i-card">
-                    <ul class="nav nav-tabs style-1 d-flex justify-content-start  mb-30" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#tab-one" aria-selected="false"
-                                role="tab" tabindex="-1">All</a>
+
+
+                    <ul class="social-account-list-2 mb-2">
+
+                        <li>
+                            <a href="{{route('user.home')}}" class="{{!request()->input('platform') ? 'active' :''}}">
+                             
+                                 {{translate('ALL')}}
+                            </a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-two" aria-selected="true"
-                                role="tab">Facebook</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-three" aria-selected="true"
-                                role="tab">Instagram</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-four" aria-selected="true"
-                                role="tab">Twitter</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-five" aria-selected="true"
-                                role="tab">Linkedin</a>
-                        </li>
+        
+                        @forelse ($platforms as $platform )
+        
+                            <li>
+                                <a class="{{$platform->slug == request()->input('platform') ? 'active' :''}}" href="{{route('user.home',['platform' => $platform->slug])}}">
+                                    
+                                    {{$platform->name}}
+                                </a>
+                            </li>
+                         @empty
+                
+                         @endforelse
+                        
                     </ul>
-                    <div id="myTabContent3" class="tab-content">
-                        <div class="tab-pane fade active show" id="tab-one" role="tabpanel">
-                            <div id="postReport"></div>
-                        </div>
-                        <div class="tab-pane fade" id="tab-two" role="tabpanel">
 
-                        </div>
-                        <div class="tab-pane fade" id="tab-three" role="tabpanel">
-
-                        </div>
-                        <div class="tab-pane fade" id="tab-four" role="tabpanel">
-
-                        </div>
-                        <div class="tab-pane fade" id="tab-five" role="tabpanel">
-
-                        </div>
-                    </div>
+                    <div id="postReport"></div>
+                   
+               
                 </div>
             </div>
             <div class="col-xxl-12 col-xl-12">
@@ -127,16 +133,10 @@
                     <div class="row align-items-center g-2 mb-4">
                         <div class="col-md-9">
                             <h4 class="card--title">
-                                Post Activity
+                               {{translate('Overview')}}
                             </h4>
                         </div>
-                        <div class="col-md-3">
-                            <select name="content-category" class="select2">
-                                <option>Category One</option>
-                                <option>Category Two</option>
-                                <option>Category Three</option>
-                            </select>
-                        </div>
+                 
                     </div>
                     <div class="row g-3">
                         <div class="col-xxl-3 col-xl-4 col-lg-4 col-sm-6">
@@ -383,12 +383,17 @@
         </div>
 
         <div class="i-card upgrade-card mb-4">
-            <h4 class="card--title text-white">Upgrade Premium to Get More Space</h4>
-            <p>
-                3 Social account and and Enjoy all new environments with pro plan
-            </p>
+
+            @if($subscription &&   $subscription->package)
+                <h4 class="card--title text-white">
+                     {{$subscription->package->title}}
+                </h4>
+                <p>
+                    {{$subscription->package->description}}
+                </p>
+            @endif
             <a href="{{route('user.plan')}}" class="i-btn btn--md btn--white capsuled mx-auto">
-                @if($user->runningSubscription)
+                @if($subscription)
                     {{translate('Upgrade Now')}}
                 @else
                    {{translate('Subscribe Now')}}
@@ -398,20 +403,31 @@
         </div>
         <div class="i-card-md share-card">
             <h4 class="card--title mb-3">
-                Shared Files
+                {{
+                    translate("Latest Activity ")
+                }}
             </h4>
-            <ul>
-                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span> One of
-                    the largest social media platforms.</li>
-                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>The
-                    largest video-sharing platform.</li>
-                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
-                    discovery and bookmarking platform.</li>
-                <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
-                    discovery and bookmarking platform.</li>
-                <li class="mb-0 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span>A visual
-                    discovery and bookmarking platform.</li>
-            </ul>
+                @php
+                     $activities =  Arr::get($data,'latest_activities',collect([]));
+                @endphp
+
+                <ul>
+
+                    @forelse ($activities as $activitiy)
+                        <li class="mb-3 fs-15"><span class="me-1 text--primary"><i class="bi bi-card-text"></i></span> 
+                            {{ $activitiy->details}}
+                        </li>
+                    @empty
+                        <li class="mb-3 fs-15">
+                            {{
+                                translate('No activities found!!')
+                             }}
+                        </li>
+                    @endforelse
+
+        
+                </ul>
+         
         </div>
 
     </div>
@@ -603,7 +619,7 @@
 
                     </div>
                     @else
-                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                       @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                     @endif
 
                 </div>
@@ -727,29 +743,28 @@
                                 <div class="accordion-body">
                                     <ul class="list-group list-group-flush">
                                         @php
-                                        $informations = [
-
-                                        "Ai Word Balnace" => $report->word_balance,
-                                        "Remaining Word Balance" => $report->remaining_word_balance,
-                                        "Carried Word Balnace" => $report->carried_word_balance,
-                                        "Total Social Profile" => $report->total_profile,
-                                        "Carried Profile Balnace" => $report->carried_profile,
-                                        "Social Post Balnace" => $report->post_balance,
-                                        "Remaining Post Balance" => $report->remaining_post_balance,
-                                        "Carried Post Balnace" => $report->carried_post_balance,
+                                         $informations = [
+                                            "AI_word_balance"          => $report->word_balance,
+                                            "remaining_word_balance"   => $report->remaining_word_balance,
+                                            "carried_word_balance"     => $report->carried_word_balance,
+                                            "total_social_profile"     => $report->total_profile,
+                                            "carried_profile_balance"  => $report->carried_profile,
+                                            "social_post_balance"      => $report->post_balance,
+                                            "remaining_post_balance"   => $report->remaining_post_balance,
+                                            "carried_post_balance"     => $report->carried_post_balance,
                                         ];
                                         @endphp
 
                                         @foreach ($informations as $key => $val)
 
-                                        <li class="list-group-item">
-                                            <h6 class="title">
-                                                {{k2t($key)}}
-                                            </h6>
-                                            <p class="value">
-                                                {{$val == App\Enums\PlanDuration::UNLIMITED->value ? App\Enums\PlanDuration::UNLIMITED->name : $val }}
-                                            </p>
-                                        </li>
+                                            <li class="list-group-item">
+                                                <h6 class="title">
+                                                    {{k2t($key)}}
+                                                </h6>
+                                                <p class="value">
+                                                    {{$val == App\Enums\PlanDuration::UNLIMITED->value ? App\Enums\PlanDuration::UNLIMITED->name : $val }}
+                                                </p>
+                                            </li>
 
                                         @endforeach
                                     </ul>
