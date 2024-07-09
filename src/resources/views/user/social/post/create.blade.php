@@ -1327,7 +1327,6 @@ $schedule = true;
             }
             @endphp
 
-
             <div class="modal-body">
                 <form id="ai-form" data-route="{{$generateRoute}}" class="ai-content-form">
                     @csrf
