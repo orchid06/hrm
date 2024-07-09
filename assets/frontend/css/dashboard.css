@@ -6597,3 +6597,14 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   font-size: 18px;
   color: var(--color-primary);
 }
+
+.no--access{
+  padding: 20px;
+  text-align: center;
+  background-color: var(--color-danger-light);
+  border-radius: 10px;
+  width: 100%;
+  P{
+    margin-bottom: 0;
+  }
+}

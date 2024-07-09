@@ -1275,7 +1275,7 @@
 }
 .account-connect-list li{
   padding: 18px 18px;
-  border: 1px solid #bfbfbf;
+  border: 1px solid #dddddd;
   border-radius: 16px;
   display: flex;
   gap: 20px;
