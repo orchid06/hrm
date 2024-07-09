@@ -155,11 +155,12 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+
+                                     <a class="text--success" href="##">
+                                          {{translate('View All')}}
+                                     </a>
+                         
+                                    <p class="mb-0 fs-14"> {{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -176,11 +177,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14">{{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -197,11 +197,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14">{{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -218,11 +217,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                    </a>
+                                    <p class="mb-0 fs-14"> {{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -239,11 +237,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14"> {{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -260,11 +257,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14"> {{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -281,11 +277,10 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14"> {{translate('This year')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -302,11 +297,12 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <div class="text--success">
-                                        <i class="bi bi-arrow-up"></i>
-                                        <span class="fs-14">+12%</span>
-                                    </div>
-                                    <p class="mb-0 fs-14">This week</p>
+                                    <a class="text--success" href="##">
+                                        {{translate('View All')}}
+                                   </a>
+                                    <p class="mb-0 fs-14">
+                                         {{translate('This year')}}
+                                    </p>
                                 </div>
                             </div>
                         </div>
