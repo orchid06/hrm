@@ -6,6 +6,7 @@ use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\MediaPlatform;
+use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -83,8 +84,8 @@ class PlatformController extends Controller
 
         $request->validate([
             "id"            => ['required','exists:media_platforms,id'],
-            "description"   => ["nullable","string",'max:255'],
-            'url'           => ["required","string",'max:255']
+            "image"         => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]
+
         ]);
 
         DB::transaction(function() use ($request) {

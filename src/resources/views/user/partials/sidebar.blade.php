@@ -91,17 +91,55 @@
                         </a>
                     </li>
 
-                    <li class="sidemenu-item">
-                        <a href="{{route('user.social.account.list')}}" class="sidemenu-link  {{request()->routeIs('user.social.account.*') ? 'active' :''}}">
-                            <div class="sidemenu-icon">
-                                <i class="bi bi-person-gear"></i>
-                            </div>
 
-                            <span>
-                                {{translate("Social Accounts")}}
-                            </span>
+
+                    <li class="sidemenu-item">
+                        <a href="javascript:void(0)" class="sidemenu-link
+                        @if(request()->routeIs('user.social.account.*'))
+                            active
+                        @endif">
+                        <div
+                            class="sidemenu-icon">
+                            <i class="bi bi-person-gear"></i>
+                        </div>
+                        <span>
+                            {{translate("Social Accounts")}}
+
+                            <small><i class="bi bi-chevron-down"></i></small>
+                        </span>
                         </a>
+
+                        <div class="side-menu-dropdown @if(request()->routeIs('user.social.account.*'))
+                                    show-sideMenu
+                                @endif">
+                            <ul class="sub-menu">
+
+                                <li class="sub-menu-item">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.account.list') ? 'active' :''}}" href="{{route('user.social.account.list')}}">
+                                        <span>
+                                            <i class="bi bi-person-lines-fill"></i>
+                                        </span>
+                                        <p>
+                                           {{translate('Account list')}}
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="sub-menu-item">
+                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.account.platform')   ? 'active' :''}}" href="{{route('user.social.account.platform')}}">
+                                        <span>
+                                            <i class="bi bi-gear-wide-connected"></i>
+                                        </span>
+                                        <p>
+                                            {{translate('Platform')}}
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+
+                 
 
                     <li class="sidemenu-item">
                         <a href="{{route('user.plan')}}" class="sidemenu-link  {{request()->routeIs('user.plan') ? 'active' :''}}">
@@ -145,11 +183,11 @@
                                 <li class="sub-menu-item">
                                     <a class="sidebar-menu-link {{request()->routeIs('user.subscription.report.*') ? 'active' :''}}" href="{{route('user.subscription.report.list')}}">
                                         <span>
-                                        <i class="bi bi-bookmarks"></i>
+                                            <i class="bi bi-bookmarks"></i>
                                         </span>
 
                                         <p>
-                                        {{translate('Subscription Reports')}}
+                                           {{translate('Subscription Reports')}}
                                         </p>
                                     </a>
                                 </li>
@@ -158,7 +196,7 @@
                                     <a class="sidebar-menu-link {{request()->routeIs('user.credit.report.*') ? 'active' :''}}" href="{{route('user.credit.report.list')}}">
                                     <span><i class="bi bi-credit-card-2-front"></i></span>
                                         <p>
-                                        {{translate('Credit Reports')}}
+                                           {{translate('Credit Reports')}}
                                         </p>
                                     </a>
                                 </li>
@@ -167,7 +205,7 @@
                                     <a class="sidebar-menu-link  {{request()->routeIs('user.deposit.report.*') ? 'active' :''}}" href="{{route('user.deposit.report.list')}}">
                                     <span><i class="bi bi-wallet"></i></span>
                                         <p>
-                                        {{translate('Deposit Reports')}}
+                                            {{translate('Deposit Reports')}}
                                         </p>
                                     </a>
                                 </li>
@@ -176,7 +214,7 @@
                                     <a class="sidebar-menu-link {{request()->routeIs('user.withdraw.report.*') ? 'active' :''}}" href="{{route('user.withdraw.report.list')}}">
                                     <span><i class="bi bi-box-arrow-in-up-left"></i></span>
                                         <p>
-                                        {{translate('Withdraw Reports')}}
+                                            {{translate('Withdraw Reports')}}
                                         </p>
                                     </a>
                                 </li>
@@ -214,16 +252,17 @@
                                     <a class="sidebar-menu-link {{request()->routeIs('user.kyc.report.*') ? 'active' :''}}" href="{{route('user.kyc.report.list')}}">
                                     <span><i class="bi bi-shield-lock"></i></span>
                                         <p>
-                                        {{translate('Kyc Reports')}}
+                                           {{translate('KYC Reports')}}
                                         </p>
                                     </a>
                                 </li>
+
                                 @if($webhookAccess == App\Enums\StatusEnum::true->status())
                                     <li class="sub-menu-item">
                                         <a class="sidebar-menu-link {{request()->routeIs('user.webhook.report.*') ? 'active' :''}}" href="{{route('user.webhook.report.list')}}">
                                         <span><i class="bi bi-bell"></i></span>
                                             <p>
-                                            {{translate('Webhook Reports')}}
+                                               {{translate('Webhook Reports')}}
                                             </p>
                                         </a>
                                     </li>
@@ -235,13 +274,13 @@
 
                     <li class="sidemenu-item">
                         <a href="{{route('user.ticket.list')}}" class="sidemenu-link  {{request()->routeIs('user.ticket.*') ? 'active' :''}}">
-                        <div class="sidemenu-icon">
-                            <i class="bi bi-patch-question"></i>
-                        </div>
+                            <div class="sidemenu-icon">
+                                <i class="bi bi-patch-question"></i>
+                            </div>
 
-                        <span>
-                            {{translate("Tickets")}}
-                        </span>
+                            <span>
+                                {{translate("Tickets")}}
+                            </span>
                         </a>
                     </li>
                     <li class="side-menu-title">
@@ -249,13 +288,13 @@
                     </li>
                     <li class="sidemenu-item">
                         <a href="{{route('user.profile')}}" class="sidemenu-link  {{request()->routeIs('user.profile') ? 'active' :''}}">
-                        <div class="sidemenu-icon">
-                            <i class="bi bi-gear"></i>
-                        </div>
+                            <div class="sidemenu-icon">
+                                <i class="bi bi-gear"></i>
+                            </div>
 
-                        <span>
-                            {{translate("Profile")}}
-                        </span>
+                            <span>
+                                {{translate("Profile")}}
+                            </span>
                         </a>
                     </li>
                 </ul>

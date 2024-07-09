@@ -224,6 +224,7 @@ use Illuminate\Support\Facades\DB;
             Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
 
                  Route::any('/list','list')->name('list');
+                 Route::get('/platform/list','platform')->name('platform');
                  Route::get('/create/{platform}','create')->name('create');
                  Route::post('/store','store')->name('store');
                  Route::post('/reconnect','reconnect')->name('reconnect');

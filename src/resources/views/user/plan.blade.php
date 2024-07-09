@@ -68,10 +68,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="plan-detail-body">
-                                                    <h5 class="mb-4">
-                                                            {{translate("What’s included")}}
-                                                    </h5>
+                                                        <h5 class="mb-4">
+                                                                {{translate("What’s included")}}
+                                                        </h5>
                                                     <ul>
+
 
                                                         @foreach (plan_configuration( $plan) as $configKey => $configVal )
                                                                 <li>
@@ -85,8 +86,8 @@
                                                 
                                                     </ul>
                                                 </div>
-                                                <a @if(@$currentPlan->id == $plan->id) data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Current running plan')}}"  @endif  href="{{route("user.plan.purchase",$plan->slug)}}"
-                                                    class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto w-100">
+                                                <a href="javascript:void(0)" @if(@$currentPlan->id == $plan->id) data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Current running plan')}}" data-plan={{$plan}}  @endif  data-href="{{route("user.plan.purchase",$plan->slug)}}"
+                                                    class="i-btn btn--primary btn--lg capsuled text-uppercase mx-auto w-100 subscribe-plan"   >
 
                                                     {{
                                                         @$currentPlan->id == $plan->id ?  translate("Running") : translate("Subscribe")
@@ -111,5 +112,14 @@
                 </div>
             </div>
         </div>
+
+
+
+@endsection
+
+
+@section('modal')
+
+    @include('modal.plan_subscribe')
 
 @endsection
