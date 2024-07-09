@@ -224,15 +224,12 @@
         </div>
     </div>
 
-
-
-
-
 @endsection
 
 
 @section('modal')
     @include('modal.delete_modal')
+    
     <div class="modal fade" id="reconnect-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reconnect-modal"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
