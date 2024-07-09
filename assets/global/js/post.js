@@ -29,7 +29,7 @@
     fileInput = this;
     uploadedFiles = Array.from(uploadedFiles);
     handleFileUpload(fileInput.files);
-    // handelFilePreview(fileInput.files);
+    handelFilePreview(fileInput.files);
     uploadedFiles = createFileList(uploadedFiles);
     fileInput.files = uploadedFiles;
   });
