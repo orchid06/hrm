@@ -79,4 +79,16 @@ class SocialPostRequest extends FormRequest
         return $rules;
     
     }
+
+
+
+    public function messages() :array
+    {
+     
+        return [
+
+        ];
+
+    }
+
 }
