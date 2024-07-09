@@ -75,7 +75,6 @@ class SocialPostRequest extends FormRequest
 
         ];
 
-
         return $rules;
     
     }
@@ -84,11 +83,14 @@ class SocialPostRequest extends FormRequest
 
     public function messages() :array
     {
-     
         return [
-
+            "account_id.required"   => 'Please select some social profile',
+            "account_id.*.required" => 'Please select some social profile',
+            "files"      => 'Please input a link or text or file before posting',
+            "files.*.required"      => 'Please input a link or text or file before posting',
+            "link.required"         => 'Please input a link or text or file before posting',
+            "text.required"         => 'Please input a link or text or file before posting',
         ];
-
     }
 
 }
