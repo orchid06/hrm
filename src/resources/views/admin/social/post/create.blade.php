@@ -17,7 +17,7 @@
                                     <div class="card-body">
                                         <div class="slider-wrap mb-4">
                                             <div class="swiper choose-profile-slider justify-content-center">
-                                                <ul class="nav nav-tabs style-1 justify-content-start border-0 swiper-wrapper flex-nowrap"
+                                                <ul class="nav nav-tabs style-1 justify-content-start border-0 swiper-wrapper flex-nowrap gap-0"
                                                     role="tablist">
                                                     <li class="nav-item swiper-slide" role="presentation">
                                                         <a class="nav-link pb-1 active" data-bs-toggle="tab"
@@ -156,7 +156,7 @@
                                             <div class="form-inner mb-0">
                                                 <div class="compose-body">
                                                     <textarea name="text" cols="30" rows="4"
-                                                        placeholder="Start Writing " class="compose-input bg-light"
+                                                        placeholder="Start Writing " class="compose-input"
                                                         id="inputText"></textarea>
 
                                                     <div class="compose-body-bottom">
@@ -338,10 +338,10 @@
                                             </div>
                                         </div>
                                         <button type="submit"
-                                            class="i-btn btn--primary btn--lg capsuled postSubmitButton"
+                                            class="i-btn btn--primary btn--lg postSubmitButton"
                                             id="postSubmitButton">
                                             Post
-                                            <i class="bi bi-send"></i>
+                                            <i class="bi bi-send ms-2"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -350,7 +350,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="col-xxl-4 col-xl-6 col-md-6">
                 <div class="i-card-md social-preview-admin">
@@ -363,46 +362,37 @@
                     <div class="card-body">
                         <div class="slider-wrap mb-4">
                             <div class="swiper social-btn-slider mb-4 justify-content-center">
-                                <ul class="nav nav-tabs style-1 justify-content-start border-0 swiper-wrapper flex-nowrap"
+                                <ul class="nav nav-tabs style-1 justify-content-start border-0 swiper-wrapper flex-nowrap gap-0"
                                     role="tablist">
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-one"
-                                            aria-selected="false" role="tab" tabindex="-1">All</a>
+                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-one" aria-selected="false" role="tab" tabindex="-1">All</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-two"
-                                            aria-selected="true" role="tab">Facebook</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-two" aria-selected="true" role="tab">Facebook</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-three"
-                                            aria-selected="true" role="tab">Instagram</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-three" aria-selected="true" role="tab">Instagram</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-four"
-                                            aria-selected="true" role="tab">Twitter</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-four" aria-selected="true" role="tab">Twitter</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-five"
-                                            aria-selected="true" role="tab">Linkedin</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-five" aria-selected="true" role="tab">Linkedin</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-six"
-                                            aria-selected="true" role="tab">Tiktok</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-six" aria-selected="true" role="tab">Tiktok</a>
                                     </li>
                                     <li class="nav-item swiper-slide" role="presentation">
-                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-seven"
-                                            aria-selected="true" role="tab">You Tube</a>
+                                        <a class="nav-link pb-1" data-bs-toggle="tab" href="#tab-preview-seven" aria-selected="true" role="tab">You Tube</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="swiper-arrow swiper-button-next social-btn-next"><i
-                                    class="bi bi-chevron-right"></i></div>
-                            <div class="swiper-arrow swiper-button-prev social-btn-prev"><i
-                                    class="bi bi-chevron-left"></i></div>
+                            <div class="swiper-arrow swiper-button-next social-btn-next"><i class="bi bi-chevron-right"></i></div>
+                            <div class="swiper-arrow swiper-button-prev social-btn-prev"><i class="bi bi-chevron-left"></i></div>
                         </div>
                         <div class="col-md-12">
                           <div class="tab-content" id="preview-tabContent">
-                          <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
+                                <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
                                     <div class="social-preview-body facebook mb-4">
                                         <div class="social-auth">
                                             <div class="profile-img">
@@ -484,7 +474,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="social-preview-body instagram">
+                                    <div class="social-preview-body instagram mb-4">
                                         <div class="social-auth">
                                             <div class="profile-img">
                                                 <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
@@ -536,6 +526,238 @@
                                                     <i class="fa-regular fa-paper-plane"></i>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="social-preview-body twitter mb-4">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="social-preview-body linkedin mb-4">
+                                        <div class="social-auth">
+                                            <div class="profile-img">
+                                                <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                            </div>
+
+                                            <div class="profile-meta">
+                                                <h6 class="user-name">
+                                                    <a href="javascript:void(0)">
+                                                        Username
+                                                    </a>
+                                                </h6>
+                                                <p>
+                                                    May 6
+                                                </p>
+                                            </div>
+
+                                            <span class="dots">
+                                                <i class="bi bi-three-dots"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-message"></i>
+                                                    <span>
+                                                        Comment
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-retweet"></i>
+                                                    <span>Repost</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-paper-plane"></i>
+                                                    <span>
+                                                        Send
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="social-preview-body tiktok mb-4">
+                                        <div class="profile-img">
+                                            <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                        </div>
+
+                                        <div class="social-caption">
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-link"></div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-comment-dots"></i>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="social-preview-body youtube">
+                                        <div class="social-caption">
+                                            <div class="hash-tag"></div>
+
+                                            <div class="caption-imgs"></div>
+
+                                            <div class="caption-text">
+                                                <div class="line-loader">
+                                                    <div class="wrapper">
+                                                        <div class="line-1"></div>
+                                                        <div class="line-2"></div>
+                                                        <div class="line-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="caption-action">
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                    <span> Like</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-thumbs-down"></i>
+                                                    <span> Unlike</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-share"></i>
+                                                    <span>
+                                                        Share
+                                                    </span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-solid fa-download"></i>
+                                                    <span>Download</span>
+                                                </div>
+
+                                                <div class="caption-action-item">
+                                                    <i class="fa-regular fa-bookmark"></i>
+                                                    <span>
+                                                        Save
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="social-auth">
+                                                <div class="profile-img">
+                                                    <img src="http://localhost/EngageHub/assets/images/default/default.jpg" alt="http://localhost/EngageHub/assets/images/default/default.jpg" />
+                                                </div>
+
+                                                <div class="profile-meta">
+                                                    <h6 class="user-name">
+                                                        <a href="javascript:void(0)">
+                                                            Voice of Books
+                                                        </a>
+                                                    </h6>
+                                                    <p>
+                                                        May 6
+                                                    </p>
+                                                </div>
+
+                                                <span class="dots">
+                                                    <h6 class="text-danger text-upppercase fs-13">SUBSCRIBE</h6>
+                                                </span>
+                                            </div>
+
+                                            <div class="caption-link"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -923,19 +1145,226 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
     </form>
 </div>
 
 @endsection
 
+@section('modal')
+
+
+<div class="modal fade" id="aiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="aiModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> {{translate('Generate Content')}}
+                </h5>
+
+                <button class="icon-btn icon-btn-sm danger" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            @php
+            $generateRoute = route('admin.ai.template.content.generate');
+            $iconClass = "las la-question-circle";
+
+            if(request()->routeIs('user.*')){
+            $generateRoute = route('user.ai.content.generate');
+            $iconClass = "bi bi-info-circle";
+            }
+            @endphp
+
+            <div class="modal-body">
+                <form id="ai-form" data-route="{{$generateRoute}}" class="ai-content-form">
+                    @csrf
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="form-inner mb-0">
+                                <label for="category">
+                                    {{translate('Category')}} <small class="text-danger">*</small>
+                                </label>
+                                <select required name="category_id" id="category" class="select2">
+                                    <option value="">
+                                        {{translate("Select Category")}}
+                                    </option>
+                                    @foreach($categories as $category)
+                                    <option {{old("category_id") ==  $category->id ? "selected" :""}}
+                                        value="{{$category->id}}">
+                                        {{($category->title)}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-inner mb-0">
+                                <label for="sub_category_id">
+                                    {{translate('Sub Category')}}
+                                </label>
+                                <select name="sub_category_id" id="sub_category_id" class="sub_category_id">
+                                    <option value="">
+                                        {{translate("Select One")}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-inner mb-0">
+                                <label for="templates">
+                                    {{translate("Templates")}}
+                                </label>
+                                <select name="id" class="selectTemplate" id="templates">
+
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-inner mb-0">
+                                <label for="language">
+                                    {{translate('Select input & output language')}} <small class="text-danger">*</small>
+                                </label>
+
+                                <select name="language" class="language" id="language">
+                                    @foreach ($languages as $language )
+                                    <option {{session()->get('locale') == $language->code ? "selected" :"" }}
+                                        value="{{$language->name}}">
+                                        {{$language->name}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4 d-none template-prompt">
+
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="modal-aiwrap faq-wrap">
+                            <div class="accordion" id="advanceOption">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="advanceContent">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#advanceAcc" aria-expanded="true"
+                                            aria-controls="advanceAcc">
+                                            {{translate("Advance Options")}}
+                                            <i title="{{translate('Browse More Fields')}}"
+                                                class="ms-1 {{$iconClass}}"></i>
+                                        </button>
+                                    </h2>
+                                    <div id="advanceAcc"
+                                        class="accordion-collapse collapse {{request()->routeIs('user.*') ? 'show' :''}}"
+                                        aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
+                                        <div class="accordion-body">
+                                            <div class="form-inner">
+                                                <label for="max_result">
+                                                    {{translate("Max Results Length")}} <i
+                                                        title="{{translate('Maximum words for each result')}}"
+                                                        class="ms-1 pointer {{$iconClass}}"></i>
+                                                    @if(request()->routeIs('user.*'))
+                                                    <span class="text-danger">*</span>
+                                                    @endif
+                                                </label>
+                                                <input placeholder="{{translate('Enter number')}}" type="number"
+                                                    id="max_result" min="1" name="max_result"
+                                                    value='{{old("max_result")}}'>
+                                            </div>
+
+                                            <div class="form-inner">
+                                                <label for="ai_creativity">{{ translate('AI Creativity Level') }}
+                                                </label>
+                                                <select class="ai_creativity form-select" id="ai_creativity"
+                                                    name="ai_creativity">
+                                                    <option value="">
+                                                        {{translate("Select Creativity")}}
+                                                    </option>
+                                                    @foreach (Arr::get(config('settings'),'default_creativity',[]) as $k
+                                                    => $v )
+                                                    <option value="{{$v}}">
+                                                        {{ $k }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-inner">
+                                                <label for="content_tone">{{ translate('Content Tone') }} <small
+                                                        class="text-danger">*</small></label>
+                                                <select class="content_tone form-select" id="content_tone"
+                                                    name="content_tone">
+                                                    <option value="">
+                                                        {{translate("Select Tone")}}
+                                                    </option>
+                                                    @foreach (Arr::get(config('settings'),'ai_default_tone',[]) as $v )
+                                                    <option {{old("content_tone") == $v ? 'selected' :""}}
+                                                        value="{{$v}}">
+                                                        {{ $v }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="generate-btn d-none {{request()->routeIs('user.*') ? 'mt-4':''}}">
+                            <button type="submit" class="ai-btn i-btn btn--primary btn--lg capsuled">
+                                {{translate("Generate")}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="content-form  d-none ai-content-div">
+                    <div class="form-inner">
+                        <div class="d-flex gap-2 align-items-center mb-3">
+
+                            <label for="content" class="mb-0">
+                                {{translate("Content")}} <small class="text-danger">*</small>
+                            </label>
+                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}"
+                                class="icon-btn icon-btn-sm success copy-content">
+                                <i class="bi bi-clipboard-check"></i>
+                            </button>
+
+                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}"
+                                class="icon-btn icon-btn-sm info download-text">
+                                <i class="bi bi-download"></i>
+                            </button>
+                        </div>
+
+                        <textarea placeholder="Enter Your Content" name="content" id="content" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="i-btn danger btn--lg capsuled" data-anim="ripple" data-bs-dismiss="modal">
+                    {{translate("Close")}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
 
 @push('script-push')
+<script src="{{asset('assets/global/js/post.js')}}"></script>
 <script>
 
 	(function($){
@@ -956,8 +1385,8 @@
         $(document).on('change','#predefined',function(e){
             e.preventDefault()
             var value = $(this).val();
-            $("#inputText").val(value)
-            $(".caption-text").html(value)
+            $("#inputText").val(value);
+            $(".caption-text").html(value);
 
             e.preventDefault();
 
@@ -1070,7 +1499,8 @@
         });
 
    var swiper = new Swiper(".social-btn-slider", {
-      slidesPerView: 3,
+        slidesPerView: 3,
+        spaceBetween: 10,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -1087,13 +1517,14 @@
           slidesPerView: 3,
         },
         1024: {
-            slidesPerView: 3,
+            slidesPerView: 4,
         },
       },
     });
 
     var swiper = new Swiper(".choose-profile-slider", {
       slidesPerView: 3,
+      spaceBetween: 10,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -1110,7 +1541,7 @@
           slidesPerView: 3,
         },
         1024: {
-            slidesPerView: 3,
+            slidesPerView: 4,
         },
       },
     });

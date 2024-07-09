@@ -1091,3 +1091,8 @@
   }
 }
 
+textarea.select2-search__field{
+  min-height: 35px;
+}
+
+
