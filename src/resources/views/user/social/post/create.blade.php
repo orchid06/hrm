@@ -149,7 +149,7 @@
                                                 <div class="form-inner mb-0">
                                                     <div class="compose-body">
                                                         <textarea name="text" cols="30" rows="4"
-                                                            placeholder="{{translate('Start Writing')}}" class="compose-input bg-light"
+                                                            placeholder="{{translate('Start Writing')}}" class="compose-input"
                                                             id="inputText">{{old('text')}}</textarea>
 
                                                         <div class="compose-body-bottom">
@@ -246,41 +246,26 @@
                                                 </div>
                                             </div>
 
-
-
-                                            <div class="action-item i-badge info" data-bs-toggle="collapse" data-bs-target="#hashtag"
-                                                                aria-expanded="false"
-                                                                aria-controls="hashtag"
-                                                                role="button">
-                                                    <i class="bi bi-credit-card-2-front"></i>
-                                                    <p>
-                                                        {{translate('Predefined Content')}}
-                                                    </p>
+                                            <div>
+                                            <div class="form-inner">
+                                                <label for="predefined">
+                                                    {{translate('Predefined Content')}}
+                                                </label>
+                                                <select class="form-select" aria-label="Default select example" id="predefined">
+                                                    <option value="">
+                                                            {{translate("Select Content")}}
+                                                    </option>
+        
+                                                    @foreach ($contents as  $content)
+                                                        <option value="{{$content->content}}">
+                                                            {{$content->name}}
+                                                        </option>
+                                                    @endforeach
+        
+                                                </select>
                                             </div>
-
-                                            <div class="collapse" id="hashtag">
-                                                    <div class="i-card-md">
-                                                            <div class="card-body">
-                                                                <div class="form-inner">
-                                                                    <label for="predefined">
-                                                                        {{translate('Predefined Content')}}
-                                                                    </label>
-                                                                    <select class="form-select" aria-label="Default select example" id="predefined">
-                                                                        <option value="">
-                                                                                {{translate("Select Content")}}
-                                                                        </option>
-                            
-                                                                        @foreach ($contents as  $content)
-                                                                            <option value="{{$content->content}}">
-                                                                                {{$content->name}}
-                                                                            </option>
-                                                                        @endforeach
-                            
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                    </div>
-                                                </div>
+                                                
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mb-0">
@@ -386,9 +371,6 @@
                                         </li>
                                     @endforeach
                                    
-                              
-                           
-                               
                                 </ul>
                             </div>
                             <div class="swiper-arrow swiper-button-next social-btn-next"><i

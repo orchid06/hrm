@@ -22,7 +22,7 @@
                     <div class="counter-single text-center">
                         <div class="counter-text d-flex flex-column">
                             <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                                <h3 class="odometer" data-odometer-final="{{$counter->value->counter_value}}"> {{$counter->value->counter_value}}</h3><i class="bi bi-plus-lg"></i>
+                                <h3> {{$counter->value->counter_value}}</h3><i class="bi bi-plus-lg"></i>
                             </div>
                             <p>
                               {{@$counter->value->counter_text}}

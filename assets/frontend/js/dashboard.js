@@ -72,7 +72,6 @@
     var hiddenOverlay = document.querySelector(".hidden-overlay");
     if (hiddenOverlay === null) {
       hiddenOverlay = document.createElement("div");
-      hiddenOverlay.setAttribute("class", "hidden-overlay");
     }
 
     sideMenuItem.forEach((item) => {

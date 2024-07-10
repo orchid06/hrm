@@ -31,9 +31,12 @@
                             </div>
                         </li>
                 @empty
-                        <li class="text-center p-4">
-                             <div class="no--access">
-                               <P class="fs-20 text-danger">{{translate("You dont have any platform access")}}</P>
+                        <li class="no--access">
+                            <div class="icon">
+                                <svg  version="1.1"  width="50" height="50" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g data-name="Layer 2"><path d="M27.308 27.42H4.692a2.75 2.75 0 0 1-2.303-4.253L13.697 5.829a2.749 2.749 0 0 1 4.606 0L29.61 23.167a2.75 2.75 0 0 1-2.303 4.252zM16 6.08a1.23 1.23 0 0 0-1.047.567L3.645 23.986a1.25 1.25 0 0 0 1.047 1.933h22.616a1.25 1.25 0 0 0 1.047-1.933L17.047 6.648A1.23 1.23 0 0 0 16 6.081z"  opacity="1" data-original="#000000" class=""></path><path d="M16 19.375a1 1 0 0 1-1-1v-6a1 1 0 0 1 2 0v6a1 1 0 0 1-1 1z"  opacity="1" data-original="#000000" class=""></path><circle cx="16" cy="22.375" r="1.25"  opacity="1" data-original="#000000" class=""></circle></g></g></svg>
+                            </div>
+                             <div >
+                               <P>{{translate("You dont have any platform access")}}</P>
                              </div>
                         </li>
                 @endforelse

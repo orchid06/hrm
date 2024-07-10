@@ -6,7 +6,7 @@
   border-radius: 4px;
 }
 .compose-form .caption-wrapper .compose-body > textarea {
-  border: 1px solid var(--border-two);
+  border: 1px solid var(--border-one);
   min-height: 140px;
 }
 .compose-form .caption-wrapper .compose-body > textarea:focus {
@@ -26,7 +26,7 @@
   justify-content: space-between;
   margin-top: 15px;
   padding-top: 15px;
-  border-top: 1px solid var(--border-two);
+  border-top: 1px solid var(--border-one);
   width: 100%;
   max-height: 330px;
   overflow-y: auto;
@@ -74,7 +74,7 @@
   font-size: 16px;
   padding: 8px 13px;
   border-radius: 12px;
-  border: 1px solid var(--border-two);
+  border: 1px solid var(--border-one);
 }
 .compose-form
   .caption-wrapper
@@ -260,7 +260,7 @@
 
 
 .social-preview-body {
-  border: 2px solid var(--border-two);
+  border: 2px solid var(--border-one);
   border-radius: 20px;
   width: 100%;
   max-width: 400px;
@@ -465,7 +465,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  border-top: 1px solid var(--border-two);
+  border-top: 1px solid var(--border-one);
 }
 .social-preview-body .caption-action .caption-action-item {
   display: -webkit-box;
@@ -530,7 +530,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  border-bottom: 1px solid var(--border-two);
+  border-bottom: 1px solid var(--border-one);
   padding-bottom: 15px;
   margin-bottom: 15px;
 }
@@ -799,9 +799,9 @@
   max-height: 100px;
   overflow-y: auto;
   line-height: 1.1;
-  background-color: var(--color-primary-light);
   border-radius: 30px;
   padding: 15px 15px;
+  border: 1px solid var(--border-two);
 }
 .choose-profile-btn[aria-expanded="true"] > span {
   transform: rotate(-180deg);
@@ -937,7 +937,7 @@
   cursor: pointer;
   margin-bottom: 0;
   padding: 8px 13px;
-  border: 1px solid var(--border-two);
+  border: 1px solid var(--border-one);
 }
 .upload-filed > label span{
   color: var(--text-secondary);

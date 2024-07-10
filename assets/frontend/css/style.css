@@ -2495,6 +2495,44 @@
 /* =========================================================
               Why Choose Us Section Start
 ============================================================ */
+
+.choose-card-wrapper .col-lg-4:nth-child(even) .choose-card{
+  background-color: var(--color-primary);
+
+  &:hover{
+    padding: 25px;
+    border-radius: 12px;
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-white);
+    transition: 0.3s ease-in-out;
+    text-align: center;
+
+    .choose-card-icon {
+      color: var(--color-white);
+      background-color: var(--color-primary);;
+    }
+    h4{
+      color: var(--text-primary);
+    }
+    p{
+      color: var(--text-secondary);
+    }
+  }
+
+  h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+  
+   p {
+    color: var(--color-white);
+  }
+  .choose-card-icon {
+    color: var(--color-primary);
+    background-color: var(--color-white);
+  }
+}
 .choose {
   position: relative;
 }
@@ -2502,9 +2540,14 @@
 .choose-card {
   padding: 25px;
   border-radius: 12px;
-  border: 2px solid var(--color-primary-light);
+  border: 2px solid var(--color-primary);
   background-color: var(--color-white);
   transition: 0.3s ease-in-out;
+  text-align: center;
+
+  &:hover{
+    background-color: var(--color-primary-light) !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -2519,9 +2562,18 @@
 }
 
 .choose-card .choose-card-icon {
+  margin: auto;
   font-size: 36px;
-  margin-bottom: 15px;
-  color: var(--color-primary);
+  margin-bottom: 25px;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .choose-card h4 {

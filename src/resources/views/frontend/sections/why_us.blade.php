@@ -18,9 +18,9 @@
         </div>
         <div class="row g-5">
             <div class="col-lg-12">
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4 justify-content-center choose-card-wrapper">
                     @foreach ($elements  as $element)
-                      <div class="col-md-6">
+                      <div class="col-lg-4 col-md-6">
                         <div class="choose-card">
                           <div class="choose-card-icon">
                               <i class="{{$element->value->icon}}"></i>
