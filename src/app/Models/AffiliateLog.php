@@ -14,18 +14,15 @@ class AffiliateLog extends Model
     protected $guarded = [];
 
     public function user() :BelongsTo{
-
         return $this->belongsTo(User::class, "user_id");
     }
 
 
     public function referral() :BelongsTo{
-
         return $this->belongsTo(User::class, "referred_to");
     }
 
     public function subscription() :BelongsTo{
-
         return $this->belongsTo(Subscription::class, "subscription_id");
     }
 }

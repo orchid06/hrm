@@ -190,9 +190,9 @@ class SocialAccountController extends Controller
     public function show(string $uid) :View | RedirectResponse{
 
         $account  = SocialAccount::with(['platform'])
-                                ->where('uid',$uid)
-                                ->where('user_id',$this->user->id)
-                                ->firstOrfail();
+                                        ->where('uid',$uid)
+                                        ->where('user_id',$this->user->id)
+                                        ->firstOrfail();
 
         $class    = 'App\\Http\\Services\\Account\\'.$account->platform->slug.'\\Account';
         $service  =  new  $class();

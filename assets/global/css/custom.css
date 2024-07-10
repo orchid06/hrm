@@ -18,9 +18,29 @@
     overflow-y: scroll !important;
 }
 
+
+
+.testi-slider{
+    height:  230px !important;
+}
   
   
-  
+
+.ratting-progres-5 {
+        width: 100%;
+}
+.ratting-progres-4 {
+    width: 70%;
+}
+.ratting-progres-3 {
+    width: 40%;
+}
+.ratting-progres-2 {
+    width: 25%;
+}
+.ratting-progres-1 {
+    width: 15%;
+}
   
   
   

@@ -91,7 +91,7 @@
 
                   @if(check_permission('view_account'))
                     <li class="sub-menu-item">
-                        <a  href="{{route('admin.social.account.list',['platform' => 'facebook'])}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
+                        <a  href="{{route('admin.social.account.list')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
                             <span></span>
                             <p>{{translate('Accounts')}}</p>
                         </a>

@@ -9,7 +9,6 @@
         <div class="auth-slider-wrapper">
         <div class="swiper auth-slider">
             <div class="swiper-wrapper">
-
                 @foreach ( $authElements  as $element )
                     <div class="swiper-slide">
                         <div class="auth-slider-item">
@@ -39,8 +38,6 @@
                         </div>
                     </div>
                 @endforeach
-
-          
             </div>
             <div class="swiper-pagination"></div>
         </div>

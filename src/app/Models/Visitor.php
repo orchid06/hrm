@@ -10,10 +10,12 @@ use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Illuminate\Foundation\Mix;
-
+use Illuminate\Support\Str;
 class Visitor extends Model
 {
     use HasFactory,Filterable;
+
+
 
 
 
@@ -22,6 +24,17 @@ class Visitor extends Model
     protected $casts = [
         'agent_info' => 'object',
     ];
+
+
+    protected static function booted(){
+
+        static::creating(function (Model $model) {
+            $model->uid        = Str::uuid();
+        });
+
+      
+    }
+
 
     public function country() :BelongsTo{
         return $this->belongsTo(Country::class,'country_id','id')->withDefault([
