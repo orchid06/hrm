@@ -24,11 +24,12 @@
                     </li>
                 @else
 
-                    <li><span>{{ Arr::get($list, 'title') }}:</span> 
+                    <li>
+                        <span>{{ Arr::get($list, 'title') }}:</span> 
                         @php 
                             $value = Arr::get($list,'value') ;
                         @endphp
-                        @if(Arr::has($list,'href'))
+                        @if(Arr::has($list,'href') && Arr::get($list,'href') )
                                 <a href='{{Arr::get($list,'href')}}'>
                                 {{   $value }}
                             </a>

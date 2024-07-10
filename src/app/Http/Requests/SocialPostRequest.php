@@ -63,7 +63,7 @@ class SocialPostRequest extends FormRequest
                         }),'nullable','url'],
             'files' => [
                     Rule::requiredIf(function ()  {
-                        return (!request()->input('text') && !request()->input('link')) ;
+                         (!request()->input('text') && !request()->input('link') && !request()->input('files')) ;
                     }),
                 'nullable',
                 'array',

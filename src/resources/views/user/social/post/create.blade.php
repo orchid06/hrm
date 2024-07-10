@@ -247,35 +247,35 @@
                                             </div>
 
                                             <div>
-                                            <div class="form-inner">
-                                                <label for="predefined">
-                                                    {{translate('Predefined Content')}}
-                                                </label>
-                                                <select class="form-select" aria-label="Default select example" id="predefined">
-                                                    <option value="">
-                                                            {{translate("Select Content")}}
-                                                    </option>
-        
-                                                    @foreach ($contents as  $content)
-                                                        <option value="{{$content->content}}">
-                                                            {{$content->name}}
+                                                <div class="form-inner">
+                                                    <label for="predefined">
+                                                        {{translate('Predefined Content')}}
+                                                    </label>
+                                                    <select class="form-select" aria-label="Default select example" id="predefined">
+                                                        <option value="">
+                                                                {{translate("Select Content")}}
                                                         </option>
-                                                    @endforeach
-        
-                                                </select>
-                                            </div>
-                                                
+            
+                                                        @foreach ($contents as  $content)
+                                                            <option value="{{$content->content}}">
+                                                                {{$content->name}}
+                                                            </option>
+                                                        @endforeach
+            
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="mb-0">
                                         <div class="card-header">
                                             <h4 class="card-title">{{translate('Links')}}</h4>
                                         </div>
                                         <div class="card-body">
                                             <div class="input-group mb-0">
-                                                <input type="text" placeholder="Enter link" name="link" id="link"
-                                                    value="{{old('link')}}" class="form-control" />
+                                                   <input type="text" placeholder="{{translate('Enter link')}}" name="link" id="link"
+                                                              value="{{old('link')}}" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -329,7 +329,7 @@
 
                                         
                                                 <button  type="submit"
-                                                    class=" mt-3 i-btn btn--primary btn--lg capsuled postSubmitButton"
+                                                    class="mt-3 i-btn btn--primary btn--lg capsuled postSubmitButton"
                                                     id="postSubmitButton">
                                                     {{translate("Post")}}
                                                     <i class="bi bi-send"></i>
@@ -437,7 +437,7 @@
                                                 </div>
                                                 <div class="comment-count py-2 px-0">
                                                     <ul class="d-flex align-items-center gap-3">
-                                                        <li>12{{translate('Comments')}} </li>
+                                                        <li>12 {{translate('Comments')}} </li>
                                                         <li>8  {{translate('Shares')}}</li>
                                                     </ul>
                                                 </div>

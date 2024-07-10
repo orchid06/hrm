@@ -10,7 +10,7 @@
             }
       @endphp
 
-    <div class="i-card-md mt-4 position-relative @if(@$modal) border-0 @endif  " id="ai-form">
+    <div class="i-card-md  @if(!@$modal) mt-4 @endif position-relative @if(@$modal) border-0 @endif  " id="ai-form">
 
         @include('admin.partials.card_loader')
 
