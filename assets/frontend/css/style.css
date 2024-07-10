@@ -683,11 +683,8 @@
 .mega-menu-wrapper {
   background-color: var(--color-white);
   border-radius: 8px;
-  box-shadow: 0 20px 32px -8px rgba(17, 16, 19, 0.15),
-    0 0 1px rgba(17, 16, 19, 0.05);
   overflow: hidden;
   border-radius: 20px;
-  border-top: 1px solid var(--border-one);
 }
 
 .mega-menu-wrapper .mega-menu-left {
@@ -3289,20 +3286,6 @@
 /* =========================================================
               Client Reviews Section Start
 ============================================================ */
-
-.reviews
-  .review-wrapper
-  .swiper
-  .swiper-horizontal
-  > .swiper-pagination-bullets,
-.reviews
-  .review-wrapper
-  .swiper
-  .swiper-pagination-bullets.swiper-pagination-horizontal,
-.reviews .review-wrapper .swiper .swiper-pagination-custom,
-.reviews .review-wrapper .swiper .swiper-pagination-fraction {
-  bottom: var(--swiper-pagination-bottom, -8px);
-}
 
 .reviews .review-wrapper .swiper .swiper-pagination-bullet {
   width: var(
@@ -6325,6 +6308,74 @@ textarea{
     width: 35px;
     height: 35px;
   }
+}
+
+
+.modal-delete-noti {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.notification-modal-icon {
+  max-width: 100;
+  width: 45px;
+  height: 45px;
+  background: var(--color-primary-light);
+  border-radius: 50%;
+  line-height: 45px;
+  position: relative;
+  margin: 15px;
+}
+
+.notification-modal-icon::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--color-primary-light);
+  display: block;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.notification-modal-icon::after {
+  content: '';
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  background: var(--color-primary-light);
+  display: block;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.notification-modal-icon i {
+  font-size: 24px;
+  color: var(--color-danger);
+}
+
+.notification-modal-content {
+  margin-top: 25px;
+}
+
+.notification-modal-content>h5 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.notification-modal .modal-footer {
+  justify-content: center;
+  gap: 10px;
+  border-color: var(--border-one);
+  padding: 10px 0 0 0;
 }
 
 

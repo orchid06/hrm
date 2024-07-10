@@ -48,23 +48,16 @@
     toolsColor: "#000",
   });
 
-  // sponsor slider
-    // Review Slider
-    const sponsor = document.querySelector(".sponsor-slider");
+
+    const sponsor = document.querySelector('.sponsor-slider');
     if (sponsor) {
       new Swiper(sponsor, {
-        slidesPerView: 1,
+        slidesPerView: "auto",
         spaceBetween: 15,
         speed: 1000,
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
         autoplay: {
-          delay:4000,
+          delay: 4000,
         },
-  
         breakpoints: {
           0: {
             spaceBetween: 15,
@@ -97,10 +90,6 @@
         el: ".swiper-pagination",
         clickable: true,
       },
-      // autoplay: {
-      //   delay:4000,
-      //   disableOnInteraction: false,
-      // },
       effect: 'fade',
       fadeEffect: {
         crossFade: true
@@ -108,7 +97,6 @@
     });
   }
 
-  // Blog Slider
   const blogSlider = document.querySelector(".blog-slider");
   if (blogSlider) {
     new Swiper(blogSlider, {
@@ -141,7 +129,7 @@
     });
   }
 
-  // Auth Page slider
+
   const authSlider = document.querySelectorAll(".auth-slider");
   if (authSlider) {
     authSlider.forEach((item) => {
@@ -160,7 +148,7 @@
     });
   }
 
-  // Cookie
+
   const cookie = document.querySelector(".cookie");
   if (cookie) {
     const cookieBtns = cookie.querySelectorAll(".cookie-action button");
@@ -171,7 +159,7 @@
     });
   }
 
-  // Sidebar
+
   const sidebarTrigger = document.querySelectorAll(".sidebar-trigger");
   if (sidebarTrigger != null) {
     Array.from(sidebarTrigger).forEach((item) => {
@@ -199,7 +187,7 @@
     });
   }
 
-  // Mega Menu Click on mobile Device
+
   const menuList = document.querySelector(".menu-list");
   if (menuList) {
     const menu = menuList.querySelectorAll(".menu-link");
@@ -230,7 +218,7 @@
     });
   }
 
-  // Select 2 Initialized
+
   const selectTwo = document.querySelector(".select-two");
   $(document).ready(function () {
     if (selectTwo) {
@@ -238,7 +226,7 @@
     }
   });
 
-  // Otp Input form
+
   const inputs = document.querySelectorAll(".otp-field >input");
   inputs.forEach((input, index) => {
     input.dataset.index = index;
@@ -296,7 +284,7 @@
     return element.classList.contains(className);
   }
 
-  // Drag and Drop Section
+
   function hasClass(element, className) {
     return element && element.classList.contains(className);
   }
