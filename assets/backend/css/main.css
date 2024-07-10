@@ -6671,6 +6671,7 @@ ul.inbox-list li .col-mail-2 .date {
     padding: 10px;
     border-radius: 6px;
     display: flex;
+    background-color: #fff;
 }
 
 .banner-bg {
@@ -6968,8 +6969,8 @@ input[type="date"]::after{
   }
 
   .image-v-preview img{
-    max-width: 100px;
-    height: 100%;
+    max-width: 90px;
+    height: 60px;
     object-fit: cover;
     border-radius: 5px;
   }

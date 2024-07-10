@@ -741,7 +741,7 @@
                           <li>
                               <div class="d-flex align-items-center gap-2 flex-grow-1">
                                 <div class="avatar-sm acitivity-avatar">
-                                    <div class="avatar-title rounded-2 bg-secondary">
+                                    <div class="avatar-title rounded-5 bg-secondary">
                                       <img class="rounded-circle avatar-sm"  src='{{imageURL($customer->file,"profile,user",true) }}' alt="{{@$customer->file->name?? 'profile.jpg'}}">
                                     </div>
                                 </div>
