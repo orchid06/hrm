@@ -46,10 +46,10 @@
 								</td>
 								<td data-label='{{translate("Options")}}'>
 									<div class="table-action">
-										<a title="{{translate('Save')}}" href="javascript:void(0)" data-translate-id ="{{$translate->id}}" data-id ="{{$loop->iteration}}"  title="save" class="translate icon-btn success"><i class="las la-save"></i></a>
+										<a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Save")}}" href="javascript:void(0)" data-translate-id ="{{$translate->id}}" data-id ="{{$loop->iteration}}"  title="save" class="translate icon-btn success"><i class="las la-save"></i></a>
 
 										@if(check_permission('delete_language'))
-											<a title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('admin.language.destroy.key',$translate->uid)}}" class="delete-item icon-btn danger">
+											<a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Delete")}}"  href="javascript:void(0);" data-href="{{route('admin.language.destroy.key',$translate->uid)}}" class="delete-item icon-btn danger">
 												<i class="las la-trash-alt"></i></a></a>
 										@endif
 									</div>

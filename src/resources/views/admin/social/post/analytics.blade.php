@@ -356,11 +356,11 @@
                   <td data-label='{{translate("Action")}}'>
                       <div class="table-action">
 
-                          <a title="{{translate('Show')}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                          <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                           </a>
 
                           @if(check_permission('delete_post') )
-                              <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
+                              <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
                                   <i class="las la-trash-alt"></i>
                               </a>
                           @else

@@ -222,16 +222,16 @@
                                                         }
                                             
                                                     @endphp
-                                                    <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
+                                                    <a    data-account = "{{$account}}" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Reconnect")}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                     </a>
                                                     @endif
     
                                                 @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                        <a  title="{{translate('Show')}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                                         </a>
                                                 @endif
                                                 @if(check_permission('delete_account') )
-                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @else

@@ -8,9 +8,7 @@
 @section('content')
 
 @php
-
         $user = auth_user('web')->load(['runningSubscription','runningSubscription.package']);
-
         $schedule = false;
         if($user->runningSubscription){
             $package = $user->runningSubscription->package;
@@ -88,7 +86,7 @@
                                                                                         ?  @$account->account_information->avatar 
                                                                                         : route('default.image', '200x200')
                                                                     @endphp
-                                                                    <option value="{{$account->id}}"
+                                                                    <option @if(old('account_id') && is_array(old('account_id')) && in_array($account->id , old('account_id')))  selected @endif   value="{{$account->id}}"
                                                                         data-image="{{  $imgUrl}}">
                                                                         {{$account->name}}
                                                                     </option>
@@ -123,12 +121,22 @@
                                                                                         ?  @$account->account_information->avatar 
                                                                                         : route('default.image', '200x200')
                                                                     @endphp
-                                                                    <option value="{{$account->id}}"
+                                                                    <option  @if(old('account_id') && is_array(old('account_id')) && in_array($account->id , old('account_id')))  selected @endif  value="{{$account->id}}"
                                                                         data-image="{{  $imgUrl}}">
                                                                         {{$account->name}}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+
+                                                             
+                                                            <div class="choose-profile-body mt-2">
+                                                                <div class="choose-profile-footer">
+                                                                    <a href="{{route('user.social.account.create',['platform' => $platform->slug])}}" class="i-btn btn--primary btn--lg">
+                                                                        {{translate('Create New Account')}}
+                                                                        <i class="bi bi-plus-lg"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
 
                                                         </div>
                                                     </div>
@@ -265,6 +273,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
 
