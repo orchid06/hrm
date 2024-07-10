@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between">
 
-                                     <a class="text--success" href="##">
+                                     <a class="text--success" href="{{route('user.social.post.list')}}">
                                           {{translate('View All')}}
                                      </a>
                          
@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.post.list',['status' =>App\Enums\PostStatus::PENDING->value ])}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14">{{translate('This year')}}</p>
@@ -197,7 +197,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.post.list',['status' =>App\Enums\PostStatus::SCHEDULE->value ])}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14">{{translate('This year')}}</p>
@@ -217,7 +217,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.post.list',['status' =>App\Enums\PostStatus::SUCCESS->value ])}}">
                                         {{translate('View All')}}
                                     </a>
                                     <p class="mb-0 fs-14"> {{translate('This year')}}</p>
@@ -237,7 +237,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.post.list',['status' =>App\Enums\PostStatus::FAILED->value ])}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14"> {{translate('This year')}}</p>
@@ -257,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.account.list')}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14"> {{translate('This year')}}</p>
@@ -277,7 +277,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.account.list',['status' =>  App\Enums\StatusEnum::true->status()])}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14"> {{translate('This year')}}</p>
@@ -297,7 +297,7 @@
                                     </div>
                                 </div>
                                 <div class="footer border-top d-flex justify-content-between flex-wrap">
-                                    <a class="text--success" href="##">
+                                    <a class="text--success" href="{{route('user.social.account.list',['status' =>  App\Enums\StatusEnum::false->status()])}}">
                                         {{translate('View All')}}
                                    </a>
                                     <p class="mb-0 fs-14">
@@ -320,57 +320,67 @@
             $latestPost = Arr::get($data,'latest_post',collect([]));
         @endphp
 
-        <div class="swiper latest-post-slider">
+        @if( $latestPost->count() > 0)
 
-            <div class="swiper-wrapper">
-                @foreach ($latestPost as $post )
-                    <div class="swiper-slide">
-                        <div>
-                            @if($post->file->count() > 0)
-                                @php
-                                    $imgURL = $post->file->count() > 0 
-                                                    ? imageURL($post->file->first(),"post",true)
-                                                    : get_default_img();
-                                @endphp
-                                <img src="{{ $imgURL}}" class="radius-8 mb-3" alt="post.jpg">
-                            @endif
-                            @if($post->content)
-                                <h6 class="card--title-sm mb-1">
-                                     {{$post->content}}
-                                </h6>
-                            @endif
-                            @if($post->link)
-                                  <a target="_blank" href="{{$post->link}}">
-                                     {{translate('Link')}}
-                                  </a>
-                            @endif
-                            <div class="d-flex mb-1">
-                                @if(@$post->account->account_information->link)
-                                    <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Account name')}}"  target="_blank" href="{{@$post->account->account_information->link}}">
-                                        #{{ @$post->account->account_information->name}}
+            <div class="swiper latest-post-slider">
+
+                <div class="swiper-wrapper">
+                    @foreach ($latestPost as $post )
+                        <div class="swiper-slide">
+                            <div>
+                                @if($post->file->count() > 0)
+                                    @php
+                                        $imgURL = $post->file->count() > 0 
+                                                        ? imageURL($post->file->first(),"post",true)
+                                                        : get_default_img();
+                                    @endphp
+                                    <img src="{{ $imgURL}}" class="radius-8 mb-3" alt="post.jpg">
+                                @endif
+                                @if($post->content)
+                                    <h6 class="card--title-sm mb-1">
+                                        {{$post->content}}
+                                    </h6>
+                                @endif
+                                @if($post->link)
+                                    <a target="_blank" href="{{$post->link}}">
+                                        {{translate('Link')}}
                                     </a>
-                                @else
-                                    {{ @$post->account->account_information->name}}
                                 @endif
+                                <div class="d-flex mb-1">
+                                    @if(@$post->account->account_information->link)
+                                        <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Account name')}}"  target="_blank" href="{{@$post->account->account_information->link}}">
+                                            #{{ @$post->account->account_information->name}}
+                                        </a>
+                                    @else
+                                        {{ @$post->account->account_information->name}}
+                                    @endif
 
-                                @if(@$post->account->platform)
-                                   <a href="{{route('user.social.account.list',['platform' => $platform->slug])}}"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Platform')}}">
-                                        #{{@$post->account->platform->name}}
-                                   </a>
-                                @endif
+                                    @if(@$post->account->platform)
+                                    <a href="{{route('user.social.account.list',['platform' => $platform->slug])}}"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Platform')}}">
+                                            #{{@$post->account->platform->name}}
+                                    </a>
+                                    @endif
+                                </div>
+                                <div class="date mb-3">
+                                    <span class="fs-15 text--light">{{get_date_time($post->created_at,"F j, Y")}}</span> <span class="fs-15 text--light">{{get_date_time($post->created_at,"g a")}}</span>
+                                </div>
+                                <a href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="i-btn btn--primary btn--lg capsuled w-100">
+                                    {{translate('View Post')}}
+                                </a>
                             </div>
-                            <div class="date mb-3">
-                                <span class="fs-15 text--light">{{get_date_time($post->created_at,"F j, Y")}}</span> <span class="fs-15 text--light">{{get_date_time($post->created_at,"g a")}}</span>
-                            </div>
-                            <a href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="i-btn btn--primary btn--lg capsuled w-100">
-                                 {{translate('View Post')}}
-                            </a>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-        <div class="latest-post-pagination"></div>
+            <div class="latest-post-pagination"></div>
+
+        @else
+            
+            <div>
+                @include('admin.partials.not_found')
+            </div>
+
+        @endif
     </div>
 
         <div class="i-card upgrade-card mb-4">

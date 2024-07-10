@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
 @section('content')
-
 <div class="mt-5 compose-wrapper">
+
     <form action="" class="compose-form">
         <div class="row gy-4">
             <div class="col-xxl-8">
@@ -161,8 +161,7 @@
 
                                                     <div class="compose-body-bottom">
                                                         <div class="caption-action mb-3">
-                                                            <div class="action-item" data-bs-toggle="modal"
-                                                                data-bs-target="#aiModal">
+                                                            <div class="action-item ai-modal" >
                                                                 <i class="bi bi-robot"></i>
                                                                 <p>
                                                                     AI Assistant
@@ -1147,6 +1146,7 @@
             </div>
         </div>
     </form>
+
 </div>
 
 @endsection
@@ -1168,186 +1168,12 @@
                 </button>
             </div>
 
-            @php
-            $generateRoute = route('admin.ai.template.content.generate');
-            $iconClass = "las la-question-circle";
-
-            if(request()->routeIs('user.*')){
-            $generateRoute = route('user.ai.content.generate');
-            $iconClass = "bi bi-info-circle";
-            }
-            @endphp
-
-            <div class="modal-body">
-                <form id="ai-form" data-route="{{$generateRoute}}" class="ai-content-form">
-                    @csrf
-                    <div class="row g-4">
-                        <div class="col-lg-6">
-                            <div class="form-inner mb-0">
-                                <label for="category">
-                                    {{translate('Category')}} <small class="text-danger">*</small>
-                                </label>
-                                <select required name="category_id" id="category" class="select2">
-                                    <option value="">
-                                        {{translate("Select Category")}}
-                                    </option>
-                                    @foreach($categories as $category)
-                                    <option {{old("category_id") ==  $category->id ? "selected" :""}}
-                                        value="{{$category->id}}">
-                                        {{($category->title)}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-inner mb-0">
-                                <label for="sub_category_id">
-                                    {{translate('Sub Category')}}
-                                </label>
-                                <select name="sub_category_id" id="sub_category_id" class="sub_category_id">
-                                    <option value="">
-                                        {{translate("Select One")}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-inner mb-0">
-                                <label for="templates">
-                                    {{translate("Templates")}}
-                                </label>
-                                <select name="id" class="selectTemplate" id="templates">
 
 
-                                </select>
-                            </div>
-                        </div>
+            <div class="modal-body modal-body-section">
 
-                        <div class="col-lg-6">
-                            <div class="form-inner mb-0">
-                                <label for="language">
-                                    {{translate('Select input & output language')}} <small class="text-danger">*</small>
-                                </label>
-
-                                <select name="language" class="language" id="language">
-                                    @foreach ($languages as $language )
-                                    <option {{session()->get('locale') == $language->code ? "selected" :"" }}
-                                        value="{{$language->name}}">
-                                        {{$language->name}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-4 d-none template-prompt">
-
-                    </div>
-
-                    <div class="mt-4">
-                        <div class="modal-aiwrap faq-wrap">
-                            <div class="accordion" id="advanceOption">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="advanceContent">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#advanceAcc" aria-expanded="true"
-                                            aria-controls="advanceAcc">
-                                            {{translate("Advance Options")}}
-                                            <i title="{{translate('Browse More Fields')}}"
-                                                class="ms-1 {{$iconClass}}"></i>
-                                        </button>
-                                    </h2>
-                                    <div id="advanceAcc"
-                                        class="accordion-collapse collapse {{request()->routeIs('user.*') ? 'show' :''}}"
-                                        aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
-                                        <div class="accordion-body">
-                                            <div class="form-inner">
-                                                <label for="max_result">
-                                                    {{translate("Max Results Length")}} <i
-                                                        title="{{translate('Maximum words for each result')}}"
-                                                        class="ms-1 pointer {{$iconClass}}"></i>
-                                                    @if(request()->routeIs('user.*'))
-                                                    <span class="text-danger">*</span>
-                                                    @endif
-                                                </label>
-                                                <input placeholder="{{translate('Enter number')}}" type="number"
-                                                    id="max_result" min="1" name="max_result"
-                                                    value='{{old("max_result")}}'>
-                                            </div>
-
-                                            <div class="form-inner">
-                                                <label for="ai_creativity">{{ translate('AI Creativity Level') }}
-                                                </label>
-                                                <select class="ai_creativity form-select" id="ai_creativity"
-                                                    name="ai_creativity">
-                                                    <option value="">
-                                                        {{translate("Select Creativity")}}
-                                                    </option>
-                                                    @foreach (Arr::get(config('settings'),'default_creativity',[]) as $k
-                                                    => $v )
-                                                    <option value="{{$v}}">
-                                                        {{ $k }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="form-inner">
-                                                <label for="content_tone">{{ translate('Content Tone') }} <small
-                                                        class="text-danger">*</small></label>
-                                                <select class="content_tone form-select" id="content_tone"
-                                                    name="content_tone">
-                                                    <option value="">
-                                                        {{translate("Select Tone")}}
-                                                    </option>
-                                                    @foreach (Arr::get(config('settings'),'ai_default_tone',[]) as $v )
-                                                    <option {{old("content_tone") == $v ? 'selected' :""}}
-                                                        value="{{$v}}">
-                                                        {{ $v }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="generate-btn d-none {{request()->routeIs('user.*') ? 'mt-4':''}}">
-                            <button type="submit" class="ai-btn i-btn btn--primary btn--lg capsuled">
-                                {{translate("Generate")}}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="content-form  d-none ai-content-div">
-                    <div class="form-inner">
-                        <div class="d-flex gap-2 align-items-center mb-3">
-
-                            <label for="content" class="mb-0">
-                                {{translate("Content")}} <small class="text-danger">*</small>
-                            </label>
-                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Copy')}}"
-                                class="icon-btn icon-btn-sm success copy-content">
-                                <i class="bi bi-clipboard-check"></i>
-                            </button>
-
-                            <button data-toggle="tooltip" data-placement="top" title="{{translate('Download')}}"
-                                class="icon-btn icon-btn-sm info download-text">
-                                <i class="bi bi-download"></i>
-                            </button>
-                        </div>
-
-                        <textarea placeholder="Enter Your Content" name="content" id="content" cols="30"
-                            rows="10"></textarea>
-                    </div>
-                </div>
+                @include('partials.prompt_content',['modal' => true])
+        
 
             </div>
 
@@ -1363,208 +1189,156 @@
 @endsection
 
 
+@push('script-include')
+  @include('partials.ai_content_script');
+ <script src="{{asset('assets/global/js/post.js')}}"></script>
+
+@endpush
+
 @push('script-push')
-<script src="{{asset('assets/global/js/post.js')}}"></script>
-<script>
+    <script>
 
-	(function($){
-       	"use strict";
+        (function($){
+            "use strict";
 
-        $(document).on('keyup','#searchProfile',function(e){
-            e.preventDefault()
-            var value = $(this).val().toLowerCase();
+            $(document).on('click', '.ai-modal', function(e) {
+                    var modal = $('#aiModal');
+                    modal.find('.ai-content-form')[0].reset();
+                    modal.find('.ai-content-div').addClass("d-none")
+                    modal.find('#ai-form').fadeIn()
+                    modal.modal('show');
 
-            $(".profile-item").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+
+            $(document).on('change','#predefined',function(e){
+                e.preventDefault()
+                var value = $(this).val();
+                $("#inputText").val(value);
+                $(".caption-text").html(value);
+
+                e.preventDefault();
+
+            })
+            $(".user").select2({
+                
+            })
+
+            $(".select2").select2({
+                placeholder:"{{translate('Select Category')}}",
+                dropdownParent: $("#aiModal"),
+            })
+            $("#ai_creativity").select2({
+                placeholder:"{{translate('Select Category')}}",
+                dropdownParent: $("#aiModal"),
+            })
+            $(".language").select2({
+                placeholder:"{{translate('Select Language')}}",
+                dropdownParent: $("#aiModal"),
+            })
+
+            $(".selectTemplate").select2({
+                placeholder:"{{translate('Select Template')}}",
+                dropdownParent: $("#aiModal"),
+            })
+            $(".sub_category_id").select2({
+                placeholder:"{{translate('Select Sub Category')}}",
+                dropdownParent: $("#aiModal"),
+            })
+
+
+            $(document).on('click','.copy-content',function(e){
+
+                var textarea = document.getElementById('content');
+                textarea.select();
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+
+                toastr("{{translate('Text copied to clipboard!')}}", 'success');
+
             });
 
-            e.preventDefault();
-
-        })
-
-        $(document).on('change','#predefined',function(e){
-            e.preventDefault()
-            var value = $(this).val();
-            $("#inputText").val(value);
-            $(".caption-text").html(value);
-
-            e.preventDefault();
-
-        })
-        $(".user").select2({
-            
-        })
-
-        $(".select2").select2({
-            placeholder:"{{translate('Select Category')}}",
-            dropdownParent: $("#aiModal"),
-        })
-        $(".language").select2({
-            placeholder:"{{translate('Select Language')}}",
-            dropdownParent: $("#aiModal"),
-        })
-
-        $(".selectTemplate").select2({
-            placeholder:"{{translate('Select Template')}}",
-            dropdownParent: $("#aiModal"),
-        })
-        $(".sub_category_id").select2({
-            placeholder:"{{translate('Select Sub Category')}}",
-            dropdownParent: $("#aiModal"),
-        })
+            $(document).on('click','.download-text',function(e){
+                var content = document.getElementById('content').value;
+                var blob = new Blob([content], { type: 'text/html' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'downloaded_content.html';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
 
 
-        $(document).on('click','.copy-content',function(e){
 
-            var textarea = document.getElementById('content');
-            textarea.select();
-            document.execCommand('copy');
-            window.getSelection().removeAllRanges();
 
-            toastr("{{translate('Text copied to clipboard!')}}", 'success');
 
+    var swiper = new Swiper(".social-btn-slider", {
+            slidesPerView: 3,
+            spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".social-btn-next",
+            prevEl: ".social-btn-prev",
+        },
+        breakpoints: {
+            640: {
+            slidesPerView: 3,
+            },
+            768: {
+            slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 4,
+            },
+        },
         });
 
-        $(document).on('click','.download-text',function(e){
-            var content = document.getElementById('content').value;
-            var blob = new Blob([content], { type: 'text/html' });
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = 'downloaded_content.html';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-
-        // flatpickr("#schedule_date", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
-
-        // flatpickr("#time_post", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
-
-        // flatpickr("#repost", {
-        //     dateFormat: "Y-m-d H:i",
-        //     enableTime: true,
-        // });
-
-        // Choose Profiles
-        $(document).on('click','.check_account',function(e) {
-            var accountName = $(this).attr('data-account_name');
-            var platformName = $(this).attr('data-platform_name');
-            var profile_image =  $(this).attr('data-profile_image');
-            var platform_image =  $(this).attr('data-platform_image');
-
-            var id = $(this).attr('data-id');
-
-            var html = `<li id="list-account-${id}" class="selected-profile-item">
-                <div class="post-profile">
-                    <div class="post-profile-img">
-                        <img src="${profile_image}" alt="${profile_image}">
-                    </div>
-
-                    <span class="channel-icon">
-                        <img src="${platform_image}" alt="${platform_image}">
-                    </span>
-                </div>
-
-
-                <p> ${accountName} <span data-id=${id} class="account_remove"><i class="bi bi-x-lg"></i></span></p>
-            </li>`;
-
-
-            if ($(this).is(':checked')) {
-               $(".selected-profile").append(html);
-            }else{
-                $(`#list-account-${id}`).remove()
-            }
-
-
-            if ($(".selected-profile").children().length >= 0) {
-                $(".selected-profile").addClass('mb-2');
-            }else{
-                $(".selected-profile").removeClass('mb-2');
-            }
-
-        });
-
-        $(document).on('click','.account_remove',function(e) {
-            var remove_id = $(this).attr('data-id');
-            $(`#account-${remove_id}`).prop('checked', false);
-            $(this).parent().parent().remove();
-
-        });
-
-   var swiper = new Swiper(".social-btn-slider", {
+        var swiper = new Swiper(".choose-profile-slider", {
         slidesPerView: 3,
         spaceBetween: 10,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".social-btn-next",
-        prevEl: ".social-btn-prev",
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 3,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
         },
-        768: {
-          slidesPerView: 3,
+        navigation: {
+            nextEl: ".choose-profile-next",
+            prevEl: ".choose-profile-prev",
         },
-        1024: {
-            slidesPerView: 4,
+        breakpoints: {
+            640: {
+            slidesPerView: 3,
+            },
+            768: {
+            slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 4,
+            },
         },
-      },
-    });
-
-    var swiper = new Swiper(".choose-profile-slider", {
-      slidesPerView: 3,
-      spaceBetween: 10,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".choose-profile-next",
-        prevEl: ".choose-profile-prev",
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 3,
-        },
-        768: {
-          slidesPerView: 3,
-        },
-        1024: {
-            slidesPerView: 4,
-        },
-      },
-    });
+        });
 
 
-    function formatState (state) {
-    if (!state.id) {
-        return state.text;
-    }
-    var baseUrl = $(state.element).data('image');
-    var $state = $(
-        '<span class="image-option"><img src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
-    );
-    return $state;
-    }
+        function formatState (state) {
+        if (!state.id) {
+            return state.text;
+        }
+        var baseUrl = $(state.element).data('image');
+        var $state = $(
+            '<span class="image-option"><img src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
+        );
+        return $state;
+        }
 
-    $('#profile-select').select2({
-        templateResult: formatState,
-        templateSelection: formatState
-    });
+        $('#profile-select').select2({
+            templateResult: formatState,
+            templateSelection: formatState
+        });
 
 
-	})(jQuery);
+        })(jQuery);
 
-</script>
+    </script>
 @endpush

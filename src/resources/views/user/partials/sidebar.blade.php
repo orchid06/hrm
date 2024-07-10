@@ -19,7 +19,9 @@
                     <img  class="img-fluid"  src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
                 </a>
                 <ul class="sidemenu-list">
-                    <li class="side-menu-title">Main</li>
+                    <li class="side-menu-title">
+                         {{translate("Main")}}
+                    </li>
                     <li class="sidemenu-item">
                         <a href="{{route('user.home')}}" class="sidemenu-link {{request()->routeIs('user.home') ? 'active' :''}}">
                         <div
@@ -80,7 +82,6 @@
                             </ul>
                         </div>
                     </li>
-
 
 
                     <li class="sidemenu-item">
