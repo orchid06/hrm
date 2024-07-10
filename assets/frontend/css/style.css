@@ -683,11 +683,8 @@
 .mega-menu-wrapper {
   background-color: var(--color-white);
   border-radius: 8px;
-  box-shadow: 0 20px 32px -8px rgba(17, 16, 19, 0.15),
-    0 0 1px rgba(17, 16, 19, 0.05);
   overflow: hidden;
   border-radius: 20px;
-  border-top: 1px solid var(--border-one);
 }
 
 .mega-menu-wrapper .mega-menu-left {
