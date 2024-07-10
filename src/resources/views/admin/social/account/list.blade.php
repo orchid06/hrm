@@ -16,7 +16,19 @@
         <div class="basic-setting-left">
             <div class="sticky-side-div mb-4">
                 <ul class="nav nav-tabs account-tab gap-3 social-account-list flex-row border-0" role="tablist">
-                    @forelse ($platforms as $platform )
+
+                    <li class="d-flex nav-item justify-content-between align-items-center gap-md-2 gap-1">
+                        <a class="nav-link border-0 flex-grow-1 rounded-3 {{! request()->input('platform') ? 'active' :''}}"  href="{{route('admin.social.account.list')}}" >
+                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                <img class="rounded-circle avatar-sm" src='{{get_default_img()}}' alt="default.jpg">
+                                <p>	 
+                                    {{translate('All')}}
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+
+                    @forelse ($platforms as $platform)
                         @if($platform->status == App\Enums\StatusEnum::true->status()  && $platform->is_integrated == App\Enums\StatusEnum::true->status() )
                             <li class="d-flex nav-item justify-content-between align-items-center gap-md-2 gap-1">
                                 <a  data-callback="{{route('account.callback',$platform->slug)}}" href="javascript:void(0);" data-id="{{$platform->id}}"  data-config = "{{collect($platform->configuration)}}" class="update-config fs-15 icon-btn info"><i class="las la-tools"></i>
@@ -31,10 +43,11 @@
                             </li>
                         @endif
                     @empty
-                       <li class="text-center p-4">
-                          {{translate("No Active Platform found")}}
-                       </li>
+                            <li class="text-center p-4">
+                                {{translate("No Active Platform found")}}
+                            </li>
                     @endforelse
+
                 </ul>
             </div>
         </div>
@@ -42,16 +55,16 @@
         <div class="basic-setting-right">
             <div class="i-card-md">
                 <div class="card-body">
-                    @if(request()->input("platform"))
-                        <div class="search-action-area">
-                            <div class="row g-3">
-                                <form hidden id="bulkActionForm" action='{{route("admin.social.account.bulk")}}' method="post">
-                                    @csrf
-                                    <input type="hidden" name="bulk_id" id="bulkid">
-                                    <input type="hidden" name="value" id="value">
-                                    <input type="hidden" name="type" id="type">
-                                </form>
-                                @if(check_permission('create_account') || check_permission('update_account') || check_permission('delete_account') )
+
+                    <div class="search-action-area">
+                        <div class="row g-3">
+                            <form hidden id="bulkActionForm" action='{{route("admin.social.account.bulk")}}' method="post">
+                                @csrf
+                                <input type="hidden" name="bulk_id" id="bulkid">
+                                <input type="hidden" name="value" id="value">
+                                <input type="hidden" name="type" id="type">
+                            </form>
+                            @if(check_permission('create_account') || check_permission('update_account') || check_permission('delete_account') )
                                 <div class="col-md-6 d-flex justify-content-start">
                                     @if(check_permission('update_account'))
                                         <div class="i-dropdown bulk-action d-none">
@@ -59,7 +72,7 @@
                                                 <i class="las la-cogs fs-15"></i>
                                             </button>
                                                 <ul class="dropdown-menu">
-                                                  
+                                                
                                                     @if(check_permission('update_account'))
                                                         @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                             <li>
@@ -73,7 +86,7 @@
                                         </div>
                                         @endif
                                 
-                                    @if(check_permission('create_account'))
+                                    @if(check_permission('create_account') &&  request()->input('platform'))
                                         <a href="{{route('admin.social.account.create',['platform' => request()->input('platform')])}}" class="i-btn btn--sm success me-2 create">
                                             <i class="las la-plus me-1"></i>  {{translate('Add New')}}
                                         </a>
@@ -81,173 +94,169 @@
                                     
                                 
                                 </div>
-                                @endif
-                                <div class="col-md-6 d-flex justify-content-end">
-                                    <div class="search-area">
-                                        <form action="{{route(Route::currentRouteName())}}" method="get">
+                            @endif
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <div class="search-area">
+                                    <form action="{{route(Route::currentRouteName())}}" method="get">
 
-                                            <input type="hidden" name="platform" value="{{request()->input('platform')}}">
-                                                <div class="form-inner">
+                                        <input type="hidden" name="platform" value="{{request()->input('platform')}}">
+                                            <div class="form-inner">
 
-                                                    <input placeholder="{{translate('Search by name')}}" type="search" name="name" value="{{request()->input('value')}}">
-                                                   
-                                                </div>
-                                            <button class="i-btn btn--sm info">
-                                                <i class="las la-sliders-h"></i>
-                                            </button>
-                                            <a href="{{route('admin.social.account.list',['platform' => request()->input('platform')])}}"  class="i-btn btn--sm danger">
-                                                <i class="las la-sync"></i>
-                                            </a>
-                                        </form>
-                                    </div>
+                                                <input placeholder="{{translate('Search by name')}}" type="search" name="name" value="{{request()->input('value')}}">
+                                                
+                                            </div>
+                                        <button class="i-btn btn--sm info">
+                                            <i class="las la-sliders-h"></i>
+                                        </button>
+                                        <a href="{{route('admin.social.account.list',['platform' => request()->input('platform')])}}"  class="i-btn btn--sm danger">
+                                            <i class="las la-sync"></i>
+                                        </a>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-        
-                        <div class="table-container position-relative">
-                            @include('admin.partials.loader')
-        
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th scope="col">
-                                        @if(check_permission('update_account') || check_permission('delete_account'))
-                                            <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
-                                        @endif#
-                                    </th>
-                                    <th scope="col">{{translate('Account Info')}}</th>
-                                   
-                                    <th scope="col">{{translate('Status')}}</th>
-
-                                    <th scope="col">{{translate('Connection Status')}}</th>
-
-                                    <th scope="col">{{translate('Connection Type')}}</th>
-
-                                    <th scope="col">{{translate('Account Type')}}</th>
-                      
+                    </div>
     
-                                    <th scope="col">{{translate('Action')}}</th>
-                                </tr>
-                                </thead>
-                            
-                                <tbody>
-                                    @forelse ($accounts as $account)
-                                        <tr>
-                                            <td data-label="#">
-                                                @if( check_permission('update_account') || check_permission('delete_account'))
-                                                    <input  type="checkbox" value="{{$account->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$account->id}}" />
-                                                @endif
-                                                {{$loop->iteration}}
-                                            </td>
+                    <div class="table-container position-relative">
+                        @include('admin.partials.loader')
+    
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    @if(check_permission('update_account') || check_permission('delete_account'))
+                                        <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
+                                    @endif#
+                                </th>
+                                <th scope="col">{{translate('Account Info')}}</th>
+                                
+                                <th scope="col">{{translate('Status')}}</th>
 
-                                            <td data-label='{{translate("name")}}'>
+                                <th scope="col">{{translate('Connection Status')}}</th>
 
-                                                <div class="user-meta-info d-flex align-items-center gap-2">
-                                                    <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
+                                <th scope="col">{{translate('Connection Type')}}</th>
 
-                                                    @if(@$account->account_information->link)
-                                                        <a target="_blank" href="{{@$account->account_information->link}}">
-                                                            <p>	{{ @$account->account_information->name}}</p>
-                                                        </a>
-                                                    @else
+                                <th scope="col">{{translate('Account Type')}}</th>
+                    
+
+                                <th scope="col">{{translate('Action')}}</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody>
+                                @forelse ($accounts as $account)
+                                    <tr>
+                                        <td data-label="#">
+                                            @if( check_permission('update_account') || check_permission('delete_account'))
+                                                <input  type="checkbox" value="{{$account->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$account->id}}" />
+                                            @endif
+                                            {{$loop->iteration}}
+                                        </td>
+
+                                        <td data-label='{{translate("name")}}'>
+
+                                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
+
+                                                @if(@$account->account_information->link)
+                                                    <a target="_blank" href="{{@$account->account_information->link}}">
                                                         <p>	{{ @$account->account_information->name}}</p>
-                                                    @endif
+                                                    </a>
+                                                @else
+                                                    <p>	{{ @$account->account_information->name}}</p>
+                                                @endif
+                                    
+                                            </div>
+                                        </td>
+                                        <td data-label='{{translate("Status")}}'>
+                                            @if(!$account->user_id)
+                                                <div class="form-check form-switch switch-center">
+                                                    <input {{!check_permission('update_account') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
+                                                        data-column="status"
+                                                        data-route="{{ route('admin.social.account.update.status') }}"
+                                                        data-status="{{ $account->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
+                                                        data-id="{{$account->uid}}" {{$account->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                                    id="status-switch-{{$account->id}}" >
+                                                    <label class="form-check-label" for="status-switch-{{$account->id}}"> </label>
                                         
                                                 </div>
-                                            </td>
-                                            <td data-label='{{translate("Status")}}'>
-                                                @if(!$account->user_id)
-                                                    <div class="form-check form-switch switch-center">
-                                                        <input {{!check_permission('update_account') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                                            data-column="status"
-                                                            data-route="{{ route('admin.social.account.update.status') }}"
-                                                            data-status="{{ $account->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                                            data-id="{{$account->uid}}" {{$account->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                                        id="status-switch-{{$account->id}}" >
-                                                        <label class="form-check-label" for="status-switch-{{$account->id}}"> </label>
-                                            
-                                                    </div>
-                                                @else
+                                            @else
 
-                                                  {{translate('N/A')}}
-                                                @endif
+                                                {{translate('N/A')}}
+                                            @endif
 
-                                            </td>
+                                        </td>
 
-                                            <td data-label='{{translate("Connection Status")}}'>
+                                        <td data-label='{{translate("Connection Status")}}'>
 
-                                                @php echo account_connection_status($account->is_connected) @endphp
-                                           </td>
-        
-                                            <td data-label='{{translate("Connection Type")}}'>
+                                            @php echo account_connection_status($account->is_connected) @endphp
+                                        </td>
+    
+                                        <td data-label='{{translate("Connection Type")}}'>
 
-                                                @php echo account_connection($account->is_official) @endphp
-                                           </td>
-                                            
-                                            <td data-label='{{translate("Account Type")}}'>
+                                            @php echo account_connection($account->is_official) @endphp
+                                        </td>
+                                        
+                                        <td data-label='{{translate("Account Type")}}'>
 
-                                                @php echo account_type($account->account_type) @endphp
-                                           </td>
+                                            @php echo account_type($account->account_type) @endphp
+                                        </td>
 
-                                            <td data-label='{{translate("Action")}}'>
-                                                <div class="table-action">
+                                        <td data-label='{{translate("Action")}}'>
+                                            <div class="table-action">
+                                                @php
+                                                        $platforms           = Arr::get(config('settings'),'platforms' ,[]);
+                                                        $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
+                                                        
+                                                @endphp
+
+                                                @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' &&  !$account->user_id)
                                                     @php
-                                                            $platforms           = Arr::get(config('settings'),'platforms' ,[]);
-                                                            $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
-                                                            
+
+                                                        $url          = 'javascript:void(0)';
+                                                        $connectionClass  =   true;
+                                                        if($account->platform->slug != 'facebook'){
+                                                            $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
+                                                            $connectionClass  =   false;
+
+                                                        }
+                                            
                                                     @endphp
-
-                                                    @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' &&  !$account->user_id)
-                                                        @php
-
-                                                          $url          = 'javascript:void(0)';
-                                                          $connectionClass  =   true;
-                                                          if($account->platform->slug != 'facebook'){
-                                                              $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
-                                                              $connectionClass  =   false;
-  
-                                                          }
-                                                
-                                                        @endphp
-                                                        <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
-                                                        </a>
-                                                     @endif
-        
-                                                    @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                            <a  title="{{translate('Show')}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
-                                                            </a>
+                                                    <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
+                                                    </a>
                                                     @endif
-                                                    @if(check_permission('delete_account') )
-                                                        <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
-                                                            <i class="las la-trash-alt"></i>
+    
+                                                @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
+                                                        <a  title="{{translate('Show')}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                                         </a>
-                                                    @else
-                                                        {{translate('N/A')}}
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td class="border-bottom-0" colspan="90">
-                                                @include('admin.partials.not_found')
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-        
-        
-                            </table>
-                        </div>
-        
-                        <div class="Paginations">
-                            {{ $accounts->links() }}
-                        </div>
-                    @else
-                        <div class="text-center">
-                            {{translate("No Active Platform Selected")}}
-                        </div>
-                    @endif
+                                                @endif
+                                                @if(check_permission('delete_account') )
+                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                        <i class="las la-trash-alt"></i>
+                                                    </a>
+                                                @else
+                                                    {{translate('N/A')}}
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="border-bottom-0" colspan="90">
+                                            @include('admin.partials.not_found')
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+    
+    
+                        </table>
+                    </div>
+    
+                    <div class="Paginations">
+                        {{ $accounts->links() }}
+                    </div>
+                
                 </div>
             </div>
         </div>

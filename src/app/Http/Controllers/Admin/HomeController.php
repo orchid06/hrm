@@ -13,6 +13,7 @@ use App\Models\Admin\Withdraw;
 use App\Models\AiTemplate;
 use App\Models\Blog;
 use App\Models\Core\File;
+use App\Models\CreditLog;
 use App\Models\Link;
 use App\Models\MediaPlatform;
 use App\Models\Notification;
@@ -31,6 +32,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\Fileable;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Http;
@@ -64,26 +67,35 @@ class HomeController extends Controller
 
      public function getDashboardData() :array {
 
+
+        $data['top_customers']               = User::with(['file'])
+                                                        ->withCount(['subscriptions'])
+                                                        ->date()            
+                                                        ->orderBy('subscriptions_count', 'desc') 
+                                                        ->latest()
+                                                        ->take(10)
+                                                        ->get();
+
         $data['latest_log']               = PaymentLog::with(['user','method','method.currency','currency'])
-                                                            ->date()               
-                                                            ->latest()
-                                                            ->take(6)
-                                                            ->get();
+                                                                ->date()               
+                                                                ->latest()
+                                                                ->take(6)
+                                                                ->get();
         $data['latest_subscriptions']     = Subscription::with(['package','admin','user'])
-                                                ->date()               
-                                                ->latest()
-                                                ->take(8)
-                                                ->get();
+                                                                ->date()               
+                                                                ->latest()
+                                                                ->take(8)
+                                                                ->get();
 
         $data['account_repot']            = [
 
-                "total_account"         => SocialAccount::count(),
-                "active_account"        => SocialAccount::active()->count(),
-                "inactive_account"      => SocialAccount::inactive()->count(),
-                "accounts_by_platform"  => MediaPlatform::with('file')->withCount(['accounts'])
-                                            ->integrated()
-                                            ->pluck('accounts_count','name')
-                                            ->toArray()
+                "total_account"         => SocialAccount::whereNull('user_id')->count(),
+                "active_account"        => SocialAccount::whereNull('user_id')->active()->count(),
+                "inactive_account"      => SocialAccount::whereNull('user_id')->inactive()->count(),
+                "accounts_by_platform"  => MediaPlatform::with('file')->withCount(['accounts'=> fn(Builder $q) :Builder => $q->whereNull("user_id")])
+                                                        ->integrated()
+                                                        ->pluck('accounts_count','name')
+                                                        ->toArray()
         ];
 
         $subscripIncome = Subscription::date()->whereYear('created_at', '=',date("Y"))->sum('payment_amount');
@@ -118,6 +130,7 @@ class HomeController extends Controller
 
 
         $data['total_user']               = User::date()->count();
+        $data['total_transaction']        = Transaction::date()->count();
         $data['total_category']           = Category::date()->count();
         $data['total_package']            = Package::date()->count();
         $data['total_visitor']            = Visitor::date()->count();
@@ -127,20 +140,21 @@ class HomeController extends Controller
                                                 number: $subscripIncome + $charge + $withDrawCharge,
                                                 calC:true
                                             ) ;
+
         $data['total_platform']           = MediaPlatform::active()->count();
 
 
 
 
         $data['earning_per_months']     = sortByMonth(PaymentLog::paid()->selectRaw("MONTHNAME(created_at) as months, SUM(amount + charge) as total")
-                                            ->whereYear('created_at', '=',date("Y"))
-                                            ->groupBy('months')
-                                            ->pluck('total', 'months')
-                                            ->toArray());
+                                                        ->whereYear('created_at', '=',date("Y"))
+                                                        ->groupBy('months')
+                                                        ->pluck('total', 'months')
+                                                        ->toArray());
 
         $data['subscription_by_plan']  =  Package::withCount(['subscriptions'])
-                                                ->pluck('subscriptions_count','title')
-                                                ->toArray();
+                                                            ->pluck('subscriptions_count','title')
+                                                            ->toArray();
 
 
 
@@ -148,27 +162,39 @@ class HomeController extends Controller
         $data['payment_charge']         = num_format(number:$charge,calC:true);
 
         $data['monthly_payment_charge']       =  sortByMonth(PaymentLog::date()->paid()->selectRaw("MONTHNAME(created_at) as months, SUM(charge) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+                                                                ->whereYear('created_at', '=',date("Y"))
+                                                                ->groupBy('months')
+                                                                ->pluck('total', 'months')
+                                                                ->toArray(),true);
 
 
                                                 
         $data['monthly_withdraw_charge']       =  sortByMonth(WithdrawLog::date()->approved()->selectRaw("MONTHNAME(created_at) as months, SUM(charge) as total")
-                                                    ->whereYear('created_at', '=',date("Y"))
-                                                    ->groupBy('months')
-                                                    ->pluck('total', 'months')
-                                                    ->toArray(),true);
+                                                                ->whereYear('created_at', '=',date("Y"))
+                                                                ->groupBy('months')
+                                                                ->pluck('total', 'months')
+                                                                ->toArray(),true);
 
 
         $data['latest_transactiions']           =  Transaction::with(['user','admin','currency'])
-                                                        ->search(['remarks','trx_code'])
-                                                        ->filter(["user:username",'trx_type'])
-                                                        ->date()               
-                                                        ->latest()
-                                                        ->take(7)
-                                                        ->get();
+                                                                    ->search(['remarks','trx_code'])
+                                                                    ->filter(["user:username",'trx_type'])
+                                                                    ->date()               
+                                                                    ->latest()
+                                                                    ->take(7)
+                                                                    ->get();
+
+
+        $data['credit_logs']                    =  CreditLog::with(['user','user.file'])
+                                                                    ->search(['remark','trx_code'])
+                                                                    ->filter(["user:username",'type'])
+                                                                    ->date()               
+                                                                    ->latest()
+                                                                    ->take(7)
+                                                                    ->get();
+
+        
+
 
         return $data;
 

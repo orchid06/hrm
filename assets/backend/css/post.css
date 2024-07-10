@@ -1272,3 +1272,13 @@
   background-color: var(--color-danger);
 }
 
+.social-preview-body.single-post .social-caption .caption-imgs {
+  background: var(--site-bg);
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 240px;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  display: block !important;
+}
+
