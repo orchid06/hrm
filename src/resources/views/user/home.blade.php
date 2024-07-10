@@ -313,9 +313,8 @@
      </div>      
     <div class="col-auto right-side-col">
         
-        <h4 class="card--title mb-20">
-             {{translate('Latest Post')}}
-        </h4>
+    <div class="i-card shadow-one mb-4 pb-5 h-100">
+        <h4 class="card--title mb-20">{{translate('Latest Post')}}</h4>
 
         @php
             $latestPost = Arr::get($data,'latest_post',collect([]));
@@ -326,8 +325,7 @@
             <div class="swiper-wrapper">
                 @foreach ($latestPost as $post )
                     <div class="swiper-slide">
-                        <div class="i-card shadow-one mb-4 pb-5">
-
+                        <div>
                             @if($post->file->count() > 0)
                                 @php
                                     $imgURL = $post->file->count() > 0 
@@ -364,17 +362,16 @@
                             <div class="date mb-3">
                                 <span class="fs-15 text--light">{{get_date_time($post->created_at,"F j, Y")}}</span> <span class="fs-15 text--light">{{get_date_time($post->created_at,"g a")}}</span>
                             </div>
-                    
                             <a href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="i-btn btn--primary btn--lg capsuled w-100">
                                  {{translate('View Post')}}
                             </a>
                         </div>
                     </div>
                 @endforeach
-               
             </div>
-            <div class="latest-post-pagination"></div>
         </div>
+        <div class="latest-post-pagination"></div>
+    </div>
 
         <div class="i-card upgrade-card mb-4">
 
