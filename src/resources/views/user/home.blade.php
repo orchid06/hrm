@@ -38,7 +38,7 @@
 <div class="row g-4">
     <div class="col">
         <div class="row g-4">
-            <div class="col-xxl-5 col-xl-5">
+            <div class="col-xxl-6 col-xl-6">
                 <div class="i-card h-550">
                     <h4 class="card--title mb-4">
                          {{translate('Connected Social Accounts')}}
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-7 col-xl-7">
+            <div class="col-xxl-6 col-xl-6">
                 <div class="i-card">
 
 
@@ -313,7 +313,7 @@
      </div>      
     <div class="col-auto right-side-col">
         
-    <div class="i-card shadow-one mb-4 pb-5 h-100">
+    <div class="i-card shadow-one mb-4 pb-5 sidebar-post">
         <h4 class="card--title mb-20">{{translate('Latest Post')}}</h4>
 
         @php
@@ -458,11 +458,9 @@
 
             <div class="card-body">
                 <div class="posts-wrap">
-
-                    <div class="row">
-                        <div class="col-lg-12">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-12 col-xl-10 col-lg-8">
                             <div id="subscriptionChart">
-
                             </div>
                         </div>
                     </div>
