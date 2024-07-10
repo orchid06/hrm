@@ -48,7 +48,7 @@
                                                             @php echo show_ratings($testimonial->value->rating) @endphp
                                                         </ul>
                                                         <p>
-                                                        {{$testimonial->value->quote}}
+                                                            {{$testimonial->value->quote}}
                                                         </p>
                                                         <div class="reviewer-meta">
                                                             <h6>{{$testimonial->value->author}}</h6>

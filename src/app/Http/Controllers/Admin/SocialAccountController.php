@@ -39,11 +39,11 @@ class SocialAccountController extends Controller
             "title"           => translate("Social Account List"),
             'breadcrumbs'     => ['Home'=>'admin.home','Social Accounts'=> null],
             'accounts'        => SocialAccount::with(['user','subscription','subscription.package','platform','admin'])
-                                    ->whereNull('user_id')
-                                    ->filter(["status",'user:username','platform:slug','name'])
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                                        ->whereNull('user_id')
+                                                        ->filter(["status",'user:username','platform:slug','name'])
+                                                        ->latest()
+                                                        ->paginate(paginateNumber())
+                                                        ->appends(request()->all()),
 
         ]);
     }

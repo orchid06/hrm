@@ -370,7 +370,6 @@
                                             </a>
                                         </li>
                                     @endforeach
-                                   
                                 </ul>
                             </div>
                             <div class="swiper-arrow swiper-button-next social-btn-next"><i
@@ -711,19 +710,16 @@
                                                             <div class="action-count d-flex justify-content-between align-items-center">
                                                                 <div class="emoji d-flex align-items-center gap-2">
                                                                     <ul class="d-flex gap-0 react-icon-list">
-                                                                        <li><img src="https://i.ibb.co/8dQF08Y/like.png" alt="like" />
-                                                                        </li>
-                                                                        <li><img src="https://i.ibb.co/8XNyprT/love.png" alt="love" />
-                                                                        </li>
-                                                                        <li><img src="https://i.ibb.co/F8mtm0r/care.png" alt="care" />
-                                                                        </li>
+                                                                        <li><img src="{{asset('assets/images/default/like.png')}}" alt="like.png"></li>
+                                                                        <li><img src="{{asset('assets/images/default/love.png')}}" alt="love.png"></li>
+                                                                        <li><img src="{{asset('assets/images/default/care.png')}}" alt="care.png"></li>
                                                                     </ul>
                                                                     <span class="fs-14">129</span>
                                                                 </div>
                                                                 <div class="comment-count py-2 px-0">
                                                                     <ul class="d-flex align-items-center gap-3">
-                                                                        <li><a href="#" class="fs-13 text--light">12 Comments</a></li>
-                                                                        <li><a href="#" class="fs-13 text--light">8 Shares</a></li>
+                                                                        <li>12{{translate('Comments')}} </li>
+                                                                        <li>8  {{translate('Shares')}}</li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -862,16 +858,6 @@
                     <i class="bi bi-x-lg"></i>
                 </button>
             </div>
-
-            @php
-                    $generateRoute = route('admin.ai.template.content.generate');
-                    $iconClass = "las la-question-circle";
-
-                    if(request()->routeIs('user.*')){
-                        $generateRoute = route('user.ai.content.generate');
-                        $iconClass = "bi bi-info-circle";
-                    }
-            @endphp
 
 
             <div class="modal-body p-0 m-0 modal-body-section">

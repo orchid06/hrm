@@ -100,8 +100,6 @@
     <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
-
-
     <script src="{{asset('assets/frontend/js/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('assets/frontend/js/venobox.min.js')}}"></script>
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>

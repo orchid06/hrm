@@ -1,4 +1,8 @@
 @extends('admin.layouts.master')
+
+@push('style-include')
+    <link href="{{asset('assets/global/css/viewbox/viewbox.css')}}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
     <div class="row g-4 mb-4">
 
@@ -62,10 +66,10 @@
                             <li class="list-group-item">{{ translate('Images')}} :
                                     <div class="d-flex gap-3 mt-2">
                                         @foreach ($post->file as $file)
-                                
-                                                <img src='{{imageURL($file,"post",true)}}'
-                                                    alt="{{ @$file->name }}">
-                                    
+                                            <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
+                                                <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
+                                            </a>
+                                                        
                                         @endforeach
                                     </div>
                             </li>
@@ -80,3 +84,22 @@
     </div>
 @endsection
 
+@push('script-include')
+    <script src="{{asset('assets/global/js/viewbox/jquery.viewbox.min.js')}}"></script>
+@endpush
+
+
+@push('script-push')
+<script>
+	(function($){
+
+        "use strict";
+        $('.image-v-preview').viewbox();
+
+
+
+	})(jQuery);
+    
+</script>
+
+@endpush

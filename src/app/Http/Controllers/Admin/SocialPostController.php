@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Traits\AccountManager;
 use App\Traits\PostManager;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 
 
@@ -174,17 +175,26 @@ class SocialPostController extends Controller
     public function create() :View{
 
 
+        
+        $platforms = MediaPlatform::with(['file' ,'accounts' => fn($q):HasMany => 
+                         $q->where('admin_id',auth_user()->id)
+                                    ->active()
+                                    ->connected()
+                    ])
+                    ->integrated()
+                    ->active()
+                    ->get();
 
         $accounts = SocialAccount::where('admin_id',auth_user()->id)->with(['platform'])->active()->connected()->get();
 
         return view('admin.social.post.create',[
-        
+
             "title"           => "Create Post",
             'breadcrumbs'     => ['Home'=>'admin.home',"Post"=> "admin.social.post.list","Create" => null],
             'accounts'        => $accounts,
             'contents'        => Content::whereNull("user_id")->get(),
             'categories'      => Category::template()->doesntHave('parent')->get(),
-            'platforms'       => MediaPlatform::with(['file'])->integrated()->active()->get(),
+            'platforms'       => $platforms
 
         ]);
     }
