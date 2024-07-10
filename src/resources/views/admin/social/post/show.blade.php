@@ -71,9 +71,10 @@
              
                         @if($post->file->count() > 0)
                             <li>  <span>{{ translate('Images')}} : </span>
-   
-                                        @foreach ($post->file as $file)
 
+                                    <div class="d-flex flex-row gap-2 flex-wrap">
+                                        @foreach ($post->file as $file)
+    
                                            <div class="custom-profile">
                                                 <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
                                                     <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
@@ -81,7 +82,7 @@
                                            </div>
                                                         
                                         @endforeach
-                              
+                                    </div>
                             </li>
                         @endif
                     </ul>

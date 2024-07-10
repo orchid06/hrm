@@ -324,7 +324,7 @@
                 </div>
             </div>
 
-            <div class="col-xxl-4 col-xl-6 col-md-6">
+            <div class="col-xxl-4">
                 <div class="i-card-md social-preview-admin">
                     <div class="card--header">
                         <h4 class="card-title">
@@ -948,7 +948,7 @@
 
 
     var swiper = new Swiper(".social-btn-slider", {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 10,
         pagination: {
             el: ".swiper-pagination",
@@ -966,13 +966,13 @@
             slidesPerView: 3,
             },
             1024: {
-                slidesPerView: 4,
+                slidesPerView: 3,
             },
         },
         });
 
         var swiper = new Swiper(".choose-profile-slider", {
-        slidesPerView: 3,
+        slidesPerView: 2,
         spaceBetween: 10,
         pagination: {
             el: ".swiper-pagination",
@@ -990,7 +990,7 @@
             slidesPerView: 3,
             },
             1024: {
-                slidesPerView: 4,
+                slidesPerView: 3,
             },
         },
         });

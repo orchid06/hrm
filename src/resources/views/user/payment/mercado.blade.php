@@ -6,7 +6,7 @@
             <div class="i-card-md ">
                 <div class="card-header">
                     
-                    <div class="image">
+                    <div class="image avatar-md">
                         <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name."jpg"}}" >
                     </div>
                     <h4 class="card-title">
