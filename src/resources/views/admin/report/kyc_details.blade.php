@@ -60,21 +60,27 @@
                     </div>
                     <div class="card-body">
 
-
-                        <ul class="list-group list-group-flush">
+                        <ul class="custom-info-list list-group-flush">
 
                             @foreach ($report->kyc_data as $k => $v)
-                                <li class="list-group-item">{{ translate(k2t($k)) }} :
-                                    {{ $v }}
+                                <li>
+                                    <span>{{  translate(k2t($k)) }}:</span> 
+                                    <span>
+                                        {{ $v }}
+                                    </span>
+                                 
                                 </li>
                             @endforeach
 
                             @foreach ($report->file as $file)
-                                <li class="list-group-item">{{ translate(k2t($file->type)) }} :
-                                    <a href="{{imageURL($file,'kyc',true)}}" class="image-v-preview">
-                                            <img class="image-v-preview" src='{{imageURL($file,"kyc",true)}}'
-                                            alt="{{ @$file->name }}">
-                                    </a>
+                                <li>
+                                    <span>{{ translate(k2t($file->type)) }} :</span> 
+                                    <div class="custom-profile">
+                                        <a href="{{imageURL($file,'kyc',true)}}" class="image-v-preview">
+                                                <img class="image-v-preview" src='{{imageURL($file,"kyc",true)}}'
+                                                alt="{{ @$file->name }}">
+                                        </a>
+                                    </div>
                                 </li>
                             @endforeach
 

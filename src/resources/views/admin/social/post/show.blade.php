@@ -15,37 +15,43 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ translate('Platform') }} :  {{$post->account->platform->name}}</li>
-                        <li class="list-group-item">{{ translate('Account') }} :   @if(@$post->account->account_information->link)
-                                                                                        <a target="_blank" href="{{@$post->account->account_information->link}}">
-                                                                                           	{{ @$post->account->account_information->name}}
-                                                                                        </a>
-                                                                                    @else
-                                                                                     {{ @$post->account->account_information->name}}
-                                                                                    @endif
-                        </li>
-                        <li class="list-group-item">{{ translate('User') }} :        
-                            @if($post->user )
-                                <a href="{{route('admin.user.show',$post->user->uid)}}">
-                                    {{ @$post->user->name }}
-                                </a>
-                            @else
-                                {{ translate('N/A')}}
-                            @endif
+                    @php
+                    $lists  =  [
+                                    [
+                                                    "title"  =>  translate('Platform'),
+                                                    "value"  =>  @$post->account->platform->name ?? "N/A",
+                                    ],
+                                        
+                                    [
+                                                    "title"  =>  translate('User'),
+                                                    "href"   =>  @$post->user ?  route('admin.user.show',$post->user->uid) : NULL,
+                                                    "value"  =>  @$post->user->name ?? "N/A" ,
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Admin'),
+                                                    "value"  =>  @$post->admin ? @$post->admin->name : translate('N/A')
+                                    ],
+                                    [
+                                                    "title"  =>  translate('Schedule Time'),
+                                                    "value"  =>  @$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')
+                                    ],
+                                 
+                                    [
+                                                    "title"     =>  translate('Status'),
+                                                    "is_html"   =>  true,
+                                                    "value"     =>  post_status($post->status)
+                                    ],
+                                    [
+                                                    "title"     =>  translate('Post Type'),
+                                                    "is_html"   =>  true,
 
-                        </li>
-                        <li class="list-group-item">{{ translate('Admin') }} : {{@$post->admin ? @$post->admin->name : translate('N/A')}}
-                        </li>
-                        <li class="list-group-item">{{ translate('Schedule Time') }} :    {{@$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')}}
-                        </li>
-                        <li class="list-group-item">{{ translate('Status') }} :    @php echo post_status($post->status)   @endphp
-                        </li>
-                        <li class="list-group-item">{{ translate('Post Type') }} :      @php echo post_type($post->post_type)   @endphp
-                        </li>
-            
-                   
-                    </ul>
+                                                    "value"     =>  post_type($post->post_type)
+                                    ],
+                                        
+                            ];
+
+                    @endphp
+                     @include('admin.partials.custom_list',['list'  => $lists])
                 </div>
             </div>
         </div>
@@ -58,20 +64,24 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
+                    <ul class="custom-info-list list-group-flush">
 
-                        <li class="list-group-item">{{ translate('Content') }} :  {{$post->content?? 'N/A'}}</li>
-                        <li class="list-group-item">{{ translate('Link') }} :  {{$post->link?? 'N/A'}}</li>
+                        <li> <span>{{ translate('Content') }} :</span>   <span> {{$post->content?? 'N/A'}} </span></li>
+                        <li> <span>{{ translate('Link') }} :</span>   <span> {{$post->link?? 'N/A'}} </span></li>
+             
                         @if($post->file->count() > 0)
-                            <li class="list-group-item">{{ translate('Images')}} :
-                                    <div class="d-flex gap-3 mt-2">
+                            <li>  <span>{{ translate('Images')}} : </span>
+   
                                         @foreach ($post->file as $file)
-                                            <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
-                                                <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
-                                            </a>
+
+                                           <div class="custom-profile">
+                                                <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
+                                                    <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
+                                                </a>
+                                           </div>
                                                         
                                         @endforeach
-                                    </div>
+                              
                             </li>
                         @endif
                     </ul>
