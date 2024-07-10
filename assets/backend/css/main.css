@@ -1582,7 +1582,7 @@ table.dataTable.no-footer {
 }
 
 .list-group .list-group-item img {
-    max-width: 130px
+    max-width: 100px
 }
 
 .list-group-item-action:focus,
@@ -6965,6 +6965,13 @@ input[type="date"]::after{
   
   .slider-wrap .swiper-button-next::after {
     content: unset;
+  }
+
+  .image-v-preview img{
+    max-width: 100px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
   }
 
   

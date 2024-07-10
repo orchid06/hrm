@@ -22,7 +22,7 @@
               {{translate("No")}}
           </button>
             <div class="actionbtn flex-grow-1">
-                <a href="javascript:void(0)" class="i-btn btn--lg btn--danger w-100 radius-8"
+                <a href="javascript:void(0)" class="i-btn btn--lg btn--primary w-100 radius-8"
                 id="action-href">
                 {{translate('Yes')}}
                </a>
