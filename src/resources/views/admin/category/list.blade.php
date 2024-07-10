@@ -175,11 +175,11 @@
                                             @if(check_permission('update_category') || check_permission('delete_category') )
 
                                                 @if(check_permission('update_category') )
-                                                    <a title="{{translate('Edit')}}"  href="{{route('admin.category.edit',$category->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Update")}}"   href="{{route('admin.category.edit',$category->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                                 @endif
 
                                                 @if(check_permission('delete_category'))
-                                                    <a title="{{translate('Delete')}}"  href="javascript:void(0);"    data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}"     data-href="{{route('admin.category.destroy',$category->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @endif

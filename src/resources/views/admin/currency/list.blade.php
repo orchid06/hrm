@@ -131,12 +131,12 @@
                                             @if(check_permission('update_currency'))
                                             
                                             @if($currency->default != App\Enums\StatusEnum::true->status())
-                                                <a title="{{translate('Default')}}" href="{{route('admin.currency.make.default',$currency->uid)}}" class="icon-btn info">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Default")}}" href="{{route('admin.currency.make.default',$currency->uid)}}" class="icon-btn info">
                                                     <i class="las la-star"></i>
                                                 </a>
                                             @endif
 
-                                                <a title="{{translate('Update')}}"  href="javascript:void(0);" data-currency ="{{$currency}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Update")}}"  href="javascript:void(0);" data-currency ="{{$currency}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
 
                                             @endif
 
@@ -144,7 +144,7 @@
 
                                                 @if($currency->default != App\Enums\StatusEnum::true->status() && $currency->code != "USD" && ($currency->code != @session('currency')->code))
                                                 
-                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"  data-href="{{route('admin.currency.destroy',$currency->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"  data-href="{{route('admin.currency.destroy',$currency->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
 

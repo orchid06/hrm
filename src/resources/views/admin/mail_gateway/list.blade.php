@@ -69,7 +69,7 @@
                                 <td data-label='{{translate("Options")}}'>
                                     <div class="table-action">
                                         @if(check_permission('update_gateway') &&  $gateway->code != "104PHP")
-                                          <a title="{{translate('Update')}}" href="{{route('admin.mailGateway.edit',$gateway->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                          <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Update")}}" href="{{route('admin.mailGateway.edit',$gateway->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                         @else
                                             {{translate('N/A')}}
                                         @endif
