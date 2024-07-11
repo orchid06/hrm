@@ -29,7 +29,7 @@
     <div class="footer-top pt-110 pb-110">
         <div class="row justify-content-center">
           <div class="col-lg-9">
-              <div class="footer-top-content">
+              <div class="footer-top-content" data-aos="fade-up" data-aos-duration="1500">
                    <img src="{{imageURL($footerbg,'frontend',true,$footerbgSize)}}" alt="{{@$footerbg->name ?? "footer-bg.jpg"}}" class="footer-top-img">
                     <h2>
                        {{ @$footer->value->title}}

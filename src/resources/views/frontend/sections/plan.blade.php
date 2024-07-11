@@ -11,7 +11,7 @@
   
       <div class="row justify-content-start align-items-center mb-60 g-4">
         <div class="col-lg-6">
-            <div class="section-title-one text-start">
+            <div class="section-title-one text-start" data-aos="fade-right" data-aos-duration="1500">
                 <div class="subtitle">{{@$content->value->sub_title}}</div>
                 <h2>
                      @php echo @$content->value->title @endphp

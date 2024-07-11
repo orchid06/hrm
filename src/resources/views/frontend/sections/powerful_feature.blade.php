@@ -9,12 +9,12 @@
 @endphp
 <section class="power-feature-section pb-110">
     <div class="container">
-        <div class="row gy-5">
+        <div class="row gy-5 align-items-center">
             <div class="col-lg-6">
                 <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}">
             </div>
             <div class="col-lg-6">
-                <div class="section-title-one text-start mb-60">
+                <div class="section-title-one text-start mb-60" data-aos="fade-right" data-aos-duration="1500">
 
                     <div class="subtitle">{{@$featureContent->value->sub_title}}</div>
                     <h2>  @php echo @$featureContent->value->title @endphp </h2>

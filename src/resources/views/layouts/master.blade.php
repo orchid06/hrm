@@ -14,6 +14,7 @@
     <link href="{{asset('assets/frontend/css/venobox.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/nice-select.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/css/aos.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/root.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/common.css')}}" rel="stylesheet" type="text/css" />
       @if(request()->routeIs('user.*'))
@@ -104,6 +105,7 @@
     <script src="{{asset('assets/frontend/js/venobox.min.js')}}"></script>
     <script src="{{asset('assets/global/js/nice-select.min.js')}}"></script>
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/aos.js')}}"></script>
     @if(request()->routeIs('user.*'))
       <script src="{{asset('assets/frontend/js/dashboard.js')}}"></script>
       <script src="{{asset('assets/frontend/js/simplebar.min.js')}}"></script>

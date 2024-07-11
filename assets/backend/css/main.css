@@ -774,7 +774,7 @@ button {
     height: 40px;
     width: 40px;
     border: 1px solid #eee;
-    background-color: #e6e6e6;
+    background-color: #c5c5c5;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -1343,7 +1343,6 @@ button {
 }
 
 .i-dropdown button {
-    /* border: 1px solid var(--color-border); */
     border-radius: 5px;
     background-color: var(--color-white);
     padding: 6px 30px 6px 10px;
@@ -2439,9 +2438,9 @@ table td:last-child {
     top: 0;
     width: 220px;
     height: 220px;
-    background-color: #f9f9f9;
+    background-color: var(--color-primary-light);
     z-index: -1;
-    border-radius: 50%;
+    clip-path: polygon(0 0, 0 100%, 100% 0);
 }
 
 .form-wrapper::after {
@@ -2451,9 +2450,9 @@ table td:last-child {
     bottom: 0;
     width: 220px;
     height: 220px;
-    background-color: #f9f9f9;
+    background-color: var(--color-primary-light);
     z-index: -1;
-    border-radius: 50%;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
 }
 
 .form-wrapper.form-two {
@@ -3871,7 +3870,6 @@ textarea {
     display: none !important
 }
 
-/* Right Sidebar of Dashboard */
 .layout-rightside {
     width: 280px;
     margin-right: -1.5rem;
@@ -5825,7 +5823,7 @@ ul.inbox-list li .col-mail-2 .date {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 .top-user-list li:nth-last-child(){
     margin-bottom: 0px;
@@ -6920,6 +6918,10 @@ input[type="date"]::after{
     object-fit: cover;
     border-radius: 5px;
   }
+
+  .progress-bar {
+    background-color: var(--color-primary);
+}
 
   
 

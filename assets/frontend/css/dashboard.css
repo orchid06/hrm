@@ -2518,9 +2518,6 @@ select {
   }
 }
 
-/* .aside .side-content .sidemenu-wrapper .sidebar-body{
-  overflow-y: auto;
-} */
 
 aside.show-side-bar {
   width: 240px;
@@ -3061,7 +3058,6 @@ aside.show-side-bar {
   margin-top: 6px;
 }
 
-/* =================Plan Upgrade Card================= */
 
 .bg--linear-primary {
   background: linear-gradient(60deg, rgba(107, 78, 255, 1), rgb(169, 152, 255));
@@ -3161,7 +3157,6 @@ aside.show-side-bar {
   font-size: 15px;
 }
 
-/* =================Channel Profile List================= */
 .channel-list li:first-of-type .channel-item {
   padding-top: 0;
 }
@@ -3236,9 +3231,6 @@ aside.show-side-bar {
   padding: 8px 10px;
 }
 
-/* ==============================================================
-                    Post Slider List
-================================================================= */
 .post-item {
   padding: 20px;
   background: var(--site-bg);
@@ -3376,9 +3368,6 @@ aside.show-side-bar {
   margin-top: 5px;
 }
 
-/* ==============================================================
-                         Inner Banner
-================================================================= */
 .inner-banner {
   padding: 110px 0 110px;
   position: relative;
@@ -3484,7 +3473,6 @@ aside.show-side-bar {
   }
 }
 
-/* ==================Payment Details Start================== */
 .payment-details {
   border: 1px solid var(--color-primary-light-2) !important;
 }
@@ -3526,9 +3514,6 @@ aside.show-side-bar {
   font-weight: 600;
 }
 
-/* ==============================================================
-                    Profile Page
-================================================================= */
 .profile-wrapper .profile-content {
   position: relative;
   z-index: 1;
@@ -3833,9 +3818,6 @@ aside.show-side-bar {
   border-bottom: 1px solid var(--border-one);
 }
 
-/* ==============================================================
-                   CollapsibleTable Accordion Start
-================================================================= */
 .table-accordion .accordion-item {
   background-color: var(--color-white);
   overflow: hidden;
@@ -4069,7 +4051,6 @@ aside.show-side-bar {
   font-size: 14px;
 }
 
-/* ============Delete Modal Customize============ */
 .modal-delete-noti {
   display: flex;
   flex-direction: column;
@@ -4137,8 +4118,6 @@ aside.show-side-bar {
   padding: 5px 0 0 0;
 }
 
-/* ==========Summer note Customize========== */
-
 .note-toolbar {
   justify-content: flex-start !important;
   background-color: var(--site-bg) !important;
@@ -4173,10 +4152,6 @@ aside.show-side-bar {
   border-bottom: 0;
   border-left: 0.3em solid transparent;
 }
-
-/* ==============================================================
- Support Ticket Page
-================================================================= */
 
 .message-wrapper {
   display: grid;
@@ -4348,7 +4323,6 @@ aside.show-side-bar {
   font-size: 15px;
 }
 
-/* =========Account information========= */
 .capsuled-tab {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -4401,8 +4375,6 @@ aside.show-side-bar {
   background: var(--color-primary);
   color: var(--color-primary-text);
 }
-
-/* ======Social Account====== */
 
 
 .social-account-list-2 {
@@ -4471,7 +4443,6 @@ aside.show-side-bar {
   border-color: var(--color-primary);
 }
 
-/* ============Connect Profile tab============ */
 .connect-profile-tab .nav-tabs {
   display: flex;
   align-items: center;
@@ -4490,7 +4461,6 @@ aside.show-side-bar {
   border-color: var(--color-primary) !important;
 }
 
-/* ===========Post Details=========== */
 .post-detail-list {
   gap: 10px;
 }
@@ -4545,7 +4515,6 @@ aside.show-side-bar {
   }
 }
 
-/* ================Latest Feed================ */
 .post-card {
   padding: 20px;
   background: var(--site-bg);
@@ -4590,8 +4559,6 @@ aside.show-side-bar {
 .post-details>p {
   word-break: break-all;
 }
-
-/* ================Notification Page================ */
 
 .notification-list .list-group-item {
   border: 1px solid var(--border-one);
@@ -5169,14 +5136,14 @@ aside.show-side-bar {
 
 .slider-wrap .swiper-button-prev {
   position: absolute;
-  top: 22px;
+  top: 23px;
   left: -24px;
   width: 30px;
   height: 30px;
   line-height: 32px;
   border-radius: 50%;
   text-align: center;
-  background-color: var(--color-primary);
+  background-color: var(--text-primary);
 }
 
 .slider-wrap .swiper-button-prev i {
@@ -5192,14 +5159,14 @@ aside.show-side-bar {
 
 .slider-wrap .swiper-button-next {
   position: absolute;
-  top: 22px;
+  top: 23px;
   right: -24px;
   width: 30px;
   height: 30px;
   line-height: 32px;
   border-radius: 50%;
   text-align: center;
-  background-color: var(--color-primary);
+  background-color: var(--text-primary);
   z-index: 9;
 }
 
@@ -6394,10 +6361,6 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   border-radius: 8px;
 }
 
-
-/* ==============================================================
-                    Plan Details Page
-================================================================= */
 .plan-tab {
   display: flex;
   align-items: center;

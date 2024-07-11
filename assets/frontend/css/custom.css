@@ -56,7 +56,6 @@
   color: #fcd93a;
 }
 
-/* ==================Rating End================== */
 
 .feedback-file {
   cursor: pointer;
@@ -86,7 +85,6 @@
   color: var(--color-primary);
 }
 
-/* Pages Wrapper */
 .page-content {
   padding: 30px 35px;
   border-radius: 40px;
@@ -111,8 +109,6 @@
   cursor: pointer !important;
 }
 
-
-/* =============Summer Note Customize Start============= */
 .note-editor .note-toolbar .note-dropdown-menu,
 .note-popover .popover-content .note-dropdown-menu {
   top: 115%;
@@ -178,8 +174,6 @@
   color: var(--color-primary-text) !important;
   background-color: var(--color-primary) !important;
 }
-
-/* =============Summer Note Customize End============= */
 
 @keyframes stretch {
   0% {

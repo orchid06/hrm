@@ -10,7 +10,7 @@
   <div class="container">
     <div class="row gy-5">
       <div class="col-xl-5 pe-lg-5">
-        <div class="section-title-one text-start mb-60">
+        <div class="section-title-one text-start mb-60" data-aos="fade-right" data-aos-duration="1500">
             <div class="subtitle">{{@$aboutContent->value->sub_title}}</div>
             <h2>  @php echo @$aboutContent->value->title @endphp </h2>
             <p> {{@$aboutContent->value->description}}</p>

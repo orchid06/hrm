@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  // Preloader
+  AOS.init();
+
   const preloader = document.querySelector(".preloader");
   window.addEventListener("load", () => {
     if (preloader) {
@@ -9,7 +10,6 @@
     }
   });
 
-  // Sticky Header
   const header = document.querySelector(".header");
   if (header) {
     const checkScroll = () => {
@@ -25,7 +25,6 @@
     window.addEventListener("load", checkScroll);
   }
 
-  // Back to Top
   const backToTop = document.querySelector(".back-to-top");
   if (backToTop != null) {
     backToTop.addEventListener("click", () => {
@@ -36,7 +35,6 @@
     });
   }
 
-  // Venobox
   new VenoBox({
     selector: "#video-link",
     numeration: false,
@@ -75,7 +73,6 @@
       });
     }
 
-  // Review Slider
   const reviewSlider = document.querySelector(".review-slider");
   if (reviewSlider) {
     new Swiper(reviewSlider, {
@@ -328,32 +325,32 @@
   var swiper = new Swiper(".team-slider", {
     effect: "coverflow",
     grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
+    loop: true,
+    slidesPerView: 1,
     coverflowEffect: {
-      rotate: 30,
+      rotate: 18,
       stretch: 1,
-      depth: 100,
-      modifier: 1,
+      depth: 50,
+      modifier: 0,
       slideShadows: true,
     },
     loop: true,
     breakpoints: {
       320: {
-        slidesPerView: 1,
-        spaceBetween: 10,
+        slidesPerView: 3,
+        spaceBetween: 3,
       },
       480: {
-        slidesPerView: 2,
-        spaceBetween: 10,
+        slidesPerView: 3,
+        spaceBetween: 4,
       },
       640: {
         slidesPerView: 3, 
-        spaceBetween: 10,
+        spaceBetween: 7,
       },
       1024: {
         slidesPerView: 5, 
-        spaceBetween: 10,
+        spaceBetween: 7,
       },
     }
   });
@@ -446,3 +443,9 @@
 
 
 })();
+
+
+
+
+
+

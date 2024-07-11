@@ -2,7 +2,7 @@
 @section('main_content')
 
 <div class="row form-area justify-content-center align-items-stretch g-0">
-    <div class="col-lg-5">
+    <div class="col-lg-6">
         <div class="form-wrapper">
             <div class="row mb-25 gy-4">
                 <div class="col-md-12 text-center">
@@ -17,7 +17,6 @@
             </div>
             <form action="{{route('admin.password.verify.code')}}" class="login-right-form" method="post">
                 @csrf
-
 
                 <div class="row">
                     <div class="col-lg-12">
