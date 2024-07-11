@@ -72,7 +72,7 @@
                                   
                                               
                                             @if(check_permission('delete_report') )
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
                                             @endif
 

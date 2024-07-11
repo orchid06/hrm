@@ -19,14 +19,14 @@
       </div>
       <div class="header-icon d-flex">
         <div class="btn-icon ripple-dark" data-anim="ripple">
-           <a href="{{route('admin.setting.cache.clear')}}">
+           <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Cache clear")}}" href="{{route('admin.setting.cache.clear')}}">
               <i class="las la-broom"></i>
            </a>
         </div>
       </div>
       <div class="header-icon">
         <div class="btn-icon ripple-dark" data-anim="ripple">
-           <a target="_blank" href="{{url('/')}}">
+           <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Browse frontend")}}" target="_blank" href="{{url('/')}}">
               <i class="las la-globe"></i>
            </a>
         </div>

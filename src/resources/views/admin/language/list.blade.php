@@ -137,15 +137,15 @@
 										<div class="table-action">
 											@if(check_permission('update_language') ||  check_permission('translate_language') || check_permission('delete_language') )
 												@if(check_permission('update_language') && $language->is_default != App\Enums\StatusEnum::true->status())
-													<a title="{{translate('Default')}}" href="{{route('admin.language.make.default',$language->uid)}}" class="icon-btn info">
+													<a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Make Default")}}" href="{{route('admin.language.make.default',$language->uid)}}" class="icon-btn info">
 														<i class="las la-star"></i>
 													</a>
 												@endif
 												@if(check_permission('translate_language'))
-													<a title="{{translate('Translate')}}" href="{{route('admin.language.translate',$language->code)}}" class="pointer icon-btn success"><i class="las la-language"></i></a>
+													<a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Translate")}}" href="{{route('admin.language.translate',$language->code)}}" class="pointer icon-btn success"><i class="las la-language"></i></a>
 												@endif
 												@if(check_permission('delete_language') && $language->code !='en' && $language->is_default != App\Enums\StatusEnum::true->status() && session()->get('locale') != $language->code   )
-														<a title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.language.destroy',$language->uid)}}" class="pointer delete-item icon-btn danger ">
+														<a data-bs-toggle="tooltip" data-bs-placement="top"data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.language.destroy',$language->uid)}}" class="pointer delete-item icon-btn danger ">
 														<i class="las la-trash-alt"></i></a>
 												@endif
 											@else
