@@ -14,7 +14,7 @@
                                 <div class="custom-profile">
                             
                                     <a href="{{imageURL($file,@$file_path,true)}}" class="image-v-preview" title="{{ k2t($k) }}">
-                                        <img src="{{imageURL($file,@$file_path,true)}}" alt="{{ ucfirst($k) }}">
+                                        <img src="{{imageURL($file,@$file_path,true)}}" alt="{{ ucfirst($k).'.jpg' }}">
                                     </a>
                                 
                                 </div>

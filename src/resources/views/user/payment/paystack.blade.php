@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-start align-items-center gap-4">
                         <div class="image avatar-md">
-                            <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name."jpg"}}" >
+                            <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name.".jpg"}}" >
                         </div>
                         <h4 class="card-title">{{@$log->method->name}}</h4>
                     </div>

@@ -48,7 +48,7 @@
                                         <label class="payment-card-item">
                                             <input name="method_id" data-method="{{$method}}" , data-img="{{imageURL(@$method->file,"payment_method",true)}}" value="{{$method->id}}" class="radio deposit-method" type="radio" >
                                             <div class="image">
-                                                <img src='{{imageURL(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name ?? $method->name."jpg"}}" >
+                                                <img src='{{imageURL(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name ?? $method->name.".jpg"}}" >
                                             </div>
                                             <h5 class="title">
                                                 {{$method->name}}

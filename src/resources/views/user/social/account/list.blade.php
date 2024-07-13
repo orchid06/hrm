@@ -28,7 +28,7 @@
                     <li>
                         <a class="{{$platform->slug == request()->input('platform') ? 'active' :''}}" href="{{route('user.social.account.list',['platform' => $platform->slug])}}">
                             <span>
-                                <img  src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name."jpg"}}">
+                                <img  src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name ?? $platform->name .'.jpg' }}">
                             </span>
                             {{$platform->name}}
                         </a>

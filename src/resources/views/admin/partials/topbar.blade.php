@@ -129,7 +129,7 @@
         @endphp
         <div class="lang-dropdown">
           <div class="btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img id="header-lang-img" class="flag-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code}}" height="20">
+              <img id="header-lang-img" class="flag-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code.'.jpg'}}" height="20">
           </div>
           @if(!$languages->isEmpty())
             <div class="dropdown-menu dropdown-menu-end">
@@ -137,7 +137,7 @@
                   @foreach($languages as $language)
                     <li>
                       <a href="{{route('language.change',$language->code)}}">
-                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}" >
+                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code.'.jpg'}}" >
                         {{$language->name}}
                       </a>
                     </li>

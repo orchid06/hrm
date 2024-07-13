@@ -130,7 +130,7 @@
                             <li>
                                 <a href="{{route('language.change',$language->code)}}" class="dropdown-item" >
                                     <span class="flag">
-                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code."jpg"}}" >
+                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code.".jpg"}}" >
                                     </span>
                                     {{$language->name}}
                                 </a>

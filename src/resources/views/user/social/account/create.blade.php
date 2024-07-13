@@ -53,7 +53,7 @@ $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,
                             data-bs-target="#lang-tab-content-{{t2k($k)}}" type="button" role="tab"
                             aria-controls="lang-tab-content-{{t2k($k)}}" aria-selected="true">
                             <img class="avatar-sm rounded-circle me-2"
-                                src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{t2k($k)}}">
+                                src="{{imageURL(@$platform->file,'platform',true)}}" alt="{{$platform->name.'.jpg'}}">
 
                             <span>
                                 {{ucfirst(strtolower(k2t($k)))}}

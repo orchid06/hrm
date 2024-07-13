@@ -3427,17 +3427,7 @@ aside.show-side-bar {
   filter: blur(300px);
 }
 
-.inner-banner .banner-texture {
-  width: 100%;
-  height: 100%;
-  opacity: 0.3;
-  background-image: url(../../images/default/texture-bg.png);
-  background-position: 0 0;
-  background-size: auto;
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-}
+
 
 @media (max-width: 767px) {
   .inner-banner .inner-banner-content {
