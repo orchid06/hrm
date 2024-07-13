@@ -3388,6 +3388,11 @@ footer{
   background-color: var(--color-primary);
 }
 
+.dropdown-toggle.single-item::after {
+  display: none !important;
+}
+
+
 .cookie {
   display: flex;
   align-items: center;
