@@ -310,7 +310,7 @@
                     <button
                         class="dropdown-toggle"
                         type="button"
-                        data-bs-toggle="dropdown"
+                        data-bs-toggle=""
                         aria-expanded="false"
                         >
                         {{session()->get('currency')?->code}}

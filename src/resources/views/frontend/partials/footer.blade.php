@@ -20,8 +20,10 @@
                                    ->take(2)
                                    ->get();
 
-@endphp
+      $services = get_content("element_service")->take(4);
 
+
+@endphp
 
 
 <footer>
@@ -30,7 +32,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-9">
               <div class="footer-top-content" data-aos="fade-up" data-aos-duration="1500">
-                   <img src="{{imageURL($footerbg,'frontend',true,$footerbgSize)}}" alt="{{@$footerbg->name ?? "footer-bg.jpg"}}" class="footer-top-img">
+                   <img src="{{imageURL($footerbg,'frontend',true,$footerbgSize)}}" alt="{{@$footerbg->name ?? 'footer-bg.jpg'}}" class="footer-top-img">
                     <h2>
                        {{ @$footer->value->title}}
                     </h2>
@@ -59,7 +61,7 @@
         <div class="newsletter-wrapper">
           <form  action="{{route('subscribe')}}" method="post">
              @csrf
-            <input name="email" type="email" placeholder="{{translate("Enter your email")}}">
+            <input name="email" type="email" placeholder="{{translate('Enter your email')}}">
             <button class="i-btn btn--lg btn--primary capsuled">
                  {{translate("SUBSCRIBE")}}
                 <span><i class="bi bi-arrow-up-right"></i></span>
@@ -72,63 +74,76 @@
   <div class="container">
       <div class="footer-bottom">
         <div class="row gy-5">
-          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-            <h4 class="footer-title">
-               {{translate('Quick link')}}
-            </h4>
-            <ul class="footer-list">
-               @foreach ($menus as $menu)
-                      <li>
-                          <a href="{{url($menu->url)}}">
-                              {{$menu->name}}
-                          </a>
-                      </li>   
-                @endforeach
-            </ul>
-          </div>
+          @if($menus->count() > 0)
+              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                  <h4 class="footer-title">
+                     {{translate('Quick link')}}
+                  </h4>
+                  <ul class="footer-list">
+                     @foreach ($menus as $menu)
+                            <li>
+                                <a href="{{url($menu->url)}}">
+                                    {{$menu->name}}
+                                </a>
+                            </li>   
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
 
-          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-              <h4 class="footer-title">
-                  {{translate("Information")}}
-              </h4>
-              <ul class="footer-list">
-                  @foreach ($pages as $page)
-                      <li>
-                          <a href="{{route('page',$page->slug)}}">
-                            {{$page->title}}
-                          </a>
-                      </li>   
-                  @endforeach
-              </ul>
-          </div>
+          @if($pages->count() > 0)
+              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                  <h4 class="footer-title">
+                      {{translate("Information")}}
+                  </h4>
+                  <ul class="footer-list">
+                      @foreach ($pages as $page)
+                          <li>
+                              <a href="{{route('page',$page->slug)}}">
+                                {{$page->title}}
+                              </a>
+                          </li>   
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
 
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <h4 class="footer-title">Services</h4>
-            <ul class="footer-list">
-              <li><a href="#">Ai Content</a></li>
-              <li><a href="#">Social Media Monitor</a></li>
-              <li><a href="#">SEO Management</a></li>
-              <li><a href="#">Social Engagement</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <h4 class="footer-title">
-                 {{translate("Blogs")}}
-              </h4>
-              <ul class="footer-list">
-                   @foreach ($blogs as $blog)
-                      <li>
-                        <a href="{{route('blog.details',$blog->slug)}}">{{limit_words($blog->title,28)}}</a>
-                        <span>
-                            {{get_date_time($blog->created_at,"F j, Y")}}
-                        </span>
-                    </li> 
-                   @endforeach
+          @if($services->count() > 0)
+              <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                 <h4 class="footer-title">Services</h4>
+                  <ul class="footer-list">
+                      @forelse ($services  as $service)
+                         <li><a href="{{route('service',['slug' => make_slug($service->value->title) ,'uid'=> $service->uid  ])}}"> {{limit_words($service->value->title,25)}}</a></li>
+                      @empty
+                
+                      @endforelse
 
-              </ul>
-          </div>
+                  </ul>
+              </div>
+          @endif
+
+           @if($blogs->count() > 0)
+              <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                  <h4 class="footer-title">
+                     {{translate("Blogs")}}
+                  </h4>
+                  <ul class="footer-list">
+                       @foreach ($blogs as $blog)
+                          <li>
+                            <a href="{{route('blog.details',$blog->slug)}}">{{limit_words($blog->title,28)}}</a>
+                            <span>
+                                {{get_date_time($blog->created_at,"F j, Y")}}
+                            </span>
+                        </li> 
+                       @endforeach
+
+                  </ul>
+              </div>
+           @endif
+
         </div>
       </div>
+      
       <div class="copyright-area d-flex justify-content-lg-between justify-content-center align-items-center flex-wrap gap-4">
 
            @if($icons->count() > 0)
@@ -143,7 +158,7 @@
             @endif
 
             <div class="payment-image">
-                <img src="{{imageURL($paymentImg ,'frontend',true,$paymentImgSize)}}" alt="{{ @$paymentImg->name ?? "payment.jpg" }}">
+                <img src="{{imageURL($paymentImg ,'frontend',true,$paymentImgSize)}}" alt="{{ @$paymentImg->name ?? 'payment.jpg' }}">
             </div>
 
 

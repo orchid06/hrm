@@ -23,7 +23,7 @@
             <a href="{{url(@$content->value->button_URL)}}" class="i-btn btn--lg btn--white capsuled"> {{@$content->value->button_name}}  <span><i
                         class="bi bi-arrow-up-right"></i></span></a>
         </div>
-    </div>
+     </div>
 
       @include("frontend.partials.plan_component")
 

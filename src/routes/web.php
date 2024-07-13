@@ -34,9 +34,7 @@ use Illuminate\Support\Facades\DB;
     $globalMiddleware = ['sanitizer','https',"dos.security",'maintenance.mode'];
     try {
         DB::connection()->getPdo();
-        if(DB::connection()->getDatabaseName()){
-            array_push($globalMiddleware,"throttle:refresh");
-        }
+        if(DB::connection()->getDatabaseName()) array_push($globalMiddleware,"throttle:refresh");
     } catch (\Throwable $th) {
         //throw $th;
     }

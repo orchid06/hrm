@@ -53,7 +53,7 @@
               @endif
           </div>
           <div class="col-lg-7">
-              <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}" data-aos="fade-left" data-aos-duration="1500">
+              <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? 'feature.jpg'}}" data-aos="fade-left" data-aos-duration="1500">
           </div>
       </div>
   </div>

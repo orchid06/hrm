@@ -18,8 +18,8 @@
           <div class="col-xl-5 col-lg-5">
               <div class="banner-content" data-aos="fade-right" data-aos-duration="1500">
                 <h1>
-                  @php echo @$bannerContent->value->title @endphp
-                  <img src="{{imageURL($titleVector,'frontend',true,$titleVectorSize)}}" alt="{{@$titleVector->name??"vector.jpg"}}"></span>
+                    @php echo @$bannerContent->value->title @endphp
+                   <img src="{{imageURL($titleVector,'frontend',true,$titleVectorSize)}}" alt="{{@$titleVector->name??'vector.jpg'}}"></span>
                 </h1>
                 <p>
                   {{@$bannerContent->value->description}}
@@ -43,7 +43,7 @@
           </div>
           <div class="col-xl-6 offset-xl-1 col-lg-7">
             <div class="banner-image" data-aos="zoom-in" data-aos-duration="1500">
-                <img src="{{imageURL($bannerIMG,'frontend',true,$bannerSize)}}" alt="{{@$titleVector->file->name??"banner.jpg"}}">
+                <img src="{{imageURL($bannerIMG,'frontend',true,$bannerSize)}}" alt="{{@$titleVector->file->name??'banner.jpg'}}">
             </div>
           </div>
       </div>
@@ -63,7 +63,7 @@
                     @php $file = $element->file?->first(); @endphp
                     <div class="swiper-slide">
                         <div class="sponsor-item">
-                            <img src="{{imageURL($file,'frontend',true,$bannerElementSize)}}" alt="{{@$file->name?? "slider.jpg"}}">
+                            <img src="{{imageURL($file,'frontend',true,$bannerElementSize)}}" alt="{{@$file->name?? 'slider.jpg'}}">
                         </div>
                     </div>
               @endforeach 

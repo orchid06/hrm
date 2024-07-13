@@ -73,7 +73,7 @@
                                         <input type="hidden" name="platform" value="{{request()->input('platform')}}">
                                         
                                         <div class="form-inner">
-                                            <input placeholder="{{translate('Search by name')}}" type="search" name="name" 
+                                            <input placeholder="{{translate('Filter by name')}}" type="search" name="name" 
                                             value="{{request()->input('name')}}">
                                         </div>
 
@@ -185,17 +185,17 @@
                                                     }
 
                                                     @endphp
-                                                    <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
+                                                    <a data-account = "{{$account}}"; data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Reconnect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
                                                     </a>
                                                 @endif
 
                                                 @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                        <a  title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
+                                                        <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
                                                         </a>
                                                 @endif
                                                 @if(check_permission('delete_account') )
 
-                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 @else

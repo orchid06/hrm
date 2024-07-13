@@ -594,6 +594,14 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
+   if (!function_exists('is_demo')) {
+      function is_demo():bool{
+          return strtolower(env('APP_MODE')) == 'demo' ? true : false;
+      }
+  }
+  
+
+
 
 
 
@@ -629,87 +637,99 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   if (!function_exists('get_ip_info')){
-      function get_ip_info() :array
+   if (!function_exists('get_ip_info')) {
+      function get_ip_info(): array
       {
-   
-         $ip       =  get_real_ip();
-
-
-         $xml      = @simplexml_load_file("http://www.geoplugin.net/xml.gp?ip=" . $ip);
-
-         $country  = (array)@$xml->geoplugin_countryName;
-         $city     = (array)@$xml->geoplugin_city;
-         $code     = (array)@$xml->geoplugin_countryCode;
-         $long     = (array)@$xml->geoplugin_longitude;
-         $lat      = (array)@$xml->geoplugin_latitude;
-
-
-         $user_agent = $_SERVER['HTTP_USER_AGENT'];
-         $os_platform = "Unknown OS Platform";
-         $os_array = array(
-            '/windows nt 10/i'   => 'Windows 10',
-            '/windows nt 6.3/i'  => 'Windows 8.1',
-            '/windows nt 6.2/i'  => 'Windows 8',
-            '/windows nt 6.1/i'  => 'Windows 7',
-            '/windows nt 6.0/i'  => 'Windows Vista',
-            '/windows nt 5.2/i'  => 'Windows Server 2003/XP x64',
-            '/windows nt 5.1/i'  => 'Windows XP',
-            '/windows xp/i' => 'Windows XP',
-            '/windows nt 5.0/i' => 'Windows 2000',
-            '/windows me/i' => 'Windows ME',
-            '/win98/i' => 'Windows 98',
-            '/win95/i' => 'Windows 95',
-            '/win16/i' => 'Windows 3.11',
-            '/macintosh|mac os x/i' => 'Mac OS X',
-            '/mac_powerpc/i' => 'Mac OS 9',
-            '/linux/i' => 'Linux',
-            '/ubuntu/i' => 'Ubuntu',
-            '/iphone/i' => 'iPhone',
-            '/ipod/i' => 'iPod',
-            '/ipad/i' => 'iPad',
-            '/android/i' => 'Android',
-            '/blackberry/i' => 'BlackBerry',
-            '/webos/i' => 'Mobile'
-         );
-         foreach ($os_array as $regex => $value) {
-            if (preg_match($regex, $user_agent)) {
+          $ip = get_real_ip();
+  
+          $ch = curl_init();
+          curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/xml.gp?ip=" . $ip);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+          $response = curl_exec($ch);
+          curl_close($ch);
+  
+          if ($response === false) {
+              $xml = false;
+          } else {
+              $xml = simplexml_load_string($response);
+          }
+  
+          $country  = $xml ? (string)$xml->geoplugin_countryName : "";
+          $city     = $xml ? (string)$xml->geoplugin_city : "";
+          $code     = $xml ? (string)$xml->geoplugin_countryCode : "";
+          $long     = $xml ? (string)$xml->geoplugin_longitude : "";
+          $lat      = $xml ? (string)$xml->geoplugin_latitude : "";
+  
+          $user_agent = $_SERVER['HTTP_USER_AGENT'];
+          $os_platform = "Unknown OS Platform";
+          $os_array = array(
+              '/windows nt 10/i'     => 'Windows 10',
+              '/windows nt 6.3/i'    => 'Windows 8.1',
+              '/windows nt 6.2/i'    => 'Windows 8',
+              '/windows nt 6.1/i'    => 'Windows 7',
+              '/windows nt 6.0/i'    => 'Windows Vista',
+              '/windows nt 5.2/i'    => 'Windows Server 2003/XP x64',
+              '/windows nt 5.1/i'    => 'Windows XP',
+              '/windows xp/i'        => 'Windows XP',
+              '/windows nt 5.0/i'    => 'Windows 2000',
+              '/windows me/i'        => 'Windows ME',
+              '/win98/i'             => 'Windows 98',
+              '/win95/i'             => 'Windows 95',
+              '/win16/i'             => 'Windows 3.11',
+              '/macintosh|mac os x/i' => 'Mac OS X',
+              '/mac_powerpc/i'       => 'Mac OS 9',
+              '/linux/i'             => 'Linux',
+              '/ubuntu/i'            => 'Ubuntu',
+              '/iphone/i'            => 'iPhone',
+              '/ipod/i'              => 'iPod',
+              '/ipad/i'              => 'iPad',
+              '/android/i'           => 'Android',
+              '/blackberry/i'        => 'BlackBerry',
+              '/webos/i'             => 'Mobile'
+          );
+  
+          foreach ($os_array as $regex => $value) {
+              if (preg_match($regex, $user_agent)) {
                   $os_platform = $value;
-            }
-         }
-         $browser = "Unknown Browser";
-         $browser_array = array(
-            '/msie/i'      => 'Internet Explorer',
-            '/firefox/i'   => 'Firefox',
-            '/safari/i'    => 'Safari',
-            '/chrome/i'    => 'Chrome',
-            '/edge/i'      => 'Edge',
-            '/opera/i'     => 'Opera',
-            '/netscape/i'  => 'Netscape',
-            '/maxthon/i'   => 'Maxthon',
-            '/konqueror/i' => 'Konqueror',
-            '/mobile/i'    => 'Handheld Browser'
-         );
-         foreach ($browser_array as $regex => $value) {
-            if (preg_match($regex, $user_agent)) {
-               $browser = $value;
-            }
-         }
-
-         $data['country']     =  isset($country[0]) ? $country[0] : "";
-         $data['city']        =  isset($city[0]) ? $city[0] : "";
-         $data['code']        =  isset($code[0]) ? $code[0] : "";
-         $data['long']        =  isset($long[0]) ? $long[0] : "";
-         $data['lat']         =  isset($lat[0]) ? $lat[0] : "";
-         $data['os_platform'] =  $os_platform;
-         $data['browser']     =  $browser;
-         $data['ip']          =  $ip;
-         $data['time']        =  date('d-m-Y h:i:s A');
-
-
-         return $data;
+              }
+          }
+  
+          $browser = "Unknown Browser";
+          $browser_array = array(
+              '/msie/i'      => 'Internet Explorer',
+              '/firefox/i'   => 'Firefox',
+              '/safari/i'    => 'Safari',
+              '/chrome/i'    => 'Chrome',
+              '/edge/i'      => 'Edge',
+              '/opera/i'     => 'Opera',
+              '/netscape/i'  => 'Netscape',
+              '/maxthon/i'   => 'Maxthon',
+              '/konqueror/i' => 'Konqueror',
+              '/mobile/i'    => 'Handheld Browser'
+          );
+  
+          foreach ($browser_array as $regex => $value) {
+              if (preg_match($regex, $user_agent)) {
+                  $browser = $value;
+              }
+          }
+  
+          $data = [
+              'country'     => $country,
+              'city'        => $city,
+              'code'        => $code,
+              'long'        => $long,
+              'lat'         => $lat,
+              'os_platform' => $os_platform,
+              'browser'     => $browser,
+              'ip'          => $ip,
+              'time'        => date('d-m-Y h:i:s A')
+          ];
+  
+          return $data;
       }
-   }
+  }
 
 
 

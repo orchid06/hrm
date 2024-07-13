@@ -316,7 +316,7 @@
                 <p>
                   {{translate('Report')}}
                     @if($pending_deposits > 0 || $pending_withdraws > 0 || $pending_kycs > 0  )
-                      <span class="i-badge danger">
+                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending reports")}}"  class="i-badge danger">
                           <i class="las la-info"></i>
                       </span>
                     @endif

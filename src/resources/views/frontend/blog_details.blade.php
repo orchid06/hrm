@@ -13,17 +13,17 @@
   <div class="container">
     <h3 class="title"> {{$blog->title}} </h3>
     <div class="d-flex gap-4 align-items-center mb-30">
-      <ul class="date">
-        <li>{{get_date_time($blog->created_at,"F j, Y")}}</li>
-        <li>{{get_date_time($blog->created_at," g a")}}</li>
-      </ul>
-      <a href="{{route('blog',['category' =>@$blog->category->slug ])}}" class="blog-category">
-          {{@$blog->category->title}}
-      </a>
+        <ul class="date">
+            <li>{{get_date_time($blog->created_at,"F j, Y")}}</li>
+            <li>{{get_date_time($blog->created_at," g a")}}</li>
+        </ul>
+        <a href="{{route('blog',['category' =>@$blog->category->slug ])}}" class="blog-category">
+            {{@$blog->category->title}}
+        </a>
     </div>
     <div class="mb-30 blog-d-image">
       <img src='{{imageURL(@$blog->file,"blog",true)}}'
-      alt="{{@$blog->file->name ?? "blog-image.jpg"}}">
+      alt="{{@$blog->file->name ?? 'blog-image.jpg'}}">
     </div>
     <div class="row gy-5">
       <div class="col-lg-8 pe-lg-5">
@@ -67,29 +67,29 @@
               </div>
           </div>
       </div>
-      <div class="col-lg-4">
-        <h5 class="mb-4 text-uppercase">{{translate("Related Resources")}}</h5>
-        <ul class="popular-post-list">
-          @forelse($related_blogs as $blog)
-              <li>
-                  <div class="image">
-                       <img  src='{{imageURL(@$blog->file,"blog",true)}}'
-                       alt="{{@$blog->file->name ?? "blog-image.jpg"}}">
-                  </div>
-                  <div class="content">
-                      <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
-                          {{@$blog->category->title}}
-                      </a>
-                        <h6> <a href="{{route('blog.details',$blog->slug)}}"> {{limit_words($blog->title,28)}}</a></h6>
-                  </div>
-              </li>
-          @empty
-               <li>
-                    @include('frontend.partials.page_section') 
-               </li>
-          @endforelse
-        </ul>
-      </div>
+        <div class="col-lg-4">
+            <h5 class="mb-4 text-uppercase">{{translate("Related Resources")}}</h5>
+            <ul class="popular-post-list">
+              @forelse($related_blogs as $blog)
+                  <li>
+                      <div class="image">
+                           <img  src='{{imageURL(@$blog->file,"blog",true)}}'
+                           alt="{{@$blog->file->name ?? 'blog-image.jpg'}}">
+                      </div>
+                      <div class="content">
+                          <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
+                              {{@$blog->category->title}}
+                          </a>
+                            <h6> <a href="{{route('blog.details',$blog->slug)}}"> {{limit_words($blog->title,28)}}</a></h6>
+                      </div>
+                  </li>
+              @empty
+                   <li>
+                        @include('frontend.partials.page_section') 
+                   </li>
+              @endforelse
+            </ul>
+        </div>
     </div>
   </div>
 </section>

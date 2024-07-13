@@ -27,7 +27,7 @@
                                         {{$element->value->question}}
                                     </button>
                                 </h2>
-                                <div id="collapse-{{$loop->index}}" class="accordion-collapse collapse {{$loop->index == 0  ? "show" :""}} "
+                                <div id="collapse-{{$loop->index}}" class="accordion-collapse collapse {{$loop->index == 0  ? 'show' :''}} "
                                     data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
                                     {{$element->value->answer}}
