@@ -39,11 +39,15 @@
         </div>
     </div>
 
+
 @endsection
 
 
+@push('script-include')
+ <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+@endpush
+
 @push('script-push')
-<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
 <script>
    "use strict";
     var btn = document.querySelector("#btn-confirm");

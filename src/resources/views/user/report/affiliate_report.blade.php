@@ -55,7 +55,7 @@
                                         </option>
 
                                         @foreach($user->affilateUser as $affilateUser)
-                                            <option  {{Arr::get($affilateUser,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
+                                            <option  {{Arr::get($affilateUser,'username',null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -219,8 +219,6 @@
         $(".type").select2({
 
         });
-
-   
 
 	})(jQuery);
 </script>

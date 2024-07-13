@@ -126,7 +126,7 @@
                                                       </h6>
 
                                                       <div class="report-img">
-                                                        <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($file->type)}}" target="_blank" href="{{imageURL($file,"kyc",true)}}">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($file->type)}}" target="_blank" href="{{imageURL($file,'kyc',true)}}">
                                                             <img src='{{imageURL($file,"kyc",true)}}'
                                                             alt="{{ @$file->name }}">
                                                         </a>

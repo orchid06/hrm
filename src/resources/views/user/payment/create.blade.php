@@ -123,8 +123,6 @@
             </form> 
         </div>
       </div>
-
-
     </div>
 </div>
 
@@ -229,7 +227,7 @@
                             </li>
                             <li class="list-group-item">
                                 <p> {{translate("Charge")}}</p>
-                                <h6> {{$currencySymbol}}${netCharge.toFixed(3)}  (  {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
+                                <h6> {{$currencySymbol}}${netCharge.toFixed(3)}  (  {{$currencySymbol}}${fixedCharge} + ${percentCharge}% )</h6>
                             </li>
 
                             <li class="list-group-item">

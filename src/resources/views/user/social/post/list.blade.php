@@ -150,10 +150,10 @@
 
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
-                                        <a  data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="icon-btn icon-btn-sm info"><i class="bi bi-eye"></i>
+                                        <a  data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Show')}}"  href="{{route('user.social.post.show',['uid' => $post->uid])}}" class="icon-btn icon-btn-sm info"><i class="bi bi-eye"></i>
                                         </a>
 
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('user.social.post.destroy',  $post->id)}}" class="icon-btn icon-btn-sm danger delete-item">
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.post.destroy',  $post->id)}}" class="icon-btn icon-btn-sm danger delete-item">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
@@ -211,26 +211,16 @@
 	(function($){
        	"use strict";
 
-        $(".user").select2({
+        $(".user").select2({});
 
-        });
-
-        $(".account").select2({
-
-        });
-        $(".status").select2({
-
-        });
+        $(".account").select2({});
+        $(".status").select2({});
 
 
         $(document).on('click','.show-info',function(e){
-
             var modal = $('#report-info');
-
             var report = $(this).attr('data-message')
-
             $('.content').html(report)
-
             modal.modal('show')
         });
 

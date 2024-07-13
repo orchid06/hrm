@@ -138,8 +138,6 @@
 
         });
 
-   
-
 	})(jQuery);
 </script>
 @endpush

@@ -257,10 +257,6 @@
 
     });
 
-
-
-
-
 })(jQuery);
 </script>
 @endpush

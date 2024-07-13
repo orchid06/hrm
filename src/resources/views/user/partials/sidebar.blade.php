@@ -5,6 +5,11 @@
         $webhookAccess          = @optional($subscription->package->social_access)
                                                  ->webhook_access;
 
+
+            
+                                                
+                                            
+
       @endphp
     <div class="side-content">
         <a href="{{route('user.home')}}" class="sidebar-logo d-block d-sm-none">
@@ -304,15 +309,15 @@
             </div>
         </div>
 
+
         <div class="sidebar-footer">
             <div class="header-right-item">
                 <div class="dropdown currency">
                     <button
                         class="dropdown-toggle"
                         type="button"
-                        data-bs-toggle=""
-                        aria-expanded="false"
-                        >
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         {{session()->get('currency')?->code}}
                     </button>
 
