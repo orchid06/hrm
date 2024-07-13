@@ -5,7 +5,7 @@
     <div class="modal-content notification-modal">
       <div class="modal-body">
         <div class="modal-delete-noti">
-          <div class="notification-modal-icon">
+          <div class="notification-modal-icon style-primary">
               <img src="{{asset('assets/images/default/check.gif')}}" class="action-img" alt="check.gif">
           </div>
           <div class="notification-modal-content">

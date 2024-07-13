@@ -65,30 +65,28 @@
                </div>
            </div>
    
-            <div class="collapse" id="tableFilter">
-                <div class="collapse" id="tableFilter">
-                    <div class="search-action-area mb-4">
-                            <div class="search-area">
-                                    <form action="{{ route(Route::currentRouteName()) }}" method="get">
-                                        <input type="hidden" name="platform" value="{{request()->input('platform')}}">
-                                        
-                                        <div class="form-inner">
-                                            <input placeholder="{{translate('Filter by name')}}" type="search" name="name" 
-                                            value="{{request()->input('name')}}">
-                                        </div>
-
-                                        <div class="d-flex gap-2">
-                                            <button class="i-btn primary btn--lg capsuled">
-                                                <i class="bi bi-search"></i>
-                                            </button>
-                                            <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </form>
+           <div class="collapse" id="tableFilter">
+                <div class="search-action-area mb-4">
+                    <div class="search-area">
+                        <form action="{{ route(Route::currentRouteName()) }}" method="get">
+                            <input type="hidden" name="platform" value="{{request()->input('platform')}}">
+                            
+                            <div class="form-inner">
+                                <input placeholder="{{translate('Search by name')}}" type="search" name="name" 
+                                value="{{request()->input('name')}}">
                             </div>
+
+                            <div class="d-flex gap-2">
+                                <button class="i-btn primary btn--lg capsuled">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                                <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </a>
+                            </div>
+                        </form>
                     </div>
-                </div> 
+                </div>
             </div> 
 
             <div class="card-body px-0">
@@ -185,17 +183,17 @@
                                                     }
 
                                                     @endphp
-                                                    <a data-account = "{{$account}}"; data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Reconnect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
+                                                    <a data-account = "{{$account}}"; title="{{translate('Recnonect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  icon-btn icon-btn-sm danger"><i class="bi bi-plug"></i>
                                                     </a>
                                                 @endif
 
                                                 @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                        <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
+                                                        <a  title="{{translate('Show')}}"  href="{{route('user.social.account.show',['uid' => $account->uid])}}" class="icon-btn icon-btn-sm  success"><i class="bi bi-eye"></i>
                                                         </a>
                                                 @endif
                                                 @if(check_permission('delete_account') )
 
-                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
+                                                    <a title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('user.social.account.destroy',  $account->id)}}" class="icon-btn icon-btn-sm danger delete-item">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 @else

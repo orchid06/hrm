@@ -11,6 +11,11 @@
   height: 90px;
   width: 120px;
 }
+.payment-preview img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 .preview-image img {
   height: 200px;
   width: 200px;
@@ -394,5 +399,16 @@
 }
 .nav-tabs.account-tab .nav-item.show .nav-link, .nav-tabs .nav-link.active p{
   color: var(--color-white);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  margin-left: 5px;
+  margin-top: 5px;
+  padding: 3px;
+  padding-left: 20px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+  padding-left: 15px;
 }
 
