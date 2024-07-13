@@ -179,7 +179,7 @@
                                 @endif
                             @empty
                                 <tr>
-                                    <td class="border-bottom-0" colspan="90">
+                                    <td class="border-bottom-0" colspan="2">
                                         @include('admin.partials.not_found')
                                     </td>
                                 </tr>

@@ -173,7 +173,7 @@
                             </tr>
                         @empty
                             <tr class="border-bottom-0">
-                                <td class="border-bottom-0" colspan="90">
+                                <td class="border-bottom-0" colspan="8">
                                     @include('admin.partials.not_found')
                                 </td>
                             </tr>
