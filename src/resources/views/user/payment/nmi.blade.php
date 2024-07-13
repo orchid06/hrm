@@ -42,7 +42,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="i-btn btn--lg btn--primary w-100 mt-4" id="btn-confirm">
+                        <button type="submit" class="i-btn btn--lg btn--primary mt-4" id="btn-confirm">
                             {{translate("Pay Now")}}
                         </button>
                     </form>

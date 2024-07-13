@@ -150,7 +150,7 @@
 							</tr>
 						@empty
 							<tr>
-								<td class="border-bottom-0" colspan="90">
+								<td class="border-bottom-0" colspan="7">
 									@include('admin.partials.not_found',['custom_message' => "No Roles Found!!"])
 								</td>
 							</tr>

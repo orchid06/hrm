@@ -61,7 +61,7 @@
     "use strict";
     $(document).ready(function () {
 
-        $('input[type="submit"]').addClass("i-btn btn--lg btn--primary w-100 mt-4");
+        $('input[type="submit"]').addClass("i-btn btn--lg btn--primary mt-4");
     })
 </script>
 

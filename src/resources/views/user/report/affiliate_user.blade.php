@@ -102,7 +102,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="border-bottom-0" colspan="100">
+                            <td class="border-bottom-0" colspan="4">
                                 @include('admin.partials.not_found')
                             </td>
                         </tr>

@@ -29,7 +29,7 @@
                                     <strong>{{num_format($log->amount,$log->currency,2)}}</strong>
                                 </li>
                             </ul>
-                            <button type="button" class="i-btn btn--lg btn--primary w-100 mt-4" id="btn-confirm"
+                            <button type="button" class="i-btn btn--lg btn--primary mt-4" id="btn-confirm"
                             onClick="pay()">{{translate('Pay Now')}}
                             </button>
                         </div>

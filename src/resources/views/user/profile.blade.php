@@ -337,8 +337,7 @@ $affiliateLogs = $user->affiliates;
 
                                             <div class="input-with-btn">
                                                 <input type="readonly"
-                                                    value="{{route('auth.register',['referral_code' => $user->referral_code])}}"
-                                                    type="text" id="ReferralURL">
+                                                    value="{{route('auth.register',['referral_code' => $user->referral_code])}}" id="ReferralURL">
                                                 <button data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="{{translate('Copy')}}" type="button"
                                                     class="copy-text"
