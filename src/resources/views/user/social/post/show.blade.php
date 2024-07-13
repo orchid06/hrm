@@ -80,8 +80,8 @@
                                     @foreach ($post->file as $file)
                                         <div class="post-detail-img">
 
-                                            <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
-                                                <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name? 'file-'.$loop->index.'jpg'}}">
+                                            <a href="{{imageURL($file,'post',true)}}" class="image-v-preview">
+                                                <img src="{{imageURL($file,'post',true)}}"  alt="{{ @$file->name? 'file-'.$loop->index.'jpg'}}">
                                             </a>
                            
                                         </div>
@@ -116,10 +116,8 @@
 @push('script-push')
 <script>
 	(function($){
-
         "use strict";
         $('.image-v-preview').viewbox();
-
 
 
 	})(jQuery);

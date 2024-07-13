@@ -11,7 +11,7 @@
                 <div class="mb-5 d-flex justify-content-center">
                     <div class="nav plan-tab" role="tablist">
                         @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
-                            <button class="nav-link {{$loop->index == 0 ? "active" :""}}" id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}"
+                            <button class="nav-link {{$loop->index == 0 ? 'active' :''}}" id="{{$key}}-tab" data-bs-toggle="pill" data-bs-target="#{{$key}}"
                                 type="button" role="tab" aria-controls="{{$key}}" aria-selected="true">
                                 {{$key}}
                             </button>
@@ -29,7 +29,7 @@
                                     $purchasePlans = $plans->where('duration',$value);
                             @endphp
                             
-                            <div class="tab-pane fade  {{$loop->index == 0 ? "show active" :""}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab"
+                            <div class="tab-pane fade  {{$loop->index == 0 ? 'show active' :''}}" id="{{$key}}" role="tabpanel" aria-labelledby="{{$key}}-tab"
                                 tabindex="0">
                                 <div class="row gy-4 gx-3">
                                     @forelse ($purchasePlans as  $plan)

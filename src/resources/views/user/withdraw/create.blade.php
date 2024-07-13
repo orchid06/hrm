@@ -28,98 +28,97 @@
 
       <div class="i-card-md">
         <div class="card-body">
-    
-          <form action="{{route('user.withdraw.request.process')}}" method="post">
-            @csrf  
-            <div class="row">
-        
-                    <div class="col-lg-8">
-                        <h6 class="mb-3">
-                            {{translate('Withdraw methods')}}
-                        </h6>
-                        <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
 
-                            @foreach ($methods as  $method)
-
-                                <div class="col">
-                                    <label class="payment-card-item">
-                                        <input name="id" data-method="{{$method}}" , data-img="{{imageURL(@$method->file,"withdraw_method",true)}}" value="{{$method->id}}" class="radio withdraw-method" type="radio" >
-                                        <div class="image">
-                                            <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name.".jpg"}}" >
-                                        </div>
-                                        <h5 class="title">
-                                            {{$method->name}}
-                                        </h5>
-                                    </label>
-                                </div>
-                                
-                            @endforeach
-                            
-                            
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 ps-lg-5">
-                        <div class="payment-flip-card">
-                            <div class="balance-info-card" id="balanceCard">  
-                                <span class="balance-icon">
-                                    <i class="bi bi-wallet2"></i>
-                                </span>
-
-                                <p>
-                                    {{translate('Your Balance')}}
-                                </p>
-                                <h4>
-                                    {{num_format(number:$balance,calC:true)}}
-                                </h4>
-
-                                <span class="balance-shape">
-                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve"><g><g fill="none" stroke="#0a1c28" stroke-linejoin="round" data-name="cradit card"><g stroke-width="2"><path d="M38 34a2 2 0 1 0-2-2 2 2 0 1 1-2-2M30 32h2M40 32h2M35 57h5" fill="" opacity="1"></path><path d="M49 48V10a3 3 0 0 1-3-3H26a3 3 0 0 1-3 3v27" fill="" opacity="1"></path><path d="M19 37V3h34v45M40 61H19M53 48 40 61V50a2 2 0 0 1 2-2z" fill="" opacity="1"></path><path d="M46 55h8a3 3 0 0 1 3-3V12a3 3 0 0 1-3-3h-1" fill="" opacity="1"></path><path d="M53 5h8v54H42M28.52 37A9 9 0 1 1 36 41h-1" fill="" opacity="1"></path><rect width="32" height="24" x="3" y="37" rx="2" fill="" opacity="1"></rect></g><path stroke-width="4" d="M3 44h32" fill="" opacity="1"></path><circle cx="29" cy="55" r="2" stroke-width="2" fill="" opacity="1"></circle><path stroke-width="2" d="M6 57h2M10 57h2" fill="" opacity="1"></path></g></g></svg>
-                                </span>
-                            </div>
-        
-                            <div class="payment-card-form mt-4" id="formStepOne">
-
-                                <div class="d-flex align-items-center justify-content-between bg-light payment-form-top d-none payment-header">
-                                   
-                                </div>
-                    
-                                    <div class="payment-details-wrapper p-3">
-                                        <div class="p-3 mb-4 bg-danger-soft rounded-2 d-none payment-note-section">
-                                        
-                                        </div>
-                                        <ul class="withdraw-details payment-details   list-group mb-4 d-none">
-
-                                        </ul>
-                                    </div>
-                                    <div class="p-4">
-
-                                            <div class="form-inner">
-
-                                                <label for="amount">
-                                                    {{translate("Amount")}} <span class="text--danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input required placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old('amount')}}"/>
-                                                    <span class="input-group-text">
-                                                        {{ $currencySymbol}}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <button type="submit" class="i-btn btn--lg btn--primary capsuled">
-                                                {{translate('Submit')}} 
-                                            </button>  
-                    
-                                    </div>
-                            </div> 
-                            
-                        </div>
-                    </div>
+              <form action="{{route('user.withdraw.request.process')}}" method="post">
+                @csrf  
+                <div class="row">
             
-            </div>
-         </form> 
+                        <div class="col-lg-8">
+                            <h6 class="mb-3">
+                                {{translate('Withdraw methods')}}
+                            </h6>
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
 
+                                @foreach ($methods as  $method)
 
+                                    <div class="col">
+                                        <label class="payment-card-item">
+                                            <input name="id" data-method="{{$method}}" , data-img="{{imageURL(@$method->file,'withdraw_method',true)}}" value="{{$method->id}}" class="radio withdraw-method" type="radio" >
+                                            <div class="image">
+                                                <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name.'.jpg'}}" >
+                                            </div>
+                                            <h5 class="title">
+                                                {{$method->name}}
+                                            </h5>
+                                        </label>
+                                    </div>
+                                    
+                                @endforeach
+                                
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 ps-lg-5">
+                            <div class="payment-flip-card">
+                                <div class="balance-info-card" id="balanceCard">  
+                                    <span class="balance-icon">
+                                        <i class="bi bi-wallet2"></i>
+                                    </span>
+
+                                    <p>
+                                        {{translate('Your Balance')}}
+                                    </p>
+                                    <h4>
+                                        {{num_format(number:$balance,calC:true)}}
+                                    </h4>
+
+                                    <span class="balance-shape">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve"><g><g fill="none" stroke="#0a1c28" stroke-linejoin="round" data-name="cradit card"><g stroke-width="2"><path d="M38 34a2 2 0 1 0-2-2 2 2 0 1 1-2-2M30 32h2M40 32h2M35 57h5" fill="" opacity="1"></path><path d="M49 48V10a3 3 0 0 1-3-3H26a3 3 0 0 1-3 3v27" fill="" opacity="1"></path><path d="M19 37V3h34v45M40 61H19M53 48 40 61V50a2 2 0 0 1 2-2z" fill="" opacity="1"></path><path d="M46 55h8a3 3 0 0 1 3-3V12a3 3 0 0 1-3-3h-1" fill="" opacity="1"></path><path d="M53 5h8v54H42M28.52 37A9 9 0 1 1 36 41h-1" fill="" opacity="1"></path><rect width="32" height="24" x="3" y="37" rx="2" fill="" opacity="1"></rect></g><path stroke-width="4" d="M3 44h32" fill="" opacity="1"></path><circle cx="29" cy="55" r="2" stroke-width="2" fill="" opacity="1"></circle><path stroke-width="2" d="M6 57h2M10 57h2" fill="" opacity="1"></path></g></g></svg>
+                                    </span>
+                                </div>
+            
+                                <div class="payment-card-form mt-4" id="formStepOne">
+
+                                    <div class="d-flex align-items-center justify-content-between bg-light payment-form-top d-none payment-header">
+                                       
+                                    </div>
+                        
+                                        <div class="payment-details-wrapper p-3">
+                                            <div class="p-3 mb-4 bg-danger-soft rounded-2 d-none payment-note-section">
+                                            
+                                            </div>
+                                            <ul class="withdraw-details payment-details   list-group mb-4 d-none">
+
+                                            </ul>
+                                        </div>
+                                        <div class="p-4">
+
+                                                <div class="form-inner">
+
+                                                    <label for="amount">
+                                                        {{translate("Amount")}} <span class="text--danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input required placeholder="{{translate('Enter amount')}}" name="amount" type="number" class="form-control"id="amount" value="{{old('amount')}}"/>
+                                                        <span class="input-group-text">
+                                                            {{ $currencySymbol}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" class="i-btn btn--lg btn--primary capsuled">
+                                                    {{translate('Submit')}} 
+                                                </button>  
+                        
+                                        </div>
+                                </div> 
+                                
+                            </div>
+                        </div>
+                
+                </div>
+              </form> 
+  
         </div>
       </div>
     </div>
@@ -213,7 +212,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <p> {{translate("Charge")}}</p>
-                                    <h6>{{$currencySymbol}}${netCharge}  ( {{$currencySymbol}}${fixedCharge} - ${percentCharge}% )</h6>
+                                    <h6>{{$currencySymbol}}${netCharge}  ( {{$currencySymbol}}${fixedCharge} + ${percentCharge}% )</h6>
                                 </li>
 
                                 <li class="list-group-item">

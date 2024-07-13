@@ -113,7 +113,7 @@
               rotateIcon.style.transform = "";
             }
 
-            if (main.contains(hiddenOverlay)) {
+            if (hiddenOverlay && main.contains(hiddenOverlay)) {
               hiddenOverlay.remove();
             } else {
               main.appendChild(hiddenOverlay);

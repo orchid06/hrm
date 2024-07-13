@@ -201,10 +201,7 @@
 <script>
 	(function($){
         "use strict";
-        $(".type").select2({
-
-        });
-
+        $(".type").select2({});
 
         var options = {
           series: [{

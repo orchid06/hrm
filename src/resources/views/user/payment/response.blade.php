@@ -114,85 +114,85 @@
 @section('content')
 
      <div class="container">
-     <div class="row justify-content-center pt-110 pb-110">
-        <div class="col-xl-9 col-lg-10 col-md-10">
-            <div class="i-card-md ">
+            <div class="row justify-content-center pt-110 pb-110">
+                <div class="col-xl-9 col-lg-10 col-md-10">
+                    <div class="i-card-md ">
 
-            @php
-               $report = $response->log;
-            @endphp
-               
-                <div class="card-body">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-7">
-                            <div class="payslip">
-                                <div class="icon">
+                    @php
+                    $report = $response->log;
+                    @endphp
+                    
+                        <div class="card-body">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-lg-7">
+                                    <div class="payslip">
+                                        <div class="icon">
 
-                                        @if($response->type  == 'SUCCESS')
-                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
-                                                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
-                                                </svg>
-                                                <p class="success">
-                                                    {{translate('Deposit Completed')}}!
-                                                </p>
-                                        @else
-                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
-                                                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
-                                                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
-                                                </svg>
-                                                <p class="error"> {{translate('Payment Failed')}}!</p>
+                                                @if($response->type  == 'SUCCESS')
+                                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                                        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                                                        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                                                        </svg>
+                                                        <p class="success">
+                                                            {{translate('Deposit Completed')}}!
+                                                        </p>
+                                                @else
+                                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                                        <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                                                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                                                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+                                                        </svg>
+                                                        <p class="error"> {{translate('Payment Failed')}}!</p>
 
-                                        @endif
+                                                @endif
 
+                                        </div>
+                                        <ul class="slip-list mb-5">
+                                            <li>
+                                                <span>{{translate('Date')}}</span>
+                                                <span>{{ diff_for_humans($report->created_at)  }}</span>
+                                            </li>
+
+                                            <li>
+                                                <span>{{translate('User')}}</span>
+                                                <span> {{$report->user->name}} </span>
+                                            </li>
+
+                                            <li>
+                                                <span>{{translate('Payment Method')}}</span>
+                                                <span>   {{$report->method->name}} </span>
+                                            </li>
+
+                                            
+                                            <li>
+                                                <span>{{translate('TRX Number')}}</span>
+                                                <span>   {{$report->trx_code}} </span>
+                                            </li>
+
+                                            
+                                            <li>
+                                                <span>{{translate('Receivable Amount')}}</span>
+                                                <span>    {{num_format($report->amount,@$report->currency)}} </span>
+                                            </li>
+
+                                                
+                                            <li>
+                                                <span>{{translate('Payment Amount')}}</span>
+                                                <span class="fw-bold">   {{num_format($report->final_amount,@$report->method->currency)}} </span>
+                                            </li>
+                                        
+                            
+                                        </ul>
+                                        <a href="{{ auth_user('web') ? route('user.home') : route('home')  }}" class="i-btn btn--lg btn--primary mx-auto"><i class="bi bi-house me-2"></i>
+                                        {{translate('Back To Home')}}
+                                        </a>
+                                    </div>
                                 </div>
-                                <ul class="slip-list mb-5">
-                                    <li>
-                                        <span>{{translate('Date')}}</span>
-                                        <span>{{ diff_for_humans($report->created_at)  }}</span>
-                                    </li>
-
-                                    <li>
-                                        <span>{{translate('User')}}</span>
-                                        <span> {{$report->user->name}} </span>
-                                    </li>
-
-                                    <li>
-                                        <span>{{translate('Payment Method')}}</span>
-                                        <span>   {{$report->method->name}} </span>
-                                    </li>
-
-                                    
-                                    <li>
-                                        <span>{{translate('TRX Number')}}</span>
-                                        <span>   {{$report->trx_code}} </span>
-                                    </li>
-
-                                       
-                                    <li>
-                                        <span>{{translate('Receivable Amount')}}</span>
-                                        <span>    {{num_format($report->amount,@$report->currency)}} </span>
-                                    </li>
-
-                                          
-                                    <li>
-                                        <span>{{translate('Payment Amount')}}</span>
-                                        <span class="fw-bold">   {{num_format($report->final_amount,@$report->method->currency)}} </span>
-                                    </li>
-                                   
-                      
-                                </ul>
-                                <a href="{{ auth_user('web') ? route('user.home') : route('home')  }}" class="i-btn btn--lg btn--primary mx-auto"><i class="bi bi-house me-2"></i>
-                                   {{translate('Back To Home')}}
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
      </div>
 
 @endsection

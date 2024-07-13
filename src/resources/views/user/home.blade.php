@@ -65,7 +65,7 @@
                                     </div>
                                     <span class="icon-image position-absolute top-0 end-0">
                                         <img src="{{imageUrl(@$platform->file,'platform',true)}}"
-                                            alt="{{@$platform->name.".jpg"}}" />
+                                            alt="{{@$platform->name.'.jpg'}}" />
                                     </span>
                                     <div class="p-3">
                                         <h5 class="card--title-sm">
@@ -642,9 +642,9 @@
 
                                                 <p>
                                                     @if($report->expired_at)
-                                                    {{ get_date_time($report->expired_at,'d M, Y') }}
+                                                       {{ get_date_time($report->expired_at,'d M, Y') }}
                                                     @else
-                                                    {{translate("N/A")}}
+                                                       {{translate("N/A")}}
                                                     @endif
                                                 </p>
                                             </div>
@@ -810,11 +810,11 @@
     var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
 
     var accountValues = [];
-    var totalPost = @json(array_values($data['monthly_post_graph']));
-    var pendigPost = @json(array_values($data['monthly_pending_post']));
-    var schedulePost = @json(array_values($data['monthly_schedule_post']));
-    var successPost = @json(array_values($data['monthly_success_post']));
-    var failedPost = @json(array_values($data['monthly_failed_post']));
+    var totalPost     = @json(array_values($data['monthly_post_graph']));
+    var pendigPost    = @json(array_values($data['monthly_pending_post']));
+    var schedulePost  = @json(array_values($data['monthly_schedule_post']));
+    var successPost   = @json(array_values($data['monthly_success_post']));
+    var failedPost    = @json(array_values($data['monthly_failed_post']));
 
 
 

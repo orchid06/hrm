@@ -68,7 +68,7 @@
                                                 @if ($message->admin_id)
 
                                                     <div class="image">
-                                                        <img src="{{imageURL($message->admin->file,"profile,admin",true)}}" alt="profile.jpg">
+                                                        <img src="{{imageURL($message->admin->file,'profile,admin',true)}}" alt="profile.jpg">
                                                     </div>
                                                     <div class="meta">
                                                         <h6> {{ $message->admin?->name }}</h6>

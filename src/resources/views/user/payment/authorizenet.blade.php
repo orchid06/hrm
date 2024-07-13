@@ -2,9 +2,7 @@
 @section('content')
 
    @php
-
        $user = $log->user;
-
    @endphp
 
     <div class="row justify-content-center">

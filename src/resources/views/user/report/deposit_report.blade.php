@@ -7,7 +7,6 @@
 @section('content')
 
 
-
 <div class="row">
     <div class="col-xl-12 col-lg-12 mx-auto">
       <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
@@ -218,7 +217,7 @@
                                                             @endphp
 
                                                             <div class="report-img">
-                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($k)}}" target="_blank" href="{{imageURL($file,"payment",true)}}">
+                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($k)}}" target="_blank" href="{{imageURL($file,'payment',true)}}">
                                                                         <img src='{{imageURL($file,"payment",true)}}'
                                                                         alt="{{ @$file->name }}">
                                                                     </a>
@@ -262,7 +261,7 @@
 
 @push('script-include')
     <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
