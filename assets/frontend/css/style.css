@@ -1740,16 +1740,6 @@
   width: 55%;
 }
 
-.about-wrapper .about-image > img {
-  -webkit-mask-image: url(../../images/default/mask.png);
-  mask-image: url(../../images/default/mask.png);
-  -webkit-mask-position: top left;
-  mask-position: top left;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100%;
-  mask-size: 100%;
-}
 
 @media (max-width: 991px) {
   .about-wrapper .about-image {

@@ -15,7 +15,6 @@
     <link href="{{asset('assets/global/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/simplebar.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
-
     <link href="{{asset('assets/global/css/dataTables.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/post.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/main.css')}}" rel="stylesheet" type="text/css" />

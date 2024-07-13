@@ -1994,16 +1994,7 @@ table.dataTable.no-footer {
     justify-content: space-between
 }
 
-.pricing-item {
-    background-color: var(--color-white);
-    padding: 35px 30px;
-    position: relative;
-    z-index: 1;
-    background-image: url("../images/bg/wave.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-blend-mode: multiply
-}
+
 
 .pricing-item.style-2 {
     background-image: linear-gradient(-60deg, var(--color-primary-light) 0%, var(--color-white) 40%)

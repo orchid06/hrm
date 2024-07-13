@@ -81,7 +81,7 @@
                                         <div class="post-detail-img">
 
                                             <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
-                                                <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
+                                                <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name? 'file-'.$loop->index.'jpg'}}">
                                             </a>
                            
                                         </div>
@@ -109,7 +109,7 @@
 @endsection
 
 @push('script-include')
-    <script src="{{asset('assets/global/js/viewbox/jquery.viewbox.min.js')}}"></script>
+      <script src="{{asset('assets/global/js/viewbox/jquery.viewbox.min.js')}}"></script>
 @endpush
 
 

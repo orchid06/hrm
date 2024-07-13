@@ -96,7 +96,7 @@
 									</td>
 									<td data-label='{{translate("Language")}}'>
 										<div class="user-meta-info d-flex align-items-center gap-2">
-											<img class="rounded-circle avatar-sm" src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code}}">
+											<img class="rounded-circle avatar-sm" src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code.'.jpg'}}">
 											<p>{{$language->name}} </p>
 
 											@if($language->is_default == App\Enums\StatusEnum::true->status())

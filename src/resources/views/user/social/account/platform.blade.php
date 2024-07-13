@@ -21,7 +21,7 @@
                 @forelse ($platforms as $platform )
                         <li>
                             <button>
-                                <span><img  src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name."jpg"}}"></span>{{$platform->name}}
+                                <span><img  src='{{imageUrl(@$platform->file,"platform",true)}}' alt="{{@$platform->file->name?? $platform->name.'.jpg' }}"></span>{{$platform->name}}
                             </button>
                             <div class="button-group">
                                 <a   href="{{route('user.social.account.create',['platform' => $platform->slug])}}" class="i-btn primary btn--sm capsuled">

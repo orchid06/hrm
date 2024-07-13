@@ -114,42 +114,42 @@ $serviceImageSize = get_appearance_img_size('service','element','image');
                     <div class="service-tab-wrapper">
 
                         @if($insightElements->count() > 0)
-                        <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="insightTab" role="tablist">
-                            @foreach ($insightElements as $insightElement)
+                          <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="insightTab" role="tablist">
+                              @foreach ($insightElements as $insightElement)
 
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{$loop->index == 0 ? 'active' : ''}} "
-                                    id="tab-insight-{{$loop->index}}" data-bs-toggle="tab"
-                                    data-bs-target="#tab-insight-{{$loop->index}}-pane" type="button" role="tab"
-                                    aria-controls="tab-insight-{{$loop->index}}-pane" aria-selected="true">
-                                    {{$insightElement->value->sub_title}}
-                                    <span>
-                                        <i class="bi bi-arrow-up-right"> </i>
-                                    </span>
-                                </button>
-                            </li>
+                              <li class="nav-item" role="presentation">
+                                  <button class="nav-link {{$loop->index == 0 ? 'active' : ''}} "
+                                      id="tab-insight-{{$loop->index}}" data-bs-toggle="tab"
+                                      data-bs-target="#tab-insight-{{$loop->index}}-pane" type="button" role="tab"
+                                      aria-controls="tab-insight-{{$loop->index}}-pane" aria-selected="true">
+                                      {{$insightElement->value->sub_title}}
+                                      <span>
+                                          <i class="bi bi-arrow-up-right"> </i>
+                                      </span>
+                                  </button>
+                              </li>
 
-                            @endforeach
-                        </ul>
-                        <div class="tab-content" id="insightTabContent">
+                              @endforeach
+                          </ul>
+                          <div class="tab-content" id="insightTabContent">
 
-                            @foreach ($insightElements as $insightElement)
-                            <div class="tab-pane fade {{$loop->index == 0 ? 'show active' : ''}}"
-                                id="tab-insight-{{$loop->index}}-pane" role="tabpanel"
-                                aria-labelledby="tab-insight-{{$loop->index}}" tabindex="0">
-                                <div class="mb-4">
-                                    @php $file = $insightElement->file?->first(); @endphp
-                                    <h5 class="mb-2">{{$insightElement->value->title}}</h5>
-                                    <p>{{$insightElement->value->description}}</p>
+                              @foreach ($insightElements as $insightElement)
+                                <div class="tab-pane fade {{$loop->index == 0 ? 'show active' : ''}}"
+                                    id="tab-insight-{{$loop->index}}-pane" role="tabpanel"
+                                    aria-labelledby="tab-insight-{{$loop->index}}" tabindex="0">
+                                    <div class="mb-4">
+                                        @php $file = $insightElement->file?->first(); @endphp
+                                        <h5 class="mb-2">{{$insightElement->value->title}}</h5>
+                                        <p>{{$insightElement->value->description}}</p>
+                                    </div>
+                                    <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}"
+                                        alt="{{@$file->name?? 'feature.jpg'}}" class="rounded-4">
                                 </div>
-                                <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}"
-                                    alt="{{@$file->name?? "feature.jpg"}}" class="rounded-4">
-                            </div>
-                            @endforeach
+                              @endforeach
 
-                        </div>
+                          </div>
                         @else
-                        @include("frontend.partials.not_found")
+                            @include("frontend.partials.not_found")
                         @endif
                     </div>
                 </div>

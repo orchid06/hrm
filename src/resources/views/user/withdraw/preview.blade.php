@@ -29,7 +29,7 @@
 
                   <div class="d-flex flex-column align-items-center justify-content-start gap-2">
                       <div class="avatar-xl profile-picture">
-                          <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name."jpg"}}" class="rounded-50">
+                          <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name.".jpg"}}" class="rounded-50">
                       </div>
                       <div class="text-start">
                           <h5>
