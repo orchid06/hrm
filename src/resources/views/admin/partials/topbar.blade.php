@@ -80,9 +80,9 @@
                             </li>
                           @empty
                             <li class="text-center mx-auto mb-2">
-                              <p>
-                                {{translate("Nothing Found !!")}}
-                              </p>
+                                <p>
+                                  {{translate("Nothing Found !!")}}
+                                </p>
                             </li>
                           @endforelse
                         </ul>
