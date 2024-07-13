@@ -6,7 +6,7 @@
   @endphp
 
   <div class="row">
-    <div class="col-xl-8 col-lg-10 mx-auto">
+    <div class="col-xl-10 col-lg-10 mx-auto">
       <div class="i-card-md">
         <div class="card-body">
           <div class="manual-pay-card">
@@ -23,7 +23,7 @@
                   <div class="col-12">
 
                     <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-lg-4 gap-3">
-                        <div class="avatar-100 profile-picture">
+                        <div class="avatar-xl profile-picture">
                             <img src='{{imageURL(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name ?? $method->name.".jpg"}}" class="rounded-50">
                         </div>
                         <div class="text-start">
@@ -92,8 +92,8 @@
                               </div>
 
                           @elseif($v->type == "file")
-                              <div class="col-6">
-                                  <div class="form-inner">
+                              <div class="col-12">
+                                  <div class="form-inner mb-0">
                                       <label for="{{$k}}">{{translate($v->field_label)}} @if($v->validation == 'required') <small class="text-danger">*</small>  @endif </label>
 
                                           <input id="{{$k}}" type="file" name="{{$k}}" accept="image/*"

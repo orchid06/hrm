@@ -3346,6 +3346,9 @@ footer{
   align-items: center;
   gap: 10px;
   line-height: 1;
+  background: #f8f8f8;
+  border-radius: 30px;
+  border: 2px solid #EAECF0;
 }
 
  .dropdown-toggle {
