@@ -57,7 +57,7 @@
 
                         </div>
 
-                        <button type="submit" class="i-btn btn--lg btn--primary mt-4" id="btn-confirm">
+                        <button type="submit" class="i-btn btn--lg btn--primary capsuled mt-4" id="btn-confirm">
                             {{translate("Pay Now")}}
                         </button>
                     </form>

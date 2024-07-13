@@ -3486,7 +3486,7 @@ aside.show-side-bar {
   border-color: var(--color-primary-light);
 }
 .list-group-item{
-  padding: 10px;
+  padding: 12px;
 }
 
 .payment-details .list-group-item.active h5 {
@@ -3496,7 +3496,7 @@ aside.show-side-bar {
 .payment-details .list-group-item>p {
   color: var(--text-secondary);
   font-size: 15px;
-  flex: 0 0 30%;
+  flex: 0 0 50%;
 }
 
 .payment-details .list-group-item>h6 {
@@ -6638,4 +6638,8 @@ li.no--access .icon svg{
   height: 60px;
   object-fit: cover;
   border-radius: 5px;
+}
+
+.razorpay-payment-button:hover{
+  color: var(--color-primary);
 }
