@@ -4070,6 +4070,17 @@ aside.show-side-bar {
   margin: 15px;
 }
 
+.notification-modal-icon.style-primary{
+  background: var(--color-primary-light);
+}
+.notification-modal-icon.style-primary::before {
+  background: var(--color-primary-light);
+}
+.notification-modal-icon.style-primary::after {
+  background: var(--color-primary-light);
+}
+
+
 .notification-modal-icon::before {
   content: '';
   position: absolute;
@@ -4452,7 +4463,7 @@ aside.show-side-bar {
 .connect-profile-tab .nav-tabs .nav-link {
   color: var(--text-primary) !important;
   border: none;
-  border-bottom: 2px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
 }
 
 .connect-profile-tab .nav-tabs .nav-link.active {

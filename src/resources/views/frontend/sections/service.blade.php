@@ -1,9 +1,8 @@
-
 @php
 
-  $content  = get_content("content_service")->first();
-  $services = get_content("element_service");
-  $serviceImageSize      = get_appearance_img_size('service','element','image');
+$content = get_content("content_service")->first();
+$services = get_content("element_service");
+$serviceImageSize = get_appearance_img_size('service','element','image');
 
 @endphp
 
@@ -14,7 +13,7 @@
             <div class="col-lg-8">
                 <div class="section-title-one text-center mb-60" data-aos="fade-up" data-aos-duration="1500">
                     <div class="subtitle">{{@$content->value->sub_title}}</div>
-                    <h2>    @php echo @$content->value->title @endphp </h2>
+                    <h2> @php echo @$content->value->title @endphp </h2>
                     <p> {{@$content->value->description}}</p>
                 </div>
             </div>
@@ -42,106 +41,120 @@
                 </defs>
             </svg>
 
-      <div class="row h-625">
-        <div class="col-lg-1 d-lg-block d-none">
-          <div class="service-type-icon">
-            <i class="bi bi-laptop"></i>
-          </div>
-        </div>
-        <div class="col-lg-11">
-          <div class="row">
-            <div class="col-lg-10">
-              <div class="section-title-two text-start mb-60">
-                <h2>  @php echo @$content->value->section_top_title @endphp </h2>
-                <p>{{@$content->value->section_top_description}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="row g-4">
-              <div class="col-12">
-                   @include('frontend.partials.service_component',[ 'slider' => "service-slider-one",'services' => $services->take(6)])
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="row h-625 mt-5">
-          <div class="col-lg-11">
-            <div class="row justify-content-end">
-              <div class="col-lg-10">
-                <div class="section-title-two text-end mb-60">
-                  <h2>  @php echo @$content->value->section_bottom_title @endphp </h2>
-                  <p>{{@$content->value->section_bottom_description}}</p>
-                </div>
-              </div>
-            </div>
-              <div class="row g-4">
-                      <div class="col-12">
-                            @include('frontend.partials.service_component',[ 'slider' => "service-slider-two",'services' => $services->skip(6)->take(PHP_INT_MAX)])
-                      </div>
-              </div>
-          </div>
-          <div class="col-lg-1 d-lg-block d-none">
-              <div class="service-type-icon">
-                  <i class="bi bi-laptop"></i>
-              </div>
-          </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-lg-1 d-lg-block d-none">
-          <div class="service-type-icon">
-            <i class="bi bi-laptop"></i>
-          </div>
-        </div>
-        <div class="col-lg-11">
-                @php
-                      $insight               = get_content("content_service_insight")->first();
-                      $insightElements       = get_content("element_service_insight");
-                      $featureImageSize      = get_appearance_img_size('service_insight','element','image');
-
-                @endphp
-              
-                <div class="row">
-                  <div class="col-lg-10">
-                    <div class="section-title-two text-start mb-60">
-                      <h2>  @php echo @$insight->value->title @endphp </h2>
-                      <p> {{@$insight->value->short_description}}</p>
+            <div class="row h-625">
+                <div class="col-lg-1 d-lg-block d-none">
+                    <div class="service-type-icon">
+                        <i class="bi bi-laptop"></i>
                     </div>
-                  </div>
                 </div>
-                <div class="service-tab-wrapper">
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="section-title-two text-start mb-60">
+                                <h2> @php echo @$content->value->section_top_title @endphp </h2>
+                                <p>{{@$content->value->section_top_description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-12">
+                            @include('frontend.partials.service_component',[ 'slider' => "service-slider-one",'services'
+                            => $services->take(6)])
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    @if($insightElements->count() > 0)
-                      <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="insightTab" role="tablist">
-                        @foreach ($insightElements as $insightElement)
-                          
-                              <li class="nav-item" role="presentation">
-                                <button class="nav-link {{$loop->index == 0 ? 'active' : ''}} " id="tab-insight-{{$loop->index}}" data-bs-toggle="tab" data-bs-target="#tab-insight-{{$loop->index}}-pane" type="button" role="tab" aria-controls="tab-insight-{{$loop->index}}-pane" aria-selected="true">
-                                        {{$insightElement->value->sub_title}}
-                                      <span>
-                                          <i class="bi bi-arrow-up-right"> </i>
-                                      </span>
+            <div class="row h-625 mt-5">
+                <div class="col-lg-11">
+                    <div class="row justify-content-end">
+                        <div class="col-lg-10">
+                            <div class="section-title-two text-end mb-60">
+                                <h2> @php echo @$content->value->section_bottom_title @endphp </h2>
+                                <p>{{@$content->value->section_bottom_description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-12">
+                            @include('frontend.partials.service_component',[ 'slider' => "service-slider-two",'services'
+                            => $services->skip(6)->take(PHP_INT_MAX)])
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 d-lg-block d-none">
+                    <div class="service-type-icon">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-1 d-lg-block d-none">
+                    <div class="service-type-icon">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+                </div>
+                <div class="col-lg-11">
+                    @php
+                    $insight = get_content("content_service_insight")->first();
+                    $insightElements = get_content("element_service_insight");
+                    $featureImageSize = get_appearance_img_size('service_insight','element','image');
+
+                    @endphp
+
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="section-title-two text-start mb-60">
+                                <h2> @php echo @$insight->value->title @endphp </h2>
+                                <p> {{@$insight->value->short_description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-tab-wrapper">
+
+                        @if($insightElements->count() > 0)
+                        <ul class="nav nav-tabs style-7 gap-lg-4 gap-2 mb-30" id="insightTab" role="tablist">
+                            @foreach ($insightElements as $insightElement)
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{$loop->index == 0 ? 'active' : ''}} "
+                                    id="tab-insight-{{$loop->index}}" data-bs-toggle="tab"
+                                    data-bs-target="#tab-insight-{{$loop->index}}-pane" type="button" role="tab"
+                                    aria-controls="tab-insight-{{$loop->index}}-pane" aria-selected="true">
+                                    {{$insightElement->value->sub_title}}
+                                    <span>
+                                        <i class="bi bi-arrow-up-right"> </i>
+                                    </span>
                                 </button>
-                              </li>
-                            
-                        @endforeach
-                      </ul>
-                      <div class="tab-content" id="insightTabContent">
+                            </li>
 
-                          @foreach ($insightElements as $insightElement)
-                              <div class="tab-pane fade {{$loop->index == 0 ? 'show active' : ''}}" id="tab-insight-{{$loop->index}}-pane" role="tabpanel" aria-labelledby="tab-insight-{{$loop->index}}" tabindex="0">
-                                  <div class="mb-4">
+                            @endforeach
+                        </ul>
+                        <div class="tab-content" id="insightTabContent">
+
+                            @foreach ($insightElements as $insightElement)
+                            <div class="tab-pane fade {{$loop->index == 0 ? 'show active' : ''}}"
+                                id="tab-insight-{{$loop->index}}-pane" role="tabpanel"
+                                aria-labelledby="tab-insight-{{$loop->index}}" tabindex="0">
+                                <div class="mb-4">
                                     @php $file = $insightElement->file?->first(); @endphp
                                     <h5 class="mb-2">{{$insightElement->value->title}}</h5>
                                     <p>{{$insightElement->value->description}}</p>
-                                  </div>
-                                  <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? "feature.jpg"}}"   class="rounded-4">
-                              </div>
-                          @endforeach
-                        
-                      </div>
-                    @else
-                      @include("frontend.partials.not_found")
-                    @endif
-              </div>
-        </div>
+                                </div>
+                                <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}"
+                                    alt="{{@$file->name?? "feature.jpg"}}" class="rounded-4">
+                            </div>
+                            @endforeach
+
+                        </div>
+                        @else
+                        @include("frontend.partials.not_found")
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+          </div>
+    </div>
 </section>

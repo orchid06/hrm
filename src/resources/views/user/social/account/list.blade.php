@@ -65,30 +65,28 @@
                </div>
            </div>
    
-            <div class="collapse" id="tableFilter">
-                <div class="collapse" id="tableFilter">
-                    <div class="search-action-area mb-4">
-                            <div class="search-area">
-                                    <form action="{{ route(Route::currentRouteName()) }}" method="get">
-                                        <input type="hidden" name="platform" value="{{request()->input('platform')}}">
-                                        
-                                        <div class="form-inner">
-                                            <input placeholder="{{translate('Search by name')}}" type="search" name="name" 
-                                            value="{{request()->input('name')}}">
-                                        </div>
-
-                                        <div class="d-flex gap-2">
-                                            <button class="i-btn primary btn--lg capsuled">
-                                                <i class="bi bi-search"></i>
-                                            </button>
-                                            <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </form>
+           <div class="collapse" id="tableFilter">
+                <div class="search-action-area mb-4">
+                    <div class="search-area">
+                        <form action="{{ route(Route::currentRouteName()) }}" method="get">
+                            <input type="hidden" name="platform" value="{{request()->input('platform')}}">
+                            
+                            <div class="form-inner">
+                                <input placeholder="{{translate('Search by name')}}" type="search" name="name" 
+                                value="{{request()->input('name')}}">
                             </div>
+
+                            <div class="d-flex gap-2">
+                                <button class="i-btn primary btn--lg capsuled">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                                <a href="{{route('user.social.account.list',['platform' => request()->input('platform')])}}" class="i-btn danger btn--lg capsuled">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </a>
+                            </div>
+                        </form>
                     </div>
-                </div> 
+                </div>
             </div> 
 
             <div class="card-body px-0">

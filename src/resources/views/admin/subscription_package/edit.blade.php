@@ -154,7 +154,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <div class="form-inner">
+                                                    <div class="form-inner mb-0">
                                                         <label for="post"
                                                         class="form-label">{{ translate('Total Post') }}
                                                         <small class="text-danger" >*</small> 
@@ -206,7 +206,7 @@
                                         <div class="accordion-body">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="form-inner">
+                                                    <div class="form-inner mb-0">
                                                         <label for="open_ai_model">
                                                             {{translate("AI Model")}} 
                                                         </label>
@@ -224,7 +224,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <div class="form-inner">
+                                                    <div class="form-inner mb-0">
                                                         <label for="word_limit" >{{ translate('No. Of Words') }}
                                                         <small class="text-danger" >*</small> 
                             
