@@ -265,7 +265,7 @@ class ReportController extends Controller
             'meta_data'       => $this->metaData(['title'=> translate("Credit Reports")]),
             "reports"         => CreditLog::with(['user'])
                                     ->where('user_id',$this->user->id)
-                                    ->search(['remark','trx_code'])
+                                    ->search(['remarks','trx_code'])
                                     ->filter(['type'])
                                     ->date()               
                                     ->latest()

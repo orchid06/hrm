@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="form-inner">
-                                <select name="trx_type" id="type" class="type">
+                                <select name="type" id="type" class="type">
                                     <option value="">
                                         {{translate('Select TRX Type')}}
                                     </option>

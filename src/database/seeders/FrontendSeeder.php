@@ -23,15 +23,16 @@ class FrontendSeeder extends Seeder
             "contact_us" => [
 
                 "content"  => [
-                    "banner_title" => "Get In Touch With us",
-                    "banner_description" => "Our 24/7 support experts are here to assist you through tough times, so you get back to building exciting projects",
                     "support_title" => "Are you an existing customer?",
                     "support_description" => "If so, please click the button on the right to open a support ticket.",
                     "button_name" => "Open Support Ticket",
                     "button_url" => "@@@",
                     "section_title" => "Contact us",
-                    "section_heading" => "We'd love hear from you",
+                    "section_heading" => "Growth is the only constant in our",
                     "section_description" => "We welcome all the questions & remarks. Growth is the only constant in our",
+                    "breadcrumb_title" => "Get In Touch With us",
+                    "opening_hour_text" => "08:00 - 17:00",
+                    "breadcrumb_description" => "Our 24/7 support experts are here to assist you through tough times, so you get back to building exciting projects",
                 ],
 
                 
@@ -41,8 +42,8 @@ class FrontendSeeder extends Seeder
             "feedback" => [
 
                 "content"  => [
-                    "banner_title" => "Get In Touch With us",
-                    "banner_description" => "Our 24/7 support experts are here to assist you through tough times, so you get back to building exciting projects",
+                    "breadcrumb_title" => "Get In Touch With us",
+                    "breadcrumb_description" => "Our 24/7 support experts are here to assist you through tough times, so you get back to building exciting projects",
                     "heading" => "We'd love hear from you",
                     "description" => "We welcome all the questions & remarks. Growth is the only constant in our",
                 ],
@@ -80,17 +81,25 @@ class FrontendSeeder extends Seeder
             ],
 
             "banner" => [
-
                 "content"  => [
-
-                    "title"             => "A powerful solution for social media",
-                    "motion_text"       => "Explore more - Explore more",
-                    "motion_button_url" => "@@",
+                    "title"             => "Social <span>Media</span> 10x Faster <br> With AI <span>",
                     "description"       => "Our all-in-one social media management platform unlocks the full potential of social to transform not just your marketing strategy—but every area of your organization.",
-                    "button_left_name"  =>  "Get Started for free",
-                    "button_left_url"   =>  "@@",
-                    "button_right_name" =>  "Book a demo",
-                    "button_right_url"  =>  "@@"
+                    "button_name"       =>  "Discover more",
+                    "button_icon"       =>  "bi bi-arrow-up-right-circle",
+                    "button_URL"        =>  "@@",
+                    "video_URL"         =>  "@@"
+                ],  
+                "element" => [
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ]
                 ]
 
             ],
@@ -98,435 +107,322 @@ class FrontendSeeder extends Seeder
             "about" => [
 
                 "content" => [
-                    "title"        => "Propelling your brand to new heights in the digital realm",
-                    "sub_title"    => "Learn About Us",
-                    "button_name"  => "Learn More",
-                    "button_url"   => "@@",
-                    "description"  => "Our vision is to be the driving force behind businesses, success in the digital age, where social media is not just a platform but a powerful tool for growth and engagement.",
+                    "title"        => "Our Values",
+                    "sub_title"    => "About us",
+                    "description"  => "Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards. Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards.",
                 ],
 
                 "element" => [
 
                     [
-                        "icon"  => "bi bi-graph-up-arrow",
-                        "name"  => "Amplify your Profile",
+                        "icon"  => "bi bi-heart",
+                        "title"  => "Takeover",
+                        "description"  => "Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards."
                     ],
                     [
-                        "icon"  => "bi bi-cast",
-                        "name"  => "Amplify your brand",
+                        "icon"  => "bi bi-heart",
+                        "title"  => "Takeover",
+                        "description"  => "Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards."
                     ],
                     [
-                        "icon"  => "bi bi-circle-square",
-                        "name"  => "Engage your audience",
+                        "icon"  => "bi bi-heart",
+                        "title"  => "Takeover",
+                         "description"  => "Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards."
                     ],
                     [
-                        "icon"  => "bi bi-graph-up-arrow",
-                        "name"  => "Drive tangible results",
+                        "icon"  => "bi bi-heart",
+                        "title"  => "Trustworthy",
+                         "description"  => "Discover the power of our secure an rewarding credit cards. Discover th power of our secure and rewarding credit cards."
                     ]
 
                 ]
                 
             ],
 
-            "platform"  => [
-
-                "content" => [
-                    "title"        => "Propelling your brand to new heights",
-                    "sub_title"    => "Platform",
-                    "description"  => "Our vision is to be the driving force behind businesses’ success in the digital age, where social media is not just a platform but a powerful tool for growth and engagement.",
-                ],
+            "about_counter" => [
 
                 "element" => [
-
                     [
-                        "icon"        =>  "bi bi-pencil-square",
-                        "title"       =>  "Create Caption",
-                        "sub_title"   =>  "Make posts with our Canva integration or AI Assistant",
-                        "description" =>  "<h5>Manage All Your Social Media Channels with SocialBee</h5>
-                                            <p>
-                                                Create, schedule, and post content across several
-                                                social media accounts from one place.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                            </ul>",
+                        "counter_value"  => "01",
+                        "counter_text"  => "300+Our Customers",
+      
                     ],
                     [
-                        "icon"        =>  "bi bi-person-gear",
-                        "title"       =>  "Manage Profile",
-                        "sub_title"   =>  "Manage your social media profiles from SocialBee.",
-                        "description" =>  "<h5>Manage All Your Social Media Channels with SocialBee</h5>
-                                            <p>
-                                                Create, schedule, and post content across several
-                                                social media accounts from one place.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                            </ul>",
-                    ],
-
-                    [
-                        "icon"        =>  "bi bi-hourglass-split",
-                        "title"       =>  "Schedule Post",
-                        "sub_title"   =>  "Schedule posts ahead of time in a calendar",
-                        "description" =>  "<h5>Manage All Your Social Media Channels with SocialBee</h5>
-                                            <p>
-                                                Create, schedule, and post content across several
-                                                social media accounts from one place.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                            </ul>",
-                    ],
-
-                    [
-                        "icon"        =>  "bi bi-inboxes",
-                        "title"       =>  "Engagement",
-                        "sub_title"   =>  "Schedule posts ahead of time in a calendar",
-                        "description" =>  "<h5>Manage All Your Social Media Channels with SocialBee</h5>
-                                            <p>
-                                                Create, schedule, and post content across several
-                                                social media accounts from one place.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                                <li>
-                                                <span><i class=\"bi bi-activity\"></i></span>
-                                                <p>Multiple Profile</p>
-                                                </li>
-                                            </ul>",
-                    ],
-                   
-
+                        "counter_value"  => "01",
+                        "counter_text"  => "300+Our Customers",
+                    ]
                 ]
-
+                
             ],
+
+     
 
             "integration" => [
 
                 "content"  => [
+                    "title" =>  "Our Intregration",
+                ],
 
-                    "title" =>  "Connect information and data from
-                    your most trusted social.",
-                    "sub_title" =>  "Our Integrations",
-                    "description" =>  "No more jumping between platforms. Access all the content and data your org needs to best serve your audience in one place and share that information across teams with efficiency.",
+                "element" => [
+                    [
+                        "title"  => "Linkedin",
+                        "short_description"  => "Excited to introduce our latest innovation! Discover the future of Linkedin",
+                    ],
+                    [
+                        "title"  => "Twitter",
+                        "short_description"  => "Excited to introduce our latest innovation! Discover the future of Linkedin",
+                    ],
+                    [
+                        "title"  => "Instragram",
+                        "short_description"  => "Excited to introduce our latest innovation! Discover the future of Linkedin",
+                    ],
+                    [
+                        "title"  => "Facebook",
+                        "short_description"  => "Excited to introduce our latest innovation! Discover the future of Linkedin",
+                    ]
+               
                 ]
 
             ],
+
+
+            
 
             "feature" => [
 
                 "content"  => [
 
-                    "title" =>  "Connect information and data from
-                    your most trusted social.",
+                    "title" =>  "Transforming Social With <span>Wealth Management</span>",
                     "sub_title" =>  "Key Features",
-                    "description" =>  "No more jumping between platforms. Access all the content and data your org needs to best serve your audience in one place and share that information across teams with efficiency.",
+
                 ],
 
                 "element" => [
 
                     [
-                        "icon"        =>  "bi bi-calendar2-range",
                         "title"       =>  "Social Media Calendar",
-                        "sub_title"   =>  "Access a complete view of planned content",
-
-                        "description" =>  "<div class=\"feature-content\">
-                                            <h5>
-                                                    Connect information and data from your most trusted
-                                                    social networks.
-                                            </h5>
-                                            <p>
-                                                No more jumping between platforms. Access all the
-                                                content and data your org needs to best.
-                                            </p>
-
-                                                <ul>
-                                                    <li>
-                                                        <span>1</span>
-                                                        <h6>
-                                                        Bulk Schedule and Pause Content Categories
-                                                        </h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <span>2</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>3</span>
-                                                        <h6>Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>4</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>5</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>6</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <span>7</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                </ul>
-                                            </div>",
-                       
+                        "description" =>  "Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.",
                     ],
                     [
-                        "icon"        =>  "bi bi-stack",
                         "title"       =>  "Bulk Scheduling",
-                        "sub_title"   =>  "Schedule posts ahead of time in a calendar.",
-                        "description" =>  "<div class=\"feature-content\">
-                                            <h5>
-                                                    Connect information and data from your most trusted
-                                                    social networks.
-                                            </h5>
-                                            <p>
-                                                No more jumping between platforms. Access all the
-                                                content and data your org needs to best.
-                                            </p>
-
-                                                <ul>
-                                                    <li>
-                                                        <span>1</span>
-                                                        <h6>
-                                                        Bulk Schedule and Pause Content Categories
-                                                        </h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <span>2</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>3</span>
-                                                        <h6>Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>4</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>5</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>6</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-
-                                                    <li>
-                                                        <span>7</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                </ul>
-                                            </div>",
+                        "description" =>  "Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.",
                     ],
-
                     [
-                        "icon"        =>  "bi bi-magic",
                         "title"       =>  "AI Assistant",
-                        "sub_title"   =>  "Create Content Faster with AI.",
-                        "description" =>  "<div class=\"feature-content\">
-                                            <h5>
-                                                    Connect information and data from your most trusted
-                                                    social networks.
-                                            </h5>
-                                            <p>
-                                                No more jumping between platforms. Access all the
-                                                content and data your org needs to best.
-                                            </p>
+                        "description" =>  "Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.",
+                    ],
+                    [
+                        "title"       =>  "Engagement",
+                        "description" =>  "Discover the power of our secure and rewarding credit cards. Discover the power of our secure and rewarding credit cards.",
+                    ]
 
-                                                <ul>
-                                                    <li>
-                                                        <span>1</span>
-                                                        <h6>
-                                                        Bulk Schedule and Pause Content Categories
-                                                        </h6>
-                                                    </li>
+                ]
 
-                                                    <li>
-                                                        <span>2</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>3</span>
-                                                        <h6>Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>4</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>5</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>6</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
 
-                                                    <li>
-                                                        <span>7</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                </ul>
-                                            </div>",
+            ],
+
+
+            "powerful_feature" => [
+
+                "content"  => [
+
+                    "title" =>  "The best features for you",
+                    "sub_title" =>  "Powerful features",
+                    "description" =>  "Unlock the power of Social posting Enhance your experience and enjoy seamless [benefit]. Try it now and see the difference.",
+
+                ],
+
+
+                
+                "element" => [
+
+                    [
+                        "title"       =>  "Optimization Engine Rank",
+                        "description" =>  "Discover our powerful features designed to elevate your experience. From cutting-edge technology to user-friendly interfaces, our features are crafted to provide maximum efficiency and unparalleled performance. Experience the difference today.",
+                    ],
+                 
+                    [
+                        "title"       =>  "Optimization Engine Rank",
+                        "description" =>  "Discover our powerful features designed to elevate your experience. From cutting-edge technology to user-friendly interfaces, our features are crafted to provide maximum efficiency and unparalleled performance. Experience the difference today.",
+                    ],
+                 
+                    [
+                        "title"       =>  "Optimization Engine Rank",
+                        "description" =>  "Discover our powerful features designed to elevate your experience. From cutting-edge technology to user-friendly interfaces, our features are crafted to provide maximum efficiency and unparalleled performance. Experience the difference today.",
+                    ],
+                 
+                    [
+                        "title"       =>  "Optimization Engine Rank",
+                        "description" =>  "Discover our powerful features designed to elevate your experience. From cutting-edge technology to user-friendly interfaces, our features are crafted to provide maximum efficiency and unparalleled performance. Experience the difference today.",
+                    ],
+                 
+                    [
+                        "title"       =>  "Optimization Engine Rank",
+                        "description" =>  "Discover our powerful features designed to elevate your experience. From cutting-edge technology to user-friendly interfaces, our features are crafted to provide maximum efficiency and unparalleled performance. Experience the difference today.",
+                    ],
+                 
+
+                ]
+                
+
+            ],
+
+
+
+            "service" => [
+
+                "content"  => [
+
+                    "title" =>  "Empowering social media <span>insights</span>",
+                    "sub_title" =>  "Service",
+                    "description" =>  "Discover the power of our secure and rewarding credit cards.",
+                    "section_top_title" =>  "Unlock the power of social media <span>insights</span> to drive your strategy forward. ",
+                    "section_bottom_title" =>  "Discover the game-changing impact of social media  <span>insights</span> for your business growth",
+                    "section_top_description" =>  "Discover the power of our secure and rewarding credit cards.",
+                    "section_bottom_description" =>  "Discover the power of our secure and rewarding credit cards.",
+                ],
+
+                  "element" => [
+
+                    [
+                        "title"       =>  "Social Media Monitor",
+                        "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
+                    [
+                        "title"       =>  "AI Content Create",
+                       "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
+                    [
+                        "title"       =>  "Social Engagement",
+                      "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
+                    [
+                        "title"       =>  "Analytical Reports",
+                       "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+                    [
+                        "title"       =>  "Template Management",
+                   "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
+                    [
+                        "title"       =>  "Feed Analytic",
+                    "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+                    [
+                        "title"       =>  "AI Content Create",
+                       "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
                     ],
 
                     [
-                        "icon"        =>  "bi bi-inboxes",
-                        "title"       =>  "Engagement",
-                        "sub_title"   =>  "Schedule posts ahead of time in a calendar",
-                        "description" =>  "<div class=\"feature-content\">
-                                                <h5>
-                                                        Connect information and data from your most trusted
-                                                        social networks.
-                                                </h5>
-                                                <p>
-                                                    No more jumping between platforms. Access all the
-                                                    content and data your org needs to best.
-                                                </p>
+                        "title"       =>  "Feed Analytic",
+                       "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
 
-                                                    <ul>
-                                                    <li>
-                                                        <span>1</span>
-                                                        <h6>
-                                                        Bulk Schedule and Pause Content Categories
-                                                        </h6>
-                                                    </li>
+                    [
+                        "title"       =>  "Manage profile",
+                      "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
+                    [
+                        "title"       =>  "Manage Post",
+                       "description" =>  '<h2 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Advanced AI-Powered Engagement, Content Personalization, and User Experience Enhancement Platform</h2><p class="mb-3" style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">Utilizing state-of-the-art AI technology, the platform delivers highly customized content, enhancing user experience by presenting the most pertinent and engaging posts. Intelligent algorithms adapt to each users preferences, fostering stronger connections and a sense of community. This innovative platform sets a new benchmark for social media, making it more personalized, interactive, and user-centric, ultimately transforming the way users engage and connect online.</p><ul style="margin-top: 35px; margin-bottom: 40px; list-style-type: none; color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;"><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Leveraging AI to ensure users see the most relevant and engaging posts tailored to their interests.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Continuously adapting to individual preferences to enhance user experience and foster deeper connections.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Promoting interactive and meaningful interactions through AI-driven features.</li><li style="margin-bottom: 6px; list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Creating stronger community bonds by understanding and catering to user behaviors and preferences.</li><li style="list-style-type: none;"><i class="bi bi-check2-circle" style="margin-right: 10px; font-size: 20px; vertical-align: middle; color: var(--text-primary);"></i>Setting a new standard in social media with a focus on seamless, intuitive, and dynamic user experiences.</li></ul><h4 class="mb-3" style="line-height: 1.3; font-family: Jost, sans-serif;">Adipiscing lacus dui rutrum quam. In morbi facilisis elit.</h4><p style="color: rgb(84, 84, 84); font-family: Jost, sans-serif; font-size: 16px;">This platform employs cutting-edge AI to provide users with highly personalized content, ensuring they encounter the most relevant and engaging posts tailored to their interests. Its intelligent algorithms continuously adapt to individual user preferences, fostering deeper connections and a stronger sense of community. By enhancing user experience through seamless and intuitive interactions, this platform sets a new standard for social media, making it more engaging, user-centric, and dynamic. It ultimately reshapes how users connect, share, and interact in the digital world.</p>',
+                    ],
+             
 
-                                                    <li>
-                                                        <span>2</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>3</span>
-                                                        <h6>Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>4</span>
-                                                        <h6>Create Evergreen</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>5</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                    <li>
-                                                        <span>6</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
+                ]
 
-                                                    <li>
-                                                        <span>7</span>
-                                                        <h6>Create Evergreen Posting Sequences</h6>
-                                                    </li>
-                                                    </ul>
-                                           </div>",
+            ],
+
+
+            
+            "service_insight" => [
+
+                "content"  => [
+                    "title" =>  "Empowering social media <span>insights</span>",
+                    "description" => "Discover the power of our secure and rewarding credit cards.",
+                ],
+
+                "element" => [
+
+                    [
+                        "title"       =>  "Design visually appealing content for all your feeds",
+                        "sub_title"       =>  "Manage Accounts",
+                        "description" =>  "Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.",
+                    ],
+                    [
+                        "title"       =>  "Design visually appealing content for all your feeds",
+                        "sub_title"       =>  "AI Content",
+                        "description" =>  "Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.",
+                    ],
+                    [
+                        "title"       =>  "Design visually appealing content for all your feeds",
+                        "sub_title"       =>  "Create post",
+                        "description" =>  "Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.",
+                    ],
+                    [
+                        "title"       =>  "Design visually appealing content for all your feeds",
+                        "sub_title"       =>  "Content",
+                        "description" =>  "Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.",
+                    ],
+                    [
+                        "title"       =>  "Design visually appealing content for all your feeds",
+                        "sub_title"       =>  "Insight",
+                        "description" =>  "Take advantage of the in-app integrations with platforms like Canva, Unsplash, and GIPHY. Boost your creative abilities and get access to a wide variety of design elements.",
                     ],
                    
 
                 ]
 
-
             ],
 
-            "content" => [
+
+            
+            "team" => [
 
                 "content"  => [
 
-                    "title" => "Work smarter, faster using AI and automation",
-                    "sub_title" => "AI CONTENT CREATION",
-                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on Feedswiz. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
+                    "title" => "Meet our <span>team</span>",
+                    "sub_title" => "Team",
+                    "description" => "Meet our dedicated team of professionals, committed to delivering excellence and innovation. With diverse expertise and a shared passion for success, we work together to achieve our goals and drive our mission forward."
+                ],
+
+                "element" => [
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ],
+                    [
+                    ]
                 ]
 
             ],
-
+   
             "template" => [
 
                 "content"  => [
 
-                    "title" => "Pre-build Templates for all social",
+                    "title" => "AI powered social media <span>template</span>",
                     "sub_title" => "Templates",
-                    "description" => "Discover a wealth of post ideas and captions with the AI Assistant on Feedswiz. Say goodbye to creative blocks as the AI generates an abundance of unique and engaging ideas, ensuring your social media calendar never falls short of inspiration."
+          
                 ]
 
             ],
 
-            "analytics" => [
-
-                "content"  => [
-
-                    "title" => "Watch Your Accounts Grow",
-                    "sub_title" => "Analytics & Reports",
-                    "button_name"=> "View More",
-                    "button_url"=> "@@",
-                    "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
-                ]
-
-            ],
+    
 
             "why_us" => [
 
@@ -577,14 +473,13 @@ class FrontendSeeder extends Seeder
 
                 "content"  => [
 
-                    "title" => "Frequently Asked Questions",
+                    "title" => "Frequently ask <span>questions</span>",
                     "sub_title" => "FAQS",
                     "description" => "We cant wait for you to explore all of our stories and create your own learning journeys. Before you do, here are the questions we get asked the most by our visitors."
                 ],
                 "element"  => [
 
                     [
-                        "icon" => "bi bi-vector-pen",
                         "question" => "Whats it like your job, grab a backpack, and travel the
                         world?",
                         "answer" => "Some of the strangest places on earth are also the most
@@ -594,7 +489,6 @@ class FrontendSeeder extends Seeder
                         the Rings."
                     ],
                     [
-                        "icon" => "bi bi-globe",
                         "question" => "If I visit your country, whats
                         the one meal I shouldnt miss?",
                         "answer" => "Morbi aliquam quis quam in luctus. Nullam tincidunt
@@ -608,7 +502,6 @@ class FrontendSeeder extends Seeder
                         Sed varius, diam vitae posuere semper."
                     ],
                     [
-                        "icon" => "bi bi-people",
                         "question" => "What are the most beautiful beaches in the world?",
                         "answer" => "Morbi aliquam quis quam in luctus. Nullam tincidunt
                         pulvinar imperdiet. Sed varius, diam vitae posuere semper,
@@ -622,7 +515,6 @@ class FrontendSeeder extends Seeder
                     ],
 
                     [
-                        "icon" => "bi bi-briefcase",
                         "question" => "Who s the most interesting person you’ve ever met on a
                         plane",
                         "answer" => "Morbi aliquam quis quam in luctus. Nullam tincidunt
@@ -643,10 +535,10 @@ class FrontendSeeder extends Seeder
 
                 "content"  => [
 
-                    "title" => "Life Planning, Making Easy to Turn Dreams a Reality",
+                    "title" => "Life Planning, Making Easy to Turn r <span>Dreams </span> a Reality",
                     "sub_title" => "Pricing Plan",
-                    "button_name"=> "Contact Us",
-                    "button_url"=> "@@",
+                    "button_name"=> "View All",
+                    "button_URL"=> "plans",
                     "description" => "We offer flexible pricing plans to suit the diverse needs of our clients."
                 ]
 
@@ -656,7 +548,7 @@ class FrontendSeeder extends Seeder
 
                 "content"  => [
 
-                    "title" => "What our client say.",
+                    "title" => "What our <span>Clients</span> say.",
                     "sub_title" => "Reviews",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience"
                 ] ,
@@ -670,7 +562,7 @@ class FrontendSeeder extends Seeder
                     ],
                   
                     [
-                        "author" => "Sam Wister",
+                        "author" => "Charles Lucas",
                         "designation" => "Social media manager",
                         "quote" => "I recently got the XYZ Pro, and it's been a game-changer. The performance is top-notch—apps run smoothly, and multitasking is a breeze. The sleek design is a head-turner, and the camera captures stunning shots, even in low light. The battery easily lasts a day, and fast charging is a great perk. My only minor gripe is the fingerprint sensor placement. Overall, a fantastic investment for tech enthusiasts!",
                         "rating" => 4,
@@ -678,16 +570,16 @@ class FrontendSeeder extends Seeder
                     ],
                   
                     [
-                        "author" => "Sam Wister",
-                        "designation" => "Social media manager",
+                        "author" => "Winstar",
+                        "designation" => "Manager",
                         "quote" => "I recently got the XYZ Pro, and it's been a game-changer. The performance is top-notch—apps run smoothly, and multitasking is a breeze. The sleek design is a head-turner, and the camera captures stunning shots, even in low light. The battery easily lasts a day, and fast charging is a great perk. My only minor gripe is the fingerprint sensor placement. Overall, a fantastic investment for tech enthusiasts!",
                         "rating" => 2,
            
                     ],
                   
                     [
-                        "author" => "Sam Wister",
-                        "designation" => "Social media manager",
+                        "author" => "Mac foster",
+                        "designation" => "CEO",
                         "quote" => "I recently got the XYZ Pro, and it's been a game-changer. The performance is top-notch—apps run smoothly, and multitasking is a breeze. The sleek design is a head-turner, and the camera captures stunning shots, even in low light. The battery easily lasts a day, and fast charging is a great perk. My only minor gripe is the fingerprint sensor placement. Overall, a fantastic investment for tech enthusiasts!",
                         "rating" => 5,
            
@@ -702,7 +594,6 @@ class FrontendSeeder extends Seeder
                     ],
                   
                   
-                   
                 ]
 
             ],
@@ -710,60 +601,44 @@ class FrontendSeeder extends Seeder
             "blog" => [
 
                 "content"  => [
-
-                    "title" => "Latest News",
+                    "title" => "News & <span>Blogs</span>",
                     "sub_title" => "Blogs",
-                    "banner_title" => "Feedswiz Blog",
-                    "banner_description"=> "Master social media with the latest expert tips & trends: tailored for entrepreneurs, small businesses, and agencies.",
                     "button_name"=> "View More",
-                    "button_url"=> "@@",
+                    "button_URL"=> "blogs",
                     "description" => "Track the engagement rate, comments, likes, shares, and impressions for each post, so you know what’s working best for your audience. Once you’ve identified your high-performing posts, you can share them again."
                 ]
 
             ],
 
-            "newsletter" => [
-
-                "content"  => [
-                    "title" => "Subscribe",
-                    "description" => "Enter your email to recive relevent messaging tips and offers."
-                ],
-                
-            ],
+       
 
             "social_icon" => [
 
                 "element"  => [
                    
                     [
-                        "social_icon" =>  "bi bi-facebook",
-                        "title"=> "facebook",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-facebook",
+                        "button_url"=> "@@",
                     ],
                     [
-                        "social_icon" =>  "bi bi-linkedin",
-                        "title"=> "linkedin",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-linkedin",
+                        "button_url"=> "@@",
                     ],
                     [
-                        "social_icon" =>  "bi bi-instagram",
-                        "title"=> "instagram",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-instagram",
+                        "button_url"=> "@@",
                     ],
                     [
-                        "social_icon" =>  "bi bi-twitter",
-                        "title"=> "twitter",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-twitter",
+                        "button_url"=> "@@",
                     ],
                     [
-                        "social_icon" =>  "bi bi-youtube",
-                        "title"=> "youtube",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-youtube",
+                        "button_url"=> "@@",
                     ],
                     [
-                        "social_icon" =>  "bi bi-tiktok",
-                        "title"=> "tiktok",
-                        "url"=> "@@",
+                        "icon" =>  "bi bi-tiktok",
+                        "button_url"=> "@@",
                     ],
                 ],
                 
@@ -772,6 +647,25 @@ class FrontendSeeder extends Seeder
             "footer" => [
 
                 "content"  => [
+                   "title"       => "Improve your social media content",
+                   "description" => "Lorem ipsum dolor sit amet consectetur adipiscing elit dolor posuere vel venenatis eu sit massa volutpat",
+                ],
+
+                
+                "element"  => [
+                   
+                    [
+                        "button_name" =>  "Book a demo",
+                        "button_URL"=> "bi bi-arrow-up-right",
+                        "button_icon"=> "@@",
+                    ],
+                    [
+                        "button_name" =>  "Get Started Free",
+                        "button_URL"=> "bi bi-arrow-up-right",
+                        "button_icon"=> "@@",
+                    ],
+             
+               
                    
                 ],
                 
@@ -783,7 +677,7 @@ class FrontendSeeder extends Seeder
                    "select_input" => [
                      "status" => StatusEnum::true->status()
                    ],
-                   "title" => "Platform",
+                   "title" => "Intregration",
                 ],
                 
             ],

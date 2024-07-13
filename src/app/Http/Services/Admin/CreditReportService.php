@@ -21,7 +21,7 @@ class CreditReportService
             'breadcrumbs'     => ['Home'=>'admin.home','Credit Reports'=> null],
             'title'           => 'Credit Reports',
             "reports"         => CreditLog::with(['user'])
-                                    ->search(['remark','trx_code'])
+                                    ->search(['remarks','trx_code'])
                                     ->filter(["user:username",'type'])
                                     ->date()               
                                     ->latest()

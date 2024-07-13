@@ -134,7 +134,7 @@
                                     <h5 class="mb-2">{{$insightElement->value->title}}</h5>
                                     <p>{{$insightElement->value->description}}</p>
                                   </div>
-                                  <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? "feature.jpg"}}"   class="rounded-4">
+                                  <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? 'feature.jpg'}}"   class="rounded-4">
                               </div>
                           @endforeach
                         

@@ -7,7 +7,7 @@
                     <div class="swiper-slide">
                         <div class="service-item">
                             <div class="image">
-                                <img src="{{imageURL($file,'frontend',true,$serviceImageSize)}}" alt="{{@$file->name?? "feature.jpg"}}">
+                                <img src="{{imageURL($file,'frontend',true,$serviceImageSize)}}" alt="{{@$file->name?? 'feature.jpg'}}">
                             </div>
                             <h4>
                                  {{$service->value->title}}

@@ -18,7 +18,7 @@
         <div class="col-lg-5">
             <div class="contact-left gs_reveal fromLeft">
               <div class="review-lef-image">
-                    <img src="{{imageURL($file,'frontend',true,$size)}}" alt="{{@$file->name??"feedback.jpg"}}">
+                    <img src="{{imageURL($file,'frontend',true,$size)}}" alt="{{@$file->name??'feedback.jpg'}}">
               </div>
                 <div class="section-title light mb-50 text-center">
                       <h3 class="mt-0 mb-3">{{@$feedback_section->value->heading}}</h3>

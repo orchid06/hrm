@@ -1,7 +1,7 @@
 
 
 @php
-   $content             = get_content("content_team")->first();
+   $content              = get_content("content_team")->first();
    $elements             = get_content("element_team");
 
    $teamImageSize  = get_appearance_img_size('team','element','image');
@@ -29,7 +29,7 @@
                                 @php $file = $element->file?->first(); @endphp
                                 <div class="swiper-slide">
                                     <div class="team-item">
-                                        <img src="{{imageURL($file,'frontend',true,$teamImageSize)}}" alt="{{@$file->name ?? "team.jpg"}}">
+                                        <img src="{{imageURL($file,'frontend',true,$teamImageSize)}}" alt="{{@$file->name ?? 'team.jpg'}}">
                                     </div>
                                 </div>
                         @endforeach 

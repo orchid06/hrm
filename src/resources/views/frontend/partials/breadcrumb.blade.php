@@ -8,7 +8,7 @@
  
     <div class="inner-banner-wrapper">
         <div class="inner-banner-img">
-            <img src="{{imageURL($breadcrumbIMG,'frontend',true,$breadcrumbSize)}}" alt="{{@$breadcrumbIMG->file->name??"breadcrumb.jpg"}}">
+            <img src="{{imageURL($breadcrumbIMG,'frontend',true,$breadcrumbSize)}}" alt="{{@$breadcrumbIMG->file->name??'breadcrumb.jpg'}}">
         </div>
         <div class="container">
             <div class="row">
@@ -48,7 +48,7 @@
                     </li>
                 @endforeach
             @else
-                <li class="breadcrumb-item"><a href="{{route("home")}}">{{translate('Home')}}</a></li>
+                <li class="breadcrumb-item"><a href="{{route('home')}}">{{translate('Home')}}</a></li>
             @endif
            
         </ol>

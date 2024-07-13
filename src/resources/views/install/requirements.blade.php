@@ -66,8 +66,9 @@
                                     </div>
                                     <ul class="permission-list">
                                         @foreach($permissions as $permission)
+             
                                             <li class="list {{Arr::get($permission ,'isSet' ,false) ? 'list-success' : 'list-error' }}">
-                                                {{ Arr::get($permission ,'folder' ,null) }}
+                                                {{ Arr::get($permission ,'folder' ) }} ({{ Arr::get($permission ,'permission' )}})
                                                 @if(@$permission['isSet'])
                                                    <i class="bi bi-check-circle-fill i-success"></i>
                                                 @else

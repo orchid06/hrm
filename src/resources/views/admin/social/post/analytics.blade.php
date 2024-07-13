@@ -126,7 +126,7 @@
                 {{Arr::get($data,"failed_post",0)}}
                 </h3>
                 <h5 class="title">{{translate('Failed Post')}}</h5>
-                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::SUCCESS->value])}}" class="i-btn btn--sm btn--primary-outline">
+                <a href="{{route('admin.social.post.list',['status' =>  App\Enums\PostStatus::FAILED->value])}}" class="i-btn btn--sm btn--primary-outline">
                     {{translate("View All")}}
                 </a>
          </div>

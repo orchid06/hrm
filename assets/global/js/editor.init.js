@@ -16,6 +16,8 @@ $(document).ready(function() {
         ['height', ['height']],
         ['fullscreen'],
         ['insert', ['picture', 'link', 'video']],
+        ['view', ['codeview']],
+
         ],
         callbacks: {
             onInit: function() {
@@ -25,4 +27,5 @@ $(document).ready(function() {
     });
 
     $(".note-image-input").removeAttr('name');
+
   });

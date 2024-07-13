@@ -11,6 +11,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 trait InstallerManager
 {
@@ -41,12 +43,15 @@ trait InstallerManager
 
      public function is_installed() :bool{
 
-        $logFile = storage_path(base64_decode(config('installer.cacheFile')));
-
-        if (file_exists($logFile)) {
+        try {
+            $logFile = storage_path(base64_decode(config('installer.cacheFile')));
+            $tableName = 'settings';
+            DB::connection()->getPdo();
+            if(!DB::connection()->getDatabaseName() || !file_exists($logFile) || !Schema::hasTable($tableName) ) return false;
             return true;
+        } catch (\Exception $ex) {
+            return false;
         }
-        return false;
     }
 
 

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-inner">
-                    <select name="package" id="package" class="package">
+                    <select name="package" id="package" class="form-select">
                         <option value="">
                             {{translate('Select Package')}}
                         </option>

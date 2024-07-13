@@ -41,7 +41,7 @@
                                                     class="d-flex flex-row justify-content-start align-items-stretch flex-md-nowrap flex-wrap gap-0">
                                                     <div class="review-image">
                                                         @php $file = $testimonial->file?->first(); @endphp
-                                                        <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? "author.jpg"}}">
+                                                        <img src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? 'author.jpg'}}">
                                                     </div>
                                                     <div class="review-content">
                                                         <ul class="review-rating d-flex align-items-center gap-1">

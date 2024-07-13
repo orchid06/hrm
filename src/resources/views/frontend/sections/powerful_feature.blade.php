@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row gy-5 align-items-center">
             <div class="col-lg-6">
-                <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}">
+                <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? 'feature.jpg'}}">
             </div>
             <div class="col-lg-6">
                 <div class="section-title-one text-start mb-60" data-aos="fade-right" data-aos-duration="1500">
