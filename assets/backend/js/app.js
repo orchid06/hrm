@@ -1,13 +1,10 @@
 (function () {
   ("use strict");
 
-  // HTML Root Element
   const rootHtml = document.documentElement;
-  // Layout design
   const verticalMenuBtn = document.querySelector(".vertical-menu-btn");
   if (verticalMenuBtn != null) {
     const dashboardWrapper = document.querySelector(".dashboard-wrapper");
-    // Create overlay
     const overlay = document.createElement("div");
     overlay.setAttribute("class", "overlay-bg");
 
@@ -46,15 +43,15 @@
     checkDeviceWidth();
   }
 
-  // Sidebar Menu
+
   if (document.querySelectorAll(".sidebar-menu .collapse")) {
     var collapses = document.querySelectorAll(".sidebar-menu .collapse");
     Array.from(collapses).forEach(function (collapse) {
-      // Init collapses
+
       var collapseInstance = new bootstrap.Collapse(collapse, {
         toggle: false,
       });
-      // Hide sibling collapses on `show.bs.collapse`
+
       collapse.addEventListener("show.bs.collapse", function (e) {
         e.stopPropagation();
         var closestCollapse = collapse.parentElement.closest(".collapse");
@@ -70,10 +67,10 @@
           });
         } else {
           var getSiblings = function (elem) {
-            // Setup siblings array and get the first sibling
+
             var siblings = [];
             var sibling = elem.parentNode.firstChild;
-            // Loop through each sibling and push to the array
+    
             while (sibling) {
               if (sibling.nodeType === 1 && sibling !== elem) {
                 siblings.push(sibling);
@@ -101,7 +98,7 @@
         }
       });
 
-      // Hide nested collapses on `hide.bs.collapse`
+
       collapse.addEventListener("hide.bs.collapse", function (e) {
         e.stopPropagation();
         var childCollapses = collapse.querySelectorAll(".collapse");
@@ -113,7 +110,6 @@
     });
   }
 
-  // Full Screen Viewer With browser support
   let fullscreenBtn = document.querySelector(".fullscreen-btn");
   if (fullscreenBtn != null) {
     fullscreenBtn.innerHTML = `<i class="las la-expand"></i>`;
@@ -144,7 +140,6 @@
     });
   }
 
-  // Ripple button effects==============
   Array.from(document.querySelectorAll('[data-anim="ripple"]'), (el) => {
     el.addEventListener("click", (e) => {
       e = e.touches ? e.touches[0] : e;
@@ -158,7 +153,6 @@
     });
   });
 
-  // Mobile Search bar
   const appSearchBtn = document.querySelector(".app-search-btn");
   if (appSearchBtn) {
     const appSearch = document.querySelector(".topbar-search");
@@ -177,12 +171,12 @@
     });
   }
 
-  // Summer Note modal
+
   $(document).on("click", ".close", function (e) {
     $(this).closest(".modal").modal("hide");
   });
 
-  // filter dropdown
+
   const filterBtn = document.querySelector(".filter-btn");
   const filterDropdown = document.querySelector(".filter-dropdown");
 
@@ -220,7 +214,7 @@
     }
   });
 
-  // Recent Activity Start
+
 var layoutRightSideBtn = document.querySelector(".layout-rightsidebar-btn");
 layoutRightSideBtn &&
     (Array.from(document.querySelectorAll(".layout-rightsidebar-btn")).forEach(

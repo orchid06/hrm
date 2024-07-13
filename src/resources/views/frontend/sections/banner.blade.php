@@ -16,7 +16,7 @@
     <div class="banner-wrapper">
       <div class="row align-items-center gy-5">
           <div class="col-xl-5 col-lg-5">
-              <div class="banner-content">
+              <div class="banner-content" data-aos="fade-right" data-aos-duration="1500">
                 <h1>
                   @php echo @$bannerContent->value->title @endphp
                   <img src="{{imageURL($titleVector,'frontend',true,$titleVectorSize)}}" alt="{{@$titleVector->name??"vector.jpg"}}"></span>
@@ -42,7 +42,7 @@
               </div>
           </div>
           <div class="col-xl-6 offset-xl-1 col-lg-7">
-            <div class="banner-image">
+            <div class="banner-image" data-aos="zoom-in" data-aos-duration="1500">
                 <img src="{{imageURL($bannerIMG,'frontend',true,$bannerSize)}}" alt="{{@$titleVector->file->name??"banner.jpg"}}">
             </div>
           </div>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="sponsors-area">
+  <div class="sponsors-area" data-aos="fade-up" data-aos-duration="1500">
     <div class="vector-right">
         <svg width="50" height="150" viewBox="0 0 50 150" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.246876 0C0.0835971 1.64453 0 3.3125 0 5V0H0.246876ZM50 150C22.3858 150 0 127.614 0 100V150H50Z"/>

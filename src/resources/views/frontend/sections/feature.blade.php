@@ -14,7 +14,7 @@
   <div class="container">
       <div class="row justify-content-start">
           <div class="col-lg-8 col-xl-6">
-              <div class="section-title-one text-start mb-60">
+              <div class="section-title-one text-start mb-60" data-aos="fade-right" data-aos-duration="1500">
                   <div class="subtitle">{{@$featureContent->value->sub_title}}</div>
                   <h2>  @php echo @$featureContent->value->title @endphp </h2>
               </div>
@@ -53,7 +53,7 @@
               @endif
           </div>
           <div class="col-lg-7">
-              <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}">
+              <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{ @$featureImage->name ?? "feature.jpg"}}" data-aos="fade-left" data-aos-duration="1500">
           </div>
       </div>
   </div>

@@ -21,7 +21,7 @@
 
 
 .testi-slider{
-    height:  230px !important;
+    height:  280px !important;
 }
   
   
@@ -40,6 +40,11 @@
 }
 .ratting-progres-1 {
     width: 15%;
+}
+
+.daterangepicker .drp-calendar {
+    display: none;
+    max-width: unset !important;
 }
   
   

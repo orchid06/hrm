@@ -15,7 +15,7 @@
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-lg-8">
-              <div class="section-title-one text-center mb-60">
+              <div class="section-title-one text-center mb-60" data-aos="fade-up" data-aos-duration="1500">
                 <div class="subtitle">{{@$templateContent->value->sub_title}}</div>
                 <h2>  @php echo @$templateContent->value->title @endphp </h2>
               </div>

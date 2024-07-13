@@ -12,14 +12,16 @@
 <section class="blog-details pb-110">
   <div class="container">
     <h3 class="title"> {{$blog->title}} </h3>
-    <a href="{{route('blog',['category' =>@$blog->category->slug ])}}">
-        {{@$blog->category->title}}
-    </a>
-    <ul class="date">
-      <li>{{get_date_time($blog->created_at,"F j, Y")}}</li>
-      <li>{{get_date_time($blog->created_at," g a")}}</li>
-    </ul>
-    <div class="mb-30">
+    <div class="d-flex gap-4 align-items-center mb-30">
+      <ul class="date">
+        <li>{{get_date_time($blog->created_at,"F j, Y")}}</li>
+        <li>{{get_date_time($blog->created_at," g a")}}</li>
+      </ul>
+      <a href="{{route('blog',['category' =>@$blog->category->slug ])}}" class="blog-category">
+          {{@$blog->category->title}}
+      </a>
+    </div>
+    <div class="mb-30 blog-d-image">
       <img src='{{imageURL(@$blog->file,"blog",true)}}'
       alt="{{@$blog->file->name ?? "blog-image.jpg"}}">
     </div>

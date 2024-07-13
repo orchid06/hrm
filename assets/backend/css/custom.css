@@ -81,7 +81,7 @@
   background: var(--color-primary);
   color: var(--color-white);
 }
-/* ==============Pagination End============== */
+
 
 .user-meta-info {
   flex-wrap: wrap !important;
@@ -167,9 +167,6 @@
   font-size: 12px !important;
 }
 
-/*******************\
-    Loading Roller
-\*******************/
 .table-loader {
   position: absolute;
   top: 50%;
@@ -315,10 +312,11 @@
 }
 
 .frontend-section-image img {
-  height: 100px;
+  height: 70px;
   width: 100px;
   border-radius: 0.375rem;
-  background-color: #f7f7f7;
+  background-color: #c5c5c5;
+  object-fit: contain;
 }
 
 .w-nowrap {
@@ -344,7 +342,6 @@
   width: 27px;
 }
 
-/* Summer Note */
 .note-editor .note-toolbar .note-dropdown-menu,
 .note-popover .popover-content .note-dropdown-menu {
   top: 115%;

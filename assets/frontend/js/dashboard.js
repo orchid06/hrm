@@ -1,20 +1,17 @@
 (function () {
   "use strict";
-  // HTML Root Element
   var rootHtml = document.documentElement;
   var deviceWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
     document.body.clientWidth;
 
-  // Preloader
   const preloader = document.querySelector(".preloader");
   window.addEventListener("load", () => {
     if (preloader) {
       preloader.remove();
     }
   });
-  // Sticky Header
   const header = document.querySelector(".header");
   if (header) {
     const checkScroll = () => {
@@ -30,18 +27,18 @@
     window.addEventListener("load", checkScroll);
   }
 
-  // Sidebar mobile menu
+
   const sidebarTrigger = document.querySelector(".sidebar-trigger");
   if (sidebarTrigger != null) {
     var sidebaroverlay = document.querySelector(".sidebaroverlay");
     const sidebars = document.querySelector(".aside");
 
-    // Create Overlay
+
     sidebaroverlay = document.createElement("div");
     sidebaroverlay.setAttribute("class", "sidebaroverlay");
 
     sidebarTrigger.addEventListener("click", () => {
-      // Sidebar Toggle Class
+
       sidebars.classList.toggle("show-side-bar");
       sidebarTrigger.classList.toggle("clicked");
 
@@ -64,7 +61,6 @@
     });
   }
 
-  // Sidebar Menu
   const sideMenuItem = document.querySelectorAll(".sidemenu-item");
   if (sideMenuItem !== null) {
     const main = document.querySelector(".main");
@@ -104,7 +100,6 @@
 
             sideBarDropdown.classList.toggle("show-sideMenu");
 
-            // Rotate Icons
             const rotateIcon = sideMenuLink.querySelector(
               ".sidemenu-link small"
             );
@@ -138,7 +133,6 @@
     });
   }
 
-  // Check Devices
   function checkDeviceWidth() {
     if (deviceWidth <= 992) {
       hiddenOverlay.remove();

@@ -202,7 +202,7 @@
              
                   if (Array.isArray(files)) {
                       for(var i   =  0 ; i < files.length ; i++ ){
-                         var img = `<img  style="width:100px;height:100px;"  src="${files[i]}" >`;
+                         var img = `<img  style="width:100px;height:70px;object-fit:contain;"  src="${files[i]}" >`;
 
                          $(`.modal-file-${i}`).html(img)
                       }

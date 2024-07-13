@@ -2,7 +2,6 @@
   background: rgba(0, 0, 0, 0.55) !important;
 }
 
-/* ================Preloader================ */
 .preloader {
   position: fixed;
   inset: 0;
@@ -185,7 +184,6 @@
   border: 1px solid var(--text-primary);
 }
 
-/* btn dark */
 .i-btn.btn--dark {
   background-color: var(--text-primary);
   border: 1px solid var(--text-primary);
@@ -245,7 +243,7 @@
 .i-btn.btn--secondary {
   background-color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
-  color: var(--color-secondary-text);
+  color: var(--color-white);
 }
 
 .i-btn.btn--outline {
@@ -497,9 +495,6 @@
   color: #fff;
 }
 
-/* ==================================================================
-                     Paginations Customizations Css
-===================================================================== */
 @media (max-width: 576px) {
   .Paginations nav {
     justify-content: flex-start;
@@ -573,7 +568,6 @@
   box-shadow: unset;
 }
 
-/* =======================No Data=======================  */
 .nodata-wrapper {
   max-width: 170px;
   width: 100%;
@@ -657,9 +651,6 @@
   }
 }
 
-/* =========================================
-  Faqs Section Start
-============================================= */ 
 .faq-wrap .accordion-item {
   margin-bottom: 20px !important;
   border: 2px solid var(--border-two);  
@@ -790,7 +781,6 @@
   overflow: hidden;
 }
 
-/* faq style two */
 .faq-wrap-two .accordion-item {
   padding-bottom: 60px !important;
   background-color: inherit;
@@ -945,7 +935,6 @@
   overflow: hidden;
 }
 
-/* =====================Ai content user dashboard===================== */
 .ai-section .faq-wrap .accordion-item .accordion-button:is(.collapsed) {
   color: var(--color-dark);
   background: var(--color-primary-light);
@@ -965,7 +954,6 @@
   font-size: 16px;
   padding: 15px 15px 15px 70px;
 }
-/* =============================Select2  Customize Start============================= */
 
 .select-custom{
   padding: 10px 15px;
@@ -1054,10 +1042,6 @@
   font-size: 15px;
 }
 
-
-/* ======================================================
-                 Custom Dropdown Css Start
-========================================================= */
 .dropdown .dropdown-toggle::after {
   display: none;
 }
@@ -1099,10 +1083,6 @@
   color: var(--color-primary-text);
   background-color: var(--color-primary);
 }
-
-/* ======================================================
-   Nav tabs Css Start
-========================================================= */
 
 .nav-tabs.style-1 {
   border-bottom: none;

@@ -45,7 +45,7 @@
                 </h4>
             </div> 
             <div class="card-body">
-                <div class="text-center d-flex gap-2 flex-column p-3 bg--primary-light">
+                <div class="text-center d-flex gap-3 flex-column p-3 bg--primary-light rounded-1">
                     @foreach(Arr::get(config('settings'),"default_template_code" ,[]) as $key => $value)
                         <div class="d-flex  align-items-center justify-content-between">
                             <div class="me-2 ">

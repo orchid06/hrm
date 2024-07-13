@@ -1,6 +1,4 @@
-/* ==============================================================
-                  Create Post Compose Wrapper
-================================================================= */
+
 .compose-form .caption-wrapper .compose-body {
   border: 1px solid var(--border-light);
   border-radius: 4px;
@@ -184,10 +182,6 @@
   margin-bottom: 15px;
 }
 
-
-/* ==============================================================
-                     Post Previewer List
-================================================================= */
 .social-preview-admin {
   height: auto;
   max-height: 725px;
@@ -715,9 +709,6 @@
   gap: 10px;
 }
 
-/* =======================================
-       Choose Profile For Postings
-========================================== */
 .selected-profile .post-profile {
   position: relative;
   -webkit-box-flex: 0;
@@ -913,9 +904,7 @@
   padding: 12px;
   width: 100%;
 }
-/* =================Custom File Uploader  Design================= */
 
-/* =================Custom File Uploader  Design================= */
 .upload-filed > input {
   display: none;
   visibility: hidden;
@@ -1037,7 +1026,6 @@
   color: var(--color-white);
 }
 
-/* ================Post preview Line Loader Start================ */
 .line-loader {
   position: relative;
   width: 100%;

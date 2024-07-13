@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <div class="section-title-one text-center mb-60">
+          <div class="section-title-one text-center mb-60" data-aos="fade-up" data-aos-duration="1500">
             <div class="subtitle">{{@$content->value->sub_title}}</div>
             <h2>  @php echo @$content->value->title @endphp </h2>
             <p> {{@$content->value->description}}</p>
@@ -21,11 +21,9 @@
       </div>
       <div class="row">
         <div class="col-12">
-
-
             @if($elements->count() > 0)
                 <div class="swiper team-slider">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper justify-content-center">
 
                         @foreach ($elements as $element )
                                 @php $file = $element->file?->first(); @endphp

@@ -1,6 +1,4 @@
-/* =========================================================
-             Reuseable Utility Class Start
-============================================================ */
+
 .main {
   position: relative;
   z-index: 2;
@@ -19,7 +17,6 @@
   background-color: var(--color-white);
 }
 
-/* =======For Full Width section======= */
 .section-fluid {
   padding: 0 3%;
 }
@@ -36,7 +33,6 @@
   }
 }
 
-/* ======Blog Slider Wrapper====== */
 .wrapper-fluid {
   overflow: hidden;
   max-width: 100%;
@@ -73,14 +69,12 @@
   }
 }
 
-/* =======Scroll Sticky Item======= */
 .sticky-item {
   position: -webkit-sticky;
   position: sticky;
   top: 100px;
 }
 
-/* ============Blog Slider Controller Btn============ */
 .preview-next {
   display: flex;
   align-items: center;
@@ -105,7 +99,6 @@
   border-right: 1px solid var(--color-primary-soft);
 }
 
-/* ===========Horizontal Social media For footer and Blog details=========== */
 .social-media {
   display: flex;
   align-items: center;
@@ -124,120 +117,6 @@
   color: var(--color-secondary);
 }
 
-/* =========================================================
-              Section Title Start
-============================================================ */
-
-/* .section-title {
-  margin-bottom: 60px;
-}
-
-@media (max-width: 991px) {
-  .section-title {
-    margin-bottom: 40px;
-  }
-}
-
-.section-title span {
-  color: var(--color-primary);
-  font-size: 20px;
-  font-weight: 500;
-  position: relative;
-  display: inline-block;
-}
-
-.section-title span::before {
-  position: absolute;
-  content: "";
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-primary-soft);
-  border-radius: 50%;
-  left: 15px;
-  top: 12px;
-}
-
-.section-title h3 {
-  font-size: 48px;
-  font-weight: 700;
-  margin-top: 5px;
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .section-title h3 {
-    font-size: 36px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .section-title h3 {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 767px) {
-  .section-title h3 {
-    font-size: 28px;
-  }
-}
-
-.section-title P {
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin-top: 15px;
-}
-
-@media (max-width: 576px) {
-  .section-title P {
-    font-size: 15px;
-  }
-}
-
-.section-title .section-title-right {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-}
-
-@media (max-width: 576px) {
-  .section-title .section-title-right {
-    margin-bottom: 30px;
-  }
-}
-
-.section-title.light h3 {
-  color: var(--text-light);
-}
-
-.section-title.light p {
-  color: var(--text-light);
-  opacity: 0.8;
-}
-
-.dark-bg {
-  background-color: var(--color-dark);
-}
-
-.dark-bg .section-title span {
-  border: 1px solid var(--border-dark);
-}
-
-.dark-bg .section-title h3 {
-  color: var(--site-bg);
-}
-
-.dark-bg .preview-next {
-  border: 1px solid var(--border-dark);
-}
-
-.dark-bg .preview-next button {
-  color: var(--color-white);
-}
-
-.dark-bg .preview-next button:not(:last-of-type) {
-  border-right: 1px solid var(--border-dark);
-} */
-
 .section-title-one .subtitle{
   display: inline-block;
   position: relative;
@@ -251,10 +130,10 @@
 .section-title-one .subtitle::after{
   content: '';
   position: absolute;
-  bottom: 0px;
+  bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 36px;
+  width: 46px;
   height: 8px;
   background-color: var(--color-secondary);
   z-index: -1;
@@ -288,9 +167,6 @@
   color: var(--color-primary);
 }
 
-/* =========================================================
-              Form css Start
-============================================================ */
 .form-control {
   padding: 15px 17px;
   font-size: 14px;
@@ -307,7 +183,6 @@
   color: var(--text-secondary);
 }
 
-/* ==========Contact Animation Form Element========== */
 .form__group {
   position: relative;
   max-width: 100%;
@@ -395,9 +270,6 @@
   font-weight: 600;
 }
 
-/* =========================================================
-              Radio button Start
-============================================================ */
 .radio-button {
   display: inline-block;
   position: relative;
@@ -449,7 +321,6 @@
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* =========================Average ratting========================= */
 .average-rating {
   position: relative;
   -webkit-appearance: none;
@@ -481,9 +352,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* =========================================================
-              Header & Mobile Sidebar Start
-============================================================ */
 .header {
   width: 100%;
   position: fixed;
@@ -1039,7 +907,6 @@
   .mega-menu-integra
   .menu-social-item
   .social-item-img {
-    /* flex: 0 0 50px; */
     min-width: 45px;
     max-width: 45px;
     height: 45px;
@@ -1206,7 +1073,6 @@
   font-size: 20px;
 }
 
-/* ======Profile Dropdown Start====== */
 .profile-dropdown .profile-btn {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1335,7 +1201,6 @@
     font-size: 12px;
   }
 }
-/* ======Profile Dropdown End====== */
 
 .mobile-menu-btn {
   font-size: 22px;
@@ -1624,9 +1489,6 @@
   }
 }
 
-/* =========================================================
-              Banner Section Start
-============================================================ */
 .banner-section {
   position: relative;
   overflow: hidden;
@@ -1808,11 +1670,6 @@
   }
 }
 
-
-/* =========================================================
-              About Us Section Start
-============================================================ */
-
 .about-wrapper {
   position: relative;
   z-index: 1;
@@ -1904,9 +1761,6 @@
   }
 }
 
-/* =========================================================
-              Our platform Section Start
-============================================================ */
 .platform {
   position: relative;
   z-index: 1;
@@ -2121,9 +1975,6 @@
   }
 }
 
-/* =========================================================
-              Our Integration Section Start
-============================================================ */
 .integration {
   position: relative;
   overflow: hidden;
@@ -2247,10 +2098,6 @@
   width: 100%;
   height: 160px;
 }
-
-/* =========================================================
-              Our Features Section Start
-============================================================ */
 
 @media (min-width: 768px) and (max-width: 991px) {
   .features .feature-list {
@@ -2489,9 +2336,6 @@
   font-size: 14px;
 }
 
-/* =========================================================
-              Why Choose Us Section Start
-============================================================ */
 
 .choose-card-wrapper .col-lg-4:nth-child(even) .choose-card{
   background-color: var(--color-primary);
@@ -2588,9 +2432,6 @@
   margin-top: 8px;
 }
 
-/* =========================================================
-              Pricing Plan Section Start
-============================================================ */
 .plan-card-list {
   display: grid;
   gap: 12px;
@@ -2814,11 +2655,12 @@
   }
 }
 
-/* =========================================================
-              Blog With Slider Section Start
-============================================================ */
 .blog-style-one{
   position: relative;
+}
+.blog-style-one .image{
+  border-radius: 30px;
+  overflow: hidden;
 }
 .blog-style-one .content > span{
   display: inline-block;
@@ -2922,243 +2764,6 @@
   }
 }
 
-
-
-/* .blog {
-  overflow: hidden;
-}
-
-.blog .blog-top {
-  margin-bottom: 60px;
-}
-
-.blog .blog-slider-wrapper {
-  overflow-x: hidden;
-}
-
-@media (max-width: 1199px) {
-  .blog .blog-slider-wrapper {
-    margin-left: 0;
-  }
-}
-
-.blog .blog-slider-wrapper .blog-preview-next {
-  margin-bottom: 40px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.blog .blog-slider-wrapper .blog-preview-next .preview-next {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.blog .blog-slider-wrapper .blog-item {
-  border-radius: 10px;
-  overflow: hidden;
-  transition: 0.3s ease-in-out;
-}
-
-.blog .blog-slider-wrapper .blog-item:hover .blog-title h4 {
-  color: var(--color-primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-
-.blog .blog-slider-wrapper .blog-item:hover .blog-img img {
-  transform: scale(1);
-}
-
-.blog .blog-slider-wrapper .blog-item:hover .blog-card__pop {
-  transform: translateY(0);
-}
-
-.blog-img {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.blog-img img {
-  transform: scale(1.02);
-  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-
-.blog-img .blog-card__pop {
-  background: var(--site-bg);
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  bottom: -1px;
-  right: -1px;
-  z-index: 1;
-  border-radius: 16px 0 0 0;
-  transform: translateY(120%);
-  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.blog-img .blog-card__pop > a {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-size: 24px;
-  line-height: 1;
-}
-
-.blog-img .blog-card__pop > a:hover {
-  color: var(--color-primary);
-}
-
-.blog-img .blog-card__pop > .shape {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  z-index: -1;
-}
-
-.blog-img .blog-card__pop > .shape.shape-left {
-  bottom: -8px;
-  left: -39px;
-  transform: rotate(270deg);
-}
-
-.blog-img .blog-card__pop > .shape.shape-right {
-  top: -39px;
-  right: -9px;
-  transform: rotate(270deg);
-}
-
-.blog-img .blog-card__pop > .shape > svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--site-bg);
-}
-
-@media (max-width: 1199px) {
-  .blog-img .blog-card__pop {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px 0 0 0;
-  }
-
-  .blog-img .blog-card__pop > .shape {
-    width: 40px;
-    height: 40px;
-  }
-
-  .blog-img .blog-card__pop > a {
-    font-size: 20px;
-  }
-
-  .blog-img .blog-card__pop > .shape.shape-left {
-    bottom: -7px;
-    left: -32px;
-  }
-
-  .blog-img .blog-card__pop > .shape.shape-right {
-    top: -32px;
-    right: -7px;
-  }
-}
-
-.blog-content {
-  padding: 20px 0 0;
-  margin-bottom: 15px;
-}
-
-.blog-meta {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  gap: 22px;
-}
-
-@media (max-width: 576px) {
-  .blog-meta {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 10px 22px;
-  }
-}
-
-.blog-meta span:first-of-type {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.blog-meta span:last-of-type {
-  position: relative;
-  color: var(--text-secondary);
-}
-
-.blog-meta span:last-of-type::before {
-  position: absolute;
-  content: "";
-  left: -11px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  aspect-ratio: 1/1;
-  background-color: var(--color-primary);
-  border-radius: 50%;
-}
-
-.blog-title {
-  display: block;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 12px;
-  transition: 0.3s ease-in;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.blog-tags {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.blog-tags li a {
-  color: var(--text-primary);
-  line-height: 1;
-  padding: 8px 15px;
-  background: var(--color-primary-soft);
-  border-radius: 60px;
-  font-size: 14px;
-  display: inline-block;
-}
-
-.blog .blog-slider-wrapper .blog-slider .blog-content {
-  margin-bottom: 0;
-}
-
-.blog-list .blog-img .blog-card__pop {
-  background: var(--site-bg);
-}
-.blog-list .blog-img .blog-card__pop > .shape > svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--site-bg);
-} */
-/* =========================================================
-              Call To Action Section Start
-============================================================ */
 .cta {
   position: relative;
   isolation: isolate;
@@ -3212,9 +2817,6 @@
   object-fit: cover;
 }
 
-/* =========================================================
-              Ai Content & Template Section Start
-============================================================ */
 .ai {
   overflow: hidden;
 }
@@ -3282,10 +2884,6 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
-/* =========================================================
-              Client Reviews Section Start
-============================================================ */
 
 .reviews .review-wrapper .swiper .swiper-pagination-bullet {
   width: var(
@@ -3475,9 +3073,6 @@
   z-index: 2;
 }
 
-/* =========================================================
-              Footer Section Start
-============================================================ */
 footer{
   position: relative;
   background-color: var(--text-primary);
@@ -3755,9 +3350,7 @@ footer{
   background-color: var(--color-danger);
   color: var(--color-danger-soft);
 }
-/* =========================================================
-              Currency Dropdown Start
-============================================================ */
+
 .currency {
   display: flex;
   align-items: center;
@@ -3802,9 +3395,6 @@ footer{
   background-color: var(--color-primary);
 }
 
-/* =========================================================
-              Cookie Section Start
-============================================================ */
 .cookie {
   display: flex;
   align-items: center;
@@ -3831,7 +3421,7 @@ footer{
   }
 }
 
-/* @media (max-width: 991px) {
+@media (max-width: 991px) {
   .cookie {
     width: 95%;
     flex-direction: column;
@@ -3839,7 +3429,7 @@ footer{
     gap: 25px;
     padding: 20px;
   }
-} */
+}
 
 .cookie .cookie-content {
   display: flex;
@@ -3885,9 +3475,6 @@ footer{
   }
 }
 
-/* =========================================================
-              Inner Banner Section Start
-============================================================ */
 .inner-banner {
   position: relative;
   overflow: hidden;
@@ -4145,12 +3732,14 @@ footer{
   }
 }
 
-/* =========================================================
-              Blog Details Page Start
-============================================================ */
+
+.blog-d-image{
+  overflow: hidden;
+  border-radius: 30px;
+}
 .blog-details .title{
   font-size: 38px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .blog-details .sub-title{
   font-size: 24px;
@@ -4163,11 +3752,18 @@ footer{
   justify-content: flex-start;
   gap: 10px;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .blog-details p{
   font-size: 16px;
+}
+
+.blog-category{
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  padding: 2px 10px;
+  border-radius: 6px;
+  display: inline-block;
 }
 
 .popular-post-list li{
@@ -4179,7 +3775,7 @@ footer{
   padding-bottom: 18px;
   margin-bottom: 18px;
   border-bottom: 1px solid var(--border-two);
-} 
+}
 .popular-post-list li:last-child{
   padding-bottom: 0;
   margin-bottom: 0;
@@ -4237,8 +3833,6 @@ footer{
   }
 }
 
-
-/* =====================Blog page filter===================== */
 .filter-select .select2-container--default .select2-selection--single {
   background-color: var(--site-bg) !important;
   border: none !important;
@@ -4446,10 +4040,6 @@ footer{
   display: none;
 }
 
-/* =========================================================
-              Contact Page Start
-============================================================ */
-
 .contact-wrapper{
   border-radius: 40px;
   padding: 45px;
@@ -4579,9 +4169,6 @@ footer{
   height: 100%;
 }
 
-/* ==========================================
-        Auth Pages Start
-============================================= */
 .auth {
   width: 100%;
   height: 100vh;
@@ -5380,9 +4967,6 @@ footer{
   height: 100%;
 }
 
-/* =========================================================
-              Error Pages Start
-============================================================ */
 .error-content {
   text-align: center;
 }
@@ -5425,7 +5009,6 @@ footer{
   justify-content: center;
 }
 
-/* Template card */
 .template-item{
   position: relative;
   background-color: var(--card-bg-light);
@@ -5527,9 +5110,6 @@ footer{
   }
 }
 
-
-/* Pricing item */
-
 .pricing-item{
   position: relative;
   background-color: var(--card-bg-light);
@@ -5608,7 +5188,7 @@ footer{
   margin-bottom: 60px;
 }
 .pricing-item .body ul li{
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   font-size: 16px;
 }
 .pricing-item .body ul li:last-child{
@@ -5720,7 +5300,6 @@ footer{
   }
 }
 
-/* Service card */
 .service-item{
   position: relative;
   background-color: var(--card-bg-light);
@@ -5939,7 +5518,6 @@ textarea{
   font-weight: 400;
 }
 
-/* About card */
 .about-card-wrapper{
   position: relative;
 }

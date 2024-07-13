@@ -1,7 +1,6 @@
 (function () {
   ("use strict");
 
-  // Tooltip
   const tooltipTriggerList = document.querySelectorAll(
     '[data-bs-toggle="tooltip"]'
   );
@@ -9,7 +8,6 @@
     (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
   );
 
-  // Post Slider
   const postSlider = document.querySelector(".post-slider");
   if (postSlider) {
     new Swiper(postSlider, {
