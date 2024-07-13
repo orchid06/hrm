@@ -5,7 +5,6 @@
 
 
 
- 
 <section class="service-details-section pb-110">
     <div class="container">
         <div class="row gy-5">
@@ -56,7 +55,9 @@
                         <div class="form-inner">
                             <textarea placeholder="{{translate('Write Message')}}" name="message">{{old('message')}}</textarea>
                         </div>
-                        <button type="submit" class="i-btn btn--lg btn--primary capsuled w-100">Submit</button>
+                        <button type="submit" class="i-btn btn--lg btn--primary capsuled w-100">
+                            {{translate('Submit')}}
+                        </button>
                     </form>
                 </div>
             </div>

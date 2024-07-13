@@ -34,7 +34,7 @@
             <div class="col-lg-6">
               <div class="contact-left gs_reveal fromLeft">
                     <div class="contact-left-img">
-                          <img src="{{imageURL($file,'frontend',true,$size)}}" alt="{{@$file->name??"contact.jpg"}}">
+                          <img src="{{imageURL($file,'frontend',true,$size)}}" alt="{{@$file->name??'contact.jpg'}}">
                     </div>
                 <div class="section-title light mb-5">
                      <h3 class="mt-0 mb-3">{{@$contact_section->value->section_heading}}</h3>

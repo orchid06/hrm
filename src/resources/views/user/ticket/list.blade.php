@@ -138,13 +138,13 @@
                                             </td>
                                             <td data-label="{{translate('Options')}}">
                                                 <div class="table-action">
-                                                    <a
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Show')}}"
                                                         href="{{route('user.ticket.show',[$ticket->ticket_number])}}"
                                                         class="icon-btn icon-btn-sm info">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
-                                                    <a  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('user.ticket.destroy',$ticket->id)}}" data-toggle="tooltip" data-placement="top" title="{{translate('Delete')}}"
                                                         class="icon-btn icon-btn-sm danger delete-item">
                                                         <i class="bi bi-trash"></i>
                                                     </a>

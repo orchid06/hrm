@@ -74,20 +74,27 @@ trait Filterable
      */
     public function scopeDate(Builder $query, string $column = 'created_at') : Builder {
 
-        if (!request()->input('date'))   return $query;
 
-        $dateRangeString             = request()->input('date');
-        $start_date                  = $dateRangeString;
-        $end_date                    = $dateRangeString;
-        if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
+            try {
+                if (!request()->input('date'))   return $query;
 
-        $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
-        $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
+                $dateRangeString             = request()->input('date');
+                $start_date                  = $dateRangeString;
+                $end_date                    = $dateRangeString;
+                if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
+        
+                $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
+                $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
+        
+                return $query->where(fn (Builder $query): Builder =>  
+                                $query->whereBetween($column , [$start_date, $end_date])
+                                        ->orWhereDate($column , $start_date)
+                                        ->orWhereDate($column , $end_date));
+            } catch (\Throwable $th) {
+                return $query;
+            }
 
-        return $query->where(fn (Builder $query): Builder =>  
-                        $query->whereBetween($column , [$start_date, $end_date])
-                                ->orWhereDate($column , $start_date)
-                                ->orWhereDate($column , $end_date));
+
 
     }
 

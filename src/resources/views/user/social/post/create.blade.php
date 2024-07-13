@@ -184,7 +184,7 @@
                                                                                     width="512" height="512" x="0" y="0"
                                                                                     viewBox="0 0 682.667 682.667"
                                                                                     style="enable-background:new 0 0 512 512"
-                                                                                    xml:space="preserve" class="">
+                                                                                    xml:space="preserve" >
                                                                                     <g>
                                                                                         <defs>
                                                                                             <clipPath id="a"
@@ -208,9 +208,8 @@
                                                                                                 stroke-linejoin="round"
                                                                                                 stroke-miterlimit="10"
                                                                                                 stroke-dasharray="none"
-                                                                                                stroke-opacity=""
-                                                                                                data-original="#000000"
-                                                                                                class=""></path>
+                                                                                                
+                                                                                                data-original="#000000"></path>
                                                                                             <path
                                                                                                 d="m0 0 160.667 160.666 64.267-64.267 128.533 128.535 96.4-96.401"
                                                                                                 style="stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -221,9 +220,7 @@
                                                                                                 stroke-linejoin="round"
                                                                                                 stroke-miterlimit="10"
                                                                                                 stroke-dasharray="none"
-                                                                                                stroke-opacity=""
-                                                                                                data-original="#000000"
-                                                                                                class=""></path>
+                                                                                                data-original="#000000"></path>
                                                                                             <path
                                                                                                 d="M0 0c26.591 0 48.2-21.602 48.2-48.2 0-26.598-21.609-48.199-48.2-48.199S-48.2-74.798-48.2-48.2-26.591 0 0 0Z"
                                                                                                 style="stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -234,9 +231,7 @@
                                                                                                 stroke-linejoin="round"
                                                                                                 stroke-miterlimit="10"
                                                                                                 stroke-dasharray="none"
-                                                                                                stroke-opacity=""
-                                                                                                data-original="#000000"
-                                                                                                class=""></path>
+                                                                                                data-original="#000000"></path>
                                                                                         </g>
                                                                                     </g>
                                                                                 </svg>

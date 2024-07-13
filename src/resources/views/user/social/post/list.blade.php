@@ -118,7 +118,7 @@
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
 
-                                            <a class="i-badge success" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                                            <a class="i-badge success"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
                                             </a>
                                         @endif
                                     </div>
@@ -137,7 +137,7 @@
                                         @php echo post_status($post->status)   @endphp
 
                                         @if( $post->platform_response && @$post->platform_response->response )
-                                           <a href="javascript:void(0);" data-message="{{$post->platform_response->response }}" class="icon-btn icon-btn-sm show-info info">
+                                           <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Info')}}" data-message="{{$post->platform_response->response }}" class="icon-btn icon-btn-sm show-info info">
                                                <i class="bi bi-info fs-4"></i>
                                            </a>
                                        @endif

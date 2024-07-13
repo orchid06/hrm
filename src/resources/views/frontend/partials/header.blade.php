@@ -15,7 +15,7 @@
             <div class="header-logo">
                 <a href="{{route('home')}}">
                     <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}"
-                        alt="{{@site_logo('user_site_logo')->file->name ?? "site-logo.jpg"}}">
+                        alt="{{@site_logo('user_site_logo')->file->name ?? 'site-logo.jpg'}}">
                 </a>
             </div>
         </div>
@@ -90,7 +90,7 @@
                                                                                             @php $file = $element->file->where('type',"feature_image")->first(); @endphp
 
                                                                                             <li class="nav-item" role="presentation">
-                                                                                                <a href="{{route('integration',['slug' =>  make_slug($element->value->title) , 'uid' => $element->uid])}}" class="nav-link mega-menu-tab {{$loop->index == 0 ? "active" :""}} menu-social-item"
+                                                                                                <a href="{{route('integration',['slug' =>  make_slug($element->value->title) , 'uid' => $element->uid])}}" class="nav-link mega-menu-tab {{$loop->index == 0 ? 'active' :''}} menu-social-item"
                                                                                                     id="tab-{{$loop->index}}-tab"
                                                                                                     data-bs-toggle="tab"
                                                                                                     data-bs-target="#tab-{{$loop->index}}"
@@ -142,17 +142,17 @@
                                                                                            $file = $element->file->where('type',"hover_image")->first(); 
                                                                             @endphp
                                                                             <div class="tab-pane fade {{$loop->index == 0 ? 
-                                                                                "show active" :""}}  " id="tab-{{$loop->index}}"
+                                                                                'show active' :''}}  " id="tab-{{$loop->index}}"
                                                                                 role="tabpanel" aria-labelledby="tab-{{$loop->index}}-tab">
                                                                                 <img src="{{imageURL($file,'frontend',true,$hoverImageSize)}}"
-                                                                                alt="{{@$file->name?? "preview.jpg"}}">
+                                                                                alt="{{@$file->name?? 'preview.jpg'}}">
                                                                             </div>
                                                                          
                                                                         @endforeach
                                                                     </div>
                                                                 @else
                                                                     @include("frontend.partials.not_found")
-                                                                 @endif
+                                                                @endif
                                                                 
                                                             </div>
                                                         </div>
@@ -220,7 +220,7 @@
 
 
                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code."jpg"}}"> 
+                    <img src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code.'jpg'}}"> 
                 </button>
 
                 @if($languages->count() > 0)
@@ -228,7 +228,7 @@
                         @foreach($languages as $language)
                                 <li>
                                     <a class="dropdown-item" href="{{route('language.change',$language->code)}}">
-                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code."jpg"}}"> {{$language->code}}
+                                        <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{$language->code.'jpg'}}"> {{$language->code}}
                                     </a>
                                 </li>
                         @endforeach

@@ -25,6 +25,7 @@ class PageSeeder extends Seeder
                             'title'       => k2t($title),
                             'serial_id'   => $index,
                             'description' => $title,
+                            'show_in_footer' => StatusEnum::true->status(),
                             'slug'        => $title])
                     );
                 

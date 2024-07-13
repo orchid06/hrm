@@ -45,9 +45,9 @@ class MenuController extends Controller
             'breadcrumbs' =>  ['Home'=>'admin.home','Menus'=> null],
             'title'       => 'Manage Menu',
             'menus'       =>  Menu::search(['name'])->with(['createdBy'])
-                             ->orderBy('serial_id')
-                            ->paginate(paginateNumber())
-                            ->appends(request()->all()),
+                                    ->orderBy('serial_id')
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all()),
             "serialId"    =>  $serialId,
         ]);
     }

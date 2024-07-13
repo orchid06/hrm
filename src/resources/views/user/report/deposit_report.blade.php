@@ -181,12 +181,7 @@
                                                     </p>
                                                 </li>
 
-                                                <li class="list-group-item">
-                                                    <h6 class="title">{{ translate('Rate') }}</h6>
-
-                                                    <p class="value">{{num_format(1,$report->currency)}} = {{num_format($report->rate,@$report->method->currency)}}</p>
-
-                                                </li>
+                                        
 
                                                 <li class="list-group-item">
                                                     <h6 class="title">{{ translate('Rate') }}</h6>

@@ -134,7 +134,7 @@
                                     "title"  => translate("Total Tickets"),
                                     "class"  => 'col',
                                     "total"  => $user->tickets->count(),
-                                    "icon"   => '<i class=""las la-sms"></i>',
+                                    "icon"   => '<i class="las la-sms"></i>',
                                     "bg"     => 'info',
                                     "url"    => route('admin.ticket.list',['user' => $user->username])
                                 ],

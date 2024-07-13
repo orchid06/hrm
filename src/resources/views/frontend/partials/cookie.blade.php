@@ -9,14 +9,14 @@
 
 <div class="cookie">
     <div class="cookie-content">
-    <p>
-      {{@$cookie->value->description}}
-    </p>
-      <div class="cookie-icon">
+            <p>
+              {{@$cookie->value->description}}
+            </p>
+          <div class="cookie-icon">
 
-         <img src='{{imageURL(@$file,"frontend",true,@get_appearance()->cookie->content->images->image->size)}}'
-         alt="{{@$file->name}}" />
-      </div>
+             <img src='{{imageURL(@$file,"frontend",true,@get_appearance()->cookie->content->images->image->size)}}'
+             alt="{{@$file->name}}" />
+          </div>
     </div>
 
     <div class="cookie-action">
