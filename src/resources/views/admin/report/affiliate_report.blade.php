@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <div class="row mb-4">
+    <div class="row mb-0">
         <div class="col-lg-9">
             <div class="i-card-md mb-4">
                 <div class="card--header text-end">

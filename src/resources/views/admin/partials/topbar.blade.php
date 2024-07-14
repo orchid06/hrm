@@ -45,7 +45,7 @@
               @if($notifications->count() > 0)
                 <span>{{$notifications->count()}}</span>
               @endif
-              <div class="btn-icon dropdown-toggle ripple-dark" data-anim="ripple" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="btn-icon dropdown-toggle ripple-dark"  role="button" data-anim="ripple" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="lar la-bell"></i>
               </div>
               <div class="dropdown-menu dropdown-menu-end">
@@ -102,7 +102,7 @@
        <!-- currency switcher -->
        <div class="header-icon">
         <div class="lang-dropdown">
-          <div class="btn-icon btn--text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="btn-icon btn--text dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{session()->get('currency')?->code}}
           </div>
           @if($currencies->count() > 0)
@@ -128,7 +128,7 @@
           $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
         @endphp
         <div class="lang-dropdown">
-          <div class="btn-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="btn-icon dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img id="header-lang-img" class="flag-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code.'.jpg'}}" height="20">
           </div>
           @if(!$languages->isEmpty())
@@ -150,7 +150,7 @@
      <!-- profile -->
       <div class="header-icon">
         <div class="profile-dropdown">
-          <div class="topbar-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="topbar-profile dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src='{{imageURL(@auth_user()->file,"profile,admin",true)}}' alt="{{@auth_user()->file->name}}">
           </div>
           <div class="dropdown-menu dropdown-menu-end">

@@ -80,7 +80,7 @@
 							</th>
 							<th scope="col">
 								{{translate('Name')}}
-							</th scope="col">
+							</th>
 
 							<th scope="col" >
 								{{translate('Status')}}

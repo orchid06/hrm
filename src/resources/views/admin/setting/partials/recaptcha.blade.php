@@ -53,7 +53,7 @@
                                     }}  <small class="text-danger" >*</small>
                                 </label>
                                 @if($key == 'status')
-                                <select class="select2"  name='site_settings[google_recaptcha][{{$key}}]' class="select2"  id="{{$key}}" >
+                                <select class="select2"  name='site_settings[google_recaptcha][{{$key}}]'  id="{{$key}}" >
                                     @foreach( App\Enums\StatusEnum::toArray() as $key => $val)
                                         <option {{$settings ==  $val ? 'selected' :""}}  value="{{$val}}">
                                             {{$key}}

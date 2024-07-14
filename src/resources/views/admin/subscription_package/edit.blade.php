@@ -168,13 +168,13 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-inner mb-1 d-flex align-items-center gap-2">
-                                                        <input @if(@$package->social_access->webhook_access && $package->social_access->webhook_access == App\Enums\StatusEnum::true->status() ) checked  @endif   id="webhook_access" value="{{App\Enums\StatusEnum::true->status()}}"  class="form-check-input" name="social_access[webhook_access]" type="checkbox"   >
+                                                        <input @if(@$package->social_access->webhook_access && $package->social_access->webhook_access == App\Enums\StatusEnum::true->status() ) checked  @endif   id="webhook_access" value="{{App\Enums\StatusEnum::true->status()}}"  class="form-check-input" name="social_access[webhook_access]" type="checkbox">
                                                         <label for="webhook_access" class="form-check-label me-3 mb-0">
                                                             {{translate('Webhook Access')}}
                                                         </label>
                                                     </div>
                                                     <div class="form-inner mb-0 d-flex align-items-center gap-2">
-                                                        <input @if(@$package->social_access->schedule_post && $package->social_access->schedule_post == App\Enums\StatusEnum::true->status() ) checked  @endif  id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}"  class="form-check-input" name="social_access[schedule_post]" type="checkbox"   >
+                                                        <input @if(@$package->social_access->schedule_post && $package->social_access->schedule_post == App\Enums\StatusEnum::true->status() ) checked  @endif  id="schedule_post" value="{{App\Enums\StatusEnum::true->status()}}"  class="form-check-input" name="social_access[schedule_post]" type="checkbox">
                                                         <label for="schedule_post" class="form-check-label me-3 mb-0">
                                                             {{translate('Schedule Posting')}}
                                                         </label>

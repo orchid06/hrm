@@ -30,7 +30,7 @@
                         @csrf
                          <input type="hidden" name="bulk_id" id="bulkid">
                          <input type="hidden" name="value" id="value">
-                         <input type="hidden" name="type" id="type">
+                         <input type="hidden" name="type">
                     </form>
                     @if(check_permission('delete_report') )
                         <div class="col-md-6 d-flex justify-content-start">

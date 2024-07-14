@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
         <!-- Nav tabs -->
-        <div class="nav nav-tabs style-3" role="tablist">
+        <ul class="nav nav-tabs style-3" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" data-bs-toggle="tab" href="#local" role="tab" aria-selected="true">
                     {{translate('local')}}
@@ -22,7 +22,7 @@
                     {{translate ('FTP')}}
                 </a>
             </li>
-        </div>
+        </ul>
         <!-- Tab panes -->
         <div class="tab-content text-muted">
             <div class="tab-pane active show" id="local" role="tabpanel">
@@ -60,7 +60,7 @@
                                     </small>
                                 </label>
 
-                                <input type="number" min="1" max="10" required  value ="{{site_settings('max_file_upload')}}" name="site_settings[max_file_upload]" id="max_file_upload"  type="text">
+                                <input type="number" min="1" max="10" required  value ="{{site_settings('max_file_upload')}}" name="site_settings[max_file_upload]" id="max_file_upload">
                             </div>
                         </div>
                         <div class="col-xl-6">
@@ -70,7 +70,7 @@
                                         ({{translate('In KB')}})
                                     </small>
                                 </label>
-                                <input type="number" min="1" id="max_file_size"  required  value ="{{site_settings('max_file_size')}}" name="site_settings[max_file_size]"  type="text">
+                                <input type="number" min="1" id="max_file_size"  required  value ="{{site_settings('max_file_size')}}" name="site_settings[max_file_size]">
                             </div>
                         </div>
                         <div class="col-12 ">
@@ -103,7 +103,7 @@
                                             ucfirst(str_replace('_',' ',$awsKey))
                                         }}  <small class="text-danger" >*</small>
                                     </label>
-                                    <input required type="text" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3-{{$awsKey}}"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
+                                    <input required type="text" name="site_settings[aws_s3][{{$awsKey}}]" id="aws_s3-{{$awsKey}}"  value="{{is_demo() ? '@@@' :$val}}" placeholder="**********">
                                 </div>
                             </div>
                         @endforeach
@@ -145,7 +145,7 @@
                                             ucfirst(str_replace('_',' ',$ftpKey))
                                         }}  <small class="text-danger" >*</small>
                                     </label>
-                                    <input required type="text" name="site_settings[ftp][{{$ftpKey}}]" id="ftp-{{$ftpKey}}"  value="{{is_demo() ? '@@@' :$val}}" required placeholder="**********">
+                                    <input required type="text" name="site_settings[ftp][{{$ftpKey}}]" id="ftp-{{$ftpKey}}"  value="{{is_demo() ? '@@@' :$val}}" placeholder="**********">
                                 </div>
                             </div>
                         @endforeach

@@ -871,7 +871,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="i-btn danger btn--lg capsuled" data-anim="ripple" data-bs-dismiss="modal">
+                <button type="button" class="i-btn danger btn--lg" data-anim="ripple" data-bs-dismiss="modal">
                     {{translate("Close")}}
                 </button>
             </div>

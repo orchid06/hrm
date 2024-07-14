@@ -9,11 +9,11 @@
                 @foreach($content as $imK => $imV)
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="{{$imK}}">
+                            <label for="save-{{$imK}}">
                                 {{translate(k2t($imK))}} <small class="text-danger">({{@$imV->size}})</small>
                             </label> 
 
-                            <input  data-size = "100x100" id="{{$imK}}" name="image_input[{{ $imK }}]" type="file" class="preview" >
+                            <input  data-size = "100x100" id="save-{{$imK}}" name="image_input[{{ $imK }}]" type="file" class="preview" >
 
                             <div class="mt-2 image-preview-section frontend-section-image">
 
@@ -21,7 +21,6 @@
                                      $file =  $appearance_content?->file->where('type', $imK)->first()
                                 @endphp
                                 <img src='{{imageURL(@$file,"frontend",true)}}' alt="{{@$file->name}}">
-                
                             </div>                      
                                             
                         </div>
@@ -31,11 +30,11 @@
                 @foreach($content as $k => $v)
                     <div class="col-lg-6">
                         <div class="form-inner">
-                            <label for="{{$k}}">
+                            <label for="save-{{$k}}">
                                 {{translate(k2t($k))}} <small class="text-danger">*</small>
                             </label>
 
-                            <select name="select_input[{{$k}}]" id="{{$k}}">
+                            <select name="select_input[{{$k}}]" id="save-{{$k}}">
                                 <option value="">{{translate("Select Option")}}</option>
                                 @foreach (explode(',',$v) as  $val)
 
@@ -60,13 +59,14 @@
                 @endphp
                 <div class="col-lg-{{$col}}">
                     <div class="form-inner">
-                        <label for="{{$k}}">
+                        <label for="save-{{$k}}">
                             {{translate(k2t($k))}} <small class="text-danger">*</small>
                         </label> 
                         @if($content == 'textarea' || $content == 'textarea-editor')
-                            <textarea placeholder="{{translate(k2t($k))}}" required @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="{{$k}}" cols="30" rows="10">@php echo @$appearance_content->value->$k @endphp</textarea>
+                            <textarea placeholder="{{translate(k2t($k))}}" required @if($content == 'textarea-editor') class="summernote"  @endif name="{{$k}}" id="save-{{$k}}" cols="30" rows="10">@php echo @$appearance_content->value->$k @endphp</textarea>
                         @else
-                            <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  autocomplete="off" @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="{{$k}}">
+                            <input value="{{@$appearance_content->value->$k}}" placeholder="{{translate(k2t($k))}}" @if($content  == 'icon' ) class="icon-picker icon"  
+                         @endif type='{{$content == "number" ? "number" :"text"}}' name="{{$k}}" id="save-{{$k}}">
                         @endif
                     </div>
                 </div>
