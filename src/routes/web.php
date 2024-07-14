@@ -115,11 +115,9 @@ use Illuminate\Support\Facades\DB;
 
             #payment route
             Route::controller(DepositController::class)->prefix('/deposit')->name('deposit.')->group(function(){
-
                 Route::get('/request','depositCreate')->name('create');
                 Route::post('/process','process')->name('process');
                 Route::any('/manual/confirm','manualPay')->name('manual');
-
             });
 
             #basic user route
@@ -159,7 +157,6 @@ use Illuminate\Support\Facades\DB;
 
              # support route
             Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
-
                 Route::any('/list','list')->name('list');
                 Route::get('/create','create')->name('create');
                 Route::post('/store','store')->name('store');
@@ -167,7 +164,6 @@ use Illuminate\Support\Facades\DB;
                 Route::post('/reply/store','reply')->name('reply');
                 Route::post('/file/download','download')->name('file.download');
                 Route::get('/destroy/{id}','destroy')->name('destroy');
-
             });
 
 
@@ -277,7 +273,9 @@ use Illuminate\Support\Facades\DB;
         });
 
         #CORE CONTROLER
-        Route::controller(CoreController::class)->group(function () {
+        Route::controller(CoreController::class)
+        ->withoutMiddleware(['throttle:refresh','dos.security'])
+        ->group(function () {
 
             Route::get('/cron/run','cron')->name('cron.run');
             Route::get('/language/change/{code?}','languageChange')->name('language.change');

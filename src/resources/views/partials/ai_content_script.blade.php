@@ -24,7 +24,6 @@
 
             var id = $(this).val()
             $(".template-prompt").addClass('d-none');
-            $(".generate-btn").addClass('d-none');
             if(id != ""){
                 getTemplate();
                 subCategories(id);
@@ -36,7 +35,6 @@
         $(document).on('change','#sub_category_id',function(e){
 
             $(".template-prompt").addClass('d-none');
-            $(".generate-btn").addClass('d-none');
             var id = $(this).val()
 
             if(id != ""){
@@ -266,7 +264,7 @@
 
                 if("{{request()->routeIs('user.*')}}"){
                    $('.ai-btn').html(`{{translate('Generate')}} <span><i class="bi bi-arrow-up-right"></i></span>`)
-                    $('.ai-btn').html(`{{translate('Generate')}}<div class="spinner-border text-success" role="status">
+                    $('.ai-btn').html(`{{translate('Generate')}}<div class="spinner-border text-white" role="status">
                                         <span class="visually-hidden"></span>
                                     </div>`)
                 }

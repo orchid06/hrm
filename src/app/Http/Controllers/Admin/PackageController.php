@@ -128,13 +128,14 @@ class PackageController extends Controller
      */
     public function store(PackageRequest $request) :RedirectResponse{
 
+
         $package                           =  new Package();
         $package->title                    =  $request->input("title");
         $package->icon                     =  $request->input("icon");
         $package->duration                 =  $request->input("duration");
         $package->description              =  $request->input("description");
         $package->price                    =  $request->input("price");
-        $package->discount_price           =  $request->input("discount_price");
+        $package->discount_price           =  $request->input("discount_price")?? 0;
         $package->affiliate_commission     =  $request->input("affiliate_commission");
         $package->social_access            =  $request->input("social_access");
         $package->ai_configuration         =  $request->input("ai_configuration");
@@ -186,7 +187,7 @@ class PackageController extends Controller
         $package->icon                     =  $request->input("icon");
         $package->description              =  $request->input("description");
         $package->price                    =  $request->input("price");
-        $package->discount_price           =  $request->input("discount_price");
+        $package->discount_price           =  $request->input("discount_price")?? 0;
         $package->affiliate_commission     =  $request->input("affiliate_commission");
         $package->social_access            =  $request->input("social_access");
         $package->ai_configuration         =  $request->input("ai_configuration");

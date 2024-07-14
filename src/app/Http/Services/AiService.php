@@ -93,6 +93,14 @@ class AiService
             "content_tone"     => ['nullable',Rule::in(Arr::get(config('settings'),'ai_default_tone',[]))],
             "custom"           => ['nullable','array']
         ];
+
+
+        $messages = [
+            "language.required"         => translate('Please select a input & output language'),
+            "id.required"               => translate('Please select a Template'),
+            "max_result.required"       => translate('Max result field is required'),
+        ];
+
         $template = AiTemplate::find($request->input('id'));
 
         if($template && $template->prompt_fields){
@@ -105,8 +113,9 @@ class AiService
         }
        
         return [
-            'template' => $template,
-            'rules'    =>  $rules ,
+            'template'    => $template,
+            'rules'       =>  $rules ,
+            'messages'    =>  $messages ,
         ];
 
     }
