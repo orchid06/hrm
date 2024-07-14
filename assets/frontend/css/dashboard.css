@@ -5227,6 +5227,7 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
 }
 
 .payment-card-item .image {
+  display: inline-block;
   width: 90px;
   height: 90px;
   margin: 0 auto;
@@ -5240,6 +5241,8 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
 }
 
 .payment-card-item .title {
+  display: inline-block;
+  width: 100%;
   font-size: 16px;
   margin-top: 20px;
 }
@@ -6642,4 +6645,8 @@ li.no--access .icon svg{
 
 .razorpay-payment-button:hover{
   color: var(--color-primary);
+}
+
+.dropdown-toggle.single-item::after {
+  display: none !important;
 }

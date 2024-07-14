@@ -44,12 +44,12 @@
                                     <div class="col">
                                         <label class="payment-card-item">
                                             <input name="id" data-method="{{$method}}" , data-img="{{imageURL(@$method->file,'withdraw_method',true)}}" value="{{$method->id}}" class="radio withdraw-method" type="radio" >
-                                            <div class="image">
+                                            <span class="image">
                                                 <img src='{{imageURL(@$method->file,"withdraw_method",true)}}' alt="{{@$method->file->name ?? $method->name.'.jpg'}}" >
-                                            </div>
-                                            <h5 class="title">
+                                            </span>
+                                            <span class="title">
                                                 {{$method->name}}
-                                            </h5>
+                                            </span>
                                         </label>
                                     </div>
                                     

@@ -441,6 +441,14 @@
       window.location.href = link;
   });
 
+  const dropdownButton = document.querySelector('.currency -toggle');
+  const dropdownMenu = document.querySelector('.currency .dropdown-menu');
+
+  if (!dropdownMenu) {
+      dropdownButton.classList.add('single-item');
+  }
+
+
 
 })();
 
