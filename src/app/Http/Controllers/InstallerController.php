@@ -84,11 +84,9 @@ class InstallerController extends Controller
 
         if(session()->get('system_requirments')){
 
-            if (Hash::check(base64_decode('ZW52YXRvX3ZlcmlmaWNhdGlvbg=='), request()->input('verify_token'))) {
-                return view('install.envato_verification',[
-                    'title' => 'Envato Verification'
-                ]);
-            }
+            if (Hash::check(base64_decode('ZW52YXRvX3ZlcmlmaWNhdGlvbg=='), request()->input('verify_token'))) return view('install.envato_verification',[
+                'title' => 'Envato Verification'
+            ]);
             return redirect()->route('install.init')->with('error','Invalid verification token');
         }
         
@@ -160,9 +158,7 @@ class InstallerController extends Controller
         ]);
 
         if($this->_chekcDbConnection( $request)){
-            if($this->_envConfig($request)){
-                return redirect()->route('install.account.setup',['verify_token' => bcrypt(base64_decode('c3lzdGVtX2NvbmZpZw=='))]);
-            }
+            if($this->_envConfig($request))   return redirect()->route('install.account.setup',['verify_token' => bcrypt(base64_decode('c3lzdGVtX2NvbmZpZw=='))]);
             $message = "Please empty your database then try again";
         }
 

@@ -7,7 +7,7 @@
        $accountTypes = App\Enums\AccountType::toArray();
 
        if($platform->slug != 'facebook' ){
-           Arr::forget($accountTypes,['Group','Page']);
+           Arr::forget($accountTypes,['GROUP','PAGE']);
        }
        $connectionTypes = App\Enums\ConnectionType::toArray();
 

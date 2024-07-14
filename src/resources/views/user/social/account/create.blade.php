@@ -4,21 +4,19 @@
 @section('content')
 
 @php
-$accountTypes = App\Enums\AccountType::toArray();
+    $accountTypes = App\Enums\AccountType::toArray();
 
-if($platform->slug != 'facebook' ){
-Arr::forget($accountTypes,['Group','Page']);
-}
+    if($platform->slug != 'facebook' ) Arr::forget($accountTypes,['PAGE','GROUP']);
 
-$connectionTypes = App\Enums\ConnectionType::toArray();
-$platforms = Arr::get(config('settings'),'platforms' ,[]);
-$platformConfig = Arr::get($platforms,$platform->slug ,null);
+    $connectionTypes = App\Enums\ConnectionType::toArray();
+    $platforms = Arr::get(config('settings'),'platforms' ,[]);
+    $platformConfig = Arr::get($platforms,$platform->slug ,null);
 
-if(isset($platformConfig['unofficial'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
+    if(isset($platformConfig['unofficial'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
 
-if(isset($platformConfig['official'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
+    if(isset($platformConfig['official'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
 
-$inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
+    $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
 
 @endphp
 

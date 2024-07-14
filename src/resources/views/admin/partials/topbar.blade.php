@@ -59,31 +59,31 @@
                     <div class="notification-item">
                         <ul >
                           @forelse($notifications as $notification)
-                            <li>
-                              <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
-                                <div class="notify-icon">
-                                  <img class="rounded-circle"
-                                    src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
-                                    alt="{{@auth_user()->file->name}}" />
-                                </div>
-                                <div class="notification-item-content">
-                                  <h5> {{auth_user()->name}} <small>
-                                      {{diff_for_humans($notification->created_at)}}
-                                    </small></h5>
-                                  <p>
-                                      {{
-                                        limit_words(strip_tags($notification->message),50)
-                                      }}
-                                  </p>
-                                </div>
-                              </a>
-                            </li>
+                              <li>
+                                <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
+                                  <div class="notify-icon">
+                                    <img class="rounded-circle"
+                                      src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
+                                      alt="{{@auth_user()->file->name}}" />
+                                  </div>
+                                  <div class="notification-item-content">
+                                    <h5> {{auth_user()->name}} <small>
+                                        {{diff_for_humans($notification->created_at)}}
+                                      </small></h5>
+                                    <p>
+                                        {{
+                                          limit_words(strip_tags($notification->message),50)
+                                        }}
+                                    </p>
+                                  </div>
+                                </a>
+                              </li>
                           @empty
-                            <li class="text-center mx-auto mb-2">
-                                <p>
-                                  {{translate("Nothing Found !!")}}
-                                </p>
-                            </li>
+                              <li class="text-center mx-auto mb-2 no-notification-item">
+                                  <p>
+                                    {{translate("Nothing Found !!")}}
+                                  </p>
+                              </li>
                           @endforelse
                         </ul>
                     </div>

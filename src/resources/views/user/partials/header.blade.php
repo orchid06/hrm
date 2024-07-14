@@ -100,13 +100,16 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="dropdown-menu-footer">
-                                    <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
-                                        {{translate("View All")}}
-                                    </a>
-                                </div>
-                            </li>
+
+                            @if($notifications->count() > 0)
+                                <li>
+                                    <div class="dropdown-menu-footer">
+                                        <a href='{{route("user.notifications")}}' class="i-btn info btn--md capsuled">
+                                            {{translate("View All")}}
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                 </div>
 

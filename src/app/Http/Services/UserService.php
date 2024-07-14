@@ -582,9 +582,11 @@ class UserService
     
             $expireDate = null;
             if($package->duration != PlanDuration::value('UNLIMITED',true)){
-                $expireDate  = date('Y-m-d', strtotime(date('Y-m-d') . $package->duration == PlanDuration::value('YEARLY',true) ? ' + 1 years' : ' + 1 months'));
+                $expireDate = date('Y-m-d', strtotime(date('Y-m-d') . ($package->duration == PlanDuration::value('YEARLY', true) ? ' + 1 years' : ' + 1 months')));
+
             }
-    
+
+
             $params['expired_at']                 = $expireDate ;
     
             $params['remarks']                    = $remarks ? $remarks :  $package->title . " Plan Purchased" ;

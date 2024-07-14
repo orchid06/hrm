@@ -136,7 +136,7 @@ class AiController extends Controller
     public function generate(Request $request): string{
         
         $templateRules   =  $this->aiService->setRules($request);
-        $request->validate(Arr::get($templateRules, 'rules', []));
+        $request->validate(Arr::get($templateRules, 'rules', []),Arr::get($templateRules, 'messages', []));
         $template        = Arr::get($templateRules,'template');
         $accessTemplates = $this->templates ? @$this->templates->pluck('id')->toArray() :[];
 

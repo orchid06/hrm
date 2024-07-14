@@ -827,7 +827,7 @@ use Illuminate\Database\Eloquent\Collection;
        * @return Admin
        */
 		function get_superadmin(): Admin{
-			return Admin::where('super_admin',StatusEnum::true->status())->first();
+			return Admin::with(['file'])->where('super_admin',StatusEnum::true->status())->first();
 		}
 	}
 

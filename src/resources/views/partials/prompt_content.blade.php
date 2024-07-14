@@ -161,7 +161,7 @@
 
                     </div>
 
-                <div class="col-lg-12 generate-btn d-none {{request()->routeIs('user.*') ? 'mt-3':''}}">
+                <div class="col-lg-12 generate-btn  {{request()->routeIs('user.*') ? 'mt-3':''}}">
                         <button type="submit" class="{{request()->routeIs('user.*') ? ' ai-btn i-btn btn--lg btn--primary capsuled' : 'ai-btn i-btn btn--primary btn--lg' }}">
                             {{translate("Generate")}}
 
