@@ -68,6 +68,14 @@
                                                 <div class="collapse mt-2" id="selectProfile">
                                                     <select  name="account_id[]"    multiple="multiple" class="w-100 profile-select">
                                                         @foreach ($accounts as $account )
+
+                                                            @if($account->platform 
+                                                                 && $account->platform->slug == 'facebook' 
+                                                                 && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                    @continue 
+                                                            @endif
+
                                                             @php
                                                                 $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                 ?  @$account->account_information->avatar 
@@ -104,6 +112,16 @@
                                                         
                                                         <select  name="account_id[]" multiple="multiple" class="w-100 profile-select">
                                                             @foreach ($platform->accounts as $account )
+
+
+                                                            @if($platform 
+                                                                    && $platform->slug == 'facebook' 
+                                                                    && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                    @continue 
+                                                            @endif
+                                                               
+                                                    
                                                                 @php
                                                                     $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                     ?  @$account->account_information->avatar 

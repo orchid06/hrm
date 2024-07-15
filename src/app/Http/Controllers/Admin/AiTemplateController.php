@@ -110,7 +110,7 @@ class AiTemplateController extends Controller
      public function contentGenrate(Request $request) :string {
 
         $templateRules =  $this->aiService->setRules($request);
-        $request->validate(Arr::get($templateRules, 'rules', []));
+        $request->validate(Arr::get($templateRules, 'rules', []),Arr::get($templateRules, 'messages', []));
         $response = $this->aiService->generatreContent($request,$templateRules['template']);
         return json_encode( $response);
 

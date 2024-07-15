@@ -53,7 +53,7 @@ class Account
                     'avatar'     => Arr::get($igUser,'profile_pic_url',null) ,
                 ];
     
-                $this->saveAccount($guard ,$platform , $accountInfo ,AccountType::Profile->value ,ConnectionType::UNOFFICIAL->value );
+                $this->saveAccount($guard ,$platform , $accountInfo ,AccountType::PROFILE->value ,ConnectionType::UNOFFICIAL->value );
             }
         } catch (\Exception $ex) {
             $responseStatus   = response_status(strip_tags($ex->getMessage()),'error');

@@ -563,6 +563,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::any('/analytics/dashboard','analytics')->name('analytics');
                     Route::get('/create','create')->name('create');
                     Route::post('/store','store')->name('store');
+                    Route::get('/send/{uid}', 'send')->name('send');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
                     Route::get('/show/{uid}','show')->name('show');
      
