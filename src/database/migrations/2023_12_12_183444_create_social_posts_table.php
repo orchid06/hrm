@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PostStatus;
+use App\Enums\PostType;
 use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->timestamp('repeat_schedule_end_date')->nullable();
             $table->enum('is_draft',array_values(StatusEnum::toArray()))->default(StatusEnum::false->status())->comment('No: 0, Yes: 1');
             $table->enum('status',array_values(PostStatus::toArray()))->index()->comment('Pending: 0, Success: 1 ,Failed:2,Schedule:3');
-            $table->enum('post_type',[StatusEnum::false->status()])->comment('Feed: 0');
+            $table->enum('post_type',array_values(PostType::toArray()))->comment('FEED: 0 ,Story:2,REELS:1');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

@@ -72,7 +72,7 @@
                             <input type="hidden" name="platform" value="{{request()->input('platform')}}">
                             
                             <div class="form-inner">
-                                <input placeholder="{{translate('Search by name')}}" type="search" name="name" 
+                                <input placeholder="{{translate('Filter by name')}}" type="search" name="name" 
                                 value="{{request()->input('name')}}">
                             </div>
 
