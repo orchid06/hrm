@@ -68,14 +68,6 @@
                                                 <div class="collapse mt-2" id="selectProfile">
                                                     <select  name="account_id[]"    multiple="multiple" class="w-100 profile-select">
                                                         @foreach ($accounts as $account )
-
-                                                            @if($account->platform 
-                                                                 && $account->platform->slug == 'facebook' 
-                                                                 && $account->account_type == App\Enums\AccountType::PROFILE->value)
-
-                                                                    @continue 
-                                                            @endif
-
                                                             @php
                                                                 $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                 ?  @$account->account_information->avatar 
@@ -91,6 +83,8 @@
                                                 </div>
                                             </div>
 
+
+                                            
                                             @foreach ($platforms as  $platform)
                                                 <div class="tab-pane fade" id="tab-{{$platform->slug}}" role="tabpanel">
                                                     <div class="choose-profile-btn w-100" role="button"
@@ -110,16 +104,6 @@
                                                         
                                                         <select  name="account_id[]" multiple="multiple" class="w-100 profile-select">
                                                             @foreach ($platform->accounts as $account )
-
-
-                                                            @if($platform 
-                                                                    && $platform->slug == 'facebook' 
-                                                                    && $account->account_type == App\Enums\AccountType::PROFILE->value)
-
-                                                                    @continue 
-                                                            @endif
-                                                               
-                                                    
                                                                 @php
                                                                     $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                     ?  @$account->account_information->avatar 
@@ -143,7 +127,7 @@
 
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                           @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +338,7 @@
                                     role="tablist">
                                     <li class="nav-item swiper-slide" role="presentation">
                         
-                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-social-all"
+                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-all"
                                             aria-selected="false" role="tab" tabindex="-1">
                                            {{translate('All')}}
                                         </a>
@@ -378,8 +362,7 @@
                         </div>
                         <div class="col-md-12">
                           <div class="tab-content" id="preview-tabContent">
-                            
-                                <div class="tab-pane fade show active" id="tab-preview-social-all" role="tabpanel">
+                                <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
                                     <div class="social-preview-body facebook mb-4">
                                         <div class="social-auth">
                                             <div class="profile-img">
