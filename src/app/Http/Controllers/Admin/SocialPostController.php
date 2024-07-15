@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\PostStatus;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SocialPostRequest;
@@ -26,7 +27,7 @@ class SocialPostController extends Controller
     public function __construct(){
 
         $this->middleware(['permissions:view_post'])->only(['list']);
-        $this->middleware(['permissions:create_post'])->only('create','reconnect','store');
+        $this->middleware(['permissions:create_post'])->only('create','reconnect','store','send');
         $this->middleware(['permissions:update_post'])->only('updateStatus','bulk');
         $this->middleware(['permissions:delete_post'])->only('destroy');
     }
@@ -46,8 +47,6 @@ class SocialPostController extends Controller
             "title"           => translate("Post Analytics Dashboard"),
             'breadcrumbs'     => ['Home'=>'admin.home','Post Analytics '=> null],
             'data'            => $this->getDashboardData()
-
-
 
         ]);
 
@@ -178,17 +177,20 @@ class SocialPostController extends Controller
         
         $platforms = MediaPlatform::with(['file' ,'accounts' => fn($q):HasMany => 
                          $q->where('admin_id',auth_user()->id)
-                                    ->active()
-                                    ->connected()
+                            ->active()
+                            ->connected()
                     ])
                     ->integrated()
                     ->active()
                     ->get();
 
-        $accounts = SocialAccount::where('admin_id',auth_user()->id)->with(['platform'])->active()->connected()->get();
+        $accounts = SocialAccount::where('admin_id',auth_user()->id)
+                                                ->with(['platform'])
+                                                ->active()
+                                                ->connected()
+                                                ->get();
 
         return view('admin.social.post.create',[
-
             "title"           => "Create Post",
             'breadcrumbs'     => ['Home'=>'admin.home',"Post"=> "admin.social.post.list","Create" => null],
             'accounts'        => $accounts,
@@ -208,6 +210,25 @@ class SocialPostController extends Controller
     public function store(SocialPostRequest $request) :RedirectResponse{
         $response = $this->savePost( $request->except(['_token']) ,auth_user());
         return back()->with('success',Arr::get($response,'message'));
+    }
+
+
+    /**
+     * store a new post
+     *
+     * @return RedirectResponse
+     */
+    public function send(string $uid) :RedirectResponse{
+   
+        $post = SocialPost::where('uid',$uid)->with(['file'])
+                              ->whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])
+                              ->firstOrFail();
+
+        $this->publishPost($post);
+
+         @dd($post);
+
+        // return back()->with('success',Arr::get($response,'message'));
     }
 
 

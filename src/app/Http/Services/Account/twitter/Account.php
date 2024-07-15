@@ -81,7 +81,7 @@ class Account
 
                     $config['account_id'] =  Arr::get($config,'id');
 
-                    $response         = $this->saveAccount($guard,$platform,$config,AccountType::Profile->value ,ConnectionType::OFFICIAL->value ,$accountId);
+                    $response         = $this->saveAccount($guard,$platform,$config,AccountType::PROFILE->value ,ConnectionType::OFFICIAL->value ,$accountId);
                 }
               
 

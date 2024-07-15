@@ -229,12 +229,8 @@ class Account
                     'access_token' => $token,
                 );
                 
-                if ($post->content) {
-                    $params['message'] = $post->content;
-                }
-                if ($post->link) {
-                    $params['link']    = $post->link;
-                }
+                if ($post->content)     $params['message'] = $post->content;
+                if ($post->link)    $params['link']    = $post->link;
 
                 if($post->file && $post->file->count() > 0){
 
@@ -249,9 +245,7 @@ class Account
                         $uploadResponse = Http::post($baseApi . $apiVersion . "/me/photos", $uploadParams);
                         $uploadData     = $uploadResponse->json();
 
-                        if (isset($uploadData['id'])) {
-                            $params['attached_media'][] = '{"media_fbid":"'.$uploadData['id'].'"}';
-                        }
+                        if (isset($uploadData['id']))  $params['attached_media'][] = '{"media_fbid":"'.$uploadData['id'].'"}';
               
                     }
                 }

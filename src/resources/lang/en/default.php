@@ -48,6 +48,9 @@ return [
     'ftp_note' => 'To utilize FTP storage, kindly enable the FTP extension. This action is imperative for seamless functionality. Your cooperation in this matter is greatly appreciated',
 
 
+    'facebook_profile_warning_note' => 'Please be aware that Facebook does not permit posting to personal profiles via their API. However, you can connect your profile to view your own posts on our site.',
+
+
     /** site  title  */
 
     "blogs"     => 'Blogs',

@@ -69,7 +69,7 @@
                                                     </label>
                                                     <select name="account_type" id="account_type">
                                                         @foreach ($accountTypes as $type => $value )
-                                                                <option {{old("account_type")  == $value  ? "selected" :""}} value="{{$value}}">
+                                                                <option {{(old("account_type") && old("account_type")  == $value)  ? "selected" :""}} value="{{$value}}">
                                                                       {{$type}}
                                                                 </option>
                                                         @endforeach
@@ -106,8 +106,8 @@
                                             <div class="text-center mt-4">
                                                 @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
                                                   <div class="d-flex gap-2 justify-content-center">
-                                                        <a href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}' class="i-btn btn--sm info">
-                                                            <i class="las la-user-alt me-1"></i>   {{translate('Connect Profile')}}
+                                                        <a @if($platform->slug == 'facebook') data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{trans("default.facebook_profile_warning_note")}}"  @endif  href='{{route("account.connect",[ "guard"=>"admin","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}' class="i-btn btn--sm info">
+                                                            <i class="las la-user-alt me-1"></i>   {{translate('Connect Account')}}
                                                         </a>
                                                   </div>
                                                 @else
@@ -139,6 +139,47 @@
 @endsection
 
 
+@section('modal')
+
+
+    <div class="modal fade" id="warning-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="warning-note-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Warning note')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="p-4 mt-4 bg--danger-light rounded-2">
+                        <p class="text--dark"><span class="bg--danger text-white py-0 px-2 d-inline-block me-2 rounded-1">{{translate("note")}}  :</span>  
+                            {{trans("default.facebook_profile_warning_note")}}
+                        </p>
+                    </div> 
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+
+@endsection
+
+
+
 
 @push('script-push')
 <script>
@@ -165,6 +206,8 @@
                 e.preventDefault()
             })
 
+            var warningModal = $("#warning-note-modal");
+
             function inputControl(val){
 
                 if(val  == "{{App\Enums\AccountType::GROUP->value}}"){
@@ -178,6 +221,8 @@
 
                  }
                  else{
+
+                    warningModal.modal('show')
                     $('.page-id').addClass('d-none');
                     $('.group-id').addClass('d-none');
                  }

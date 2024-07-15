@@ -183,7 +183,7 @@ class CoreController extends Controller
      */
     public function handleSchedulePost() :void{
 
-        $posts = SocialPost::whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])->cursor();
+        $posts = SocialPost::with(['file'])->whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])->cursor();
 
         foreach($posts->chunk(20) as $chunkPosts){
             foreach($chunkPosts as $post){
@@ -628,7 +628,7 @@ class CoreController extends Controller
             ];
 
 
-            $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::Profile->value ,ConnectionType::OFFICIAL->value);
+            $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::PROFILE->value ,ConnectionType::OFFICIAL->value);
             $routeName =  $guard =='admin' ? "admin.social.account.list":"user.social.account.list";
             return redirect()->route($routeName,['platform' => $platform->slug])->with(response_status("Account Added"));
             
