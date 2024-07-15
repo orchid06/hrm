@@ -210,8 +210,8 @@
           </div>
         </div>
       </div>
-      <div class="row mb-3">
-        <div class="col-12">
+      <div class="row g-3 mb-3">
+        <div class="col-lg-6">
           <div class="i-card-md home home">
             <div class="card--header">
               <h4 class="card-title">
@@ -249,49 +249,8 @@
             </div>
           </div>
         </div>
-        {{-- <div class="col-6">
-          <div class="i-card-md home home">
-            <div class="card--header">
-              <h4 class="card-title">
-                  {{translate("Subscriptions & Income")}}
-              </h4>
-            
-            </div>
-            <div class="card-body">
-                <div class="row g-2 text-center mb-5">
 
-                  <div class="col-sm-6">
-                      <div class="p-3 border border-dashed border-start-0 rounded-2">
-                          <h5 class="mb-1">
-                              <span>
-                                {{Arr::get($data['subscription_reports'],"total_subscriptions",0)}}
-                              </span>
-                          </h5>
-                          <p class="text-muted mb-0">
-                              {{translate("Total Subscriptions")}}
-                          </p>
-                      </div>
-                  </div>
-         
-                  <div class="col-sm-6">
-                      <div class="p-3 border border-dashed border-start-0 rounded-2">
-                          <h5 class="mb-1"><span>
-                            {{Arr::get($data['subscription_reports'],"total_income",0)}}
-                          </span></h5>
-                          <p class="text-muted mb-0">
-                              {{translate("Total Income")}}
-                          </p>
-                      </div>
-                  </div>
-                </div>
-              <div id="subscriptionReport" class="apex-chart"></div>
-            </div>
-          </div>
-        </div> --}}
-      </div>
-
-      <div class="row g-3 mb-3">
-        <div class="col-xxl-4 col-xl-5">
+        <div class="col-lg-6">
           <div class="i-card-md home">
             <div class="card--header">
                 <h4 class="card-title">
@@ -334,8 +293,12 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-xxl-8 col-xl-7">
+      <div class="row g-3 mb-3">
+       
+
+        <div class="col-12">
           <div class="i-card-md home">
             <div class="card--header">
               <h4 class="card-title">

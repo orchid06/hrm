@@ -83,7 +83,7 @@
                                                 <small class="text-danger" >*</small>
                                                 <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Insert -1 to make it unlimited')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>
                                             </label>
-                                            <input placeholder='{{translate("Max Result")}}' type="number" id="default_max_result"name="site_settings[default_max_result]"
+                                            <input placeholder='{{translate("Max Result")}}' type="number" id="default_max_result" name="site_settings[default_max_result]"
                                                 class="form-control" value='{{ site_settings("default_max_result") }}'
                                                 min="-1">
                                         </div>
@@ -135,7 +135,7 @@
                                                 class="form-label">{{ translate('Open AI Secret Key') }} 
                                                     <small class="text-danger" >*</small>
                                                 </label>
-                                                <input placeholder="{{translate('Open AI Secret Key')}}" type="text" id="open_ai_secret"name="site_settings[open_ai_secret]"
+                                                <input placeholder="{{translate('Open AI Secret Key')}}" type="text" id="open_ai_secret" name="site_settings[open_ai_secret]"
                                                     class="form-control" value="{{ is_demo() ? '@@@' :site_settings('open_ai_secret') }}" >
                                             </div>
                                             <div class="random-keys  @if(site_settings('ai_key_usage') == App\Enums\StatusEnum::true->status()) d-none @endif">
@@ -150,7 +150,7 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-                                                            <span class="input-group-text pointer delete-option  ">
+                                                            <span class="input-group-text pointer delete-option">
                                                                 <i class="las  la-times-circle"></i>
                                                             </span>
                                                         </div>

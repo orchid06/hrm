@@ -112,7 +112,7 @@
                                                 
                                             </button>
                                         </h2>
-                                        <div id="advanceAcc" class="accordion-collapse collapse @if(request()->routeIs('user.*')) collapse show" @endif aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
+                                        <div id="advanceAcc" class="accordion-collapse collapse @if(request()->routeIs('user.*')) collapse show  @endif" aria-labelledby="advanceContent" data-bs-parent="#advanceOption">
                                             <div class="accordion-body">
                                                 <div class="form-inner">
                                                     <label for="max_result">

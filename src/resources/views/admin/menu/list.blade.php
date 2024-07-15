@@ -147,7 +147,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >
+                    <h5 class="modal-title" id="staticBackdropLabel">
                         {{translate('Add Menu')}}
                     </h5>
                     <button class="close-btn" data-bs-dismiss="modal">
@@ -164,8 +164,8 @@
                                         {{translate('Name')}} 
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" name="name"   placeholder='{{translate("Enter name")}}'
-                                        value='{{old("name")}}' required >
+                                    <input type="text" name="name" id="name"  placeholder='{{translate("Enter name")}}'
+                                        value='{{old("name")}}' required>
                                 </div>
                             </div>
                             <div class="col-lg-6">

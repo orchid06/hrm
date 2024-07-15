@@ -143,7 +143,7 @@
                                                     <i class="las la-info"></i></a>
 
                                                 @if(check_permission('delete_report') )
-                                                    <a  href="javascript:void(0);" data-href="{{route('admin.template.report.destroy',$report->id)}}"  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" class="pointer delete-item icon-btn danger">
+                                                    <a  href="javascript:void(0);" data-href="{{route('admin.template.report.destroy',$report->id)}}"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Delete")}}" class="pointer delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                                 @endif
                                             </div>

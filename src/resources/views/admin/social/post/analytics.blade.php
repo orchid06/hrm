@@ -313,7 +313,7 @@
                               <p>	{{ @$post->account->account_information->name}}</p>
                           @endif
                           @if( $post->platform_response && $post->platform_response->url )
-                          -  <a class="i-badge success" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                          -  <a class="i-badge success fs-15" title="{{translate('Show')}}" target="_blank"  href="{{@$post->platform_response->url}}"> {{translate("View Post")}}
                               </a>
                           
                           @endif

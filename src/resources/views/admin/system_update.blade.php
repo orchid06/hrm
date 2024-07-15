@@ -40,7 +40,7 @@
                             </div>
                             <div class="mt-4 mb-4">
                                 <label  for="image" class="feedback-file">
-                                    <input name="updateFile" hidden accept=".zip" type="file" name="image" id="image" >
+                                    <input name="updateFile" hidden accept=".zip" type="file" id="image" >
                                     <span><i class="bi bi-file-zip"></i>
                                         {{translate("Upload Zip file")}}
                                     </span>
