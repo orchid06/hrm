@@ -63,85 +63,85 @@
 
                 <div id="{{$platform->slug}}" class="tab-content">
                     @foreach($connectionTypes as $k => $v)
-                    <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} '
-                        id="lang-tab-content-{{t2k($k)}}" role="tabpanel">
+                        <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} '
+                            id="lang-tab-content-{{t2k($k)}}" role="tabpanel">
 
-                        <div class="row align-items-center gy-5">
-                            <div class="col-lg-8">
+                            <div class="row align-items-center gy-5">
+                                <div class="col-lg-8">
 
-                                @if( $v == App\Enums\ConnectionType::UNOFFICIAL->value)
-                                <div class="form-inner">
-                                    <label for="account_type">
-                                        {{translate("Accout type")}} <span class="text-danger">*</span>
-                                    </label>
-                                    <select name="account_type" id="account_type">
-                                        @foreach ($accountTypes as $type => $value )
-                                        <option {{old("account_type")  == $value  ? "selected" :""}} value="{{$value}}">
-                                            {{$type}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @endif
-
-                                @if($v == App\Enums\ConnectionType::UNOFFICIAL->value)
-
-                                <div class="form-inner d-none page-id">
-                                    <label for="page_id">
-                                        {{translate("Page ID")}} <span class="text-danger">*</span>
-                                    </label>
-                                    <input id="page_id" type="text" name="page_id"
-                                        placeholder='{{translate("Enter Page ID")}}' value="{{old('page_id')}}">
-                                </div>
-
-                                <div class="form-inner d-none  group-id">
-                                    <label for="group_id">
-                                        {{translate("Group ID")}} <span class="text-danger">*</span>
-                                    </label>
-                                    <input id="group_id" type="text" name="group_id"
-                                        placeholder='{{translate("Enter group ID")}}' value="{{old('group_id')}}">
-                                </div>
-
-                                @foreach ($inputs as $key )
-                                <div class="form-inner">
-                                    <label for="{{$key}}">
-                                        {{translate(k2t($key))}} <span class="text-danger">*</span>
-                                    </label>
-                                    <input required id="{{$key}}" type="text" name="{{$key}}"
-                                        placeholder=' {{translate(k2t($key))}}' value="{{old('access_token')}}">
-                                </div>
-                                @endforeach
-                                @endif
-                                <div class="text-center mt-4">
-                                    @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
-                                    <div class="d-flex gap-2 justify-content-center">
-                                        <a href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}'
-                                            class="i-btn btn--primary btn--lg capsuled">
-                                            {{translate('Connect Profile')}}
-                                            <i class="bi bi-link-45deg"></i>
-                                        </a>
-                                    </div>
-                                    @else
-                                    <button type="submit" class="i-btn btn--primary btn--lg capsuled">
-                                        {{translate('Connect')}}
-                                        <i class="bi bi-link-45deg"></i>
-                                    </button>
+                                    @if( $v == App\Enums\ConnectionType::UNOFFICIAL->value)
+                                        <div class="form-inner">
+                                            <label for="account_type">
+                                                {{translate("Accout type")}} <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="account_type" id="account_type">
+                                                @foreach ($accountTypes as $type => $value )
+                                                    <option {{  (old("account_type") && old("account_type")  == $value)  ? "selected" :""}} value="{{$value}}">
+                                                        {{$type}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
-                                </div>
-                            </div>
-                            <div class="col-lg-4 ps-lg-4">
-                                <div class="p-4 bg-danger-soft rounded-4">
-                                    <p><span class="i-badge-solid danger me-2">{{translate("note")}} :</span>
+
+                                    @if($v == App\Enums\ConnectionType::UNOFFICIAL->value)
+
+                                        <div class="form-inner d-none page-id">
+                                            <label for="page_id">
+                                                {{translate("Page ID")}} <span class="text-danger">*</span>
+                                            </label>
+                                            <input id="page_id" type="text" name="page_id"
+                                                placeholder='{{translate("Enter Page ID")}}' value="{{old('page_id')}}">
+                                        </div>
+
+                                        <div class="form-inner d-none  group-id">
+                                            <label for="group_id">
+                                                {{translate("Group ID")}} <span class="text-danger">*</span>
+                                            </label>
+                                            <input id="group_id" type="text" name="group_id"
+                                                placeholder='{{translate("Enter group ID")}}' value="{{old('group_id')}}">
+                                        </div>
+
+                                        @foreach ($inputs as $key )
+                                            <div class="form-inner">
+                                                <label for="{{$key}}">
+                                                    {{translate(k2t($key))}} <span class="text-danger">*</span>
+                                                </label>
+                                                <input required id="{{$key}}" type="text" name="{{$key}}"
+                                                    placeholder=' {{translate(k2t($key))}}' value="{{old('access_token')}}">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                    <div class="text-center mt-4">
                                         @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
-                                        {{trans("default.on_click_note")}}
+                                        <div class="d-flex gap-2 justify-content-center">
+                                            <a @if($platform->slug == 'facebook') data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{trans("default.facebook_profile_warning_note")}}"  @endif href='{{route("account.connect",[ "guard"=>"web","medium" => $platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ])}}'
+                                                class="i-btn btn--primary btn--lg capsuled">
+                                                {{translate('Connect Account')}}
+                                                <i class="bi bi-link-45deg"></i>
+                                            </a>
+                                        </div>
                                         @else
-                                        {{trans("default.tokenize_note")}}
+                                        <button type="submit" class="i-btn btn--primary btn--lg capsuled">
+                                            {{translate('Connect')}}
+                                            <i class="bi bi-link-45deg"></i>
+                                        </button>
                                         @endif
-                                    </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 ps-lg-4">
+                                    <div class="p-4 bg-danger-soft rounded-4">
+                                        <p><span class="i-badge-solid danger me-2">{{translate("note")}} :</span>
+                                            @if($v != App\Enums\ConnectionType::UNOFFICIAL->value)
+                                              {{trans("default.on_click_note")}}
+                                            @else
+                                               {{trans("default.tokenize_note")}}
+                                            @endif
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -152,10 +152,56 @@
 @endsection
 
 
+@section('modal')
+
+    @include('modal.delete_modal')
+
+    <div class="modal fade" id="warning-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="warning-note-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Warning note')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+
+
+                    <div class="p-4 bg-danger-soft rounded-4">
+                        <p><span class="i-badge-solid danger me-2">{{translate("note")}} :</span>
+                            {{trans("default.facebook_profile_warning_note")}}
+                        </p>
+                    </div>
+            
+          
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                    
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+
 @push('script-push')
 <script>
 (function($) {
     "use strict";
+
+    var warningModal = $("#warning-note-modal");
 
     $("#account_type").select2({
         placeholder: "{{translate('Select type')}}",
@@ -164,7 +210,7 @@
 
     @if(old("account_type"))
 
-    inputControl('{{old("account_type")}}')
+      inputControl('{{old("account_type")}}')
 
     @endif
 
@@ -187,6 +233,7 @@
             $('.group-id').addClass('d-none');
 
         } else {
+            warningModal.modal('show')
             $('.page-id').addClass('d-none');
             $('.group-id').addClass('d-none');
         }

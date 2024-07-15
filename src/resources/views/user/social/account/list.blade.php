@@ -177,7 +177,7 @@
                                                     $url          = 'javascript:void(0)';
                                                     $connectionClass  =   true;
                                                     if($account->platform->slug != 'facebook'){
-                                                        $url = route("account.connect",[ "guard"=>"web","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::Profile->name) ]);
+                                                        $url = route("account.connect",[ "guard"=>"web","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
                                                         $connectionClass  =   false;
 
                                                     }
