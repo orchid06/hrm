@@ -101,9 +101,7 @@
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm" src='{{imageURL(@$post->account->platform->file,"platform",true)}}' alt="{{@$post->account->platform->file?? 'platform.jpg'}}">
                                         <p>	 {{$post->account->platform->name}}</p>
-                                    </div>
-
-                                </td>
+                                    </div
 
                                 <td data-label='{{translate("Account")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
@@ -118,7 +116,7 @@
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
 
-                                            <a class="i-badge success"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View')}}" target="_blank"  href="{{@$post->platform_response->url}}" class="fs-15"> {{translate("View Post")}}
+                                            <a class="i-badge success fs-15"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View')}}" target="_blank"  href="{{@$post->platform_response->url}}"> {{translate("View Post")}}
                                             </a>
                                         @endif
                                     </div>

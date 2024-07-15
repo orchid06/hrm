@@ -111,7 +111,7 @@
                                         @if(check_permission('update_content') || check_permission('delete_content') )
                                             @if(check_permission('update_content'))
 
-                                                <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}} "href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}" href="javascript:void(0);" data-content ="{{$content}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
 
                                             @endif
 

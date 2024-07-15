@@ -66,7 +66,7 @@
                         <div class='tab-pane fade {{$loop->index == 0 ? " show active" :""}} '
                             id="lang-tab-content-{{t2k($k)}}" role="tabpanel">
 
-                            <div class="row align-items-center gy-5">
+                            <div class="row align-items-start gy-5">
                                 <div class="col-lg-8">
 
                                     @if( $v == App\Enums\ConnectionType::UNOFFICIAL->value)

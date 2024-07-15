@@ -119,9 +119,9 @@ return [
 
    /** system update note */ 
    'system_update_title'  => 'Be Aware !!! Before Update',
-   'update_note'          => ' <li><i class="ri-checkbox-circle-line"></i></i>You must take backup from your server (files & database)</li>
-   <li><i class="ri-checkbox-circle-line"></i></i>Make Sure You have stable internet connection</li>
-   <li class="text-danger"><i class="ri-checkbox-circle-line"></i></i>Do not close the tab while the process is running</li>',
+   'update_note'          => ' <li><i class="ri-checkbox-circle-line"></i>You must take backup from your server (files & database)</li>
+   <li><i class="ri-checkbox-circle-line"></i>Make Sure You have stable internet connection</li>
+   <li class="text-danger"><i class="ri-checkbox-circle-line"></i>Do not close the tab while the process is running</li>',
    
 
 

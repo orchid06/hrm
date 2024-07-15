@@ -57,7 +57,7 @@
         </svg>
     </div>
 
-    <div class="swiper sponsor-slider">
+    <div class="swiper sponsor-slider w-100">
         <div class="swiper-wrapper align-items-center">
               @foreach ($bannerElements as $element )
                     @php $file = $element->file?->first(); @endphp
