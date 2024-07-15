@@ -1099,7 +1099,9 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            PostType::FEED->value        => "info",
+            PostType::FEED->value         => "info",
+            PostType::REELS->value        => "danger",
+            PostType::STORY->value        => "success",
          ];
 
          $class    = Arr::get($badges , $status , 'info');
