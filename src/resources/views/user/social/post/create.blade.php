@@ -25,8 +25,8 @@
                 <div class="i-card-md">
                     <div class="card-body">
                         <div class="row">
-                                @php $col = $schedule ? "col-xxl-6" :"col-xxl-12"; @endphp
-                                <div class="{{$col}}" >
+                            
+                                <div class="col-xxl-8" >
                                     <div class="mb-0">
                                         <div class="card-header">
                                             <h4 class="card-title">{{translate('Choose Profile')}}</h4>
@@ -299,17 +299,9 @@
                                         </div>
                                     </div>
 
-                                    @if(!$schedule)
-                                        <button  type="submit"
-                                            class=" mt-3 i-btn btn--primary btn--lg capsuled postSubmitButton"
-                                            id="postSubmitButton">
-                                            {{translate("Post")}}
-                                            <i class="bi bi-send"></i>
-                                        </button>
-                                    @endif
-                                </div>
-                                @if($schedule)
-                                    <div class="col-xxl-6">
+
+                                    @if($schedule)
+
                                         <div class="mb-0">
                                             <div class="card-header d-block">
                                                 <div class="row">
@@ -344,19 +336,65 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
 
-                                        
-                                                <button  type="submit"
-                                                    class="mt-3 i-btn btn--primary btn--lg capsuled postSubmitButton"
-                                                    id="postSubmitButton">
-                                                    {{translate("Post")}}
-                                                    <i class="bi bi-send"></i>
-                                                </button>
+                                            
                                             </div>
                                         </div>
+                                    @endif
+
+
+
+
+                             
+                                    <button  type="submit"
+                                        class=" mt-3 i-btn btn--primary btn--lg capsuled postSubmitButton"
+                                        id="postSubmitButton">
+                                        {{translate("Post")}}
+                                        <i class="bi bi-send"></i>
+                                    </button>
+                                   
+                                </div>
+
+                                <div class="col-xxl-4">
+                                    <div class="side-notes">
+                                        <h6 class="mb-4">Note:</h6>
+                                        <ul class="note-list">
+                                            <li><span>Facebook</span>
+                                                <ul>
+                                                    <li>Sign up with your email or phone number, create a unique password</li>
+                                                    <li>Search for friends using the search bar,</li>
+                                                    <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                    <li>Find and join groups based on your interests</li>
+                                                </ul>
+                                            </li>
+                                            <li><span>Twitter</span>
+                                                <ul>
+                                                    <li>Sign up with your email or phone number, create a unique password</li>
+                                                    <li>Search for friends using the search bar,</li>
+                                                    <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                    <li>Adjust your privacy settings to control who can see your tweets</li>
+                                                </ul>
+                                            </li>
+                                            <li><span>Instagram</span>
+                                                <ul>
+                                                    <li>Sign up with your email or phone number, create a unique password</li>
+                                                    <li>Search for friends using the search bar,</li>
+                                                    <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                    <li>Adjust your privacy settings to control who can see your tweets</li>
+                                                </ul>
+                                            </li>
+                                            <li><span>Tictok</span>
+                                                <ul>
+                                                    <li>Sign up with your email or phone number, create a unique password</li>
+                                                    <li>Search for friends using the search bar,</li>
+                                                    <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                    <li>Adjust your privacy settings to control who can see your tweets</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </div>
-                                @endif
+                                </div>
+                            
                         </div>
                     </div>
                 </div>
