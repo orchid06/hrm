@@ -844,15 +844,15 @@ body {
   }
 }
 
-.i-card-md .card-header .card-title {
+.card-title {
   font-size: 20px;
   color: var(--text-primary);
   font-weight: 500;
 }
 
 @media (max-width: 575.98px) {
-  .i-card-md .card-header .card-title {
-    font-size: 20px;
+ .card-title {
+    font-size: 18px;
   }
 }
 
@@ -5103,9 +5103,10 @@ aside.show-side-bar {
   overflow-y: auto;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .social-preview-user {
-    height: auto;
+    max-height: unset;
+    overflow-y: unset;
   }
 }
 
@@ -6315,7 +6316,7 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   flex-wrap: wrap;
   gap: 5px;
   width: 100%;
-  padding: 12px;
+  padding: 0px;
 }
 .file-list > li {
   position: relative;
