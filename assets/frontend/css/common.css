@@ -674,7 +674,7 @@
   background: var(--white);
   color: var(--text-primary);
   
-  padding: 30px 30px 30px 65px;
+  padding: 20px 20px 20px 65px;
   position: relative;
   transition: 0.4s ease-in;
   line-height: 1.6;
