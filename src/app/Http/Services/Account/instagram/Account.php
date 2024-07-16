@@ -140,17 +140,9 @@ class Account
 
 
     public function send(SocialPost $post) :array{
-
         $account           = $post->account;
-
-        if($account->is_official  == ConnectionType::OFFICIAL->value){
-           $response =  $this->official($post);
-        }
-        else{
-            $response =  $this->unofficial($post);
-        }
-        return $response;
-   
+        if($account->is_official  == ConnectionType::OFFICIAL->value) return $this->official($post);
+        return  $this->unofficial($post);
    }
 
 

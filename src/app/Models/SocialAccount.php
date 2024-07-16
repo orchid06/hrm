@@ -93,7 +93,4 @@ class SocialAccount extends Model
     }
 
     
-
-
-
 }

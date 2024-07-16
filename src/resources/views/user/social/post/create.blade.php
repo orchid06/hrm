@@ -81,6 +81,14 @@
 
                                                             <select  name="account_id[]" multiple="multiple" class="w-100 profile-select">
                                                                 @foreach ($accounts as $account )
+
+                                                                    @if($account->platform 
+                                                                            && $account->platform->slug == 'facebook' 
+                                                                            && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                            @continue 
+                                                                    @endif
+
                                                                     @php
                                                                         $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                         ?  @$account->account_information->avatar 
@@ -116,6 +124,13 @@
                                                             
                                                             <select  name="account_id[]" multiple="multiple" class="w-100 profile-select">
                                                                 @foreach ($platform->accounts as $account )
+
+                                                                    @if($platform 
+                                                                            && $platform->slug == 'facebook' 
+                                                                            && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                            @continue 
+                                                                    @endif
                                                                     @php
                                                                         $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                         ?  @$account->account_information->avatar 
@@ -664,6 +679,7 @@
                                 </div>
 
                                     @foreach ($platforms as  $platform)
+                                    
                                             <div class="tab-pane fade" id="tab-preview-{{$platform->slug}}" role="tabpanel">
                                                 <div class="social-preview-body facebook">
                                                     <div class="social-auth">

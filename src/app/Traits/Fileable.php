@@ -30,6 +30,7 @@ trait Fileable
         $imagePath     = $location . '/' .$name ;
         $status        = true;
         $disk          = site_settings('storage');
+        $inputFile     = $file;
     
         //remove file if exists
         if($removeFile) $this->unlink($location,$removeFile) ;    
@@ -49,6 +50,7 @@ trait Fileable
                         break;
                 
                     default:
+             
                         $file->move($location, $name);
                         break;
                 }
@@ -64,12 +66,20 @@ trait Fileable
                 break;
         }
 
+        $size = 20000;
+        try {
+            $size = @$inputFile->getSize();
+        } catch (\Throwable $th) {
+
+        }
+
     
+
         return [
             'status'     => $status,
             'name'       => $name,
             'disk'       => site_settings('storage') ,
-            "size"       => $this->formatSize( $file->getSize()),
+            "size"       => $this->formatSize( $size ),
             "extension"  => strtolower($file->getClientOriginalExtension())
         ];
 

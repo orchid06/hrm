@@ -1326,3 +1326,55 @@ use Illuminate\Database\Eloquent\Collection;
    }
    
 
+
+   if( !function_exists('isValidVideoUrl') ){
+      function isValidVideoUrl(string $path) : bool
+      {   
+          try {
+              
+              $streamOpts = [
+                  "ssl" => [
+                      "verify_peer"=>false,
+                      "verify_peer_name"=>false,
+                  ]
+              ]; 
+  
+              $headers = get_headers( $path , 1, stream_context_create($streamOpts));
+              if(!$headers) return false;
+  
+              $videoTypes = [
+                  "video/mp4",
+                  'video/quicktime' => 'mov'
+              ];
+  
+              $fileType = NULL;
+  
+              if( isset( $headers['Content-Type'] ) ) $fileType = $headers['Content-Type'];
+  
+              if( isset( $headers['content-type'] ) ) $fileType = $headers['content-type'];
+  
+              if( in_array( $fileType, $videoTypes ) )    return true;
+          } catch (\Exception $e) { }
+  
+          return false;
+      }
+  }
+
+
+  if( !function_exists('check_image') ){
+   function check_image($path)
+   {   
+
+       if(!file_exists($path))  return true;
+       $imgSize = getimagesize($path);
+
+       $imageType = null;
+       if(!empty($imgSize)) $imageType = $imgSize[2];
+
+       if(in_array($imageType , array(1 , 2 , 3 , 6)))   return true;
+
+       return false;
+   }
+}
+  
+
