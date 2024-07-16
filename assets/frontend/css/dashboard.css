@@ -5099,7 +5099,8 @@ aside.show-side-bar {
 
 .social-preview-user {
   height: auto;
-  max-height: 725px;
+  max-height: 800px;
+  min-height: 800px;
   overflow-y: auto;
 }
 

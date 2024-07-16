@@ -65,9 +65,9 @@
 @endsection
 
 @push('style-include')
-     <link href="{{asset('assets/global/css/colorpicker.min.css')}}" rel="stylesheet">
+     <link href="{{asset('assets/global/css/bootstrap-colorpicker.css')}}" rel="stylesheet">
 @endpush
 @push('script-include')
-    <script src="{{asset('assets/global/js/colorpicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/bootstrap-colorpicker.min.js')}}"></script>
     @include('admin.setting.partials.script')
 @endpush
