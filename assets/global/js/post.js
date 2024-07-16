@@ -9,18 +9,36 @@
         uploadedFiles.push(file);
 
         reader.onload = function (e) {
-          preview.append(
-            `<li>
-            <span class="remove-list" data-name="${file.name}">
-              <i class="bi bi-x-circle"></i>
-            </span>
-            <img src="${e.target.result}" alt="${file.name}" />
-          </li>`
-          );
+            if (file.type.startsWith('image/')) {
+                // Handle image files
+                preview.append(
+                    `<li>
+                        <span class="remove-list" data-name="${file.name}">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                        <img src="${e.target.result}" alt="${file.name}" />
+                    </li>`
+                );
+            } else if (file.type.startsWith('video/')) {
+             
+              preview.append(
+                `<li>
+                      <span class="remove-list" data-name="${file.name}">
+                        <i class="bi bi-x-circle"></i>
+                    </span>
+                    <video width="150" controls>
+                      <source src="${URL.createObjectURL(file)}">
+                    </video>
+                </li>`
+              );
+
+            }
         };
+
         reader.readAsDataURL(file);
-      });
-  }
+    });
+}
+
 
   var uploadedFiles = [];
   var fileInput ;
@@ -54,11 +72,11 @@
 
       uploadedFiles = newFileList.files;
       fileInput.files = newFileList.files;
-      handelFilePreview(uploadedFiles);
+      handelFilePreview(uploadedFiles  ,true);
   })
 
 
-  function handelFilePreview(files) {
+  function handelFilePreview(files , remove = false) {
     var captionImgs = document.querySelectorAll(".caption-imgs");
 
     captionImgs.forEach((imageWrap) => {
@@ -77,20 +95,90 @@
         if (count < 3) {
           const reader = new FileReader();
           reader.addEventListener("load", (e) => {
-            imageWrap.innerHTML += `
-               <div class="caption-img">
-                 <img src="${e.target.result}" alt="${file.name}" />
-                   ${
-                     count === 3 && files.length > 3
-                       ? `
-                         <div class="overlay">
-                           <p>+${files.length - 3}</p>
-                         </div>
-                         `
-                       : ""
-                   }
-               </div>
-             `;
+            if(remove){
+                 if(file.name.endsWith('.mp4')){
+
+                  imageWrap.innerHTML += `
+                  <div class="caption-img">
+                        <video width="100%" controls>
+                          <source src="${URL.createObjectURL(file)}">
+                        </video>
+    
+      
+                      ${
+                        count === 3 && files.length > 3
+                          ? `
+                            <div class="overlay">
+                              <p>+${files.length - 3}</p>
+                            </div>
+                            `
+                          : ""
+                      }
+                  </div>
+                `;
+
+                 }else{
+
+                      imageWrap.innerHTML += `
+                      <div class="caption-img">
+                        <img src="${e.target.result}" alt="${file.name}" />
+                          ${
+                            count === 3 && files.length > 3
+                              ? `
+                                <div class="overlay">
+                                  <p>+${files.length - 3}</p>
+                                </div>
+                                `
+                              : ""
+                          }
+                      </div>
+                    `;
+
+                 }
+                  
+            }else{
+            if (file.type.startsWith('image/') ) {
+
+              imageWrap.innerHTML += `
+              <div class="caption-img">
+                <img src="${e.target.result}" alt="${file.name}" />
+                  ${
+                    count === 3 && files.length > 3
+                      ? `
+                        <div class="overlay">
+                          <p>+${files.length - 3}</p>
+                        </div>
+                        `
+                      : ""
+                  }
+              </div>
+            `;
+
+            }
+            else if (file.type.startsWith('video/')) {
+
+              imageWrap.innerHTML += `
+              <div class="caption-img">
+                    <video width="100%" controls>
+                      <source src="${URL.createObjectURL(file)}">
+                    </video>
+
+  
+                  ${
+                    count === 3 && files.length > 3
+                      ? `
+                        <div class="overlay">
+                          <p>+${files.length - 3}</p>
+                        </div>
+                        `
+                      : ""
+                  }
+              </div>
+            `;
+
+            }
+          }
+           
           });
           reader.readAsDataURL(file);
           count++;

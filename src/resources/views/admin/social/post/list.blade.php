@@ -89,7 +89,7 @@
                             <th scope="col">{{translate('User')}}</th>
                             <th scope="col">{{translate('Admin')}}</th>
                             <th scope="col">{{translate('Schedule Time')}}</th>
-                            <th scope="col">{{translate('Send time')}}</th>
+                            <th scope="col">{{translate('Created time')}}</th>
                             <th scope="col">{{translate('Status')}}</th>
                             <th scope="col">{{translate('Post Type')}}</th>
                             <th scope="col">{{translate('Options')}}</th>
@@ -145,7 +145,8 @@
                                 <td data-label='{{translate("Schedule time")}}'>
                                     {{@$post->schedule_time ? get_date_time($post->schedule_time ) : translate('N/A')}}
                                 </td>
-                                <td data-label='{{translate("Send time")}}'>
+
+                                <td data-label='{{translate("Created time")}}'>
                                     {{@$post->updated_at ? diff_for_humans($post->updated_at ) : translate('N/A')}}
                                 </td>
 
@@ -165,6 +166,13 @@
 
                                 <td data-label='{{translate("Action")}}'>
                                     <div class="table-action">
+
+                                        @if($post->status !=  App\Enums\PostStatus::SUCCESS->value)
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Post now")}}"  href="
+                                                {{route('admin.social.post.send',['uid' => $post->uid])}}" class="fs-15 icon-btn info">
+                                                   <i class="las la-paper-plane"></i>
+                                                </a>
+                                        @endif
 
                                         <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                         </a>

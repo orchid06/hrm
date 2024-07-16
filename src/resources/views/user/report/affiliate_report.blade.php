@@ -47,6 +47,12 @@
                                 <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                             </div>
 
+                           
+
+                            <div class="form-inner">
+                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
+                            </div>
+
                             @if($user->affilateUser)
                                 <div class="form-inner">
                                     <select name="referral" id="referral" class="referral">
@@ -61,10 +67,6 @@
                                     </select>
                                 </div>
                             @endif
-
-                            <div class="form-inner">
-                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
-                            </div>
 
 
                             <div class="d-flex gap-2">
@@ -217,6 +219,9 @@
         "use strict";
 
         $(".type").select2({
+
+        });
+        $(".referral").select2({
 
         });
 

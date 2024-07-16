@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Enums\FileKey;
 use App\Enums\PlanDuration;
 use App\Enums\PostStatus;
 use App\Enums\PostType;
@@ -29,14 +30,15 @@ trait PostManager
      */
     protected function savePost(array $request , ? Admin $admin =  null  ,? User $user = null ) :array{
 
-        $accounts     = SocialAccount::whereIn('id',Arr::get($request,"account_id", [])) ->get();
+        $accounts     = SocialAccount::with(['platform'])->whereIn('id',Arr::get($request,"account_id", [])) ->get();
         $scheduleTime = Arr::get($request,"schedule_date", null);
         $files        = Arr::get($request,"files", []);
+        $postTypes    = Arr::get($request,"post_type", []);
 
-        DB::transaction(function() use ($request ,$admin ,$user ,$accounts ,$scheduleTime ,$files ) {
+        DB::transaction(function() use ($request ,$admin ,$user ,$accounts ,$scheduleTime ,$files ,$postTypes ) {
             
             foreach($accounts as $account){
-            
+        
                 $post                     = new SocialPost();
                 $post->account_id         = $account->id;
                 $post->platform_id        = $account->platform_id;
@@ -48,27 +50,23 @@ trait PostManager
                 $post->is_scheduled       = $scheduleTime ? StatusEnum::true->status() : StatusEnum::false->status() ;
                 $post->schedule_time      = $scheduleTime;
                 $post->status             = strval($scheduleTime ? PostStatus::value('SCHEDULE',true): PostStatus::value('PENDING',true));
-                $post->post_type          = strval(PostType::value("FEED",true));
+                $post->post_type          = Arr::get($postTypes ,@$account->platform->slug ,strval(PostType::value("FEED",true)));
                 $post->save();
 
-                foreach($files as $file){
-                    
-                    $response = $this->storeFile(
-                        file        : $file, 
-                        location    : config("settings")['file_path']['post']['path'],
-                    );
-                    if(isset($response['status'])){
-                        $image = new File([
-                            'name'      => Arr::get($response, 'name', '#'),
-                            'disk'      => Arr::get($response, 'disk', 'local'),
-                            'type'      => 'post_file',
-                            'size'      => Arr::get($response, 'size', ''),
-                            'extension' => Arr::get($response, 'extension', ''),
-                        ]);
 
-                        $post->file()->save($image);
+                // try {
+                    foreach($files as $file){
+                        $this->saveFile($post ,$this->storeFile(
+                            file        : $file, 
+                            location    : config("settings")['file_path']['post']['path'],
+                         )
+                         , FileKey::POST_FILE->value);
+                
                     }
-                }
+                // } catch (\Throwable $th) {
+               
+                // }
+             
             
             }
 
@@ -119,7 +117,9 @@ trait PostManager
         $post->platform_response  = $response;
         $post->save();
 
-        if(!$is_success && $post->user && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
+        if(!$is_success 
+            && $post->user 
+            && (int)$post->user->runningSubscription->remaining_post_balance != PlanDuration::value('UNLIMITED')){
             $user = $post->user;
             $this->generateCreditLog(
                 user        : $post->user,

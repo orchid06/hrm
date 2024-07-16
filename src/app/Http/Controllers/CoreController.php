@@ -545,9 +545,8 @@ class CoreController extends Controller
     public function redirectAccount(Request $request, string $guard ,string $medium , string $type = null) :mixed {
 
         try {
-            if(!auth()->guard($guard)->check()) {
-                abort(403, "Unauthenticated user request");
-            }
+            if(!auth()->guard($guard)->check())  abort(403, "Unauthenticated user request");
+            
             $platform = $this->setConfig($medium);
             session()->put("guard", $guard);
             return Socialite::driver($medium)->redirect();
@@ -555,7 +554,6 @@ class CoreController extends Controller
 
             $message = strip_tags($ex->getMessage());
             $message = preg_replace('/[^A-Za-z0-9\-]/', ' ', $message);
-            
             return back()->with('error',$message);
         }
 
@@ -575,9 +573,7 @@ class CoreController extends Controller
         $credential["client_secret"]  = @$platform->configuration->client_secret;
         $credential["client_id"]      = @$platform->configuration->client_id;
         $credential["redirect"]       = url('account/'.$medium.'/callback');
-
         Config::set('services.'.$medium, $credential);
-
         return $platform;
 
     }
