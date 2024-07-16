@@ -119,37 +119,27 @@ class Account
             $twitter = new BirdElephant($config);
             
             $tweet = '';
-            if ($post->content) {
-                $tweet  .= $post->content;
-            }
-            if ($post->link) {
-                $tweet  .= $post->link;
-            }
+            if ($post->content) $tweet  .= $post->content;
+            if ($post->link)  $tweet  .= $post->link;
 
             $mediaIds = [];
 
             if($post->file && $post->file->count() > 0){
-
                 foreach ($post->file as $file) {
-                    $image      = $twitter->tweets()->upload(imageURL($file,"post",true));
-                    if(isset($image->media_id_string)){
-
-                        $mediaIds[] = $image->media_id_string;
-
-                        $media = (new \Coderjerk\BirdElephant\Compose\Media)->mediaIds(
-                            $mediaIds
-                        );
-
-                    }
-              
+                   $fileURL = imageURL($file,"post",true);
+                   $image      = $twitter->tweets()->upload($fileURL);
+                   if(isset($image->media_id_string)) $mediaIds[] = $image->media_id_string;
                 }
             }
 
             if(count($mediaIds) > 0){
-                $tweet    = (new Tweet)->text( $tweet)->media($media);
+                $media = (new \Coderjerk\BirdElephant\Compose\Media)->mediaIds(
+                    $mediaIds
+                );
+                $tweet    = (new Tweet)->text($tweet)->media($media);
             }
             else{
-                $tweet    = (new Tweet)->text( $tweet);
+                $tweet    = (new Tweet)->text($tweet);
             }
 
 

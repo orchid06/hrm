@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContentRequest;
 use App\Http\Services\ContentService;
 use App\Models\Admin\Category;
+use App\Models\AiTemplate;
 use App\Models\Content;
 use Illuminate\Http\Request;
 use App\Traits\ModelAction;
@@ -52,7 +53,8 @@ class CannedContentController extends Controller
                                 ->latest()
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all()),
-            'categories'  => Category::template()->doesntHave('parent')->get()
+            'categories'  => Category::template()->doesntHave('parent')->get(),
+            'templates'   => AiTemplate::active()->get(),
 
                         
         ]);

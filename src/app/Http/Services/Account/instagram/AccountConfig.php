@@ -117,10 +117,13 @@ class AccountConfig
 				'form_params' => $this->signData( $sendData )
 			] )->getBody();
 
+			@dd($response);
+
 			$response = json_decode( $response, true );
 		}
 		catch (\Exception $e )
 		{
+			dd($e->getMessage());
 			$response = [];
 		}
 

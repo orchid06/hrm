@@ -7,9 +7,10 @@
     $accountTypes = App\Enums\AccountType::toArray();
 
     if($platform->slug != 'facebook' ) Arr::forget($accountTypes,['PAGE','GROUP']);
-
+    $enumClassPrefix = ucfirst($platform->slug);
+    $enumClass  = "App\\Enums\\{$enumClassPrefix}Connection";
     $connectionTypes = App\Enums\ConnectionType::toArray();
-    $platforms = Arr::get(config('settings'),'platforms' ,[]);
+    if (class_exists($enumClass))  $connectionTypes = $enumClass::toArray();     $platforms = Arr::get(config('settings'),'platforms' ,[]);
     $platformConfig = Arr::get($platforms,$platform->slug ,null);
 
     if(isset($platformConfig['unofficial'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);

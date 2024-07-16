@@ -69,12 +69,12 @@ class SocialPostController extends Controller
 
             'meta_data'       => $this->metaData(['title'=> translate("Social Post List")]),
             'posts'           => SocialPost::with(['user','account','account.platform','account.platform.file'])
-                                    ->where("user_id",$this->user->id)
-                                    ->filter(["status",'account:account_id'])
-                                    ->date()
-                                    ->latest()
-                                    ->paginate(paginateNumber())
-                                    ->appends(request()->all()),
+                                        ->where("user_id",$this->user->id)
+                                        ->filter(["status",'account:account_id'])
+                                        ->date()
+                                        ->latest()
+                                        ->paginate(paginateNumber())
+                                        ->appends(request()->all()),
 
             'accounts'        =>  SocialAccount::where("user_id",$this->user->id)->get()
 
@@ -127,6 +127,7 @@ class SocialPostController extends Controller
                                        ->doesntHave('parent')
                                        ->whereIn('id',$accessCategories)
                                        ->get(),
+            'templates'  =>     $this->templates
                                        
 
         ]);
@@ -175,9 +176,9 @@ class SocialPostController extends Controller
     public function show(string $uid) :View{
 
         $post  = SocialPost::with(['file','user','admin','account','account.platform','account.platform.file'])
-                ->where("uid",$uid)
-                ->where('user_id',$this->user->id)
-                ->firstOrfail();
+                                        ->where("uid",$uid)
+                                        ->where('user_id',$this->user->id)
+                                        ->firstOrfail();
         return view('user.social.post.show',[
             'meta_data'       => $this->metaData(['title'=> translate("Show Post")]),
             'post'            => $post,
@@ -190,9 +191,9 @@ class SocialPostController extends Controller
     public function destroy(string $id) :RedirectResponse {
 
         $post  = SocialPost::with(['file','user','account','account.platform','account.platform.file'])
-                    ->where('user_id',$this->user->id)
-                    ->where("id",$id)
-                    ->firstOrfail();
+                                                ->where('user_id',$this->user->id)
+                                                ->where("id",$id)
+                                                ->firstOrfail();
 
         foreach($post->file as $file){
             $this->unlink(

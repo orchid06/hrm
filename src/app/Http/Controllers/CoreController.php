@@ -455,25 +455,20 @@ class CoreController extends Controller
         $templates          =    AiTemplate::where("category_id", @$category->id)
                                     ->when($request->input('sub_category_id') , function ($query) use ($request ,$category ){
                                         $subCategory     = Category::where("parent_id", $category->id)
-                                                                ->where('id',$request->input('sub_category_id'))
-                                                                ->first();
+                                                                        ->where('id',$request->input('sub_category_id'))
+                                                                        ->first();
                                         $query->where('sub_category_id', @$subCategory->id);
                                     })->when($flag && count($templateAccess) > 0 , function ($query) use ($request , $templateAccess){
                                         $query->whereIn('id', $templateAccess);
                                         
                                     })->active()->get();
 
-        $options    = "<option value=''> Select Template </option>";
-   
-        if($templates ->count() > 0){
-            foreach ($templates as $template) {
-                $options .= '<option value="' . $template->id . '">' . $template->name . '</option>';
-            }
-        }
         
         return [
             'status'     => true,
-            'html'       => $options,
+            'html'       => view("partials.ai_template",[
+                            'templates' => @$templates
+                          ])->render(),
             'templates'  => $templates->pluck('name','id')->toArray(),
         ];
 

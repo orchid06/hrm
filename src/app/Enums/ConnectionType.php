@@ -9,9 +9,4 @@ enum ConnectionType: int
     case UNOFFICIAL              = 0;
     case OFFICIAL                = 1;
 
-
-
-
-    
-
 }

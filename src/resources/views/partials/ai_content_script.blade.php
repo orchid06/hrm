@@ -116,7 +116,7 @@
                 success: function(response){
 
                     if(response.status){
-                        $('.selectTemplate').html(response.html)
+                        $('.template-section').html(response.html)
                     }
                     else{
                         toastr(response.message,'danger') 
@@ -153,11 +153,15 @@
         }
 
 
-        $(document).on('change','.selectTemplate',function(e){
+        $(document).on('click','.ai-template-item',function(e){
 
-            var id  =  $(this).val()
+            var id  =  $(this).attr('data-id')
 
             if(id){
+
+                $('#templateId').val(id)
+                $('.ai-template-item').removeClass('active');
+                $(this).addClass('active')
                 var url = '{{ route("template.config", ["id" => ":id"]) }}';
                 url = url.replace(':id', id).replace(':html', true);
                 $.ajax({

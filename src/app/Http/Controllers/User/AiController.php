@@ -63,7 +63,9 @@ class AiController extends Controller
             'categories'  => Category::template()
                                         ->doesntHave('parent')
                                         ->whereIn('id',$accessCategories)
-                                        ->get()
+                                        ->get(),
+
+            'templates'  =>     $this->templates
 
         ]);
     }

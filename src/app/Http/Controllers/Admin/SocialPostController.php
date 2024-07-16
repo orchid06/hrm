@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SocialPostRequest;
 use App\Models\Admin\Category;
+use App\Models\AiTemplate;
 use App\Models\Content;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
@@ -197,7 +198,9 @@ class SocialPostController extends Controller
             'accounts'        => $accounts,
             'contents'        => Content::whereNull("user_id")->get(),
             'categories'      => Category::template()->doesntHave('parent')->get(),
-            'platforms'       => $platforms
+            'platforms'       => $platforms,
+            'templates'       => AiTemplate::active()->get(),
+
 
         ]);
     }
