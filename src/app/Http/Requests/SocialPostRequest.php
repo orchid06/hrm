@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PostType;
 use App\Http\Services\Account\facebook\Account;
 use App\Models\SocialAccount;
 use App\Rules\General\FileExtentionCheckRule;
@@ -70,8 +71,10 @@ class SocialPostRequest extends FormRequest
                 'min:1',
                 new FileExtentionCheckRule(json_decode(site_settings('mime_types'), true))
             ],
-            'files.*' => ['nullable','image'],
-            'schedule_date' => ['nullable','date','after:now'],
+            'files.*' => ['nullable'],
+            'schedule_date'   => ['nullable','date','after:now'],
+            'post_type'       => ['required','array'],
+            'post_type.*'     => ['required',Rule::in(PostType::toArray())],
 
         ];
 
@@ -90,6 +93,9 @@ class SocialPostRequest extends FormRequest
             "files.*.required"      => 'Please input a link or text or file before posting',
             "link.required"         => 'Please input a link or text or file before posting',
             "text.required"         => 'Please input a link or text or file before posting',
+            "post_type.required"    => 'Please select where to post option',
+            "post_type.*.required"  => 'Please select where to post option',
+            "post_type.*.in"         => 'Please select a valid where to post option',
         ];
     }
 

@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     @php
-                    $lists  =  [
+                            $lists  =  [
                                     [
                                                     "title"  =>  translate('Platform'),
                                                     "value"  =>  @$post->account->platform->name ?? "N/A",
@@ -65,20 +65,34 @@
                 </div>
                 <div class="card-body">
                     <ul class="custom-info-list list-group-flush">
-
                         <li> <span>{{ translate('Content') }} :</span>   <span> {{$post->content?? 'N/A'}} </span></li>
                         <li> <span>{{ translate('Link') }} :</span>   <span> {{$post->link?? 'N/A'}} </span></li>
-             
+
                         @if($post->file->count() > 0)
-                            <li>  <span>{{ translate('Images')}} : </span>
+                     
+                            <li>  <span>{{ translate('Photos/Videos')}} : </span>
 
                                     <div class="d-flex flex-row gap-2 flex-wrap">
                                         @foreach ($post->file as $file)
     
                                            <div class="custom-profile">
-                                                <a href="{{imageURL($file,"post",true)}}" class="image-v-preview">
-                                                    <img src="{{imageURL($file,"post",true)}}"  alt="{{ @$file->name }}">
-                                                </a>
+
+                                                @php
+                                                    
+                                                    $fileURL = (imageURL($file,"post",true));
+        
+                                                @endphp
+
+                                                 @if(!isValidVideoUrl($fileURL))
+                                            
+                                                    <a href="{{$fileURL}}" class="image-v-preview">
+                                                        <img src="{{$fileURL}}"  alt="{{ @$file->name }}">
+                                                    </a>
+                                                 @else
+                                                        <video width="150" controls>
+                                                            <source src="{{$fileURL}}">
+                                                        </video>
+                                                 @endif
                                            </div>
                                                         
                                         @endforeach
@@ -86,8 +100,6 @@
                             </li>
                         @endif
                     </ul>
-
-
                 </div>
             </div>
         </div>

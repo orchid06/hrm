@@ -26,6 +26,7 @@ class SocialPostController extends Controller
 
     public function __construct(){
 
+
         $this->middleware(['permissions:view_post'])->only(['list']);
         $this->middleware(['permissions:create_post'])->only('create','reconnect','store','send');
         $this->middleware(['permissions:update_post'])->only('updateStatus','bulk');
@@ -221,14 +222,14 @@ class SocialPostController extends Controller
     public function send(string $uid) :RedirectResponse{
    
         $post = SocialPost::where('uid',$uid)->with(['file'])
-                              ->whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])
+                              ->where('status','!=',(string)PostStatus::SUCCESS->value)
                               ->firstOrFail();
 
         $this->publishPost($post);
 
-         @dd($post);
+        return back()->with('success', 'The resend operation was successful. Please review the response status.');
 
-        // return back()->with('success',Arr::get($response,'message'));
+
     }
 
 

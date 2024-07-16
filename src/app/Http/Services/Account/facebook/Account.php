@@ -6,7 +6,9 @@ use App\Traits\AccountManager;
 use App\Enums\AccountType;
 use App\Enums\ConnectionType;
 use App\Enums\PostStatus;
+use App\Enums\PostType;
 use App\Enums\StatusEnum;
+use App\Models\Core\File;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
 use App\Models\SocialPost;
@@ -190,11 +192,18 @@ class Account
 
 
 
+
+    /**
+     * Summary of send
+     * @param \App\Models\SocialPost $post
+     * @return array
+     */
     public function send(SocialPost $post) :array{
 
          try {
 
             $account           = $post->account;
+
             $accountConnection = $this->accountDetails($post->account);
 
 
@@ -228,38 +237,39 @@ class Account
                     'api'          => $api ,
                     'access_token' => $token,
                 );
-                
-                if ($post->content)     $params['message'] = $post->content;
-                if ($post->link)    $params['link']    = $post->link;
-
-                if($post->file && $post->file->count() > 0){
-
-                    foreach ($post->file as $file) {
-
-                        $uploadParams = [
-                            'access_token'  => $token,
-                            'url'           => imageURL($file,"post",true),
-                            'published'     => false,
-                        ];
         
-                        $uploadResponse = Http::post($baseApi . $apiVersion . "/me/photos", $uploadParams);
-                        $uploadData     = $uploadResponse->json();
 
-                        if (isset($uploadData['id']))  $params['attached_media'][] = '{"media_fbid":"'.$uploadData['id'].'"}';
-              
+                #POST IN FEED
+                if($post->post_type == PostType::FEED->value){
+
+                    $gwResponse = $this->postFeed($post,$params,$token,$baseApi , $apiVersion);
+                    if(isset($gwResponse['error'])) {
+                        $status  = false;
+                        $message = $gwResponse['error']['message'];
                     }
+
+                    $postId       = Arr::get($gwResponse,'id');
+
+                    $url =   $postId  ?  "https://fb.com/".$postId : null;
+
                 }
 
-                $response     = Http::post($params['api'], $params);
-                $gwResponse   = $response->json();
-                $postId       = Arr::get($gwResponse,'id',null);
+                #POST IN REELS
+                if($post->post_type == PostType::REELS->value){
 
+                    $gwResponse = $this->postReels($post,$token,$baseApi , $apiVersion);
 
-                if(isset($gwResponse['error'])) {
-                    $status  = false;
-                    $message = $gwResponse['error']['message'];
+                    if(!$gwResponse['status']) {
+                        $status  = false;
+                        $message = @$gwResponse['message'];
+                    }
+        
+                    $postId       = Arr::get($gwResponse,'post_id');
+
+                    $url =   $postId  ?  "https://www.facebook.com/reel/".$postId : null;
+
                 }
-                $url =   $postId  ?  "https://fb.com/".$postId : null;
+
 
             }
 
@@ -276,6 +286,191 @@ class Account
         ];
 
     }
+
+
+
+
+
+
+    
+    /**
+     * Summary of postReels
+     * @param \App\Models\SocialPost $post
+     * @param array $params
+     * @param string $token
+     * @param string $baseApi
+     * @param string|int|float $apiVersion
+     * @return mixed
+     */
+    public function postReels(SocialPost $post ,string $token ,string $baseApi ,string|int|float $apiVersion) : array {
+
+
+        $account           = $post->account;
+
+        if($post->file && $post->file->count() > 0){
+
+
+            foreach ($post->file as $file) {
+
+                $fileURL = imageURL($file,"post",true);
+
+            
+
+                if(isValidVideoUrl($fileURL)){
+                   
+
+                    $sessionParams = [
+                        "upload_phase" => "start",
+                        "access_token" => $token
+                    ];
+                    $sessionResponse     = Http::post($baseApi.$apiVersion."/".$account->account_id."/video_reels", $sessionParams);
+                    $sessionResponse     = $sessionResponse->json();
+
+
+                    if(!isset($sessionResponse['video_id']) ){
+                        return [
+                            "status"  => false,
+                            "message" => translate('Cannot create an upload session for uploading reels video to the Facebook page')
+                        ];
+                    }
+
+
+                    $uploadResponse = Http::withHeaders([
+                        'Authorization' => 'OAuth ' . $token,
+                        'file_url'      => $fileURL
+                    ])->post(@$sessionResponse['upload_url']);
+
+                    $uploadResponse     = $uploadResponse->json();
+
+
+                    if(isset($uploadResponse['success'])){
+
+                        try {
+
+                            $params = [
+                                "video_id" => $sessionResponse['video_id'],
+                                "upload_phase" => "finish",
+                                "video_state" => "PUBLISHED",
+                                "description" => $post->content,
+                                "access_token" => $token
+                            ];
+
+                            $response     = Http::post($baseApi.$apiVersion."/".$account->account_id."/video_reels", $params);
+                            @dd(    $response );
+                            $response     = $sessionResponse->json();
+
+
+                            if($response['success']){
+                                return [
+                                    "status" => true,
+                                    "post_id" => $sessionResponse['video_id']
+                                ];
+                            }
+
+                            return [
+                                "status"  => false,
+                                "message" => @$response['error']['message'] ?? translate("Unable to upload!! API error")
+                            ];
+                        
+
+                    
+                        } catch (\Exception $e) {
+                            return [
+                                "status" => false,
+                                "message" => $e->getMessage(),
+                            ];
+                        }
+                  
+                    }
+
+                    return [
+                        "status"  => false,
+                        "message" => @$uploadResponse['debug_info']['message'] ?? translate("Unable to upload!! API error")
+                    ];
+
+                   
+                }
+                
+                return [
+                    "status"  => false,
+                    "message" => translate("Facebook reels doesnot support uploading images")
+                ];
+
+            }
+        }
+
+ 
+        return [
+            "status"  => false,
+            "message" => translate("No file found!! Facebook REELS doesnot support just upload links or texgt")
+        ];
+
+
+
+    }
+
+
+
+
+    /**
+     * Summary of postFeed
+     * @param \App\Models\SocialPost $post
+     * @param array $params
+     * @param string $token
+     * @param string $baseApi
+     * @param string|int|float $apiVersion
+     * @return mixed
+     */
+    public function postFeed(SocialPost $post ,array $params, string $token ,string $baseApi ,string|int|float $apiVersion){
+
+
+        if ($post->content)     $params['message'] = $post->content;
+        if ($post->link)    $params['link']    = $post->link;
+
+        if($post->file && $post->file->count() > 0){
+            foreach ($post->file as $file) {
+                $response = $this->uploadMedia($file, $token ,  $baseApi , $apiVersion);
+                if (isset($response['id']))  $params['attached_media'][] = '{"media_fbid":"'.$response['id'].'"}';
+            }
+        }
+
+        $response     = Http::post($params['api'], $params);
+        return $response->json();
+
+    }
+
+    /**
+     * Summary of uploadMedia
+     * @param \App\Models\Core\File $file
+     * @param string $token
+     * @param string $baseApi
+     * @param string|int|float $apiVersion
+     * @return mixed
+     */
+    public function uploadMedia(File $file , string $token,string $baseApi ,string|int|float $apiVersion): mixed {
+
+        $fileURL = imageURL($file,"post",true);
+        $apiString =  "/me/videos";
+        $uploadParams = [
+            'file_url' =>  $fileURL,
+            'published' => false,
+            'access_token'  => $token
+        ];
+
+        if(check_image($fileURL)){
+            $apiString =  "/me/photos";
+            $uploadParams = [
+                'access_token'  => $token,
+                'url'           => $fileURL,
+                'published'     => false,
+            ];
+        }
+       
+        $uploadResponse = Http::post($baseApi . $apiVersion . $apiString, $uploadParams);
+        return   $uploadResponse->json();
+
+    }
+
 
 
 }

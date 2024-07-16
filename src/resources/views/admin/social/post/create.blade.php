@@ -68,6 +68,14 @@
                                                 <div class="collapse mt-2" id="selectProfile">
                                                     <select  name="account_id[]"    multiple="multiple" class="w-100 profile-select">
                                                         @foreach ($accounts as $account )
+
+                                                            @if($account->platform 
+                                                                 && $account->platform->slug == 'facebook' 
+                                                                 && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                    @continue 
+                                                            @endif
+
                                                             @php
                                                                 $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                 ?  @$account->account_information->avatar 
@@ -83,9 +91,9 @@
                                                 </div>
                                             </div>
 
-
-                                            
                                             @foreach ($platforms as  $platform)
+
+
                                                 <div class="tab-pane fade" id="tab-{{$platform->slug}}" role="tabpanel">
                                                     <div class="choose-profile-btn w-100" role="button"
                                                             data-bs-toggle="collapse" data-bs-target="#select{{$platform->slug}}Profile"
@@ -104,6 +112,16 @@
                                                         
                                                         <select  name="account_id[]" multiple="multiple" class="w-100 profile-select">
                                                             @foreach ($platform->accounts as $account )
+
+
+                                                                @if($platform 
+                                                                        && $platform->slug == 'facebook' 
+                                                                        && $account->account_type == App\Enums\AccountType::PROFILE->value)
+
+                                                                        @continue 
+                                                                @endif
+                                                                
+                                                    
                                                                 @php
                                                                     $imgUrl = isValidImageUrl(@$account->account_information->avatar) 
                                                                                     ?  @$account->account_information->avatar 
@@ -127,7 +145,7 @@
 
                                                     </div>
                                                 </div>
-                                           @endforeach
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +177,7 @@
 
                                                             <div class="upload-filed">
                                                                 <input id="media-file" multiple type="file"
-                                                                    name="files[]">
+                                                                    name="files[]" accept="image/*, video/*">
                                                                 <label for="media-file">
                                                                     <span class="d-flex align-items-center flex-row gap-2">
                                                                         <span class="upload-drop-file">
@@ -226,7 +244,7 @@
                                                                             </svg>
                                                                         </span>
                                                                         <span>
-                                                                            {{translate('Upload image')}}
+                                                                            {{translate('Photo/Video')}}
                                                                         </span>
                                                                     </span>
                                                                 </label>
@@ -280,7 +298,6 @@
                                             <div class="col-md-6">
                                                 <h4 class="card-title">{{translate('Schedule Post')}}</h4>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -290,6 +307,7 @@
                                             {{translate("Schedule Post")}}
                                             <i class="bi bi-plus-lg ms-2"></i>
                                         </button>
+
                                         <div class="collapse" id="schedule">
                                             <div class="schedule-body mt-1">
                                                 <div class="schedule-content">
@@ -308,7 +326,6 @@
                                             </div>
                                         </div>
 
-                                  
                                         <button type="submit"
                                             class=" mt-3  i-btn btn--primary btn--lg postSubmitButton"
                                             id="postSubmitButton">
@@ -338,7 +355,7 @@
                                     role="tablist">
                                     <li class="nav-item swiper-slide" role="presentation">
                         
-                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-all"
+                                        <a class="nav-link pb-1 active" data-bs-toggle="tab" href="#tab-preview-social-all"
                                             aria-selected="false" role="tab" tabindex="-1">
                                            {{translate('All')}}
                                         </a>
@@ -362,7 +379,8 @@
                         </div>
                         <div class="col-md-12">
                           <div class="tab-content" id="preview-tabContent">
-                                <div class="tab-pane fade show active" id="tab-preview-one" role="tabpanel">
+                            
+                                <div class="tab-pane fade show active" id="tab-preview-social-all" role="tabpanel">
                                     <div class="social-preview-body facebook mb-4">
                                         <div class="social-auth">
                                             <div class="profile-img">
@@ -646,6 +664,33 @@
                                 @foreach ($platforms as  $platform)
 
                                     <div class="tab-pane fade" id="tab-preview-{{$platform->slug}}" role="tabpanel">
+
+                                          @php
+                                             
+                                               $postTypes = App\Enums\PostType::toArray();
+                                               if($platform->slug == 'facebook') $postTypes =  Arr::except( $postTypes,[App\Enums\PostType::STORY->name]);
+                                               if($platform->slug == 'twitter') $postTypes =  Arr::except( $postTypes,[App\Enums\PostType::REELS->name,App\Enums\PostType::STORY->name]);
+
+
+                                          @endphp
+
+
+                                        <div class="form-inner">
+                                            <label for="post_type_{{$platform->slug}}">
+                                                {{translate('Where to post')}}
+                                            </label>
+                                            <select class="form-select" name="post_type[{{$platform->slug}}]"  id="post_type_{{$platform->slug}}">
+                                                @foreach ($postTypes as  $type => $value)
+                                                    <option value="{{$value}}">
+                                                        {{$type}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+
+
                                         <div class="social-preview-body facebook">
                                             <div class="social-auth">
                                                 <div class="profile-img">

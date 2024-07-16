@@ -8,6 +8,7 @@ enum FileKey: string
 
     case AVATAR                = "avatar";
     case FEATURE               = "feature";
+    case POST_FILE             = "post_file";
     
     
 }
