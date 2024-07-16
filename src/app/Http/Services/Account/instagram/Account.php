@@ -5,6 +5,7 @@ namespace App\Http\Services\Account\instagram;
 use App\Enums\ConnectionType;
 use App\Traits\AccountManager;
 use App\Enums\AccountType;
+use App\Enums\PostType;
 use App\Models\MediaPlatform;
 use App\Models\SocialAccount;
 use App\Models\SocialPost;
@@ -162,74 +163,104 @@ class Account
             if($isConnected && $post->file && $post->file->count() > 0){
                 $message       = translate("Text and url not supported in insta feed");
                 
-                if($post->file && $post->file->count() > 0){
-                    $message     = translate("Posted Successfully");
-                    $status      = true;
-                    $fb = new \JanuSoftware\Facebook\Facebook([
-                        'app_id'                => $platform->client_id,
-                        'app_secret'            => $platform->client_secret,
-                        'default_graph_version' => $platform->app_version,
-                    ]);
-
-                    $upload_endpoint = "/".$account->account_id."/media";
-                    $endpoint        = "/".$account->account_id."/media_publish";
-
-            
-                    $media_ids = [];
-
-                    if($post->file->count() > 1){
-
-                        foreach ($post->file as $file) {
-                        
-                            $upload_params = [
-                                'image_url'        => imageURL($file,"post",true),
-                                'caption'          => $post->content??"feed",
-                                'is_carousel_item' => true
-                            ];
-                            $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-                            $media_ids[]     = $upload_response['id'];
-                        }
-        
-                        $upload_params = [
-                            'media_type' => 'CAROUSEL',
-                            'children'   => $media_ids,
-                            'caption'    => $post->content??"feed"
-                        ];
-                    
-                        $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-        
-                        $params = [
-                            'creation_id' => $upload_response['id']
-                        ];
-        
-                        $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
-                        $media_response = $fb->get( "/". $response["id"]."?fields=shortcode",$token)->getDecodedBody();
-            
-                        $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
-
-                    }
-                    else{
-
-                        $file = $post->file->first();
-           
-                        $upload_params = [
-                            'image_url' => imageURL($file,"post",true),
-                            'caption'   => $post->content??"feed"
-                        ];
-                        $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-
-                        $params = [
-                            'creation_id' => $upload_response['id'],
-                        ];
-
-                        $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
-                        $media_response = $fb->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
-                        
-                        $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
 
 
-                    }
+
+
+                 #POST IN FEED
+                if($post->post_type == PostType::FEED->value){
+
+                 
                 }
+
+                #POST IN REELS
+                elseif($post->post_type == PostType::REELS->value){
+
+                
+
+                }
+
+                #POST IN REELS
+                elseif($post->post_type == PostType::STORY->value){
+
+                
+
+                }
+ 
+ 
+
+
+
+
+                
+                // if($post->file && $post->file->count() > 0){
+                //     $message     = translate("Posted Successfully");
+                //     $status      = true;
+                //     $fb = new \JanuSoftware\Facebook\Facebook([
+                //         'app_id'                => $platform->client_id,
+                //         'app_secret'            => $platform->client_secret,
+                //         'default_graph_version' => $platform->app_version,
+                //     ]);
+
+                //     $upload_endpoint = "/".$account->account_id."/media";
+                //     $endpoint        = "/".$account->account_id."/media_publish";
+
+            
+                //     $media_ids = [];
+
+                //     if($post->file->count() > 1){
+
+                //         foreach ($post->file as $file) {
+                        
+                //             $upload_params = [
+                //                 'image_url'        => imageURL($file,"post",true),
+                //                 'caption'          => $post->content??"feed",
+                //                 'is_carousel_item' => true
+                //             ];
+                //             $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+                //             $media_ids[]     = $upload_response['id'];
+                //         }
+        
+                //         $upload_params = [
+                //             'media_type' => 'CAROUSEL',
+                //             'children'   => $media_ids,
+                //             'caption'    => $post->content??"feed"
+                //         ];
+                    
+                //         $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+        
+                //         $params = [
+                //             'creation_id' => $upload_response['id']
+                //         ];
+        
+                //         $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
+                //         $media_response = $fb->get( "/". $response["id"]."?fields=shortcode",$token)->getDecodedBody();
+            
+                //         $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
+
+                //     }
+                //     else{
+
+                //         $file = $post->file->first();
+           
+                //         $upload_params = [
+                //             'image_url' => imageURL($file,"post",true),
+                //             'caption'   => $post->content??"feed"
+                //         ];
+                //         $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+
+                //         $params = [
+                //             'creation_id' => $upload_response['id'],
+                //         ];
+
+                //         $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
+                //         $media_response = $fb->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
+                        
+                //         $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
+
+
+                //     }
+                // }
              
             }
 
@@ -247,6 +278,21 @@ class Account
 
    }
 
+
+
+   public function postFeed():array{
+
+   }
+
+
+   public function postReel():array{
+    
+   }
+
+
+   public function postStory():array{
+    
+   }
    public function unofficial(SocialPost $post) :array {
 
          $account           = $post->account;

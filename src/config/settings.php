@@ -403,7 +403,7 @@ return [
                 'app_version'      => '@@'
             ],
             'is_integrated' => StatusEnum::true->status(),
-            'official'      => StatusEnum::false->status(),
+            'unofficial'    => StatusEnum::false->status(),
             'is_feature'    => StatusEnum::true->status()
         ],
         

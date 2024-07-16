@@ -255,7 +255,7 @@ class Account
                 }
 
                 #POST IN REELS
-                if($post->post_type == PostType::REELS->value){
+                elseif($post->post_type == PostType::REELS->value){
 
                     $gwResponse = $this->postReels($post,$token,$baseApi , $apiVersion);
 
@@ -311,14 +311,11 @@ class Account
 
 
             foreach ($post->file as $file) {
-
+                
                 $fileURL = imageURL($file,"post",true);
-
-            
 
                 if(isValidVideoUrl($fileURL)){
                    
-
                     $sessionParams = [
                         "upload_phase" => "start",
                         "access_token" => $token
@@ -390,12 +387,10 @@ class Account
 
                    
                 }
-                
                 return [
                     "status"  => false,
                     "message" => translate("Facebook reels doesnot support uploading images")
                 ];
-
             }
         }
 

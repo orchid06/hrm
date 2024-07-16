@@ -6,21 +6,20 @@
     @php
        $accountTypes = App\Enums\AccountType::toArray();
 
-       if($platform->slug != 'facebook' ){
-           Arr::forget($accountTypes,['GROUP','PAGE']);
-       }
-       $connectionTypes = App\Enums\ConnectionType::toArray();
+       if($platform->slug != 'facebook' )  Arr::forget($accountTypes,['GROUP','PAGE']);
 
+       $enumClassPrefix = ucfirst($platform->slug);
+
+       $enumClass  = "App\\Enums\\{$enumClassPrefix}Connection";
+       $connectionTypes = App\Enums\ConnectionType::toArray();
+       if (class_exists($enumClass))  $connectionTypes = $enumClass::toArray(); 
+       
        $platforms           = Arr::get(config('settings'),'platforms' ,[]);
        $platformConfig      = Arr::get($platforms,$platform->slug ,null);
 
-       if(isset($platformConfig['unofficial'])){
-           Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
-       }
+       if(isset($platformConfig['unofficial'])) Arr::forget($connectionTypes, App\Enums\ConnectionType::UNOFFICIAL->name);
 
-       if(isset($platformConfig['official'])){
-           Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
-       }
+       if(isset($platformConfig['official']))  Arr::forget($connectionTypes, App\Enums\ConnectionType::OFFICIAL->name);
 
        $inputs = Arr::get(config('settings.platforms_connetion_field'),$platform->slug,[]);
 
@@ -85,7 +84,8 @@
                                                     </label>
                                                     <input  id="page_id" type="text" name="page_id"   placeholder='{{translate("Enter Page ID")}}'
                                                         value="{{old('page_id')}}">
-                                                </div>  
+                                                </div> 
+
                                                 <div class="form-inner d-none  group-id">  
                                                     <label  for="group_id">
                                                         {{translate("Group ID")}}  <span class="text-danger">*</span>
@@ -99,7 +99,7 @@
                                                             {{translate(k2t($key))}}  <span class="text-danger">*</span>
                                                         </label>
                                                     <input required id="{{$key}}" type="text" name="{{$key}}"   placeholder=' {{translate(k2t($key))}}'
-                                                            value="{{old('access_token')}}">
+                                                            value="{{old($key)}}">
                                                     </div>   
                                                  @endforeach
                                             @endif 

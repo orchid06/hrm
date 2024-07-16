@@ -26,16 +26,18 @@
             <form data-route="{{$generateRoute}}" class="ai-content-form" >
                 @csrf
 
+                <input type="hidden" name="id" id="templateId">
+
                 <div class="row g-4">
                     <div class="col-xl-10 col-lg-9 pe-lg-4">
-                        <h4 class="card-title mb-4">Your Prompt</h4>
+              
                         <div class="row g-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-inner">
                                     <label for="category">
-                                        {{translate('Category')}} <small class="text-danger">*</small>
+                                        {{translate('Category')}}
                                     </label>
-                                    <select required name="category_id" id="category" class="select2" >
+                                    <select  name="category_id" id="category" class="select2" >
                                         <option value="" >
                                             {{translate("Select Category")}}
                                         </option>
@@ -48,7 +50,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-inner">
                                     <label for="sub_category_id">
                                         {{translate('Sub Category')}}
@@ -61,19 +63,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="templates">
-                                        {{translate("Templates")}}
-                                    </label>
-                                    <select name="id" class="selectTemplate" id="templates">
 
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-inner">
                                     <label for="language">
                                         {{translate('Select input & output language')}} <small class="text-danger">*</small>
@@ -166,37 +157,17 @@
                                     <span><i class="bi bi-arrow-up-right"></i></span>
                                     @endif
                                 </button>
+
+                  
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 mb-4">
-                        <h4 class="card-title mb-4">Templates</h4>
-                        <div class="template-wrapper scroll-design">
-                            <a href="#" class="template-item">
-                                <div class="icon">
-                                    <i class="bi bi-facebook"></i>
-                                </div>
-                                <h6>Facebook</h6>
-                            </a>
-                            <a href="#" class="template-item">
-                                <div class="icon">
-                                    <i class="bi bi-instagram"></i>
-                                </div>
-                                <h6>Instagram</h6>
-                            </a>
-                            <a href="#" class="template-item">
-                                <div class="icon">
-                                    <i class="bi bi-twitter"></i>
-                                </div>
-                                <h6>Twitter</h6>
-                            </a>
-                            <a href="#" class="template-item">
-                                <div class="icon">
-                                    <i class="bi bi-tiktok"></i>
-                                </div>
-                                <h6>Tiktok</h6>
-                            </a>
-                        </div>
+                    <div class="col-xl-2 col-lg-3 mb-4 template-section">
+
+                          @include("partials.ai_template",[
+                            'templates' => @$templates
+                          ])
+                 
                     </div>
                 </div>
             </form>
