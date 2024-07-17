@@ -715,6 +715,33 @@
                                     @foreach ($platforms as  $platform)
                                     
                                             <div class="tab-pane fade" id="tab-preview-{{$platform->slug}}" role="tabpanel">
+
+
+                                                @php
+                                             
+                                                        $postTypes = App\Enums\PostType::toArray();
+                                                        if($platform->slug == 'facebook') $postTypes =  Arr::except( $postTypes,[App\Enums\PostType::STORY->name]);
+                                                        if($platform->slug == 'twitter') $postTypes  =  Arr::except( $postTypes,[App\Enums\PostType::REELS->name,App\Enums\PostType::STORY->name]);
+        
+                                                        if($platform->slug == 'linkedin') $postTypes =  Arr::except( $postTypes,[App\Enums\PostType::REELS->name,App\Enums\PostType::STORY->name]);
+        
+                                                @endphp
+            
+            
+                                                <div class="form-inner">
+                                                    <label for="post_type_{{$platform->slug}}">
+                                                        {{translate('Where to post')}}
+                                                    </label>
+                                                    <select class="form-select" name="post_type[{{$platform->slug}}]"  id="post_type_{{$platform->slug}}">
+                                                        @foreach ($postTypes as  $type => $value)
+                                                            <option value="{{$value}}">
+                                                                {{$type}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+        
+
                                                 <div class="social-preview-body facebook">
                                                     <div class="social-auth">
                                                         <div class="profile-img">

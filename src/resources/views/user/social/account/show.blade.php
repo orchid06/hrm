@@ -9,10 +9,8 @@
         </div>
 
         @php
-
             $graphValue = [];
             $graphLabel = [];
- 
         @endphp
 
         <div class="card-body">
