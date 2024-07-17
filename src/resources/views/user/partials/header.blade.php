@@ -90,7 +90,7 @@
                                                     </li>
                                                 @empty
                                                     <li class="text-center mx-auto my-3">
-                                                        <p>
+                                                        <p class="text-danger fw-bold fs-18">
                                                             {{translate("Nothing Found !!")}}
                                                         </p>
                                                     </li>

@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="row pt-110">
-        <div class="col-xl-6 col-lg-8 col-md-10 mx-auto">
+        <div class="col-xl-8 col-lg-8 col-md-10 mx-auto">
             <div class="box secbg">
                 <div class="box-body text-center">
                     <div id="paypal-button-container"></div>

@@ -40,9 +40,7 @@
                    
             </div>
 
-            <div class="Paginations">
-                {{ $notifications->links() }}
-            </div>
+            
         @else
            <div>
                @include('admin.partials.not_found')
@@ -50,6 +48,9 @@
         @endif
         
     </div>
+</div>
+<div class="Paginations">
+    {{ $notifications->links() }}
 </div>
 
 @endsection

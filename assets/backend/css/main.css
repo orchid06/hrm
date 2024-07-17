@@ -6464,13 +6464,12 @@ input[type="date"]::after{
 
 .custom-profile img{
     width: 100px;
-    border-radius: 8px;
+    border-radius: 0px;
     overflow: hidden;
-    border: 3px solid var(--color-white);
     height: 100px;
     object-fit: cover;
-    
 }
+
 
 
 @media (max-width: 768px) {
@@ -6555,10 +6554,9 @@ input[type="date"]::after{
   }
 
   .image-v-preview img{
-    max-width: 90px;
-    height: 60px;
+    width: 150px;
+    height: 85px;
     object-fit: cover;
-    border-radius: 5px;
   }
 
   .progress-bar {
