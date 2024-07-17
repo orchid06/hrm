@@ -18,10 +18,8 @@ class HttpsMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            if(site_settings('force_ssl') == StatusEnum::true->status() && $request->secure()){
-                \URL::forceScheme('https');
-            }
-            return $next($request);
+            if(site_settings('force_ssl') == StatusEnum::true->status() && $request->secure()) \URL::forceScheme('https');  
+             return $next($request);
             
         } catch (\Throwable $th) {
          

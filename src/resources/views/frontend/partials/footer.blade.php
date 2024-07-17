@@ -56,16 +56,17 @@
         </div>
     </div>
   </div>
+
   <div class="container-fluid px-0">
     <div class="news-letter-area">
         <div class="newsletter-wrapper">
           <form  action="{{route('subscribe')}}" method="post">
              @csrf
-            <input name="email" type="email" placeholder="{{translate('Enter your email')}}">
-            <button class="i-btn btn--lg btn--primary capsuled">
-                 {{translate("SUBSCRIBE")}}
-                <span><i class="bi bi-arrow-up-right"></i></span>
-            </button>
+              <input name="email" type="email" placeholder="{{translate('Enter your email')}}">
+              <button class="i-btn btn--lg btn--primary capsuled">
+                   {{translate("SUBSCRIBE")}}
+                  <span><i class="bi bi-arrow-up-right"></i></span>
+              </button>
           </form>
         </div>
     </div>
@@ -110,7 +111,7 @@
 
           @if($services->count() > 0)
               <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                 <h4 class="footer-title">Services</h4>
+                  <h4 class="footer-title">Services</h4>
                   <ul class="footer-list">
                       @forelse ($services  as $service)
                          <li><a href="{{route('service',['slug' => make_slug($service->value->title) ,'uid'=> $service->uid  ])}}"> {{limit_words($service->value->title,25)}}</a></li>
@@ -163,7 +164,7 @@
 
 
             <div class="copyright">
-              <p class="mb-0 text-white opacity-75 fs-14 lh-1">{{site_settings("copy_right_text")}}</p>
+               <p class="mb-0 text-white opacity-75 fs-14 lh-1">{{site_settings("copy_right_text")}}</p>
             </div>
       </div>
   </div>

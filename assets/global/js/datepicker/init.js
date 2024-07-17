@@ -1,8 +1,8 @@
+(function () {
+    ("use strict");
+
 var start = moment();
 var end = moment();
-
-
-
 $('#datePicker').daterangepicker({
     autoUpdateInput: false,
     ranges: {
@@ -24,3 +24,4 @@ $('#datePicker').on('cancel.daterangepicker', function(ev, picker) {
     $(this).val('');
 });
 
+})();

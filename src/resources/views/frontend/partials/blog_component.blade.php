@@ -4,9 +4,7 @@
             <div class="row align-items-center g-3">
                 <div class="col-md-7 pe-lg-4">
                     <div class="image">
-                        <img
-                                      src='{{imageURL(@$blog->file,"blog",true)}}'
-                                      alt="{{@$blog->file->name ?? 'blog-image.jpg'}}"/>
+                        <img src='{{imageURL(@$blog->file,"blog",true)}}' alt="{{@$blog->file->name ?? 'blog-image.jpg'}}"/>
                     </div>
                 </div>
                 <div class="col-md-5">
