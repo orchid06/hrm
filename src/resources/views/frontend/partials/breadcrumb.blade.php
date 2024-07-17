@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xl-7 col-lg-8 mx-auto">
                     <div class="inner-banner-content text-center">
-                    <h2>{{@$banner->title}}</h2>
+                        <h2>{{@$banner->title}}</h2>
                         <p>
                             {{@$banner->description}}
                         </p>

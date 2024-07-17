@@ -164,8 +164,8 @@
   const dropdownButton = document.querySelector('.dropdown.currency .dropdown-toggle');
   const dropdownMenu = document.querySelector('.dropdown.currency .dropdown-menu');
 
-  if (!dropdownMenu) {
-      dropdownButton.classList.add('single-item');
+  if (!dropdownMenu && dropdownButton) {
+     dropdownButton.classList.add('single-item');
   }
 
 
