@@ -160,7 +160,7 @@
                                                 {{$report->trx_code}}
                                             </span>
 
-                                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
+                                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Copy')}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
 
                                         </td>
                                         <td  data-label='{{translate("Final Amount")}}'>
@@ -174,7 +174,7 @@
                                         </td>
                                         <td data-label='{{translate("Options")}}'>
                                             <div class="table-action">
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Update')}}"  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                             </div>
                                         </td>
                                     </tr>

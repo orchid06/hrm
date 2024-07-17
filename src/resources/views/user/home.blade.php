@@ -35,7 +35,7 @@
     <i class="bi bi-activity"></i>
 </button>
 
-<div class="row g-4">
+<div class="row g-4 mb-4">
     <div class="col">
         <div class="row g-4">
             <div class="col-xxl-6 col-xl-6">
@@ -330,11 +330,18 @@
                             <div>
                                 @if($post->file->count() > 0)
                                     @php
-                                        $imgURL = $post->file->count() > 0 
+                                        $fileURL = $post->file->count() > 0 
                                                         ? imageURL($post->file->first(),"post",true)
                                                         : get_default_img();
                                     @endphp
-                                    <img src="{{ $imgURL}}" class="radius-8 mb-3" alt="post.jpg">
+
+                                    @if(!isValidVideoUrl($fileURL))
+                                       <img src="{{ $fileURL}}" class="radius-8 mb-3" alt="post.jpg">
+                                    @else
+                                            <video  width="150" controls>
+                                                <source src="{{$fileURL}}">
+                                            </video>
+                                    @endif
                                 @endif
                                 @if($post->content)
                                     <h6 class="card--title-sm mb-1">
@@ -437,15 +444,7 @@
 
 
 <div class="row g-4">
-    <div class="col-xxl-9">
-
-    </div>
-    <div class="col-xxl-3 col-md-6">
-
-    </div>
-
-
-
+   
 
     <div class="col-xxl-4">
         <div class="i-card-md card-height-100">

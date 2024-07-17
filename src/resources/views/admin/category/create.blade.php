@@ -152,9 +152,7 @@
             $('.icon-picker').iconpicker({
                title: "{{translate('Search Here !!')}}",
             });
-            $('#parent_id').select2({
-
-            });
+            $('#parent_id').select2({});
 
 	})(jQuery);
 </script>

@@ -751,7 +751,7 @@
                             <div class="testi-single">
                                 <div class="flex-shrink-0">
                                   @php $file = $testimonial->file?->first(); @endphp
-                                  <img  class="avatar-sm rounded material-shadow" src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? "author.jpg"}}">
+                                  <img  class="avatar-sm rounded material-shadow" src="{{imageURL($file,'frontend',true,$featureImageSize)}}" alt="{{@$file->name?? 'author.jpg'}}">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <div>

@@ -66,7 +66,7 @@
 
                     </ul>
 
-                    <a href="{{route("admin.user.edit",$user->uid)}}" class="i-btn btn--md btn--primary w-100 update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
+                    <a href="{{route('admin.user.edit',$user->uid)}}" class="i-btn btn--md btn--primary w-100 update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
                             {{translate("Update Profile")}}
                     </a>
                 </div>

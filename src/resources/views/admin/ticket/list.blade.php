@@ -210,21 +210,21 @@
                                 </td>
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"   href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Show')}}"   href="{{route('admin.ticket.show',[$ticket->ticket_number])}}"  class="icon-btn success"><i class="las la-eye"></i></a>
                                         @if(check_permission('delete_ticket') )
-                                        <a  href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
+                                        <a  href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Delete')}}" data-href="{{route('admin.ticket.destroy',$ticket->id)}}" class="delete-item icon-btn danger">
                                             <i class="las la-trash-alt"></i></a>
                                         @endif
                                     </div>
                                 </td>
                            </tr>
                         @empty
-                        <tr>
-                            <td class="border-bottom-0" colspan="8">
-                                @include('admin.partials.not_found')
-                            </td>
-                        </tr>
-                    @endforelse
+                            <tr>
+                                <td class="border-bottom-0" colspan="8">
+                                    @include('admin.partials.not_found')
+                                </td>
+                            </tr>
+                       @endforelse
                 </tbody>
             </table>
         </div>

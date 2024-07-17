@@ -35,107 +35,103 @@
           <div class="col-xl-7 col-lg-7">
             <div class="auth-right">
               <div class="auth-content">
-                <a href="{{route('home')}}" class="site-log text-center mb-5 d-inline-block">
+                    <a href="{{route('home')}}" class="site-log text-center mb-5 d-inline-block">
+                      <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
+                    </a>
+                    <h2>
+                       {{trans("default.login_page_title")}}
+                    </h2>
+                    <p>
+                        {{@$authContent->value->description }}
+                    </p>
+                    <form class="auth-form" action="{{route('auth.authenticate')}}" method="POST" id="login-form">
+                         @csrf
 
-                  <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-                </a>
-                <h2>
-                   {{trans("default.login_page_title")}}
-                </h2>
-
-                <p>
-                    {{@$authContent->value->description }}
-                </p>
-                <form class="auth-form" action="{{route('auth.authenticate')}}" method="POST" id="login-form">
-                     @csrf
-
-                    <div class="auth-input">
-                      <label for="login_key">
-                          {{ucfirst(str_replace("_"," ",implode(" / ",$loginAttributes)))}} <span class="text--danger">*</span>
-                      </label>
-                      <input required type="text" name="login_data" id="login_key"  placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
-                      <span class="auth-input-icon">
-                          <i class="bi bi-envelope"></i>
-                      </span>
-                    </div>
-
-                      @if($otpFlag == App\Enums\StatusEnum::false->status())
-                          <div class="auth-input">
-                            <label for="password">
-                                {{translate('Password')}} <span class="text--danger">*</span>
-                            </label>
-                              <input name="password" id="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
-                              <span class="auth-input-icon toggle-password">
-                                  <i class="bi bi-eye toggle-icon "></i>
-                              </span>
-                          </div>
-                      @endif
-
-                    <div class="d-flex align-items-center justify-content-between gap-3">
-                      <div class="auth-checkbox">
-                            <input type="checkbox" id="remember" value="1" name="remember_me" />
-                            <label for="remember">{{translate("Remember me")}}</label>
-                      </div>
-
-                      <a href="{{route('auth.password.request')}}" class="forget-pass"> {{translate("Forgot password")}} ? </a>
-                    </div>
-
-                      @if( $captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha == App\Enums\StatusEnum::true->status()  )
-
-                        <div class="row align-items-center g-3">
-                              <div class="col-sm-6">
-                                    <div class="captcha-wrapper">
-                                        <a id='genarate-captcha' class="align-middle justify-content-center">
-                                            <div class="captcha-img">
-                                                <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" alt="" id="default-captcha">
-                                            </div>
-
-                                            <span class="captcha-change">
-                                                <i class="bi bi-arrow-repeat"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                              </div>
-
-                              <div class="col-sm-6">
-                                <div class="captcha-input">
-                                    <input type="text"  required name="default_captcha_code" placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
-                                </div>
-                              </div>
+                        <div class="auth-input">
+                          <label for="login_key">
+                              {{ucfirst(str_replace("_"," ",implode(" / ",$loginAttributes)))}} <span class="text--danger">*</span>
+                          </label>
+                          <input required type="text" name="login_data" id="login_key"  placeholder='{{@ucWords(str_replace("_"," ",implode(" / ",$loginAttributes)))}}' />
+                          <span class="auth-input-icon">
+                              <i class="bi bi-envelope"></i>
+                          </span>
                         </div>
 
-                      @endif
+                          @if($otpFlag == App\Enums\StatusEnum::false->status())
+                              <div class="auth-input">
+                                <label for="password">
+                                    {{translate('Password')}} <span class="text--danger">*</span>
+                                </label>
+                                  <input name="password" id="password" required type="password"  placeholder="{{translate('Password')}}" class="toggle-input" />
+                                  <span class="auth-input-icon toggle-password">
+                                      <i class="bi bi-eye toggle-icon "></i>
+                                  </span>
+                              </div>
+                          @endif
 
-                    <div>
-                          <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--primary-2 btn--lg capsuled w-100"
-                            data-sitekey="{{$googleCaptcha->key}}"
-                            data-callback='onSubmit'
-                            data-action='register'
-                            @else
-                            class="i-btn btn--secondary btn--lg capsuled w-100"
-                            @endif
-                            type="submit">
-                              {{trans("default.login_btn_text")}}
-                          </button>
-                    </div>
-                </form>
+                        <div class="d-flex align-items-center justify-content-between gap-3">
+                          <div class="auth-checkbox">
+                                <input type="checkbox" id="remember" value="1" name="remember_me" />
+                                <label for="remember">{{translate("Remember me")}}</label>
+                          </div>
 
+                          <a href="{{route('auth.password.request')}}" class="forget-pass"> {{translate("Forgot password")}} ? </a>
+                        </div>
 
-                @if($socialAuth == App\Enums\StatusEnum::true->status())
+                          @if( $captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha == App\Enums\StatusEnum::true->status()  )
 
-                    <span class="or">
-                       {{translate('OR Continue With')}}
-                    </span>
+                            <div class="row align-items-center g-3">
+                                  <div class="col-sm-6">
+                                        <div class="captcha-wrapper">
+                                            <a id='genarate-captcha' class="align-middle justify-content-center">
+                                                <div class="captcha-img">
+                                                    <img class="captcha-default d-inline me-2  " src="{{ route('captcha.genarate',1) }}" alt="" id="default-captcha">
+                                                </div>
 
-                    <div class="sign-option">
+                                                <span class="captcha-change">
+                                                    <i class="bi bi-arrow-repeat"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                  </div>
 
-                        @foreach($mediums as $medium)
-                            <a href="{{route('auth.social.login', $medium)}}" class="{{$medium}}"><i class="bi bi-{{$medium}}"></i>{{translate("Sign in with")}} {{$medium}}</a>
-                        @endforeach
+                                  <div class="col-sm-6">
+                                    <div class="captcha-input">
+                                        <input type="text"  required name="default_captcha_code" placeholder="{{translate('Enter captcha code')}}" autocomplete="off">
+                                    </div>
+                                  </div>
+                            </div>
 
-                    </div>
-                @endif
+                          @endif
+
+                        <div>
+                              <button @if($captcha  == App\Enums\StatusEnum::true->status() && $defaultcaptcha != App\Enums\StatusEnum::true->status() && $googleCaptcha->status == App\Enums\StatusEnum::true->status())       class="g-recaptcha i-btn btn--primary-2 btn--lg capsuled w-100"
+                                data-sitekey="{{$googleCaptcha->key}}"
+                                data-callback='onSubmit'
+                                data-action='register'
+                                @else
+                                class="i-btn btn--secondary btn--lg capsuled w-100"
+                                @endif
+                                type="submit">
+                                  {{trans("default.login_btn_text")}}
+                              </button>
+                        </div>
+                    </form>
+
+                    @if($socialAuth == App\Enums\StatusEnum::true->status())
+
+                        <span class="or">
+                           {{translate('OR Continue With')}}
+                        </span>
+
+                        <div class="sign-option">
+
+                            @foreach($mediums as $medium)
+                                <a href="{{route('auth.social.login', $medium)}}" class="{{$medium}}"><i class="bi bi-{{$medium}}"></i>{{translate("Sign in with")}} {{$medium}}</a>
+                            @endforeach
+
+                        </div>
+                    @endif
 
                   <div class="have-account">
                         <p>
@@ -146,7 +142,6 @@
                         </p>
                   </div>
               </div>
-
 
 
               <div class="glass-bg"></div>

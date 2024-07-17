@@ -108,10 +108,7 @@
 <script>
 	(function($){
        	"use strict";
-        $(".select-user").select2({
-
-
-        })
+        $(".select-user").select2({})
         $(".selec2").select2({
             placeholder:"{{translate('Select Priority')}}",
 

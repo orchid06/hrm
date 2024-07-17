@@ -226,7 +226,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-inner mb-0">
                                                         <label for="word_limit" >{{ translate('No. Of Words') }}
-                                                        <small class="text-danger" >*</small> 
+                                                            <small class="text-danger" >*</small> 
                             
 
                                                             <i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Set -1 make to it unlimited')}}" class="ms-1  pointer las la-question-circle  text--danger"></i>

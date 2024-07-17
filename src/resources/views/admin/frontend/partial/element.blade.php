@@ -95,7 +95,7 @@
                                             @endphp
                 
                                             <div class="avatar-group-item">
-                                                 <a href="{{imageURL(@$file,"frontend",true,$imType->size)}}" target="_blank">
+                                                 <a href="{{imageURL(@$file,'frontend',true,$imType->size)}}" target="_blank">
                                                     <img data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{k2t($imK)}}"  class="rounded-circle avatar-md" src='{{imageURL(@$file,"frontend",true,$imType->size)}}' alt="{{@$file->name}}"> 
                                                  </a>
                                             </div>
@@ -144,7 +144,7 @@
                                 @endphp
 
                                 @if(@$appearance->child_section)
-                                       <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details Section')}}" href="{{route("admin.appearance.list",['parent' =>$appearance_element->id ,'key' => @$appearance->child_section])}}"  class="update fs-15 icon-btn info"><i class="las la-eye"></i></a>
+                                       <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details Section')}}" href="{{route('admin.appearance.list',['parent' =>$appearance_element->id ,'key' => @$appearance->child_section])}}"  class="update fs-15 icon-btn info"><i class="las la-eye"></i></a>
                                 @endif
 
                                 <a  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}" data-id ="{{$appearance_element->id}}"  data-files ="{{collect($files)}}" href="javascript:void(0)" data-appearance ="{{collect($appearance_element->value)}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>

@@ -218,12 +218,12 @@
                                         <div class="table-action">
                                             @if(check_permission('update_ai_template') || check_permission('delete_ai_template') )
                                                 @if(check_permission('update_ai_template') )
-                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.ai.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Update')}}"  href="{{route('admin.ai.template.edit',$template->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                                 @endif
 
                                                 @if(check_permission('delete_ai_template') && $template->is_default == App\Enums\StatusEnum::false->status() )
 
-                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}"  href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('admin.ai.template.destroy',$template->uid)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i></a>
 
                                                 @endif

@@ -7,7 +7,7 @@
             <div class="card-header">
                 
                 <div class="image avatar-md">
-                    <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name.".jpg"}}" >
+                    <img src='{{imageURL(@$log->method->file,"payment_method",true)}}' alt="{{@$log->method->file->name ?? @$log->method->name.'.jpg'}}" >
                 </div>
                 <h4 class="card-title">
                     {{@$log->method->name}}
@@ -38,7 +38,7 @@
                         <form action="{{$data->url}}" method="{{$data->method}}" class="form">
                             @csrf
                             <script src="{{$data->checkout_js}}"
-                                    @foreach($data->val as $key=>$value)
+                                    @foreach($data->val as $key => $value )
                                         data-{{$key}}="{{$value}}"
                                 @endforeach >
                             </script>
