@@ -585,7 +585,7 @@
 
                     </div>
                     @else
-                       @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                        @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                     @endif
 
                 </div>
