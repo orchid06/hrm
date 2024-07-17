@@ -79,10 +79,20 @@
                                 <div class="d-flex align-items-center flex-wrap gap-3 mt-3">
                                     @foreach ($post->file as $file)
                                         <div class="post-detail-img">
+                                            @php 
+                                               $fileURL = (imageURL($file,"post",true));
+                                            @endphp
 
-                                            <a href="{{imageURL($file,'post',true)}}" class="image-v-preview">
-                                                <img src="{{imageURL($file,'post',true)}}"  alt="{{ @$file->name? 'file-'.$loop->index.'jpg'}}">
-                                            </a>
+                                            @if(!isValidVideoUrl($fileURL))
+                                        
+                                                <a href="{{$fileURL}}" class="image-v-preview">
+                                                    <img src="{{$fileURL}}" alt="{{ @$file->name ?? 'file-'.$loop->index.'.jpg'}}">
+                                                </a>
+                                            @else
+                                                    <video  width="150" controls>
+                                                        <source src="{{$fileURL}}">
+                                                    </video>
+                                            @endif
                            
                                         </div>
                                     @endforeach
@@ -117,6 +127,7 @@
 <script>
 	(function($){
         "use strict";
+
         $('.image-v-preview').viewbox();
 
 

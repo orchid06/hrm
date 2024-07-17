@@ -33,7 +33,9 @@
                </div>
           </div>
 
-          <div class="collapse" id="tableFilter">
+
+
+          <div class="collapse   {{ hasFilter(['search']) ? 'show' : '' }} " id="tableFilter">
                 <div class="search-action-area mb-4">
                     <div class="search-area">
                         <form action="{{ route(Route::currentRouteName()) }}" method="get">

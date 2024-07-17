@@ -6639,8 +6639,8 @@ li.no--access .icon svg{
 }
 
 .image-v-preview img{
-  max-width: 90px;
-  height: 60px;
+  width: 150px;
+  height: 85px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -6735,4 +6735,6 @@ li.no--access .icon svg{
     color: var(--color-white);
   }
 }
+
+
 
