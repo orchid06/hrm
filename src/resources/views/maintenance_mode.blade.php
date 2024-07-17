@@ -10,6 +10,7 @@
     <link href="{{asset('assets/frontend/css/root.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/style.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/frontend/css/common.css')}}" rel="stylesheet" type="text/css" />
 
     <style>
         .maintenance-title{

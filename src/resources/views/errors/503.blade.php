@@ -16,7 +16,7 @@
 
 <div class="col-lg-7">
     <div class="error-image">
-        <img src="{{asset('assets/images/default/forbidden.png')}}" alt="forbidden.png" class="img-fluid">
+        <img src="{{asset('assets/images/default/503.png')}}" alt="503.png" class="img-fluid">
     </div>
 </div>
 
