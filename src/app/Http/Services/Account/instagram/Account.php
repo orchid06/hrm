@@ -12,6 +12,9 @@ use App\Models\SocialPost;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use App\Http\Services\Account\instagram\AccountConfig;
+use App\Models\Core\File;
+
 class Account
 {
     
@@ -164,104 +167,36 @@ class Account
                 $message       = translate("Text and url not supported in insta feed");
                 
 
+                if($post->file && $post->file->count() > 0){
+                    $message     = translate("Posted Successfully");
+                    $status      = true;
 
-
-
-                 #POST IN FEED
-                if($post->post_type == PostType::FEED->value){
-
-                 
-                }
-
-                #POST IN REELS
-                elseif($post->post_type == PostType::REELS->value){
-
-                
-
-                }
-
-                #POST IN REELS
-                elseif($post->post_type == PostType::STORY->value){
-
-                
-
-                }
- 
- 
-
-
-
-
-                
-                // if($post->file && $post->file->count() > 0){
-                //     $message     = translate("Posted Successfully");
-                //     $status      = true;
-                //     $fb = new \JanuSoftware\Facebook\Facebook([
-                //         'app_id'                => $platform->client_id,
-                //         'app_secret'            => $platform->client_secret,
-                //         'default_graph_version' => $platform->app_version,
-                //     ]);
-
-                //     $upload_endpoint = "/".$account->account_id."/media";
-                //     $endpoint        = "/".$account->account_id."/media_publish";
+                    $igConnection = new \JanuSoftware\Facebook\Facebook([
+                                        'app_id'                => $platform->client_id,
+                                        'app_secret'            => $platform->client_secret,
+                                        'default_graph_version' => $platform->app_version,
+                                    ]);
 
             
-                //     $media_ids = [];
+                    #POST IN FEED
+                    if($post->post_type == PostType::FEED->value){
+                        $response = $this->postFeed($post,$igConnection);
+                    }
+                    #POST IN REELS
+                    elseif($post->post_type == PostType::REELS->value){
+                        $response = $this->postReel($post,$igConnection);
+                    }
+                    #POST IN REELS
+                    elseif($post->post_type == PostType::STORY->value){
+                        $response = $this->postStory($post,$igConnection);
+                    }
 
-                //     if($post->file->count() > 1){
-
-                //         foreach ($post->file as $file) {
-                        
-                //             $upload_params = [
-                //                 'image_url'        => imageURL($file,"post",true),
-                //                 'caption'          => $post->content??"feed",
-                //                 'is_carousel_item' => true
-                //             ];
-                //             $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-                //             $media_ids[]     = $upload_response['id'];
-                //         }
-        
-                //         $upload_params = [
-                //             'media_type' => 'CAROUSEL',
-                //             'children'   => $media_ids,
-                //             'caption'    => $post->content??"feed"
-                //         ];
+                    $url     = Arr::get( $response ,'url');
+                    $message = Arr::get( $response ,'message',$message);
+                    $status  = Arr::get( $response ,'status',$status);
                     
-                //         $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-        
-                //         $params = [
-                //             'creation_id' => $upload_response['id']
-                //         ];
-        
-                //         $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
-                //         $media_response = $fb->get( "/". $response["id"]."?fields=shortcode",$token)->getDecodedBody();
-            
-                //         $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
-
-                //     }
-                //     else{
-
-                //         $file = $post->file->first();
-           
-                //         $upload_params = [
-                //             'image_url' => imageURL($file,"post",true),
-                //             'caption'   => $post->content??"feed"
-                //         ];
-                //         $upload_response = $fb->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
-
-                //         $params = [
-                //             'creation_id' => $upload_response['id'],
-                //         ];
-
-                //         $response = $fb->post( $endpoint, $params, $token)->getDecodedBody();
-                //         $media_response = $fb->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
-                        
-                //         $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
-
-
-                //     }
-                // }
-             
+                }
+ 
             }
 
             
@@ -271,8 +206,8 @@ class Account
         }
 
         return [
-            'status'   => $status,
-            'response' => $message,
+            'status'   => @$url ? false : true,
+            'response' => @$message,
             'url'      => @$url
         ]; 
 
@@ -280,17 +215,222 @@ class Account
 
 
 
-   public function postFeed():array{
+   /**
+    * Summary of postFeed
+    * @param \App\Models\SocialPost $post
+    * @param mixed $ig
+    * @return array
+    */
+   public function postFeed(SocialPost $post,mixed $ig): array{
+
+        $account           = $post->account;
+
+        $token             = $account->account_information->token;
+
+        $upload_endpoint = "/".$account->account_id."/media";
+        $endpoint        = "/".$account->account_id."/media_publish";
+
+        $media_ids = [];
+
+        if($post->file->count() > 1){
+
+            foreach ($post->file as $file) {
+
+                $fileURL = imageURL($file,"post",true);
+                $upload_params = [
+                    'media_type' => "VIDEO",
+                    'video_url' =>  $fileURL,
+                    'caption' => $post->content??"feed",,
+                    'is_carousel_item' => true
+                ];
+
+                if(check_image($fileURL)){
+                    $upload_params = [
+                        'image_url'        => $fileURL,
+                        'caption'          => $post->content??"feed",
+                        'is_carousel_item' => true
+                    ];
+                }
+
+                $upload_response = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+                $media_ids[]     = @$upload_response['id'];
+        
+            }
+
+            $upload_params = [
+                'media_type' => 'CAROUSEL',
+                'children'   => $media_ids,
+                'caption'    => $post->content??"feed"
+            ];
+        
+            $upload_response = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+            $params = ['creation_id' => $upload_response['id']];
+
+            $response = $ig->post( $endpoint, $params, $token)->getDecodedBody();
+            if(@$response["id"]){
+                $media_response = $ig->get( "/". $response["id"]."?fields=shortcode",$token)->getDecodedBody();
+                $url  = "https://www.instagram.com/p/".$media_response['shortcode'];
+            }
+
+        }
+        else{
+            
+            $file          = $post->file->first();
+            $params        = $this->uploadMedia($file ,$ig ,$post->content?? "feed" ,$token ,$upload_endpoint);
+            $response      = $ig->post( $endpoint, $params, $token)->getDecodedBody();
+            if(@$response["id"]){
+                $mediaResponse = $ig->get( "/". @$response["id"]."?fields=shortcode", $token)->getDecodedBody();
+                $url           = "https://www.instagram.com/p/".@$mediaResponse['shortcode'];
+            }
+        }
+
+        return [
+            'url'        => @$url,
+            'status'     => @$url ? true : false,
+            'message'    => @$url ? translate('Posted successfully') : translate('Failed to post'),
+        ];
 
    }
 
+  
 
-   public function postReel():array{
+    /**
+     * Summary of uploadMedia
+     * @param \App\Models\Core\File $file
+     * @param mixed $ig
+     * @param string $caption
+     * @param string $token
+     * @param string $upload_endpoint
+     * @return mixed
+     */
+    public function uploadMedia(File $file , mixed $ig , string $caption , string $token,string $upload_endpoint): array {
+
+        $fileURL = imageURL($file,"post",true);
+
+        $upload_params = [
+            'media_type' => "VIDEO",
+            'video_url' =>  $fileURL ,
+            'caption' => $caption
+        ];
+        
+        if(check_image($fileURL)){
+            $upload_params = ['image_url' => imageURL($file,"post",true),'caption'   => $caption];
+        }
+        $uploadResponse = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+        return  ['creation_id' => $uploadResponse['id']];
+    }
+
+
+
+   public function postReel(SocialPost $post,mixed $ig) :array{
+
+        $account           = $post->account;
+
+        $token             = $account->account_information->token;
+
+        $upload_endpoint   = "/".$account->account_id."/media";
+        $endpoint          = "/".$account->account_id."/media_publish";
+
+         $file             = $post->file->first();
+
+         $fileURL = imageURL($file,"post",true);
+
+         if(isValidVideoUrl($fileURL)){
+
+            $upload_params = [
+                'media_type' => "REELS",
+                'video_url'  =>  $fileURL,
+                'caption'    =>  $post->content?? "feed"
+            ];
+            $upload_response = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+
+            $params   = ['creation_id' => $upload_response['id']];
+            $response = $ig->post( $endpoint, $params, $token)->getDecodedBody();
+
+
+            if(@$response['id']){
+                $mediaResponse = $ig->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
+                $url           = "https://www.instagram.com/p/".@$mediaResponse['shortcode'];
+                return [
+                    'url'        => @$url,
+                    'status'     => true ,
+                    'message'    => translate('Posted successfully')
+                ];
+            }
+    
+         }
+         
+        return [
+            "status"  => false,
+            "message" => translate("Instagram reels doesnot support uploading images")
+        ];
+
     
    }
 
 
-   public function postStory():array{
+   public function postStory(SocialPost $post,mixed $ig) :array{
+
+            $account           = $post->account;
+            $token             = $account->account_information->token;
+            $upload_endpoint   = "/".$account->account_id."/media";
+            $endpoint          = "/".$account->account_id."/media_publish";
+            $file              = $post->file->first();
+            $fileURL           = imageURL($file,"post",true);
+
+            if(isValidVideoUrl($fileURL)){
+
+                $upload_params = [
+                    'media_type' => "STORIES",
+                    'video_url'  =>  $fileURL,
+                    'caption'    =>  $post->content?? "feed",
+
+                ];
+                $upload_response = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+                $params = [
+                    'creation_id' => $upload_response['id'],
+                ];
+
+                $response = $ig->post( $endpoint, $params, $token)->getDecodedBody();
+
+                if(@$response['id']){
+                    $mediaResponse = $ig->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
+                    $url           = "https://www.instagram.com/p/".@$mediaResponse['shortcode'];
+                }
+
+     
+            }else{
+
+                $upload_params = [
+                    'media_type' => "STORIES",
+                    'image_url'  => $fileURL,
+                    'caption'    => $post->content?? "feed",
+                ];
+
+                $upload_response = $ig->post( $upload_endpoint, $upload_params, $token)->getDecodedBody();
+   
+                $params = [
+                    'creation_id' => $upload_response['id'],
+                ];
+
+                $response = $ig->post( $endpoint, $params, $token)->getDecodedBody();
+                if(@$response['id']){
+                    $mediaResponse = $ig->get( "/". $response["id"]."?fields=shortcode", $token)->getDecodedBody();
+                    $url           = "https://www.instagram.com/p/".@$mediaResponse['shortcode'];
+                }
+
+
+
+            }
+
+            return [
+                'url'        => @$url,
+                'status'     => @$url ? true : false,
+                'message'    => @$url ? translate('Posted successfully') : translate('Failed to post'),
+            ];
+
+
+
     
    }
    public function unofficial(SocialPost $post) :array {

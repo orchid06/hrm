@@ -353,7 +353,6 @@ class Account
                             ];
 
                             $response     = Http::post($baseApi.$apiVersion."/".$account->account_id."/video_reels", $params);
-                            @dd(    $response );
                             $response     = $sessionResponse->json();
 
 
@@ -387,6 +386,7 @@ class Account
 
                    
                 }
+                
                 return [
                     "status"  => false,
                     "message" => translate("Facebook reels doesnot support uploading images")
@@ -397,7 +397,7 @@ class Account
  
         return [
             "status"  => false,
-            "message" => translate("No file found!! Facebook REELS doesnot support just upload links or texgt")
+            "message" => translate("No file found!! Facebook REELS doesnot support just upload links or text")
         ];
 
 

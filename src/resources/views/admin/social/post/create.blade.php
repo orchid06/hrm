@@ -690,8 +690,6 @@
                                         </div>
 
 
-
-
                                         <div class="social-preview-body facebook">
                                             <div class="social-auth">
                                                 <div class="profile-img">

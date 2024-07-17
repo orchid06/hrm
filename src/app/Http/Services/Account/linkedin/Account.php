@@ -39,13 +39,18 @@ class Account
             if($post->file && $post->file->count() > 0){
                 
                 foreach ($post->file as $file) {
-                    $contentEntity = new \stdClass();
-                    $contentEntity->thumbnails[0] = new \stdClass();
-                    $url =
-                    $contentEntity->thumbnails[0]->resolvedUrl = imageURL($file,"post",true); 
-                    $imageResponse = $this->uploadImage(imageURL($file,"post",true),$token,$client_id );
-                    $contentEntity->entity = 'urn:li:digitalmediaAsset:' . $imageResponse['id'];
-                    $body->content->contentEntities[] = $contentEntity;
+
+                    $fileURL = imageURL($file,"post",true);
+                    if(check_image($fileURL)){
+                        $contentEntity = new \stdClass();
+                        $contentEntity->thumbnails[0] = new \stdClass();
+                        $url =
+                        $contentEntity->thumbnails[0]->resolvedUrl = $fileURL; 
+                        $imageResponse = $this->uploadImage($fileURL,$token,$client_id );
+                        $contentEntity->entity = 'urn:li:digitalmediaAsset:' . $imageResponse['id'];
+                        $body->content->contentEntities[] = $contentEntity;
+                    }
+                 
                 }
             }
           
