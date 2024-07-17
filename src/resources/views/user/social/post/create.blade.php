@@ -283,28 +283,28 @@
                                     <div class="mb-0">
                                         <h4 class="card-title mb-3">{{translate('Schedule Post')}}</h4>
                                         <button class="schedule-btn" data-bs-toggle="collapse"
-                                                data-bs-target="#schedule" aria-expanded="false" aria-controls="schedule"
-                                                type="button">
-                                                {{translate("Schedule Post")}}
-                                                <i class="bi bi-plus-lg ms-2"></i>
-                                            </button>
-                                            <div class="collapse" id="schedule">
-                                                <div class="schedule-body mt-1">
-                                                    <div class="schedule-content">
-                                                        <div class="row g-4 align-items-end">
-                                                            <div class="col-xl-12 col-md-8">
-                                                                <div class="form-inner mb-0">
-                                                                    <input placeholder="{{translate('Select date time')}}"
-                                                                        type="datetime-local" class="singleDate flatpickr-input"
-                                                                        name="schedule_date"
-                                                                        value="{{old('schedule_date')}}"
-                                                                        id="schedule_date" />
-                                                                </div>
+                                            data-bs-target="#schedule" aria-expanded="false" aria-controls="schedule"
+                                            type="button">
+                                            {{translate("Schedule Post")}}
+                                            <i class="bi bi-plus-lg ms-2"></i>
+                                        </button>
+                                        <div class="collapse" id="schedule">
+                                            <div class="schedule-body mt-1">
+                                                <div class="schedule-content">
+                                                    <div class="row g-4 align-items-end">
+                                                        <div class="col-xl-12 col-md-8">
+                                                            <div class="form-inner mb-0">
+                                                                <input placeholder="{{translate('Select date time')}}"
+                                                                    type="datetime-local" class="singleDate flatpickr-input"
+                                                                    name="schedule_date"
+                                                                    value="{{old('schedule_date')}}"
+                                                                    id="schedule_date" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                 @endif
                                 <button  type="submit"

@@ -6,11 +6,11 @@
     <form action="{{route('admin.social.post.store')}}" method="post" class="compose-form" enctype="multipart/form-data">
          @csrf
         <div class="row gy-4">
-            <div class="col-xxl-8">
+            <div class="col-xxl-8 col-xl-7 col-lg-7 col-md-6 order-md-1 order-2">
                 <div class="i-card-md">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-xxl-6">
+                            <div class="col-xxl-8 col-xl-12 pe-lg-4">
                                 <div class="mb-4">
                                     <div class="card--header mb-4">
                                         <h4 class="card-title">{{translate('Choose Profile')}}</h4>
@@ -162,12 +162,12 @@
                                             <div class="form-inner mb-0">
                                                 <div class="compose-body">
 
-                                                 <textarea name="text" cols="30" rows="4"
+                                                    <textarea name="text" cols="30" rows="4"
                                                             placeholder="{{translate('Start Writing')}}" class="compose-input"
                                                             id="inputText">{{old('text')}}</textarea>
 
                                                     <div class="compose-body-bottom">
-                                                        <div class="caption-action mb-3">
+                                                        <div class="caption-action d-flex justify-content-start mb-3">
                                                             <div class="action-item ai-modal" >
                                                                 <i class="bi bi-robot"></i>
                                                                 <p>
@@ -249,36 +249,30 @@
                                                                     </span>
                                                                 </label>
                                                             </div>
+                                                            <div>
+                                                                <select class="form-select predefined-select"  id="predefined">
+                                                                    <option value="">
+                                                                            {{translate("Select Content")}}
+                                                                    </option>
+                        
+                                                                    @foreach ($contents as  $content)
+                                                                        <option value="{{$content->content}}">
+                                                                            {{$content->name}}
+                                                                        </option>
+                                                                    @endforeach
+                        
+                                                                </select>
+                                                            </div>
                                                             <ul class="file-list"></ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div>
-                                            <div class="form-inner">
-                                                <label for="predefined">
-                                                    {{translate('Predefined Content')}}
-                                                </label>
-                                                <select class="form-select"  id="predefined">
-                                                    <option value="">
-                                                            {{translate("Select Content")}}
-                                                    </option>
-        
-                                                    @foreach ($contents as  $content)
-                                                        <option value="{{$content->content}}">
-                                                            {{$content->name}}
-                                                        </option>
-                                                    @endforeach
-        
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="mb-0">
+                                <div class="mb-4">
                                     <div class="card--header mb-4">
                                         <h4 class="card-title">{{translate('Links')}}</h4>
                                     </div>
@@ -289,9 +283,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xxl-6 ps-lg-5">
                                 <div class="mb-0">
                                     <div class="card--header d-block mb-4">
                                         <div class="row">
@@ -335,12 +327,89 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-xxl-4 col-xl-12">
+                                <div class="side-notes">
+                                    <h6 class="mb-3">Note:</h6>
+
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                Facebook
+                                            </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Sign up with your email or phone number, create a unique password</li>
+                                                        <li>Search for friends using the search bar,</li>
+                                                        <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                        <li>Find and join groups based on your interests</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Twitter
+                                            </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Sign up with your email or phone number, create a unique password</li>
+                                                        <li>Search for friends using the search bar,</li>
+                                                        <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                        <li>Find and join groups based on your interests</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Instagram
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Sign up with your email or phone number, create a unique password</li>
+                                                        <li>Search for friends using the search bar,</li>
+                                                        <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                        <li>Find and join groups based on your interests</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingFour">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                    Tiktok
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Sign up with your email or phone number, create a unique password</li>
+                                                        <li>Search for friends using the search bar,</li>
+                                                        <li>Post status updates, photos, videos, and links on your timeline.</li>
+                                                        <li>Find and join groups based on your interests</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xxl-4">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-6 order-md-2 order-1">
                 <div class="i-card-md social-preview-admin">
                     <div class="card--header">
                         <h4 class="card-title">
