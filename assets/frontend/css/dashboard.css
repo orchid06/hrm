@@ -6364,7 +6364,7 @@ ul.dropdown-menu.dropdown-menu-end.show::-webkit-scrollbar-thumb {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0px;
 }
 
 .plan-tab {
@@ -6642,7 +6642,6 @@ li.no--access .icon svg{
   width: 150px;
   height: 85px;
   object-fit: cover;
-  border-radius: 5px;
 }
 
 .razorpay-payment-button:hover{
