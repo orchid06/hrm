@@ -36,49 +36,49 @@
             </div>
         </div>
 
-        <div class="collapse filterTwo mb-3" id="tableFilter">
+        <div class="collapse {{ hasFilter(['date','referral','search']) ? 'show' : '' }} filterTwo mb-3" id="tableFilter">
             <div class="i-card-md">
                 <div class="card-body">
                     <div class="search-action-area p-0">
                         <div class="search-area">
-                        <form action="{{route(Route::currentRouteName())}}">
+                            <form action="{{route(Route::currentRouteName())}}">
 
-                            <div class="form-inner">
-                                <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
-                            </div>
-
-                           
-
-                            <div class="form-inner">
-                                <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
-                            </div>
-
-                            @if($user->affilateUser)
                                 <div class="form-inner">
-                                    <select name="referral" id="referral" class="referral">
-                                        <option value="">
-                                            {{translate('Select User')}}
-                                        </option>
-
-                                        @foreach($user->affilateUser as $affilateUser)
-                                            <option  {{Arr::get($affilateUser,'username',null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                 </div>
-                            @endif
+
+                            
+
+                                <div class="form-inner">
+                                    <input type="text"  name="search" value="{{request()->input('search')}}"  placeholder='{{translate("Search by Transaction ID")}}'>
+                                </div>
+
+                                @if($user->affilateUser)
+                                    <div class="form-inner">
+                                        <select name="referral" id="referral" class="referral">
+                                            <option value="">
+                                                {{translate('Select User')}}
+                                            </option>
+
+                                            @foreach($user->affilateUser as $affilateUser)
+                                                <option  {{Arr::get($affilateUser,'username',null) ==   request()->input('referral') ? 'selected' :""}} value="{{Arr::get($affilateUser,"username",null)}}"> {{Arr::get($affilateUser,"name",null)}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
 
 
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="i-btn primary btn--lg capsuled">
-                                    <i class="bi bi-search"></i>
-                                </button>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="i-btn primary btn--lg capsuled">
+                                        <i class="bi bi-search"></i>
+                                    </button>
 
-                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
-                                    <i class="bi bi-arrow-repeat"></i>
-                                </a>
-                            </div>
-                        </form>
+                                    <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--lg danger capsuled">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

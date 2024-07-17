@@ -22,7 +22,7 @@
     </div>
     </div>
     <div class="i-card-md">
-      <div class="collapse" id="tableFilter">
+      <div class="collapse {{ hasFilter(['date','search']) ? 'show' : '' }}" id="tableFilter">
         <div class="search-action-area">
             <div class="search-area">
                 <form action="{{route(Route::currentRouteName())}}">

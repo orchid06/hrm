@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="collapse filterTwo mb-3" id="tableFilter">
+            <div class="collapse {{ hasFilter(['date','trx_type','search']) ? 'show' : '' }} filterTwo mb-3" id="tableFilter">
                 <div class="i-card-md">
                 <div class="card-body">
                     <div class="search-action-area p-0">
