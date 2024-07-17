@@ -30,7 +30,7 @@
                             $value = Arr::get($list,'value') ;
                         @endphp
                         @if(Arr::has($list,'href') && Arr::get($list,'href') )
-                                <a href='{{Arr::get($list,'href')}}'>
+                                <a href='{{Arr::get($list,"href")}}'>
                                 {{   $value }}
                             </a>
                         @else

@@ -27,7 +27,7 @@
                                     <div class="social-auth">
                 
                                             <div class="profile-img">
-                                                <img onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
+                                                <img onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';" src='{{@$account->account_information->avatar??get_default_img()}}' alt="{{translate('profile.jpg')}}">
                                             </div>
         
                                             <div class="profile-meta">
@@ -200,9 +200,9 @@
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 

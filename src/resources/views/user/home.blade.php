@@ -330,11 +330,18 @@
                             <div>
                                 @if($post->file->count() > 0)
                                     @php
-                                        $imgURL = $post->file->count() > 0 
+                                        $fileURL = $post->file->count() > 0 
                                                         ? imageURL($post->file->first(),"post",true)
                                                         : get_default_img();
                                     @endphp
-                                    <img src="{{ $imgURL}}" class="radius-8 mb-3" alt="post.jpg">
+
+                                    @if(!isValidVideoUrl($fileURL))
+                                       <img src="{{ $fileURL}}" class="radius-8 mb-3" alt="post.jpg">
+                                    @else
+                                            <video  width="150" controls>
+                                                <source src="{{$fileURL}}">
+                                            </video>
+                                    @endif
                                 @endif
                                 @if($post->content)
                                     <h6 class="card--title-sm mb-1">

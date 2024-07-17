@@ -115,7 +115,7 @@
                                         <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
                                         @if($user->runningSubscription)
-                                            <small data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Running Plan")}}" class="i-badge success">{{@$user->runningSubscription?->package->title}}</small>
+                                            <small data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Running Plan')}}" class="i-badge success">{{@$user->runningSubscription?->package->title}}</small>
                                         @endif
                                     </div>
                                 </td>
@@ -156,11 +156,11 @@
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Show")}}" class="icon-btn info"><i class="las la-eye"></i>
+                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info"><i class="las la-eye"></i>
                                                 
                                                 </a>
 
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Login")}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Login')}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success">
                                                     <i class="las la-sign-in-alt"></i>
                                                 </a>
 

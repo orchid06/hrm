@@ -185,11 +185,11 @@
                                         @if(check_permission('update_blog') || check_permission('delete_blog') )
 
                                             @if(check_permission('update_blog') )
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.blog.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Update')}}"  href="{{route('admin.blog.edit',$article->uid)}}"  class="update icon-btn warning"><i class="las la-pen"></i></a>
                                             @endif
                                             @if(check_permission('delete_blog'))
 
-                                                    <a  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}"  href="javascript:void(0);" data-href="{{route('admin.blog.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
+                                                    <a  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('admin.blog.destroy',$article->uid)}}" class="pointer delete-item icon-btn danger">
 
                                                     <i class="las la-trash-alt"></i></a>
 
@@ -219,11 +219,8 @@
 
 @endsection
 @section('modal')
-
     @include('modal.delete_modal')
-
     @include('modal.bulk_modal')
-
 @endsection
 
 

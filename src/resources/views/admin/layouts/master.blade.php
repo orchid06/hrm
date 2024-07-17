@@ -31,15 +31,15 @@
 
 
     @include('admin.partials.topbar')
-    <div class="dashboard-wrapper">
-        @include('admin.partials.sidebar')
-        <div class="main-content">
-            @if(!request()->routeIs('admin.home') && !request()->routeIs('admin.social.post.analytics') && !request()->routeIs('admin.user.statistics') )
-                @include('admin.partials.breadcrumb')
-            @endif
-            @yield('content')
+        <div class="dashboard-wrapper">
+            @include('admin.partials.sidebar')
+            <div class="main-content">
+                @if(!request()->routeIs('admin.home') && !request()->routeIs('admin.social.post.analytics') && !request()->routeIs('admin.user.statistics') )
+                    @include('admin.partials.breadcrumb')
+                @endif
+                @yield('content')
+            </div>
         </div>
-    </div>
     @yield("modal")
 
 
