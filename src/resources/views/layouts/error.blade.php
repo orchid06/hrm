@@ -30,7 +30,7 @@
         </section>
     </main>
 
-    <script src="{{asset('assets/global/js/jquery-3.7.0.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
 
     @include('partials.notify')
