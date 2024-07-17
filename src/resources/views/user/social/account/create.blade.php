@@ -209,6 +209,8 @@
 
     })
 
+    inputControl( $("#account_type").val())
+
     @if(old("account_type"))
 
       inputControl('{{old("account_type")}}')
