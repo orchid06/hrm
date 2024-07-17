@@ -89,7 +89,7 @@
                                                     <img src="{{$fileURL}}" alt="{{ @$file->name ?? 'file-'.$loop->index.'.jpg'}}">
                                                 </a>
                                             @else
-                                                    <video width="150" controls>
+                                                    <video  width="150" controls>
                                                         <source src="{{$fileURL}}">
                                                     </video>
                                             @endif
@@ -127,7 +127,7 @@
 <script>
 	(function($){
         "use strict";
-        
+
         $('.image-v-preview').viewbox();
 
 
