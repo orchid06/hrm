@@ -4,7 +4,7 @@
     <a href="{{route('admin.home')}}">
       <img
         src='{{imageURL(@site_logo("site_logo")->file,"site_logo",true)}}'
-        alt="{{@site_logo('site_logo')->file->name}}" />
+        alt="{{@site_logo('site_logo')->file->name ?? "site-logo.jpg"}}" />
     </a>
 
   </div>
@@ -142,7 +142,7 @@
           
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialAccount" role="button"
               aria-expanded="false" aria-controls="socialAccount">
-            <span><i class="las la-tools"></i></i></span>
+            <span><i class="las la-tools"></i></span>
               <p>
                 {{translate('Accounts')}}
               </p>
