@@ -7,7 +7,7 @@
     <div class="row g-4 mb-4">
 
 
-        <div class="col-xl-6">
+        <div class="col-xl-5">
             <div class="i-card-md">
                 <div class="card--header">
                     <h4 class="card-title">
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="col-xl-7">
             <div class="i-card-md">
                 <div class="card--header">
                     <h4 class="card-title">
