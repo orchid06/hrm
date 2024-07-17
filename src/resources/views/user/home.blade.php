@@ -35,7 +35,7 @@
     <i class="bi bi-activity"></i>
 </button>
 
-<div class="row g-4">
+<div class="row g-4 mb-4">
     <div class="col">
         <div class="row g-4">
             <div class="col-xxl-6 col-xl-6">
@@ -437,15 +437,7 @@
 
 
 <div class="row g-4">
-    <div class="col-xxl-9">
-
-    </div>
-    <div class="col-xxl-3 col-md-6">
-
-    </div>
-
-
-
+   
 
     <div class="col-xxl-4">
         <div class="i-card-md card-height-100">

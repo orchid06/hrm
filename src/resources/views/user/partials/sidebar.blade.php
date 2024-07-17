@@ -45,46 +45,45 @@
 
                     <li class="sidemenu-item">
                         <a href="javascript:void(0)" class="sidemenu-link
-                        @if(request()->routeIs('user.social.post.*'))
-                            active
-                        @endif">
-                        <div
-                            class="sidemenu-icon">
-                            <i class="bi bi-stickies"></i>
-                        </div>
-                        <span>
-                            {{translate("Post Feed")}}
-
-                            <small><i class="bi bi-chevron-down"></i></small>
-                        </span>
+                            @if(request()->routeIs('user.social.post.*'))
+                                active
+                            @endif">
+                            <div
+                                class="sidemenu-icon">
+                                <i class="bi bi-stickies"></i>
+                            </div>
+                            <span>
+                                {{translate("Post Feed")}}
+                                <small><i class="bi bi-chevron-down"></i></small>
+                            </span>
                         </a>
 
                         <div class="side-menu-dropdown n @if(request()->routeIs('user.social.post.*'))
                                     show-sideMenu
                                 @endif ">
-                            <ul class="sub-menu">
-                                <li class="sub-menu-item">
-                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
-                                        <span>
-                                            <i class="bi bi-pencil-square"></i>
-                                        </span>
-                                        <p>
-                                           {{translate('Create Post')}}
-                                        </p>
-                                    </a>
-                                </li>
+                                <ul class="sub-menu">
+                                    <li class="sub-menu-item">
+                                        <a class="sidebar-menu-link {{request()->routeIs('user.social.post.create') ? 'active' :''}}" href="{{route('user.social.post.create')}}">
+                                            <span>
+                                                <i class="bi bi-pencil-square"></i>
+                                            </span>
+                                            <p>
+                                               {{translate('Create Post')}}
+                                            </p>
+                                        </a>
+                                    </li>
 
-                                <li class="sub-menu-item">
-                                    <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
-                                        <span>
-                                           <i class="bi bi-newspaper"></i>
-                                        </span>
-                                        <p>
-                                            {{translate('All Post')}}
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
+                                    <li class="sub-menu-item">
+                                        <a class="sidebar-menu-link {{request()->routeIs('user.social.post.show') || request()->routeIs('user.social.post.list')  ? 'active' :''}}" href="{{route('user.social.post.list')}}">
+                                            <span>
+                                               <i class="bi bi-newspaper"></i>
+                                            </span>
+                                            <p>
+                                                {{translate('All Post')}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
                         </div>
                     </li>
 
@@ -173,7 +172,7 @@
                                 </span>
                         </a>
 
-                        <div class="side-menu-dropdown  @if($lastSegment == "reports")
+                        <div class="side-menu-dropdown  @if($lastSegment == 'reports')
                                     show-sideMenu
                                 @endif  ">
                             <ul class="sub-menu">

@@ -24,7 +24,7 @@
 
                     <div class="d-flex align-items-center justify-content-start flex-sm-nowrap flex-wrap gap-lg-4 gap-3">
                         <div class="avatar-xl profile-picture">
-                            <img src='{{imageURL(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name ?? $method->name.".jpg"}}" class="rounded-50">
+                            <img src='{{imageURL(@$method->file,"payment_method",true)}}' alt="{{@$method->file->name ?? $method->name.'.jpg'}}" class="rounded-50">
                         </div>
                         <div class="text-start">
                             <h4>
@@ -42,7 +42,7 @@
                             {{@$method->note}}
                         </p>
                     </div>
-                </div>
+                 </div>
                 
                   <div class="col-12">
                       <ul class="payment-details list-group">

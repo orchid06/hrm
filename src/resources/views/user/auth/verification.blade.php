@@ -28,37 +28,37 @@
 
                     <form action="{{route($route)}}" class="auth-form otp-form" method="post" id="otpForm">
 
-                        @if(session()->has("user_identification") && \Carbon\Carbon::now()  <  session()->get("otp_expire_at"))
-                            <div class="otp-expired-message">
-                                {{translate("Your OTP will expire at")}} {{get_date_time(session()->get("otp_expire_at"))}}
+                            @if(session()->has("user_identification") && \Carbon\Carbon::now()  <  session()->get("otp_expire_at"))
+                                <div class="otp-expired-message">
+                                    {{translate("Your OTP will expire at")}} {{get_date_time(session()->get("otp_expire_at"))}}
+                                </div>
+                            @endif
+
+                            @csrf
+
+                            <input hidden type="text" name="otp_code" id="otpCode">
+
+                            <div class="otp-field">
+                                <input type="text" maxlength="1" />
+                                <input type="text" maxlength="1" />
+                                <input type="text" maxlength="1" />
+                                <input type="text" maxlength="1" />
+                                <input type="text" maxlength="1" />
+                                <input type="text" maxlength="1" />
                             </div>
-                        @endif
 
-                        @csrf
-
-                        <input hidden type="text" name="otp_code" id="otpCode">
-
-                        <div class="otp-field">
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                            <input type="text" maxlength="1" />
-                        </div>
-
-                      <div>
-                          <button class="i-btn btn--secondary btn--lg capsuled w-100" type="submit">
-                                {{translate("Verify")}}
-                          </button>
-                          @if(session()->has("user_identification") &&  \Carbon\Carbon::now()  >  session()->get("otp_expire_at"))
-                              <a href="{{route('auth.otp.resend')}}"
-                                  class="i-btn btn--primary btn--lg capsuled w-100 mt-3"
-                                  type="submit">
-                                  {{translate("Resend Otp")}}
-                              </a>
-                          @endif
-                      </div>
+                          <div>
+                              <button class="i-btn btn--secondary btn--lg capsuled w-100" type="submit">
+                                    {{translate("Verify")}}
+                              </button>
+                              @if(session()->has("user_identification") &&  \Carbon\Carbon::now()  >  session()->get("otp_expire_at"))
+                                  <a href="{{route('auth.otp.resend')}}"
+                                      class="i-btn btn--primary btn--lg capsuled w-100 mt-3"
+                                      type="submit">
+                                      {{translate("Resend Otp")}}
+                                  </a>
+                              @endif
+                          </div>
                     </form>
                   </div>
 
