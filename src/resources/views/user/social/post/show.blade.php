@@ -98,7 +98,8 @@
                                     @endforeach
                                 </div>
                             </li>
-                       @endif
+                        @endif
+                        
                         <li class="list-group-item">
                             <h6 class="title">{{ translate('Content') }}</h6>
                             <p class="value"> {{$post->content?? 'N/A'}}</p>

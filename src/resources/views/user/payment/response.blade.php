@@ -184,7 +184,7 @@
                             
                                         </ul>
                                         <a href="{{ auth_user('web') ? route('user.home') : route('home')  }}" class="i-btn btn--lg btn--primary mx-auto"><i class="bi bi-house me-2"></i>
-                                        {{translate('Back To Home')}}
+                                             {{translate('Back To Home')}}
                                         </a>
                                     </div>
                                 </div>

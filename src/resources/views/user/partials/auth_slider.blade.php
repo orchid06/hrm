@@ -2,7 +2,6 @@
    $authElements   = get_content("element_authentication_section");
 @endphp
 
-
 <div class="col-xl-5 col-lg-5">
     <div class="auth-left">
         <div class="auth-left-content">

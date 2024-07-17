@@ -123,7 +123,7 @@
                                         <td data-label='{{translate("name")}}'>
 
                                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
+                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
 
                                                 @if(@$account->account_information->link)
                                                     <a target="_blank" href="{{@$account->account_information->link}}">

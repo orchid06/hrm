@@ -13,7 +13,6 @@
         <div class="row g-0">
 
             @include("user.partials.auth_slider")
-
             <div class="col-xl-7 col-lg-7 order-lg-1 order-0">
                 <div class="auth-right">
                   <div class="auth-content">
@@ -61,11 +60,11 @@
                   <div class="glass-bg"></div>
                 </div>
             </div>
+
         </div>
       </div>
     </div>
 </section>
-
 
 @endsection
 
