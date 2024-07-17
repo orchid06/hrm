@@ -24,7 +24,9 @@
             </div>
         </div>
 
-        <div class="collapse" id="tableFilter">
+
+
+        <div class="collapse {{ hasFilter(['date', 'account', 'status']) ? 'show' : '' }}" id="tableFilter">
             <div class="search-action-area">
                  <div class="search-area">
                     <form action="{{route(Route::currentRouteName())}}" method="get">
@@ -52,7 +54,7 @@
                                 </option>
 
                                 @foreach(App\Enums\PostStatus::toArray() as $k => $v)
-                                    <option  {{$v  ==   request()->input('status',-1) ? 'selected' :""}} value="{{$v}}">   {{$k}}
+                                    <option  {{$v  ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">   {{$k}}
                                     </option>
                                 @endforeach
                             </select>

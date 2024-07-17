@@ -1378,3 +1378,17 @@ use Illuminate\Database\Eloquent\Collection;
 }
   
 
+
+
+if( !function_exists('hasFilter') ){
+
+   /**
+    * Summary of hasFilter
+    * @param array $keys
+    * @return bool
+    */
+   function hasFilter(array $filterKeys) :bool{   
+
+      return !empty(array_intersect_key(array_flip($filterKeys), request()->query()));
+   }
+}

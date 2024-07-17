@@ -35,7 +35,9 @@
             </div>
       </div>
 
-       <div class="collapse filterTwo mb-3" id="tableFilter">
+
+
+       <div class="collapse {{ hasFilter(['date','template']) ? 'show' : '' }}  filterTwo mb-3" id="tableFilter">
             <div class="search-action-area">
                 <div class="search-area">
                     <form action="{{route(Route::currentRouteName())}}">
