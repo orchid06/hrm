@@ -4383,7 +4383,7 @@ aside.show-side-bar {
   align-items: center;
   justify-content: flex-start;
   gap: 25px;
-  border-bottom: 2px solid var(--border-one);
+  border-bottom: 2px solid var(--border-two);
   padding-bottom: 10px;
 }
 
@@ -4401,7 +4401,7 @@ aside.show-side-bar {
 .social-account-list-2 li a span{
   width: 25px;
   height: 25px;
-  margin-right: 10px;
+  margin-right: 5px;
   display: inline-block;
 }
 
