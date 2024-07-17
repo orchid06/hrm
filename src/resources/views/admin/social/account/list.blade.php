@@ -156,7 +156,7 @@
                                         <td data-label='{{translate("name")}}'>
 
                                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
+                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
 
                                                 @if(@$account->account_information->link)
                                                     <a target="_blank" href="{{@$account->account_information->link}}">
@@ -222,16 +222,16 @@
                                                         }
                                             
                                                     @endphp
-                                                    <a    data-account = "{{$account}}" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Reconnect")}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
+                                                    <a    data-account = "{{$account}}" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Reconnect')}}"  href="{{$url}}" class=" {{$connectionClass ? 'reconnect' : ''}}  fs-15 icon-btn danger"><i class="las la-plug"></i>
                                                     </a>
                                                     @endif
     
                                                 @if(isset($platformConfig['view_option']) && $account->is_official == App\Enums\ConnectionType::OFFICIAL->value  )
-                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Show')}}"  href="{{route('admin.social.account.show',['uid' => $account->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                                         </a>
                                                 @endif
                                                 @if(check_permission('delete_account') )
-                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.account.destroy',  $account->id)}}" class="pointer delete-item icon-btn danger">
                                                         <i class="las la-trash-alt"></i>
                                                     </a>
                                                 @else

@@ -67,12 +67,12 @@
                                             @php
                                                $responseData = $report->webhook_response;
                                             @endphp
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$responseData ? recursiveDisplay($responseData) : translate('Webhook response data is null')}}" class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$responseData ? recursiveDisplay($responseData) : translate('Webhook response data is null')}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                   
                                               
                                             @if(check_permission('delete_report') )
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.webhook.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
                                             @endif
 
@@ -82,12 +82,12 @@
 
                             @empty
 
-                            <tr>
-                                <td class="border-bottom-0" colspan="3">
-                                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
-                                </td>
-                            </tr>
-                        @endforelse
+                                <tr>
+                                    <td class="border-bottom-0" colspan="3">
+                                        @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                                    </td>
+                                </tr>
+                           @endforelse
 
                     </tbody>
                 </table>

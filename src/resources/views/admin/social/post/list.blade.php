@@ -110,7 +110,7 @@
                                 </td>
                                 <td data-label='{{translate("Account")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route('default.image', '200x200') }}';"  src='{{@$post->account->account_information->avatar }}' alt="profile.jpg">
+                                        <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"  src='{{@$post->account->account_information->avatar }}' alt="profile.jpg">
 
                                         @if(@$post->account->account_information->link)
                                             <a target="_blank" href="{{@$post->account->account_information->link}}">
@@ -168,16 +168,16 @@
                                     <div class="table-action">
 
                                         @if($post->status !=  App\Enums\PostStatus::SUCCESS->value)
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Post now")}}"  href="
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Post now')}}"  href="
                                                 {{route('admin.social.post.send',['uid' => $post->uid])}}" class="fs-15 icon-btn info">
                                                    <i class="las la-paper-plane"></i>
                                                 </a>
                                         @endif
 
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Show")}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Show')}}"  href="{{route('admin.social.post.show',['uid' => $post->uid])}}" class="fs-15 icon-btn success"><i class="las la-eye"></i>
                                         </a>
                                         @if(check_permission('delete_post') )
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Delete")}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Delete')}}" href="javascript:void(0);"    data-href="{{route('admin.social.post.destroy',  $post->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i>
                                             </a>
                                         @else
@@ -232,8 +232,8 @@
 @endsection
 
 @push('script-include')
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 @push('script-push')

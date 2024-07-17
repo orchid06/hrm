@@ -165,7 +165,7 @@
                                             {{$report->trx_code}}
                                         </span>
     
-                                        <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
+                                        <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Copy')}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
                                     </td>
 
                                     <td  data-label='{{translate("Balance")}}'>
@@ -195,10 +195,10 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
 
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Info')}}" href="javascript:void(0);" data-report="{{$report}}" class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
                                             @if(check_permission('delete_report') )
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}"  href="javascript:void(0);" data-href="{{route('admin.transaction.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('admin.transaction.report.destroy',$report->id)}}" class="pointer delete-item icon-btn danger">
                                                 <i class="las la-trash-alt"></i></a>
                                             @endif
 

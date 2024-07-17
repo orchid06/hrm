@@ -186,9 +186,9 @@
       
                                             @endphp
 
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Info")}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Info')}}" href="javascript:void(0);" data-remarks="{{$report->remarks}}" data-info ="{{collect($informations)}}"  class="pointer show-info icon-btn info">
                                                 <i class="las la-info"></i></a>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Update')}}"  href="javascript:void(0);" data-report ="{{$report}}" class="update fs-15 icon-btn warning"><i class="las la-pen"></i></a>
                                         </div>
                                     </td>
                                </tr>
@@ -198,7 +198,7 @@
                                         @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                     </td>
                                 </tr>
-                        @endforelse
+                           @endforelse
                     </tbody>
                 </table>
             </div>

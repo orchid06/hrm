@@ -301,7 +301,7 @@
                 <span><i class="las la-question-circle"></i></span>
                 <p> {{translate("Support Tickets")}}
                     @if($pending_tickets > 0)
-                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending tickets")}}" class="i-badge danger">{{$pending_tickets}}</span>
+                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Pending tickets')}}" class="i-badge danger">{{$pending_tickets}}</span>
                     @endif
                 </p>
               </a>
@@ -316,7 +316,7 @@
                 <p>
                   {{translate('Report')}}
                     @if($pending_deposits > 0 || $pending_withdraws > 0 || $pending_kycs > 0  )
-                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending reports")}}"  class="i-badge danger">
+                      <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Pending reports')}}"  class="i-badge danger">
                           <i class="las la-info"></i>
                       </span>
                     @endif
@@ -358,7 +358,7 @@
                       {{translate('Deposit Reports')}}
 
                       @if($pending_deposits > 0 )
-                         <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending deposit")}}" class="i-badge danger">{{$pending_deposits}}</span>
+                         <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Pending deposit')}}" class="i-badge danger">{{$pending_deposits}}</span>
                       @endif
                     </p>
                   </a>
@@ -370,7 +370,7 @@
                       {{translate('Withdraw Reports')}}
 
                       @if($pending_withdraws > 0 )
-                          <span   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending withdraws")}}" class="i-badge danger">{{$pending_withdraws}}</span>
+                          <span   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Pending withdraws')}}" class="i-badge danger">{{$pending_withdraws}}</span>
                       @endif
                     </p>
                   </a>
@@ -398,7 +398,7 @@
                       {{translate('KYC Reports')}}
 
                         @if($pending_kycs > 0 )
-                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Pending KYC logs")}}" class="i-badge danger">{{$pending_kycs}}</span>
+                            <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Pending KYC logs')}}" class="i-badge danger">{{$pending_kycs}}</span>
                         @endif
                     </p>
                   </a>
