@@ -84,8 +84,8 @@
                       </div>
                   </li>
               @empty
-                   <li>
-                        @include('frontend.partials.page_section') 
+                   <li class="text--center">
+                       {{translate('No data found !!')}}
                    </li>
               @endforelse
             </ul>

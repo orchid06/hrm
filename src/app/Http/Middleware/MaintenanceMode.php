@@ -19,9 +19,7 @@ class MaintenanceMode
 
         try {
      
-            if(site_settings('maintenance_mode') == (StatusEnum::true)->status() ){
-                return redirect()->route('maintenance.mode');
-            }
+            if(site_settings('maintenance_mode') == (StatusEnum::true)->status() )  return redirect()->route('maintenance.mode');
             return $next($request);
 
         } catch (\Exception $ex) {

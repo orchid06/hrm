@@ -307,12 +307,7 @@
   font-size: 18px;
   box-shadow: 0 0 0 1px #ddd;
   color: inherit;
-  /*&:nth-child(4n+4) {
-        margin-right: 0;
-    }
-    &:nth-last-child(-n+4) {
-        margin-bottom: 0;
-    }*/
+  
 }
 .iconpicker .iconpicker-item:hover:not(.iconpicker-selected) {
   background-color: #eee;

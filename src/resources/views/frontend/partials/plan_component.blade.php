@@ -13,6 +13,7 @@
 
  </ul>
  <div class="tab-content">
+    
    @foreach (App\Enums\PlanDuration::toArray() as  $key => $value)
          <div class="tab-pane fade {{$loop->index == 0 ? 'show active' :''}}" id="{{$value}}-tab-pane" role="tabpanel" aria-labelledby="{{$value}}-tab" tabindex="0">
 
@@ -65,7 +66,7 @@
 
                                 </ul>
                             </div>
-                            <a href="javascript:void(0)" data-href="{{route("user.plan.purchase",$plan->slug)}}" class="i-btn btn--lg subscribe-plan btn--primary capsuled">{{translate("Subscribe")}}</a>
+                            <a href="javascript:void(0)" data-href="{{route('user.plan.purchase',$plan->slug)}}" class="i-btn btn--lg subscribe-plan btn--primary capsuled">{{translate("Subscribe")}}</a>
                         </div>
                     </div>
                  @empty

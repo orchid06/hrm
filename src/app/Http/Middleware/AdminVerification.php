@@ -27,7 +27,7 @@ class AdminVerification
          
             }
          } catch (\Throwable $th) {
-            //throw $th;
+           
          }
         return $next($request);
     }

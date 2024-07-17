@@ -43,32 +43,32 @@
                     </p>
                 </div>
                 <ul class="contact-list">
-                  <li>
-                    <span><i class="bi bi-envelope-open"></i></span>
-                      <div>
-                          <a href="mailto:{{site_settings('email')}}">
-                              {{site_settings("email")}}
-                          </a>
-                      </div>
-                  </li>
-                  <li>
-                    <span><i class="bi bi-telephone"></i></span>
+                    <li>
+                      <span><i class="bi bi-envelope-open"></i></span>
                         <div>
-                          <a href="tel:{{site_settings('phone')}}"> {{site_settings("phone")}}</a>
+                            <a href="mailto:{{site_settings('email')}}">
+                                {{site_settings("email")}}
+                            </a>
                         </div>
-                  </li>
-                  <li>
-                      <span><i class="bi bi-geo-alt"></i></span>
-                      <div>
-                        <a href="javascript:void(0)"> {{site_settings("address")}}</a>
-                      </div>
-                  </li>
-                  <li>
-                       <span><i class="bi bi-clock"></i></span>
-                      <div>
-                          <a href="javascript:void(0)">  {{@$contact_section->value->opening_hour_text}} </a>
-                      </div>
-                  </li>
+                    </li>
+                    <li>
+                      <span><i class="bi bi-telephone"></i></span>
+                          <div>
+                            <a href="tel:{{site_settings('phone')}}"> {{site_settings("phone")}}</a>
+                          </div>
+                    </li>
+                    <li>
+                        <span><i class="bi bi-geo-alt"></i></span>
+                        <div>
+                          <a href="javascript:void(0)"> {{site_settings("address")}}</a>
+                        </div>
+                    </li>
+                    <li>
+                         <span><i class="bi bi-clock"></i></span>
+                        <div>
+                            <a href="javascript:void(0)">  {{@$contact_section->value->opening_hour_text}} </a>
+                        </div>
+                    </li>
                 </ul>
               </div>
             </div>

@@ -189,7 +189,7 @@
                     <div class="col-lg-12 d-flex justify-content-end">
                         @if(request()->routeIs('admin.*'))
                             <div class="action">
-                                <a href="{{route("admin.content.list")}}"    class="i-btn btn--sm success">
+                                <a href="{{route('admin.content.list')}}"    class="i-btn btn--sm success">
                                     <i class="las la-arrow-left me-1"></i>  {{translate('Back')}}
                                 </a>
                             </div>

@@ -444,8 +444,8 @@
   const dropdownButton = document.querySelector('.currency -toggle');
   const dropdownMenu = document.querySelector('.currency .dropdown-menu');
 
-  if (!dropdownMenu) {
-      dropdownButton.classList.add('single-item');
+  if (!dropdownMenu && dropdownButton) {
+    dropdownButton.classList.add('single-item');
   }
 
 

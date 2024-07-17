@@ -54,7 +54,7 @@ trait PostManager
                 $post->save();
 
 
-                // try {
+                try {
                     foreach($files as $file){
                         $this->saveFile($post ,$this->storeFile(
                             file        : $file, 
@@ -63,9 +63,9 @@ trait PostManager
                          , FileKey::POST_FILE->value);
                 
                     }
-                // } catch (\Throwable $th) {
+                } catch (\Throwable $th) {
                
-                // }
+                }
              
             
             }

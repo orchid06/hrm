@@ -115,6 +115,7 @@
                                                                                             </li>
                                                                                             
                                                                                         @empty
+                                                                                        
                                                                                             <li class="nav-item" role="presentation">
                                                                                                 @include("frontend.partials.not_found")
                                                                                             </li>
