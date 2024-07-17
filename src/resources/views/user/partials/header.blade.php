@@ -119,7 +119,7 @@
             <div class="header-right-item">
                 <div class="dropdown lang">
                     <button
-                        class="lang-btn dropdown-toggle"
+                        class="lang-btn dropdown-toggle lang--toggle"
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false" >
