@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@push('style-include')
+     <link href="{{asset('assets/global/css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+@endpush
 
 @section('content')
 
@@ -64,9 +67,7 @@
    @include('admin.partials.modal.cron_job')
 @endsection
 
-@push('style-include')
-     <link href="{{asset('assets/global/css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-@endpush
+
 @push('script-include')
     <script src="{{asset('assets/global/js/bootstrap-colorpicker.min.js')}}"></script>
     @include('admin.setting.partials.script')

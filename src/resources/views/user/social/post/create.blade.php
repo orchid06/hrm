@@ -918,9 +918,6 @@
     </form>
 </div>
 
-
-
-
 @endsection
 
 @section('modal')

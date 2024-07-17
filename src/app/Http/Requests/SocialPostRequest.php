@@ -89,13 +89,12 @@ class SocialPostRequest extends FormRequest
         return [
             "account_id.required"   => 'Please select some social profile',
             "account_id.*.required" => 'Please select some social profile',
-            "files"      => 'Please input a link or text or file before posting',
-            "files.*.required"      => 'Please input a link or text or file before posting',
+            "files.required"      => 'Please input a link or text or file before posting',
             "link.required"         => 'Please input a link or text or file before posting',
             "text.required"         => 'Please input a link or text or file before posting',
             "post_type.required"    => 'Please select where to post option',
             "post_type.*.required"  => 'Please select where to post option',
-            "post_type.*.in"         => 'Please select a valid where to post option',
+            "post_type.*.in"        => 'Please select a valid where to post option',
         ];
     }
 
