@@ -1014,13 +1014,30 @@
   opacity: 1;
 }
 
-.nav-right .currency .dropdown-toggle {
+.nav-right .currency .custom--toggle {
   color: var(--text-secondary);
   opacity: 1;
   padding: 14px 15px;
   background: var(--color-primary-soft);
   border-radius: 60px;
   font-size: 14px;
+}
+
+.lang--toggle{
+  width: 42px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  background: transparent;
+  border-radius: 50%;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+
+}
+.lang--toggle::after{
+  display: none;
 }
 
 .lang .lang-btn {
@@ -3351,7 +3368,11 @@ footer{
   border: 2px solid #EAECF0;
 }
 
- .dropdown-toggle {
+.language.dropdown-toggle::after{
+  content: unset;
+}
+
+ .custom--toggle {
   color: var(--text-light);
   text-transform: capitalize;
   font-size: 15px;
@@ -3359,7 +3380,7 @@ footer{
   background: transparent;
 }
 
- .dropdown-toggle:hover {
+ .custom--toggle:hover {
   text-decoration: underline;
 }
 

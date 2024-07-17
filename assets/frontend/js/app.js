@@ -406,7 +406,7 @@
       mousewheel: {
         invert: false,
       },
-      loop: true,
+      loop: false,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,

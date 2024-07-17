@@ -1873,7 +1873,7 @@ select {
   transition: 0.3s all;
 }
 
-.currency .dropdown-toggle {
+.currency >button {
   color: var(--text-secondary);
   height: 40px;
   padding: 0 15px;
@@ -1888,8 +1888,8 @@ select {
   border: 1px solid var(--border-one);
 }
 
-.currency .dropdown-toggle::after {
-  display: inline-block;
+.currency > button::after {
+  display: inline-block !important;
   position: absolute;
   right: 15px;
   top: 17px;
