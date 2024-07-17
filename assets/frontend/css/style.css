@@ -4969,8 +4969,8 @@ footer{
   text-align: center;
 }
 .error-content > h1 {
-  font-size: 200px;
-  font-weight: 900;
+  font-size: 100px;
+  font-weight: 700;
   line-height: 1.1;
 }
 .error-content > p {
@@ -4984,7 +4984,7 @@ footer{
 
 @media (max-width: 767px) {
   .error-content > h1 {
-    font-size: 140px;
+    font-size: 80px;
   }
   .error-content > p {
     font-size: 20px;
