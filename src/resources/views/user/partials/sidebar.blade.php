@@ -58,7 +58,7 @@
                             </span>
                         </a>
 
-                        <div class="side-menu-dropdown n @if(request()->routeIs('user.social.post.*'))
+                        <div class="side-menu-dropdown @if(request()->routeIs('user.social.post.*'))
                                     show-sideMenu
                                 @endif ">
                                 <ul class="sub-menu">
@@ -315,8 +315,10 @@
                     <button
                         class="dropdown-toggle"
                         type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                        @if($currencies->count() > 0)
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        @endif>
                         {{session()->get('currency')?->code}}
                     </button>
 

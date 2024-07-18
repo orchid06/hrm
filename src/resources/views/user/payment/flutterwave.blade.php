@@ -44,7 +44,7 @@
 
 
 @push('script-include')
- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+   <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
 @endpush
 
 @push('script-push')

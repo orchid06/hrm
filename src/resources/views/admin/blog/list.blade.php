@@ -202,12 +202,12 @@
                            </tr>
 
                             @empty
-                            <tr>
-                                <td class="border-bottom-0" colspan="7">
-                                    @include('admin.partials.not_found',['custom_message' => "No Blogs found!!"])
-                                </td>
-                            </tr>
-                        @endforelse
+                                <tr>
+                                    <td class="border-bottom-0" colspan="7">
+                                        @include('admin.partials.not_found',['custom_message' => "No Blogs found!!"])
+                                    </td>
+                                </tr>
+                           @endforelse
                     </tbody>
                 </table>
             </div>
@@ -230,9 +230,7 @@
 
          "use strict";
 
-        $(".select2").select2({
-
-        })
+        $(".select2").select2({})
 
 	})(jQuery);
 </script>

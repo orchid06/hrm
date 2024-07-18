@@ -102,7 +102,7 @@
        <!-- currency switcher -->
        <div class="header-icon">
         <div class="lang-dropdown">
-          <div class="btn-icon btn--text dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="btn-icon btn--text dropdown-toggle" role="button" @if($currencies->count() > 0) data-bs-toggle="dropdown" aria-expanded="false" @endif >
             {{session()->get('currency')?->code}}
           </div>
           @if($currencies->count() > 0)
@@ -128,7 +128,7 @@
           $languages = $languages->where('code','!=',$code)->where('status',App\Enums\StatusEnum::true->status());
         @endphp
         <div class="lang-dropdown">
-          <div class="btn-icon dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="btn-icon dropdown-toggle" role="button"  @if(!$languages->isEmpty()) data-bs-toggle="dropdown" aria-expanded="false" @endif >
               <img id="header-lang-img" class="flag-img" src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code.'.jpg'}}" height="20">
           </div>
           @if(!$languages->isEmpty())

@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Traits\Fileable;
 use App\Models\Admin\Frontend;
-use App\Models\Core\File;
 use App\Traits\ModelAction;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 class FrontendService
 {
@@ -35,7 +33,6 @@ class FrontendService
                     default:
                            
                             $frontend = Frontend::with(['file'])
-                                      
                                                         ->when($request->input('id'),
                                                             fn (Builder $query) :Frontend  => $query->find($request->input('id'))
                                                             ,fn (Builder $query)  :Frontend => $query->firstOrNew(['key' => $request->input('type') . "_" . $request->input('key'),"parent_id" => $request->input('parent_id')]));

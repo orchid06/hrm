@@ -49,61 +49,61 @@
                                 <i class="las la-filter"></i>
                             </button>
                             <div class="filter-dropdown">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">
-                               @if(request()->routeIs("admin.ai.template.default"))
-                                 <input hidden name="default" value="{{App\Enums\StatusEnum::true->status()}}"  type="text">
-                               @endif
-                                <div class="form-inner">
-                                    <select name="status" id="status" class="select2">
-                                        <option value="">
-                                            {{translate('Select status')}}
-                                        </option>
-                                        @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                           <option  {{request()->input('status') ==   $v ? 'selected' :""}} value="{{$v}}"> {{translate($k)}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <select name="category" id="categoryFilter" class="select2">
-                                        <option value="">
-                                            {{translate('Select Category')}}
-                                        </option>
-                                        @foreach($categories as $category)
-                                           <option  {{$category->slug ==   request()->input('category') ? 'selected' :""}} value="{{$category->slug}}"> {{$category->title}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <select  name="subCategory" id="sub_category_id" class="sub_category_id" >
-                                        <option value="">
-                                            {{translate("Select One")}}
-                                        </option>
-                                        @foreach($subCategories as $subCategory)
-                                            <option  {{$subCategory->slug ==   request()->input('subCategory') ? 'selected' :""}}
-                                                value="{{$subCategory->slug}}"> {{$subCategory->title}}
-                                           </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <select name="user" id="user" class="select2">
-                                        <option value="">
-                                            {{translate('Select User')}}
-                                        </option>
+                                <form action="{{route(Route::currentRouteName())}}" method="get">
+                                   @if(request()->routeIs("admin.ai.template.default"))
+                                     <input hidden name="default" value="{{App\Enums\StatusEnum::true->status()}}"  type="text">
+                                   @endif
+                                    <div class="form-inner">
+                                        <select name="status" id="status" class="select2">
+                                            <option value="">
+                                                {{translate('Select status')}}
+                                            </option>
+                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
+                                               <option  {{request()->input('status') ==   $v ? 'selected' :""}} value="{{$v}}"> {{translate($k)}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="category" id="categoryFilter" class="select2">
+                                            <option value="">
+                                                {{translate('Select Category')}}
+                                            </option>
+                                            @foreach($categories as $category)
+                                               <option  {{$category->slug ==   request()->input('category') ? 'selected' :""}} value="{{$category->slug}}"> {{$category->title}}
+                                              </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select  name="subCategory" id="sub_category_id" class="sub_category_id" >
+                                            <option value="">
+                                                {{translate("Select One")}}
+                                            </option>
+                                            @foreach($subCategories as $subCategory)
+                                                <option  {{$subCategory->slug ==   request()->input('subCategory') ? 'selected' :""}}
+                                                    value="{{$subCategory->slug}}"> {{$subCategory->title}}
+                                               </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <select name="user" id="user" class="select2">
+                                            <option value="">
+                                                {{translate('Select User')}}
+                                            </option>
 
-                                        @foreach(system_users() as $user)
-                                           <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-inner">
-                                    <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
-                                </div>
-                                <button class="i-btn btn--md info w-100">
-                                    <i class="las la-sliders-h"></i>
-                                </button>
+                                            @foreach(system_users() as $user)
+                                               <option  {{Arr::get($user,"username",null) ==   request()->input('user') ? 'selected' :""}} value="{{Arr::get($user,"username",null)}}"> {{Arr::get($user,"name",null)}}
+                                              </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-inner">
+                                        <input name="search" value='{{request()->input("search")}}' type="search" placeholder="{{translate('Search by  title')}}">
+                                    </div>
+                                    <button class="i-btn btn--md info w-100">
+                                        <i class="las la-sliders-h"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -262,9 +262,7 @@
 
         "use strict";
 
-        $(".select2").select2({
-
-        })
+        $(".select2").select2({})
 
         $(".sub_category_id").select2({
             placeholder:"{{translate('Select Sub Category')}}",

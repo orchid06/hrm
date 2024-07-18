@@ -121,8 +121,9 @@
                     <button
                         class="lang-btn dropdown-toggle lang--toggle"
                         type="button"
+                        @if(!$languages->isEmpty())
                         data-bs-toggle="dropdown"
-                        aria-expanded="false" >
+                        aria-expanded="false" @endif >
                         <span class="flag">
                             <img src="{{asset('assets/images/global/flags/'.strtoupper($code).'.png') }}" alt="{{$code}}" />
                         </span>

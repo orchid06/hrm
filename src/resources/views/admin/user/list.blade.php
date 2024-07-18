@@ -156,12 +156,12 @@
                                     <div class="table-action">
                                         @if(check_permission('update_user') ||  check_permission('delete_user'))
                                             @if(check_permission('update_user'))
-                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info"><i class="las la-eye"></i>
-                                                
-                                                </a>
 
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Login')}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success">
                                                     <i class="las la-sign-in-alt"></i>
+                                                </a>
+                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
+                                                    <i class="las la-eye"></i>
                                                 </a>
 
                                             @endif
