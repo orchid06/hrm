@@ -13,7 +13,7 @@
                     <input {{ site_settings('default_recaptcha') == App\Enums\StatusEnum::true->status() ? 'checked' :"" }} type="checkbox" class="form-check-input status-update"
                     data-key ='default_recaptcha'
                     data-status ='{{ site_settings('default_recaptcha') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() :App\Enums\StatusEnum::true->status()}}'
-                    data-route="{{ route('admin.setting.update.status') }}" class="form-check-input" type="checkbox" id="defaultCaptcha" >
+                    data-route="{{ route('admin.setting.update.status') }}"  id="defaultCaptcha" >
                     <label class="form-check-label mb-0" for="defaultCaptcha">
                         {{translate("Use Default Captcha")}}
                     </label>
@@ -23,7 +23,7 @@
                     <input {{ site_settings('captcha_with_registration') == App\Enums\StatusEnum::true->status() ? 'checked' :"" }} type="checkbox" class="form-check-input status-update"
                     data-key ='captcha_with_registration'
                     data-status ='{{ site_settings('captcha_with_registration') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() :App\Enums\StatusEnum::true->status()}}'
-                    data-route="{{ route('admin.setting.update.status') }}" class="form-check-input" type="checkbox" id="captcha_with_registration" >
+                    data-route="{{ route('admin.setting.update.status') }}"  id="captcha_with_registration" >
                     <label class="form-check-label mb-0" for="captcha_with_registration">
                         {{translate("Captcha With Registration")}}
                     </label>
@@ -33,7 +33,7 @@
                     <input {{ site_settings('captcha_with_login') == App\Enums\StatusEnum::true->status() ? 'checked' :"" }} type="checkbox" class="form-check-input status-update"
                     data-key ='captcha_with_login'
                     data-status ='{{ site_settings('captcha_with_login') == App\Enums\StatusEnum::true->status() ? App\Enums\StatusEnum::false->status() :App\Enums\StatusEnum::true->status()}}'
-                    data-route="{{ route('admin.setting.update.status') }}" class="form-check-input" type="checkbox" id="captcha_with_login" >
+                    data-route="{{ route('admin.setting.update.status') }}"  id="captcha_with_login" >
                     <label class="form-check-label mb-0" for="captcha_with_login">
                         {{translate("Captcha With Login")}}
                     </label>

@@ -236,13 +236,14 @@
                                                                                         stroke-linejoin="round"
                                                                                         stroke-miterlimit="10"
                                                                                         stroke-dasharray="none"
-                                                                                        data-original="#000000"></path>
+                                                                                        data-original="#000000">
+                                                                                   </path>
                                                                                 </g>
                                                                             </g>
                                                                         </svg>
                                                                     </span>
                                                                     <span>
-                                                                        {{translate('Upload image')}}
+                                                                        {{translate('Photo/Video')}}
                                                                     </span>
                                                                 </span>
                                                             </label>

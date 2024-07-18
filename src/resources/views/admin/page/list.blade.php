@@ -149,7 +149,7 @@
                                             data-route="{{ route('admin.page.update.status') }}"
                                             data-status="{{ $page->show_in_footer == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
                                             data-id="{{$page->uid}}" {{$page->show_in_footer ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-{{$page->id}}" >
+                                        id="status-switch-footer-{{$page->id}}" >
                                         <label class="form-check-label" for="status-switch-footer-{{$page->id}}"></label>
                                     </div>
                                 </td>
