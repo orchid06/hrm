@@ -239,19 +239,6 @@
   display: none;
 }
 
-
-
-
-.language-btn{
-
-  color: var(--color-white) !important;
-}
-
-.language-btn:hover{
-  text-decoration: none !important;
-}
-
-
 .card-loader {
   position: absolute;
   top: 50%;
