@@ -141,7 +141,7 @@
                                                         
                                                     <div class="choose-profile-body mt-2">
                                                         <div class="choose-profile-footer">
-                                                            <a href="{{route('user.social.account.create',['platform' => $platform->slug])}}" class="i-btn btn--primary btn--lg">
+                                                            <a href="{{route('user.social.account.create',['platform' => $platform->slug])}}" class="i-btn btn--primary btn--lg capsuled">
                                                                 {{translate('Create New Account')}}
                                                                 <i class="bi bi-plus-lg"></i>
                                                             </a>
@@ -316,7 +316,7 @@
                                 
                             </div>
                             <div class="col-xxl-4 col-xl-12">
-                                <div class="side-notes">
+                                <div class="side-notes bg-danger-soft">
                                     <h6 class="mb-3">Note:</h6>
 
                                     <div class="accordion" id="accordionExample">
