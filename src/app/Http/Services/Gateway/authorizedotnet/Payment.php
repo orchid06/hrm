@@ -76,7 +76,7 @@ class Payment
         $transactionRequest->setTransactionRequest($transactionRequestType);
 
         $controller         = new CreateTransactionController($transactionRequest);
-        $response           = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION); // make it ANetEnvironment::PRODUCTION when appplication in live
+        $response           = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION); 
 
         
         $response = @$response->getTransactionResponse();

@@ -58,7 +58,7 @@
                             </span>
                         </a>
 
-                        <div class="side-menu-dropdown n @if(request()->routeIs('user.social.post.*'))
+                        <div class="side-menu-dropdown @if(request()->routeIs('user.social.post.*'))
                                     show-sideMenu
                                 @endif ">
                                 <ul class="sub-menu">

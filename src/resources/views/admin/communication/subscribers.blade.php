@@ -91,9 +91,9 @@
                                     <td data-label='{{translate("Options")}}'>
                                         <div class="table-action">
                                             @if(check_permission('update_frontend'))
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Send mail")}}" href="javascript:void(0);" data-email="{{$subscriber->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Send mail')}}" href="javascript:void(0);" data-email="{{$subscriber->email}}"  class="sendMail fs-15 icon-btn info"><i class="las la-paper-plane"></i></a>
 
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Delete")}}" href="javascript:void(0);" data-href="{{route('admin.subscriber.destroy',$subscriber->uid)}}" class="delete-item icon-btn danger">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Delete')}}" href="javascript:void(0);" data-href="{{route('admin.subscriber.destroy',$subscriber->uid)}}" class="delete-item icon-btn danger">
                                                     <i class="las la-trash-alt"></i></a>
                                             @else
                                                 {{translate('N/A')}}

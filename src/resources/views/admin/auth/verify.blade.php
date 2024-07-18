@@ -7,7 +7,8 @@
             <div class="row mb-25 gy-4">
                 <div class="col-md-12 text-center">
                     <a href="{{route('admin.home')}}" class="site-logo">
-                        <img src="{{imageURL(@site_logo('site_logo')->file,'site_logo',true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name}}">                    </a>
+                        <img src="{{imageURL(@site_logo('site_logo')->file,'site_logo',true)}}" class="ms-md-auto me-md-0 mx-auto" alt="{{@site_logo('site_logo')->file->name ?? 'site-logo.jpg'}}">                   
+                     </a>
                 </div>
                 <div class="col-md-12">
                     <h4>
