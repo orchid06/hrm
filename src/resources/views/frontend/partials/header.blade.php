@@ -220,7 +220,7 @@
             <div class="language">
 
 
-                <button class="dropdown-toggle lang--toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="dropdown-toggle lang--toggle" type="button"  @if($languages->count() > 0) data-bs-toggle="dropdown" aria-expanded="false" @endif>
                     <img src="{{asset('assets/images/global/flags/'.strtoupper($code ).'.png') }}" alt="{{$code.'jpg'}}"> 
                 </button>
 
@@ -240,7 +240,7 @@
             </div>
 
             <div class="currency">
-                <button class="dropdown-toggle custom--toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class=" {{$currencies->count() > 0 ? 'dropdown-toggle' : '' }}  custom--toggle" type="button" @if($currencies->count() > 0)  data-bs-toggle="dropdown" aria-expanded="false" @endif>
                     {{session()->get('currency')?->code}}
                 </button>
 

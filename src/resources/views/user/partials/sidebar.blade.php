@@ -315,8 +315,10 @@
                     <button
                         class="dropdown-toggle"
                         type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                        @if($currencies->count() > 0)
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        @endif>
                         {{session()->get('currency')?->code}}
                     </button>
 
