@@ -89,9 +89,11 @@
                                                     <img src="{{$fileURL}}" alt="{{ @$file->name ?? 'file-'.$loop->index.'.jpg'}}">
                                                 </a>
                                             @else
-                                                    <video  width="150" controls>
-                                                        <source src="{{$fileURL}}">
-                                                    </video>
+                                 
+                                                <video  width="150" controls>
+                                                    <source src="{{$fileURL}}">
+                                                </video>
+    
                                             @endif
                            
                                         </div>

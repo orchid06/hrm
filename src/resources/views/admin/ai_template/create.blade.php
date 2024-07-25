@@ -172,8 +172,7 @@
 
 
                 $(document).on('change','#category',function(e){
-
-                     var id = $(this).val()
+                    var id = $(this).val()
                     subCategories(id);
                     e.preventDefault()
                 })

@@ -135,7 +135,7 @@
 @endsection
 
 @push('script-include')
-<script src="{{asset('assets/global/js/jquery-sortable.js')}}"></script>
+   <script src="{{asset('assets/global/js/jquery-sortable.js')}}"></script>
 @endpush
 
 @push('script-push')

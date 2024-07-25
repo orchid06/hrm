@@ -78,9 +78,7 @@
 	(function($){
        	"use strict";
 
-        $(".select2").select2({
-
-        })
+        $(".select2").select2({})
 
         $(document).on('submit','.ai-content-form',function(e){
 

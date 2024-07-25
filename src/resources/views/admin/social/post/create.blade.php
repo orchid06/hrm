@@ -956,12 +956,8 @@
             </div>
 
 
-
             <div class="modal-body modal-body-section">
-
                 @include('partials.prompt_content',['modal' => true])
-        
-
             </div>
 
             <div class="modal-footer">
@@ -989,13 +985,12 @@
             "use strict";
 
             $(document).on('click', '.ai-modal', function(e) {
-                    var modal = $('#aiModal');
-                    modal.find('.ai-content-form')[0].reset();
-                    modal.find('.ai-content-div').addClass("d-none")
-                    modal.find('#ai-form').fadeIn()
-                    modal.modal('show');
-
-                });
+                var modal = $('#aiModal');
+                modal.find('.ai-content-form')[0].reset();
+                modal.find('.ai-content-div').addClass("d-none")
+                modal.find('#ai-form').fadeIn()
+                modal.modal('show');
+            });
 
             $(document).on('change','#predefined',function(e){
                 e.preventDefault()
@@ -1003,12 +998,8 @@
                 $("#inputText").val(value);
                 $(".caption-text").html(value);
 
-                e.preventDefault();
-
             })
-            $(".user").select2({
-                
-            })
+            $(".user").select2({})
 
             $(".select2").select2({
                 placeholder:"{{translate('Select Category')}}",
@@ -1034,12 +1025,10 @@
 
 
             $(document).on('click','.copy-content',function(e){
-
                 var textarea = document.getElementById('content');
                 textarea.select();
                 document.execCommand('copy');
                 window.getSelection().removeAllRanges();
-
                 toastr("{{translate('Text copied to clipboard!')}}", 'success');
 
             });
@@ -1059,64 +1048,64 @@
 
 
 
-    var swiper = new Swiper(".social-btn-slider", {
+        var swiper = new Swiper(".social-btn-slider", {
             slidesPerView: 2,
             spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".social-btn-next",
-            prevEl: ".social-btn-prev",
-        },
-        breakpoints: {
-            640: {
-            slidesPerView: 3,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
             },
-            768: {
-            slidesPerView: 3,
+            navigation: {
+                nextEl: ".social-btn-next",
+                prevEl: ".social-btn-prev",
             },
-            1024: {
+            breakpoints: {
+                640: {
                 slidesPerView: 3,
+                },
+                768: {
+                slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
             },
-        },
         });
 
         var swiper = new Swiper(".choose-profile-slider", {
-        slidesPerView: 2,
-        spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".choose-profile-next",
-            prevEl: ".choose-profile-prev",
-        },
-        breakpoints: {
-            640: {
-            slidesPerView: 3,
+            slidesPerView: 2,
+            spaceBetween: 10,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
             },
-            768: {
-            slidesPerView: 3,
+            navigation: {
+                nextEl: ".choose-profile-next",
+                prevEl: ".choose-profile-prev",
             },
-            1024: {
+            breakpoints: {
+                640: {
                 slidesPerView: 3,
+                },
+                768: {
+                slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
             },
-        },
         });
 
 
         function formatState (state) {
-        if (!state.id) {
-            return state.text;
-        }
-        var baseUrl = $(state.element).data('image');
-        var $state = $(
-            '<span class="image-option"><img src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
-        );
-        return $state;
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = $(state.element).data('image');
+            var $state = $(
+                '<span class="image-option"><img src="' + baseUrl + '" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
         }
 
         $('.profile-select').select2({

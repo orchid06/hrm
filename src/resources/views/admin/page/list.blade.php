@@ -189,8 +189,8 @@
 @endsection
 @section('modal')
 
-@include('modal.delete_modal')
-@include('modal.bulk_modal')
+    @include('modal.delete_modal')
+    @include('modal.bulk_modal')
 
 @endsection
 
