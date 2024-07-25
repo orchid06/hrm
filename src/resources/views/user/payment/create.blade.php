@@ -40,7 +40,7 @@
                             <h6 class="mb-3">
                                 {{translate('Payment methods')}}
                             </h6>
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-3">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2 g-md-3 g-2">
 
                                 @foreach ($methods as  $method)
 
