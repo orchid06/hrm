@@ -36,7 +36,7 @@
                         </div> 
                         <div class="form-inner">
                             <label for="smsBody">
-                                {{translate('Sms Body')}} <small class="text-danger">*</small>
+                                {{translate('SMS Body')}} <small class="text-danger">*</small>
                             </label>
                             <textarea name="sms_body" id="smsBody" cols="30" placeholder='{{translate("Type Here ...")}}' rows="10">@php echo $template->sms_body @endphp</textarea>
                         </div> 

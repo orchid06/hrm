@@ -130,7 +130,8 @@
 	(function($){
        	"use strict";
         
-           currency();
+            currency();
+
             $(document).on('change', '.currency-change', function (){
                 currency();
             });

@@ -156,8 +156,8 @@
                                         <td data-label='{{translate("name")}}'>
 
                                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"  src='{{@$account->account_information->avatar }}' alt="{{translate('profile.jpg')}}">
-
+                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null this.src='{{ route("default.image", "200x200")}}'" src='{{@$account->account_information->avatar }}' alt="{{translate('Social Profile image')}}" >
+                                         
                                                 @if(@$account->account_information->link)
                                                     <a target="_blank" href="{{@$account->account_information->link}}">
                                                         <p>	{{ @$account->account_information->name}}</p>
@@ -193,7 +193,6 @@
                                         </td>
     
                                         <td data-label='{{translate("Connection Type")}}'>
-
                                             @php echo account_connection($account->is_official) @endphp
                                         </td>
                                         
@@ -361,9 +360,7 @@
 
 <script>
   "use strict";
-   $(".user").select2({
-           
-    });
+   $(".user").select2({});
 
     $(document).on('click','.update-config',function(e){
 

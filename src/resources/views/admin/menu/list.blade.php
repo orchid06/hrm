@@ -70,7 +70,7 @@
                                 {{translate('Name')}}
                             </th>
                             <th scope="col">
-                                {{translate('Url')}}
+                                {{translate('URL')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}

@@ -122,6 +122,7 @@
     <script src="{{asset('assets/global/js/summernote.min.js')}}"></script>
     <script src="{{asset('assets/global/js/editor.init.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrapicon-iconpicker.js')}}"></script>
+    
 @endpush
 
 @push('script-push')

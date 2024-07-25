@@ -12,7 +12,7 @@
                         <label for="name" >
                             {{translate('Name')}}  <span  class="text-danger">*</span>
                         </label>
-                        <input name="name" placeholder="{{translate('Enter Role Name')}}" id="name"value="{{$role->name}}"  required   type="text">
+                        <input name="name" placeholder="{{translate('Enter Role Name')}}" id="name" value="{{$role->name}}"  required   type="text">
                     </div>
                 </div>
                 <div class="col-12">
@@ -76,6 +76,7 @@
        	"use strict";
 
         checkebox_event(".module-permission",'.check-role');
+        
         $(document).on('click','.check-role' ,function(e){
 
             if($(this).is(':checked')){

@@ -246,7 +246,7 @@
 <script>
 	(function($){
 
-         "use strict";
+        "use strict";
 
         $(".select2").select2({});
         $(".user").select2({});

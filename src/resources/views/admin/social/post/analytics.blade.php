@@ -10,13 +10,13 @@
   </h4>
   <div class="page-title-right d-flex justify-content-end align-items-center gap-3">
       <form action="{{route(Route::currentRouteName())}}" method="get">
-        <div class="date-search">
-            <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate('Filter by date')}}">
-            <button type="submit" class="me-2"><i class="bi bi-search"></i></button>
-            <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
-              <i class="las la-sync"></i>
-            </a>
-        </div>
+          <div class="date-search">
+              <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate('Filter by date')}}">
+              <button type="submit" class="me-2"><i class="bi bi-search"></i></button>
+              <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                <i class="las la-sync"></i>
+              </a>
+          </div>
       </form>
   </div>
 </div>
@@ -27,41 +27,41 @@
       <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="i-card-sm style-2 primary">
             <div class="card-info">
-              <h3>
-                  {{Arr::get($data,"total_account",0)}}
-              </h3>
-              <h5 class="title">
-                {{translate("Total Account")}}
-              </h5>
-              <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary-outline">
-                    {{translate("View All")}}
-              </a>
+                <h3>
+                    {{Arr::get($data,"total_account",0)}}
+                </h3>
+                <h5 class="title">
+                  {{translate("Total Account")}}
+                </h5>
+                <a href="{{route('admin.social.account.list')}}" class="i-btn btn--sm btn--primary-outline">
+                      {{translate("View All")}}
+                </a>
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
-              <div class="icon">
-                <i class="las la-user-friends"></i>
-              </div>
+                <div class="icon">
+                  <i class="las la-user-friends"></i>
+                </div>
             </div>
           </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="i-card-sm style-2 success">
-          <div class="card-info">
-            <h3>
-              {{Arr::get($data,"total_post",0)}}
-            </h3>
-            <h5 class="title">
-              {{translate("Total Post")}}
-            </h5>
-            <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--primary-outline">
-              {{translate("View All")}}
-            </a>
-          </div>
-          <div class="d-flex flex-column align-items-end gap-4">
-            <div class="icon">
-              <i class="las la-comments"></i>
+            <div class="card-info">
+                <h3>
+                  {{Arr::get($data,"total_post",0)}}
+                </h3>
+                <h5 class="title">
+                  {{translate("Total Post")}}
+                </h5>
+                <a href="{{route('admin.social.post.list')}}" class="i-btn btn--sm btn--primary-outline">
+                  {{translate("View All")}}
+                </a>
             </div>
-          </div>
+            <div class="d-flex flex-column align-items-end gap-4">
+              <div class="icon">
+                <i class="las la-comments"></i>
+              </div>
+            </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -302,7 +302,7 @@
                   <td data-label='{{translate("Account")}}'>
                       <div class="user-meta-info d-flex align-items-center gap-2">
                           <img class="rounded-circle avatar-sm"
-                          onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"
+                          onerror="this.onerror=null;" this.src='{{ route("default.image", "200x200") }};'
                             src='{{@$post->account->account_information->avatar }}' alt="profile.jpg">
 
                           @if(@$post->account->account_information->link)

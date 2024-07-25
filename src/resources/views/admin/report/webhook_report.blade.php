@@ -87,6 +87,7 @@
                                         @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                                     </td>
                                 </tr>
+                                
                            @endforelse
 
                     </tbody>

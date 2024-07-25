@@ -110,7 +110,7 @@
                                 </td>
                                 <td data-label='{{translate("Account")}}'>
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm" onerror="this.onerror=null;this.src='{{ route("default.image", "200x200") }}';"  src='{{@$post->account->account_information->avatar }}' alt="profile.jpg">
+                                        <img class="rounded-circle avatar-sm" onerror="this.onerror=null;" this.src='{{ route("default.image", "200x200") }};'  src='{{@$post->account->account_information->avatar }}' alt="profile.jpg">
 
                                         @if(@$post->account->account_information->link)
                                             <a target="_blank" href="{{@$post->account->account_information->link}}">
@@ -241,16 +241,9 @@
 	(function($){
        	"use strict";
 
-        $(".user").select2({
-
-        });
-
-        $(".account").select2({
-
-        });
-        $(".status").select2({
-
-        });
+        $(".user").select2({});
+        $(".account").select2({});
+        $(".status").select2({});
 
 
         $(document).on('click','.show-info',function(e){

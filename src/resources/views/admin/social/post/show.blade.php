@@ -120,7 +120,6 @@
         $('.image-v-preview').viewbox();
 
 
-
 	})(jQuery);
     
 </script>

@@ -20,13 +20,13 @@
 								<tbody>
 									<tr>
 										<td>
-											{{translate("PHP versions")}}
+											{{translate("PHP Version")}}
 										</td>
 										<td>{{ phpversion() }}</td>
 									</tr>
 									<tr>
 										<td>
-											{{translate("Larvel version")}}
+											{{translate("Laravel Version")}}
 										</td>
 										<td>
 											 {{Arr::get($systemInfo,'laravel_version')}}

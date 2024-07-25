@@ -19,10 +19,10 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">
-								{{translate('key')}}
+								{{translate('Key')}}
 							</th>
 							<th scope="col">
-								{{translate('value')}}
+								{{translate('Value')}}
 							</th>
 
 							<th scope="col">
@@ -75,7 +75,6 @@
 
 @section('modal')
     @include('modal.delete_modal')
-
 @endsection
 
 @push('script-push')

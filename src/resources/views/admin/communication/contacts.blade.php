@@ -139,7 +139,7 @@
 
     @include('modal.bulk_modal')
 
-    <!-- send mail modal -->
+
     <div class="modal fade" id="sendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendMailModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -180,7 +180,7 @@
         </div>
     </div>
 
-    <!-- show modal -->
+
     <div class="modal fade" id="showMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="showMessage" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">

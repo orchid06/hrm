@@ -24,7 +24,7 @@
                     </div> 
                     <div class="form-inner">
                         <label for="smsBody">
-                            {{translate('Sms Body')}} <small class="text-danger">*</small>
+                            {{translate('SMS Body')}} <small class="text-danger">*</small>
                         </label>
                         <textarea class="form-control form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template")@endphp</textarea>
                     </div> 
@@ -62,6 +62,6 @@
 @endsection
 
 @push('script-include')
-<script src="{{asset('assets/global/js/summernote.min.js')}}"></script>
-<script src="{{asset('assets/global/js/editor.init.js')}}"></script>
+    <script src="{{asset('assets/global/js/summernote.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/editor.init.js')}}"></script>
 @endpush

@@ -6,15 +6,13 @@
 		<div class="profile-details-top">
 			<div class="profile-info">
 				<div class="image">
-
-					
 					<img src='{{imageURL(@$user->file,"profile,admin",true)}}' alt="{{@$user->file->name}}" />
 				</div>
 				<div class="designation">
-				<a href="javascript: void(0);">
-					<h4>{{@$user->name}}</h4>
-				</a>
-				<small>{{@$user->super_admin == App\Enums\StatusEnum::true->status() ? translate('SuperAdmin') : @$user->role->name }}</small>
+					<a href="javascript: void(0);">
+						<h4>{{@$user->name}}</h4>
+					</a>
+			     	<small>{{@$user->super_admin == App\Enums\StatusEnum::true->status() ? translate('SuperAdmin') : @$user->role->name }}</small>
 				</div>
 			</div>
 		</div>

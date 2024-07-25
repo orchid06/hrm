@@ -22,20 +22,20 @@
                                     </p>
                                 </div>
                             @else
-                            <form action="{{ route('admin.ticket.reply') }}" class="give-replay" method="post">
-                                @csrf
-                                <input hidden value="{{ $ticket->id }}" type="text" name="id" >
-                                <textarea class="summernote" name="message" rows="3" placeholder="{{ translate('Reply Here ....') }}">
-                              </textarea>
-                                <div class="give-replay-action">
-                                    <div>
-                                        <button class="post-replay i-btn btn--sm btn--primary" type="submit">
-                                            {{ translate('Submit') }}
-                                        </button>
+                                <form action="{{ route('admin.ticket.reply') }}" class="give-replay" method="post">
+                                    @csrf
+                                    <input hidden value="{{ $ticket->id }}" type="text" name="id" >
+                                     <textarea class="summernote" name="message" rows="3" placeholder="{{ translate('Reply Here ....') }}">
+                                    </textarea>
+                                    <div class="give-replay-action">
+                                        <div>
+                                            <button class="post-replay i-btn btn--sm btn--primary" type="submit">
+                                                {{ translate('Submit') }}
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        @endif
+                                </form>
+                           @endif
                         @php
                             $messages = $ticket->messages;
                             $files = $ticket->file;
@@ -116,7 +116,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="ticket-details-list">
-                        <li><span>{{ translate('Ticket Id') }} :</span><span>{{ $ticket->ticket_number }}</span></li>
+                        <li><span>{{ translate('Ticket ID') }} :</span><span>{{ $ticket->ticket_number }}</span></li>
                         <li><span>{{ translate('Subject') }} :</span><span>{{ $ticket->subject }}</span></li>
                         <li><span>{{ translate('Creation Time') }} :</span><span>{{ get_date_time($ticket->created_at) }}</span></li>
                         <li><span>{{ translate('Status') }} :</span><span id="c-date">{{ get_date_time($ticket->created_at) }}</span></li>
