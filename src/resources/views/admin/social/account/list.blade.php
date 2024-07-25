@@ -268,52 +268,6 @@
 @section('modal')
     @include('modal.delete_modal')
 
-    <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        {{translate('Update Configuration')}}
-                    </h5>
-                    <button class="close-btn" data-bs-dismiss="modal">
-                        <i class="las la-times"></i>
-                    </button>
-                </div>
-                <form action="{{route('admin.platform.configuration.update')}}" id="platformForm" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <input   hidden name="id" type="text">
-                            <div class="col-lg-12" id ="configuration">
-                            </div>
-                            <div class="col-xl-12">
-                                <div class="form-inner">
-                                    <label for="callbackUrl">
-                                        {{translate('Callback Url')}}
-                                    </label>
-                                    <div class="input-group">
-                                        <input id="callbackUrl"  readonly  type="text" class="form-control" >
-                                        <span class="input-group-text pointer copy-text pointer" data-type="modal"  data-text ='' ><i class="las la-copy"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
-                            {{translate("Close")}}
-                        </button>
-                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-                            {{translate("Submit")}}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
     <div class="modal fade" id="reconnect-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reconnect-modal"   aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
             <div class="modal-content">
@@ -348,6 +302,59 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="config-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="config-modal"   aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{translate('Update Configuration')}}
+                    </h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <form action="{{route('admin.platform.configuration.update')}}" id="platformForm" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <input   hidden name="id" type="text">
+                            <div class="col-lg-12" id ="configuration">
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-inner">
+                                    <label for="callbackUrl">
+                                        {{translate('Callback URL')}}
+                                    </label>
+                                    <div class="input-group">
+                                        <input id="callbackUrl"  readonly  type="text" class="form-control" >
+
+                                        <span class="input-group-text pointer copy-text pointer" data-type="modal"  
+                                        data-text ='' >
+                                            <i class="las la-copy"></i>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Submit")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+ 
 @endsection
 
 @push('script-push')
@@ -373,11 +380,11 @@
             });
 
             html+= `<div class="form-inner">
-                                <label for="client_secret" class="form-label" >
+                                <label for="${convertedString}-${i}" class="form-label" >
                                     ${convertedString}  <span  class="text-danger">*</span>
                                 </label>
 
-                            <input value="${config[i]}" required type="text" name="configuration[${i}]">
+                            <input value="${config[i]}"  id='${convertedString}-${i}' required type="text" name="configuration[${i}]">
                             </div>`;
 
         }

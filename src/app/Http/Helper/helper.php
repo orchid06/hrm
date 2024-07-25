@@ -99,9 +99,10 @@ use Illuminate\Database\Eloquent\Collection;
          });
 
          try {
-            if((isset($settings[$key]) ||  isset(config('site_settings')[$key]))){
-               return  Arr::get($settings, $key,isset(config('site_settings')[$key]) ? config('site_settings')[$key] :trans('default.no_result_found'));
-            }
+            if((isset($settings[$key]) ||  isset(config('site_settings')[$key]))) return 
+                  Arr::get($settings, $key,isset(config('site_settings')[$key]) 
+                           ? config('site_settings')[$key] 
+                           : trans('default.no_result_found'));
 
          } catch (\Throwable $th) {
 
@@ -250,9 +251,7 @@ use Illuminate\Database\Eloquent\Collection;
 	if (!function_exists('get_translation')){
 		function get_translation(mixed $data, string $lang = null) :mixed{
 			$lang = $lang ? $lang : session()->get("locale");
-         if($data->$lang){
-            return  $data->$lang;
-         }
+         if($data->$lang) return  $data->$lang;
          return $data->en;
 
 		}
@@ -778,12 +777,9 @@ use Illuminate\Database\Eloquent\Collection;
       function sidebar_awake(string | array $routes , string $type = null){
 
          $class = '';
-         if((is_array($routes)  && in_array( Route::currentRouteName(), $routes)) || request()->routeIs($routes)  ){
-            $class = "active";
-            if($type){
-               $class = "show";
-            }
-         }
+         if((is_array($routes)  
+            && in_array( Route::currentRouteName(), $routes)) 
+            || request()->routeIs($routes) ) $class = $type ? "show" : "active";
 
          return $class;
       }

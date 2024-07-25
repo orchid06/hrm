@@ -57,7 +57,7 @@
     
                                                             $privicyIcons = [
                                                             'EVERYONE'    => 'bi bi-globe-americas',
-                                                            'ALL_FRIENDS' => 'i bi-people',
+                                                            'ALL_FRIENDS' => 'bi bi-people',
                                                             'CUSTOM'      => 'bi bi-gear',
                                                             'SELF'        => 'bi bi-shield-lock',
                                                             ];

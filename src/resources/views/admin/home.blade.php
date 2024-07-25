@@ -371,7 +371,7 @@
                                               {{$report->trx_code}}
                                           </span>
 
-                                          <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Copy")}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
+                                          <span  data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Copy')}}" class="icon-btn  success fs-20 pointer copy-trx"><i class="lar la-copy"></i></span>
 
                                       </td>
                                       <td  data-label='{{translate("Final Amount")}}'>
@@ -385,7 +385,7 @@
                                       </td>
                                       <td data-label='{{translate("Options")}}'>
                                           <div class="table-action">
-                                              <a data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate("Update")}}"  href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
+                                              <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Update')}}"    href="{{route('admin.deposit.report.details',$report->id)}}"  class="fs-15 icon-btn info"><i class="las la-pen"></i></a>
                                           </div>
                                       </td>
                                   </tr>
@@ -463,7 +463,6 @@
               <ul class="activity-list">
 
                 @forelse(Arr::get($data,'latest_subscriptions',[]) as $subscription)
-
                   <li>
                       <div class="d-flex align-items-start gap-2">
                         <span class="list-dot"><i class="bi bi-dot"></i></span>
@@ -531,12 +530,12 @@
           <div class="i-card-md home">
             <div class="card--header">
               <h4 class="card-title">
-                {{translate("Latest Transaction")}}
+                 {{translate("Latest Transaction")}}
               </h4>
 
               <a href="{{route('admin.transaction.report.list')}}" class="i-btn btn--sm btn--primary-outline">
                 {{translate("View All")}}
-            </a>
+              </a>
             </div>
             <div class="card-body">
                 <div class="table-container">
@@ -612,7 +611,7 @@
                                   @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                               </td>
                           </tr>
-                        @endforelse
+                         @endforelse
                     </tbody>
                 </table>
               </div>

@@ -172,9 +172,7 @@
 
         "use strict";
 
-        $(".status").select2({
-
-        });
+        $(".status").select2({});
 
 	})(jQuery);
 </script>

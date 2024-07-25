@@ -16,7 +16,7 @@
                                     <div class="flex-shrink-0">
                                         <img class="rounded-circle avatar-sm"
                                         src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
-                                        alt="{{@auth_user()->file->name}}" />
+                                        alt="{{@auth_user()->file->name ?? 'profile.jpg'}}" />
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="list-title"> 

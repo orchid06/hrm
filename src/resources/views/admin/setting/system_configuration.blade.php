@@ -230,7 +230,8 @@
                     <div>
                         <h6 class="mb-0">{{ translate('Max Login Attempt Validation') }}</h6>
                         <p class="mb-0">
-                            <small>{{ translate("Enabling this feature implements maximum login attempts validation, enhancing security by preventing unauthorized access through controlled login attempts for user accounts") }}</small>
+                            <small>{{ translate("Enabling this feature implements maximum login attempts validation, enhancing security by preventing unauthorized access through controlled login attempts for user accounts") }}
+                            </small>
                         </p>
                     </div>
                     <div class="form-group">

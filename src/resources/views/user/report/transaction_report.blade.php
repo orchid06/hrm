@@ -199,9 +199,7 @@
 
         "use strict";
         
-        $(".type").select2({
-
-        });
+        $(".type").select2({});
 
 
 	})(jQuery);

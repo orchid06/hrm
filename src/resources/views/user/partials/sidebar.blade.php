@@ -14,7 +14,7 @@
     <div class="side-content">
         <a href="{{route('user.home')}}" class="sidebar-logo d-block d-sm-none">
             <div class="site-logo">
-                <img class="img-fluid"  src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{ @site_logo('user_site_logo')->file->name ?? "site-logo.jpg"}}" />
+                <img class="img-fluid"  src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{ @site_logo('user_site_logo')->file->name ?? 'site-logo.jpg'}}" />
             </div>
         </a> 
 

@@ -606,8 +606,7 @@
             <div class="card-body px-0">
                 <div class="table-accordion">
                     @php
-                    $reports = Arr::get($data,'subscription_log',null);
-
+                       $reports = Arr::get($data,'subscription_log',null);
                     @endphp
 
                     @if($reports && $reports->count() > 0)
@@ -626,7 +625,7 @@
                                                 </span>
                                                 <div>
                                                     <h6>
-                                                        {{translate("Trx Code")}}
+                                                        {{translate("TRX Code")}}
                                                     </h6>
                                                     <p> {{$report->trx_code}}</p>
                                                 </div>
@@ -693,9 +692,9 @@
                                                 <p>
 
                                                     @if($report->created_at)
-                                                    {{ get_date_time($report->created_at) }}
+                                                      {{ get_date_time($report->created_at) }}
                                                     @else
-                                                    {{translate("N/A")}}
+                                                      {{translate("N/A")}}
                                                     @endif
                                                 </p>
                                             </div>
@@ -741,7 +740,7 @@
                         @endforelse
                     </div>
                     @else
-                    @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
+                       @include('admin.partials.not_found',['custom_message' => "No Reports found!!"])
                     @endif
 
                 </div>

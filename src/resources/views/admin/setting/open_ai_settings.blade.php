@@ -54,7 +54,8 @@
                                             <small class="text-danger" >*</small></label>
                                             <select class="select2" id="ai_default_creativity" name="site_settings[ai_default_creativity]" required>
                                                @foreach (Arr::get(config('settings'),'default_creativity',[]) as $k => $v )
-                                                    <option value="{{$v}}" {{site_settings("ai_default_creativity") == $v  ? "selected" :""}} >
+                                                    <option value="{{$v}}" {{site_settings("ai_default_creativity") == $v  
+                                                    ? "selected" :""}} >
                                                         {{ $k }}
                                                     </option>
                                                @endforeach

@@ -587,22 +587,16 @@ class CoreController extends Controller
             $platform  = $this->setConfig($service);
             $guard = session()->get('guard');
 
-            if(!$guard || !auth()->guard($guard)->check() ){
-                abort(403, "Unauthenticated user request");
-            }
-
+            if(!$guard || !auth()->guard($guard)->check() )  abort(403, "Unauthenticated user request");
+            
             $account = Socialite::driver($service)->stateless()->user();
             
 
             $id = Arr::get($account->attributes,'id',null);
-            if(!$account || !$account->token || !$id ){
-                abort(403, "Unauthenticated user request");
-            }
+            if(!$account || !$account->token || !$id ) abort(403, "Unauthenticated user request");
 
             $identification = Arr::get($account->attributes,'email',null);
-            if(!$identification){
-                $identification = $id;
-            }
+            if(!$identification)  $identification = $id;
         
             $accountInfo = [
                 'id'                => @$account->id,
@@ -636,10 +630,11 @@ class CoreController extends Controller
 
     public  function maintenanceMode() :View | RedirectResponse{
 
-        if(site_settings('maintenance_mode') == (StatusEnum::false)->status() ){
-            return redirect()->route('home');
-        }
+
         $title = translate('Maintenance Mode');
+
+        if(site_settings('maintenance_mode') == (StatusEnum::false)->status() )     return redirect()->route('home');
+
         return view('maintenance_mode', [
             'title'=> $title,
         ]);
@@ -656,15 +651,14 @@ class CoreController extends Controller
     public function postWebhook() {
 
  
-        $hubToken   = request()->query('hub_verify_token');
-        $apiKey     = site_settings("webhook_api_key");
-        $usersCount = User::whereNotNull('webhook_api_key')->where('webhook_api_key',  $hubToken )->count();
+        $hubToken    = request()->query('hub_verify_token');
+        $apiKey      = site_settings("webhook_api_key");
+        $isUserToken = User::whereNotNull('webhook_api_key')->where('webhook_api_key',  $hubToken )->exists();
 
 
-        if ($apiKey  == $hubToken || $usersCount > 0 ) {
-            return response(request()->query('hub_challenge'));
-        }
-        
+        if ($apiKey  == $hubToken || $isUserToken ) return response(request()->query('hub_challenge')); 
+
+
         $user = User::where('uid',request()->input('uid'))->first();
    
         PostWebhookLog::create([

@@ -298,9 +298,7 @@
 	(function($){
         "use strict";
 
-        $(".select2").select2({
-
-        })
+        $(".select2").select2({})
 
         $("#country").select2({
 			dropdownParent: $("#ip-form"),
