@@ -1,4 +1,4 @@
-<h4 class="card-title mb-4">
+<h4 class="fs-18 mb-4">
     {{translate('Templates')}}
 </h4>
 <div class="template-wrapper scroll-design">

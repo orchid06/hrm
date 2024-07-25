@@ -29,7 +29,7 @@
                 <input type="hidden" name="id" id="templateId">
 
                 <div class="row g-4">
-                    <div class="col-xl-10 col-lg-9 pe-lg-4">
+                    <div class="col-xl-10 col-lg-9 pe-lg-4 order-lg-1 order-2">
               
                         <div class="row g-3">
                             <div class="col-lg-4">
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 mb-4 template-section">
+                    <div class="col-xl-2 col-lg-3 mb-4 template-section order-lg-2 order-1">
 
                           @include("partials.ai_template",[
                             'templates' => @$templates
