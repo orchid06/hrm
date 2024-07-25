@@ -967,8 +967,6 @@
 (function($) {
     "use strict";
 
-
-
     $(document).on('change', '#predefined', function(e) {
         e.preventDefault()
         var value = $(this).val();
@@ -979,10 +977,7 @@
 
     })
 
-    $(".user").select2({
-
-        
-    })
+    $(".user").select2({})
 
 
     $(document).on('click', '.ai-modal', function(e) {

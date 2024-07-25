@@ -271,13 +271,9 @@
 
         "use strict";
 
-        $(".select2").select2({
+        $(".select2").select2({});
 
-        });
-
-        $(".status").select2({
-
-        });
+        $(".status").select2({});
 
 
 

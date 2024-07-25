@@ -4,7 +4,7 @@
     <a href="{{route('admin.home')}}">
       <img
         src='{{imageURL(@site_logo("site_logo")->file,"site_logo",true)}}'
-        alt="{{@site_logo('site_logo')->file->name ?? "site-logo.jpg"}}" />
+        alt="site-logo.jpg" />
     </a>
 
   </div>
@@ -891,7 +891,7 @@
               {{translate('System Update')}}
 
 
-              <span data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('System Version')}}"  class="i-badge danger">
+              <span data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('APP Version')}}"  class="i-badge danger">
         
                    {{translate('V')}}{{site_settings("app_version",1.1)}}
           

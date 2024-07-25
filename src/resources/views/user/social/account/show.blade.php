@@ -55,10 +55,10 @@
                                                 @php
 
                                                         $privicyIcons = [
-                                                        'EVERYONE'    => 'bi bi-globe-americas',
-                                                        'ALL_FRIENDS' => 'i bi-people',
-                                                        'CUSTOM'      => 'bi bi-gear',
-                                                        'SELF'        => 'bi bi-shield-lock',
+                                                            'EVERYONE'    => 'bi bi-globe-americas',
+                                                            'ALL_FRIENDS' => 'bi bi-people',
+                                                            'CUSTOM'      => 'bi bi-gear',
+                                                            'SELF'        => 'bi bi-shield-lock',
                                                         ];
                                                         $privacy      = Arr::get($data,'privacy',[]);
                                                         $privacyText      = Arr::get($privacy,'value','EVERYONE');
@@ -191,9 +191,9 @@
 
 
 @push('script-include')
-  <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
-   <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
-  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
     <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 

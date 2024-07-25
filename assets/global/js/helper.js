@@ -99,8 +99,7 @@ $(document).on('click', '.copy-text ', function (e) {
     var modal = $(this).attr('data-type');
 
     var $tempInput = $('<input>');
- 
-
+  
     if(modal){
         $('.modal').append($tempInput);
     }else{

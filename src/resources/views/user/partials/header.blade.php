@@ -69,7 +69,7 @@
                                                     <li>
                                                         <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
                                                             <div class="notify-icon">
-                                                            <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name}}"/>
+                                                            <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name ?? 'profile.jpg'}}"/>
 
                                                             </div>
 

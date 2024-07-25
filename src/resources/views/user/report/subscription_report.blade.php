@@ -234,13 +234,9 @@
 
         "use strict";
 
-        $(".package").select2({
+        $(".package").select2({});
 
-        });
-
-        $(".select2").select2({
-
-        });
+        $(".select2").select2({});
 
 	})(jQuery);
 </script>

@@ -270,11 +270,11 @@
                 });
 
                 html+= `<div class="form-inner">
-                                    <label for="client_secret" class="form-label" >
+                                    <label for="${convertedString}-${i}" class="form-label" >
                                         ${convertedString}  <span  class="text-danger">*</span>
                                     </label>
 
-                                   <input value="${config[i]}" required type="text" name="configuration[${i}]">
+                                   <input value="${config[i]}" id='${convertedString}-${i}' required type="text" name="configuration[${i}]">
                                 </div>`;
 
             }

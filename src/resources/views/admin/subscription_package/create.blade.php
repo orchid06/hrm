@@ -80,7 +80,6 @@
                                     <option selected value="{{$template->id}}">
                                          {{$template->name}}
                                     </option>
-
                                    @endforeach
                                 @endif
                             </select>

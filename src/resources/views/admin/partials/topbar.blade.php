@@ -64,7 +64,7 @@
                                   <div class="notify-icon">
                                     <img class="rounded-circle"
                                       src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
-                                      alt="{{@auth_user()->file->name}}" />
+                                      alt="profile.jpg" />
                                   </div>
                                   <div class="notification-item-content">
                                     <h5> {{auth_user()->name}} <small>

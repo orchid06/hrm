@@ -22,7 +22,7 @@
                                 <div class="flex-shrink-0">
                                     <img class="rounded-circle avatar-md"
                                     src='{{imageURL($user->file,"profile,user",true) }}'
-                                    alt="{{@$user->file->name}}" />
+                                    alt="{{@$user->file->name ?? 'profile.jpg'}}" />
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="list-title">
