@@ -57,7 +57,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-lg-10 mb-4">
-                        <div class="row align-items-center">
+                        <div class="row align-items-center gy-5">
                             <div class="col-lg-5">
                                 <div class="feed-item">
                                     <div class="serial">

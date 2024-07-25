@@ -12,7 +12,7 @@
     <div class="header-container">
         <div class="d-flex align-items-center gap-3">
 
-            <div class="header-logo">
+            <div class="header-logo d-md-block d-none">
                 <a href="{{route('home')}}">
                     <img src="{{imageUrl(@site_logo('user_site_logo')->file,'user_site_logo',true)}}"
                         alt="{{@site_logo('user_site_logo')->file->name ?? 'site-logo.jpg'}}">
@@ -47,6 +47,14 @@
                 <div class="sidebar-wrapper">
                     <nav>
                         <ul class="menu-list">
+                            @foreach ($menus as $menu)
+                                <li class="menu-item">
+                                    <a href="{{url($menu->url)}}"
+                                        class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
+                                        {{$menu->name}}
+                                    </a>
+                                </li>
+                            @endforeach
 
                             @php
                                     $megaMenu              = get_content("content_mega_menu")->first();
@@ -164,16 +172,6 @@
                                     </div>
                                 </li>
                             @endif
-
-    
-                            @foreach ($menus as $menu)
-                                <li class="menu-item">
-                                    <a href="{{url($menu->url)}}"
-                                        class="menu-link @if(!request()->routeIs('home') && URL::current() == url($menu->url)) active @endif ">
-                                        {{$menu->name}}
-                                    </a>
-                                </li>
-                            @endforeach
               
                             @foreach ($pages as $page)
                                 <li class="menu-item">
@@ -208,7 +206,7 @@
         </div>
 
 
-        <div class="nav-right d-flex jsutify-content-end align-items-center gap-sm-3 gap-2">
+        <div class="nav-right d-flex jsutify-content-end align-items-center gap-3">
 
             <div class="d-lg-none">
                 <div class="mobile-menu-btn sidebar-trigger">
