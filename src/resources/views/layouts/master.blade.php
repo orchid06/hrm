@@ -56,20 +56,26 @@
           bottom: 0;
           right: 0;
         }
+
    </style>
   </head>
   <body>
 
       @if(!request()->routeIs("dos.security") && !request()->routeIs("*auth.*") && site_settings('frontend_preloader') == App\Enums\StatusEnum::true->status())
         <div class="preloader">
-            <div class="preloader-content">
-                <div class="preloader-logo">
-                     <img src="{{imageURL(@site_logo('loader_icon')->file,'loader_icon',true)}}" alt="loader-icon.jpg">
-                </div>
-                <div class="loader">
-                    <span></span>
-                </div>
-
+            <div class="dot-wrapper">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
       @endif

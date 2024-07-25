@@ -2325,6 +2325,10 @@ select {
   margin-right: 5px;
 }
 
+.sidebar-footer a span i{
+  vertical-align: middle;
+}
+
 .total-balance {
   margin-top: 0px;
   margin-bottom: 20px;
@@ -3669,7 +3673,7 @@ aside.show-side-bar {
   color: var(--text-primary);
   border: 1px solid var(--border-one);
   padding: 12px 15px;
-  border-radius: 3px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 15px;
