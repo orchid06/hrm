@@ -4211,7 +4211,7 @@ aside.show-side-bar {
 
 .slider-wrap .swiper-button-prev {
   position: absolute;
-  top: 23px;
+  top: 25px;
   left: -24px;
   width: 30px;
   height: 30px;
@@ -4234,7 +4234,7 @@ aside.show-side-bar {
 
 .slider-wrap .swiper-button-next {
   position: absolute;
-  top: 23px;
+  top: 25px;
   right: -24px;
   width: 30px;
   height: 30px;
