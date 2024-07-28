@@ -819,7 +819,7 @@
     var monthlyLabel = @json(array_keys($data['monthly_post_graph']));
     var options = {
         chart: {
-            height: 380,
+            height: 410,
             type: "line",
         },
         dataLabels: {

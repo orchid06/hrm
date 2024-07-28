@@ -20,7 +20,7 @@
 <div class="compose-wrapper">
     <form action="{{route('user.social.post.store')}}" method="post" class="compose-form" enctype="multipart/form-data">
         @csrf
-        <div class="row gy-4 gx-3 justify-content-center mt-2">
+        <div class="row gy-4 gx-3 justify-content-center">
             <div class="col-xxl-8 col-xl-7 col-lg-7 col-md-6 order-md-1 order-2">
                 <div class="i-card-md">
                     <div class="card-body">
