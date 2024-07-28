@@ -38,7 +38,7 @@
                             <label for="smsBody">
                                 {{translate('SMS Body')}} <small class="text-danger">*</small>
                             </label>
-                            <textarea name="sms_body" id="smsBody" cols="30" placeholder='{{translate("Type Here ...")}}' rows="10">@php echo $template->sms_body @endphp</textarea>
+                            <textarea  name="sms_body" id="smsBody" cols="30" placeholder='{{translate("Type Here ...")}}' rows="10">@php echo $template->sms_body @endphp</textarea>
                         </div> 
                         <div>
                             <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">

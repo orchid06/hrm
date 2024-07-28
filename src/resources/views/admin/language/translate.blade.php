@@ -50,7 +50,7 @@
 
 										@if(check_permission('delete_language'))
 											<a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}"  href="javascript:void(0);" data-href="{{route('admin.language.destroy.key',$translate->uid)}}" class="delete-item icon-btn danger">
-												<i class="las la-trash-alt"></i></a></a>
+												<i class="las la-trash-alt"></i></a>
 										@endif
 									</div>
 								</td>

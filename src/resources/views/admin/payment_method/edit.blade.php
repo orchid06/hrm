@@ -52,7 +52,7 @@
                         </label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">  1 {{session()->get('currency')?->code}} =</span>
-                            <input disabled id="convention_rate" type="number" min="0" step="any"  class="form-control"
+                            <input disabled id="convertion_rate" type="number" min="0" step="any"  class="form-control"
                             name="convention_rate"
                             value="{{exchange_rate($method->currency,4)}}"
                             required="">
