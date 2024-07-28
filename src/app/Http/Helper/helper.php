@@ -1312,6 +1312,7 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('isValidImageUrl')){
       function isValidImageUrl($url)
       {
+         if(!$url) return false;
          $headers = @get_headers($url);
          if (!$headers)  return false;
 

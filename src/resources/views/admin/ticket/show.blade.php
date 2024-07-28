@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="mesg-action">
                                                 <div class="i-dropdown">
-                                                    <a href="javascript:void(0)" class="icon-btn info p-2" type="button"
+                                                    <a href="javascript:void(0)" class="icon-btn info p-2" 
                                                         data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="bi bi-three-dots-vertical"></i>
                                                     </a>
@@ -88,7 +88,7 @@
                                                         <li>
                                                             <a href="javascript:void(0)"
                                                                 data-href="{{ route('admin.ticket.destroy.message',$message->id) }}"
-                                                                class="delete-item  dropdown-item" type="button">
+                                                                class="delete-item  dropdown-item">
                                                                 <i class="bi bi-trash3 me-2"></i>
                                                                 {{ translate('Delete') }}
                                                             </a>

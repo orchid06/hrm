@@ -26,7 +26,7 @@
                         <label for="smsBody">
                             {{translate('SMS Body')}} <small class="text-danger">*</small>
                         </label>
-                        <textarea class="form-control form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template")@endphp</textarea>
+                        <textarea class="form-style" name="site_settings[default_sms_template]" id="smsBody" cols="30" rows="10">@php echo site_settings("default_sms_template")@endphp</textarea>
                     </div> 
                     <div>
                         <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">

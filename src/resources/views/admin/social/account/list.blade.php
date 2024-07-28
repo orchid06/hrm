@@ -155,8 +155,9 @@
 
                                         <td data-label='{{translate("name")}}'>
 
+    
                                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                                <img class="rounded-circle avatar-sm" onerror="this.onerror=null this.src='{{ route("default.image", "200x200")}}'" src='{{@$account->account_information->avatar }}' alt="{{translate('Social Profile image')}}" >
+                                                <img class="rounded-circle avatar-sm"  src='{{@$account->account_information->avatar}}'  onerror="this.onerror=null; this.src='{{ route('default.image', '200x200')}}'"  alt="{{translate('Social Profile image')}}" >
                                          
                                                 @if(@$account->account_information->link)
                                                     <a target="_blank" href="{{@$account->account_information->link}}">
@@ -181,14 +182,12 @@
                                         
                                                 </div>
                                             @else
-
                                                 {{translate('N/A')}}
                                             @endif
 
                                         </td>
 
                                         <td data-label='{{translate("Connection Status")}}'>
-
                                             @php echo account_connection_status($account->is_connected) @endphp
                                         </td>
     
@@ -197,16 +196,14 @@
                                         </td>
                                         
                                         <td data-label='{{translate("Account Type")}}'>
-
                                             @php echo account_type($account->account_type) @endphp
                                         </td>
 
                                         <td data-label='{{translate("Action")}}'>
                                             <div class="table-action">
                                                 @php
-                                                        $platforms           = Arr::get(config('settings'),'platforms' ,[]);
-                                                        $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
-                                                        
+                                                    $platforms           = Arr::get(config('settings'),'platforms' ,[]);
+                                                    $platformConfig      = Arr::get($platforms,$account->platform->slug ,null);
                                                 @endphp
 
                                                 @if($account->is_connected ==  App\Enums\StatusEnum::false->status() && $account->platform->slug != 'twitter' &&  !$account->user_id)
@@ -215,9 +212,9 @@
                                                         $url          = 'javascript:void(0)';
                                                         $connectionClass  =   true;
                                                         if($account->platform->slug != 'facebook'){
-                                                            $url = route("account.connect",[ "guard"=>"admin","medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
+                                                            $url   = route("account.connect",
+                                                                                  [ "guard"=>"admin" , "medium" => $account->platform->slug ,"type" => t2k(App\Enums\AccountType::PROFILE->name) ]);
                                                             $connectionClass  =   false;
-
                                                         }
                                             
                                                     @endphp
