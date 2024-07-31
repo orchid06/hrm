@@ -17,10 +17,10 @@
             <button type="button"
               class="i-btn btn--lg bg-soft-warning"
               data-bs-dismiss="modal">
-              {{translate("No")}}
+                 {{translate("No")}}
             </button>
             <button    data-type ="delete" name="bulk_status" value="delete"  class="i-btn btn--lg delete-btn btn-delete bulk-action-btn bulk-btn">
-              {{translate("Delete")}}
+                {{translate("Delete")}}
             </button>
           </div>
       </div>

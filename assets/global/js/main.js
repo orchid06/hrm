@@ -1,7 +1,6 @@
 (function () {
     "use strict";
 
-    // Nice Selecte initialization
     if (document.querySelector(".niceSelect")) {
         $(document).ready(function () {
             $('.niceSelect').niceSelect();

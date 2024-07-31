@@ -1,12 +1,8 @@
 @php
    $templateContent  = get_content("content_template")->first();
    $templateElements = get_content("element_template");
-   $templates        = App\Models\AiTemplate::with(['category'])
-                                    ->active()
-                                    ->default()
-                                    ->take(6)
-                                    ->inRandomOrder()
-                                    ->get();
+   $templates        = get_feature_templates()->take(6);
+   
 
 @endphp
 

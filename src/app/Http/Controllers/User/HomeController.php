@@ -308,13 +308,12 @@ class HomeController extends Controller
     public function readNotification(Request $request) :string{
 
         $notification = Notification::where('notificationable_type','App\Models\User')
-                          ->where("id", $request->input("id"))
-                          ->where("notificationable_id",$this->user->id)
-                          ->first();
+                                ->where("id", $request->input("id"))
+                                ->where("notificationable_id",$this->user->id)
+                                ->first();
         $status  = false;
         $message = translate('Notification Not Found');
         if( $notification ){
-
             $notification->is_read =  (StatusEnum::true)->status();
             $notification->save();
             $status = true;

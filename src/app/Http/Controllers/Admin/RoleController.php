@@ -45,10 +45,11 @@ class RoleController extends Controller
         return view('admin.role.list',[
             'breadcrumbs' =>  ['Home'=>'admin.home','Roles'=> null],
             'title'       =>  'Manage Roles',
-            'roles'       =>  Role::with(['createdBy', 'updatedBy'])->search(['name','createdBy:username','updatedBy:username'])
-                              ->latest()
-                              ->paginate(paginateNumber())
-                              ->appends(request()->all())
+            'roles'       =>  Role::with(['createdBy', 'updatedBy'])
+                                    ->search(['name','createdBy:username','updatedBy:username'])
+                                    ->latest()
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all())
                
         ]);
     }

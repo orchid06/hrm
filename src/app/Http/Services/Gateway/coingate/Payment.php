@@ -52,6 +52,10 @@ class Payment
             'token'            => $log->trx_code
         );
 
+
+        $send['error']   = true;
+        $send['message'] = translate('Unexpected Error! Please Try Again');
+
         try {
             $order = Order::create($post_params);
         } catch (\Exception $e) {
@@ -59,13 +63,10 @@ class Payment
             $send['message']  = $e->getMessage();
             return json_encode($send);
         }
-        if ($order) {
+        if (@$order) {
             $send['redirect']     = true;
             $send['redirect_url'] = $order->payment_url;
-        } else {
-            $send['error']   = true;
-            $send['message'] = translate('Unexpected Error! Please Try Again');
-        }
+        } 
         return json_encode($send);
        
     }

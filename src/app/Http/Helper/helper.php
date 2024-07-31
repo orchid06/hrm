@@ -15,7 +15,11 @@ use App\Enums\WithdrawStatus;
 use App\Models\Admin;
 use App\Models\Admin\Currency;
 use App\Models\Admin\Frontend;
+use App\Models\Admin\Menu;
+use App\Models\Admin\Page;
 use App\Models\Admin\Template;
+use App\Models\AiTemplate;
+use App\Models\Blog;
 use App\Models\Core\Language;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Core\Setting;
@@ -1170,10 +1174,10 @@ use Illuminate\Database\Eloquent\Collection;
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
         
          $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')
-                                                                                                 ->active()
-                                                                                                 ->latest()
-                                                                                                 ->get());
-         
+                                                                                          ->active()
+                                                                                          ->latest()
+                                                                                          ->get());
+
          return ($frontends->where("key", $key));
       }
    }
@@ -1240,7 +1244,7 @@ use Illuminate\Database\Eloquent\Collection;
 
       function subscription_value(Subscription $subscription ,string $key , bool $package = false) : mixed {
 
-           if($package) return  @$subscription->package->{$key};
+           if($package) return  @$subscription->package->{$key} ?? null;
            return @$subscription->{$key};
       }
 
@@ -1387,5 +1391,79 @@ if( !function_exists('hasFilter') ){
    function hasFilter(array $filterKeys) :bool{   
 
       return !empty(array_intersect_key(array_flip($filterKeys), request()->query()));
+   }
+}
+
+
+
+if( !function_exists('getCachedMenus') ){
+
+
+   /**
+    * Summary of getCachedMenus
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+   function getCachedMenus() :Collection{   
+      return  Cache::remember('menus',24 * 60, fn () : Collection => 
+            Menu::active()
+                        ->orderBy('serial_id')
+                        ->get()
+      );
+
+   }
+}
+if( !function_exists('getCachedPages') ){
+
+
+   /**
+    * Summary of getCachedPages
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+   function getCachedPages() :Collection{   
+      return  Cache::remember('pages',24 * 60, fn () : Collection => 
+                  Page::active()
+                        ->orderBy('serial_id')
+                        ->get()
+      );
+
+   }
+}
+
+
+
+if( !function_exists('get_feature_blogs') ){
+
+
+   /**
+    * Summary of get_feature_blogs
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+   function get_feature_blogs() :Collection{   
+      return  Cache::remember('feature_blogs',24 * 60, fn () : Collection => 
+             Blog::active()->feature()->get()
+      );
+
+   }
+}
+
+
+
+
+if( !function_exists('get_feature_templates') ){
+
+
+   /**
+    * Summary of get_feature_templates
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+   function get_feature_templates() :Collection{   
+      return  Cache::remember('feature_templates',24 * 60, fn () : Collection => 
+                     AiTemplate::with(['category'])
+                              ->active()
+                              ->default()
+                              ->inRandomOrder()
+                              ->get()
+         );
+
    }
 }

@@ -14,13 +14,10 @@
    $icons         = get_content("element_social_icon");
    $buttons       = get_content("element_footer");
 
-   $blogs        = App\Models\Blog::active()
-                                   ->feature()
-                                   ->inRandomOrder()
-                                   ->take(2)
-                                   ->get();
+   $blogs        =get_feature_blogs()->take(2);
+                          
 
-      $services = get_content("element_service")->take(4);
+   $services = get_content("element_service")->take(4);
 
 
 @endphp

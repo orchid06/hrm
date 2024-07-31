@@ -119,7 +119,7 @@
                                         @endif
                                         @if( $post->platform_response && $post->platform_response->url )
 
-                                            <a class="i-badge success fs-15"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View')}}" target="_blank"  href="{{@$post->platform_response->url}}"> {{translate("View Post")}}
+                                            <a class="i-badge success fs-15" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View')}}" target="_blank"  href="{{@$post->platform_response->url}}"> {{translate("View Post")}}
                                             </a>
                                         @endif
                                     </div>

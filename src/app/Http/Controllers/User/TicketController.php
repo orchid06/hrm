@@ -51,12 +51,12 @@ class TicketController extends Controller
         return view('user.ticket.list',[
             'meta_data' => $this->metaData(["title" => translate("Ticket List")]),
             'tickets'   => Ticket::with(['user','messages'])
-                                    ->where('user_id',$this->user->id)
-                                    ->latest()
-                                    ->search(['subject'])
-                                    ->filter(['ticket_number',"status",'priority'])
-                                    ->date()
-                                    ->paginate(paginateNumber())
+                            ->where('user_id',$this->user->id)
+                            ->latest()
+                            ->search(['subject'])
+                            ->filter(['ticket_number',"status",'priority'])
+                            ->date()
+                            ->paginate(paginateNumber())
         ]);
     }
 

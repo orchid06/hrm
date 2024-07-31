@@ -14,13 +14,15 @@
     }
 
     $otpFlag =  App\Enums\StatusEnum::false->status();
-    if(is_array($loginAttributes) && count($loginAttributes) == 1 && in_array('phone',$loginAttributes) && site_settings('sms_otp_verification') == App\Enums\StatusEnum::true->status() ){
+    if( is_array($loginAttributes) && 
+        count($loginAttributes) == 1 && 
+        in_array('phone',$loginAttributes) && 
+        site_settings('sms_otp_verification') == App\Enums\StatusEnum::true->status() ){
+
         $otpFlag = App\Enums\StatusEnum::true->status();
     }
-    $socialAuth     =  (site_settings('social_login'));
-
-    $googleCaptcha  = (object) json_decode(site_settings("google_recaptcha"));
-
+    $socialAuth           =  (site_settings('social_login'));
+    $googleCaptcha        =  (object) json_decode(site_settings("google_recaptcha"));
     $captcha              =  (site_settings('captcha_with_login'));
     $defaultcaptcha       =  (site_settings('default_recaptcha'));
 

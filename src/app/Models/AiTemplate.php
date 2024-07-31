@@ -12,6 +12,7 @@ use App\Traits\Filterable;
 use App\Traits\ModelAction;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class AiTemplate extends Model
 {
@@ -37,7 +38,14 @@ class AiTemplate extends Model
             if(request()->input('slug') || request()->input('name') ){
                 $model->slug       = make_slug(request()->input('slug')? request()->input('slug') : request()->input('name'));
             }
+            Cache::forget('feature_templates');
+
         });
+
+
+        static::deleted(function(Model $model) {
+            Cache::forget('feature_templates');
+	    });
 
     }
 
