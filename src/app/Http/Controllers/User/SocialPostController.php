@@ -160,9 +160,8 @@ class SocialPostController extends Controller
 
 
     public function checkRemainingPost() :bool{
-        if($this->remainingPost == PlanDuration::value('UNLIMITED') ||  $this->remainingPost > 0 ) return true ;
-        return false;
-
+        return ($this->remainingPost == PlanDuration::value('UNLIMITED') || 
+                    $this->remainingPost > 0 ) ?  true : false  ;
     }
 
 

@@ -12,7 +12,7 @@
     <link href="{{asset('assets/frontend/css/custom.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/frontend/css/common.css')}}" rel="stylesheet" type="text/css" />
     <style>
-      .invalid-license-title{
+      .invalid-license-title {
           font-size:60px !important;
       }
     </style>

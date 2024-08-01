@@ -10,7 +10,6 @@
 
         reader.onload = function (e) {
             if (file.type.startsWith('image/')) {
-                // Handle image files
                 preview.append(
                     `<li>
                         <span class="remove-list" data-name="${file.name}">

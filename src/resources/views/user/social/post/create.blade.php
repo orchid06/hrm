@@ -295,7 +295,7 @@
                                                     <div class="row g-4 align-items-end">
                                                         <div class="col-xl-12 col-md-8">
                                                             <div class="form-inner mb-0">
-                                                                <input placeholder="{{translate('Select date time')}}"
+                                                                <input 
                                                                     type="datetime-local" class="singleDate flatpickr-input"
                                                                     name="schedule_date"
                                                                     value="{{old('schedule_date')}}"

@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 use App\Traits\ModelAction;
 use App\Traits\Filterable;
+use Illuminate\Support\Facades\Cache;
+
 class Blog extends Model
 {
     use HasFactory ,ModelAction ,Filterable;
@@ -37,10 +39,12 @@ class Blog extends Model
             $model->uid        = Str::uuid();
             $model->created_by = auth_user()?->id;
             $model->status     = StatusEnum::true->status();
+            Cache::forget('feature_blogs');
         });
 
         static::updating(function(Model $model): void{
             $model->updated_by = auth_user()?->id;
+            Cache::forget('feature_blogs');
         });
 
         
@@ -49,9 +53,13 @@ class Blog extends Model
             if(request()->input('slug') || request()->input('title') ){
                 $model->slug       = make_slug(request()->input('slug')?request()->input('slug'):request()->input('title'));
             }
-        
+            Cache::forget('feature_blogs');
             ModelAction::saveSeo($model);
         });
+
+        static::deleted(function(Model $model) {
+            Cache::forget('feature_blogs');
+	    });
         
     }
 

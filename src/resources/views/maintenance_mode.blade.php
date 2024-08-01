@@ -46,7 +46,7 @@
 
                         <div class="col-lg-7">
                             <div class="error-image">
-                                <img src="{{asset('assets/images/default/maintenance.png')}}" alt="maintenance.png" class="img-fluid">
+                                <img src="{{asset('assets/images/default/maintenance.png')}}" alt="{{translate('Maintenance Mode')}}" class="img-fluid">
                             </div>
                         </div>
                         

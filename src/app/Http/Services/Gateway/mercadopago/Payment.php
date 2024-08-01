@@ -58,8 +58,6 @@ class Payment
         $response = CurlService::curlPostRequestWithHeaders($url, $headers, $postParam);
         $response = json_decode($response);
 
-  
-
 
         $send['preference']  =  $log->trx_code;
         $send['view']        = 'user.payment.mercado';
@@ -73,9 +71,7 @@ class Payment
             $send['redirect']     = true;
             $send['redirect_url'] = $response->init_point;
 
-            if (self::SANDBOX) {
-                $send['redirect_url'] = $response->sandbox_init_point;
-            } 
+            if (self::SANDBOX)  $send['redirect_url'] = $response->sandbox_init_point;
         }
         return json_encode($send);
     }

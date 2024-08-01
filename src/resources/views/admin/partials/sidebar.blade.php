@@ -102,7 +102,7 @@
               aria-expanded="false" aria-controls="packages">
               <span><i class="lab la-hornbill"></i></span>
               <p>
-                {{translate('Subscription Packages')}}
+                {{translate('Subscription Services')}}
               </p>
               <small >
                 <i class="las la-angle-down"></i>

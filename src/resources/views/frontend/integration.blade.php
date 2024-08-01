@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-7">
-                                <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{@$featureImage->file->name??'feature.jpg'}}" alt="Group-1000006078">
+                                <img src="{{imageURL($featureImage,'frontend',true,$featureImageSize)}}" alt="{{@$featureImage->file->name??'feature.jpg'}}">
                             </div>
                         </div>
                     </div>

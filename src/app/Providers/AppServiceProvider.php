@@ -3,20 +3,16 @@
 namespace App\Providers;
 
 use App\Enums\MenuVisibilty;
-use App\Enums\StatusEnum;
 
-use App\Models\Admin\Category;
+
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
 
 use App\Models\Core\Language;
 
 use App\Models\KycLog;
-use App\Models\MediaPlatform;
 use App\Models\PaymentLog;
 use App\Models\Ticket;
-use App\Models\User;
-use App\Models\Visitor;
 use App\Models\WithdrawLog;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -64,10 +60,8 @@ class AppServiceProvider extends ServiceProvider
             view()->composer('frontend.partials.header', function ($view)  {
 
                 $view->with([
-                    'menus'      => Menu::active()
-                                              ->orderBy('serial_id')
-                                              ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value,(string)MenuVisibilty::HEADER->value])
-                                              ->get(),
+                    'menus'      => getCachedMenus()
+                                              ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value,(string)MenuVisibilty::HEADER->value]),
 
                     'pages'      => Page::active()
                                           ->orderBy('serial_id')
@@ -83,10 +77,8 @@ class AppServiceProvider extends ServiceProvider
             view()->composer('frontend.partials.footer', function ($view)  {
                 
                 $view->with([
-                    'menus'      => Menu::active()
-                                        ->orderBy('serial_id')
-                                        ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value ,(string) MenuVisibilty::FOOTER->value ])
-                                        ->get(),
+                    'menus'      => getCachedMenus()
+                                        ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value ,(string) MenuVisibilty::FOOTER->value ]),
 
                     'pages'      => Page::active()
                                         ->orderBy('serial_id')

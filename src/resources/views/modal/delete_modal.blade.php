@@ -17,12 +17,12 @@
           <button type="button"
               class="i-btn btn--lg btn--outline radius-8 flex-grow-1"
               data-bs-dismiss="modal">
-              {{translate("No")}}
+               {{translate("No")}}
           </button>
             <div class="actionbtn flex-grow-1">
                 <a href="javascript:void(0)" class="i-btn btn--lg btn--danger w-100 radius-8"
                 id="action-href">
-                {{translate('Yes')}}
+                    {{translate('Yes')}}
                </a>
             </div>
         </div>

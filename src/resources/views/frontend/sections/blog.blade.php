@@ -1,7 +1,8 @@
 
 @php
    $blogContent  = get_content("content_blog")->first();
-   $blogs        = App\Models\Blog::active()->feature()->take(4)->get();
+   $blogs        = get_feature_blogs()->take(4);
+   
 @endphp
 
 <section class="blog-section pb-110">

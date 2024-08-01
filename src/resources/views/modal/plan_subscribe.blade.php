@@ -9,18 +9,18 @@
               <img src="{{asset('assets/images/default/check.gif')}}" class="action-img" alt="check.gif">
           </div>
           <div class="notification-modal-content">
-              <h5>   {{trans('default.are_you_sure')}}</h5>
+              <h5>   {{trans('default.are_you_sure')}}  </h5>
               <p class="warning-message">
                 
               </p>
           </div>
         </div>
         <div class="modal-footer d-flex">
-          <button type="button"
-              class="i-btn btn--lg btn--outline radius-8 flex-grow-1"
-              data-bs-dismiss="modal">
-              {{translate("No")}}
-          </button>
+            <button type="button"
+                class="i-btn btn--lg btn--outline radius-8 flex-grow-1"
+                data-bs-dismiss="modal">
+                {{translate("No")}}
+            </button>
             <div class="actionbtn flex-grow-1">
                 <a href="javascript:void(0)" class="i-btn btn--lg btn--primary w-100 radius-8"
                 id="action-href">

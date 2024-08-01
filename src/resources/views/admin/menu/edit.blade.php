@@ -47,10 +47,10 @@
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label class="form-label" for="url">
-                                        {{translate('Url')}}
+                                        {{translate('URL')}}
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="url" id="url" placeholder='{{translate("Enter url")}}'
+                                    <input type="text" name="url" id="url" placeholder='{{translate("Enter URL")}}'
                                         value="{{$menu->url}}" required>
                                 </div>
                             </div>

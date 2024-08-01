@@ -171,9 +171,9 @@
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="url">
-                                        {{translate('Url')}} <small class="text-danger">*</small>
+                                        {{translate('URL')}} <small class="text-danger">*</small>
                                     </label>
-                                    <input type="text" required name="url" id="url"  placeholder='{{translate("Enter url")}}'
+                                    <input type="text" required name="url" id="url"  placeholder='{{translate("Enter URL")}}'
                                         value='{{old("url")}}'>
                                 </div>
                             </div>

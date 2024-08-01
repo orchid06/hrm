@@ -138,4 +138,17 @@ class SocialPost extends Model
         return $q->where('status',strval(PostStatus::FAILED->value));
     }
 
+
+
+    /**
+     * Postable post
+     *
+     * @param Builder $q
+     * @return Builder
+     */
+    public function scopePostable(Builder $q):Builder {
+        return $q->whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))]);
+    }
+
+
 }

@@ -46,7 +46,7 @@
     </div>
 
         <div class="recapture-bg">
-            <img src="{{asset('assets/images/default/security.jpg')}}" alt="security.jpg">
+            <img src="{{asset('assets/images/default/security.jpg')}}" alt="{{translate('Security image')}}">
         </div>
   </div>
 

@@ -34,7 +34,7 @@ class UserController extends Controller
         $this->userService      = new UserService();
 
         $this->middleware(function ($request, $next) {
-            $this->user = auth_user('web');
+            $this->user = auth_user('web')->load(['pendingWithdraws']);
             return $next($request);
         });
     }
@@ -157,6 +157,9 @@ class UserController extends Controller
         $request->validate([
             "id"     => ['required','exists:withdraws,id'],
             "amount" => ['numeric','gt:0',"max:".$balance],
+        ],[
+            'id.required' => translate("Please select a withdraw method"),
+            'id.exists'   => translate("Please select a  valid withdraw method"),
         ]);
 
 
@@ -234,11 +237,14 @@ class UserController extends Controller
     }
 
 
+
+    /**
+     * Summary of kycForm
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function kycForm() :View  | RedirectResponse {
 
-        if($this->user->is_kyc_verified   == StatusEnum::true->status()){
-            return redirect()->route('user.home');
-        }
+        if($this->user->is_kyc_verified   == StatusEnum::true->status()) return redirect()->route('user.home');
         return view('user.kyc_form',[
             'meta_data' => $this->metaData(['title'=> translate("KYC Application form")]),
         ]);
@@ -256,17 +262,11 @@ class UserController extends Controller
      */
     public function kycApplication(KycRequest $request) :RedirectResponse {
 
-        if($this->user->is_kyc_verified   == StatusEnum::true->status()){
-            return redirect()->route('user.home');
-        }
+        if($this->user->is_kyc_verified   == StatusEnum::true->status()) return redirect()->route('user.home');
 
         $pendingKycs = KycLog::where("user_id",$this->user->id)->pending()->count();
 
-
-
-        if($pendingKycs > 0){
-            return back()->with(response_status('You already have a pending KYC request, Please wait for our confirmation','error'));
-        }
+        if($pendingKycs > 0) return back()->with(response_status('You already have a pending KYC request, Please wait for our confirmation','error'));
 
         $kycLog =   DB::transaction(function() use ($request ) {
 
@@ -324,10 +324,7 @@ class UserController extends Controller
                             ],
                             'sms_notifications' => [
                                 'action' => [SendMailJob::class, 'dispatch'],
-                                'params' => [
-                                    [$admin,'KYC_APPLIED',$code],
-                                
-                                ],
+                                'params' => [[$admin,'KYC_APPLIED',$code]],
                             ],
                         
                         ];

@@ -62,11 +62,8 @@ class CoreController extends Controller
      */
      public function languageChange(string $code ) :RedirectResponse
      {
-        $response['status'] = "success";
-        $response['message'] = translate('Language Switched Successfully');
 
         if(!Language::where('code', $code)->exists()) $code = 'en';
-        
         optimize_clear();
         session()->put('locale', $code);
         app()->setLocale($code);
@@ -183,16 +180,17 @@ class CoreController extends Controller
      */
     public function handleSchedulePost() :void{
 
-        $posts = SocialPost::with(['file'])->whereIn('status',[strval(PostStatus::value('PENDING',true)) ,strval(PostStatus::value('SCHEDULE',true))])->cursor();
+        $posts = SocialPost::with(['file'])
+                     ->postable()
+                     ->cursor();
 
         foreach($posts->chunk(20) as $chunkPosts){
             foreach($chunkPosts as $post){
                 sleep(1);
-                if($post->schedule_time <= Carbon::now()){
-                    $post->status = strval(PostStatus::value('PENDING',true));
-                    $post->save();
-                }
-                if($post->status ==  strval(PostStatus::value('PENDING',true))){
+
+                if($post->schedule_time <= Carbon::now() ||  
+                     $post->status ==  strval(PostStatus::value('PENDING',true)
+                  )){
                     $this->publishPost($post);
                 }
             }
@@ -298,15 +296,10 @@ class CoreController extends Controller
     /** security control */
     public function security() :View{
 
-        if(site_settings('dos_prevent') == StatusEnum::true->status() && !session()->has('dos_captcha')){
-
+        if(site_settings('dos_prevent') == StatusEnum::true->status() && 
+           !session()->has('dos_captcha')){
             return view('dos_security',[
-                'meta_data' => $this->metaData(
-                    [
-                        "title"    =>  trans('default.too_many_request')
-                    ]
-                ),
-   
+                'meta_data' => $this->metaData(["title"    =>  trans('default.too_many_request')]),
             ]);
         }
         abort(403);
@@ -318,9 +311,7 @@ class CoreController extends Controller
     
         $request->validate([
             "captcha" =>   ['required' , function (string $attribute, mixed $value, Closure $fail) {
-                if (strtolower($value) != strtolower(session()->get('gcaptcha_code'))) {
-                    $fail(translate("Invalid captcha code"));
-                }
+                if (strtolower($value) != strtolower(session()->get('gcaptcha_code')))  $fail(translate("Invalid captcha code"));
             }]
         ]);
 
@@ -329,9 +320,7 @@ class CoreController extends Controller
         session()->put('dos_captcha',$request->input("captcha"));
 
         $route = 'home';
-        if(session()->has('requested_route')){
-            $route = session()->get('requested_route');
-        }
+        if(session()->has('requested_route')) $route = session()->get('requested_route');
 
         return redirect()->route($route);
     }
