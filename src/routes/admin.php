@@ -91,7 +91,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           #withdraw section
           Route::controller(WithdrawController::class)->prefix("/withdraw-method")->name('withdraw.')->group(function (){
-               
+
                Route::get('/list', 'list')->name('list');
                Route::get('/create','create')->name('create');
                Route::post('/store','store')->name('store');
@@ -101,10 +101,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::get('/destroy/{id}','destroy')->name('destroy');
                Route::post('configuration','configuration')->name('configuration');
-            
+
           });
 
-          #currency section refactored 
+          #currency section refactored
           Route::controller(CurrencyController::class)->prefix("/currency")->name('currency.')->group(function (){
 
                Route::get('/list', 'list')->name('list');
@@ -120,7 +120,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           #staff section refactored
           Route::controller(StaffController::class)->prefix("/staff")->name('staff.')->group(function(){
-               
+
                Route::get('/list','list')->name('list');
                Route::get('/recycle/list','list')->name('recycle.list');
                Route::post('/store','store')->name('store');
@@ -132,7 +132,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::get('/permanent-destroy/{uid}','permanentDestroy')->name('permanent.destroy');
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::get('/login/{uid}','login')->name('login');
-               
+
           });
 
           #User
@@ -156,7 +156,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/subscription','subscription')->name('subscription');
                Route::get('/select/search','selectSearch')->name('selectSearch');
 
-           
+
           });
 
           #Role section refactored
@@ -170,7 +170,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/update/status','updateStatus')->name('update.status');
                Route::get('/destroy/{uid}','destroy')->name('destroy');
-         
+
           });
 
 
@@ -185,10 +185,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/update/status','updateStatus')->name('update.status');
                Route::get('/destroy/{uid}','destroy')->name('destroy');
-    
+
           });
 
-    
+
           #Template section refactored
           Route::controller(TemplateController::class)->prefix("/notification-template")->name('template.')->group(function(){
 
@@ -254,7 +254,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           #aitemplate section refactored
           Route::controller(AiTemplateController::class)->prefix("/ai-template")->name('ai.template.')->group(function(){
-               
+
                Route::get('/list','list')->name('list');
                Route::get('/category/list','categories')->name('categories');
                Route::get('/category/create','categoryCreate')->name('category.create');
@@ -268,7 +268,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/update/status','updateStatus')->name('update.status');
                Route::get('/destroy/{uid}','destroy')->name('destroy');
                Route::post('/bulk/action','bulk')->name('bulk');
-     
+
           });
 
 
@@ -373,7 +373,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
           #Platform section refactores
           Route::controller(PlatformController::class)->prefix("/platform")->name('platform.')->group(function(){
-               
+
                Route::get('/list','list')->name('list');
                Route::post('/bulk/action','bulk')->name('bulk');
                Route::post('/update','update')->name('update');
@@ -388,7 +388,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
 
                #country section
                Route::prefix("/countries")->name('country.')->group(function(){
-                    
+
                     Route::get('/list','countries')->name('list');
                     Route::post('/status-update','countryStatus')->name('update.status');
                     Route::post('/bulk/action','countryBulk')->name('bulk');
@@ -431,10 +431,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                /** mail sending route */
                Route::post('/send-email','sendMail')->name('send.mail');
                Route::post('/send-email-all','sendMailSubscriber')->name('send.mail.all');
-   
+
           });
 
-          #Package section refactored 
+          #Package section refactored
           Route::controller(PackageController::class)->prefix("/subscription-package")->name('subscription.package.')->group(function(){
 
                Route::get('/list','list')->name('list');
@@ -458,31 +458,31 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::get('/','templateReport')->name('list');
                     Route::get('/destroy/{id}','templateReportdestroy')->name('destroy');
                });
-               
-               #credit reports 
+
+               #credit reports
                Route::prefix("/credit/reports")->name('credit.report.')->group(function(){
                     Route::get('/','creditReport')->name('list');
                     Route::get('/destroy/{id}','creditReportdestroy')->name('destroy');
                     Route::post('/bulk/action','creditReportBulk')->name('bulk');
                });
 
-               #transaction report 
+               #transaction report
                Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
 
                     Route::get('/','transactionReport')->name('list');
                     Route::post('/bulk/action','transactionBulk')->name('bulk');
                     Route::get('/destroy/{id}','destroyTransaction')->name('destroy');
-           
+
                });
 
-               #subscriptioon report 
+               #subscriptioon report
                Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
                     Route::get('/','subscriptionReport')->name('list');
                     Route::post('/update','updateSubscription')->name('update');
-               
+
                });
 
-               #deposit report 
+               #deposit report
                Route::prefix("/deposit/reports")->name('deposit.report.')->group(function(){
 
                     Route::get('/','depositReport')->name('list');
@@ -508,7 +508,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::get('/','kycReport')->name('list');
                     Route::get('/details/{id}','kycDetails')->name('details');
                     Route::post('/update','kycUpdate')->name('update');
-               
+
                });
 
                #kyc reports
@@ -516,10 +516,10 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::get('/','webhookReport')->name('list');
                     Route::get('/destroy/{id}','destroyWebhook')->name('destroy');
                });
-               
+
           });
 
-          #support route 
+          #support route
           Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
 
                Route::any('/list','list')->name('list');
@@ -552,7 +552,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::post('/bulk/action','bulk')->name('bulk');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
                     Route::get('/show/{uid}','show')->name('show');
-     
+
                });
 
 
@@ -566,7 +566,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                     Route::get('/send/{uid}', 'send')->name('send');
                     Route::get('/destroy/{id}','destroy')->name('destroy');
                     Route::get('/show/{uid}','show')->name('show');
-     
+
                });
 
           });
@@ -575,7 +575,7 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
           Route::controller(SystemUpdateController::class)->name('system.')->prefix('system/')->group(function () {
                Route::any('/update/init','init')->name('update.init');
                Route::post('/update','update')->name('update');
-    
+
           });
 
 

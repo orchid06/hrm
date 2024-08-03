@@ -96,132 +96,6 @@
           </li>
         @endif
 
-        @if(check_permission('view_package'))
-          <li class="sidebar-menu-item">
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#packages" role="button"
-              aria-expanded="false" aria-controls="packages">
-              <span><i class="lab la-hornbill"></i></span>
-              <p>
-                {{translate('Subscription Services')}}
-              </p>
-              <small >
-                <i class="las la-angle-down"></i>
-              </small>
-            </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.subscription.package.*'],'drop_down')}} " id="packages">
-              <ul class="sub-menu">
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link {{sidebar_awake(['admin.subscription.package.list' ,'admin.subscription.package.edit'])}}" href="{{route('admin.subscription.package.list')}}">
-                    <span></span>
-                      <p>
-                        {{translate('Packages')}}
-                      </p>
-                  </a>
-                </li>
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link  {{sidebar_awake('admin.subscription.package.create')}}" href="{{route('admin.subscription.package.create')}}">
-                    <span></span>
-                    <p>
-                      {{translate('Add New')}}
-                    </p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        @endif
-
-
-
-
-        @if(check_permission('view_account') || check_permission('view_platform')) 
-
-         <li class="sidebar-menu-title">  {{translate('Social Media')}}</li>
-
-          <li class="sidebar-menu-item">
-          
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialAccount" role="button"
-              aria-expanded="false" aria-controls="socialAccount">
-            <span><i class="las la-tools"></i></span>
-              <p>
-                {{translate('Accounts')}}
-              </p>
-              <small >
-                  <i class="las la-angle-down"></i>
-              </small>
-            </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.platform.*','admin.social.account.*'],'drop_down')}} " id="socialAccount">
-              <ul class="sub-menu">
-                @if(check_permission('view_platform'))
-                  <li class="sub-menu-item">
-                      <a  href='{{route("admin.platform.list")}}' class='sidebar-menu-link {{sidebar_awake("admin.platform.list")}} '>
-                        <span></span>
-                        <p>{{translate('Platforms')}}</p>
-                      </a>
-                  </li>
-                @endif
-
-                @if(check_permission('view_account'))
-                  <li class="sub-menu-item">
-                      <a  href="{{route('admin.social.account.list')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.account.*")}}'>
-                          <span></span>
-                          <p>{{translate('Accounts')}}</p>
-                      </a>
-                  </li>
-                @endif
-
-            
-              </ul>
-            </div>
-          </li>
-        @endif
-
-
-        
-        @if(check_permission('view_post')) 
-
-          <li class="sidebar-menu-item">
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#socialFeed" role="button"
-                aria-expanded="false" aria-controls="socialFeed">
-              <span><i class="las la-paper-plane"></i></span>
-                <p>
-                  {{translate('Posts')}}
-                </p>
-                <small >
-                    <i class="las la-angle-down"></i>
-                </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.social.post.*'],'drop_down')}} " id="socialFeed">
-                <ul class="sub-menu">
-            
-                  @if(check_permission('view_account'))
-
-                  <li class="sub-menu-item">
-                    <a  href="{{route('admin.social.post.analytics')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.post.analytics")}}'>
-                        <span></span>
-                        <p>{{translate('Analytics')}}</p>
-                    </a>
-                  </li>
-                    <li class="sub-menu-item">
-                        <a  href="{{route('admin.social.post.list')}}"  class='sidebar-menu-link {{sidebar_awake(["admin.social.post.list","admin.social.post.show"])}}'>
-                            <span></span>
-                            <p>{{translate('All Post')}}</p>
-                        </a>
-                    </li>
-                    <li class="sub-menu-item">
-                        <a  href="{{route('admin.social.post.create')}}"  class='sidebar-menu-link {{sidebar_awake("admin.social.post.create")}}'>
-                            <span></span>
-                            <p>{{translate('Create New')}}</p>
-                        </a>
-                    </li>
-                  @endif
-
-                </ul>
-              </div>
-          </li>
-        @endif
-
-        
 
         @if(check_permission('view_user'))
             <li class="sidebar-menu-title">
@@ -418,209 +292,10 @@
                       </p>
                     </a>
                 </li>
-                
+
               </ul>
             </div>
           </li>
-        @endif
-
-
-
-        
-
-        @if(check_permission('view_ai_template'))  
-            <li class="sidebar-menu-title">
-                {{translate('AI Content')}}
-            </li>    
-
-            <li class="sidebar-menu-item">
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#aiTemplate" role="button"
-                aria-expanded="false" aria-controls="aiTemplate">
-              <span><i class="las la-sliders-h"></i></span>
-                <p>
-                  {{translate('AI Templates')}}
-                </p>
-                <small >
-                    <i class="las la-angle-down"></i>
-                </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.ai.template.*'],'drop_down')}} " id="aiTemplate">
-                <ul class="sub-menu">
-                  <li class="sub-menu-item">
-                      <a  href='{{route("admin.ai.template.list")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.list","admin.ai.template.edit","admin.ai.template.create","admin.ai.template.content"])}} '>
-                        <span></span>
-                        <p>
-                          {{translate("Templates")}}
-                        </p>
-                      </a>
-                  </li>
-                  <li class="sub-menu-item">
-                    <a  href='{{route("admin.ai.template.default")}}'  class='sidebar-menu-link {{sidebar_awake("admin.ai.template.default")}}'>
-                        <span></span>
-                        <p>
-                          {{translate("Default Templates")}}
-                        </p>
-                    </a>
-                  </li>
-                  <li class="sub-menu-item">
-                    <a  href='{{route("admin.ai.template.categories")}}' class='sidebar-menu-link {{sidebar_awake(["admin.ai.template.categories","admin.ai.template.category.create"])}}'>
-                      <span></span>
-                      <p>
-                        {{translate("Categories")}}
-                      </p>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-        @endif
-
-        @if(check_permission('view_content'))
-          <li class="sidebar-menu-item">
-            <a class='sidebar-menu-link {{sidebar_awake("admin.content.*")}}'  href='{{route("admin.content.list")}}'>
-              <span><i class="las la-clipboard-list"></i></span>
-              <p>
-                {{translate('Contents')}}
-              </p>
-            </a>
-          </li>
-        @endif
-
-
-
-
-
-        <li class="sidebar-menu-title">
-            {{translate('Frontend Configuration')}}
-        </li>
-        <li class="sidebar-menu-item">
-          <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#frontend" role="button"
-            aria-expanded="false" aria-controls="frontend">
-            <span><i class="las la-puzzle-piece"></i></span>
-            <p>
-                {{translate('Sections')}}
-            </p>
-            <small >
-              <i class="las la-angle-down"></i>
-            </small>
-          </a>
-
-          <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.appearance.*','admin.menu.*','admin.page.*'],'drop_down')}} " id="frontend">
-            <ul class="sub-menu">
-              @if(check_permission('view_frontend'))
-                @php
-                    $appearanceSegment = collect(request()->segments())->last();
-                @endphp
-                @foreach (get_appearance(true) as $key => $appearance)
-                    @if (isset($appearance['builder']) && $appearance['builder'])
-                      
-                      <li class="sub-menu-item">
-                          <a class="sidebar-menu-link @if ($key == $appearanceSegment ||  (@$appearance['child_section']  && @$appearance['child_section'] == request()->route('key')) ) active @endif"  href='{{route("admin.appearance.list",$key)}}'>
-                            <span></span>
-                            <p>
-                              {{translate(k2t($appearance['name']))}}
-                            </p>
-                          </a>
-                      </li>
-                    @endif
-                @endforeach
-              @endif
-
-              @if(check_permission('view_page'))
-                <li class="sub-menu-item">
-                  <a class='sidebar-menu-link {{sidebar_awake("admin.page.*")}}'  href='{{route("admin.page.list")}}'>
-                    <span></span>
-                    <p>
-                      {{translate('Pages')}}
-                    </p>
-                  </a>
-                </li>
-              @endif
-
-              @if(check_permission('view_menu'))
-                <li class="sub-menu-item">
-                  <a class='sidebar-menu-link {{sidebar_awake("admin.menu.*")}}' href='{{route("admin.menu.list")}}'>
-                    <span></span>
-                    <p>
-                      {{translate('Menu')}}
-                    </p>
-                  </a>
-                </li>
-              @endif
-            </ul>
-          </div>
-        </li>
-
-        @if(check_permission('view_blog'))
-          <li class="sidebar-menu-item">
-            <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#blog" role="button"
-              aria-expanded="false" aria-controls="blog">
-              <span><i class="las la-newspaper"> </i> </span>
-              <p>
-                {{translate('Blogs')}}
-              </p>
-              <small >
-                <i class="las la-angle-down"></i>
-              </small>
-            </a>
-            <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.blog.*'],'drop_down')}} " id="blog">
-              <ul class="sub-menu">
-                <li class="sub-menu-item">
-                    <a class='sidebar-menu-link {{sidebar_awake(["admin.blog.list","admin.blog.edit"])}}' href='{{route("admin.blog.list")}}'>
-                    <span></span>
-                    <p>
-                      {{translate('Blogs')}}
-                    </p>
-                    </a>
-                </li>
-                <li class="sub-menu-item">
-                  <a class="sidebar-menu-link  {{sidebar_awake('admin.blog.create')}}" href="{{route('admin.blog.create')}}">
-                    <span></span>
-                    <p>
-                      {{translate('Add New')}}
-                    </p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        @endif
-
-
-        @if(check_permission('view_frontend'))
-
-            <li class="sidebar-menu-item">
-              <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#marketing" role="button"
-                aria-expanded="false" aria-controls="marketing">
-                <span><i class="las la-ad"></i> </span>
-                  <p>
-                    {{translate('Manage Promotions')}}
-                  </p>
-                  <small >
-                    <i class="las la-angle-down"></i>
-                  </small>
-              </a>
-              <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.contact.*','admin.subscriber.*','admin.ad.*'],'drop_down')}} " id="marketing">
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <a class='sidebar-menu-link {{sidebar_awake("admin.contact.*")}}'  href='{{route("admin.contact.list")}}'>
-                          <span></span>
-                            <p>
-                              {{translate('Contacts')}}
-                            </p>
-                        </a>
-                    </li>
-                    <li class="sub-menu-item">
-                      <a class='sidebar-menu-link {{sidebar_awake("admin.subscriber.*")}}'  href='{{route("admin.subscriber.list")}}'>
-                        <span></span>
-                          <p>
-                            {{translate('Subscribers')}}
-                          </p>
-                      </a>
-                    </li>
-                </ul>
-              </div>
-            </li>
         @endif
 
 
@@ -751,14 +426,15 @@
           </li>
        @endif
 
-       @if(check_permission('view_currency'))
+       {{-- disabled for later user --}}
+       {{-- @if(check_permission('view_currency'))
           <li class="sidebar-menu-item">
               <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' data-anim="ripple" href="{{route('admin.currency.list')}}" aria-expanded="false">
                   <span><i class="las la-euro-sign"></i></span>
                   <p>{{translate('Currencies')}}</p>
               </a>
           </li>
-       @endif
+       @endif --}}
 
        @if(check_permission('view_method'))
         <li class="sidebar-menu-item">
@@ -833,7 +509,7 @@
           </li>
       @endif
 
-      
+
       @if(check_permission('view_gateway'))
           <li class="sidebar-menu-item">
             <a  class="sidebar-menu-link " data-bs-toggle="collapse" href="#notificationGateway" role="button"
@@ -869,7 +545,7 @@
           </li>
       @endif
 
-  
+
       @if(check_permission('view_settings'))
         <li class="sidebar-menu-title">
             {{translate('Server Info')}}
@@ -892,9 +568,9 @@
 
 
               <span data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('APP Version')}}"  class="i-badge danger">
-        
+
                    {{translate('V')}}{{site_settings("app_version",1.1)}}
-          
+
               </span>
             </p>
           </a>
