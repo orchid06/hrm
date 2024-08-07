@@ -40,7 +40,7 @@ return [
             'update_withdraw',
             'delete_withdraw',
         ],
-        
+
         "currency" => [
             'view_currency',
             'create_currency',
@@ -56,7 +56,7 @@ return [
             'delete_account',
         ],
 
-        
+
         "social_post" => [
             'view_post',
             'create_post',
@@ -76,7 +76,7 @@ return [
             "delete_user",
         ],
 
-   
+
         "role" => [
             "view_role",
             "create_role",
@@ -98,6 +98,12 @@ return [
             "update_category",
             "delete_category"
         ],
+        "department" => [
+            "view_department",
+            "create_department",
+            "update_department",
+            "delete_department"
+        ],
 
         "page" => [
             "view_page",
@@ -105,7 +111,7 @@ return [
             "update_page",
             "delete_page"
         ],
-        
+
         "ai_template" => [
             "view_ai_template",
             "create_ai_template",
@@ -206,7 +212,7 @@ return [
             'path' => 'assets/images/backend/site_logo',
             'size' => '150x50',
         ],
-        
+
         'meta_image' => [
             'path' => 'assets/images/backend/site_logo',
             'size' => '150x50',
@@ -351,7 +357,7 @@ return [
         "Dramatic"
     ],
 
-    
+
     "open_ai_model" => [
         "gpt-4-0613"                => 'ChatGPT 4 Gpt-4-32k',
         "gpt-3.5-turbo-16k"         => 'ChatGPT 3.5 Turbo-16k',
@@ -364,7 +370,7 @@ return [
 
 
     #PLATFORM CONFIGURATION
-    
+
     "platforms" => [
 
         'facebook' => [
@@ -392,7 +398,7 @@ return [
             'is_integrated' => StatusEnum::true->status(),
             'view_option'   => StatusEnum::true->status(),
             'is_feature'    => StatusEnum::true->status()
-            
+
         ],
 
         "twitter" => [
@@ -406,7 +412,7 @@ return [
             'unofficial'    => StatusEnum::false->status(),
             'is_feature'    => StatusEnum::true->status()
         ],
-        
+
         'linkedin' => [
             'name'        => 'Linkedin',
             'credential'  => [
@@ -426,7 +432,7 @@ return [
             ],
             'is_integrated' => StatusEnum::false->status()
         ]
-  
+
     ],
 
     "platforms_connetion_field" => [
@@ -441,9 +447,9 @@ return [
         "twitter" => [
             'consumer_key',
             'consumer_secret',
-            'access_token',    
-            'token_secret' ,   
-            'bearer_token'   
+            'access_token',
+            'token_secret' ,
+            'bearer_token'
         ],
     ]
 

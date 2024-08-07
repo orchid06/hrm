@@ -15,6 +15,7 @@ use App\Traits\ModelAction;
 use App\Traits\Fileable;
 use Illuminate\Database\Eloquent\Builder;
 
+
 class CategoryController extends Controller
 {
 
@@ -51,9 +52,9 @@ class CategoryController extends Controller
             $title             = translate('Manage Subcategories');
             $breadcrumbs       = ['Home'=>'admin.home','Categories'=> route('admin.category.list') ,"Subcategories" => null];
         }
-        
+
         return view('admin.category.list',[
-    
+
             'breadcrumbs'  =>  $breadcrumbs,
             'title'        =>  $title,
             'categories'   =>  Category::with(['createdBy','childrens'])
@@ -107,7 +108,7 @@ class CategoryController extends Controller
     }
 
 
-    
+
     /**
      * edit a category
      *
@@ -119,7 +120,7 @@ class CategoryController extends Controller
                                     ->where("uid",$uid)->firstOrfail();
 
         return view('admin.category.edit',[
-            
+
             'breadcrumbs'       => ['Home'=>'admin.home','Categories'=> 'admin.category.list',"Edit" => null],
             'title'             => 'Edit Category',
             'category'          => Category::withoutGlobalScope('autoload')
@@ -141,7 +142,7 @@ class CategoryController extends Controller
      * @return RedirectResponse
      */
     public function update(CategoryRequest $request) :RedirectResponse{
-        
+
         $this->categoryService->update($request);
         return  back()->with(response_status('Category updated successfully'));
     }
@@ -166,7 +167,7 @@ class CategoryController extends Controller
 
     }
 
-    
+
     /**
      * destroy a specific category
      *
@@ -202,7 +203,7 @@ class CategoryController extends Controller
                 "model"        => new Category(),
                 "with_count"   => ['articles','templates','childrens'],
             ]);
-    
+
         } catch (\Exception $exception) {
             $response  = \response_status($exception->getMessage(),'error');
         }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ActivityHistoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\MailGatewayController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\admin\DepartmentController;
 
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
@@ -314,6 +315,19 @@ Route::middleware(['sanitizer','https',"throttle:$hitLimit,1",'demo'])->prefix('
                Route::post('/update','update')->name('update');
                Route::post('/update/status','updateStatus')->name('update.status');
                Route::get('/destroy/{id}','destroy')->name('destroy');
+
+          });
+
+          Route::controller(DepartmentController::class)->prefix('/department')->name('department.')->group(function(){
+
+                Route::get('/list' , 'list')->name('list');
+                Route::get('/create','create')->name('create');
+                Route::post('/store','store')->name('store');
+                Route::get('/edit/{uid}','edit')->name('edit');
+                Route::post('/bulk/action','bulk')->name('bulk');
+                Route::post('/update','update')->name('update');
+                Route::post('/update/status','updateStatus')->name('update.status');
+                Route::get('/destroy/{id}','destroy')->name('destroy');
 
           });
 
