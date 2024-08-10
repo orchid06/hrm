@@ -17,16 +17,17 @@ use App\Models\WithdrawLog;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class AppServiceProvider extends ServiceProvider
 {
-    
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
- 
+
 
     }
 
@@ -38,14 +39,14 @@ class AppServiceProvider extends ServiceProvider
         try {
 
             Paginator::useBootstrap();
-            
+
             if(env("APP_DEBUG")){
                 Config::set('sentry',[
                     'dns' => site_settings('sentry_dns')
                 ]);
             }
-        
-    
+
+
             view()->composer('admin.partials.sidebar', function ($view)  {
 
                 $view->with([
@@ -73,9 +74,9 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        
+
             view()->composer('frontend.partials.footer', function ($view)  {
-                
+
                 $view->with([
                     'menus'      => getCachedMenus()
                                         ->whereIn('menu_visibility',[(string)MenuVisibilty::BOTH->value ,(string) MenuVisibilty::FOOTER->value ]),
@@ -92,9 +93,19 @@ class AppServiceProvider extends ServiceProvider
             view()->share([
                 'languages'       => Language::active()->get(),
             ]);
-            
+
+
+
         } catch (\Throwable $th) {
-        
+
         }
+
+
+    }
+
+    private function _defineMacros(){
+        QueryBuilder::macro('whereUid', function ($uid) {
+            return $this->where('uid', $uid);
+        });
     }
 }

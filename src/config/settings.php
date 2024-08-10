@@ -104,6 +104,12 @@ return [
             "update_department",
             "delete_department"
         ],
+        "designation" => [
+            "view_designation",
+            "create_designation",
+            "update_designation",
+            "delete_designation"
+        ],
 
         "page" => [
             "view_page",

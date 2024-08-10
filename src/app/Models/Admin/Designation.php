@@ -5,19 +5,20 @@ namespace App\Models\Admin;
 use App\Enums\StatusEnum;
 use App\Traits\Filterable;
 use App\Traits\ModelAction;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
-class Department extends Model
+
+class Designation extends Model
 {
     use HasFactory , Filterable ,ModelAction ;
 
     protected $guarded = [];
 
     protected static function booted(){
+
         static::creating(function (Model $model) {
             $model->uid        = Str::uuid();
         });
