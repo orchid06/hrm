@@ -37,7 +37,7 @@
 
                     <div class="action">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#addDepartment"
-                            class="i-btn btn--sm success">
+                            class="add i-btn btn--sm success">
                             <i class="las la-plus me-1"></i> {{translate('Add New')}}
                         </button>
                     </div>
@@ -146,8 +146,9 @@
                                     class="status-update form-check-input" data-column="status"
                                     data-route="{{ route('admin.department.update.status') }}"
                                     data-status="{{ $department->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                    data-id="{{$department->uid}}" {{$department->status ==App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                    id="status-switch-{{$department->uid}}" >
+                                    data-id="{{$department->uid}}" {{$department->status
+                                ==App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                id="status-switch-{{$department->uid}}" >
                                 <label class="form-check-label" for="status-switch-{{$department->uid}}"></label>
                             </div>
                         </td>
@@ -158,10 +159,9 @@
 
                                 @if(check_permission('update_department') )
                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="{{translate('Update')}}"
-                                    href="javascript:void(0);"
-                                    data-department="{{$department}}"
-                                    class="update icon-btn warning"><i class="las la-pen"></i>
+                                    data-bs-title="{{translate('Update')}}" href="javascript:void(0);"
+                                    data-department="{{$department}}" class="update icon-btn warning"><i
+                                        class="las la-pen"></i>
                                 </a>
                                 @endif
 
@@ -221,7 +221,7 @@
                     <div class="form-inner">
                         <label for="parent_id_add"> {{translate('Parent Department')}} </label>
                         <select class="select2" name="parent_id" id="parent_id_add">
-                            <option value=""  >{{translate('Select department')}}</option>
+                            <option value="">{{translate('Select department')}}</option>
                             @foreach ($departments as $department)
                             <option value="{{$department->uid}}">
                                 {{$department->name}}
@@ -254,7 +254,8 @@
     </div>
 </div>
 
-<div class="modal fade modal-md" id="updateDepartment" tabindex="-1" aria-labelledby="updateDepartment" aria-hidden="true">
+<div class="modal fade modal-md" id="updateDepartment" tabindex="-1" aria-labelledby="updateDepartment"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -312,16 +313,17 @@
 
 @push('script-push')
 <script>
-	(function($){
-       	"use strict";
+    (function ($) {
+        "use strict";
 
-        $(".select2").select2({
+        $('#addDepartment').on('shown.bs.modal', function () {
+            $(".select2").select2({
+                placeholder: "{{translate('Select a Departemnt')}}",
+                dropdownParent: $("#addDepartment"),
+            })
+        });
 
-            placeholder:"{{translate('Select a Departemnt')}}",
-            dropdownParent: $("#addDepartment"),
-		})
-
-        $(document).on('click','.update',function(e){
+        $(document).on('click', '.update', function (e) {
 
             var department = JSON.parse($(this).attr("data-department"))
             var modal = $('#updateDepartment')
@@ -333,11 +335,11 @@
             modal.modal('show')
 
             $(".select2").select2({
-                placeholder:"{{translate('Select a Departemnt')}}",
+                placeholder: "{{translate('Select a Departemnt')}}",
                 dropdownParent: $("#updateDepartment"),
             })
         })
 
-	})(jQuery);
+    })(jQuery);
 </script>
 @endpush

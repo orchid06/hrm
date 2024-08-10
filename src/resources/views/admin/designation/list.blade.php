@@ -146,8 +146,9 @@
                                     class="status-update form-check-input" data-column="status"
                                     data-route="{{ route('admin.designation.update.status') }}"
                                     data-status="{{ $designation->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                    data-id="{{$designation->uid}}" {{$designation->status ==App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                    id="status-switch-{{$designation->uid}}" >
+                                    data-id="{{$designation->uid}}" {{$designation->status
+                                ==App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
+                                id="status-switch-{{$designation->uid}}" >
                                 <label class="form-check-label" for="status-switch-{{$designation->uid}}"></label>
                             </div>
                         </td>
@@ -158,10 +159,9 @@
 
                                 @if(check_permission('update_designation') )
                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="{{translate('Update')}}"
-                                    href="javascript:void(0);"
-                                    data-designation="{{$designation}}"
-                                    class="update icon-btn warning"><i class="las la-pen"></i>
+                                    data-bs-title="{{translate('Update')}}" href="javascript:void(0);"
+                                    data-designation="{{$designation}}" class="update icon-btn warning"><i
+                                        class="las la-pen"></i>
                                 </a>
                                 @endif
 
@@ -244,7 +244,8 @@
     </div>
 </div>
 
-<div class="modal fade modal-md" id="updateDesignation" tabindex="-1" aria-labelledby="updatedesignation" aria-hidden="true">
+<div class="modal fade modal-md" id="updateDesignation" tabindex="-1" aria-labelledby="updatedesignation"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -294,16 +295,17 @@
 
 @push('script-push')
 <script>
-	(function($){
-       	"use strict";
+    (function ($) {
+        "use strict";
 
-        $(".select2").select2({
+        $('#addDesignation').on('shown.bs.modal', function () {
+            $(".select2").select2({
+                placeholder: "{{translate('Select a Designation')}}",
+                dropdownParent: $("#addDesignation"),
+            })
+        });
 
-            placeholder:"{{translate('Select a Designation')}}",
-            dropdownParent: $("#addDesignation"),
-		})
-
-        $(document).on('click','.update',function(e){
+        $(document).on('click', '.update', function (e) {
 
             var designation = JSON.parse($(this).attr("data-designation"))
             var modal = $('#updateDesignation')
@@ -314,11 +316,11 @@
             modal.modal('show')
 
             $(".select2").select2({
-                placeholder:"{{translate('Select a Designation')}}",
+                placeholder: "{{translate('Select a Designation')}}",
                 dropdownParent: $("#updateDesignation"),
             })
         })
 
-	})(jQuery);
+    })(jQuery);
 </script>
 @endpush

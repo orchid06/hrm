@@ -31,12 +31,12 @@
                             @if(check_permission('create_user'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
-                                        <button type="button"   data-bs-toggle="modal" data-bs-target="#addUser" class="i-btn btn--sm success">
+                                        <a type="button"   href="{{route('admin.user.create')}}" class="i-btn btn--sm success">
                                             <i class="las la-plus me-1"></i>  {{translate('Add New')}}
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
-                            @endif 
+                            @endif
                         </div>
                     @endif
                     <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
@@ -102,7 +102,7 @@
                     </thead>
                     <tbody>
                         @forelse($users  as $user)
-                          
+
                             <tr>
                                 <td data-label="#">
                                     @if( check_permission('update_user') )
@@ -121,7 +121,7 @@
                                 </td>
                                 <td data-label='{{translate("Email - Phone")}}'>
                                     <div class="d-block">
-                                        {{$user->email}} 
+                                        {{$user->email}}
                                     </div>
                                     <span class="i-badge info">{{$user->phone}}</span>
                                 </td>
@@ -195,7 +195,7 @@
 
 @section('modal')
     @include('modal.delete_modal')
-    
+
     <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">

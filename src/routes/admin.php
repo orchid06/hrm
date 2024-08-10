@@ -135,6 +135,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         #User
         Route::controller(UserController::class)->prefix("/user")->name('user.')->group(function () {
 
+            Route::get('/create','create')->name('create');
             Route::get('/list', 'list')->name('list');
             Route::get('/statistics', 'statistics')->name('statistics');
             Route::get('/banned', 'list')->name('banned');

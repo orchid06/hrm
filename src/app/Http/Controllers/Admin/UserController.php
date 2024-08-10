@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Http\Services\UserService;
+use App\Models\Admin\Department;
 use App\Traits\ModelAction;
 
 class UserController extends Controller
@@ -54,6 +55,18 @@ class UserController extends Controller
         return view('admin.user.statistics',$this->userService->getReport());
     }
 
+
+    public function create() :View
+    {
+        $title         =  translate('Create Employee');
+        $breadcrumbs   =  ['Home'=>'admin.home','Create Employee'=> null];
+        return view('admin.user.create', [
+
+            'breadcrumbs'  =>  $breadcrumbs,
+            'title'        =>  $title,
+            'departments'   =>  Department::latest()
+        ]);
+    }
 
     /**
      * Store a  new user
@@ -97,7 +110,7 @@ class UserController extends Controller
      * @return RedirectResponse
      */
     public function balance(BalanceUpdateRequest $request): RedirectResponse{
-        try { 
+        try {
             $response = $this->userService->transferBalance($request);
         } catch (\Exception $ex) {
             $response = response_status($ex->getMessage(),'error');
@@ -134,7 +147,7 @@ class UserController extends Controller
     }
 
 
-   
+
 
     /**
      * login in as a user
@@ -151,7 +164,7 @@ class UserController extends Controller
         Auth::guard('web')->loginUsingId($user->id);
         return redirect()->route('home')
                       ->with(response_status('Successfully logged In As a User'));
-  
+
     }
 
 
@@ -168,7 +181,7 @@ class UserController extends Controller
             'package_id'      => 'required|exists:packages,id',
             'remarks'         => 'required|string'
         ]);
-      
+
         $package =  Package::where('id',$request->input("package_id"))
                                 ->firstOrfail();
         $user    =  User::with(['referral','runningSubscription'])
