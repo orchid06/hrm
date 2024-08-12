@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-enum StatusEnum {
+enum RankEnum {
 
-    case true;
-    case false;
+    case up;
+    case down;
 
     /**
      * get enum status
@@ -14,19 +14,17 @@ enum StatusEnum {
     {
         return match($this)
         {
-            StatusEnum::true => '1',
-            StatusEnum::false => '0',
+            RankEnum::up => '1',
+            RankEnum::down => '0',
         };
     }
 
 
     public static function toArray() :array{
         return [
-            'Active' => (StatusEnum::true)->status(),
-            'Inactive' => (StatusEnum::false)->status()
+            'Up' => (RankEnum::up)->status(),
+            'Down' => (RankEnum::down)->status()
         ];
     }
-
-
 
 }

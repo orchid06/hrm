@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->string('uid',100)->index()->nullable();
             $table->string('name')->index();
-            $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
+            $table->string('description',255)->nullable();
             $table->timestamps();
         });
     }

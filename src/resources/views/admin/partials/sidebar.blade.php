@@ -78,7 +78,7 @@
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' ],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*' ],'drop_down')}} "
                     id="Department">
                     <ul class="sub-menu">
 
@@ -106,12 +106,24 @@
                         </li>
                         @endif
 
+                        @if(check_permission('view_user'))
+                        <li class="sub-menu-item">
+                            <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show", "admin.user.create"])}}'
+                                href='{{route("admin.user.list")}}'>
+                                <span></span>
+                                <p>
+                                    {{translate('Employees')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
                     </ul>
                 </div>
             </li>
 
 
-            @if(check_permission('view_user'))
+            {{-- @if(check_permission('view_user'))
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#users" role="button"
                     aria-expanded="false" aria-controls="users">
@@ -187,7 +199,7 @@
                     </ul>
                 </div>
             </li>
-            @endif
+            @endif --}}
 
             @if(check_permission('view_ticket'))
             <li class="sidebar-menu-item">

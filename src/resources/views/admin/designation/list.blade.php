@@ -221,7 +221,7 @@
 
                     <div class="form-inner">
                         <label for="status_add">{{translate('Status')}}<small class="text-danger">*</small></label>
-                        <select class="select2" name="status" id="status_add">
+                        <select class="select2" name="status" id="status_add" required>
 
                             @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
                             <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
@@ -267,7 +267,7 @@
 
                     <div class="form-inner">
                         <label for="status_update">{{translate('Status')}}<small class="text-danger">*</small></label>
-                        <select class="select2" name="status" id="status_update">
+                        <select class="select2" name="status" id="status_update" required>
                             @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
                             <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
                                 {{$status}}

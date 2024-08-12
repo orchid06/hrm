@@ -7,6 +7,11 @@
 
 @section('content')
 
+@php
+$countries = App\Models\Country::get();
+@endphp
+
+
 <div>
     <div id="multi-step-form-container">
 
@@ -41,7 +46,8 @@
         </ul>
 
         <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"
-            action="">
+            action="{{route('admin.user.store')}}">
+            @csrf
 
             <section id="step-1" class="form-step">
 
@@ -90,16 +96,16 @@
                                     <label for="country">
                                         {{translate('Country')}}
                                     </label>
-                                    <select name="country_id" id="country">
+                                    <select class="select2" name="country_id" id="country">
                                         <option value="">
                                             {{translate('Select Country')}}
                                         </option>
-                                        {{-- @foreach ($countries as $country )
+                                        @foreach ($countries as $country )
                                         <option {{old('country_id')==$country->id ? "selected" :""}}
                                             value="{{$country->id}}">
                                             {{$country->name}}
                                         </option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -107,6 +113,7 @@
                                 <div class="form-inner">
                                     <label for="phone">
                                         {{translate('Phone')}}
+                                        <small class="text-danger">*</small>
                                     </label>
                                     <input type="text" name="phone" id="phone"
                                         placeholder="{{translate('Enter Phone')}}" value="{{old('phone')}}" required>
@@ -138,7 +145,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-inner">
                                     <label for="password">
                                         {{translate('Password')}}
@@ -146,10 +153,20 @@
                                             Characters')}})</small>
                                     </label>
                                     <input placeholder="{{translate('Enter Password')}}" type="text" id="password"
-                                        name="password" value="{{old('password')}}">
+                                        name="password" value="{{old('password')}}" required>
                                 </div>
                             </div>
-                            <div class="col-12">
+
+                            <div class="col-6">
+                                <div class="form-inner">
+                                    <label for="address">
+                                        {{translate('Address')}}
+                                    </label>
+                                    <textarea id="address" name="address" class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
                                 <div class="form-inner">
                                     <label for="password_confirmation">
                                         {{translate('Confrim Password')}}
@@ -158,7 +175,7 @@
                                     </label>
                                     <input placeholder="{{translate('Enter Confirm Password')}}" type="text"
                                         id="password_confirmation" name="password_confirmation"
-                                        value="{{old('password_confirmation')}}">
+                                        value="{{old('password_confirmation')}}" required>
                                 </div>
                             </div>
                         </div>
@@ -184,48 +201,40 @@
 
                             <div class="col-lg-12">
                                 <div class="form-inner">
-                                    <label for="employee-id">
+                                    <label for="employee_id">
                                         {{translate('Employee ID')}} <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="employee-id" id="employee-id" required
+                                    <input type="text" name="employee_id" id="employee_id" required
                                         placeholder="{{translate('Employee ID')}}" value="{{old('employee-id')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="country">
+                                    <label for="department_id">
                                         {{translate('Department')}}
+                                        <small class="text-danger">*</small>
                                     </label>
-                                    <select name="country_id" id="country">
-                                        <option value="">
-                                            {{translate('Select Department')}}
-                                        </option>
-                                        {{-- @foreach ($countries as $country )
-                                        <option {{old('country_id')==$country->id ? "selected" :""}}
-                                            value="{{$country->id}}">
-                                            {{$country->name}}
-                                        </option>
-                                        @endforeach --}}
+                                    <select class="select2" name="department_id" id="department_id" required>
+                                        <option value="">{{translate('Select a Department')}}</option>
+                                        @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="country">
+                                    <label for="designation_id">
                                         {{translate('Designation')}}
+                                        <small class="text-danger">*</small>
                                     </label>
-                                    <select name="country_id" id="country">
-                                        <option value="">
-                                            {{translate('Select Designation')}}
-                                        </option>
-                                        {{-- @foreach ($countries as $country )
-                                        <option {{old('country_id')==$country->id ? "selected" :""}}
-                                            value="{{$country->id}}">
-                                            {{$country->name}}
-                                        </option>
-                                        @endforeach --}}
+                                    <select class="select2" name="designation_id" id="designation_id" required>
+                                        <option value="">{{translate('Select a Designation')}}</option>
+                                        @foreach ($designations as $designation)
+                                        <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -247,7 +256,7 @@
                 <div class="i-card-md">
                     <div class="card--header">
                         <h4 class="card-title">
-                            {{translate('Company Information')}}
+                            {{translate('Bank Information')}}
                         </h4>
                     </div>
                     <div class="card-body">
@@ -255,55 +264,58 @@
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="account-holder-name">
-                                        {{translate('Account Holder Name')}} <span class="text-danger">*</span>
+                                    <label for="account_holder_name">
+                                        {{translate('Account Holder Name')}}
                                     </label>
-                                    <input type="text" name="account-holder-name" id="account-holder-name" required
-                                        placeholder="{{translate('Account Holder Name')}}" value="{{old('account-holder-name')}}">
+                                    <input type="text" name="account_holder_name" id="account_holder_name"
+                                        placeholder="{{translate('Account Holder Name')}}"
+                                        value="{{old('account_holder_name')}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="account-number">
+                                    <label for="account_number">
                                         {{translate('Enter Account Number')}}
-                                        <small class="text-danger">*</small>
+
                                     </label>
-                                    <input type="text" name="account-number" id="account-number"
-                                        placeholder="{{translate('Enter Account Number')}}" value="{{old('account-number')}}"
-                                        required>
+                                    <input type="text" name="account_number" id="account_number"
+                                        placeholder="{{translate('Enter Account Number')}}"
+                                        value="{{old('account_number')}}" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="bank-name">
+                                    <label for="bank_name">
                                         {{translate('Bank Name')}}
-                                        <small class="text-danger">*</small>
+
                                     </label>
 
-                                    <input type="text" name="bank-name" id="bank-name"
-                                        placeholder="{{translate('Enter Bank Name')}}" value="{{old('bank-name')}}" required>
+                                    <input type="text" name="bank_name" id="bank_name"
+                                        placeholder="{{translate('Enter Bank Name')}}" value="{{old('bank_name')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="bank-indentifier-code">
+                                    <label for="bank_indentifier_code">
                                         {{translate('Bank Identifier Code')}}
-                                        <small class="text-danger">*</small>
+
                                     </label>
 
-                                    <input type="text" name="bank-indentifier-code" id="bank-indentifier-code"
-                                        placeholder="{{translate('Enter Bank Identifier Code')}}" value="{{old('bank-indentifier-code')}}" required>
+                                    <input type="text" name="bank_indentifier_code" id="bank_indentifier_code"
+                                        placeholder="{{translate('Enter Bank Identifier Code')}}"
+                                        value="{{old('bank_indentifier_code')}}" >
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
-                                    <label for="branch-location">
+                                    <label for="branch_location">
                                         {{translate('Branch Location')}}
                                     </label>
-                                    <input type="text" name="branch-location" id="branch-location"
-                                        placeholder="{{translate('Enter Branch Location')}}" value="{{old('branch-location')}}" required>
+                                    <input type="text" name="branch_location" id="branch_location"
+                                        placeholder="{{translate('Enter Branch Location')}}"
+                                        value="{{old('branch_location')}}" >
                                 </div>
                             </div>
 
@@ -333,16 +345,13 @@
         "use strict";
         "use strict";
 
-        $(".selectMeta").select2({
-            placeholder: "{{translate('Enter Keywords')}}",
-            tags: true,
-            tokenSeparators: [',']
+        $(".select2").select2({
+
         })
 
         $('.icon-picker').iconpicker({
             title: "{{translate('Search Here !!')}}",
         });
-        $('#parent_id').select2({});
 
     })(jQuery);
 </script>

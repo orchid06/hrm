@@ -27,18 +27,25 @@ class UserRequest extends FormRequest
     {
 
         $password =  request()->routeIs('admin.user.update') ? 'nullable' :"required";
-  
+
         $rules = [
             'name'               => ["required","max:100",'string'],
             'username'           => ['required',"string","max:155","alpha_dash",'unique:users,username,'.request()->id],
             "country_id"         => ['nullable',"exists:countries,id"],
             'phone'              => ['unique:users,phone,'.request()->id],
             'email'              => ['email','required','unique:users,email,'.request()->id],
+            'address'            => ['required', 'string','max:255'],
             'password'           => [$password ,Password::min(6),"confirmed"],
             'status'             => ['required', Rule::in(StatusEnum::toArray())],
             'email_verified'     => ['nullable', Rule::in(StatusEnum::toArray())],
-            'auto_subscription'  => ['nullable', Rule::in(StatusEnum::toArray())],
-            'is_kyc_verified'    => ['nullable', Rule::in(StatusEnum::toArray())],
+            'employee_id'        => ['required', "string" , "max:100"],
+            'department_id'      => ['required','exists:departments,id'],
+            'designation_id'     => ['required','exists:designations,id'],
+            'bank_holder_name'   => ['nullable', 'string', 'max:255'],
+            'account_number'     => ['nullable','string', 'max:255'],
+            'bank_name'          => ['nullable','string', 'max:255'],
+            'bank_identification_code'          => ['nullable','string', 'max:255'],
+            'branch_name'          => ['nullable','string', 'max:255'],
             "image"              => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]
         ];
 
@@ -71,11 +78,11 @@ class UserRequest extends FormRequest
      */
     public function messages() : array {
 
-        return [ 
+        return [
             'country_id.exists'      => translate('Invalid country'),
             'id.exists'              => translate('Invalid user'),
             'id.required'            => translate('Invalid user'),
-        
+
         ];
 
 

@@ -220,7 +220,7 @@
                     </div>
                     <div class="form-inner">
                         <label for="parent_id_add"> {{translate('Parent Department')}} </label>
-                        <select class="select2" name="parent_id" id="parent_id_add">
+                        <select class="select2" name="parent_id" id="parent_id_add" >
                             <option value="">{{translate('Select department')}}</option>
                             @foreach ($departments as $department)
                             <option value="{{$department->uid}}">
@@ -231,7 +231,7 @@
                     </div>
                     <div class="form-inner">
                         <label for="status_add">{{translate('Status')}}<small class="text-danger">*</small></label>
-                        <select class="select2" name="status" id="status_add">
+                        <select class="select2" name="status" id="status_add" required>
 
                             @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
                             <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
@@ -285,7 +285,7 @@
                     </div>
                     <div class="form-inner">
                         <label for="status_update">{{translate('Status')}}<small class="text-danger">*</small></label>
-                        <select class="select2" name="status" id="status_update">
+                        <select class="select2" name="status" id="status_update" required>
                             @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
                             <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
                                 {{$status}}

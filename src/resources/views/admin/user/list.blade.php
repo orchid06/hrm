@@ -81,16 +81,16 @@
                                 {{translate('Name')}}
                             </th>
                             <th scope="col"  >
-                                {{translate('Email - Phone')}}
+                                {{translate('Employee ID')}}
                             </th>
                             <th scope="col"  >
-                                {{translate('Country')}}
+                                {{translate('Contact')}}
                             </th>
                             <th scope="col">
-                                {{translate('Balance')}}
+                                {{translate('Department')}}
                             </th>
                             <th scope="col">
-                                {{translate('Created By')}}
+                                {{translate('Designation')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}
@@ -119,23 +119,24 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td data-label='{{translate("Email - Phone")}}'>
+
+                                <td  data-label="{{translate('Employee ID')}}">
+                                    {{$user->country->name}}
+                                </td>
+                                <td data-label='{{translate("Contact")}}'>
                                     <div class="d-block">
                                         {{$user->email}}
                                     </div>
                                     <span class="i-badge info">{{$user->phone}}</span>
                                 </td>
-                                <td  data-label="{{translate('Country')}}">
-                                    {{$user->country->name}}
-                                </td>
-                                <td data-label="{{translate('Balance')}}">
+                                <td data-label="{{translate('Department')}}">
                                     <span class="i-badge-solid primary"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
                                         {{num_format(
                                             number : $user->balance,
                                             calC   : true
                                     )}} @endif</span>
                                 </td>
-                                <td data-label="{{translate('Created By')}}">
+                                <td data-label="{{translate('Designation')}}">
                                     <span class="i-badge capsuled success">
                                         {{$user->createdBy->name}}
                                     </span>
@@ -196,7 +197,7 @@
 @section('modal')
     @include('modal.delete_modal')
 
-    <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
+    {{-- <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -323,7 +324,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('script-push')

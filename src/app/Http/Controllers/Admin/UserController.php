@@ -17,6 +17,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Http\Services\UserService;
 use App\Models\Admin\Department;
+use App\Models\Admin\Designation;
 use App\Traits\ModelAction;
 
 class UserController extends Controller
@@ -62,9 +63,10 @@ class UserController extends Controller
         $breadcrumbs   =  ['Home'=>'admin.home','Create Employee'=> null];
         return view('admin.user.create', [
 
-            'breadcrumbs'  =>  $breadcrumbs,
-            'title'        =>  $title,
-            'departments'   =>  Department::latest()
+            'breadcrumbs'   =>  $breadcrumbs,
+            'title'         =>  $title,
+            'departments'   =>  Department::latest()->get(),
+            'designations'  =>  Designation::latest()->get()
         ]);
     }
 
