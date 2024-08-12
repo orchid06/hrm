@@ -178,6 +178,8 @@ $countries = App\Models\Country::get();
                                         value="{{old('password_confirmation')}}" required>
                                 </div>
                             </div>
+
+                            
                         </div>
                         <div class="button-container">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
