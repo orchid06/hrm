@@ -5,7 +5,10 @@ namespace App\Models;
 
 use App\Enums\StatusEnum;
 use App\Models\Admin;
+use App\Models\Admin\BankAccount;
+use App\Models\Admin\Designation;
 use App\Models\Admin\Template;
+use App\Models\Admin\UserDesignation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -74,7 +77,7 @@ class User extends Authenticatable
     ];
 
 
-  
+
     protected static function booted(){
 
         static::creating(function (Model $model) {
@@ -195,7 +198,7 @@ class User extends Authenticatable
         return $this->hasMany(Subscription::class,'user_id')->latest();
     }
 
-    
+
     /**
      * Get running subscription
      *
@@ -295,7 +298,7 @@ class User extends Authenticatable
     public function templates(): HasMany{
         return $this->hasMany(AiTemplate::class, 'user_id', 'id');
     }
-    
+
 
 
     /**
@@ -309,7 +312,7 @@ class User extends Authenticatable
 
 
     /**
-     * Get all of the kyc logs 
+     * Get all of the kyc logs
      *
      * @return HasMany
      */
@@ -349,7 +352,7 @@ class User extends Authenticatable
     }
 
 
-    
+
     /**
      * Get all of social wevhook logs
      *
@@ -389,6 +392,27 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class, 'country_id')->withDefault([
             'name'=> "N/A"
         ]);
+    }
+
+
+    /**
+     * Get bank information of users
+     *
+     * @return HasMany
+     */
+    public function bank_accounts(): HasMany
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
+    /**
+     * Get all of designation related to this user
+     *
+     * @return HasMany
+     */
+    public function designations(): HasMany
+    {
+        return $this->hasMany(UserDesignation::class, "user_id");
     }
 
 
