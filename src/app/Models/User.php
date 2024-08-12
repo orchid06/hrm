@@ -415,6 +415,11 @@ class User extends Authenticatable
         return $this->hasMany(UserDesignation::class, "user_id");
     }
 
+    public function userDesignation():HasOne
+    {
+        return $this->hasOne(UserDesignation::class,"user_id")->where('status', StatusEnum::true->status());
+    }
+
 
 
 

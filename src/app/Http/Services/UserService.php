@@ -61,15 +61,13 @@ class UserService
 
         return [
 
-                'breadcrumbs'  =>  ['Home'=>'admin.home','Users'=> null],
+                'breadcrumbs'  =>  ['Home'=>'admin.home','Employee'=> null],
                 'title'        => 'Manage Employees',
 
                 'users'        =>  User::with([
                                                 'file',
                                                 'createdBy',
                                                 'country',
-                                                "runningSubscription",
-                                                "runningSubscription.package"
                                             ])
                                         ->routefilter()
                                         ->search(['name','email',"phone"])
@@ -95,7 +93,7 @@ class UserService
 
         return  DB::transaction(function() use ($request): User | null{
 
-            
+
 
                 $user                       =  User::with('file')->firstOrNew(['id' => $request->input("id")]);
                 $user->name                 =  $request->input('name');

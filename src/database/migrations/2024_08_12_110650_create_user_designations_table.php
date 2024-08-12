@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\RankEnum;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('designation_id');
             $table->decimal('salary',10,2);
             $table->enum('rank',[array_values(RankEnum::toArray())])->index()->default(RankEnum::up->status())->comment('Up: 1, Down: 0');
+            $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
             $table->string('note',255)->nullable();
             $table->timestamps();
         });

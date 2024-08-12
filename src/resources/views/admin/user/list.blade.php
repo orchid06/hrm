@@ -114,31 +114,26 @@
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
-                                        @if($user->runningSubscription)
-                                            <small data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Running Plan')}}" class="i-badge success">{{@$user->runningSubscription?->package->title}}</small>
-                                        @endif
+
                                     </div>
                                 </td>
 
                                 <td  data-label="{{translate('Employee ID')}}">
-                                    {{$user->country->name}}
+                                    {{$user->employee_id}}
                                 </td>
                                 <td data-label='{{translate("Contact")}}'>
                                     <div class="d-block">
-                                        {{$user->email}}
+                                      {{translate('Email')}} : <a href="mailto:{{ $user->email }}" class="i-badge info">{{ $user->email }}</a>
                                     </div>
-                                    <span class="i-badge info">{{$user->phone}}</span>
+                                    {{translate('Phone')}} : <a href="tel:{{ $user->phone }}" class="i-badge info">{{ $user->phone }}</a>
                                 </td>
                                 <td data-label="{{translate('Department')}}">
-                                    <span class="i-badge-solid primary"> {{num_format($user->balance,base_currency())}} @if(session('currency') && base_currency()->code != session('currency')?->code) -
-                                        {{num_format(
-                                            number : $user->balance,
-                                            calC   : true
-                                    )}} @endif</span>
+
+                                    <span class="i-badge capsuled info">{{$user->userDesignation->designation->department->name}}</span>
                                 </td>
                                 <td data-label="{{translate('Designation')}}">
                                     <span class="i-badge capsuled success">
-                                        {{$user->createdBy->name}}
+                                        {{$user->userDesignation->designation->name}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Status')}}">

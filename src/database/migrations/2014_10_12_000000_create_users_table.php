@@ -34,7 +34,7 @@ return new class extends Migration
             $table->longText('custom_data')->nullable();
             $table->string('password',255)->nullable();
             $table->timestamp('last_login')->nullable();
-            $table->string('employeeId', 100)->unique()->nullable();
+            $table->string('employee_id', 100)->unique()->nullable();
             $table->date('date_of_birth');
             $table->date('date_of_joining');
             $table->rememberToken();
