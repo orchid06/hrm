@@ -100,21 +100,16 @@ class UserService
                 $user->username             =  $request->input('username');
                 $user->phone                =  $request->input('phone');
                 $user->email                =  $request->input('email');
-                $user->address              =  $request->input('address',[]);
-                $user->password             =  $request->input('password');
                 $user->country_id           =  $request->input('country_id');
+                $user->status               = $request->input('status');
+                $user->password             =  $request->input('password');
+                $user->address              =  $request->input('address',[]);
+                $user->date_of_birth        = $request->input('date_of_birth');
                 $user->email_verified_at    =  $request->input('email_verified')?Carbon::now() : null ;
 
-                $user->status = $request->input('status');
-                $user->employee_id = $request->input('employee_id');
-                $user->department_id = $request->input('department_id');
-                $user->designation = $request->input('designation_id');
 
-                $user->account_holder_name = $request->input('account_holder_name');
-                $user->account_number = $request->input('account_number');
-                $user->bank_name = $request->input('bank_name');
-                $user->bank_identification_code = $request->input('bank_identification_code');
-                $user->branch_location = $request->input('branch_location');
+                $user->employee_id          = $request->input('employee_id');
+                $user->date_of_joining      = $request->input('date_of_joining');
 
                 $user->save();
 

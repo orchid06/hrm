@@ -152,7 +152,7 @@ $countries = App\Models\Country::get();
                                         <small class="text-danger">*({{translate('Minimum 6
                                             Characters')}})</small>
                                     </label>
-                                    <input placeholder="{{translate('Enter Password')}}" type="text" id="password"
+                                    <input placeholder="{{translate('Enter Password')}}" type="password" id="password"
                                         name="password" value="{{old('password')}}" required>
                                 </div>
                             </div>
@@ -173,15 +173,24 @@ $countries = App\Models\Country::get();
                                         <small class="text-danger">*({{translate('Minimum 6
                                             Characters')}})</small>
                                     </label>
-                                    <input placeholder="{{translate('Enter Confirm Password')}}" type="text"
+                                    <input placeholder="{{translate('Enter Confirm Password')}}" type="password"
                                         id="password_confirmation" name="password_confirmation"
                                         value="{{old('password_confirmation')}}" required>
                                 </div>
                             </div>
 
-                            
+                            <div class="col-6">
+                                <div class="form-inner">
+                                    <label for="date_of_birth">
+                                        {{translate('Date of Birth')}}
+                                        <small class="text-danger">*</small>
+                                    </label>
+                                    <input type="date" name="date_of_birth" id="date_of_birth" value="{{old('date_of_birth')}}" placeholder="{{translate('Enter Date of birth')}}" required>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="button-container">
+                        <div class="button-container-left">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                         </div>
 
@@ -201,7 +210,7 @@ $countries = App\Models\Country::get();
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="employee_id">
                                         {{translate('Employee ID')}} <span class="text-danger">*</span>
@@ -211,7 +220,17 @@ $countries = App\Models\Country::get();
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-6">
+                                <div class="form-inner">
+                                    <label for="date_of_joining">
+                                        {{translate('Joining Date')}}
+                                        <small class="text-danger">*</small>
+                                    </label>
+                                    <input type="date" name="date_of_joining" id="date_of_joining" value="{{old('date_of_joining')}}" placeholder="{{translate('Enter Date of Joining')}}" required>
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="department_id">
                                         {{translate('Department')}}
@@ -224,7 +243,7 @@ $countries = App\Models\Country::get();
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="form-inner">
@@ -238,6 +257,19 @@ $countries = App\Models\Country::get();
                                         <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-inner">
+                                    <label for="salary">
+                                        {{translate('Salary')}} <small class="text-danger">*</small>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">{{session()->get('currency')?->code}}</span>
+                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary">
+                                        <span class="input-group-text set-currency"></span>
+                                    </div>
                                 </div>
                             </div>
 

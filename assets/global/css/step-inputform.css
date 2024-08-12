@@ -23,6 +23,11 @@ h2 {
     justify-content: space-between;
 }
 
+.button-container-left{
+    display: flex;
+    justify-content:end;
+}
+
 .button {
     padding: 0.7rem 1.5rem;
     border: 1px solid #4361ee;

@@ -79,19 +79,9 @@
                             {{translate('Name')}}
                         </th>
 
-                        {{-- @if(!request()->routeIs("admin.designation.subcategories"))
                         <th scope="col">
-                            {{translate('Sub Categories')}}
+                            {{translate('Department')}}
                         </th>
-                        @else
-
-                        <th scope="col">
-                            {{translate('Parent')}}
-                        </th>
-
-                        @endif --}}
-
-
 
                         <th scope="col">
                             {{translate('Status')}}
@@ -122,23 +112,6 @@
                                 </p>
                             </div>
                         </td>
-
-                        {{-- @if(!request()->routeIs("admin.designation.subcategories"))
-                        <td data-label='{{translate("Sub Categories")}}'>
-                            <a href="{{route('admin.designation.subcategories',['parent' => $designation->slug])}}">
-                                {{translate('Subcategories : ')}} ({{$designation->childrens_count}})
-                            </a>
-                        </td>
-                        @else
-
-                        <td data-label='{{translate("Parent")}}'>
-                            <a href="{{route('admin.designation.edit',['uid' => $designation->parent->uid])}}">
-                                {{$designation->parent->title}}
-                            </a>
-                        </td>
-                        @endif --}}
-
-
 
                         <td data-label='{{translate("Status")}}'>
                             <div class="form-check form-switch switch-center">
@@ -220,6 +193,18 @@
                     </div>
 
                     <div class="form-inner">
+                        <label for="department_id_add"> {{translate('Department')}} </label>
+                        <select class="select2" name="department_id" id="department_id_add" >
+                            <option value="">{{translate('Select department')}}</option>
+                            @foreach ($departments as $department)
+                            <option value="{{$department->id}}">
+                                {{$department->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-inner">
                         <label for="status_add">{{translate('Status')}}<small class="text-danger">*</small></label>
                         <select class="select2" name="status" id="status_add" required>
 
@@ -266,6 +251,18 @@
                     </div>
 
                     <div class="form-inner">
+                        <label for="department_id_update"> {{translate('Department')}} </label>
+                        <select class="select2" name="department_id" id="department_id_update" >
+                            <option value="">{{translate('Select department')}}</option>
+                            @foreach ($departments as $department)
+                            <option value="{{$department->id}}" {{$designation->department->uid == $department->uid ? 'selected' : ''}}>
+                                {{$department->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-inner">
                         <label for="status_update">{{translate('Status')}}<small class="text-danger">*</small></label>
                         <select class="select2" name="status" id="status_update" required>
                             @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
@@ -300,7 +297,7 @@
 
         $('#addDesignation').on('shown.bs.modal', function () {
             $(".select2").select2({
-                placeholder: "{{translate('Select a Designation')}}",
+                placeholder: "{{translate('Select a Department')}}",
                 dropdownParent: $("#addDesignation"),
             })
         });
@@ -316,7 +313,7 @@
             modal.modal('show')
 
             $(".select2").select2({
-                placeholder: "{{translate('Select a Designation')}}",
+                placeholder: "{{translate('Select a Department')}}",
                 dropdownParent: $("#updateDesignation"),
             })
         })

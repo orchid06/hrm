@@ -37,15 +37,14 @@ class UserRequest extends FormRequest
             'address'            => ['required', 'string','max:255'],
             'password'           => [$password ,Password::min(6),"confirmed"],
             'status'             => ['required', Rule::in(StatusEnum::toArray())],
+            'date_of_birth'      => ['required','date', 'before:today'],
             'email_verified'     => ['nullable', Rule::in(StatusEnum::toArray())],
+
             'employee_id'        => ['required', "string" , "max:100"],
-            'department_id'      => ['required','exists:departments,id'],
+            'date_of_joining'    => ['required','date', ],
+            'salary'             => ['required','numeric','regex:/^\d+(\.\d{1,2})?$/'],
             'designation_id'     => ['required','exists:designations,id'],
-            'bank_holder_name'   => ['nullable', 'string', 'max:255'],
-            'account_number'     => ['nullable','string', 'max:255'],
-            'bank_name'          => ['nullable','string', 'max:255'],
-            'bank_identification_code'          => ['nullable','string', 'max:255'],
-            'branch_name'          => ['nullable','string', 'max:255'],
+
             "image"              => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]
         ];
 

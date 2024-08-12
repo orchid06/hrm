@@ -18,6 +18,7 @@ use Illuminate\View\View;
 use App\Http\Services\UserService;
 use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
+use App\Models\Admin\UserDesignation;
 use App\Traits\ModelAction;
 
 class UserController extends Controller
@@ -78,6 +79,13 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse{
         $user = $this->userService->save($request);
+
+        UserDesignation::create([
+            'user_id'        => $user->id,
+            'designation_id' => $request->input('designation_id'),
+            'salary'         => $request->input('salary'),
+        ]);
+
         return  back()->with(response_status('User created successfully'));
     }
 

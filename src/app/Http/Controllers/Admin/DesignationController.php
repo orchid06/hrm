@@ -10,6 +10,7 @@ use App\Traits\ModelAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
+use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
 
 class DesignationController extends Controller
@@ -43,8 +44,9 @@ class DesignationController extends Controller
 
         return view('admin.designation.list',[
 
-            'breadcrumbs'  =>  $breadcrumbs,
-            'title'        =>  $title,
+            'breadcrumbs'    =>  $breadcrumbs,
+            'title'          =>  $title,
+            'departments'    =>  Department::latest()->get(),
             'designations'   =>  Designation::latest()
                                 ->search(['name'])
                                 ->paginate(paginateNumber())
@@ -55,13 +57,16 @@ class DesignationController extends Controller
     public function store(Request $request) :RedirectResponse
     {
 
+
         $request->validate([
-            'name'      => 'required',
-            'status'    => 'required',
+            'name'              => 'required',
+            'department_id'     => 'required',
+            'status'            => 'required',
         ]);
         $designation = Designation::create([
-            'name'      => $request->input('name'),
-            'status'    => $request->input('status'),
+            'name'          => $request->input('name'),
+            'department_id' => $request->input('department_id'),
+            'status'        => $request->input('status'),
         ]);
 
         return back()->with(response_status('Designation created successfully'));
@@ -72,16 +77,18 @@ class DesignationController extends Controller
 
 
         $request->validate([
-            'uid'       => 'required|exists:designations,uid',
-            'name'      => 'required',
-            'status'    => 'required',
+            'uid'               => 'required|exists:designations,uid',
+            'name'              => 'required',
+            'department_id'     => 'required',
+            'status'            => 'required',
         ]);
 
 
         $designation = Designation::whereUid($request->input('uid'))->first();
 
-        $designation->name       = $request->input('name');
-        $designation->status     = $request->input('status');
+        $designation->name              = $request->input('name');
+        $designation->department_id     = $request->input('department_id');
+        $designation->status            = $request->input('status');
         $designation->update();
 
         return back()->with(response_status('Designation updated successfully '));
