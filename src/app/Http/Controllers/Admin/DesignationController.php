@@ -49,7 +49,7 @@ class DesignationController extends Controller
             'departments'    =>  Department::latest()->get(),
             'designations'   =>  Designation::with('department')
                                 ->latest()
-                                ->search(['name' , 'department_id'])
+                                ->search(['name' , 'department:name'])
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all())
         ]);

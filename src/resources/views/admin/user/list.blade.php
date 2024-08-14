@@ -129,10 +129,10 @@
                                 </td>
                                 <td data-label="{{translate('Department')}}">
 
-                                    <span class="i-badge capsuled info">{{$user->userDesignation->designation->department->name}}</span>
+                                    <span class="i-badge capsuled info" >{{$user->userDesignation->designation->department->name}}</span>
                                 </td>
                                 <td data-label="{{translate('Designation')}}">
-                                    <span class="i-badge capsuled success">
+                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ translate('Salary : ').$user->userDesignation->salary }}">
                                         {{$user->userDesignation->designation->name}}
                                     </span>
                                 </td>

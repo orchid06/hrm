@@ -126,21 +126,14 @@
                             </div>
                         </td>
 
-                        
+
 
 
                         <td data-label='{{translate("Designations")}}'>
                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                <i class="@php echo @$department->icon  @endphp"></i>
-                                <p>
-                                    <ul>
-                                        @forelse($department->designations as $designation)
-                                            <li>• {{ $designation->name }}</li>
-                                        @empty
-                                            <li>• {{ translate('No designation under this department') }}</li>
-                                        @endforelse
-                                    </ul>
-                                </p>
+                                <a href="{{route('admin.designation.list',['search' => $department->name])}}" class="i-badge capsuled success">
+                                    {{translate('Designations : ')}} ({{$department->designations->count()}})
+                                </a>
                             </div>
                         </td>
 

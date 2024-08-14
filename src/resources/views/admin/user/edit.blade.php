@@ -230,6 +230,7 @@ $countries = App\Models\Country::get();
                                         <span class="input-group-text">{{session()->get('currency')?->code}}</span>
                                         <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary" value="{{$user->userDesignation->salary}}">
                                         <span class="input-group-text set-currency"></span>
+                                        <span class="input-group-text">{{translate('Monthly')}}</span>
                                     </div>
                                 </div>
                             </div>

@@ -51,7 +51,7 @@
                         <form action="{{route(Route::currentRouteName())}}" method="get">
                             <div class="form-inner">
                                 <input name="search" value="{{request()->input('search')}}" type="search"
-                                    placeholder="{{translate('Search by name')}}">
+                                    placeholder="{{translate('Search by name or department')}}">
                             </div>
                             <button class="i-btn btn--sm info">
                                 <i class="las la-sliders-h"></i>
