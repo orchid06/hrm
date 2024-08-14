@@ -218,7 +218,8 @@ class UserService
                             'tickets',
                             'withdraws',
                             'affiliates',
-                            "referral"
+                            "referral",
+                            'userDesignation'
                         ])->where('uid',$uid)
                           ->firstOrFail();
 
@@ -252,8 +253,8 @@ class UserService
 
 
         return [
-            'breadcrumbs'          => ['Home'=>'admin.home','Users'=> 'admin.user.list' ,'Show' => null],
-            'title'                => 'Show Users',
+            'breadcrumbs'          => ['Home'=>'admin.home','Employees'=> 'admin.user.list' ,'Show' => null],
+            'title'                => 'Show Employee',
             'user'                 => $user,
             'packages'             => Package::active()->get(),
             'withdraw_methods'     => Withdraw::active()->get(),

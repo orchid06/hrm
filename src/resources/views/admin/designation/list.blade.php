@@ -113,6 +113,15 @@
                             </div>
                         </td>
 
+                        <td data-label='{{translate("Department")}}'>
+                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                <i class="@php echo @$designation->icon  @endphp"></i>
+                                <p>
+                                    <span class="i-badge capsuled info">{{($designation->department->name)}}</span>
+                                </p>
+                            </div>
+                        </td>
+
                         <td data-label='{{translate("Status")}}'>
                             <div class="form-check form-switch switch-center">
                                 <input {{!check_permission('update_designation') ? "disabled" :"" }} type="checkbox"
@@ -254,9 +263,9 @@
                         <label for="department_id_update"> {{translate('Department')}} </label>
                         <select class="select2" name="department_id" id="department_id_update" >
                             <option value="">{{translate('Select department')}}</option>
-                            @foreach ($departments as $department)
-                            <option value="{{$department->id}}" {{$designation->department->uid == $department->uid ? 'selected' : ''}}>
-                                {{$department->name}}
+                            @foreach (@$departments as $department)
+                            <option value="{{@$department->id}}" {{@$designation->department->uid == $department->uid ? 'selected' : ''}}>
+                                {{@$department->name}}
                             </option>
                             @endforeach
                         </select>

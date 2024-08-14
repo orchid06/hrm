@@ -61,7 +61,7 @@ class UserController extends Controller
     public function create() :View
     {
         $title         =  translate('Create Employee');
-        $breadcrumbs   =  ['Home'=>'admin.home','Create Employee'=> null];
+        $breadcrumbs   =  ['Home'=>'admin.home', 'Employees'=>'admin.user.list', 'Create Employee'=> null];
         return view('admin.user.create', [
 
             'breadcrumbs'   =>  $breadcrumbs,
@@ -100,6 +100,19 @@ class UserController extends Controller
         return view('admin.user.show', $this->userService->getUserDetails($uid));
     }
 
+    public function edit(string $uid) : View
+    {
+        $title = translate('Edit Employee');
+        $breadcrumbs = ['Home'=> 'admin.home', 'Employees'=> 'admin.user.list', 'Employee Edit'=> null];
+        return view('admin.user.edit', [
+            'breadcrumbs'   => $breadcrumbs,
+            'title'         => $title,
+            'user'          => User::whereUid($uid)->first(),
+            'departments'   => Department::latest()->get(),
+            'designations'  => Designation::latest()->get(),
+        ]);
+    }
+
 
     /**
      * Update a specific user
@@ -113,20 +126,6 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Update a specific user balance
-     *
-     * @param BalanceUpdateRequest $request
-     * @return RedirectResponse
-     */
-    public function balance(BalanceUpdateRequest $request): RedirectResponse{
-        try {
-            $response = $this->userService->transferBalance($request);
-        } catch (\Exception $ex) {
-            $response = response_status($ex->getMessage(),'error');
-        }
-        return  back()->with($response);
-    }
 
     /**
      * Update a specific user status

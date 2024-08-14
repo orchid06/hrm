@@ -38,8 +38,8 @@ class DesignationController extends Controller
         $breadcrumbs   =  ['Home'=>'admin.home','Designations'=> null];
 
         if(request()->routeIs("admin.category.subcategories")){
-            $title             = translate('Manage Subcategories');
-            $breadcrumbs       = ['Home'=>'admin.home','Categories'=> route('admin.category.list') ,"Subcategories" => null];
+            $title             = translate('Manage Designations');
+            $breadcrumbs       = ['Home'=>'admin.home','Department'=> route('admin.department.list') ,"Designation" => null];
         }
 
         return view('admin.designation.list',[
@@ -47,8 +47,9 @@ class DesignationController extends Controller
             'breadcrumbs'    =>  $breadcrumbs,
             'title'          =>  $title,
             'departments'    =>  Department::latest()->get(),
-            'designations'   =>  Designation::latest()
-                                ->search(['name'])
+            'designations'   =>  Designation::with('department')
+                                ->latest()
+                                ->search(['name' , 'department_id'])
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all())
         ]);

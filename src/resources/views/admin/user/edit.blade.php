@@ -46,7 +46,7 @@ $countries = App\Models\Country::get();
         </ul>
 
         <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"
-            action="{{route('admin.user.store')}}">
+            action="{{route('admin.user.update')}}">
             @csrf
 
             <section id="step-1" class="form-step">
@@ -59,14 +59,14 @@ $countries = App\Models\Country::get();
                     </div>
                     <div class="card-body">
                         <div class="row">
-
+                            <input hidden type="text" name="id" value="{{$user->id}}">
                             <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="Name">
                                         {{translate('Name')}} <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" name="name" id="Name" required
-                                        placeholder="{{translate('Enter Name')}}" value="{{old('name')}}">
+                                        placeholder="{{translate('Enter Name')}}" value="{{$user->name}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -76,7 +76,7 @@ $countries = App\Models\Country::get();
                                         <small class="text-danger">*</small>
                                     </label>
                                     <input type="text" name="username" id="username"
-                                        placeholder="{{translate('Enter User Name')}}" value="{{old('username')}}"
+                                        placeholder="{{translate('Enter User Name')}}" value="{{$user->username}}"
                                         required>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ $countries = App\Models\Country::get();
                                     </label>
 
                                     <input type="email" name="email" id="email"
-                                        placeholder="{{translate('Enter Email')}}" value="{{old('email')}}" required>
+                                        placeholder="{{translate('Enter Email')}}" value="{{$user->email}}" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -101,7 +101,7 @@ $countries = App\Models\Country::get();
                                             {{translate('Select Country')}}
                                         </option>
                                         @foreach ($countries as $country )
-                                        <option {{old('country_id')==$country->id ? "selected" :""}}
+                                        <option {{$user->country_id==$country->id ? "selected" :""}}
                                             value="{{$country->id}}">
                                             {{$country->name}}
                                         </option>
@@ -116,7 +116,7 @@ $countries = App\Models\Country::get();
                                         <small class="text-danger">*</small>
                                     </label>
                                     <input type="text" name="phone" id="phone"
-                                        placeholder="{{translate('Enter Phone')}}" value="{{old('phone')}}" required>
+                                        placeholder="{{translate('Enter Phone')}}" value="{{$user->phone}}" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -127,7 +127,7 @@ $countries = App\Models\Country::get();
                                     </label>
                                     <select class="select2" name="status" id="status">
                                         @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
-                                        <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
+                                        <option {{$user->status==$value ? "selected" :"" }} value="{{$value}}">
                                             {{$status}}
                                         </option>
                                         @endforeach
@@ -145,37 +145,13 @@ $countries = App\Models\Country::get();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-inner">
-                                    <label for="password">
-                                        {{translate('Password')}}
-                                        <small class="text-danger">*({{translate('Minimum 6
-                                            Characters')}})</small>
-                                    </label>
-                                    <input placeholder="{{translate('Enter Password')}}" type="password" id="password"
-                                        name="password" value="{{old('password')}}" required>
-                                </div>
-                            </div>
 
                             <div class="col-6">
                                 <div class="form-inner">
                                     <label for="address">
                                         {{translate('Address')}}
                                     </label>
-                                    <textarea id="address" name="address" class="form-control" rows="4"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="form-inner">
-                                    <label for="password_confirmation">
-                                        {{translate('Confrim Password')}}
-                                        <small class="text-danger">*({{translate('Minimum 6
-                                            Characters')}})</small>
-                                    </label>
-                                    <input placeholder="{{translate('Enter Confirm Password')}}" type="password"
-                                        id="password_confirmation" name="password_confirmation"
-                                        value="{{old('password_confirmation')}}" required>
+                                    <textarea id="address" name="address" class="form-control" rows="4">{{$user->address}}</textarea>
                                 </div>
                             </div>
 
@@ -185,7 +161,7 @@ $countries = App\Models\Country::get();
                                         {{translate('Date of Birth')}}
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="date" name="date_of_birth" id="date_of_birth" value="{{old('date_of_birth')}}" placeholder="{{translate('Enter Date of birth')}}" required>
+                                    <input type="date" name="date_of_birth" id="date_of_birth" value="{{$user->date_of_birth}}" placeholder="{{translate('Enter Date of birth')}}" required>
                                 </div>
                             </div>
 
@@ -216,7 +192,7 @@ $countries = App\Models\Country::get();
                                         {{translate('Employee ID')}} <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" name="employee_id" id="employee_id" required
-                                        placeholder="{{translate('Employee ID')}}" value="{{old('employee-id')}}">
+                                        placeholder="{{translate('Employee ID')}}" value="{{$user->employee_id}}">
                                 </div>
                             </div>
 
@@ -226,7 +202,7 @@ $countries = App\Models\Country::get();
                                         {{translate('Joining Date')}}
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="date" name="date_of_joining" id="date_of_joining" value="{{old('date_of_joining')}}" placeholder="{{translate('Enter Date of Joining')}}" required>
+                                    <input type="date" name="date_of_joining" id="date_of_joining" value="{{$user->date_of_joining}}" placeholder="{{translate('Enter Date of Joining')}}" required>
                                 </div>
                             </div>
 
@@ -239,7 +215,7 @@ $countries = App\Models\Country::get();
                                     <select class="select2" name="designation_id" id="designation_id" required>
                                         <option value="">{{translate('Select a Designation')}}</option>
                                         @foreach ($designations as $designation)
-                                        <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        <option {{$user->userDesignation->designation->uid==$designation->uid ? "selected" :""}} value="{{ $designation->id }}">{{ $designation->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -252,7 +228,7 @@ $countries = App\Models\Country::get();
                                     </label>
                                     <div class="input-group">
                                         <span class="input-group-text">{{session()->get('currency')?->code}}</span>
-                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary">
+                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary" value="{{$user->userDesignation->salary}}">
                                         <span class="input-group-text set-currency"></span>
                                     </div>
                                 </div>
