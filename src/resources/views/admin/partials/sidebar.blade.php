@@ -122,6 +122,61 @@
                 </div>
             </li>
 
+            <li class="sidebar-menu-item">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Department" role="button"
+                    aria-expanded="false" aria-controls="Department">
+                    <span><i class="las la-door-open"></i></span>
+                    <p>
+                        {{translate('Payroll Managemnet')}}
+                    </p>
+                    <small>
+                        <i class="las la-angle-down"></i>
+                    </small>
+                </a>
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*' ],'drop_down')}} "
+                    id="Department">
+                    <ul class="sub-menu">
+
+                        @if(check_permission('view_department'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.department.list' ,'admin.department.edit' ])}}"
+                                href="{{route('admin.department.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Departments')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_designation'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link  {{sidebar_awake(['admin.designation.list' , 'admin.designation.edit'])}}"
+                                href="{{route('admin.designation.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Designations')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_user'))
+                        <li class="sub-menu-item">
+                            <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show", "admin.user.create"])}}'
+                                href='{{route("admin.user.list")}}'>
+                                <span></span>
+                                <p>
+                                    {{translate('Employees')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                    </ul>
+                </div>
+            </li>
+
 
             {{-- @if(check_permission('view_user'))
             <li class="sidebar-menu-item">

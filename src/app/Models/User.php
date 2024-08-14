@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Models\Admin;
 use App\Models\Admin\BankAccount;
 use App\Models\Admin\Designation;
+use App\Models\Admin\Payroll;
 use App\Models\Admin\Template;
 use App\Models\Admin\UserDesignation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -418,6 +419,11 @@ class User extends Authenticatable
     public function userDesignation():HasOne
     {
         return $this->hasOne(UserDesignation::class,"user_id")->where('status', StatusEnum::true->status());
+    }
+
+    public function payroll()
+    {
+        return $this->hasOne(Payroll::class);
     }
 
 

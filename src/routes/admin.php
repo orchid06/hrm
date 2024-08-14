@@ -326,6 +326,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
 
+        #Payroll section
+        
+
         #Article section
         Route::controller(BlogController::class)->prefix("/blog")->name('blog.')->group(function () {
 
