@@ -2,6 +2,7 @@
 
 use App\Enums\InputEnum;
 use App\Enums\LoginKeyEnum;
+use App\Enums\SalaryTypeEnum;
 use App\Enums\SecurityType;
 use App\Enums\StatusEnum;
 use App\Enums\StorageKey;
@@ -138,7 +139,7 @@ return [
     'text_secondary'      => ThemeColor::TEXT_SECONDARY->value,
     'btn_text_primary'    => ThemeColor::BTN_TEXT_PRIMARY->value,
     'btn_text_secondary'  => ThemeColor::BTN_TEXT_SECONDARY->value,
-    
+
 
     /** newly added content */
     'site_description'       => 'demo description',
@@ -156,7 +157,7 @@ return [
     'google_adsense_publisher_id'  => "@@",
     "google_analytics"             => StatusEnum::false->status(),
     'google_analytics_tracking_id' => "@@",
-    
+
     'breadcrumbs'                  => StatusEnum::true->status(),
 
     'expired_data_delete'       => StatusEnum::false->status(),
@@ -184,6 +185,16 @@ return [
 
     "signup_bonus"          => null,
     "webhook_api_key"       => "@@",
+    "salary_field"          => json_encode(
+    [
+        [
+            'labels'      => 'Basic salary',
+            'name'        => 'Basic Salary',
+            'type'        => SalaryTypeEnum::allowance->status(),
+            'default'     => StatusEnum::true->status(),
+            'amount'      => ''
+        ]
+    ]),
     "kyc_settings"          => json_encode(
     [
         [
@@ -225,7 +236,7 @@ return [
             'required'    => StatusEnum::true->status(),
             'default'     => StatusEnum::true->status(),
             'multiple'    => StatusEnum::false->status()
-        ], 
+        ],
         [
             'labels'      => 'File',
             'name'        => 'attachment',

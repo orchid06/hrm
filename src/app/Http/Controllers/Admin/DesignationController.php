@@ -20,7 +20,7 @@ class DesignationController extends Controller
     public function __construct()
     {
         //check permissions middleware
-        $this->middleware(['permissions:view_designation'])->only(['list','subcategories']);
+        $this->middleware(['permissions:view_designation'])->only(['list']);
         $this->middleware(['permissions:create_designation'])->only(['store','create']);
         $this->middleware(['permissions:update_designation'])->only(['updateStatus','update','edit','bulk']);
         $this->middleware(['permissions:delete_designation'])->only(['destroy','bulk']);

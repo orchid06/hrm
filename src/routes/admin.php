@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\admin\SalaryController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SmsGatewayController as AdminSmsGatewayController;
 use App\Http\Controllers\Admin\StaffController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WithdrawController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\admin\DesignationController;
+use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
@@ -326,8 +328,32 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
 
+        #Salary section
+        Route::controller(SalaryController::class)->prefix('/salary')->name('salary.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create/{uid}', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
         #Payroll section
-        
+        Route::controller(PayrollController::class)->prefix('/payroll')->name('payroll.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
 
         #Article section
         Route::controller(BlogController::class)->prefix("/blog")->name('blog.')->group(function () {

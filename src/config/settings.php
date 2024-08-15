@@ -110,7 +110,18 @@ return [
             "update_designation",
             "delete_designation"
         ],
-
+        "salary" => [
+            "view_salary",
+            "create_salary",
+            "update_salary",
+            "delete_salary"
+        ],
+        "payroll" => [
+            "view_payroll",
+            "create_payroll",
+            "update_payroll",
+            "delete_payroll"
+        ],
         "page" => [
             "view_page",
             "create_page",

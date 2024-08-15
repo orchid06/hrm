@@ -68,8 +68,8 @@
 
 
             <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Department" role="button"
-                    aria-expanded="false" aria-controls="Department">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#TeamManagement" role="button"
+                    aria-expanded="false" aria-controls="TeamManagement">
                     <span><i class="las la-door-open"></i></span>
                     <p>
                         {{translate('Team Managemnet')}}
@@ -79,7 +79,7 @@
                     </small>
                 </a>
                 <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*' ],'drop_down')}} "
-                    id="Department">
+                    id="TeamManagement">
                     <ul class="sub-menu">
 
                         @if(check_permission('view_department'))
@@ -123,8 +123,8 @@
             </li>
 
             <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Department" role="button"
-                    aria-expanded="false" aria-controls="Department">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Payroll" role="button"
+                    aria-expanded="false" aria-controls="Payroll">
                     <span><i class="las la-door-open"></i></span>
                     <p>
                         {{translate('Payroll Managemnet')}}
@@ -133,45 +133,35 @@
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*' ],'drop_down')}} "
-                    id="Department">
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.payroll.*' , 'admin.salary.*'  ],'drop_down')}} "
+                    id="Payroll">
                     <ul class="sub-menu">
 
-                        @if(check_permission('view_department'))
+                        @if(check_permission('view_salary'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.department.list' ,'admin.department.edit' ])}}"
-                                href="{{route('admin.department.list')}}">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
+                                href="{{route('admin.salary.list')}}">
                                 <span></span>
                                 <p>
-                                    {{translate('Departments')}}
+                                    {{translate('Set salary')}}
                                 </p>
                             </a>
                         </li>
                         @endif
 
-                        @if(check_permission('view_designation'))
+                        @if(check_permission('view_payroll'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link  {{sidebar_awake(['admin.designation.list' , 'admin.designation.edit'])}}"
-                                href="{{route('admin.designation.list')}}">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.payroll.list' ,'admin.payroll.edit' ])}}"
+                                href="{{route('admin.payroll.list')}}">
                                 <span></span>
                                 <p>
-                                    {{translate('Designations')}}
+                                    {{translate('Payroll')}}
                                 </p>
                             </a>
                         </li>
                         @endif
 
-                        @if(check_permission('view_user'))
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show", "admin.user.create"])}}'
-                                href='{{route("admin.user.list")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Employees')}}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
+
 
                     </ul>
                 </div>

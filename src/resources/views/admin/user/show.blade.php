@@ -26,13 +26,14 @@
 
                     <ul class="admin-info-list">
 
-                        <li><span>{{ translate('Name') }} :</span> {{ $user->name }}</li>
-                        <li><span>{{ translate('Employee ID') }} :</span> {{ $user->employee_id }}</li>
-                        <li><span>{{ translate('Username') }} :</span> {{ $user->user_name ?? 'N/A' }}</li>
-                        <li><span>{{ translate('Phone') }} :</span> {{ $user->phone }}</li>
-                        <li><span>{{ translate('Email') }} :</span> {{ $user->email }}</li>
+                        <li><span>{{ translate('Name') }} :</span> {{ @$user->name }}</li>
+                        <li><span>{{ translate('Employee ID') }} :</span> {{ @$user->employee_id }}</li>
+                        <li><span>{{ translate('Username') }} :</span> {{ @$user->user_name ?? 'N/A' }}</li>
+                        <li><span>{{ translate('Phone') }} :</span> {{ @$user->phone }}</li>
+                        <li><span>{{ translate('Email') }} :</span> {{ @$user->email }}</li>
                         <li><span>{{ translate('Country') }} :</span> {{ @$user->country->name  }}</li>
                         <li><span>{{ translate('Department') }} :</span> {{ @$user->userDesignation->designation->department->name  }}</li>
+                        <li><span>{{ translate('Joined at') }} :</span> {{ @$user->date_of_joining  }}</li>
 
                     </ul>
 
@@ -129,8 +130,7 @@
 
 
 @section('modal')
-    @include('admin.partials.modal.balance_update');
-    @include('admin.partials.modal.plan_update');
+
 @endsection
 
 @push('script-include')
