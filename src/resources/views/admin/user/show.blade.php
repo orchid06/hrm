@@ -20,7 +20,7 @@
                             <h6 class="mb-1">
                                 {{$user->name}}
                             </h6>
-                            <span class="i-badge capsuled info">{{($user->userDesignation->designation->name)}}</span>
+                            <span class="i-badge capsuled info">{{(@$user->userDesignation->designation->name)}}</span>
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@
                                 [
                                     "title"  => translate("Salary"),
                                     "class"  => 'col',
-                                    "total"  => $user->userDesignation->salary,
+                                    "total"  => json_decode(@$user->userDesignation->salary)->basic_salary->amount,
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
                                     "url"    => route('admin.subscription.report.list',['user' => $user->username])

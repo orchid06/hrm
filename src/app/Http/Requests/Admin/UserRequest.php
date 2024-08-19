@@ -42,7 +42,6 @@ class UserRequest extends FormRequest
 
             'employee_id'        => ['required', "string" , "max:100"],
             'date_of_joining'    => ['required','date', ],
-            'salary'             => ['required','numeric','regex:/^\d+(\.\d{1,2})?$/'],
             'designation_id'     => ['required','exists:designations,id'],
 
             "image"              => ['nullable','image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)) ]

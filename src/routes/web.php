@@ -47,7 +47,7 @@ use Illuminate\Support\Facades\DB;
             #Login route
             Route::controller(LoginController::class)->group(function () {
 
-                Route::get('/login', 'login')->name('login');
+                Route::get('/', 'login')->name('login');
                 Route::post('/authenticate', 'authenticate')->name('authenticate');
             });
 
@@ -251,7 +251,7 @@ use Illuminate\Support\Facades\DB;
 
         Route::controller(FrontendController::class)->group(function (){
 
-            Route::get('/', 'home')->name('home');
+            Route::get('/home', 'home')->name('home');
             Route::get('/plans', 'plan')->name('plan');
             Route::get('/blogs', 'blog')->name('blog');
             Route::get('/blogs/{slug}', 'blogDetails')->name('blog.details');

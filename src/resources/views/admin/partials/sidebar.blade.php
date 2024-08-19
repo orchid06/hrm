@@ -246,7 +246,7 @@
             </li>
             @endif --}}
 
-            @if(check_permission('view_ticket'))
+            {{-- @if(check_permission('view_ticket'))
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.ticket.*")}}' data-anim="ripple"
                     href='{{route("admin.ticket.list")}}' aria-expanded="false">
@@ -260,9 +260,9 @@
                     </p>
                 </a>
             </li>
-            @endif
+            @endif --}}
 
-            @if(check_permission('view_report'))
+            {{-- @if(check_permission('view_report'))
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#report" role="button"
                     aria-expanded="false" aria-controls="report">
@@ -387,7 +387,7 @@
                     </ul>
                 </div>
             </li>
-            @endif
+            @endif --}}
 
 
             @if(check_permission('view_settings'))

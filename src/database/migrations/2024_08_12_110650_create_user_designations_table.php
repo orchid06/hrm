@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('uid', 100)->index()->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('designation_id');
-            $table->decimal('salary',10,2);
+            $table->longText('salary')->nullable();
+            $table->decimal('net_salary')->nullable();
             $table->enum('rank',[array_values(RankEnum::toArray())])->index()->default(RankEnum::up->status())->comment('Up: 1, Down: 0');
             $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
             $table->string('note',255)->nullable();

@@ -215,25 +215,25 @@ $countries = App\Models\Country::get();
                                     <select class="select2" name="designation_id" id="designation_id" required>
                                         <option value="">{{translate('Select a Designation')}}</option>
                                         @foreach ($designations as $designation)
-                                        <option {{$user->userDesignation->designation->uid==$designation->uid ? "selected" :""}} value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        <option {{@$user->userDesignation->designation->uid==$designation->uid ? "selected" :""}} value="{{ $designation->id }}">{{ $designation->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="form-inner">
                                     <label for="salary">
                                         {{translate('Salary')}} <small class="text-danger">*</small>
                                     </label>
                                     <div class="input-group">
                                         <span class="input-group-text">{{session()->get('currency')?->code}}</span>
-                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary" value="{{$user->userDesignation->salary}}">
+                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary" value="{{@$user->userDesignation->salary}}">
                                         <span class="input-group-text set-currency"></span>
                                         <span class="input-group-text">{{translate('Monthly')}}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                         </div>

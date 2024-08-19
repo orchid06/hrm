@@ -10,7 +10,7 @@
                          <input type="hidden" name="value" id="value">
                          <input type="hidden" name="type" id="type">
                     </form>
-                    @if(check_permission('create_user') || check_permission('update_user') )
+                    @if(check_permission('create_payroll') || check_permission('update_payroll') )
                         <div class="col-md-5 d-flex justify-content-start">
                             @if(check_permission('update_menu'))
                                 <div class="i-dropdown bulk-action d-none">
@@ -28,11 +28,11 @@
                                     </ul>
                                 </div>
                             @endif
-                            @if(check_permission('create_user'))
+                            @if(check_permission('create_payroll'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
-                                        <a type="button"   href="{{route('admin.user.create')}}" class="i-btn btn--sm success">
-                                            <i class="las la-plus me-1"></i>  {{translate('Add New')}}
+                                        <a type="button"   href="{{route('admin.payroll.create')}}" class="i-btn btn--sm success">
+                                          {{translate('Generate for all')}}
                                         </a>
                                     </div>
                                 </div>
@@ -43,12 +43,12 @@
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
-                                    <select name="country" id="filter_country" class="filter-country">
+                                    <select name="month" id="filter_month" class="filter-month">
                                         <option value="">
-                                            {{translate('Select Country')}}
+                                            {{translate('Select Month')}}
                                         </option>
-                                        @foreach($countries as $country)
-                                           <option  {{$country->name ==   request()->input('country') ? 'selected' :""}} value="{{$country->name}}"> {{$country->name}}
+                                        @foreach($months as $value => $name)
+                                           <option {{$currentMonth == $value ? 'selected' : ''}} value="{{$value}}"> {{$name}}
                                           </option>
                                         @endforeach
                                     </select>
@@ -84,19 +84,19 @@
                                 {{translate('Employee ID')}}
                             </th>
                             <th scope="col"  >
-                                {{translate('Contact')}}
+                                {{translate('Payslip type')}}
                             </th>
                             <th scope="col">
-                                {{translate('Department')}}
+                                {{translate('Basic Salary')}}
                             </th>
                             <th scope="col">
-                                {{translate('Designation')}}
+                                {{translate('Net salary')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}
                             </th>
                             <th scope="col">
-                                {{translate('Options')}}
+                                {{translate('Option')}}
                             </th>
                         </tr>
                     </thead>
@@ -121,55 +121,29 @@
                                 <td  data-label="{{translate('Employee ID')}}">
                                     {{$user->employee_id}}
                                 </td>
-                                <td data-label='{{translate("Contact")}}'>
+                                <td data-label='{{translate("Payslip type")}}'>
                                     <div class="d-block">
-                                      {{translate('Email')}} : <a href="mailto:{{ $user->email }}" class="i-badge info">{{ $user->email }}</a>
+                                      <span class="i-badge info">{{'Monthly' }}</span>
                                     </div>
-                                    {{translate('Phone')}} : <a href="tel:{{ $user->phone }}" class="i-badge info">{{ $user->phone }}</a>
                                 </td>
-                                <td data-label="{{translate('Department')}}">
+                                <td data-label="{{translate('Basic salary')}}">
 
-                                    <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name}}</span>
+                                    <span class="i-badge capsuled warning" >{{@json_decode($user->userDesignation->salary)->basic_salary->amount}}</span>
                                 </td>
                                 <td data-label="{{translate('Designation')}}">
-                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ translate('Salary : ').@$user->userDesignation->salary }}">
-                                        {{@$user->userDesignation->designation->name}}
+                                    <span class="i-badge capsuled success" >
+                                        {{@$user->userDesignation->net_salary}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Status')}}">
-                                    <div class="form-check form-switch switch-center">
-                                        <input {{!check_permission('update_user') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
-                                            data-column="status"
-                                            data-route="{{ route('admin.user.update.status') }}"
-                                            data-model="Admin"
-                                            data-status="{{ $user->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                            data-id="{{$user->uid}}" {{$user->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}}
-                                        id="status-switch-{{$user->id}}" >
-                                        <label class="form-check-label" for="status-switch-{{$user->id}}"></label>
-                                    </div>
+                                    <span class="i-badge capsuled {{@$user->payslip ?'success' : 'danger'}}" >
+                                        {{@$user->payslip ? 'Paid' : 'Unpaid'}}
+                                    </span>
                                 </td>
                                 <td data-label="{{translate('Options')}}">
-                                    <div class="table-action">
-                                        @if(check_permission('update_user') ||  check_permission('delete_user'))
-                                            @if(check_permission('update_user'))
-
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Login')}}" target="_blank" href="{{route('admin.user.login', $user->uid)}}" class="icon-btn success">
-                                                    <i class="las la-sign-in-alt"></i>
-                                                </a>
-                                                <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
-                                                    <i class="las la-eye"></i>
-                                                </a>
-
-                                            @endif
-
-                                            @if(check_permission('delete_user'))
-                                                <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" data-href="{{route('admin.user.destroy',$user->uid)}}" class="delete-item icon-btn danger">
-                                                    <i class="las la-trash-alt"></i></a>
-                                            @endif
-                                        @else
-                                          {{translate('N/A')}}
-                                        @endif
-                                    </div>
+                                    <i class="las la-print icon-large"></i>
+                                    <i class="las la-file-pdf icon-large"></i>
+                                    <i class="las la-paper-plane icon-large"></i>
                                 </td>
                             </tr>
                         @empty
@@ -191,6 +165,8 @@
 
 @section('modal')
     @include('modal.delete_modal')
+
+
 @endsection
 
 @push('script-push')
@@ -205,8 +181,8 @@
 			placeholder:"{{translate('Select Country')}}",
 			dropdownParent: $("#addUser"),
 		})
-        $(".filter-country").select2({
-			placeholder:"{{translate('Select Country')}}",
+        $(".filter-month").select2({
+			placeholder:"{{translate('Select Month')}}",
 
 		})
 	})(jQuery);

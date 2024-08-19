@@ -21,7 +21,8 @@ return new class extends Migration
             $table->decimal('deduction',10,2)->nullable();
             $table->decimal('net_pay',10,2);
             $table->longText('details')->nullable();
-            $table->date('payment_date');
+            $table->string('pay_period')->nullable();
+            $table->date('payment_date')->nullable();
             $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
             $table->timestamps();
         });

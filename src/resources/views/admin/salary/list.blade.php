@@ -20,8 +20,8 @@
                                     {{$user->name}}</i>
                                 </a>
                             </h6>
-                            <span class="i-badge capsuled info">{{($user->userDesignation->designation->name)}}</span>
-                            <span class="i-badge capsuled success">{{($user->userDesignation->designation->department->name)}}</span>
+                            <span class="i-badge capsuled info">{{(@$user->userDesignation->designation->name)}}</span>
+                            <span class="i-badge capsuled success">{{(@$user->userDesignation->designation->department->name)}}</span>
                         </div>
                     </div>
 

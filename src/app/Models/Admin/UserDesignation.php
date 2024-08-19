@@ -14,6 +14,8 @@ class UserDesignation extends Model
 
     protected $guarded = [];
 
+    
+
     protected static function booted(){
         static::creating(function (Model $model) {
             $model->uid        = Str::uuid();

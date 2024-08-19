@@ -17,6 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Core\File;
 use App\Models\Core\Otp;
 use App\Traits\Filterable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -421,9 +422,15 @@ class User extends Authenticatable
         return $this->hasOne(UserDesignation::class,"user_id")->where('status', StatusEnum::true->status());
     }
 
-    public function payroll()
+    public function payrolls() : HasMany
     {
-        return $this->hasOne(Payroll::class);
+        return $this->hasMany(Payroll::class , 'user_id');
+    }
+
+    public function payslip (): HasOne
+    {
+        return $this->hasOne(Payroll::class, 'user_id')
+                    ->where('pay_period', Carbon::now()->format('Y-m'));
     }
 
 

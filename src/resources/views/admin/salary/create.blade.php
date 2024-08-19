@@ -3,8 +3,10 @@
 @section('content')
 
 @php
-	$salarySettings     = !is_array(site_settings('salary_field',[])) ?  json_decode(site_settings('salary_field',[]),true) : [];
-    $salaryType         = App\Enums\SalaryTypeEnum::toArray();
+	$defaultSettings     = !is_array(site_settings('salary_field',[])) ?  json_decode(site_settings('salary_field',[]),true) : [];
+    $userSalarySettings   = json_decode(@$user->userDesignation->salary, true);
+    $salarySettings      =  $userSalarySettings ? $userSalarySettings : $defaultSettings ;
+    $salaryType          = App\Enums\SalaryTypeEnum::toArray();
 @endphp
 
 <form action="{{route('admin.salary.store')}}"  method="POST" enctype="multipart/form-data">
@@ -60,8 +62,8 @@
 
                                                 @else
                                                 <select  class="form-select" name="custom_inputs[{{$loop->index}}][type]" required>
-                                                    @foreach($salaryType as $type)
-                                                        <option {{$input['type'] == $type ?'selected' :""}} value="{{$type}}">
+                                                    @foreach($salaryType as $type => $value)
+                                                        <option {{$input['type'] == $value ?'selected' :""}} value="{{$value}}">
                                                             {{ucfirst($type)}}
                                                         </option>
                                                     @endforeach

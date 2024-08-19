@@ -245,21 +245,6 @@ $countries = App\Models\Country::get();
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-inner">
-                                    <label for="salary">
-                                        {{translate('Salary')}} <small class="text-danger">*</small>
-                                    </label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">{{session()->get('currency')?->code}}</span>
-                                        <input type="number" min="0" step="any" id="salary"  class="form-control " name="salary">
-                                        <span class="input-group-text set-currency"></span>
-                                        <span class="input-group-text">{{translate('Monthly')}}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
                         <div class="button-container">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>

@@ -83,7 +83,6 @@ class UserController extends Controller
         UserDesignation::create([
             'user_id'        => $user->id,
             'designation_id' => $request->input('designation_id'),
-            'salary'         => $request->input('salary'),
         ]);
 
         return  back()->with(response_status('User created successfully'));
@@ -122,6 +121,11 @@ class UserController extends Controller
      */
     public function update(UserRequest $request): RedirectResponse{
         $user = $this->userService->save($request);
+
+        UserDesignation::where('user_id' , $user->id)->update([
+            'designation_id' => $request->input('designation_id')
+        ]);
+
         return  back()->with(response_status('User updated successfully'));
     }
 
