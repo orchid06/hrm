@@ -29,6 +29,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WithdrawController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\admin\DesignationController;
+use App\Http\Controllers\admin\ExpenseCategoryController;
+use App\Http\Controllers\admin\ExpenseController;
 use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
@@ -354,6 +356,32 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
 
+        #expense section
+        Route::controller(ExpenseCategoryController::class)->prefix('/expense_category')->name('expense_category.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+            
+        });
+
+
+        Route::controller(ExpenseController::class)->prefix('/expense')->name('expense.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
 
         #Article section
         Route::controller(BlogController::class)->prefix("/blog")->name('blog.')->group(function () {

@@ -10,6 +10,7 @@ use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class PayrollController extends Controller
@@ -27,13 +28,28 @@ class PayrollController extends Controller
 
     public function list(): View
     {
-        $title         =  translate('Manage Payrolls');
-        $breadcrumbs   =  ['Home' => 'admin.home', 'Payrolls' => null];
+        $title         =  translate('Payslip log');
+        $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => null];
         $months        = collect(range(1, 12))->mapWithKeys(function ($month) {
             return [
                 Carbon::createFromDate(null, $month, 1)->format('Y-m') => Carbon::createFromDate(null, $month, 1)->format('F')
             ];
         });
+
+        $payrolls = DB::table('payrolls')
+                        ->select(
+                            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+                            DB::raw('COUNT(user_id) as total_employees'),
+                            DB::raw('MIN(created_at) as created_at'),
+                            DB::raw('SUM(net_pay) as total_expense')
+                        )
+                        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+                        ->get()
+                        ->map(function ($payroll) {
+                            $payroll->month = Carbon::createFromFormat('Y-m', $payroll->month)->format('F Y');
+                            return $payroll;
+                        });
+
         $currentMonth = now()->format('Y-m');
 
         $users        = User::Active()
@@ -47,11 +63,7 @@ class PayrollController extends Controller
             'months'        => $months,
             'currentMonth' =>  $currentMonth,
             'users'         => $users,
-            'payrolls'      => Payroll::with('user')
-                ->latest()
-                ->search(['user:name'])
-                ->paginate(paginateNumber())
-                ->appends(request()->all())
+            'payrolls'      => $payrolls
         ]);
     }
 

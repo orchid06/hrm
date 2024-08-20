@@ -11,12 +11,27 @@
 
 <form action="{{route('admin.salary.store')}}"  method="POST" enctype="multipart/form-data">
     @csrf
+
+
     <div class="i-card-md">
         <div class="card--header">
             <div class="action">
                 <button id="add-salary-option" class="i-btn btn--sm success">
                     <i class="las la-plus me-1"></i>   {{translate('Add More')}}
                 </button>
+            </div>
+
+            <div class="col-md-3">
+                <label for="payslip_cycle">
+                    {{translate('Payslip Cycle')}} <small class="text-danger">*</small>
+                </label>
+                <select id="payslip_cycle" required name="payslip_cycle" class="select2" >
+                    @foreach( App\Enums\PayslipCycle::toArray() as $key => $val)
+                        <option {{ @$user->userDesignation->payslip_cycle ==  $val ? 'selected' :""}}  value="{{$val}}">
+                            {{ucfirst(strtolower(str_replace("_"," ",$key)))}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="card-body">
@@ -74,10 +89,14 @@
                                         </td>
 
                                         <td  data-label='{{translate("Amount")}}'>
+
                                             <div class="form-inner mb-0">
-                                                <input type="text" name="custom_inputs[{{$loop->index}}][amount]"  value="{{$input['amount']}}" placeholder="{{translate('Enter amount')}}" required>
+                                                <div class="input-group">
+                                                    <input placeholder="{{translate('Enter Amount')}}" required type="number" min="0" name="custom_inputs[{{$loop->index}}][amount]" value="{{$input['amount']}}" class="form-control">
+                                                    <span class="input-group-text"> {{(base_currency()->code)}} </span>
+                                                </div>
+                                                <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
                                             </div>
-                                            <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
 
                                         </td>
                                         <td data-label='{{translate("Option")}}'>
@@ -134,8 +153,11 @@
 							</td>
 							<td data-label="{{translate("Amount")}}">
                                 <div class="form-inner mb-0">
-                                    <input placeholder="{{translate("Enter Amount")}}"  type="text" name="custom_inputs[${count}][amount]" required>
-                                    <input  type="hidden" name="custom_inputs[${count}][default]"  value="0">
+                                    <div class="input-group">
+                                        <input placeholder="{{translate('Enter Amount')}}"  type="number" min="0" name="custom_inputs[${count}][amount]" class="form-control" required>
+                                        <span class="input-group-text"> {{(base_currency()->code)}} </span>
+                                        <input  type="hidden" name="custom_inputs[${count}][default]"  value="0">
+                                    </div>
                                 </div>
 							</td>
 							<td data-label='{{translate("Option")}}'>
@@ -157,6 +179,10 @@
 			count--
 			e.preventDefault()
 		})
+
+        $(".select2").select2({
+			   placeholder:"{{translate('Select Item')}}",
+	     	})
 </script>
 @endpush
 

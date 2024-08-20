@@ -106,7 +106,8 @@ class SalaryController extends Controller
 
        UserDesignation::where('user_id' , $user->id)->update([
             'salary'        => json_encode($salaryDetails, true),
-            'net_salary'    => $net_salary
+            'net_salary'    => $net_salary,
+            'payslip_cycle' => $request->input('payslip_cycle')
        ]);
 
         return back()->with('success', trans('Salary setting stored successfully'));

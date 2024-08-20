@@ -122,6 +122,18 @@ return [
             "update_payroll",
             "delete_payroll"
         ],
+        "expense" => [
+            "view_expense",
+            "create_expense",
+            "update_expense",
+            "delete_expense"
+        ],
+        "expense_category" => [
+            "view_expense_category",
+            "create_expense_category",
+            "update_expense_category",
+            "delete_expense_category"
+        ],
         "page" => [
             "view_page",
             "create_page",

@@ -167,6 +167,51 @@
                 </div>
             </li>
 
+            <li class="sidebar-menu-item">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Payroll" role="button"
+                    aria-expanded="false" aria-controls="Payroll">
+                    <span><i class="las la-door-open"></i></span>
+                    <p>
+                        {{translate('Expense Managemnet')}}
+                    </p>
+                    <small>
+                        <i class="las la-angle-down"></i>
+                    </small>
+                </a>
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.expense_category.*' , 'admin.expense.*'  ],'drop_down')}} "
+                    id="Payroll">
+                    <ul class="sub-menu">
+
+                        @if(check_permission('view_expense_category'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
+                                href="{{route('admin.expense_category.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Category')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_expense'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.payroll.list' ,'admin.payroll.edit' ])}}"
+                                href="{{route('admin.expense.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Expenses')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+
+
+                    </ul>
+                </div>
+            </li>
+
 
             {{-- @if(check_permission('view_user'))
             <li class="sidebar-menu-item">

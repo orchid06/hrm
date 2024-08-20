@@ -78,19 +78,22 @@
                                 @endif#
                             </th>
                             <th scope="col">
-                                {{translate('Month')}}
+                                {{translate('Name')}}
                             </th>
                             <th scope="col"  >
-                                {{translate('Total Employees')}}
+                                {{translate('Employee ID')}}
                             </th>
                             <th scope="col"  >
-                                {{translate('Created at')}}
+                                {{translate('Payslip type')}}
                             </th>
                             <th scope="col">
-                                {{translate('Salary Expense')}}
+                                {{translate('Basic Salary')}}
                             </th>
                             <th scope="col">
-                                {{translate('Total Expense')}}
+                                {{translate('Net salary')}}
+                            </th>
+                            <th scope="col">
+                                {{translate('Status')}}
                             </th>
                             <th scope="col">
                                 {{translate('Option')}}
@@ -98,36 +101,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($payrolls  as $payroll)
+                        @forelse($users  as $user)
 
                             <tr>
                                 <td data-label="#">
-                                    @if( check_permission('update_payroll') )
-                                        <input type="checkbox" value="" name="ids[]" class="data-checkbox form-check-input" id="" />
+                                    @if( check_permission('update_user') )
+                                        <input type="checkbox" value="{{$user->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$user->id}}" />
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
-                                <td data-label="{{translate('Month')}}">
-                                    <span class="i-badge capsuled info" >
-                                        {{@$payroll->month}}
-                                    </span>
-                                </td>
+                                <td data-label="{{translate('Name')}}">
+                                    <div class="user-meta-info d-flex align-items-center gap-2">
+                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
+                                        <p>	{{ $user->name ?? translate("N/A")}}</p>
 
-                                <td  data-label="{{translate('Total Employees')}}">
-                                    {{$payroll->total_employees}}
-                                </td>
-                                <td data-label='{{translate("Created at")}}'>
-                                    <div class="d-block">
-                                        <span class="i-badge info">{{ @$payroll->created_at}}</span>
                                     </div>
                                 </td>
-                                <td data-label="{{translate('Salary Expense')}}">
 
-                                    <span class="i-badge capsuled warning" >{{@$payroll->total_expense}}</span>
+                                <td  data-label="{{translate('Employee ID')}}">
+                                    {{$user->employee_id}}
                                 </td>
-                                <td data-label="{{translate('Total Expense')}}">
-                                    <span class="i-badge capsuled success" >
+                                <td data-label='{{translate("Payslip type")}}'>
+                                    <div class="d-block">
+                                        <span class="i-badge info">{{ ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($user->userDesignation->payslip_cycle)->name))) }}</span>
+                                    </div>
+                                </td>
+                                <td data-label="{{translate('Basic salary')}}">
 
+                                    <span class="i-badge capsuled warning" >{{@json_decode($user->userDesignation->salary)->basic_salary->amount}}</span>
+                                </td>
+                                <td data-label="{{translate('Designation')}}">
+                                    <span class="i-badge capsuled success" >
+                                        {{@$user->userDesignation->net_salary}}
+                                    </span>
+                                </td>
+                                <td data-label="{{translate('Status')}}">
+                                    <span class="i-badge capsuled {{@$user->payslip ?'success' : 'danger'}}" >
+                                        {{@$user->payslip ? 'Paid' : 'Unpaid'}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Options')}}">
