@@ -117,7 +117,7 @@ class DepartmentController extends Controller
         try {
             $response =  $this->bulkAction($request,[
                 "model"        => new Department(),
-                "with_count"   => ['articles','templates','childrens'],
+                
             ]);
 
         } catch (\Exception $exception) {

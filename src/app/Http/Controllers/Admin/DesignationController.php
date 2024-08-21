@@ -121,7 +121,7 @@ class DesignationController extends Controller
         try {
             $response =  $this->bulkAction($request,[
                 "model"        => new Designation(),
-                "with_count"   => ['articles','templates','childrens'],
+                
             ]);
 
         } catch (\Exception $exception) {

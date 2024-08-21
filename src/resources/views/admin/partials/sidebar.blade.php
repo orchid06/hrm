@@ -184,7 +184,7 @@
 
                         @if(check_permission('view_expense_category'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.expense_category.list' ,'admin.expense_category.edit' ])}}"
                                 href="{{route('admin.expense_category.list')}}">
                                 <span></span>
                                 <p>
