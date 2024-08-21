@@ -168,8 +168,8 @@
             </li>
 
             <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Payroll" role="button"
-                    aria-expanded="false" aria-controls="Payroll">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Expense" role="button"
+                    aria-expanded="false" aria-controls="Expense">
                     <span><i class="las la-door-open"></i></span>
                     <p>
                         {{translate('Expense Managemnet')}}
@@ -179,7 +179,7 @@
                     </small>
                 </a>
                 <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.expense_category.*' , 'admin.expense.*'  ],'drop_down')}} "
-                    id="Payroll">
+                    id="Expense">
                     <ul class="sub-menu">
 
                         @if(check_permission('view_expense_category'))

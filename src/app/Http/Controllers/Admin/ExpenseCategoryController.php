@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
+use App\Models\admin\Expense;
 
 class ExpenseCategoryController extends Controller
 {
@@ -35,7 +36,7 @@ class ExpenseCategoryController extends Controller
         $title         =  translate('Manage Expense Category');
         $breadcrumbs   =  ['Home'=>'admin.home','Expense category'=> null];
 
-        return view('admin.expense_category.list',[
+        return view('admin.expense.category',[
 
             'breadcrumbs'           =>  $breadcrumbs,
             'title'                 =>  $title,
@@ -104,8 +105,8 @@ class ExpenseCategoryController extends Controller
 
     public function destroy($uid) : RedirectResponse
     {
-        $department = ExpenseCategory::whereUid($uid)->first();
-        $department->delete();
+        $expense_category = ExpenseCategory::whereUid($uid)->first();
+        $expense_category->delete();
         return back()->with(response_status('Category deleted successfully'));
     }
 
