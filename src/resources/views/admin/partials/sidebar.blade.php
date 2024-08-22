@@ -575,7 +575,7 @@
             @endif
 
             {{-- disabled for later user --}}
-            {{-- @if(check_permission('view_currency'))
+            @if(check_permission('view_currency'))
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' data-anim="ripple"
                     href="{{route('admin.currency.list')}}" aria-expanded="false">
@@ -583,7 +583,7 @@
                     <p>{{translate('Currencies')}}</p>
                 </a>
             </li>
-            @endif --}}
+            @endif
 
             @if(check_permission('view_method'))
             <li class="sidebar-menu-item">

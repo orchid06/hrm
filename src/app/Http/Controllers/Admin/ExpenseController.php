@@ -42,29 +42,21 @@ class ExpenseController extends Controller
         $currentMonth           = Carbon::now()->month;
         $currentYear            = Carbon::now()->year;
 
-        $expenses               = DB::table('expenses')
-                                        ->whereMonth('created_at', $currentMonth)
-                                        ->whereYear('created_at', $currentYear);
+        $categories = ExpenseCategory::with(['expenses' => function ($query) use ($currentMonth, $currentYear) {
+            $query->whereMonth('created_at', $currentMonth)
+                  ->whereYear('created_at', $currentYear);
+        }])->get();
 
-        $totalExpense               = $expenses->sum('amount');
+        $totalExpense = $categories->sum(function ($category) {
+            return $category->expenses->sum('amount');
+        });
 
-        $categoryExpenses = DB::table('expenses')
-                                    ->select('expense_categories.name as category_name', DB::raw('SUM(expenses.amount) as total_amount'))
-                                    ->join('expense_categories', 'expenses.expense_category_id', '=', 'expense_categories.id')
-                                    ->whereMonth('expenses.created_at', $currentMonth)
-                                    ->whereYear('expenses.created_at', $currentYear)
-                                    ->groupBy('expense_categories.name')
-                                    ->get();
-
-
-        $categoryWithHighestExpense = DB::table('expenses')
-                                            ->select('expenses.expense_category_id', 'expense_categories.name as category_name', DB::raw('SUM(expenses.amount) as total_amount'))
-                                            ->join('expense_categories', 'expenses.expense_category_id', '=', 'expense_categories.id')
-                                            ->whereMonth('expenses.created_at', $currentMonth)
-                                            ->whereYear('expenses.created_at', $currentYear)
-                                            ->groupBy('expenses.expense_category_id', 'expense_categories.name')
-                                            ->orderByDesc('total_amount')
-                                            ->first();
+        $categoryWithHighestExpense = $categories->map(function ($category) {
+            return [
+                'name' => $category->name,
+                'total_amount' => $category->expenses->sum('amount')
+            ];
+        })->sortByDesc('total_amount')->first();
 
         $averageDailyExpense = $totalExpense / Carbon::now()->daysInMonth;
 
@@ -74,12 +66,34 @@ class ExpenseController extends Controller
             'averageDailyExpense'           => $averageDailyExpense,
         ];
 
-        $graphData = $categoryExpenses->map(function($item) {
-            return [
-                'category_name' => $item->category_name,
-                'total' => $item->total_amount,
+
+        $yearlyCategoryExpenses = ExpenseCategory::with(['expenses' => function ($query) use ($currentYear) {
+            $query->select(
+                    'expense_category_id',
+                    DB::raw('MONTH(created_at) as month'),
+                    DB::raw('SUM(amount) as total_amount')
+                )
+                ->whereYear('created_at', $currentYear)
+                ->groupBy('month', 'expense_category_id');
+        }])->get();
+
+        $graphData = [];
+        $months = range(1, 12);
+
+        foreach ($yearlyCategoryExpenses as $category) {
+            $monthlyExpenses = array_fill_keys($months, 0);
+
+            foreach ($category->expenses as $expense) {
+                $monthlyExpenses[$expense->month] = $expense->total_amount;
+            }
+
+            $graphData[] = [
+                'name' => $category->name,
+                'data' => array_values($monthlyExpenses),
             ];
-        })->toArray();
+        }
+
+
 
         return view('admin.expense.list', [
 

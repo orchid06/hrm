@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('content')
+@php
+    $currency = session()->get('currency');
+@endphp
 <div class="row g-4 mb-4">
 
     @if(request()->routeIs("admin.user.show"))
@@ -52,7 +55,7 @@
                                 [
                                     "title"  => translate("Salary"),
                                     "class"  => 'col',
-                                    "total"  => json_decode(@$user->userDesignation->salary)->basic_salary->amount,
+                                    "total"  => num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
                                     "url"    => route('admin.subscription.report.list',['user' => $user->username])

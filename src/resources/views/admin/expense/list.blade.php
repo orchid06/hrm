@@ -5,19 +5,22 @@
     <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 g-3 mb-4">
 
         @php
+
+            $currency = session()->get('currency');
+
             $cards =  [
                         [
                             "title"  => translate("Total Expense"),
                             "class"  => 'col',
-                            "total"  => $cardData['totalExpense'],
+                            "total"  => num_format($cardData['totalExpense'], $currency),
                             "icon"   => '<i class="las la-hryvnia"></i>',
                             "bg"     => 'info',
 
                         ],
                         [
-                            "title"  => translate("Highest Expense :").' '.$cardData['categoryWithHighestExpense']->category_name,
+                            "title"  => translate("Highest Expense :").' '.$cardData['categoryWithHighestExpense']['name'],
                             "class"  => 'col',
-                            "total"  => $cardData['categoryWithHighestExpense']->total_amount ?? 'N/A',
+                            "total"  => num_format($cardData['categoryWithHighestExpense']['total_amount'] , $currency) ?? 'N/A',
                             "icon"   => '<i class="las la-hryvnia"></i>',
                             "bg"     => 'danger',
 
@@ -25,7 +28,7 @@
                         [
                             "title"  => translate("Average Daily Expense"),
                             "class"  => 'col',
-                            "total"  => $cardData['averageDailyExpense'],
+                            "total"  => num_format($cardData['averageDailyExpense'], $currency),
                             "icon"   => '<i class="las la-hryvnia"></i>',
                             "bg"     => 'warning',
 
@@ -44,7 +47,7 @@
             <div class="i-card-md mb-4">
                 <div class="card--header text-end">
                     <h4 class="card-title">
-                         {{ translate('Expenses (Current Month)')}}
+                         {{ translate('Expenses (Current Year)')}}
                     </h4>
                </div>
                 <div class="card-body">
@@ -380,63 +383,37 @@
             })
         })
 
-
         var options = {
             chart: {
-              height: 300,
-              type: "line",
+                height: 300,
+                type: 'line',
             },
-          dataLabels: {
-            enabled: false,
-          },
-          colors: ['var(--color-info)','var(--color-primary)','var(--color-success)' ,"var(--color-danger)"],
-          series: [
-            {
-              name: "{{ translate('Total Post') }}",
-              data: @json(array_column($graph_data , 'total')),
+            dataLabels: {
+                enabled: false,
             },
-            {
-              name: "{{ translate('Success Post') }}",
-              data: @json(array_column($graph_data , 'success')),
+            series: @json($graph_data),
+            xaxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             },
-            {
-              name: "{{ translate('Pending Post') }}",
-              data: @json(array_column($graph_data , 'pending')),
+            colors: ['var(--color-info)', 'var(--color-primary)', 'var(--color-success)', 'var(--color-danger)'],
+            markers: {
+                size: 6,
             },
-            {
-              name: "{{ translate('Schedule Post') }}",
-              data: @json(array_column($graph_data , 'schedule')),
+            stroke: {
+                width: 2,
             },
-            {
-              name: "{{ translate('Failed Post') }}",
-              data: @json(array_column($graph_data , 'failed')),
-            }
-
-          ],
-          xaxis: {
-            categories: @json(array_keys($graph_data)),
-          },
-
-          tooltip: {
+            tooltip: {
                 shared: false,
                 intersect: true,
-
             },
-          markers: {
-            size: 6,
-          },
-          stroke: {
-            width: [4, 4],
-          },
-          legend: {
-            horizontalAlign: "left",
-            offsetX: 40,
-          },
+            legend: {
+                horizontalAlign: 'left',
+                offsetX: 40,
+            },
         };
 
         var chart = new ApexCharts(document.querySelector("#postReport"), options);
         chart.render();
-
 
 
     })(jQuery);
