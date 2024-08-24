@@ -100,7 +100,7 @@ class ExpenseController extends Controller
             'breadcrumbs'           =>  $breadcrumbs,
             'title'                 =>  $title,
             'cardData'              =>  $cardData,
-            'graph_data'             => $graphData,
+            'graphData'             =>  $graphData,
             'expense_categories'    => ExpenseCategory::latest()->get(),
             'expenses'              => Expense::latest()
                                         ->search(['name'])

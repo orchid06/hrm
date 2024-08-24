@@ -6,8 +6,8 @@
 
         @php
 
-            $currency = session()->get('currency');
-
+            $currency       = session()->get('currency');
+            $currentYear    = Carbon\Carbon::now()->year;
             $cards =  [
                         [
                             "title"  => translate("Total Expense"),
@@ -47,7 +47,7 @@
             <div class="i-card-md mb-4">
                 <div class="card--header text-end">
                     <h4 class="card-title">
-                         {{ translate('Expenses (Current Year)')}}
+                         {{ translate('Expenses : ').$currentYear}}
                     </h4>
                </div>
                 <div class="card-body">
@@ -354,6 +354,10 @@
 @include('modal.bulk_modal')
 @endsection
 
+@push('script-include')
+    <script  src="{{asset('assets/global/js/apexcharts.js')}}"></script>
+@endpush
+
 @push('script-push')
 <script>
     (function ($) {
@@ -391,7 +395,7 @@
             dataLabels: {
                 enabled: false,
             },
-            series: @json($graph_data),
+            series: @json($graphData),
             xaxis: {
                 categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             },
