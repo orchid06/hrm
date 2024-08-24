@@ -114,7 +114,7 @@
                     <div class="i-card-md mb-4">
                         <div class="card--header text-end">
                             <h4 class="card-title">
-                                 {{ translate('Social post statistics (Current Year)')}}
+                                 {{ translate('Employee attendence (Current Year)')}}
                             </h4>
                        </div>
                         <div class="card-body">

@@ -348,6 +348,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
             Route::get('/list', 'list')->name('list');
             Route::get('/create', 'create')->name('create');
+            Route::get('/show/{month}', 'show')->name('show');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{uid}', 'edit')->name('edit');
             Route::post('/bulk/action', 'bulk')->name('bulk');
@@ -367,7 +368,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/', 'update')->name('update');
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
-            
+
         });
 
 

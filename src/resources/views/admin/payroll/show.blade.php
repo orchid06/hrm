@@ -39,7 +39,7 @@
                             @endif
                         </div>
                     @endif
-                    <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
+                    {{-- <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
                                 <div class="form-inner">
@@ -64,7 +64,7 @@
                                 </a>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="table-container position-relative">
@@ -101,7 +101,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($users  as $user)
+                        @forelse($payrolls  as $payroll)
 
                             <tr>
                                 <td data-label="#">

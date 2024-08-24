@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -67,7 +68,7 @@ class PayrollController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $currentMonth = now()->format('Y-m');
 
@@ -89,5 +90,22 @@ class PayrollController extends Controller
 
 
         return back()->with('success', trans('Payslip generated successfully'));
+    }
+
+    public function show ($month) : View
+    {
+        $title         =  translate('Payslip log');
+        $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list' , $month => null];
+
+        $payrolls = Payroll::whereMonth('created_at', $month)
+                        ->with('user')
+                        ->get();
+
+
+        return view('admin.payroll.show', [
+            'breadcrumbs'   => $breadcrumbs,
+            'title'         => $title,
+            'payrolls'      => $payrolls
+        ]);
     }
 }

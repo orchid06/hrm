@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('content')
+@php
+    $currency = session()->get('currency');
+@endphp
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -132,7 +135,7 @@
                                     <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name}}</span>
                                 </td>
                                 <td data-label="{{translate('Designation')}}">
-                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ translate('Salary : ').@$user->userDesignation->salary }}">
+                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ translate('Salary : ').num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency) }}">
                                         {{@$user->userDesignation->designation->name}}
                                     </span>
                                 </td>

@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('content')
+@php
+     $currency = session()->get('currency');
+@endphp
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -89,9 +92,7 @@
                             <th scope="col">
                                 {{translate('Salary Expense')}}
                             </th>
-                            <th scope="col">
-                                {{translate('Total Expense')}}
-                            </th>
+
                             <th scope="col">
                                 {{translate('Option')}}
                             </th>
@@ -123,17 +124,27 @@
                                 </td>
                                 <td data-label="{{translate('Salary Expense')}}">
 
-                                    <span class="i-badge capsuled warning" >{{@$payroll->total_expense}}</span>
+                                    <span class="i-badge capsuled warning" >{{ num_format(@$payroll->total_expense , $currency)}}</span>
                                 </td>
-                                <td data-label="{{translate('Total Expense')}}">
-                                    <span class="i-badge capsuled success" >
 
-                                    </span>
-                                </td>
                                 <td data-label="{{translate('Options')}}">
-                                    <i class="las la-print icon-large"></i>
-                                    <i class="las la-file-pdf icon-large"></i>
-                                    <i class="las la-paper-plane icon-large"></i>
+                                    <div class="table-action">
+                                        @if(check_permission('update_payroll') ||  check_permission('delete_payroll'))
+                                            @if(check_permission('update_payroll'))
+
+                                                <a   href="{{route('admin.payroll.show', $payroll->created_at)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
+                                                    <i class="las la-eye"></i>
+                                                </a>
+
+                                            @endif
+
+                                            @if(check_permission('delete_user'))
+                                                
+                                            @endif
+                                        @else
+                                          {{translate('N/A')}}
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @empty
