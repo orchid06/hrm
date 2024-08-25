@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('content')
+@php
+    $currency = session()->get('currency');
+@endphp
     <div class="i-card-md">
         <div class="card-body">
             <div class="search-action-area">
@@ -29,13 +32,7 @@
                                 </div>
                             @endif
                             @if(check_permission('create_payroll'))
-                                <div class="col-md-4 d-flex justify-content-start">
-                                    <div class="action">
-                                        <a type="button"   href="{{route('admin.payroll.create')}}" class="i-btn btn--sm success">
-                                          {{translate('Generate for all')}}
-                                        </a>
-                                    </div>
-                                </div>
+                                
                             @endif
                         </div>
                     @endif
@@ -106,44 +103,52 @@
                             <tr>
                                 <td data-label="#">
                                     @if( check_permission('update_user') )
-                                        <input type="checkbox" value="{{$user->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$user->id}}" />
+                                        <input type="checkbox" value="{{$payroll->id}}" name="ids[]" class="data-checkbox form-check-input" id="{{$payroll->id}}" />
                                     @endif
                                     {{$loop->iteration}}
                                 </td>
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
-                                        <p>	{{ $user->name ?? translate("N/A")}}</p>
+                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($payroll->user->file,"profile,user",true) }}' alt="{{@$payroll->user->file->name}}">
+                                        <p>	{{ $payroll->user->name ?? translate("N/A")}}</p>
 
                                     </div>
                                 </td>
 
                                 <td  data-label="{{translate('Employee ID')}}">
-                                    {{$user->employee_id}}
+                                    {{$payroll->user->employee_id}}
                                 </td>
                                 <td data-label='{{translate("Payslip type")}}'>
                                     <div class="d-block">
-                                        <span class="i-badge info">{{ ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($user->userDesignation->payslip_cycle)->name))) }}</span>
+                                        <span class="i-badge info">{{ ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) }}</span>
                                     </div>
                                 </td>
                                 <td data-label="{{translate('Basic salary')}}">
 
-                                    <span class="i-badge capsuled warning" >{{@json_decode($user->userDesignation->salary)->basic_salary->amount}}</span>
+                                    <span class="i-badge capsuled warning" >{{num_format(@json_decode($payroll->user->userDesignation->salary)->basic_salary->amount , $currency)}}</span>
                                 </td>
-                                <td data-label="{{translate('Designation')}}">
+                                <td data-label="{{translate('Net Salary')}}">
                                     <span class="i-badge capsuled success" >
-                                        {{@$user->userDesignation->net_salary}}
+                                        {{num_format(@$payroll->user->userDesignation->net_salary , $currency)}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Status')}}">
-                                    <span class="i-badge capsuled {{@$user->payslip ?'success' : 'danger'}}" >
-                                        {{@$user->payslip ? 'Paid' : 'Unpaid'}}
+                                    <span class="i-badge capsuled {{@$payroll->user->payslip ?'success' : 'danger'}}" >
+                                        {{@$payroll->user->payslip ? 'Paid' : 'Unpaid'}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Options')}}">
-                                    <i class="las la-print icon-large"></i>
-                                    <i class="las la-file-pdf icon-large"></i>
-                                    <i class="las la-paper-plane icon-large"></i>
+                                   <a href="{{route('admin.payslip.print' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Print'}}">
+                                        <i class="las la-print icon-large"></i>
+                                    </a>
+                                    <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Download Pdf'}}">
+                                        <i class="las la-file-pdf icon-large"></i>
+                                    </a>
+                                    <a href="{{route('admin.payslip.send'  , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Send Mail'}}">
+                                        <i class="las la-paper-plane icon-large"></i>
+                                    </a>
+
+
                                 </td>
                             </tr>
                         @empty
@@ -157,7 +162,7 @@
                 </table>
             </div>
             <div class="Paginations">
-                    {{ $users->links() }}
+                    {{ $payrolls->links() }}
             </div>
         </div>
     </div>

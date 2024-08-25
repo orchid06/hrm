@@ -34,8 +34,8 @@
                             @if(check_permission('create_payroll'))
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="action">
-                                        <a type="button"   href="{{route('admin.payroll.create')}}" class="i-btn btn--sm success">
-                                          {{translate('Generate for all')}}
+                                        <a type="button"    class="i-btn btn--sm success" data-bs-toggle="modal" data-bs-target="#generatePayslipModal">
+                                          {{translate('Generate')}}
                                         </a>
                                     </div>
                                 </div>
@@ -45,17 +45,7 @@
                     <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                <div class="form-inner">
-                                    <select name="month" id="filter_month" class="filter-month">
-                                        <option value="">
-                                            {{translate('Select Month')}}
-                                        </option>
-                                        @foreach($months as $value => $name)
-                                           <option {{$currentMonth == $value ? 'selected' : ''}} value="{{$value}}"> {{$name}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+
                                 <div class="form-inner  ">
                                       <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
                                 </div>
@@ -119,7 +109,7 @@
                                 </td>
                                 <td data-label='{{translate("Created at")}}'>
                                     <div class="d-block">
-                                        <span class="i-badge info">{{ @$payroll->created_at}}</span>
+                                        <span >{{\Carbon\Carbon::parse(@$payroll->created_at)->format('F j, Y, g:i A')}}</span>
                                     </div>
                                 </td>
                                 <td data-label="{{translate('Salary Expense')}}">
@@ -129,8 +119,8 @@
 
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-                                        @if(check_permission('update_payroll') ||  check_permission('delete_payroll'))
-                                            @if(check_permission('update_payroll'))
+                                        @if(check_permission('view_payroll') ||  check_permission('delete_payroll'))
+                                            @if(check_permission('view_payroll'))
 
                                                 <a   href="{{route('admin.payroll.show', $payroll->created_at)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
                                                     <i class="las la-eye"></i>
@@ -138,9 +128,6 @@
 
                                             @endif
 
-                                            @if(check_permission('delete_user'))
-                                                
-                                            @endif
                                         @else
                                           {{translate('N/A')}}
                                         @endif
@@ -167,6 +154,52 @@
 @section('modal')
     @include('modal.delete_modal')
 
+<div class="modal fade" id="generatePayslipModal" tabindex="-1" aria-labelledby="generatePayslipModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generatePayslipModalLabel">{{translate('Generate Payslip')}}</h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="generatePayslipForm" method="POST" action="{{ route('admin.payroll.create') }}">
+                    @csrf
+                    <div class="form-inner">
+                        <label for="month" class="form-label">{{translate('Select month')}}</label>
+                        <select name="month" id="month" class="month">
+                            <option value="">
+                                {{translate('Select Month')}}
+                            </option>
+                            @foreach($months as $value => $name)
+                               <option {{$currentMonth == $value ? 'selected' : ''}} value="{{$value}}"> {{$name}}
+                              </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-inner">
+                        <label for="selectUser" class="form-label">{{translate('Select Employee')}}</label>
+                        <select class="form-select select2-multiple" id="selectUser" name="user_ids[]" multiple="multiple" required>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Generate")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -174,18 +207,19 @@
 <script>
 	(function($){
        	"use strict";
-        $(".select2").select2({
-			placeholder:"{{translate('Select Status')}}",
-			dropdownParent: $("#addUser"),
-		})
-        $("#country").select2({
-			placeholder:"{{translate('Select Country')}}",
-			dropdownParent: $("#addUser"),
-		})
-        $(".filter-month").select2({
+
+        $(".month").select2({
 			placeholder:"{{translate('Select Month')}}",
+            dropdownParent: $("#generatePayslipModal"),
 
 		})
+
+        $('.select2-multiple').select2({
+            placeholder:"{{translate('Select Employees')}}",
+            dropdownParent: $('#generatePayslipModal'),
+            allowClear: true
+        })
+
 	})(jQuery);
 </script>
 @endpush

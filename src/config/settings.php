@@ -134,6 +134,11 @@ return [
             "update_expense_category",
             "delete_expense_category"
         ],
+        "payslip" => [
+            "print_payslip",
+            "download_payslip",
+            "send_payslip",
+        ],
         "page" => [
             "view_page",
             "create_page",

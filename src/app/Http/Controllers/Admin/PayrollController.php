@@ -38,18 +38,19 @@ class PayrollController extends Controller
         });
 
         $payrolls = DB::table('payrolls')
-                        ->select(
-                            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
-                            DB::raw('COUNT(user_id) as total_employees'),
-                            DB::raw('MIN(created_at) as created_at'),
-                            DB::raw('SUM(net_pay) as total_expense')
-                        )
-                        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-                        ->get()
-                        ->map(function ($payroll) {
-                            $payroll->month = Carbon::createFromFormat('Y-m', $payroll->month)->format('F Y');
-                            return $payroll;
-                        });
+            ->select(
+                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+                DB::raw('COUNT(user_id) as total_employees'),
+                DB::raw('MIN(created_at) as created_at'),
+                DB::raw('SUM(net_pay) as total_expense')
+            )
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), 'asc')
+            ->get()
+            ->map(function ($payroll) {
+                $payroll->month = Carbon::createFromFormat('Y-m', $payroll->month)->format('F Y');
+                return $payroll;
+            });
 
         $currentMonth = now()->format('Y-m');
 
@@ -69,37 +70,50 @@ class PayrollController extends Controller
     }
 
     public function create(Request $request): RedirectResponse
-    {
-        $currentMonth = now()->format('Y-m');
-
-        $users        = User::Active()
-            ->whereDoesntHave('payrolls', function ($query) use ($currentMonth) {
-                $query->where('pay_period', $currentMonth);
-            })
-            ->get();
-
-        foreach ($users as $user) {
-            Payroll::create([
-                'user_id'       => $user->id,
-                'salary'        => json_decode($user->userDesignation->salary)->basic_salary->amount,
-                'net_pay'       => $user->userDesignation->net_salary,
-                'details'       => $user->userDesignation->salary,
-                'pay_period'    => $currentMonth
-            ]);
-        }
+{
+    $month = $request->input('month');
+    $userIds = $request->input('user_ids');
 
 
-        return back()->with('success', trans('Payslip generated successfully'));
+    $users = User::Active()
+        ->whereIn('id', $userIds)
+        ->whereDoesntHave('payrolls', function ($query) use ($month) {
+            $query->whereYear('created_at', substr($month, 0, 4))
+                  ->whereMonth('created_at', substr($month, 5, 2));
+        })
+        ->get();
+
+
+    foreach ($users as $user) {
+        Payroll::create([
+            'user_id'    => $user->id,
+            'salary'     => json_decode($user->userDesignation->salary)->basic_salary->amount,
+            'net_pay'    => $user->userDesignation->net_salary,
+            'details'    => $user->userDesignation->salary,
+            'pay_period' => $month
+        ]);
     }
 
-    public function show ($month) : View
+    return back()->with('success', trans('Payslip generated successfully'));
+}
+
+
+
+    public function show($month): View
     {
         $title         =  translate('Payslip log');
-        $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list' , $month => null];
+        $formattedMonth = Carbon::parse($month . '-01')->format('F Y');
 
-        $payrolls = Payroll::whereMonth('created_at', $month)
-                        ->with('user')
-                        ->get();
+        $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list',  $formattedMonth => null];
+
+        $year = date('Y', strtotime($month));
+        $monthNumber = date('m', strtotime($month));
+
+
+        $payrolls = Payroll::whereYear('created_at', $year)
+            ->whereMonth('created_at', $monthNumber)
+            ->with('user')
+            ->paginate(paginateNumber());
 
 
         return view('admin.payroll.show', [

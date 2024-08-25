@@ -32,6 +32,7 @@ use App\Http\Controllers\admin\DesignationController;
 use App\Http\Controllers\admin\ExpenseCategoryController;
 use App\Http\Controllers\admin\ExpenseController;
 use App\Http\Controllers\admin\PayrollController;
+use App\Http\Controllers\admin\PayslipController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
@@ -347,7 +348,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         Route::controller(PayrollController::class)->prefix('/payroll')->name('payroll.')->group(function () {
 
             Route::get('/list', 'list')->name('list');
-            Route::get('/create', 'create')->name('create');
+            Route::post('/create', 'create')->name('create');
             Route::get('/show/{month}', 'show')->name('show');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{uid}', 'edit')->name('edit');
@@ -356,6 +357,17 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
+
+        #payslip Controller
+        Route::controller(PayslipController::class)->prefix('/payslip')->name('payslip.')->group(function () {
+
+            Route::get('/print/{userId}/{month}', 'printPayslip')->name('print');
+            Route::get('/download/{userId}/{month}', 'downloadPayslip')->name('download');
+            Route::get('/send/{userId}/{month}', 'sendPayslip')->name('send');
+
+        });
+
+
 
         #expense section
         Route::controller(ExpenseCategoryController::class)->prefix('/expense_category')->name('expense_category.')->group(function () {
