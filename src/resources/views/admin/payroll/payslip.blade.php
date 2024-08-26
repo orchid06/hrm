@@ -69,7 +69,7 @@
                                 {{translate('To')}}:
                             </p>
                             <h3 style="font-size: 18px; font-weight: 600; color: #555; margin: 0">
-                                {{@$data['user']->name }}
+                                {{@$payroll->user->name }}
                             </h3>
                             <address style="
                         display: flex;
@@ -79,9 +79,9 @@
                         margin-top: 5px;
                       ">
                                 <span>{{translate('Designation')}} :
-                                    {{@$data['user']->userDesignation->designation->name}}</span>
+                                    {{@$payroll->user->userDesignation->designation->name}}</span>
                                 <span>{{translate('Department')}} :
-                                    {{@$data['user']->userDesignation->designation->department->name}}</span>
+                                    {{@$payroll->user->userDesignation->designation->department->name}}</span>
 
                             </address>
                         </div>
@@ -90,7 +90,7 @@
                                 style="font-size: 15px; line-height:1; color: #555; font-weight: 500; margin: 0; width:250px; display:flex; align-items:center; justify-content:space-between;">
                                 {{translate('Employee ID')}}#
                                 <span style="font-size: 14px; padding-left: 30px; color: #333">
-                                    {{@$data['user']->employee_id}}
+                                    {{@$payroll->user->employee_id}}
                                 </span>
                             </p>
 
@@ -145,7 +145,7 @@
 
                                 </tr>
 
-                                @foreach(@$salary_details as $detail)
+                                @foreach(json_decode($payroll->details) as $detail)
                                 <tr style="border: 1px solid #dddddd; border-style:solid !important;">
                                     <td style="text-align: left; padding: 8px"> {{@$detail->labels}}</td>
                                     <td style="text-align: center; padding: 8px"> {{@$detail->amount}}</td>
@@ -167,7 +167,7 @@
                                         padding: 8px;
                                         font-weight: 600;
                                         text-align: center;
-                                        ">{{@$data['netPay']}}
+                                        ">{{@$payroll->net_pay}}
                                     </td>
                                 </tr>
                             </table>

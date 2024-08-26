@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -179,6 +180,8 @@ return [
 
         \SocialiteProviders\Manager\ServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -195,6 +198,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
 
         'Redis' => Illuminate\Support\Facades\Redis::class,
+        'PDF'   => Barryvdh\DomPDF\Facade\Pdf::class,
 
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),

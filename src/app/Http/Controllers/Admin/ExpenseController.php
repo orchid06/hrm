@@ -36,15 +36,12 @@ class ExpenseController extends Controller
     public function list(): View
     {
 
-        $title                  =  translate('Manage Expense');
-        $breadcrumbs            =  ['Home' => 'admin.home', 'Expense' => null];
-
         $currentMonth           = Carbon::now()->month;
         $currentYear            = Carbon::now()->year;
 
         $categories = ExpenseCategory::with(['expenses' => function ($query) use ($currentMonth, $currentYear) {
             $query->whereMonth('created_at', $currentMonth)
-                  ->whereYear('created_at', $currentYear);
+                ->whereYear('created_at', $currentYear);
         }])->get();
 
         $totalExpense = $categories->sum(function ($category) {
@@ -69,10 +66,10 @@ class ExpenseController extends Controller
 
         $yearlyCategoryExpenses = ExpenseCategory::with(['expenses' => function ($query) use ($currentYear) {
             $query->select(
-                    'expense_category_id',
-                    DB::raw('MONTH(created_at) as month'),
-                    DB::raw('SUM(amount) as total_amount')
-                )
+                'expense_category_id',
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('SUM(amount) as total_amount')
+            )
                 ->whereYear('created_at', $currentYear)
                 ->groupBy('month', 'expense_category_id');
         }])->get();
@@ -97,15 +94,15 @@ class ExpenseController extends Controller
 
         return view('admin.expense.list', [
 
-            'breadcrumbs'           =>  $breadcrumbs,
-            'title'                 =>  $title,
+            'breadcrumbs'           =>  ['Home' => 'admin.home', 'Expense' => null],
+            'title'                 =>  translate('Manage Expense'),
             'cardData'              =>  $cardData,
             'graphData'             =>  $graphData,
             'expense_categories'    => ExpenseCategory::latest()->get(),
             'expenses'              => Expense::latest()
-                                        ->search(['name'])
-                                        ->paginate(paginateNumber())
-                                        ->appends(request()->all())
+                ->search(['name'])
+                ->paginate(paginateNumber())
+                ->appends(request()->all())
         ]);
     }
 
@@ -115,11 +112,14 @@ class ExpenseController extends Controller
         $request->validate(
             [
                 'category_id'      => 'required|exists:expense_categories,id',
-                'amount'           => 'required',
+                'amount'           => 'required|numeric|gt:0',
                 'description'      => 'required'
             ],
             [
-                'category_id.exists' => translate('The category does not exists')
+                'category_id.exists' => translate('The category does not exists'),
+                'amount.required' => translate('Amount is required.'),
+                'amount.numeric'  => translate('Amount must be a number.'),
+                'amount.gt'       => translate('Amount must be greater than zero.'),
             ]
         );
 
@@ -138,8 +138,14 @@ class ExpenseController extends Controller
         $request->validate([
             'uid'                       => 'required|exists:expenses,uid',
             'category_id'               => 'required|exists:expense_categories,id',
-            'amount'                    => 'required',
+            'amount'                    => 'required|numeric|gt:0',
             'description'               => 'required'
+        ],
+        [
+            'category_id.exists'    => translate('The category does not exists'),
+            'amount.required'       => translate('Amount is required.'),
+            'amount.numeric'        => translate('Amount must be a number.'),
+            'amount.gt'             => translate('Amount must be greater than zero.'),
         ]);
 
 

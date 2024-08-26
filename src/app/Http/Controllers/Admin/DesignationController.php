@@ -34,18 +34,10 @@ class DesignationController extends Controller
      */
     public function list() :View{
 
-        $title         =  translate('Manage Designations');
-        $breadcrumbs   =  ['Home'=>'admin.home','Designations'=> null];
-
-        if(request()->routeIs("admin.category.subcategories")){
-            $title             = translate('Manage Designations');
-            $breadcrumbs       = ['Home'=>'admin.home','Department'=> route('admin.department.list') ,"Designation" => null];
-        }
-
         return view('admin.designation.list',[
 
-            'breadcrumbs'    =>  $breadcrumbs,
-            'title'          =>  $title,
+            'title'          =>  translate('Manage Designations'),
+            'breadcrumbs'    =>   ['Home'=>'admin.home','Designations'=> null],
             'departments'    =>  Department::latest()->get(),
             'designations'   =>  Designation::with('department')
                                 ->latest()
@@ -58,13 +50,13 @@ class DesignationController extends Controller
     public function store(Request $request) :RedirectResponse
     {
 
-
         $request->validate([
-            'name'              => 'required',
-            'department_id'     => 'required',
-            'status'            => 'required',
+            'name'              => 'required|string|max:191',
+            'department_id'     => 'required|exists:departments,id',
+            'status'            => ['required',Rule::in(StatusEnum::toArray())],
         ]);
-        $designation = Designation::create([
+
+        Designation::create([
             'name'          => $request->input('name'),
             'department_id' => $request->input('department_id'),
             'status'        => $request->input('status'),
@@ -79,9 +71,9 @@ class DesignationController extends Controller
 
         $request->validate([
             'uid'               => 'required|exists:designations,uid',
-            'name'              => 'required',
-            'department_id'     => 'required',
-            'status'            => 'required',
+            'name'              => 'required|string|max:191',
+            'department_id'     => 'required|exists:departments,id',
+            'status'            => ['required',Rule::in(StatusEnum::toArray())],
         ]);
 
 
@@ -121,7 +113,7 @@ class DesignationController extends Controller
         try {
             $response =  $this->bulkAction($request,[
                 "model"        => new Designation(),
-                
+
             ]);
 
         } catch (\Exception $exception) {

@@ -33,13 +33,10 @@ class ExpenseCategoryController extends Controller
      */
     public function list() :View{
 
-        $title         =  translate('Manage Expense Category');
-        $breadcrumbs   =  ['Home'=>'admin.home','Expense category'=> null];
-
         return view('admin.expense.category',[
 
-            'breadcrumbs'           =>  $breadcrumbs,
-            'title'                 =>  $title,
+            'title'                 =>  translate('Manage Expense Category'),
+            'breadcrumbs'           =>  ['Home'=>'admin.home','Expense category'=> null],
             'expense_categories'     => ExpenseCategory::latest()
                                         ->search(['name'])
                                         ->paginate(paginateNumber())
@@ -51,8 +48,8 @@ class ExpenseCategoryController extends Controller
     {
 
         $request->validate([
-            'name'      => 'required|unique:expense_categories,name',
-            'status'    => 'required',
+            'name'      => 'required|unique:expense_categories,name|string|max:191',
+            'status'    => ['required',Rule::in(StatusEnum::toArray())],
         ],
         [
             'name.unique' => translate('The category already exists')
@@ -72,8 +69,8 @@ class ExpenseCategoryController extends Controller
 
         $request->validate([
             'uid'       => 'required|exists:expense_categories,uid',
-            'name'      => 'required',
-            'status'    => 'required',
+            'name'      => ['required','string','max:191',Rule::unique('expense_categories', 'name')->ignore($request->uid, 'uid')],
+            'status'    => ['required',Rule::in(StatusEnum::toArray())],
         ]);
 
 

@@ -35,13 +35,10 @@ class SalaryController extends Controller
     public function list(): View
     {
 
-        $title         =  translate('Set Salary');
-        $breadcrumbs   =  ['Home' => 'admin.home', 'salaries' => null];
-
         return view('admin.salary.list', [
 
-            'breadcrumbs'    =>  $breadcrumbs,
-            'title'          =>  $title,
+            'breadcrumbs'    =>  ['Home' => 'admin.home', 'salaries' => null],
+            'title'          =>  translate('Set Salary'),
             'users'           =>  User::with('file')
                 ->latest()->get(),
             'designations'   =>  Designation::with('department')
@@ -54,14 +51,12 @@ class SalaryController extends Controller
 
     public function create($uid): View
     {
-        $title = translate('Set Salary');
-        $breadcrumbs   =  ['Home' => 'admin.home', 'salaries' => 'admin.salary.list' , 'set salary' => null];
 
         $user = User::whereUid($uid)->first();
 
         return view('admin.salary.create', [
-            'breadcrumbs'   => $breadcrumbs,
-            'title'         => $title,
+            'breadcrumbs'   => ['Home' => 'admin.home', 'salaries' => 'admin.salary.list' , 'set salary' => null],
+            'title'         => translate('Set Salary'),
             'user'          => $user
         ]);
     }
@@ -73,7 +68,7 @@ class SalaryController extends Controller
             'uid'       => 'required|exists:users,uid',
             'labels.*'  => 'required',
             'type.*'    => 'required',
-            'amount.*'  => 'required',
+            'amount.*'  => 'required|numeric|gt:0',
         ]);
 
         $total_allowance    = 0;

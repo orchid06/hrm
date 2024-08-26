@@ -16,15 +16,15 @@ use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
-    use ModelAction ,Fileable;
+    use ModelAction, Fileable;
 
     public function __construct()
     {
         //check permissions middleware
-        $this->middleware(['permissions:view_department'])->only(['list','subcategories']);
-        $this->middleware(['permissions:create_department'])->only(['store','create']);
-        $this->middleware(['permissions:update_department'])->only(['updateStatus','update','edit','bulk']);
-        $this->middleware(['permissions:delete_department'])->only(['destroy','bulk']);
+        $this->middleware(['permissions:view_department'])->only(['list', 'subcategories']);
+        $this->middleware(['permissions:create_department'])->only(['store', 'create']);
+        $this->middleware(['permissions:update_department'])->only(['updateStatus', 'update', 'edit', 'bulk']);
+        $this->middleware(['permissions:delete_department'])->only(['destroy', 'bulk']);
     }
 
 
@@ -33,34 +33,32 @@ class DepartmentController extends Controller
      *
      * @return View
      */
-    public function list() :View{
+    public function list(): View
+    {
 
-        $title         =  translate('Manage Departments');
-        $breadcrumbs   =  ['Home'=>'admin.home','Departments'=> null];
+        return view('admin.department.list', [
 
-        if(request()->routeIs("admin.category.subcategories")){
-            $title             = translate('Manage Subcategories');
-            $breadcrumbs       = ['Home'=>'admin.home','Categories'=> route('admin.category.list') ,"Subcategories" => null];
-        }
-
-        return view('admin.department.list',[
-
-            'breadcrumbs'  =>  $breadcrumbs,
-            'title'        =>  $title,
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Departments' => null],
+            'title'         =>  translate('Manage Departments'),
             'departments'   =>  Department::latest()
-                                ->search(['name'])
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all())
+                ->search(['name'])
+                ->paginate(paginateNumber())
+                ->appends(request()->all())
         ]);
     }
 
-    public function store(Request $request) :RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
 
-        $request->validate([
-            'name'      => 'required',
-            'status'    => 'required',
-        ]);
+        $request->validate(
+            [
+                'name'      => 'required|unique:departments,name',
+                'status'    => ['required',Rule::in(StatusEnum::toArray())],
+            ],
+            [
+                'name.unique' => translate('Department already exists')
+            ]
+        );
         $department = Department::create([
             'name'      => $request->input('name'),
             'parent_id' => $request->input('parent_id'),
@@ -70,14 +68,14 @@ class DepartmentController extends Controller
         return back()->with(response_status('Department created successfully'));
     }
 
-    public function update(Request $request) : RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
 
 
         $request->validate([
             'uid'       => 'required|exists:departments,uid',
-            'name'      => 'required',
-            'status'    => 'required',
+            'name'      => ['required',Rule::unique('departments', 'name')->ignore($request->uid, 'uid')],
+            'status'    => ['required',Rule::in(StatusEnum::toArray())],
         ]);
 
 
@@ -91,37 +89,42 @@ class DepartmentController extends Controller
         return back()->with(response_status('Department updated successfully '));
     }
 
-    public function updateStatus(Request $request) {
+    public function updateStatus(Request $request)
+    {
 
         $request->validate([
             'id'      => 'required|exists:departments,uid',
-            'status'  => ['required',Rule::in(StatusEnum::toArray())],
-            'column'  => ['required',Rule::in(['status','is_feature'])],
+            'status'  => ['required', Rule::in(StatusEnum::toArray())],
+            'column'  => ['required', Rule::in(['status', 'is_feature'])],
         ]);
 
-        return $this->changeStatus($request->except("_token"),[
+        return $this->changeStatus($request->except("_token"), [
             "model"    => new Department(),
         ]);
-
     }
 
-    public function destroy($uid) : RedirectResponse
+    public function destroy($uid): RedirectResponse
     {
         $department = Department::whereUid($uid)->first();
+
+        if ($department->designations()->exists()) {
+            return back()->withErrors(['error' => translate('Cannot delete department with existing designations.')]);
+        }
+
         $department->delete();
         return back()->with(response_status('Department deleted successfully'));
     }
 
-    public function bulk(Request $request) :RedirectResponse {
+    public function bulk(Request $request): RedirectResponse
+    {
 
         try {
-            $response =  $this->bulkAction($request,[
+            $response =  $this->bulkAction($request, [
                 "model"        => new Department(),
-                
-            ]);
 
+            ]);
         } catch (\Exception $exception) {
-            $response  = \response_status($exception->getMessage(),'error');
+            $response  = \response_status($exception->getMessage(), 'error');
         }
         return  back()->with($response);
     }

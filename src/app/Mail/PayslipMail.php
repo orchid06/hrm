@@ -15,15 +15,15 @@ class PayslipMail extends Mailable
 
 
     public $payslip;
-    public $pdf;
+    // public $pdf;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($payslip , $pdf)
+    public function __construct($payslip , )
     {
         $this->payslip = $payslip;
-        $this->pdf = $pdf;
+        // $this->pdf = $pdf;
     }
 
     /**
@@ -42,7 +42,7 @@ class PayslipMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.emails.payslip',
+            view: 'emails.payslip',
         );
     }
 

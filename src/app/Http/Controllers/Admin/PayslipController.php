@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Mail\PayslipMail;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\PDF;
 
 class PayslipController extends Controller
 {
@@ -30,47 +31,52 @@ class PayslipController extends Controller
 
     public function printPayslip($userId, $month)
     {
-        $title         =  translate('Payslip Print');
-        $breadcrumbs   =  ['Home' => 'admin.home', 'Payrolls' => 'admin.payroll.list', 'Print' => null];
 
-        $user    = User::find($userId);
         $payroll = Payroll::where('user_id', $userId)
             ->whereYear('created_at', substr($month, 0, 4))
             ->whereMonth('created_at', substr($month, 5, 2))
             ->first();
 
-        $data = [
-            'user'      => $user,
-            'month'     => $month,
-            'salary'    => json_decode($user->userDesignation->salary)->basic_salary->amount,
-            'netPay'    => $user->userDesignation->net_salary
-        ];
-
 
 
         return view('admin.payroll.payslip', [
-            'breadcrumbs'   => $breadcrumbs,
-            'title'         => $title,
-            'data'          => $data,
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Payrolls' => 'admin.payroll.list', 'Print' => null],
+            'title'         => translate('Payslip Print'),
             'payroll'       => $payroll,
-            'salary_details' => json_decode($payroll->details)
         ]);
     }
+
+
+    public function downloadPayslip($userId, $month)
+    {
+
+        $payroll = Payroll::where('user_id', $userId)
+                            ->whereYear('created_at', substr($month, 0, 4))
+                            ->whereMonth('created_at', substr($month, 5, 2))
+                            ->first();
+
+        if (!$payroll)  return redirect()->back()->with('error', 'Payslip not found.');
+
+
+        $pdf = \PDF::loadView('admin.payroll.pdf.payslip', compact('payroll'));
+
+
+        return $pdf->download('payslip-' . $payroll->created_at . '.pdf');
+    }
+
 
     public function sendPayslip($userId, $month)
     {
 
-        $payslip = Payroll::where('user_id', $userId)->where('created_at', $month)->first();
+        $payslip = Payroll::with('user')->where('user_id', $userId)->where('created_at', $month)->first();
 
-        if (!$payslip) {
-            return redirect()->back()->with('error', 'Payslip not found.');
-        }
+        if (!$payslip)    return redirect()->back()->with('error', 'Payslip not found.');
 
 
-        $pdf = PDF::loadView('pdf.payslip', compact('payslip'))->output();
+        $pdf = \PDF::loadView('pdf.payslip', compact('payslip'))->output();
 
 
-        Mail::to($payslip->user->email)->send(new PayslipMail($payslip , $pdf));
+        Mail::to($payslip->user->email)->send(new PayslipMail($payslip));
 
         return redirect()->back()->with('success', 'Payslip sent successfully.');
     }

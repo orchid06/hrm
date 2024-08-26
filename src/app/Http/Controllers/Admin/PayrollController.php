@@ -70,32 +70,32 @@ class PayrollController extends Controller
     }
 
     public function create(Request $request): RedirectResponse
-{
-    $month = $request->input('month');
-    $userIds = $request->input('user_ids');
+    {
+        $month = $request->input('month');
+        $userIds = $request->input('user_ids');
 
 
-    $users = User::Active()
-        ->whereIn('id', $userIds)
-        ->whereDoesntHave('payrolls', function ($query) use ($month) {
-            $query->whereYear('created_at', substr($month, 0, 4))
-                  ->whereMonth('created_at', substr($month, 5, 2));
-        })
-        ->get();
+        $users = User::Active()
+            ->whereIn('id', $userIds)
+            ->whereDoesntHave('payrolls', function ($query) use ($month) {
+                $query->whereYear('created_at', substr($month, 0, 4))
+                    ->whereMonth('created_at', substr($month, 5, 2));
+            })
+            ->get();
 
 
-    foreach ($users as $user) {
-        Payroll::create([
-            'user_id'    => $user->id,
-            'salary'     => json_decode($user->userDesignation->salary)->basic_salary->amount,
-            'net_pay'    => $user->userDesignation->net_salary,
-            'details'    => $user->userDesignation->salary,
-            'pay_period' => $month
-        ]);
+        foreach ($users as $user) {
+            Payroll::create([
+                'user_id'    => $user->id,
+                'salary'     => json_decode($user->userDesignation->salary)->basic_salary->amount,
+                'net_pay'    => $user->userDesignation->net_salary,
+                'details'    => $user->userDesignation->salary,
+                'pay_period' => $month
+            ]);
+        }
+
+        return back()->with('success', trans('Payslip generated successfully'));
     }
-
-    return back()->with('success', trans('Payslip generated successfully'));
-}
 
 
 
@@ -111,9 +111,9 @@ class PayrollController extends Controller
 
 
         $payrolls = Payroll::whereYear('created_at', $year)
-            ->whereMonth('created_at', $monthNumber)
-            ->with('user')
-            ->paginate(paginateNumber());
+                            ->whereMonth('created_at', $monthNumber)
+                            ->with('user')
+                            ->paginate(paginateNumber());
 
 
         return view('admin.payroll.show', [
