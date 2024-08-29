@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->index();
+            $table->date('date')->index();
+            $table->timestamp('clock_in')->nullable();
+            $table->timestamp('clock_out')->nullable();
+            $table->integer('late_time')->nullable(); // Calculated in minutes
+            $table->integer('over_time')->nullable(); // Calculated in minutes
+            $table->integer('work_hour')->nullable(); // Calculated in minutes
             $table->timestamps();
         });
     }

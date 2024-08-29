@@ -16,15 +16,18 @@ class Sanitization
      */
     public function handle(Request $request, Closure $next)
     {
+
+        $bypassKeyword = [''];
         $input = $request->all();
+
         $sanitizedInput = $this->removeScripts($input);
 
         if ($input != $sanitizedInput) {
             $request->session()->flash('error', translate(" Your Input Contained Potentially Harmful Content And Has Been Sanitized!!"));
         }
-        
+
         $request->replace($sanitizedInput);
-    
+
         return $next($request);
     }
 
@@ -39,7 +42,7 @@ class Sanitization
         }
         return $input;
     }
-    
+
     protected function sanitizeHtml(string $value)
     {
         $dom = new \DOMDocument();

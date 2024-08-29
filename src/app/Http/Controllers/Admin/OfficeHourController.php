@@ -57,13 +57,17 @@ class OfficeHourController extends Controller
 
         $officeHour = collect($days)->map(function (string $day, string $key) use ($request) {
 
-            return [
-                'is_on'     =>  in_array($key, $request->input('operating_day', [])),
-                'start_time' =>  Arr::get($request->input('start_time', []), $key),
-                'end_time'   =>  Arr::get($request->input('end_time', []), $key),
-            ];
+            return
+            [t2k($key)=>[
 
-        })->all();
+                'is_on'     =>  in_array($key, $request->input('operating_day', [])),
+                'clock_in' =>  Arr::get($request->input('start_time', []), $key),
+                'clock_out'   =>  Arr::get($request->input('end_time', []), $key),
+            ]];
+
+        })->collapse()->all();
+
+        
 
         Setting::updateOrInsert(
             ['key'    => 'office_hour'],

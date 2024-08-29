@@ -24,10 +24,10 @@
                                         {{translate('Days')}}
                                     </th>
                                     <th scope="col">
-                                        {{translate('Start time')}}
+                                        {{translate('Clock In')}}
                                     </th>
                                     <th scope="col">
-                                        {{translate('End time')}}
+                                        {{translate('Clock Out')}}
                                     </th>
 
                                 </tr>
@@ -57,10 +57,10 @@
                                         <tr>
                                              @php
 
-                                               $officeDay   =  Arr::get($office_hours ,$key,[]);
+                                               $officeDay   =  Arr::get($office_hours ,t2k($key),[]);
                                                $is_holiday  =  Arr::get($officeDay ,'is_on',false);
-                                               $startTime   =  Arr::get($officeDay ,'start_time',null);
-                                               $endTime     =  Arr::get($officeDay ,'end_time',null);
+                                               $startTime   =  Arr::get($officeDay ,'clock_in',null);
+                                               $endTime     =  Arr::get($officeDay ,'clock_out',null);
                                              @endphp
                                                 <td>
                                                     <input {{$is_holiday ? "checked" :''}}  class="form-check-input" name="operating_day[]" type="checkbox" value="{{$key}}" id="{{$key}}">
