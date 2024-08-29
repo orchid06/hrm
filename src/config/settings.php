@@ -139,13 +139,22 @@ return [
             "download_payslip",
             "send_payslip",
         ],
+        "office_hour" => [
+            "view_office_hour",
+            "create_office_hour",
+        ],
+        "attendance" => [
+            "view_attendance",
+            "create_attendance",
+            "update_attendance",
+            "delete_attendance"
+        ],
         "page" => [
             "view_page",
             "create_page",
             "update_page",
             "delete_page"
         ],
-
         "ai_template" => [
             "view_ai_template",
             "create_ai_template",

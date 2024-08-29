@@ -1,5 +1,5 @@
 <?php
-  
+
 namespace App\Enums;
 
 use App\Enums\EnumTrait;
@@ -34,6 +34,7 @@ enum NotificationTemplateEnum :string {
     case SUBSCRIPTION_FAILED            = 'SUBSCRIPTION_FAILED';
     case SUBSCRIPTION_EXPIRED           = 'SUBSCRIPTION_EXPIRED';
     case CONTACT_REPLY                  = 'CONTACT_REPLY';
+    case PAYSLIP_MAIL                   = 'PAYSLIP_MAIL';
 
 
 
@@ -69,7 +70,7 @@ enum NotificationTemplateEnum :string {
                                 'time' => "Time",
                             ])
                         ],
-                        
+
                         self::SUPPORT_TICKET_REPLY->value => [
                             "name"      => k2t(self::SUPPORT_TICKET_REPLY->value),
                             "subject"   => "Support Ticket",
@@ -99,7 +100,7 @@ enum NotificationTemplateEnum :string {
                             "body"      => "{{name}}!! Just Replied To A Ticket..  To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
                             "sms_body"  => "{{name}}!! Just Replied To A Ticket..  To provide a response to Ticket ID {{ticket_number}}, kindly click the link provided below in order to reply to the ticket.  {{link}}",
                             "template_key" => ([
-                                
+
                                 'name'          => "Admin/Agent/User Name",
                                 'ticket_number' => "Support Ticket Number",
                                 'link'          => "Ticket URL For relpy"
@@ -164,7 +165,7 @@ enum NotificationTemplateEnum :string {
                             "subject"   => "Deposit Request Accepted",
                             "body"      => "We are pleased to inform you that your deposit request has been accepted. Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
                             "sms_body"  => "We are pleased to inform you that your deposit request has been accepted. Your transaction code is {{trx_code}}. The deposited amount is {{amount}} via {{payment_method}}",
-                            
+
                             "template_key" => ([
                                 'trx_code'       => "Transaction id",
                                 'amount'         => "Deposited amount",
@@ -331,12 +332,12 @@ enum NotificationTemplateEnum :string {
                         self::SUBSCRIPTION_FAILED->value => [
                             "name"      => k2t(self::SUBSCRIPTION_FAILED->value),
                             "subject"   => "Auto Subscription Renewal Failed",
-                            "body"      => "We regret to inform you that the automatic renewal of your subscription has failed. 
+                            "body"      => "We regret to inform you that the automatic renewal of your subscription has failed.
                                                 Subscription Details:
                                                 - Plan: {{name}}
                                                 - Reason: {{reason}}
                                                 - Time :{{time}}",
-                            "sms_body"  => "We regret to inform you that the automatic renewal of your subscription has failed. 
+                            "sms_body"  => "We regret to inform you that the automatic renewal of your subscription has failed.
                                                 Subscription Details:
                                                 - Plan: {{name}}
                                                 - Reason: {{reason}}
@@ -367,13 +368,25 @@ enum NotificationTemplateEnum :string {
                                 'message'           => "message"
                             ])
                         ],
-                       
+
+                        self::PAYSLIP_MAIL->value => [
+                            "name"      => k2t(self::PAYSLIP_MAIL->value),
+                            "subject"   => "Your Payslip for {{month}}",
+                            "body"      => "Please find attached your payslip for {{month}}. If you have any questions, feel free to reach out.<br>Best regards,<br>{{company_name}}",
+                            "sms_body"  => "your payslip for {{month}} has been sent to your email. Please check your inbox.",
+                            "template_key" => [
+                                'company_name'  => "company_name",
+                                'month'         => "month"
+                            ]
+                        ],
+
+
                 ];
 
-       return $template 
+       return $template
                   ? Arr::get($templates , $template , [])
                   : $templates ;
-      
+
 
     }
 }

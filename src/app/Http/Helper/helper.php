@@ -91,7 +91,7 @@ use Illuminate\Database\Eloquent\Collection;
 
   }
 
- 
+
 
 
 
@@ -103,9 +103,9 @@ use Illuminate\Database\Eloquent\Collection;
          });
 
          try {
-            if((isset($settings[$key]) ||  isset(config('site_settings')[$key]))) return 
-                  Arr::get($settings, $key,isset(config('site_settings')[$key]) 
-                           ? config('site_settings')[$key] 
+            if((isset($settings[$key]) ||  isset(config('site_settings')[$key]))) return
+                  Arr::get($settings, $key,isset(config('site_settings')[$key])
+                           ? config('site_settings')[$key]
                            : trans('default.no_result_found'));
 
          } catch (\Throwable $th) {
@@ -128,7 +128,7 @@ use Illuminate\Database\Eloquent\Collection;
                $randStatus  = Arr::get($json_data,"status",[]);
                $keys        = (array_combine($randKeys , $randStatus));
          } catch (\Throwable $th) {
-           
+
          }
 
          return  $keys ;
@@ -137,7 +137,7 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   
+
    if (!function_exists('openai_key')) {
       function openai_key() : string{
 
@@ -156,7 +156,7 @@ use Illuminate\Database\Eloquent\Collection;
          }
 
          return $key;
-         
+
       }
 
    }
@@ -182,7 +182,7 @@ use Illuminate\Database\Eloquent\Collection;
                 return User::active()->cursor();
             })->toArray();
          });
-        
+
 
          return $users;
       }
@@ -191,7 +191,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 
    if (!function_exists('get_appearance')) {
-      
+
       function get_appearance(bool $is_arr = false , bool $sortable = true) {
          $sectionJson = resource_path('views/partials/appearance.json');
          $appearances = json_decode(file_get_contents($sectionJson), $is_arr ? true :false);
@@ -271,10 +271,10 @@ use Illuminate\Database\Eloquent\Collection;
 
              switch (is_array($amount)) {
                case true:
-                  $amount = collect($amount)->map(fn(int | float $value, string $key)  :int | float => 
+                  $amount = collect($amount)->map(fn(int | float $value, string $key)  :int | float =>
                             $numFormat ? currency_conversion(number :round($value)) : round($value) )->all();
                   break;
-               
+
                default:
                   $amount = $numFormat ? currency_conversion(number :round($amount)) : round($amount);
                   break;
@@ -286,9 +286,9 @@ use Illuminate\Database\Eloquent\Collection;
       }
   }
 
- 
 
-  
+
+
 	if (!function_exists('diff_for_humans')){
 		function diff_for_humans(string  $date) :string
 		{
@@ -296,7 +296,7 @@ use Illuminate\Database\Eloquent\Collection;
 		}
    }
 
-  
+
    if (!function_exists('exchange_rate')){
 
 
@@ -311,7 +311,7 @@ use Illuminate\Database\Eloquent\Collection;
             $amount       = 1 / $exchangeRate;
 
          } catch (\Throwable $th) {
-     
+
          }
 
          return  round_amount( $amount ,$precision?? (int)site_settings('num_of_decimal'));
@@ -327,8 +327,8 @@ use Illuminate\Database\Eloquent\Collection;
       function convert_to_base(int | float $amount , int $precision = null , ? Currency $currency =  null ) :int | float{
 
 
-         $fromRate    = $currency 
-                              ? $currency->exchange_rate 
+         $fromRate    = $currency
+                              ? $currency->exchange_rate
                               : session()->get("currency")->exchange_rate;
 
          $amountInUSD = $amount / $fromRate;
@@ -355,7 +355,7 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   
+
 
    if (!function_exists('base_currency')) {
 
@@ -365,7 +365,7 @@ use Illuminate\Database\Eloquent\Collection;
          });
          return $currencies;
       }
-  
+
 
    }
 
@@ -377,15 +377,15 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   
+
    if (!function_exists('currency_conversion')){
 
       function currency_conversion(int | float  $number ,?Currency $currency = null ) : int{
 
          $currency   = $currency?? session()->get("currency");
          $number     = floatval($number) * floatval($currency->exchange_rate);
-         
-         
+
+
 
          return round(  $number);
       }
@@ -393,20 +393,20 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   
+
 
    if (!function_exists('num_format')){
 
       function num_format(int | float  $number , ?Currency $currency = null ,mixed $decimal  = null, ?bool $calC = false ,$symbol = true) :string | int{
 
          $decimal    =   $decimal ?? (int)site_settings('num_of_decimal');
-   
+
          $ds         =   site_settings('decimal_separator');
          $ts         =   site_settings('thousands_separator');
          $alignments =   array_flip(Arr::get(config('settings'),'currency_alignment' ,[]));
 
-    
-         
+
+
          $currency   = $currency?? session()->get("currency");
 
          if($calC){
@@ -415,12 +415,12 @@ use Illuminate\Database\Eloquent\Collection;
          $famount    = (number_format($number,$decimal, $ds, $ts));
 
          if((site_settings('price_format') == StatusEnum::true->status()) && $number > site_settings('truncate_after') ){
-            
+
             if ($number >= 1000000) {
                $famount  =  number_format($number,$decimal, $ds, $ts) . 'm';
             } elseif ($number >= 1000) {
                $famount  =  number_format($number / 1000, $decimal, $ds, $ts) . 'k';
-            } 
+            }
          }
 
          if(isset($alignments[site_settings('currency_alignment')]) && $currency && $symbol){
@@ -434,7 +434,7 @@ use Illuminate\Database\Eloquent\Collection;
    if (!function_exists('truncate_price')){
 		function truncate_price(mixed  $number ,  $decimal = null) :string | int
 		{
-  
+
 
          $decimal    =   $decimal ?? (int)site_settings('num_of_decimal');
          $ds         =   site_settings('decimal_separator');
@@ -445,11 +445,11 @@ use Illuminate\Database\Eloquent\Collection;
                $tnumber  =  number_format($number,$decimal, $ds, $ts) . 'm';
             } elseif ($number >= 1000) {
                $tnumber  =  number_format($number / 1000, $decimal, $ds, $ts) . 'k';
-            } 
+            }
          }
 
          return $tnumber ;
-         
+
 		}
    }
 
@@ -459,7 +459,7 @@ use Illuminate\Database\Eloquent\Collection;
          return ucfirst(preg_replace("/[^A-Za-z0-9 ]/", ' ', $text));
       }
    }
-   
+
    if (!function_exists('t2k')){
       function t2k(string $text ,?string $replace = "_") :string {
          return strtolower(strip_tags(str_replace(' ', $replace, $text)));
@@ -488,7 +488,7 @@ use Illuminate\Database\Eloquent\Collection;
 	if (!function_exists('get_date_time')){
 		function get_date_time(string $date,?string $format = null) :string
 		{
-         $format = $format?? site_settings("date_format",'d M, Y')." ".site_settings("time_format",'h:i A'); 
+         $format = $format?? site_settings("date_format",'d M, Y')." ".site_settings("time_format",'h:i A');
 			return Carbon::parse($date)->translatedFormat($format);
 		}
     }
@@ -503,9 +503,9 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-  
 
-    
+
+
 
 
    if (!function_exists('show_ratings')) {
@@ -516,7 +516,7 @@ use Illuminate\Database\Eloquent\Collection;
          $ratings   = $ratings > 5 ? 5 : $ratings;
 
            for($i = 0 ; $i<5 ; $i++){
-            
+
                if( $i < $ratings){
                   $str .= "<li><i class=\"bi bi-star-fill\"></i></li>";
                }
@@ -602,7 +602,7 @@ use Illuminate\Database\Eloquent\Collection;
           return strtolower(env('APP_MODE')) == 'demo' ? true : false;
       }
   }
-  
+
 
 
 
@@ -634,7 +634,7 @@ use Illuminate\Database\Eloquent\Collection;
          if ($ip == '::1') {
              $ip = '127.0.0.1';
          }
-     
+
          return $ip;
       }
    }
@@ -644,26 +644,26 @@ use Illuminate\Database\Eloquent\Collection;
       function get_ip_info(): array
       {
           $ip = get_real_ip();
-  
+
           $ch = curl_init();
           curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/xml.gp?ip=" . $ip);
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
           curl_setopt($ch, CURLOPT_TIMEOUT, 5);
           $response = curl_exec($ch);
           curl_close($ch);
-  
+
           if ($response === false) {
               $xml = false;
           } else {
               $xml = simplexml_load_string($response);
           }
-  
+
           $country  = $xml ? (string)$xml->geoplugin_countryName : "";
           $city     = $xml ? (string)$xml->geoplugin_city : "";
           $code     = $xml ? (string)$xml->geoplugin_countryCode : "";
           $long     = $xml ? (string)$xml->geoplugin_longitude : "";
           $lat      = $xml ? (string)$xml->geoplugin_latitude : "";
-  
+
           $user_agent = $_SERVER['HTTP_USER_AGENT'];
           $os_platform = "Unknown OS Platform";
           $os_array = array(
@@ -691,13 +691,13 @@ use Illuminate\Database\Eloquent\Collection;
               '/blackberry/i'        => 'BlackBerry',
               '/webos/i'             => 'Mobile'
           );
-  
+
           foreach ($os_array as $regex => $value) {
               if (preg_match($regex, $user_agent)) {
                   $os_platform = $value;
               }
           }
-  
+
           $browser = "Unknown Browser";
           $browser_array = array(
               '/msie/i'      => 'Internet Explorer',
@@ -711,13 +711,13 @@ use Illuminate\Database\Eloquent\Collection;
               '/konqueror/i' => 'Konqueror',
               '/mobile/i'    => 'Handheld Browser'
           );
-  
+
           foreach ($browser_array as $regex => $value) {
               if (preg_match($regex, $user_agent)) {
                   $browser = $value;
               }
           }
-  
+
           $data = [
               'country'     => $country,
               'city'        => $city,
@@ -729,7 +729,7 @@ use Illuminate\Database\Eloquent\Collection;
               'ip'          => $ip,
               'time'        => date('d-m-Y h:i:s A')
           ];
-  
+
           return $data;
       }
   }
@@ -781,15 +781,15 @@ use Illuminate\Database\Eloquent\Collection;
       function sidebar_awake(string | array $routes , string $type = null){
 
          $class = '';
-         if((is_array($routes)  
-            && in_array( Route::currentRouteName(), $routes)) 
+         if((is_array($routes)
+            && in_array( Route::currentRouteName(), $routes))
             || request()->routeIs($routes) ) $class = $type ? "show" : "active";
 
          return $class;
       }
    }
 
-   
+
 
 
 
@@ -868,7 +868,7 @@ use Illuminate\Database\Eloquent\Collection;
 
         return $secureApiKey;
     }
-    
+
    }
 
 
@@ -879,7 +879,7 @@ use Illuminate\Database\Eloquent\Collection;
 
          $localeArray = $languages->pluck('code')->toArray();
          usort($localeArray, function ($a, $b) {
-        
+
             $systemLocale              = session()->get("locale");
             $systemLocaleIndex         = array_search($systemLocale, [$a, $b]);
 
@@ -948,7 +948,7 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(SubscriptionStatus::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -958,7 +958,7 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             DepositStatus::INITIATE->value     => "info",
             DepositStatus::PENDING->value      => "danger",
             DepositStatus::PAID->value         => "success",
@@ -970,7 +970,7 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(DepositStatus::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -980,17 +980,17 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             WithdrawStatus::PENDING->value      => "warning",
             WithdrawStatus::APPROVED->value     => "success",
             WithdrawStatus::REJECTED->value     => "danger",
-      
+
          ];
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(WithdrawStatus::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1000,17 +1000,17 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             KYCStatus::REQUESTED->value   => "warning",
             KYCStatus::APPROVED->value     => "success",
             KYCStatus::REJECTED->value     => "danger",
-      
+
          ];
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(KYCStatus::toArray()) ,$status , 'Requested')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1020,17 +1020,17 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             PlanDuration::UNLIMITED->value      => "info",
             PlanDuration::YEARLY->value         => "success",
             PlanDuration::MONTHLY->value        => "warning",
-      
+
          ];
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(PlanDuration::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1041,17 +1041,17 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             AccountType::PROFILE->value      => "info",
             AccountType::PAGE->value         => "success",
             AccountType::GROUP->value        => "warning",
-      
+
          ];
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(AccountType::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1068,7 +1068,7 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(ConnectionType::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1078,18 +1078,18 @@ use Illuminate\Database\Eloquent\Collection;
 		{
 
          $badges  = [
-            
+
             PostStatus::SCHEDULE->value       => "warning",
             PostStatus::FAILED->value         => "danger",
             PostStatus::SUCCESS->value        => "success",
             PostStatus::PENDING->value        => "info",
-      
+
          ];
 
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(PostStatus::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1107,7 +1107,7 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = ucfirst(t2k(Arr::get(array_flip(PostType::toArray()) ,$status , 'Pending')));
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
    if (!function_exists('get')) {
@@ -1115,7 +1115,7 @@ use Illuminate\Database\Eloquent\Collection;
           return request()->input($name, $default);
       }
   }
-  
+
 
 
 
@@ -1123,7 +1123,7 @@ use Illuminate\Database\Eloquent\Collection;
 		function account_connection_status(mixed  $status = null) :string
 		{
 
-   
+
          $badges  = [
             StatusEnum::true->status()         => "info",
             StatusEnum::false->status()        => "danger",
@@ -1135,7 +1135,7 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = Arr::get($statusText , $status , 'info');
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
@@ -1156,12 +1156,12 @@ use Illuminate\Database\Eloquent\Collection;
          $class    = Arr::get($badges , $status , 'info');
          $status   = Arr::get($statusText , $status , 'info');
          return "<span class=\"i-badge $class\">$status</span>";
-         
+
 		}
    }
 
 
-   
+
    if (!function_exists('get_default_img')){
       function get_default_img() :string{
          return asset('assets/images/default/default.jpg');
@@ -1172,7 +1172,7 @@ use Illuminate\Database\Eloquent\Collection;
 
    if (!function_exists('get_content')){
       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
-        
+
          $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')
                                                                                           ->active()
                                                                                           ->latest()
@@ -1187,8 +1187,8 @@ use Illuminate\Database\Eloquent\Collection;
 
    if (!function_exists('get_platform')){
       function get_platform( ? array $ids =  null) : MediaPlatform | Collection | null{
-        
-     
+
+
          $platforms = Cache::remember('media_platform',24 * 60, function ()   {
             return  MediaPlatform::with('file')->get();
          });
@@ -1204,27 +1204,27 @@ use Illuminate\Database\Eloquent\Collection;
       function plan_configuration(Package $plan ) : array {
 
 
-         $accessedPlatforms =   @$plan->social_access->platform_access 
+         $accessedPlatforms =   @$plan->social_access->platform_access
                                   ? implode(", ",get_platform(@$plan->social_access->platform_access)
                                       ->pluck('name')
                                       ->toArray())
                                     :null;
-                               
-        
+
+
          $config          =  [];
 
-         $profile         = (int)@$plan->social_access->profile; 
-         $post            = (int)@$plan->social_access->post; 
-         $wordToken       = (int)@$plan->ai_configuration->word_limit; 
-         $templates       = count((array)@$plan->template_access); 
+         $profile         = (int)@$plan->social_access->profile;
+         $post            = (int)@$plan->social_access->post;
+         $wordToken       = (int)@$plan->ai_configuration->word_limit;
+         $templates       = count((array)@$plan->template_access);
 
          $config['affiliate_commission']     = @$plan->affiliate_commission."%";
          $config['social_profile']     = $profile != -1 ? $profile : PlanDuration::keyVal($profile);
          $config['social_post']        = $post != -1 ? $post : PlanDuration::keyVal($post);
 
          if($accessedPlatforms ) $config['platform_access']    =  $accessedPlatforms;
-   
-         
+
+
          if(@($plan->social_access->schedule_post) ==  StatusEnum::true->status()) $config['schedule_posting']   = true;
          if(@($plan->social_access->webhook_access) ==  StatusEnum::true->status()) $config['webhook_access']     = true;
 
@@ -1257,21 +1257,21 @@ use Illuminate\Database\Eloquent\Collection;
       function is_demo() :bool {
          return strtolower(env('APP_MODE')) == 'demo' ? true : false;
       }
- 
+
    }
 
 
 
    if (!function_exists('recursiveDisplay')){
       function recursiveDisplay(mixed $data, int $depth = 0) :void  {
-         
+
          foreach ($data as $key => $value) {
             if (is_array($value) || is_object($value)) {
                echo str_repeat('    ', $depth) . "$key:\n";
                recursiveDisplay((array)$value, $depth + 1);
             } else {
                if (is_numeric($value) && $value == (int)$value) {
-                     $value = (int)$value; 
+                     $value = (int)$value;
                }
                echo str_repeat('    ', $depth) . "$key: $value\n";
             }
@@ -1298,7 +1298,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 
 
-   
+
    if (!function_exists('get_appearance_img_size')){
 
       /**
@@ -1325,38 +1325,38 @@ use Illuminate\Database\Eloquent\Collection;
          return ($status == "200");
       }
    }
-   
+
 
 
    if( !function_exists('isValidVideoUrl') ){
       function isValidVideoUrl(string $path) : bool
-      {   
+      {
           try {
-              
+
               $streamOpts = [
                   "ssl" => [
                       "verify_peer"=>false,
                       "verify_peer_name"=>false,
                   ]
-              ]; 
-  
+              ];
+
               $headers = get_headers( $path , 1, stream_context_create($streamOpts));
               if(!$headers) return false;
-  
+
               $videoTypes = [
                   "video/mp4",
                   'video/quicktime' => 'mov'
               ];
-  
+
               $fileType = NULL;
-  
+
               if( isset( $headers['Content-Type'] ) ) $fileType = $headers['Content-Type'];
-  
+
               if( isset( $headers['content-type'] ) ) $fileType = $headers['content-type'];
-  
+
               if( in_array( $fileType, $videoTypes ) )    return true;
           } catch (\Exception $e) { }
-  
+
           return false;
       }
   }
@@ -1364,7 +1364,7 @@ use Illuminate\Database\Eloquent\Collection;
 
   if( !function_exists('check_image') ){
    function check_image($path)
-   {   
+   {
 
        if(!file_exists($path))  return true;
        $imgSize = getimagesize($path);
@@ -1377,7 +1377,7 @@ use Illuminate\Database\Eloquent\Collection;
        return false;
    }
 }
-  
+
 
 
 
@@ -1388,7 +1388,7 @@ if( !function_exists('hasFilter') ){
     * @param array $keys
     * @return bool
     */
-   function hasFilter(array $filterKeys) :bool{   
+   function hasFilter(array $filterKeys) :bool{
 
       return !empty(array_intersect_key(array_flip($filterKeys), request()->query()));
    }
@@ -1403,8 +1403,8 @@ if( !function_exists('getCachedMenus') ){
     * Summary of getCachedMenus
     * @return Illuminate\Database\Eloquent\Collection
     */
-   function getCachedMenus() :Collection{   
-      return  Cache::remember('menus',24 * 60, fn () : Collection => 
+   function getCachedMenus() :Collection{
+      return  Cache::remember('menus',24 * 60, fn () : Collection =>
             Menu::active()
                         ->orderBy('serial_id')
                         ->get()
@@ -1419,8 +1419,8 @@ if( !function_exists('getCachedPages') ){
     * Summary of getCachedPages
     * @return Illuminate\Database\Eloquent\Collection
     */
-   function getCachedPages() :Collection{   
-      return  Cache::remember('pages',24 * 60, fn () : Collection => 
+   function getCachedPages() :Collection{
+      return  Cache::remember('pages',24 * 60, fn () : Collection =>
                   Page::active()
                         ->orderBy('serial_id')
                         ->get()
@@ -1438,8 +1438,8 @@ if( !function_exists('get_feature_blogs') ){
     * Summary of get_feature_blogs
     * @return Illuminate\Database\Eloquent\Collection
     */
-   function get_feature_blogs() :Collection{   
-      return  Cache::remember('feature_blogs',24 * 60, fn () : Collection => 
+   function get_feature_blogs() :Collection{
+      return  Cache::remember('feature_blogs',24 * 60, fn () : Collection =>
              Blog::active()->feature()->get()
       );
 
@@ -1456,8 +1456,8 @@ if( !function_exists('get_feature_templates') ){
     * Summary of get_feature_templates
     * @return Illuminate\Database\Eloquent\Collection
     */
-   function get_feature_templates() :Collection{   
-      return  Cache::remember('feature_templates',24 * 60, fn () : Collection => 
+   function get_feature_templates() :Collection{
+      return  Cache::remember('feature_templates',24 * 60, fn () : Collection =>
                      AiTemplate::with(['category'])
                               ->active()
                               ->default()
@@ -1466,4 +1466,21 @@ if( !function_exists('get_feature_templates') ){
          );
 
    }
+}
+
+
+if (!function_exists('generateOperatingTimes')) {
+    function generateOperatingTimes($intervalMinutes = 15)
+    {
+        $times = [];
+        $startTime = Carbon::createFromTime(0, 0, 0);
+        $endTime = $startTime->copy()->addDay();
+
+        while ($startTime->lessThan($endTime)) {
+            $times[] = $startTime->format('g:i A');
+            $startTime->addMinutes($intervalMinutes);
+        }
+
+        return $times;
+    }
 }

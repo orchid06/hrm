@@ -123,6 +123,48 @@
             </li>
 
             <li class="sidebar-menu-item">
+                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#attendanceManagement" role="button"
+                    aria-expanded="false" aria-controls="attendanceManagement">
+                    <span><i class="las la-door-open"></i></span>
+                    <p>
+                        {{translate('Attendance')}}
+                    </p>
+                    <small>
+                        <i class="las la-angle-down"></i>
+                    </small>
+                </a>
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*'],'drop_down')}} "
+                    id="attendanceManagement">
+                    <ul class="sub-menu">
+
+                        @if(check_permission('view_office_hour'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.office.hour.view' ,'admin.office.hour.store' ])}}"
+                                href="{{route('admin.office.hour.view')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Set Office Hour')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_attendance'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.list' ,'admin.attendance.edit' ])}}"
+                                href="{{route('admin.attendance.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Attendance sheet')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </div>
+            </li>
+
+            <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Payroll" role="button"
                     aria-expanded="false" aria-controls="Payroll">
                     <span><i class="las la-door-open"></i></span>

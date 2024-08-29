@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Utility\SendMail;
 use App\Models\Admin\Payroll;
 use App\Models\User;
 use App\Traits\Fileable;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Mail\PayslipMail;
+use App\Models\Admin\MailGateway;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\PDF;
 
@@ -51,9 +53,9 @@ class PayslipController extends Controller
     {
 
         $payroll = Payroll::where('user_id', $userId)
-                            ->whereYear('created_at', substr($month, 0, 4))
-                            ->whereMonth('created_at', substr($month, 5, 2))
-                            ->first();
+            ->whereYear('created_at', substr($month, 0, 4))
+            ->whereMonth('created_at', substr($month, 5, 2))
+            ->first();
 
         if (!$payroll)  return redirect()->back()->with('error', 'Payslip not found.');
 
@@ -68,16 +70,17 @@ class PayslipController extends Controller
     public function sendPayslip($userId, $month)
     {
 
-        $payslip = Payroll::with('user')->where('user_id', $userId)->where('created_at', $month)->first();
-
-        if (!$payslip)    return redirect()->back()->with('error', 'Payslip not found.');
+        $payroll = Payroll::with('user')->where('user_id', $userId)->where('created_at', $month)->first();
 
 
-        $pdf = \PDF::loadView('pdf.payslip', compact('payslip'))->output();
+        $gateway = MailGateway::where('default', StatusEnum::true->status())->firstOrFail();
 
+        $code = [
+            'company_name' =>  "iGen Solutions",
+            'month'        =>   $month
+        ];
 
-        Mail::to($payslip->user->email)->send(new PayslipMail($payslip));
-
-        return redirect()->back()->with('success', 'Payslip sent successfully.');
+        $response = SendMail::mailNotifications("PAYSLIP_MAIL", $code, (object) ["name" =>$payroll->user->name, 'email' => $payroll->user->email], $gateway);
+        return  back()->with(response_status((preg_replace('/[^a-zA-Z0-9@._\- ]/', '', $response['message'])), $response['status'] ? "success" : "error"));
     }
 }

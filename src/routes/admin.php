@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AiTemplateController;
+use App\Http\Controllers\admin\AttendanceController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\CannedContentController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\admin\DesignationController;
 use App\Http\Controllers\admin\ExpenseCategoryController;
 use App\Http\Controllers\admin\ExpenseController;
+use App\Http\Controllers\admin\OfficeHourController;
 use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\admin\PayslipController;
 use App\Http\Controllers\Admin\PlatformController;
@@ -233,35 +235,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         });
 
 
-        #predefined content
-        Route::controller(CannedContentController::class)->prefix("/predefined-content")->name('content.')->group(function () {
 
-            Route::get('/list', 'list')->name('list');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
-        });
-
-
-        #aitemplate section refactored
-        Route::controller(AiTemplateController::class)->prefix("/ai-template")->name('ai.template.')->group(function () {
-
-            Route::get('/list', 'list')->name('list');
-            Route::get('/category/list', 'categories')->name('categories');
-            Route::get('/category/create', 'categoryCreate')->name('category.create');
-            Route::get('/default/list', 'list')->name('default');
-            Route::get('/create', 'create')->name('create');
-            Route::get('/generate-content/{uid}', 'content')->name('content');
-            Route::post('/generate-content', 'contentGenrate')->name('content.generate');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/update', 'update')->name('update');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::get('/destroy/{uid}', 'destroy')->name('destroy');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-        });
 
 
         #General Setting refactored
@@ -383,7 +357,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
         });
 
-
+        #Office expense section
         Route::controller(ExpenseController::class)->prefix('/expense')->name('expense.')->group(function () {
 
             Route::get('/list', 'list')->name('list');
@@ -396,18 +370,31 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
 
-        #Article section
-        Route::controller(BlogController::class)->prefix("/blog")->name('blog.')->group(function () {
+        #Office hours
+        Route::controller(OfficeHourController::class)->prefix('/office-hours')->name('office.hour.')->group(function () {
 
-            Route::get('/list', 'list')->name('list');
+            Route::get('/office_hour/view', 'view')->name('view');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
+        #Attendance section
+        Route::controller(AttendanceController::class)->prefix('/attendance')->name('attendance.')->group(function () {
+
+            Route::get('/view', 'list')->name('list');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::get('/destroy/{uid}', 'destroy')->name('destroy');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
+
+
 
         #menu section refactore
         Route::controller(MenuController::class)->prefix("/menu")->name('menu.')->group(function () {
@@ -419,41 +406,6 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::post('/bulk/action', 'bulk')->name('bulk');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
-        });
-
-        #Page section refactored
-        Route::controller(PageController::class)->prefix("/page")->name('page.')->group(function () {
-
-            Route::get('/list', 'list')->name('list');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
-        });
-
-        #Appearance section refactored
-        Route::controller(FrontendManageController::class)->prefix("/appearance")->name('appearance.')->group(function () {
-
-            Route::get('/{key}/{parent?}', 'list')->name('list');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-
-            Route::get('/destroy/{uid}/section', 'destroy')->name('destroy');
-        });
-
-
-        #Platform section refactores
-        Route::controller(PlatformController::class)->prefix("/platform")->name('platform.')->group(function () {
-
-            Route::get('/list', 'list')->name('list');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/configuration/update', 'configurationUpdate')->name('configuration.update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
         });
 
 
@@ -484,40 +436,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/dos/update', 'dosUpdate')->name('dos.update');
         });
 
-        #Communication Route
-        Route::controller(CommunicationsController::class)->group(function () {
-
-            /** contacts route */
-            Route::get('/contacts', 'contacts')->name('contact.list');
-            Route::get('/destroy/{uid}', 'destroy')->name('contact.destroy');
-            Route::post('contact/bulk/action', 'bulkContactDestroey')->name('contact.bulk');
 
 
-            /** subscription route */
-            Route::get('/subscribers', 'subscribers')->name('subscriber.list');
-            Route::get('/subscriber/destroy/{uid}', 'destroySubscriber')->name('subscriber.destroy');
-            Route::post('subscriber/bulk/action', 'bulkSubscriberDestory')->name('subscriber.bulk');
 
-
-            /** mail sending route */
-            Route::post('/send-email', 'sendMail')->name('send.mail');
-            Route::post('/send-email-all', 'sendMailSubscriber')->name('send.mail.all');
-        });
-
-        #Package section refactored
-        Route::controller(PackageController::class)->prefix("/subscription-package")->name('subscription.package.')->group(function () {
-
-            Route::get('/list', 'list')->name('list');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
-            Route::post('/configuration', 'configuration')->name('configuration');
-            Route::get('/select/search', 'selectSearch')->name('selectSearch');
-        });
 
         #log section refcatored
         Route::controller(ActivityHistoryController::class)->group(function () {
@@ -600,37 +521,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/file/{id}', 'destroyFile')->name('destroy.file');
         });
 
-        #social account and post route
-        Route::name('social.')->prefix('social/')->group(function () {
 
-            #Account manager
-            Route::controller(SocialAccountController::class)->name('account.')->prefix('account/')->group(function () {
-
-                Route::any('/list', 'list')->name('list');
-                Route::get('/create/{platform}', 'create')->name('create');
-                Route::post('/store', 'store')->name('store');
-                Route::post('/reconnect', 'reconnect')->name('reconnect');
-                Route::get('/edit/{uid}', 'edit')->name('edit');
-                Route::post('/update', 'update')->name('update');
-                Route::post('/update/status', 'updateStatus')->name('update.status');
-                Route::post('/bulk/action', 'bulk')->name('bulk');
-                Route::get('/destroy/{id}', 'destroy')->name('destroy');
-                Route::get('/show/{uid}', 'show')->name('show');
-            });
-
-
-            #Post manager
-            Route::controller(SocialPostController::class)->name('post.')->prefix('post/')->group(function () {
-
-                Route::any('/list', 'list')->name('list');
-                Route::any('/analytics/dashboard', 'analytics')->name('analytics');
-                Route::get('/create', 'create')->name('create');
-                Route::post('/store', 'store')->name('store');
-                Route::get('/send/{uid}', 'send')->name('send');
-                Route::get('/destroy/{id}', 'destroy')->name('destroy');
-                Route::get('/show/{uid}', 'show')->name('show');
-            });
-        });
 
         /** system update */
         Route::controller(SystemUpdateController::class)->name('system.')->prefix('system/')->group(function () {
