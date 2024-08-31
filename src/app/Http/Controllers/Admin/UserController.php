@@ -175,7 +175,7 @@ class UserController extends Controller
         $user->last_login            = Carbon::now();
         $user->save();
         Auth::guard('web')->loginUsingId($user->id);
-        return redirect()->route('home')
+        return redirect()->route('user.home')
                       ->with(response_status('Successfully logged In As a User'));
 
     }

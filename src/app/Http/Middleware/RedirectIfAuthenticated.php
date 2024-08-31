@@ -29,9 +29,9 @@ class RedirectIfAuthenticated
                         break;
 
                     case('web'):
-                        return \redirect()->route('home');
+                        return \redirect()->route('user.home');
                         break;
-        
+
                     default:
                         return \redirect('/');
                 }

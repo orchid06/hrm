@@ -52,8 +52,8 @@ class CoreController extends Controller
 
 
     use AccountManager ,PostManager;
-    
-     
+
+
     /**
      * change  language
      *
@@ -100,12 +100,12 @@ class CoreController extends Controller
         $img     = Image::canvas( $width,$height ,'#ccc');
         $text    = $width . 'X' . $height;
 
-        $fontSize     = $width > 100 && $height > 100 
+        $fontSize     = $width > 100 && $height > 100
                               ? 60 : 20;
 
-    
+
         $img->text($text, $width / 2,  $height / 2, function ($font) use($fontSize) {
-            $font->file(realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf'); 
+            $font->file(realpath('assets/font') . DIRECTORY_SEPARATOR . 'RobotoMono-Regular.ttf');
             $font->color('#000');
             $font->align('center');
             $font->valign('middle');
@@ -115,7 +115,7 @@ class CoreController extends Controller
         return $img->response('png');
 
      }
-     
+
    /**
     * genarate default cpatcha code
     *
@@ -159,14 +159,14 @@ class CoreController extends Controller
             $this->handleSchedulePost();
             $this->handleExpireSubscriptions();
         } catch (\Throwable $th) {
-          
+
         }
 
         Setting::updateOrInsert(
             ['key'    => 'last_cron_run'],
             ['value'  => Carbon::now()]
         );
-        
+
 
 
     }
@@ -188,7 +188,7 @@ class CoreController extends Controller
             foreach($chunkPosts as $post){
                 sleep(1);
 
-                if($post->schedule_time <= Carbon::now() ||  
+                if($post->schedule_time <= Carbon::now() ||
                      $post->status ==  strval(PostStatus::value('PENDING',true)
                   )){
                     $this->publishPost($post);
@@ -230,7 +230,7 @@ class CoreController extends Controller
                 'link'    => route('user.subscription.report.list'),
                 'reason'  => translate("Auto renewal package does not exist"),
             ];
-        
+
 
             $notificationTypes =  [
                 "database_notifications"  => "App\Http\Utility\SendNotification",
@@ -250,7 +250,7 @@ class CoreController extends Controller
                  }
             }
 
-            // Auto-renewal 
+            // Auto-renewal
             if($subscription->user &&  $subscription->user->auto_subscription == StatusEnum::true->status()){
 
                 $getPackageId       = site_settings("auto_subscription_package");
@@ -296,7 +296,7 @@ class CoreController extends Controller
     /** security control */
     public function security() :View{
 
-        if(site_settings('dos_prevent') == StatusEnum::true->status() && 
+        if(site_settings('dos_prevent') == StatusEnum::true->status() &&
            !session()->has('dos_captcha')){
             return view('dos_security',[
                 'meta_data' => $this->metaData(["title"    =>  trans('default.too_many_request')]),
@@ -308,7 +308,7 @@ class CoreController extends Controller
 
     public function securityVerify(Request $request) :RedirectResponse{
 
-    
+
         $request->validate([
             "captcha" =>   ['required' , function (string $attribute, mixed $value, Closure $fail) {
                 if (strtolower($value) != strtolower(session()->get('gcaptcha_code')))  $fail(translate("Invalid captcha code"));
@@ -326,7 +326,7 @@ class CoreController extends Controller
     }
 
 
-    
+
     public function acceptCookie(Request $request) :\Illuminate\Http\Response
     {
 
@@ -390,8 +390,8 @@ class CoreController extends Controller
     }
 
 
-    
-    
+
+
     public function getSubcategories(int | string $id , bool $html = false) :array {
 
 
@@ -439,7 +439,7 @@ class CoreController extends Controller
         $category           = Category::template()
                                         ->doesntHave('parent')
                                         ->where("id", $request->input("category_id"))->first();
-     
+
 
         $templates          =    AiTemplate::where("category_id", @$category->id)
                                     ->when($request->input('sub_category_id') , function ($query) use ($request ,$category ){
@@ -449,10 +449,10 @@ class CoreController extends Controller
                                         $query->where('sub_category_id', @$subCategory->id);
                                     })->when($flag && count($templateAccess) > 0 , function ($query) use ($request , $templateAccess){
                                         $query->whereIn('id', $templateAccess);
-                                        
+
                                     })->active()->get();
 
-        
+
         return [
             'status'     => true,
             'html'       => view("partials.ai_template",[
@@ -474,8 +474,8 @@ class CoreController extends Controller
         if($is_user){
             $user          = auth_user('web')->load(['runningSubscription']);
             $flag          = false;
-            if($user 
-                  && $user->runningSubscription 
+            if($user
+                  && $user->runningSubscription
                   && in_array($user->id, (array)subscription_value($user->runningSubscription,"template_access",true))){
                 $flag     = true;
             }
@@ -530,7 +530,7 @@ class CoreController extends Controller
 
         try {
             if(!auth()->guard($guard)->check())  abort(403, "Unauthenticated user request");
-            
+
             $platform = $this->setConfig($medium);
             session()->put("guard", $guard);
             return Socialite::driver($medium)->redirect();
@@ -577,16 +577,16 @@ class CoreController extends Controller
             $guard = session()->get('guard');
 
             if(!$guard || !auth()->guard($guard)->check() )  abort(403, "Unauthenticated user request");
-            
+
             $account = Socialite::driver($service)->stateless()->user();
-            
+
 
             $id = Arr::get($account->attributes,'id',null);
             if(!$account || !$account->token || !$id ) abort(403, "Unauthenticated user request");
 
             $identification = Arr::get($account->attributes,'email',null);
             if(!$identification)  $identification = $id;
-        
+
             $accountInfo = [
                 'id'                => @$account->id,
                 'account_id'        => $identification,
@@ -605,13 +605,13 @@ class CoreController extends Controller
             $response  = $this->saveAccount($guard,$platform,$accountInfo,AccountType::PROFILE->value ,ConnectionType::OFFICIAL->value);
             $routeName =  $guard =='admin' ? "admin.social.account.list":"user.social.account.list";
             return redirect()->route($routeName,['platform' => $platform->slug])->with(response_status("Account Added"));
-            
-    
+
+
         } catch (\Exception $e) {
 
             abort(403, "Unauthenticated user request");
         }
-       	
+
 
     }
 
@@ -622,7 +622,7 @@ class CoreController extends Controller
 
         $title = translate('Maintenance Mode');
 
-        if(site_settings('maintenance_mode') == (StatusEnum::false)->status() )     return redirect()->route('home');
+        if(site_settings('maintenance_mode') == (StatusEnum::false)->status() )     return redirect()->route('user.home');
 
         return view('maintenance_mode', [
             'title'=> $title,
@@ -630,7 +630,7 @@ class CoreController extends Controller
 
      }
 
-     
+
 
 
      /**
@@ -639,17 +639,17 @@ class CoreController extends Controller
       */
     public function postWebhook() {
 
- 
+
         $hubToken    = request()->query('hub_verify_token');
         $apiKey      = site_settings("webhook_api_key");
         $isUserToken = User::whereNotNull('webhook_api_key')->where('webhook_api_key',  $hubToken )->exists();
 
 
-        if ($apiKey  == $hubToken || $isUserToken ) return response(request()->query('hub_challenge')); 
+        if ($apiKey  == $hubToken || $isUserToken ) return response(request()->query('hub_challenge'));
 
 
         $user = User::where('uid',request()->input('uid'))->first();
-   
+
         PostWebhookLog::create([
             'user_id'           =>  $user?  $user->id : null,
             'webhook_response'  => request()->all()
@@ -659,7 +659,7 @@ class CoreController extends Controller
 
 
 
-    
+
 
 
 

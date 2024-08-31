@@ -18,7 +18,7 @@ class FrontendController extends Controller
     public function __construct()
     {
        $this->lastSegment = collect(request()->segments())->last();
-   
+
     }
     /**
      * frontent view
@@ -26,17 +26,18 @@ class FrontendController extends Controller
      * @return View
      */
     public function home() :View{
-    
+
         return view('frontend.home',[
+            'title'     => translate('user dashboard'),
             'meta_data' => $this->metaData(),
             'menu'      => Menu::default()->first()
         ]);
     }
 
 
-  
+
     /**
-     * get all blogs 
+     * get all blogs
      *
      * @return View
      */
@@ -53,7 +54,7 @@ class FrontendController extends Controller
                                             ->filter(['category:slug'])
                                             ->paginate(paginateNumber())
                                             ->appends(request()->all()),
-                                            
+
             'menu'         => Menu::where('url',$this->lastSegment)->active()->firstOrfail(),
 
             'breadcrumbs'  => ['Home'=>'home',"Blogs" => null],
@@ -63,7 +64,7 @@ class FrontendController extends Controller
 
 
     /**
-     * get a specific blog details 
+     * get a specific blog details
      *
      * @return View
      */
@@ -93,7 +94,7 @@ class FrontendController extends Controller
             'breadcrumbs'       => ['Home'=>'home',"Blogs" => 'blog',$blog->title => null],
             'banner'            => (object) ['title' => $blog->title , 'description' => limit_words(strip_tags($blog->description),100)]
         ]);
-  
+
     }
 
 
@@ -181,5 +182,5 @@ class FrontendController extends Controller
     }
 
 
-   
+
 }

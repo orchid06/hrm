@@ -57,7 +57,7 @@ class HomeController extends Controller
     {
 
         return view('admin.home', [
-            'title' => "Dashboard",
+            'title' => translate("Dashboard"),
             'data'  => $this->getDashboardData()
         ]);
     }

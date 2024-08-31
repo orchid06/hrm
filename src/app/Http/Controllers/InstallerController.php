@@ -21,15 +21,15 @@ class InstallerController extends Controller
     public function __construct(){
 
         $this->middleware(function ($request, $next) {
-            if($this->is_installed() 
-                    && !$request->routeIs('install.setup.finished') 
-                    && !$request->routeIs('invalid.purchase') 
+            if($this->is_installed()
+                    && !$request->routeIs('install.setup.finished')
+                    && !$request->routeIs('invalid.purchase')
                     && !$request->routeIs('verify.puchase')){
-                return redirect()->route('home')->with('success',trans('default.already_installed'));
+                return redirect()->route('user.home')->with('success',trans('default.already_installed'));
             }
             return $next($request);
         });
-    
+
     }
 
 
@@ -46,14 +46,14 @@ class InstallerController extends Controller
         ]);
     }
 
-    
+
     /**
      * Requirments and permission verifications
      *
      * @return View |RedirectResponse
      */
     public function requirementVerification() : View |RedirectResponse
-    {   
+    {
 
         if (Hash::check(base64_decode('cmVxdWlyZW1lbnRz'), request()->input('verify_token'))) {
             return view('install.requirements',[
@@ -65,7 +65,7 @@ class InstallerController extends Controller
                 'permissions'    => $this->permissionsCheck(
                                         config('installer.permissions')
                                     )
-                
+
             ]);
         }
 
@@ -89,9 +89,9 @@ class InstallerController extends Controller
             ]);
             return redirect()->route('install.init')->with('error','Invalid verification token');
         }
-        
+
         return redirect()->back()->with('error','Server requirements not met. Ensure all essential Extension and file permissions are enabled to ensure proper functionality');
-        
+
     }
 
 
@@ -107,8 +107,8 @@ class InstallerController extends Controller
             base64_decode('cHVyY2hhc2VfY29kZQ==') => "required",
             base64_decode('dXNlcm5hbWU=')         => "required"
         ],[
-            base64_decode('cHVyY2hhc2VfY29kZQ==').".required" => "Code is required", 
-            base64_decode('dXNlcm5hbWU=').".required"         => "Username is required", 
+            base64_decode('cHVyY2hhc2VfY29kZQ==').".required" => "Code is required",
+            base64_decode('dXNlcm5hbWU=').".required"         => "Username is required",
         ]);
 
         if($this->_envatoVerification($request)){
@@ -116,7 +116,7 @@ class InstallerController extends Controller
             session()->put( base64_decode('dXNlcm5hbWU='), $request->input(base64_decode('dXNlcm5hbWU=')));
             return redirect()->route('install.db.setup',['verify_token' => bcrypt(base64_decode('ZGJzZXR1cF8='))]);
         }
-    
+
         return redirect()->back()->with('error','Invalid verification code');
     }
 
@@ -168,7 +168,7 @@ class InstallerController extends Controller
     }
 
 
-    
+
     /**
      * Setup admin account
      *
@@ -176,7 +176,7 @@ class InstallerController extends Controller
      */
     public function accountSetup() :View |RedirectResponse
     {
-  
+
         if (Hash::check(base64_decode('c3lzdGVtX2NvbmZpZw=='), request()->input('verify_token'))) {
             return view('install.account_setup',[
                 'title' => 'System Account Setup'
@@ -222,18 +222,18 @@ class InstallerController extends Controller
             $admin->email_verified_at         = Carbon::now();
             $admin->super_admin               = StatusEnum::true->status();
             $admin->save();
-    
+
             session()->put('password',$request->input('password'));
 
             $this->_dbSeed();
             $this->_systemInstalled();
-    
+
             return redirect()->route('install.setup.finished',['verify_token' => bcrypt(base64_decode('c2V0dXBfY29tcGxldGVk'))]);
         } catch (\Exception $ex) {
             return back()->with('error', strip_tags($ex->getMessage()));
 
         }
-       
+
 
     }
 
@@ -288,14 +288,14 @@ class InstallerController extends Controller
      */
     public function verifyPurchase(Request $request) :View |RedirectResponse
     {
-  
-    
+
+
         $request->validate([
             base64_decode('cHVyY2hhc2VfY29kZQ==') => "required",
             base64_decode('dXNlcm5hbWU=')         => "required"
         ],[
-            base64_decode('cHVyY2hhc2VfY29kZQ==').".required" => "Code is required", 
-            base64_decode('dXNlcm5hbWU=').".required"         => "Username is required", 
+            base64_decode('cHVyY2hhc2VfY29kZQ==').".required" => "Code is required",
+            base64_decode('dXNlcm5hbWU=').".required"         => "Username is required",
         ]);
 
 

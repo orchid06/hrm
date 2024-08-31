@@ -21,7 +21,7 @@ class SystemUpdateController extends Controller
     use InstallerManager;
 
     public function __construct(){
-       
+
     }
 
 
@@ -42,7 +42,7 @@ class SystemUpdateController extends Controller
     public function update(Request $request) :RedirectResponse {
 
         ini_set('memory_limit', '-1');
-        
+
         $request->validate([
             'updateFile' => ['required', 'mimes:zip'],
         ],[
@@ -60,18 +60,18 @@ class SystemUpdateController extends Controller
                     mkdir($basePath, 0777);
                 }
                 $res = $zip_file->move($basePath, $zip_file->getClientOriginalName());
-                
+
                 $zip = new ZipArchive;
                 $res = $zip->open($basePath . $zip_file->getClientOriginalName());
-             
+
                 if ($res === true) {
-               
+
                     $zip->extractTo($basePath);
                     $zip->close();
                 } else {
                     abort(500, translate('Error! Could not open File'));
                 }
-            
+
                 $str = @file_get_contents($basePath . '/config.json', true);
 
                 if ($str === false) {
@@ -82,12 +82,12 @@ class SystemUpdateController extends Controller
 
                 if (empty($json) || (@empty($json['version']))) {
                     abort(500, translate('Error! No Configuration file found'));
-                } 
-     
+                }
+
                 $newVersion      = (double) Arr::get($json,'version',1.0);
                 $currentVersion  = (double) site_settings(key : "app_version",default :1.0);
 
-                
+
                 $src             = storage_path('app/public/temp_update');
                 $dst             = dirname(base_path());
 
@@ -97,7 +97,7 @@ class SystemUpdateController extends Controller
 
                         $this->_runMigrations($json);
                         $this->_runSeeder($json);
-                      
+
                         Setting::updateOrInsert(
                             ['key'    => "app_version"],
                             ['value'  => $newVersion]
@@ -121,7 +121,7 @@ class SystemUpdateController extends Controller
         }
 
         optimize_clear();
-        return redirect()->route('home')->with($response);
+        return redirect()->route('user.home')->with($response);
     }
 
 
@@ -168,7 +168,7 @@ class SystemUpdateController extends Controller
 
     }
 
-    
+
 
     /**
      * Copy directory
@@ -200,7 +200,7 @@ class SystemUpdateController extends Controller
     }
 
 
-    
+
     /**
      * delete directory
      *
@@ -233,5 +233,5 @@ class SystemUpdateController extends Controller
             return false;
         }
     }
-    
+
 }
