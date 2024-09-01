@@ -6,6 +6,7 @@ use App\Http\Controllers\CommunicationsController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\User\AiController;
+use App\Http\Controllers\user\AttendanceController;
 use App\Http\Controllers\User\Auth\AuthorizationController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
@@ -133,7 +134,7 @@ Route::middleware($globalMiddleware)->group(function () {
             });
         });
 
-        
+
 
         # support route
         Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {
@@ -187,8 +188,13 @@ Route::middleware($globalMiddleware)->group(function () {
         });
 
 
-        #social account and post route
+        #attendance route
+        Route::controller(AttendanceController::class)->name('attendance.')->group(function () {
 
+            Route::get('/clock_in', 'clockIn')->name('clock_in');
+            Route::get('/clocl_out', 'clockOut')->name('clock_out');
+
+        });
 
 
 

@@ -15,7 +15,41 @@ $currency = session()->get('currency');
                 <h4 class="page-title">
                     {{translate($title)}}
                 </h4>
-              
+                <div class="page-title-right d-flex justify-content-end align-items-center flex-wrap gap-2">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">
+                            @php
+                            $userAttendance = App\Models\Attendance::where('user_id', Auth::user()->id)->first();
+                            $formattedClockIn = \Carbon\Carbon::parse(@$userAttendance->clock_in)->format('h:i A');
+                            $formattedClockOut = \Carbon\Carbon::parse(@$userAttendance->clock_out)->format('h:i A');
+                            @endphp
+                            <div class="cron">
+                                {{translate("Clocked In")}} : {{$userAttendance ? $formattedClockIn :
+                                translate("N/A") }}
+                            </div>
+                        </li>
+                    </ol>
+                    @if(!$userAttendance)
+                    <a href="{{route('user.attendance.clock_in')}}"> <button type="button"
+                            class="i-btn btn--sm success">
+                            <i class="las la-user-clock me-2"></i> {{translate('Clock In')}}
+                        </button></a>
+                    @elseif(!$userAttendance->clock_out)
+                        <a href="{{route('user.attendance.clock_out')}}"> <button type="button"
+                            class="i-btn btn--sm danger">
+                            <i class="las la-user-clock me-2"></i> {{translate('Clock Out')}}
+                        </button></a>
+                    @else
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item">
+                                <div class="cron">
+                                    {{translate("Clocked Out")}} : {{$userAttendance ? $formattedClockOut :
+                                    translate("N/A") }}
+                                </div>
+                            </li>
+                        </ol>
+                    @endif
+                </div>
             </div>
             <div class="row g-3 mb-3">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
@@ -33,7 +67,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-cube"></i>
+                                <i class="las la-money-bill-wave"></i>
                             </div>
                         </div>
                     </div>
@@ -45,7 +79,7 @@ $currency = session()->get('currency');
                                 {{Arr::get($data,"total_work_hours",0)}}
                             </h3>
                             <h5 class="title">
-                                {{translate("Active Employees")}}
+                                {{translate("Total work hour")}}
                             </h5>
                             <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                                 {{translate("View All")}}
@@ -53,7 +87,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-user-friends"></i>
+                                <i class="las la-briefcase"></i>
                             </div>
                         </div>
                     </div>
@@ -65,7 +99,7 @@ $currency = session()->get('currency');
                                 {{(Arr::get($data,"total_attendance",0))}}
                             </h3>
                             <h5 class="title">
-                                {{translate('Inactive Employees')}}
+                                {{translate('Total Attendance')}}
                             </h5>
                             <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                                 {{translate("View All")}}
@@ -73,7 +107,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-wallet"></i>
+                                <i class="las la-address-book"></i>
                             </div>
                         </div>
                     </div>
@@ -82,14 +116,14 @@ $currency = session()->get('currency');
                     <div class="i-card-sm style-2 danger">
                         <div class="card-info">
                             <h3>{{(Arr::get($data,"total_absent",0))}} </h3>
-                            <h5 class="title">{{translate('Total Payroll Processed')}}</h5>
+                            <h5 class="title">{{translate('Total Absent')}}</h5>
                             <a href="{{route('admin.category.list')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
 
                             <div class="icon">
-                                <i class="las la-exchange-alt"></i>
+                                <i class="las la-address-book"></i>
                             </div>
                         </div>
                     </div>
@@ -101,14 +135,14 @@ $currency = session()->get('currency');
                                 {{Arr::get($data,"total_leave",0)}}
                             </h3>
                             <h5 class="title">
-                                {{translate("Pending payroll")}}
+                                {{translate("Total Leave")}}
                             </h5>
                             <a href="{{route('admin.payroll.list')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-user-friends"></i>
+                                <i class="las la-address-book"></i>
                             </div>
                         </div>
                     </div>
@@ -120,7 +154,7 @@ $currency = session()->get('currency');
                                 0
                             </h3>
                             <h5 class="title">
-                                {{translate("Net expense")}}
+                                {{translate("Last Pay slip")}}
                             </h5>
                             <a href="{{route('admin.expense.list')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
@@ -128,7 +162,7 @@ $currency = session()->get('currency');
                         <div class="d-flex flex-column align-items-end gap-4">
 
                             <div class="icon">
-                                <i class="las la-share-alt"></i>
+                                <i class="las la-money-bill-wave"></i>
                             </div>
                         </div>
                     </div>

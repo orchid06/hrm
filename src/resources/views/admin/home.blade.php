@@ -56,7 +56,7 @@
               </div>
               <div class="d-flex flex-column align-items-end gap-4">
                 <div class="icon">
-                    <i class="las la-cube"></i>
+                    <i class="las la-users"></i>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="d-flex flex-column align-items-end gap-4">
                   <div class="icon">
-                    <i class="las la-wallet"></i>
+                    <i class="las la-user-friends"></i>
                   </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
             <div class="d-flex flex-column align-items-end gap-4">
 
               <div class="icon">
-                <i class="las la-exchange-alt"></i>
+                <i class="las la-money-check-alt"></i>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@
                 <div class="d-flex flex-column align-items-end gap-4">
 
                   <div class="icon">
-                      <i class="las la-share-alt"></i>
+                    <i class="las la-coins"></i>
                   </div>
                 </div>
             </div>
@@ -158,7 +158,7 @@
 
     </div>
 
-    
+
   </div>
     {{-- Charts --}}
   <div class="row g-3 mb-3">

@@ -13,7 +13,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link {{sidebar_awake('admin.home')}}" data-anim="ripple"
                     href='{{route("admin.home")}}' aria-expanded="false">
-                    <span><i class="las la-chart-line"></i></span>
+                    <span><i class="las la-chalkboard"></i></span>
                     <p> {{translate("Dashboard")}}</p>
                 </a>
             </li>
@@ -70,7 +70,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#TeamManagement" role="button"
                     aria-expanded="false" aria-controls="TeamManagement">
-                    <span><i class="las la-door-open"></i></span>
+                    <span><i class="las la-users"></i></i></span>
                     <p>
                         {{translate('Team Managemnet')}}
                     </p>
@@ -125,7 +125,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#attendanceManagement" role="button"
                     aria-expanded="false" aria-controls="attendanceManagement">
-                    <span><i class="las la-door-open"></i></span>
+                    <span><i class="las la-address-book"></i></i></span>
                     <p>
                         {{translate('Attendance')}}
                     </p>
@@ -167,7 +167,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Payroll" role="button"
                     aria-expanded="false" aria-controls="Payroll">
-                    <span><i class="las la-door-open"></i></span>
+                    <span><i class="las la-money-check-alt"></i></span>
                     <p>
                         {{translate('Payroll Managemnet')}}
                     </p>
@@ -212,7 +212,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#Expense" role="button"
                     aria-expanded="false" aria-controls="Expense">
-                    <span><i class="las la-door-open"></i></span>
+                    <span><i class="las la-coins"></i></span>
                     <p>
                         {{translate('Expense Managemnet')}}
                     </p>

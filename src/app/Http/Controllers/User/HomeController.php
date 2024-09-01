@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
-use App\Models\admin\Attendance;
+use App\Models\Attendance;
 use App\Models\Admin\Leave;
 use App\Models\Admin\Payroll;
 use Illuminate\Http\Request;

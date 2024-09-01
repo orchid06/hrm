@@ -24,9 +24,7 @@
         </div>
 
         <div class="header-right">
-            <a target="_blank"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Browse Frontend')}}" href="{{route('home')}}">
-                <i class="bi bi-globe-americas"></i>
-            </a>
+
 
             @php
                 $notifications = \App\Models\Notification::where('notificationable_type','App\Models\User')
@@ -182,13 +180,6 @@
                             <li>
                                 <a href="{{route('user.profile')}}" class="dropdown-item"
                                 ><i class="bi bi-person"></i> {{translate("My Account")}}</a>
-                            </li>
-
-                            <li>
-                                <a href="{{route('user.deposit.create')}}" class="dropdown-item"><i class="bi bi-wallet"></i>
-
-                                    {{translate("Deposit")}}
-                                </a>
                             </li>
 
                             <li>

@@ -13,7 +13,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link {{sidebar_awake('admin.home')}}" data-anim="ripple"
                     href='{{route("user.home")}}' aria-expanded="false">
-                    <span><i class="las la-chart-line"></i></span>
+                    <span><i class="las la-chalkboard"></i></span>
                     <p> {{translate("Dashboard")}}</p>
                 </a>
             </li>
@@ -28,7 +28,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#attendanceManagement" role="button"
                     aria-expanded="false" aria-controls="attendanceManagement">
-                    <span><i class="las la-door-open"></i></span>
+                    <span><i class="las la-address-book"></i></span>
                     <p>
                         {{translate('Attendance')}}
                     </p>
@@ -72,7 +72,7 @@
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.setting.server.info")}}'
                     href='{{route("admin.setting.server.info")}}'>
-                    <span><i class="las la-server"></i></span>
+                    <span><i class="las la-money-check-alt"></i></span>
                     <p>
                         {{translate('Payslips')}}
                     </p>
@@ -153,7 +153,7 @@
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.setting.server.info")}}'
                     href='{{route("admin.setting.server.info")}}'>
-                    <span><i class="las la-server"></i></span>
+                    <span><i class="las la-user-circle"></i></span>
                     <p>
                         {{translate('Profile')}}
                     </p>

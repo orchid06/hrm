@@ -14,9 +14,9 @@
     }
 
     $otpFlag =  App\Enums\StatusEnum::false->status();
-    if( is_array($loginAttributes) && 
-        count($loginAttributes) == 1 && 
-        in_array('phone',$loginAttributes) && 
+    if( is_array($loginAttributes) &&
+        count($loginAttributes) == 1 &&
+        in_array('phone',$loginAttributes) &&
         site_settings('sms_otp_verification') == App\Enums\StatusEnum::true->status() ){
 
         $otpFlag = App\Enums\StatusEnum::true->status();
@@ -37,9 +37,7 @@
           <div class="col-xl-7 col-lg-7">
             <div class="auth-right">
               <div class="auth-content">
-                    <a href="{{route('home')}}" class="site-log text-center mb-5 d-inline-block">
-                      <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-                    </a>
+                    
                     <h2>
                        {{trans("default.login_page_title")}}
                     </h2>
