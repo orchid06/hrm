@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Services;
 
 use App\Enums\BalanceTransferType;
@@ -15,6 +16,7 @@ use App\Jobs\SendSmsJob;
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Withdraw;
 use App\Models\AffiliateLog;
+use App\Models\Attendance;
 use App\Models\User;
 use App\Models\Core\File;
 use App\Models\Country;
@@ -43,11 +45,11 @@ class UserService
 {
 
 
-    use Fileable,ModelAction,Notifyable;
+    use Fileable, ModelAction, Notifyable;
     protected PaymentService $paymentService;
-    public function __construct(){
+    public function __construct()
+    {
         $this->paymentService = new PaymentService();
-
     }
 
 
@@ -57,28 +59,29 @@ class UserService
      *
      * @return array
      */
-    public function getList(): array{
+    public function getList(): array
+    {
 
         return [
 
-                'breadcrumbs'  =>  ['Home'=>'admin.home','Employee'=> null],
-                'title'        => 'Manage Employees',
+            'breadcrumbs'  =>  ['Home' => 'admin.home', 'Employee' => null],
+            'title'        => 'Manage Employees',
 
-                'users'        =>  User::with([
-                                                'file',
-                                                'createdBy',
-                                                'country',
-                                            ])
-                                        ->routefilter()
-                                        ->search(['name','email',"phone"])
-                                        ->filter(['country:name'])
-                                        ->latest()
-                                        ->paginate(paginateNumber())
-                                        ->appends(request()->all()),
+            'users'        =>  User::with([
+                'file',
+                'createdBy',
+                'country',
+            ])
+                ->routefilter()
+                ->search(['name', 'email', "phone"])
+                ->filter(['country:name'])
+                ->latest()
+                ->paginate(paginateNumber())
+                ->appends(request()->all()),
 
-                "countries"    => get_countries(),
+            "countries"    => get_countries(),
 
-            ];
+        ];
     }
 
 
@@ -89,43 +92,46 @@ class UserService
      * @param Request $request
      * @return User
      */
-    public function save(Request $request): User{
+    public function save(Request $request): User
+    {
 
-        return  DB::transaction(function() use ($request): User | null{
-
-
-
-                $user                       =  User::with('file')->firstOrNew(['id' => $request->input("id")]);
-                $user->name                 =  $request->input('name');
-                $user->username             =  $request->input('username');
-                $user->phone                =  $request->input('phone');
-                $user->email                =  $request->input('email');
-                $user->country_id           =  $request->input('country_id');
-                $user->status               = $request->input('status');
-                $user->password             =  $request->input('password');
-                $user->address              =  $request->input('address',[]);
-                $user->date_of_birth        = $request->input('date_of_birth');
-                $user->email_verified_at    =  $request->input('email_verified')?Carbon::now() : null ;
+        return  DB::transaction(function () use ($request): User | null {
 
 
-                $user->employee_id          = $request->input('employee_id');
-                $user->date_of_joining      = $request->input('date_of_joining');
 
-                $user->save();
+            $user                       =  User::with('file')->firstOrNew(['id' => $request->input("id")]);
+            $user->name                 =  $request->input('name');
+            $user->username             =  $request->input('username');
+            $user->phone                =  $request->input('phone');
+            $user->email                =  $request->input('email');
+            $user->country_id           =  $request->input('country_id');
+            $user->status               = $request->input('status');
+            $user->password             =  $request->input('password');
+            $user->address              =  $request->input('address', []);
+            $user->date_of_birth        = $request->input('date_of_birth');
+            $user->email_verified_at    =  $request->input('email_verified') ? Carbon::now() : null;
 
-                if($request->hasFile('image')){
 
-                    $oldFile = $user->file()->where('type',FileKey::AVATAR->value)->first();
-                    $this->saveFile($user ,$this->storeFile(
-                                                   file       : $request->file('image'),
-                                                   location   : config("settings")['file_path']['profile']['user']['path'],
-                                                   removeFile : @$oldFile
-                                                )
-                                                ,FileKey::AVATAR->value);
-                }
-                return $user;
+            $user->employee_id          = $request->input('employee_id');
+            $user->date_of_joining      = $request->input('date_of_joining');
 
-            });
+            $user->save();
+
+            if ($request->hasFile('image')) {
+
+                $oldFile = $user->file()->where('type', FileKey::AVATAR->value)->first();
+                $this->saveFile(
+                    $user,
+                    $this->storeFile(
+                        file: $request->file('image'),
+                        location: config("settings")['file_path']['profile']['user']['path'],
+                        removeFile: @$oldFile
+                    ),
+                    FileKey::AVATAR->value
+                );
+            }
+            return $user;
+        });
     }
 
 
@@ -136,49 +142,53 @@ class UserService
      *
      * @return array
      */
-    public function getReport(): array{
+    public function getReport(): array
+    {
 
         $currentYear   = date("Y");
         $currentMonth  = request()->input('month', date("m"));
 
+
+
         $usersByCountries    =   User::with(['country'])
-                                        ->select(DB::raw("count(id) as total, country_id"))
-                                        ->groupBy('country_id')
-                                        ->orderBy('total')
-                                        ->lazyById(paginateNumber(),'country_id')->mapWithKeys(fn(User $user) =>
-                                            [$user->country->name => $user->total]
-                                        )->toJson();
+            ->select(DB::raw("count(id) as total, country_id"))
+            ->groupBy('country_id')
+            ->orderBy('total')
+            ->lazyById(paginateNumber(), 'country_id')->mapWithKeys(
+                fn(User $user) =>
+                [$user->country->name => $user->total]
+            )->toJson();
 
         $topCountries        =   Country::withCount('users')
-                                        ->orderBy('users_count', 'desc')
-                                        ->take(30)
-                                        ->get();
+            ->orderBy('users_count', 'desc')
+            ->take(30)
+            ->get();
 
 
         $currentYearUsers    =  sortByMonth(User::selectRaw("MONTHNAME(created_at) as months,  count(*) as total")
-                                                ->whereYear('created_at', '=',date("Y"))
-                                                ->groupBy('months')
-                                                ->pluck('total', 'months')
-                                                ->toArray());
+            ->whereYear('created_at', '=', date("Y"))
+            ->groupBy('months')
+            ->pluck('total', 'months')
+            ->toArray());
 
 
         $daysInMonth      = Carbon::createFromDate($currentYear, $currentMonth, 1)->daysInMonth;
         $days             = array_fill(1, $daysInMonth, 0);
         $currentMonthData = DB::table('users')
-                                ->selectRaw("DAY(created_at) as day, count(*) as total")
-                                ->whereYear('created_at', '=', $currentYear)
-                                ->whereMonth('created_at', '=', $currentMonth)
-                                ->groupBy('day')
-                                ->pluck('total', 'day')
-                                ->toArray();
+            ->selectRaw("DAY(created_at) as day, count(*) as total")
+            ->whereYear('created_at', '=', $currentYear)
+            ->whereMonth('created_at', '=', $currentMonth)
+            ->groupBy('day')
+            ->pluck('total', 'day')
+            ->toArray();
 
         $currentMonthUsers = array_replace($days, $currentMonthData);
 
         return [
 
             'title'                    =>  'User statistics',
-            'user_by_countries'        =>  $usersByCountries ,
-            'top_countries'            =>  $topCountries ,
+            'user_by_countries'        =>  $usersByCountries,
+            'top_countries'            =>  $topCountries,
             'subscribed_users'         =>  User::whereHas('subscriptions')->count(),
             'unsubscribed_users'       =>  User::whereDoesntHave('subscriptions')->count(),
             'active_users'             =>  User::active()->count(),
@@ -186,7 +196,6 @@ class UserService
             'user_by_year'             =>  $currentYearUsers,
             'user_by_month'            =>  $currentMonthUsers,
         ];
-
     }
 
 
@@ -200,77 +209,78 @@ class UserService
      * @param string $uid
      * @return array
      */
-    public function getUserDetails(string $uid): array{
+    public function getUserDetails(string $uid): array
+    {
+        $currentMonth = Carbon::now()->format('F');
+
 
 
         $user  = User::with([
-                            'file',
-                            'kycLogs',
-                            'posts',
-                            'accounts',
-                            'templates',
-                            'paymentLogs',
-                            'creditLogs',
-                            'transactions',
-                            'subscriptions',
-                            'runningSubscription',
-                            'runningSubscription.package',
-                            'tickets',
-                            'withdraws',
-                            'affiliates',
-                            "referral",
-                            'userDesignation'
-                        ])->where('uid',$uid)
-                          ->firstOrFail();
+            'file',
+            'kycLogs',
+            'paymentLogs',
+            'transactions',
+            'tickets',
+            'withdraws',
+            'userDesignation',
+            'attendances'
+        ])->where('uid', $uid)
+            ->firstOrFail();
 
 
         $graphData = new Collection();
 
-        SocialPost::whereYear('created_at',  date('Y'))
-            ->where('user_id',$user->id)
-            ->selectRaw("MONTH(created_at) as month,
-                            MONTHNAME(created_at) as months,
-                            count(*) as total,
-                            SUM(CASE WHEN status =  '0'  THEN id END) AS pending,
-                            SUM(CASE WHEN status =  '1'  THEN id END) AS success,
-                            SUM(CASE WHEN status =  '2'  THEN id END) AS failed,
-                            SUM(CASE WHEN status =  '3'  THEN id END) AS schedule")
-
+        Attendance::whereYear('date', date('Y'))
+                            ->where('user_id', $user->id)
+                            ->selectRaw("
+                        MONTH(date) as month,
+                        MONTHNAME(date) as months,
+                        COUNT(CASE WHEN clock_in IS NOT NULL THEN 1 END) AS attendance,
+                        SUM(CASE WHEN late_time > 0 THEN 1 END) AS late,
+                        SUM(work_hour) AS total_work_minutes
+                    ")
             ->groupBy('month', 'months')
             ->orderBy('month')
-            ->chunk(1000, function (Collection $logs) use (&$graphData) : void {
-                $graphData  = $logs->map(fn(SocialPost $log): array =>
-                        [$log->months =>  [
-                            'total'    => $log->total ?? 0,
-                            'pending'  => $log->pending ?? 0,
-                            'success'  => $log->success ?? 0,
-                            'failed'   => $log->failed ?? 0,
-                            'schedule' => $log->schedule ?? 0
-                        ]]
+            ->chunk(100, function (Collection $logs) use (&$graphData): void {
+                $graphData = $logs->map(
+                    fn($log): array =>
+                    [
+                        $log->months => [
+                            'attendance' => $log->attendance ?? 0,
+                            'late' => $log->late ?? 0,
+                            'work_hour' => intdiv($log->total_work_minutes ?? 0, 60)
+                        ]
+                    ]
                 );
             });
 
+            $currentMonthData = $graphData->firstWhere(function ($item) use ($currentMonth) {
+                return array_key_exists($currentMonth, $item);
+            });
 
+            $cardData = [
+                'total_attendance' => $currentMonthData[$currentMonth]['attendance'] ?? 0,
+                'total_late' => $currentMonthData[$currentMonth]['late'] ?? 0,
+                'total_work_minutes' => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
+                'total_work_hours' => $currentMonthData[$currentMonth]['work_hour'] ?? 0
+            ];
 
         return [
-            'breadcrumbs'          => ['Home'=>'admin.home','Employees'=> 'admin.user.list' ,'Show' => null],
-            'title'                => 'Show Employee',
+
             'user'                 => $user,
-            'packages'             => Package::active()->get(),
-            'withdraw_methods'     => Withdraw::active()->get(),
-            'methods'              => PaymentMethod::active()->get(),
             "countries"            => get_countries(),
-            "graph_data"           => sortByMonth(@$graphData->collapse()->all() ?? [],true,
-                                                    [
-                                                        'total'       => 0,
-                                                        'pending'     => 0,
-                                                        'success'     => 0,
-                                                        'failed'      => 0,
-                                                        'schedule'    => 0
-                                                    ])
+            "card_data"            => $cardData,
+            "graph_data"           => sortByMonth(
+                @$graphData->collapse()->all() ?? [],
+                true,
+                [
+                    'attendance'    => 0,
+                    'work_hour'         => 0,
+                    'late'          => 0,
+                ]
+            )
 
         ];
-
     }
 
 
@@ -282,16 +292,39 @@ class UserService
      * @param integer|string $uid
      * @return array
      */
-    public function delete(int|string $uid): array{
+    public function delete(int|string $uid): array
+    {
 
         try {
-            DB::transaction(function() use ($uid): void{
+            DB::transaction(function () use ($uid): void {
 
                 $user      = User::with(
-                                     [
-                                        'file',"otp",'notifications','tickets','tickets.messages','tickets.file','subscriptions','transactions','paymentLogs','paymentLogs.file','withdraws','withdraws.file','templates','templateUsages','kycLogs','kycLogs.file','creditLogs','affiliates','accounts','posts','posts.file','webhookLogs'
-                                     ])->where('uid',$uid)
-                                       ->firstOrfail();
+                    [
+                        'file',
+                        "otp",
+                        'notifications',
+                        'tickets',
+                        'tickets.messages',
+                        'tickets.file',
+                        'subscriptions',
+                        'transactions',
+                        'paymentLogs',
+                        'paymentLogs.file',
+                        'withdraws',
+                        'withdraws.file',
+                        'templates',
+                        'templateUsages',
+                        'kycLogs',
+                        'kycLogs.file',
+                        'creditLogs',
+                        'affiliates',
+                        'accounts',
+                        'posts',
+                        'posts.file',
+                        'webhookLogs'
+                    ]
+                )->where('uid', $uid)
+                    ->firstOrfail();
 
 
                 #DELETE SUBSCRIPTIONS
@@ -325,47 +358,46 @@ class UserService
                 $user->webhookLogs()->delete();
 
                 #DELETE SOCIAL POST WITH FILES
-                $user->post?->map(fn(SocialPost $post):bool => $this->unlinkLogFile($post ,config("settings")['file_path']['post']['path']));
+                $user->post?->map(fn(SocialPost $post): bool => $this->unlinkLogFile($post, config("settings")['file_path']['post']['path']));
                 $user->posts()->delete();
 
 
                 #DELETE PAYMENT LOGS
-                $user->paymentLogs?->map(fn(PaymentLog $paymentLog):bool => $this->unlinkLogFile($paymentLog ,config("settings")['file_path']['payment']['path']));
+                $user->paymentLogs?->map(fn(PaymentLog $paymentLog): bool => $this->unlinkLogFile($paymentLog, config("settings")['file_path']['payment']['path']));
                 $user->paymentLogs()->delete();
 
 
                 #DELETE WITHDRAW LOGS
-                $user->withdraws?->map(fn(Withdraw $withdraw):bool => $this->unlinkLogFile($withdraw ,config("settings")['file_path']['withdraw']['path']));
+                $user->withdraws?->map(fn(Withdraw $withdraw): bool => $this->unlinkLogFile($withdraw, config("settings")['file_path']['withdraw']['path']));
                 $user->withdraws()->delete();
 
                 #DELETE TICKET LOGS
-                $user->tickets?->map(function(Ticket $ticket): bool{
+                $user->tickets?->map(function (Ticket $ticket): bool {
                     $ticket->messages()->delete();
-                    return $this->unlinkLogFile($ticket ,config("settings")['file_path']['ticket']['path']);
+                    return $this->unlinkLogFile($ticket, config("settings")['file_path']['ticket']['path']);
                 });
                 $user->tickets()->delete();
 
 
                 #DELETE KYC LOGS
-                $user->kycLogs?->map(fn(KycLog $kycLog):bool => $this->unlinkLogFile($kycLog ,config("settings")['file_path']['kyc']['path']));
+                $user->kycLogs?->map(fn(KycLog $kycLog): bool => $this->unlinkLogFile($kycLog, config("settings")['file_path']['kyc']['path']));
                 $user->kycLogs()->delete();
 
 
                 #UNLINK USER IMAGE
                 $this->unlink(
-                    location    : config("settings")['file_path']['profile']['user']['path'],
-                    file        : $user->file()->where('type',FileKey::AVATAR->value)->first()
+                    location: config("settings")['file_path']['profile']['user']['path'],
+                    file: $user->file()->where('type', FileKey::AVATAR->value)->first()
                 );
 
                 $user->delete();
             });
         } catch (\Exception $ex) {
 
-            return [ 'status' => false , 'message' => strip_tags($ex->getMessage()) ];
+            return ['status' => false, 'message' => strip_tags($ex->getMessage())];
         }
 
-        return ['status' => true , 'message' => translate("Deleted Successfully") ];
-
+        return ['status' => true, 'message' => translate("Deleted Successfully")];
     }
 
 
@@ -376,20 +408,19 @@ class UserService
      * @param string $path
      * @return bool
      */
-    public function unlinkLogFile(Model $model ,string $path): bool{
+    public function unlinkLogFile(Model $model, string $path): bool
+    {
 
         try {
-            $model->file->map(fn(File $file):bool =>  $this->unlink(
-                location    : $path,
-                file        : $file
+            $model->file->map(fn(File $file): bool =>  $this->unlink(
+                location: $path,
+                file: $file
             ));
 
             return true;
         } catch (\Throwable $th) {
             return false;
         }
-
-
     }
 
 
@@ -400,23 +431,23 @@ class UserService
      * @param BalanceUpdateRequest $request
      * @return array
      */
-    public function transferBalance(BalanceUpdateRequest $request): array{
+    public function transferBalance(BalanceUpdateRequest $request): array
+    {
 
         $user          =   User::findOrfail($request->input('id'));
         switch ($request->input('type')) {
             case BalanceTransferType::DEPOSIT->value:
-                      $method    = PaymentMethod::with(['currency'])
-                                                   ->findOrfail($request->input('payment_id'));
-                      $response  = Arr::get($this->createDepositLog($request ,$user ,$method),"response",[]);
+                $method    = PaymentMethod::with(['currency'])
+                    ->findOrfail($request->input('payment_id'));
+                $response  = Arr::get($this->createDepositLog($request, $user, $method), "response", []);
                 break;
             case BalanceTransferType::WITHDRAW->value:
-                        $method    = Withdraw::findOrfail($request->input("method_id"));
-                        $response  = $this->createWithdrawLog($request ,$user ,$method);
+                $method    = Withdraw::findOrfail($request->input("method_id"));
+                $response  = $this->createWithdrawLog($request, $user, $method);
                 break;
         }
 
         return $response;
-
     }
 
 
@@ -434,7 +465,8 @@ class UserService
      * @param mixed $status
      * @return array
      */
-    public function createWithdrawLog(Request $request , User $user , Withdraw $method ,mixed $status = null) :array{
+    public function createWithdrawLog(Request $request, User $user, Withdraw $method, mixed $status = null): array
+    {
 
 
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
@@ -442,15 +474,15 @@ class UserService
         $charge                    = round_amount((float)$method->fixed_charge + ($amount  * (float)$method->percent_charge / 100));
         $total                     = $amount + $charge;
         $baseAmount                = convert_to_base($total);
-        $response                  = response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error');
+        $response                  = response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ", 'error');
 
-        if($baseAmount  < $user->balance){
+        if ($baseAmount  < $user->balance) {
 
-            $status              =  $status ?  $status : WithdrawStatus::value("APPROVED",true);
+            $status              =  $status ?  $status : WithdrawStatus::value("APPROVED", true);
 
             $params  = [
 
-                'currency_id'         =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id ,
+                'currency_id'         =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id,
                 "amount"              =>  $amount,
                 "base_amount"         =>  convert_to_base($amount),
                 "charge"              =>  $charge,
@@ -462,85 +494,78 @@ class UserService
             ];
 
 
-            DB::transaction(function() use ($request,$params,$user,$method ,$baseAmount ) {
+            DB::transaction(function () use ($request, $params, $user, $method, $baseAmount) {
 
-                $log = $this->paymentService->withdrawLog($user , $method ,$params);
+                $log = $this->paymentService->withdrawLog($user, $method, $params);
 
-                    if(request()->routeIs('user.*')){
-                        $this->saveCustomInfo($request ,$log, $method->parameters ,"custom_data","withdraw");
-                    }
+                if (request()->routeIs('user.*')) {
+                    $this->saveCustomInfo($request, $log, $method->parameters, "custom_data", "withdraw");
+                }
 
-                    if($log->status == WithdrawStatus::value("APPROVED")){
+                if ($log->status == WithdrawStatus::value("APPROVED")) {
 
-                        $params ['trx_type']   = Transaction::$MINUS;
-                        $params ['trx_code']   = $log->trx_code;
-                        $params ['remarks']    = 'withdraw';
-                        $params ['details']    = $params['amount']." ".session("currency")?->code.' Withdraw Via ' .$method->name;
+                    $params['trx_type']   = Transaction::$MINUS;
+                    $params['trx_code']   = $log->trx_code;
+                    $params['remarks']    = 'withdraw';
+                    $params['details']    = $params['amount'] . " " . session("currency")?->code . ' Withdraw Via ' . $method->name;
 
-                        $transaction           =  PaymentService::makeTransaction($user,$params);
+                    $transaction           =  PaymentService::makeTransaction($user, $params);
 
-                        $user->balance -= $baseAmount;
-                        $user->save();
+                    $user->balance -= $baseAmount;
+                    $user->save();
+                }
 
-                    }
+                $code = [
+                    "name"      => $user->name,
+                    "trx_code"  => $log->trx_code,
+                    "amount"    => num_format($log->amount, $log->currency),
+                    "method"    => $method->name,
+                    "time"      => Carbon::now(),
+                ];
 
-                    $code = [
-                        "name"      => $user->name,
-                        "trx_code"  => $log->trx_code,
-                        "amount"    => num_format($log->amount,$log->currency),
-                        "method"    => $method->name,
-                        "time"      => Carbon::now(),
-                    ];
+                $route          =  route("admin.withdraw.report.list");
+                $userRoute      =  route("user.withdraw.report.list");
+                $admin          = get_superadmin();
 
-                    $route          =  route("admin.withdraw.report.list");
-                    $userRoute      =  route("user.withdraw.report.list");
-                    $admin          = get_superadmin();
-
-                    $notifications = [
-                        'database_notifications' => [
-                            'action' => [SendNotification::class, 'database_notifications'],
-                            'params' => [
-                                [ $admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code, $route ],
-                                ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code ,$userRoute] : null,
-                            ],
+                $notifications = [
+                    'database_notifications' => [
+                        'action' => [SendNotification::class, 'database_notifications'],
+                        'params' => [
+                            [$admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code, $route],
+                            ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code, $userRoute] : null,
                         ],
+                    ],
 
-                        'email_notifications' => [
-                            'action' => [SendMailJob::class, 'dispatch'],
-                            'params' => [
-                                [$admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code],
-                                [$user, 'WITHDRAWAL_REQUEST_RECEIVED', $code],
-                                ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code] : null,
-                            ],
+                    'email_notifications' => [
+                        'action' => [SendMailJob::class, 'dispatch'],
+                        'params' => [
+                            [$admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code],
+                            [$user, 'WITHDRAWAL_REQUEST_RECEIVED', $code],
+                            ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code] : null,
                         ],
-                        'sms_notifications' => [
-                            'action' => [SendSmsJob::class, 'dispatch'],
-                            'params' => [
-                                [$admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code],
-                                [$user, 'WITHDRAWAL_REQUEST_RECEIVED', $code],
-                                ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code] : null,
-                            ],
+                    ],
+                    'sms_notifications' => [
+                        'action' => [SendSmsJob::class, 'dispatch'],
+                        'params' => [
+                            [$admin, 'WITHDRAWAL_REQUEST_SUBMIT', $code],
+                            [$user, 'WITHDRAWAL_REQUEST_RECEIVED', $code],
+                            ($log->status == WithdrawStatus::value("APPROVED")) ? [$user, 'WITHDRAWAL_REQUEST_ACCEPTED', $code] : null,
                         ],
-                    ];
+                    ],
+                ];
 
-                    $this->notify($notifications);
-
-
-
+                $this->notify($notifications);
             });
 
 
             $message = translate("Your withdrawal request has been processed successfully");
-            if(request()->routeIs('user.*')){
+            if (request()->routeIs('user.*')) {
                 $message = translate("Your withdrawal Request is submitted !! Please wait for confirmation");
             }
             return $response                  = response_status($message);
-
         }
 
         return $response;
-
-
     }
 
 
@@ -551,7 +576,8 @@ class UserService
      * @param Package $package
      * @return array
      */
-    public function createSubscription(User $user , Package $package ,string | null $remarks =  null) :array {
+    public function createSubscription(User $user, Package $package, string | null $remarks =  null): array
+    {
 
         try {
 
@@ -559,7 +585,7 @@ class UserService
 
             $oldSubscription = $user->runningSubscription;
 
-            if($user->balance <   $price){
+            if ($user->balance <   $price) {
 
                 return [
                     "status"    => false,
@@ -567,13 +593,12 @@ class UserService
                 ];
             }
 
-            if($package->is_free == StatusEnum::true->status() && Subscription::where("user_id",$user->id)->where('package_id',$package->id)->count() > 0){
+            if ($package->is_free == StatusEnum::true->status() && Subscription::where("user_id", $user->id)->where('package_id', $package->id)->count() > 0) {
 
                 return [
                     "status"    => false,
                     "message"   => translate("User cannot be  subscribed in  free package twice !!")
                 ];
-
             }
 
             $params =  [
@@ -581,21 +606,20 @@ class UserService
                 "package_id"      =>  $package->id,
                 "old_package_id"  =>  $oldSubscription?->package_id,
                 "payment_amount"  =>  $price,
-                "payment_status"  =>  DepositStatus::value('PAID',true) ,
-                "status"          =>  SubscriptionStatus::value('RUNNING',true),
+                "payment_status"  =>  DepositStatus::value('PAID', true),
+                "status"          =>  SubscriptionStatus::value('RUNNING', true),
             ];
 
 
             $expireDate = null;
-            if($package->duration != PlanDuration::value('UNLIMITED',true)){
+            if ($package->duration != PlanDuration::value('UNLIMITED', true)) {
                 $expireDate = date('Y-m-d', strtotime(date('Y-m-d') . ($package->duration == PlanDuration::value('YEARLY', true) ? ' + 1 years' : ' + 1 months')));
-
             }
 
 
-            $params['expired_at']                 = $expireDate ;
+            $params['expired_at']                 = $expireDate;
 
-            $params['remarks']                    = $remarks ? $remarks :  $package->title . " Plan Purchased" ;
+            $params['remarks']                    = $remarks ? $remarks :  $package->title . " Plan Purchased";
 
             $wordLimit                            = (int) @$package->ai_configuration->word_limit;
             $postLimit                            = (int) @$package->social_access->post;
@@ -603,14 +627,14 @@ class UserService
 
             $params['word_balance']               = $wordLimit;
             $params['remaining_word_balance']     = $wordLimit;
-            $params['total_profile']              = $profileLimit ;
+            $params['total_profile']              = $profileLimit;
             $params['post_balance']               = $postLimit;
             $params['remaining_post_balance']     = $postLimit;
 
 
-            if(site_settings('subscription_carry_forword') == StatusEnum::true->status() && $oldSubscription && $oldSubscription->package_id == $package->id){
+            if (site_settings('subscription_carry_forword') == StatusEnum::true->status() && $oldSubscription && $oldSubscription->package_id == $package->id) {
 
-                if($wordLimit   !=  PlanDuration::value('UNLIMITED')){
+                if ($wordLimit   !=  PlanDuration::value('UNLIMITED')) {
 
                     $carriedWords                          = (int)$oldSubscription->remaining_word_balance;
                     $params['word_balance']               += $carriedWords;
@@ -622,23 +646,21 @@ class UserService
                 $params['total_profile']                  += $carriedProfile;
                 $params['carried_profile']                 = $carriedProfile;
 
-                if($wordLimit   != PlanDuration::value('UNLIMITED')){
+                if ($wordLimit   != PlanDuration::value('UNLIMITED')) {
 
                     $carriedPost                           = (int)$oldSubscription->remaining_post_balance;
-                    $params['post_balance']               += $carriedPost ;
-                    $params['remaining_post_balance']     += $carriedPost ;
-                    $params['carried_post_balance']        = $carriedPost ;
-
+                    $params['post_balance']               += $carriedPost;
+                    $params['remaining_post_balance']     += $carriedPost;
+                    $params['carried_post_balance']        = $carriedPost;
                 }
-
             }
 
 
-            DB::transaction(function() use ($params,$oldSubscription,$user,$package) {
+            DB::transaction(function () use ($params, $oldSubscription, $user, $package) {
 
 
 
-                $params['trx_code']               = trx_number() ;
+                $params['trx_code']               = trx_number();
 
 
                 $this->invalidatePreviousSubscriptions($user);
@@ -650,7 +672,7 @@ class UserService
                 $user->save();
 
 
-                $package->total_subscription_income +=$subscription->payment_amount;
+                $package->total_subscription_income += $subscription->payment_amount;
                 $package->save();
 
                 $transactionParams = [
@@ -664,16 +686,16 @@ class UserService
                     "trx_code"       => $subscription->trx_code
                 ];
 
-                $transaction         =  PaymentService::makeTransaction($user,$transactionParams);
+                $transaction         =  PaymentService::makeTransaction($user, $transactionParams);
 
 
                 $balance             = PlanDuration::value('UNLIMITED');
                 $socialBalance       = PlanDuration::value('UNLIMITED');
 
-                if((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')){
+                if ((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')) {
                     $balance         = (int) $subscription->word_balance;
                 }
-                if((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')){
+                if ((int)$subscription->word_balance != PlanDuration::value('UNLIMITED')) {
                     $socialBalance   = (int) $subscription->post_balance;
                 }
 
@@ -698,7 +720,7 @@ class UserService
 
                 ];
 
-                foreach( $crditLogs as $key => $log){
+                foreach ($crditLogs as $key => $log) {
 
                     $log['user_id']          = $user->id;
                     $log['subscription_id']  = $subscription->id;
@@ -712,14 +734,14 @@ class UserService
 
 
                 $continuousCommission  = site_settings("continuous_commission");
-                $signUpPackage         = Package::active()->where('id',site_settings('signup_bonus',-1))->first();
+                $signUpPackage         = Package::active()->where('id', site_settings('signup_bonus', -1))->first();
 
                 $affiliateBonus        =  $continuousCommission == StatusEnum::true->status() || Subscription::where('user_id', $user->id)
-                                                                                                    ->when($signUpPackage ,function($query) use($signUpPackage) {
-                                                                                                        return $query->where('package_id','!=',@$signUpPackage->id);
-                                                                                                    })->count() < 2;
+                    ->when($signUpPackage, function ($query) use ($signUpPackage) {
+                        return $query->where('package_id', '!=', @$signUpPackage->id);
+                    })->count() < 2;
 
-                if(site_settings("affiliate_system") == StatusEnum::true->status() && $user->referral && $affiliateBonus && $subscription->package->affiliate_commission > 0  ){
+                if (site_settings("affiliate_system") == StatusEnum::true->status() && $user->referral && $affiliateBonus && $subscription->package->affiliate_commission > 0) {
 
                     $this->affiliateBonus($user, $subscription);
                 }
@@ -739,30 +761,28 @@ class UserService
                     'database_notifications' => [
                         'action' => [SendNotification::class, 'database_notifications'],
                         'params' => [
-                            [ $admin, 'SUBSCRIPTION_CREATED', $code, $route ],
-                            [ $user, 'SUBSCRIPTION_CREATED', $code, $userRoute ],
+                            [$admin, 'SUBSCRIPTION_CREATED', $code, $route],
+                            [$user, 'SUBSCRIPTION_CREATED', $code, $userRoute],
                         ],
                     ],
 
                     'email_notifications' => [
                         'action' => [SendMailJob::class, 'dispatch'],
                         'params' => [
-                            [$admin,'SUBSCRIPTION_CREATED',$code],
+                            [$admin, 'SUBSCRIPTION_CREATED', $code],
                             [$user, 'SUBSCRIPTION_CREATED', $code],
                         ],
                     ],
                     'sms_notifications' => [
                         'action' => [SendSmsJob::class, 'dispatch'],
                         'params' => [
-                            [$admin,'SUBSCRIPTION_CREATED',$code],
+                            [$admin, 'SUBSCRIPTION_CREATED', $code],
                             [$user, 'SUBSCRIPTION_CREATED', $code],
                         ],
                     ],
                 ];
 
                 $this->notify($notifications);
-
-
             });
 
 
@@ -770,8 +790,6 @@ class UserService
                 "status"    => true,
                 "message"   => translate("New subscription created")
             ];
-
-
         } catch (\Exception $ex) {
 
             return [
@@ -779,8 +797,6 @@ class UserService
                 "message"   => strip_tags($ex->getMessage())
             ];
         }
-
-
     }
 
 
@@ -792,18 +808,19 @@ class UserService
      * @param Subscription $subscription
      * @return void
      */
-    public function affiliateBonus(User $user , Subscription $subscription) :void {
+    public function affiliateBonus(User $user, Subscription $subscription): void
+    {
 
-        DB::transaction(function() use ($user,$subscription) {
+        DB::transaction(function () use ($user, $subscription) {
 
-            $commission  =  ((float) $subscription->package->affiliate_commission / 100 ) * (float) $subscription->payment_amount;
-            $params ['commission_rate']             = $subscription->package->affiliate_commission ;
-            $params ['subscription_id']             = $subscription->id;
-            $params ['user_id']                     = $user->referral->id;
-            $params ['referred_to']                 = $user->id;
-            $params ['commission_amount']           = $commission;
-            $params ['trx_code']                    = trx_number();
-            $params ['note']                        = $user->name . " Purchased ".$subscription->package->title . " Plan";
+            $commission  =  ((float) $subscription->package->affiliate_commission / 100) * (float) $subscription->payment_amount;
+            $params['commission_rate']             = $subscription->package->affiliate_commission;
+            $params['subscription_id']             = $subscription->id;
+            $params['user_id']                     = $user->referral->id;
+            $params['referred_to']                 = $user->id;
+            $params['commission_amount']           = $commission;
+            $params['trx_code']                    = trx_number();
+            $params['note']                        = $user->name . " Purchased " . $subscription->package->title . " Plan";
 
             $log = AffiliateLog::create($params);
 
@@ -816,13 +833,12 @@ class UserService
                 "final_amount"   => $log->commission_amount,
                 "trx_type"       => Transaction::$PLUS,
                 "remarks"        => "affiliate",
-                "details"        => $log->commission_amount." ".base_currency()?->code.' Added Via Affiliate Bonus ',
+                "details"        => $log->commission_amount . " " . base_currency()?->code . ' Added Via Affiliate Bonus ',
                 "trx_code"       => $log->trx_code
             ];
 
-            $transaction         =  PaymentService::makeTransaction($user,$transactionParams);
+            $transaction         =  PaymentService::makeTransaction($user, $transactionParams);
         });
-
     }
 
 
@@ -835,20 +851,21 @@ class UserService
      * @param mixed $status
      * @return array
      */
-    public function createDepositLog(Request $request , User $user ,PaymentMethod $method , mixed $status = null) :array{
+    public function createDepositLog(Request $request, User $user, PaymentMethod $method, mixed $status = null): array
+    {
 
         $params['currency_id']     = session()->get("currency") ? session()->get("currency")->id : base_currency()->id;
         $amount                    = (float)$request->input("amount");
-        $charge                    = round_amount( (float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100),4);
+        $charge                    = round_amount((float)$method->fixed_charge + ($amount  * (float)$method->percentage_charge / 100), 4);
         $total                     = $amount + $charge;
 
         $status                    = $status ?  $status : (string)DepositStatus::PAID->value;
         $finalBase                 = convert_to_base($total);
 
-        $finalAmount               = round_amount($finalBase*$method->currency->exchange_rate,2);
+        $finalAmount               = round_amount($finalBase * $method->currency->exchange_rate, 2);
 
         $params                    = [
-            'currency_id'          =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id ,
+            'currency_id'          =>  session()->get("currency") ? session()->get("currency")->id : base_currency()->id,
             "amount"               =>  $amount,
             "base_amount"          =>  convert_to_base($amount),
             "charge"               =>  $charge,
@@ -858,25 +875,25 @@ class UserService
             "status"               =>  $status,
             "notes"                =>  $request->input("remarks"),
             "trx_code"             =>  trx_number(),
-            "rate"                 =>  exchange_rate($method->currency,5)
+            "rate"                 =>  exchange_rate($method->currency, 5)
         ];
 
 
-        $log = DB::transaction(function() use ($request,$params,$user,$method) {
+        $log = DB::transaction(function () use ($request, $params, $user, $method) {
 
-            $log = $this->paymentService->paymentLog($user,$method ,$params);
+            $log = $this->paymentService->paymentLog($user, $method, $params);
 
 
-            $params ['trx_type']        = Transaction::$PLUS;
-            $params ['trx_code']        = $log->trx_code;
-            $params ['remarks']         = 'deposit';
-            $params ['final_amount']    = $log->amount + $log->charge;
-            $params ['details']         = $log->amount." ".session("currency")?->code.' Deposited Via ' .$method->name;
+            $params['trx_type']        = Transaction::$PLUS;
+            $params['trx_code']        = $log->trx_code;
+            $params['remarks']         = 'deposit';
+            $params['final_amount']    = $log->amount + $log->charge;
+            $params['details']         = $log->amount . " " . session("currency")?->code . ' Deposited Via ' . $method->name;
 
             $code = [
                 "name"            => $user->name,
                 "trx_code"        => $log->trx_code,
-                "amount"          => num_format($log->amount,$log->currency),
+                "amount"          => num_format($log->amount, $log->currency),
                 "time"            => Carbon::now(),
                 "payment_method"  => $log->method->name
             ];
@@ -886,11 +903,11 @@ class UserService
             $admin          =  get_superadmin();
 
 
-            if($log->status  == (string)DepositStatus::PAID->value){
+            if ($log->status  == (string)DepositStatus::PAID->value) {
 
-                $params ['trx_code']       =  $log->trx_code;
-                $transaction               =  PaymentService::makeTransaction($user,$params);
-                $user->balance +=$log->base_amount;
+                $params['trx_code']       =  $log->trx_code;
+                $transaction               =  PaymentService::makeTransaction($user, $params);
+                $user->balance += $log->base_amount;
                 $user->save();
             }
 
@@ -899,22 +916,22 @@ class UserService
                 'database_notifications' => [
                     'action' => [SendNotification::class, 'database_notifications'],
                     'params' => [
-                        [ $admin, 'NEW_DEPOSIT', $code, $route ],
-                        $log->status  == (string)DepositStatus::PAID->value ?  [ $user, 'DEPOSIT_REQUEST_ACCEPTED', $code, $userRoute ] : [ $user, 'DEPOSIT_REQUEST', $code, $userRoute ],
+                        [$admin, 'NEW_DEPOSIT', $code, $route],
+                        $log->status  == (string)DepositStatus::PAID->value ?  [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code, $userRoute] : [$user, 'DEPOSIT_REQUEST', $code, $userRoute],
                     ],
                 ],
 
                 'email_notifications' => [
                     'action' => [SendMailJob::class, 'dispatch'],
                     'params' => [
-                        [$admin,'NEW_DEPOSIT',$code],
+                        [$admin, 'NEW_DEPOSIT', $code],
                         $log->status  == (string)DepositStatus::PAID->value  ?   [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
                     ],
                 ],
                 'sms_notifications' => [
                     'action' => [SendSmsJob::class, 'dispatch'],
                     'params' => [
-                        [$admin,'NEW_DEPOSIT',$code],
+                        [$admin, 'NEW_DEPOSIT', $code],
                         $log->status  == (string)DepositStatus::PAID->value  ? [$user, 'DEPOSIT_REQUEST_ACCEPTED', $code] : [$user, 'DEPOSIT_REQUEST', $code],
                     ],
                 ],
@@ -924,7 +941,6 @@ class UserService
 
 
             return $log;
-
         });
 
         $message = translate("Your deposit request has been processed successfully");
@@ -933,10 +949,8 @@ class UserService
 
         return [
             "response" => $response,
-            "log"      => $log->load(['user','user.country']),
+            "log"      => $log->load(['user', 'user.country']),
         ];
-
-
     }
 
 
@@ -949,7 +963,8 @@ class UserService
      * @param string $key
      * @return void
      */
-    public function saveCustomInfo(Request $request , mixed $log , object $params , string $key ,string $fileLocation) :void{
+    public function saveCustomInfo(Request $request, mixed $log, object $params, string $key, string $fileLocation): void
+    {
 
 
         $collection    = collect($request);
@@ -969,17 +984,17 @@ class UserService
                                 try {
 
                                     $response = $this->storeFile(
-                                        file        : $request->file($inKey),
-                                        location    :  config("settings")['file_path'][$fileLocation]['path'],
+                                        file: $request->file($inKey),
+                                        location: config("settings")['file_path'][$fileLocation]['path'],
                                     );
 
-                                    if(isset($response['status'])){
+                                    if (isset($response['status'])) {
 
                                         $file = new File([
 
                                             'name'      => Arr::get($response, 'name', '#'),
                                             'disk'      => Arr::get($response, 'disk', 'local'),
-                                            'type'      => $inKey ,
+                                            'type'      => $inKey,
                                             'size'      => Arr::get($response, 'size', ''),
                                             'extension' => Arr::get($response, 'extension', ''),
                                         ]);
@@ -989,12 +1004,10 @@ class UserService
 
                                     $customData[$inKey] = [
 
-                                        'field_name' => Arr::get( $response ,'name',"#"),
+                                        'field_name' => Arr::get($response, 'name', "#"),
                                         'type'       => $inVal->type,
                                     ];
-
                                 } catch (\Exception $exp) {
-
                                 }
                             }
                         } else {
@@ -1021,7 +1034,8 @@ class UserService
      * @param mixed $params
      * @return array
      */
-    public function paramValidationRules(mixed $params) :array {
+    public function paramValidationRules(mixed $params): array
+    {
 
         $rules           = [];
         $verifyImages    = [];
@@ -1031,7 +1045,7 @@ class UserService
 
                 if ($cus->type == 'file') {
                     array_push($rules[$key], 'image');
-                    array_push($rules[$key], new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true)));
+                    array_push($rules[$key], new FileExtentionCheckRule(json_decode(site_settings('mime_types'), true)));
                     array_push($verifyImages, $key);
                 }
                 if ($cus->type == 'text') {
@@ -1044,7 +1058,6 @@ class UserService
         }
 
         return $rules;
-
     }
 
 
@@ -1056,7 +1069,8 @@ class UserService
      * @param array $responseData
      * @return void
      */
-    public static function updateDepositLog(PaymentLog $log , mixed $status ,array $responseData) :string{
+    public static function updateDepositLog(PaymentLog $log, mixed $status, array $responseData): string
+    {
 
         $log->status            =   $status;
         $log->gateway_response  =   $responseData;
@@ -1064,7 +1078,7 @@ class UserService
 
         $redirectRoute = 'payment.failed';
 
-        if($log->status  == (string) DepositStatus::value("PAID",true)){
+        if ($log->status  == (string) DepositStatus::value("PAID", true)) {
             $params  = [
                 'trx_code'     => $log->trx_code,
                 'currency_id'  => $log->currency_id,
@@ -1073,21 +1087,20 @@ class UserService
                 'final_amount' => $log->amount + $log->charge,
                 'trx_type'     => Transaction::$PLUS,
                 'remarks'      => "Deposit",
-                'details'      => $log->amount." ".$log->currency?->code.' Deposited Via ' .$log->method->name
+                'details'      => $log->amount . " " . $log->currency?->code . ' Deposited Via ' . $log->method->name
             ];
 
-            $transaction  =  PaymentService::makeTransaction($log->user,$params);
-            $log->user->balance +=$log->base_amount;
+            $transaction  =  PaymentService::makeTransaction($log->user, $params);
+            $log->user->balance += $log->base_amount;
             $log->user->save();
 
             $redirectRoute = 'payment.success';
         }
 
-        return route($redirectRoute,['payment_intent' => base64_encode(json_encode([
+        return route($redirectRoute, ['payment_intent' => base64_encode(json_encode([
             "trx_number" => $log->trx_code,
-            "type"       => $log->status  == (string)DepositStatus::value("PAID",true) ? "SUCCESS" : "FAILED",
+            "type"       => $log->status  == (string)DepositStatus::value("PAID", true) ? "SUCCESS" : "FAILED",
         ]))]);
-
     }
 
 
@@ -1100,9 +1113,10 @@ class UserService
      * @param string $details
      * @return void
      */
-    public function inactiveSocialAccounts(Subscription $subscription, string $details = "Subscription Expired") :void{
+    public function inactiveSocialAccounts(Subscription $subscription, string $details = "Subscription Expired"): void
+    {
 
-        SocialAccount::where('user_id',$subscription->user->id)->where('subscription_id',$subscription->id)->update([
+        SocialAccount::where('user_id', $subscription->user->id)->where('subscription_id', $subscription->id)->update([
             'status'  => StatusEnum::false->status(),
             'details' => $details,
         ]);
@@ -1116,27 +1130,27 @@ class UserService
      * @param User $user
      * @return void
      */
-    public function invalidatePreviousSubscriptions(User $user) :void{
+    public function invalidatePreviousSubscriptions(User $user): void
+    {
 
         $subscriptions  = Subscription::with('user')
-                            ->running()
-                            ->where('user_id',$user->id)
-                            ->get();
+            ->running()
+            ->where('user_id', $user->id)
+            ->get();
 
-        foreach($subscriptions as $subscription){
+        foreach ($subscriptions as $subscription) {
 
             $subscription->expired_at =  date('Y-m-d');
-            $subscription->status     =  SubscriptionStatus::value('EXPIRED',true);
+            $subscription->status     =  SubscriptionStatus::value('EXPIRED', true);
             $subscription->save();
             $this->inactiveSocialAccounts($subscription);
         }
-
     }
 
 
-    public function deductSubscriptionCredit(Subscription $subscription , string $key , int $value = 1) :Subscription{
-        $subscription->decrement($key,$value);
+    public function deductSubscriptionCredit(Subscription $subscription, string $key, int $value = 1): Subscription
+    {
+        $subscription->decrement($key, $value);
         return $subscription;
     }
-
 }

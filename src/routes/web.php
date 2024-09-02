@@ -42,6 +42,11 @@ try {
 
 Route::middleware($globalMiddleware)->group(function () {
 
+    #Frontend Controller
+    Route::controller(FrontendController::class)->group(function(){
+        Route::get('page/{slug}', 'page')->name('page');
+    });
+
     #guest user route
     Route::middleware(['guest:web'])->name('auth.')->group(function () {
 
@@ -87,6 +92,8 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::get('login/{medium}', 'redirectToOauth')->name('login');
             Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
         });
+
+
     });
 
     #user route
@@ -102,6 +109,7 @@ Route::middleware($globalMiddleware)->group(function () {
 
             Route::any('dashboard', 'home')->name('home');
             Route::get('profile', 'profile')->name('profile');
+            Route::get('profile/edit', 'profileEdit')->name('profile.edit');
             Route::post('profile/update', 'profileUpdate')->name('profile.update');
             Route::post('/update', 'passwordUpdate')->name('password.update');
             Route::post('/affiliate/update', 'affiliateUpdate')->name('affiliate.update');
@@ -199,8 +207,6 @@ Route::middleware($globalMiddleware)->group(function () {
 
 
     });
-
-
 
 
     #Coummunication route

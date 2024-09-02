@@ -56,7 +56,7 @@ $currency = session()->get('currency');
                     <div class="i-card-sm style-2 primary">
                         <div class="card-info">
                             <h3>
-
+                                {{num_format(Arr::get($data,"salary",0) , $currency)}}
                             </h3>
                             <h5 class="title">
                                 {{translate("Salary")}}
@@ -87,7 +87,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-briefcase"></i>
+                                <i class="las la-clock"></i>
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-address-book"></i>
+                                <i class="las la-calendar"></i>
                             </div>
                         </div>
                     </div>
@@ -115,15 +115,15 @@ $currency = session()->get('currency');
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                     <div class="i-card-sm style-2 danger">
                         <div class="card-info">
-                            <h3>{{(Arr::get($data,"total_absent",0))}} </h3>
-                            <h5 class="title">{{translate('Total Absent')}}</h5>
+                            <h3>{{(Arr::get($data,"total_late",0))}} </h3>
+                            <h5 class="title">{{translate('Total late')}}</h5>
                             <a href="{{route('admin.category.list')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
 
                             <div class="icon">
-                                <i class="las la-address-book"></i>
+                                <i class="las la-running"></i>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ $currency = session()->get('currency');
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
                             <div class="icon">
-                                <i class="las la-address-book"></i>
+                                <i class="las la-calendar-times"></i>
                             </div>
                         </div>
                     </div>

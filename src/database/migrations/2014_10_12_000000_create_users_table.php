@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string('password',255)->nullable();
             $table->timestamp('last_login')->nullable();
             $table->string('employee_id', 100)->unique()->nullable();
-            $table->date('date_of_birth');
-            $table->date('date_of_joining');
+            $table->date('date_of_birth')->nullable();
+            $table->date('date_of_joining')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -433,6 +433,11 @@ class User extends Authenticatable
                     ->where('pay_period', Carbon::now()->format('Y-m'));
     }
 
+    public function attendances (): HasMany
+    {
+        return $this->hasMany(Attendance::class , 'user_id');
+    }
+
 
 
 

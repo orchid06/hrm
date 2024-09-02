@@ -5,9 +5,15 @@ namespace App\Http\Controllers\User;
 use App\Enums\FileKey;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Services\UserService;
+use App\Models\Admin\Department;
+use App\Models\Admin\Designation;
 use App\Models\Attendance;
 use App\Models\Admin\Leave;
 use App\Models\Admin\Payroll;
+use App\Models\Admin\UserDesignation;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 use App\Models\Core\File;
@@ -18,6 +24,7 @@ use App\Models\SocialAccount;
 use App\Models\SocialPost;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
@@ -32,7 +39,7 @@ class HomeController extends Controller
 
 
 
-    protected $user, $subscription, $accessPlatforms, $webhookAccess;
+    protected $user, $subscription, $accessPlatforms, $webhookAccess, $userService;
 
     use Fileable;
     public function __construct()
@@ -40,6 +47,7 @@ class HomeController extends Controller
 
         $this->middleware(function ($request, $next) {
             $this->user = auth_user('web');
+            $this->userService            = new UserService();
             $this->subscription           = $this->user->runningSubscription;
             $this->accessPlatforms        = (array) ($this->subscription ? @$this->subscription->package->social_access->platform_access : []);
             $this->webhookAccess          = @optional($this->subscription->package->social_access)
@@ -72,34 +80,38 @@ class HomeController extends Controller
 
     public function getDashboardData(): array
     {
-        $userId = auth()->user()->id;
+        $user = Auth::user();
 
         $data = [];
 
 
-        $data['total_attendance'] = Attendance::where('user_id', $userId)
+        $data['total_attendance'] = Attendance::where('user_id', $user->id)
             ->whereNotNull('clock_in')
             ->count();
 
 
-        $data['total_absent'] = Attendance::where('user_id', $userId)
-            ->whereNull('clock_in')
+        $data['total_late'] = Attendance::where('user_id', $user->id)
+            ->whereNull('late_time')
             ->count();
 
 
-        $data['total_leave'] = Leave::where('user_id', $userId)
+        $data['total_leave'] = Leave::where('user_id', $user->id)
             ->where('status', 'approved')
             ->count();
 
+        $designation = UserDesignation::where('user_id' , $user->id)
+                ->where('status' , StatusEnum::true->status())
+                ->first();
 
-        $data['salary'] = Payroll::where('user_id', $userId)
-            ->first();
-
+        $data['salary'] = @json_decode($designation->salary)->basic_salary->amount;
 
         $data['total_work_hours'] = round(
-            Attendance::where('user_id', $userId)
-                ->sum('work_hour') / 60,2
+            Attendance::where('user_id', $user->id)
+                ->sum('work_hour') / 60,
+            2
         );
+
+
 
         return $data;
     }
@@ -111,9 +123,29 @@ class HomeController extends Controller
      */
     public function profile(Request $request): View
     {
+        $user           = Auth::user();
+        $userDetails    = $this->userService->getUserDetails($user->uid);
 
         return view('user.profile', [
-            'meta_data' => $this->metaData(['title' => translate("Profile")])
+            'breadcrumbs'           => ['Home'=>'user.home' ,'Profile' => null],
+            'title'                 => translate('Profile'),
+            'user'                  => $userDetails['user'],
+            'countries'             => $userDetails['countries'],
+            'graph_data'            => $userDetails['graph_data'],
+            'card_data'             => $userDetails['card_data']
+        ]);
+    }
+
+    public function profileEdit(Request $request): View
+    {
+        $user = Auth::user();
+
+        return view('user.profile_edit' ,[
+            'breadcrumbs'   => ['Home'=> 'user.home', 'Profile'=> 'user.profile', 'Profile Edit'=> null],
+            'title'         => translate('Edit Employee'),
+            'user'          => User::whereUid($user->uid)->first(),
+            'departments'   => Department::latest()->get(),
+            'designations'  => Designation::latest()->get(),
         ]);
     }
 
@@ -127,15 +159,21 @@ class HomeController extends Controller
     public function profileUpdate(Request $request): RedirectResponse
     {
 
+
         $request->validate([
             'name'               => ["required", "max:100", 'string'],
             'username'           => ['required', "string", "max:155", "alpha_dash", 'unique:users,username,' . $this->user->id],
             "country_id"         => ['nullable', "exists:countries,id"],
             'phone'              => ['unique:users,phone,' . $this->user->id],
             'email'              => ['email', 'required', 'unique:users,email,' . $this->user->id],
-            'auto_subscription'  => ['nullable', Rule::in(StatusEnum::toArray())],
+            "image"              => ['nullable', 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'), true))],
+            'address'            => ['required', 'string','max:255'],
 
-            "image"              => ['nullable', 'image', new FileExtentionCheckRule(json_decode(site_settings('mime_types'), true))]
+            'date_of_birth'      => ['required','date', 'before:today'],
+            'employee_id'        => ['required', "string" , "max:100"],
+            'date_of_joining'    => ['required','date', ],
+            'designation_id'     => ['required','exists:designations,id'],
+
         ]);
 
         $user                       =  $this->user;
@@ -144,9 +182,13 @@ class HomeController extends Controller
         $user->phone                =  $request->input('phone');
         $user->email                =  $request->input('email');
         $user->address              =  $request->input('address', []);
-        $user->password             =  $request->input('password');
         $user->country_id           =  $request->input('country_id');
-        $user->auto_subscription    =  $request->input('auto_subscription') ?? StatusEnum::false->status();
+
+        $user->employee_id          = $request->input('employee_id');
+        $user->date_of_birth        = $request->input('date_of_birth');
+        $user->date_of_joining      = $request->input('date_of_joining');
+        $user->designation_id       = $request->input('designation_id');
+        $user->date_of_birth        = $request->input('date_of_birth');
 
         $user->save();
 

@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 
 @push('style-include')
 <link rel="stylesheet" href="{{asset('assets/global/css/bootstrapicons-iconpicker.css')}}">
@@ -46,7 +46,7 @@ $countries = App\Models\Country::get();
         </ul>
 
         <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"
-            action="{{route('admin.user.update')}}">
+            action="{{route('user.profile.update')}}">
             @csrf
 
             <section id="step-1" class="form-step">
@@ -151,7 +151,7 @@ $countries = App\Models\Country::get();
                                     <label for="address">
                                         {{translate('Address')}}
                                     </label>
-                                    <textarea id="address" name="address" class="form-control" rows="4">{{@$user->address}}</textarea>
+                                    <textarea id="address" name="address" class="form-control" rows="4">{{$user->address}}</textarea>
                                 </div>
                             </div>
 
@@ -161,7 +161,7 @@ $countries = App\Models\Country::get();
                                         {{translate('Date of Birth')}}
                                         <small class="text-danger">*</small>
                                     </label>
-                                    <input type="date" name="date_of_birth" id="date_of_birth" value="{{@$user->date_of_birth}}" placeholder="{{translate('Enter Date of birth')}}" required>
+                                    <input type="date" name="date_of_birth" id="date_of_birth" value="{{$user->date_of_birth}}" placeholder="{{translate('Enter Date of birth')}}" required>
                                 </div>
                             </div>
 

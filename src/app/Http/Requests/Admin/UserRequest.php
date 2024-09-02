@@ -37,9 +37,9 @@ class UserRequest extends FormRequest
             'address'            => ['required', 'string','max:255'],
             'password'           => [$password ,Password::min(6),"confirmed"],
             'status'             => ['required', Rule::in(StatusEnum::toArray())],
-            'date_of_birth'      => ['required','date', 'before:today'],
             'email_verified'     => ['nullable', Rule::in(StatusEnum::toArray())],
 
+            'date_of_birth'      => ['required','date', 'before:today'],
             'employee_id'        => ['required', "string" , "max:100"],
             'date_of_joining'    => ['required','date', ],
             'designation_id'     => ['required','exists:designations,id'],

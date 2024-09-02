@@ -29,9 +29,9 @@ class UserController extends Controller
 
     public function __construct(protected UserService $userService)
     {
-        $this->middleware(['permissions:view_user'])->only('list','show','selectSearch');
-        $this->middleware(['permissions:create_user'])->only(['store','create']);
-        $this->middleware(['permissions:update_user'])->only(['updateStatus','update','login','subscription','balance']);
+        $this->middleware(['permissions:view_user'])->only('list', 'show', 'selectSearch');
+        $this->middleware(['permissions:create_user'])->only(['store', 'create']);
+        $this->middleware(['permissions:update_user'])->only(['updateStatus', 'update', 'login', 'subscription', 'balance']);
         $this->middleware(['permissions:delete_user'])->only(['destroy']);
     }
 
@@ -42,8 +42,9 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function list() :View{
-        return view('admin.user.list',$this->userService->getList());
+    public function list(): View
+    {
+        return view('admin.user.list', $this->userService->getList());
     }
 
 
@@ -53,15 +54,16 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function statistics() : View{
-        return view('admin.user.statistics',$this->userService->getReport());
+    public function statistics(): View
+    {
+        return view('admin.user.statistics', $this->userService->getReport());
     }
 
 
-    public function create() :View
+    public function create(): View
     {
         $title         =  translate('Create Employee');
-        $breadcrumbs   =  ['Home'=>'admin.home', 'Employees'=>'admin.user.list', 'Create Employee'=> null];
+        $breadcrumbs   =  ['Home' => 'admin.home', 'Employees' => 'admin.user.list', 'Create Employee' => null];
         return view('admin.user.create', [
 
             'breadcrumbs'   =>  $breadcrumbs,
@@ -77,7 +79,8 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return RedirectResponse
      */
-    public function store(UserRequest $request): RedirectResponse{
+    public function store(UserRequest $request): RedirectResponse
+    {
         $user = $this->userService->save($request);
 
         UserDesignation::create([
@@ -95,17 +98,27 @@ class UserController extends Controller
      * @param string $uid
      * @return View
      */
-    public function show(string $uid): View{
-        return view('admin.user.show', $this->userService->getUserDetails($uid));
+    public function show(string $uid): View
+    {
+
+        $userDetails = $this->userService->getUserDetails($uid);
+
+        return view('admin.user.show', [
+            'breadcrumbs'           => ['Home' => 'admin.home', 'Employee list' => 'admin.user.list', 'Profile' => null],
+            'title'                 => translate('Employee Profile'),
+            'user'                  => $userDetails['user'],
+            'countries'             => $userDetails['countries'],
+            'graph_data'            => $userDetails['graph_data'],
+            'card_data'            => $userDetails['card_data'],
+        ]);
     }
 
-    public function edit(string $uid) : View
+    public function edit(string $uid): View
     {
-        $title = translate('Edit Employee');
-        $breadcrumbs = ['Home'=> 'admin.home', 'Employees'=> 'admin.user.list', 'Employee Edit'=> null];
+
         return view('admin.user.edit', [
-            'breadcrumbs'   => $breadcrumbs,
-            'title'         => $title,
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Employees' => 'admin.user.list', 'Employee Edit' => null],
+            'title'         => translate('Edit Employee'),
             'user'          => User::whereUid($uid)->first(),
             'departments'   => Department::latest()->get(),
             'designations'  => Designation::latest()->get(),
@@ -119,12 +132,14 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return RedirectResponse
      */
-    public function update(UserRequest $request): RedirectResponse{
+    public function update(UserRequest $request): RedirectResponse
+    {
         $user = $this->userService->save($request);
 
-        UserDesignation::where('user_id' , $user->id)->update([
-            'designation_id' => $request->input('designation_id')
-        ]);
+        UserDesignation::updateOrCreate(
+            ['user_id' => $user->id],
+            ['designation_id' => $request->input('designation_id')]
+        );
 
         return  back()->with(response_status('User updated successfully'));
     }
@@ -137,14 +152,15 @@ class UserController extends Controller
      * @param Request $request
      * @return string
      */
-    public function updateStatus(Request $request) :string{
+    public function updateStatus(Request $request): string
+    {
 
         $request->validate([
             'id'      => 'required|exists:users,uid',
-            'status'  => ['required',Rule::in(StatusEnum::toArray())],
-            'column'  => ['required',Rule::in(['status'])]
+            'status'  => ['required', Rule::in(StatusEnum::toArray())],
+            'column'  => ['required', Rule::in(['status'])]
         ]);
-        return $this->changeStatus($request->except("_token"),[ "model"    => new User()]);
+        return $this->changeStatus($request->except("_token"), ["model"    => new User()]);
     }
 
 
@@ -154,9 +170,10 @@ class UserController extends Controller
      * @param string $uid
      * @return RedirectResponse
      */
-    public function destroy(int | string $uid) :RedirectResponse{
+    public function destroy(int | string $uid): RedirectResponse
+    {
         $response = $this->userService->delete($uid);
-        return  back()->with(Arr::get($response,'status') ? 'success' : 'error' , Arr::get($response,'message'));
+        return  back()->with(Arr::get($response, 'status') ? 'success' : 'error', Arr::get($response, 'message'));
     }
 
 
@@ -168,16 +185,16 @@ class UserController extends Controller
      * @param string $uid
      * @return RedirectResponse
      */
-    public function login(string $uid): RedirectResponse{
+    public function login(string $uid): RedirectResponse
+    {
 
-        $user                        = User::where('uid',$uid)->firstOrfail();
+        $user                        = User::where('uid', $uid)->firstOrfail();
         $user->email_verified_at     = Carbon::now();
         $user->last_login            = Carbon::now();
         $user->save();
         Auth::guard('web')->loginUsingId($user->id);
         return redirect()->route('user.home')
-                      ->with(response_status('Successfully logged In As a User'));
-
+            ->with(response_status('Successfully logged In As a User'));
     }
 
 
@@ -187,7 +204,8 @@ class UserController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function subscription(Request $request): RedirectResponse{
+    public function subscription(Request $request): RedirectResponse
+    {
 
         $request->validate([
             'id'              => 'required|exists:users,id',
@@ -195,15 +213,15 @@ class UserController extends Controller
             'remarks'         => 'required|string'
         ]);
 
-        $package =  Package::where('id',$request->input("package_id"))
-                                ->firstOrfail();
-        $user    =  User::with(['referral','runningSubscription'])
-                                ->where('id',$request->input('id'))
-                                ->first();
+        $package =  Package::where('id', $request->input("package_id"))
+            ->firstOrfail();
+        $user    =  User::with(['referral', 'runningSubscription'])
+            ->where('id', $request->input('id'))
+            ->first();
 
-        $response = $this->userService->createSubscription($user,$package ,$request->input("remarks"));
+        $response = $this->userService->createSubscription($user, $package, $request->input("remarks"));
 
-        return  back()->with(response_status(Arr::get($response,"message","Subscription Updated"),Arr::get($response,"status",true) ? "success" :"error"));
+        return  back()->with(response_status(Arr::get($response, "message", "Subscription Updated"), Arr::get($response, "status", true) ? "success" : "error"));
     }
 
 
@@ -213,15 +231,14 @@ class UserController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function bulk(Request $request) :RedirectResponse {
+    public function bulk(Request $request): RedirectResponse
+    {
 
         try {
-            $response =  $this->bulkAction($request,[ "model"=> new User()]);
+            $response =  $this->bulkAction($request, ["model" => new User()]);
         } catch (\Exception $exception) {
-            $response  = \response_status($exception->getMessage(),'error');
+            $response  = \response_status($exception->getMessage(), 'error');
         }
         return  back()->with($response);
     }
-
-
 }

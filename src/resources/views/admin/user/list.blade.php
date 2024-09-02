@@ -122,7 +122,7 @@
                                 </td>
 
                                 <td  data-label="{{translate('Employee ID')}}">
-                                    {{$user->employee_id}}
+                                    {{$user->employee_id ?? translate("N/A")}}
                                 </td>
                                 <td data-label='{{translate("Contact")}}'>
                                     <div class="d-block">
@@ -132,11 +132,11 @@
                                 </td>
                                 <td data-label="{{translate('Department')}}">
 
-                                    <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name}}</span>
+                                    <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name?? translate("N/A")}}</span>
                                 </td>
                                 <td data-label="{{translate('Designation')}}">
-                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ translate('Salary : ').num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency) }}">
-                                        {{@$user->userDesignation->designation->name}}
+                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="">
+                                        {{@$user->userDesignation->designation->name?? translate("N/A")}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Status')}}">

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class AuthorizationController extends Controller
 {
-    
+
 
 
     public $authService;
@@ -40,7 +40,7 @@ class AuthorizationController extends Controller
             'meta_data'=> $this->metaData(["title" => trans("default.otp_verification")]),
             "route"    => "auth.otp.verify",
         ]);
-    
+
     }
 
 
@@ -51,17 +51,17 @@ class AuthorizationController extends Controller
      * @return RedirectResponse
      */
     public function otpVerify(Request $request) :RedirectResponse {
-   
+
         $request->validate([
             "otp_code" => ['required', 'numeric'],
         ]);
-        
+
         $flag = StatusEnum::false->status();
         $responseMessage = response_status('The provided OTP does not exist. Please consider requesting a new OTP', 'error');
-        
+
         try {
             $identification = session()->get("user_identification");
-       
+
             if ($this->isValidIdentification($identification) && $this->processVerification($request, $identification)) {
                 $flag = StatusEnum::true->status();
                 $responseMessage = ('Verification process successfully completed. Your account is now verified and ready for use. Thank you for confirming your details with us.');
@@ -69,11 +69,11 @@ class AuthorizationController extends Controller
         } catch (\Exception $ex) {
             $responseMessage = response_status(strip_tags($ex->getMessage()), 'error');
         }
-        
+
         return ($flag || \auth_user('web')) == StatusEnum::true->status()
                         ? redirect()->route('user.home')->with($responseMessage)
                         : redirect()->back()->with($responseMessage);
-        
+
     }
 
 
@@ -147,7 +147,7 @@ class AuthorizationController extends Controller
         $otp->delete();
 
         return true;
-    
+
     }
 
 
@@ -161,13 +161,13 @@ class AuthorizationController extends Controller
 
 
         $responseMessage =  response_status('Resending OTP failed. We encountered an issue. Please try again later or contact support for assistance.','error');
-      
+
         try {
 
             $identification = session()->get("user_identification");
 
-            if($identification 
-                && is_array($identification) 
+            if($identification
+                && is_array($identification)
                 && isset($identification['field'], $identification['value'])
                 && session()->get("otp_expire_at",Carbon::now()) <= Carbon::now()
             ){
@@ -178,9 +178,9 @@ class AuthorizationController extends Controller
                 $this->authService->otpConfiguration($user,$type);
 
                 $responseMessage =  response_status('The One-Time Passcode (OTP) has been successfully reissued');
-    
+
             }
-    
+
         } catch (\Exception $ex) {
             $responseMessage =  response_status(strip_tags($ex->getMessage()),'error');
 
@@ -188,8 +188,8 @@ class AuthorizationController extends Controller
 
 
         return back()->with( $responseMessage);
-       
-    
+
+
     }
 
 

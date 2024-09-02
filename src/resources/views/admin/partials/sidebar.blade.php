@@ -125,7 +125,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#attendanceManagement" role="button"
                     aria-expanded="false" aria-controls="attendanceManagement">
-                    <span><i class="las la-address-book"></i></i></span>
+                    <span><i class="las la-calendar"></i></span>
                     <p>
                         {{translate('Attendance')}}
                     </p>

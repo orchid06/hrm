@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.masterold')
 @section('content')
 
 @php
@@ -19,7 +19,7 @@
 
     $captcha              = (site_settings('captcha_with_registration'));
     $defaultcaptcha       = (site_settings('default_recaptcha'));
- 
+
     $geoCountry           = Arr::get(get_ip_info() , "country",'');
 
 
@@ -42,11 +42,7 @@
             <div class="col-xl-7 col-lg-7">
                 <div class="auth-right">
                 <div class="auth-content">
-                    <a href="{{route('home')}}" class="site-log text-center mb-4 d-inline-block">
-
-                        <img src="{{imageURL(@site_logo('user_site_logo')->file,'user_site_logo',true)}}" alt="{{@site_logo('user_site_logo')->file->name}}">
-
-                    </a>
+                    
 
                     <h2>
                     {{trans("default.register_page_title")}}

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.masterold')
 
 @section('content')
 
@@ -37,7 +37,7 @@
           <div class="col-xl-7 col-lg-7">
             <div class="auth-right">
               <div class="auth-content">
-                    
+
                     <h2>
                        {{trans("default.login_page_title")}}
                     </h2>

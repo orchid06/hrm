@@ -39,23 +39,19 @@ class RegisterController extends Controller
 
     }
 
-    
+
 
     /**
-     * user registration 
+     * user registration
      *
      * @param UserRegisterRequest $request
      * @return RedirectResponse
      */
     public function store(UserRegisterRequest $request) :RedirectResponse{
 
-    
+
         $response = response_status(translate("Something went wrong!! please try again"),'error');
         try {
-            
-            if($request->get('referral_code',null)){
-                $refferedBy = User::active()->where('referral_code',$request->input('referral_code',null))->first();
-            }
 
             $user                       =  new User();
             $user->name                 =  $request->input('name');
@@ -65,23 +61,15 @@ class RegisterController extends Controller
             $user->address              =  $request->input('address',[]);
             $user->password             =  $request->input('password');
             $user->country_id           =  $request->input('country_id');
-            $user->referral_id          =  @$refferedBy?->id;
             $user->save();
-
-            $package = Package::active()
-                                ->where('id',site_settings('signup_bonus',-1))
-                                ->first();
-            
-            if($package)    $this->userService->createSubscription( $user ,  $package , "Sign up bonus");
 
             Auth::guard('web')->loginUsingId($user->id);
             return redirect()->route('user.home');
 
         } catch (\Exception $ex) {
             $response = response_status(strip_tags($ex->getMessage(),'error'));
-
         }
-      
+
         return back()->with( $response);
 
     }
@@ -100,8 +88,8 @@ class RegisterController extends Controller
     }
 
 
-  
- 
+
+
 
 }
 

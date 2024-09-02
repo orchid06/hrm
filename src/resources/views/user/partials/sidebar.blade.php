@@ -28,7 +28,7 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#attendanceManagement" role="button"
                     aria-expanded="false" aria-controls="attendanceManagement">
-                    <span><i class="las la-address-book"></i></span>
+                    <span><i class="las la-calendar"></i></span>
                     <p>
                         {{translate('Attendance')}}
                     </p>
@@ -151,8 +151,8 @@
                 {{translate('Employee Info')}}
             </li>
             <li class="sidebar-menu-item">
-                <a class='sidebar-menu-link {{sidebar_awake("admin.setting.server.info")}}'
-                    href='{{route("admin.setting.server.info")}}'>
+                <a class='sidebar-menu-link {{sidebar_awake("user.profile")}}'
+                    href='{{route("user.profile")}}'>
                     <span><i class="las la-user-circle"></i></span>
                     <p>
                         {{translate('Profile')}}

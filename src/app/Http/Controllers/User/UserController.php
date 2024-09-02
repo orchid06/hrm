@@ -25,16 +25,16 @@ use App\Traits\Notifyable;
 use App\Traits\Fileable;
 class UserController extends Controller
 {
-    
+
     protected $userService ,$user;
 
     use Notifyable ,Fileable;
     public function __construct(){
-        
+
         $this->userService      = new UserService();
 
         $this->middleware(function ($request, $next) {
-            $this->user = auth_user('web')->load(['pendingWithdraws']);
+            $this->user = auth_user('web');
             return $next($request);
         });
     }
@@ -52,7 +52,7 @@ class UserController extends Controller
 
             'meta_data' => $this->metaData(["title"    =>  trans('default.plan')]),
             "plans"     => Package::active()->get()
-  
+
         ]);
     }
 
@@ -67,28 +67,28 @@ class UserController extends Controller
 
         $package   = Package::where("slug",$slug)->firstOrfail();
         $response  = $this->userService->createSubscription($this->user,$package);
-        $status    = isset($response['status']) 
-                         ? 'success' 
+        $status    = isset($response['status'])
+                         ? 'success'
                          : 'error';
-        
+
         return back()->with(response_status(Arr::get($response,"message",trans("default.something_went_wrong")),$status));
     }
 
 
 
     /**
-     * Withdraw request view 
+     * Withdraw request view
      *
      * @param Request $request
      * @return View
      */
     public function withdrawCreate(Request $request) :View{
-        
+
         return view('user.withdraw.create',[
 
             'meta_data'  => $this->metaData(['title'=> translate("Withdraw Request")]),
             'methods'    => Withdraw::active()->get(),
-  
+
         ]);
 
     }
@@ -112,7 +112,7 @@ class UserController extends Controller
         if($error !== null)            return back()->with("error",$error);
 
         $balance = ((int)$this->user->balance);
-        
+
         $rules = [
             "amount" => ['numeric','gt:0',"max:".$balance],
         ];
@@ -153,7 +153,7 @@ class UserController extends Controller
     public function withdrawProcess(Request $request) :View | RedirectResponse{
 
         $balance = (int)$this->user->balance;
-        
+
         $request->validate([
             "id"     => ['required','exists:withdraws,id'],
             "amount" => ['numeric','gt:0',"max:".$balance],
@@ -165,14 +165,14 @@ class UserController extends Controller
 
         $method                    = Withdraw::with(['file'])->findOrfail($request->input("id"));
         $amount                    = (int) $request->input('amount');
-       
+
         $charge                    = round_amount((float)$method->fixed_charge + ($amount  * (float)$method->percent_charge / 100));
         $amountWithCharge          = convert_to_base($amount + $charge);
-        
+
         if($balance <  $amountWithCharge){
             return back()->with(response_status("Insufficient funds in user account. Withdrawal request cannot be processed due to insufficient balance. ",'error'));
         }
-       
+
         $error            = $this->validateWithdrawRequest($method, $amount);
 
         if($error !== null){
@@ -184,7 +184,7 @@ class UserController extends Controller
         session()->put("withdraw_amount",$amount);
         session()->put("gw_id",$method->id);
         session()->put("trx_code",$trx);
-        
+
 
         return redirect()->route("user.withdraw.preview",$trx);
 
@@ -209,8 +209,8 @@ class UserController extends Controller
         ]);
 
     }
-    
-    
+
+
 
 
     /**
@@ -279,7 +279,7 @@ class UserController extends Controller
                         if(isset($request["kyc_data"] ['files'])){
                             foreach($request["kyc_data"] ['files'] as $key => $file){
                                 $response = $this->storeFile(
-                                    file        : $file, 
+                                    file        : $file,
                                     location    : config("settings")['file_path']['kyc']['path'],
                                 );
                                 if(isset($response['status'])){
@@ -309,24 +309,24 @@ class UserController extends Controller
                                 'action' => [SendNotification::class, 'database_notifications'],
                                 'params' => [
                                     [ $admin, 'KYC_APPLIED', $code, $route ],
-                        
+
                                 ],
                             ],
 
-                       
+
 
                             'email_notifications' => [
                                 'action' => [SendMailJob::class, 'dispatch'],
                                 'params' => [
                                     [$admin,'KYC_APPLIED',$code],
-                                
+
                                 ],
                             ],
                             'sms_notifications' => [
                                 'action' => [SendMailJob::class, 'dispatch'],
                                 'params' => [[$admin,'KYC_APPLIED',$code]],
                             ],
-                        
+
                         ];
 
                         $this->notify($notifications);
@@ -334,13 +334,13 @@ class UserController extends Controller
                         return $kycLog ;
                     });
 
-   
+
         return redirect()->route("user.kyc.report.list")->with(response_status('KYC application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
-     
+
     }
 
 
 
 
- 
+
 }

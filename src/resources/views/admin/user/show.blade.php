@@ -55,7 +55,7 @@
                                 [
                                     "title"  => translate("Salary"),
                                     "class"  => 'col',
-                                    "total"  => num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
+                                    "total"  => @num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
                                     "url"    => route('admin.subscription.report.list',['user' => $user->username])
@@ -63,40 +63,40 @@
                                 [
                                     "title"  => translate("Total Work Hour"),
                                     "class"  => 'col',
-                                    "total"  => $user->tickets->count(),
-                                    "icon"   => '<i class="las la-sms"></i>',
+                                    "total"  => @$card_data['total_work_hours'] ?? translate("N/A"),
+                                    "icon"   => '<i class="las la-clock"></i>',
                                     "bg"     => 'info',
                                     "url"    => route('admin.ticket.list',['user' => $user->username])
                                 ],
                                 [
-                                    "title"  => translate("Transaction logs"),
+                                    "title"  => translate("Total Salary Received"),
                                     "class"  => 'col',
                                     "total"  => $user->transactions->count(),
-                                    "icon"   => '<i class="las la-bars"></i>',
+                                    "icon"   => '<i class="las la-wallet"></i>',
                                     "bg"     => 'danger',
                                     "url"    => route('admin.transaction.report.list',['user' => $user->username])
                                 ],
                                 [
                                     "title"  => translate("Total Attendence"),
                                     "class"  => 'col',
-                                    "total"  => $user->paymentLogs->count(),
-                                    "icon"   => '<i class="las la-subscript"></i>',
+                                    "total"  => @$card_data['total_attendance'] ?? translate("N/A"),
+                                    "icon"   => '<i class="las la-calendar"></i>',
                                     "bg"     => 'success',
                                     "url"    => route('admin.deposit.report.list',['user' => $user->username])
                                 ],
                                 [
-                                    "title"  => translate("Total Absent"),
+                                    "title"  => translate("Total Late"),
                                     "class"  => 'col',
-                                    "total"  => $user->withdraws->count(),
-                                    "icon"   => '<i class="las la-hryvnia"></i>',
+                                    "total"  => @$card_data['total_late'] ?? translate("N/A"),
+                                    "icon"   => '<i class="las la-running"></i>',
                                     "bg"     => 'warning',
                                     "url"    => route('admin.withdraw.report.list',['user' => $user->username])
                                 ],
                                 [
                                     "title"  => translate("Total Leave"),
                                     "class"  => 'col',
-                                    "total"  => $user->creditLogs->count(),
-                                    "icon"   => '<i class="las la-bars"></i>',
+                                    "total"  => @$card_data['total_leave'] ?? translate("N/A"),
+                                    "icon"   => '<i class="las la-calendar-times"></i>',
                                     "bg"     => 'danger',
                                     "url"    => route('admin.credit.report.list',['user' => $user->username])
                                 ],
@@ -163,25 +163,17 @@
           colors: ['var(--color-info)','var(--color-primary)','var(--color-success)' ,"var(--color-danger)"],
           series: [
             {
-              name: "{{ translate('Total Post') }}",
-              data: @json(array_column($graph_data , 'total')),
+              name: "{{ translate('Attendance') }}",
+              data: @json(array_column($graph_data , 'attendance')),
             },
             {
-              name: "{{ translate('Success Post') }}",
-              data: @json(array_column($graph_data , 'success')),
+              name: "{{ translate('Late to work') }}",
+              data: @json(array_column($graph_data , 'late')),
             },
             {
-              name: "{{ translate('Pending Post') }}",
-              data: @json(array_column($graph_data , 'pending')),
+              name: "{{ translate('Work Hour') }}",
+              data: @json(array_column($graph_data , 'work_hour')),
             },
-            {
-              name: "{{ translate('Schedule Post') }}",
-              data: @json(array_column($graph_data , 'schedule')),
-            },
-            {
-              name: "{{ translate('Failed Post') }}",
-              data: @json(array_column($graph_data , 'failed')),
-            }
 
           ],
           xaxis: {
