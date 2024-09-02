@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
@@ -12,6 +13,7 @@ use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class SalaryController extends Controller
@@ -64,12 +66,15 @@ class SalaryController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
+
         $request->validate([
-            'uid'       => 'required|exists:users,uid',
-            'labels.*'  => 'required',
-            'type.*'    => 'required',
-            'amount.*'  => 'required|numeric|gt:0',
+            'uid'               => 'required|exists:users,uid',
+            'labels.*'          => 'required',
+            'type.*'            => 'required',
+            'amount.*'          => 'required|numeric|gt:0',
+            'is_percentage.*'   => ['required',Rule::in(StatusEnum::toArray())],
         ]);
+
 
         $total_allowance    = 0;
         $total_deduction    = 0;

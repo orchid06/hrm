@@ -154,8 +154,15 @@
 							<td data-label="{{translate("Amount")}}">
                                 <div class="form-inner mb-0">
                                     <div class="input-group">
+
                                         <input placeholder="{{translate('Enter Amount')}}"  type="number" min="0" name="custom_inputs[${count}][amount]" class="form-control" required>
-                                        <span class="input-group-text"> {{(base_currency()->code)}} </span>
+                                        <span class="input-group-text">
+                                            <select name="custom_inputs[${count}][is_percentage]" class="input-group-text">
+                                                <option value={{App\Enums\StatusEnum::false->status()}}>USD</option>
+                                                <option value={{App\Enums\StatusEnum::true->status()}}>%</option>
+                                            </select>
+                                        </span>
+
                                         <input  type="hidden" name="custom_inputs[${count}][default]"  value="0">
                                     </div>
                                 </div>
