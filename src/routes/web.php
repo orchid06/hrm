@@ -14,6 +14,7 @@ use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Auth\SocialAuthController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\user\PayslipController;
 use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\SocialAccountController;
 use App\Http\Controllers\User\TicketController;
@@ -43,7 +44,7 @@ try {
 Route::middleware($globalMiddleware)->group(function () {
 
     #Frontend Controller
-    Route::controller(FrontendController::class)->group(function(){
+    Route::controller(FrontendController::class)->group(function () {
         Route::get('page/{slug}', 'page')->name('page');
     });
 
@@ -92,8 +93,6 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::get('login/{medium}', 'redirectToOauth')->name('login');
             Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
         });
-
-
     });
 
     #user route
@@ -156,67 +155,29 @@ Route::middleware($globalMiddleware)->group(function () {
         });
 
 
-        #report route
-        Route::controller(ReportController::class)->group(function () {
-
-            Route::prefix("/template/reports")->name('template.report.')->group(function () {
-                Route::get('/', 'templateReport')->name('list');
-            });
-            Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function () {
-                Route::get('/', 'withdrawReport')->name('list');
-                Route::get('/details/{id}', 'withdrawDetails')->name('details');
-            });
-            Route::prefix("/deposit/reports")->name('deposit.report.')->group(function () {
-                Route::get('/', 'depositReport')->name('list');
-                Route::get('/details/{id}', 'depositDetails')->name('details');
-            });
-            Route::prefix("/subscription/reports")->name('subscription.report.')->group(function () {
-                Route::get('/', 'subscriptionReport')->name('list');
-            });
-
-
-            Route::prefix("/affiliate")->name('affiliate.')->group(function () {
-                Route::get('/user/reports', 'affiliateUsers')->name('user.list');
-                Route::get('/reports', 'affiliateReport')->name('report.list');
-            });
-            Route::prefix("/kyc/reports")->name('kyc.report.')->withoutMiddleware(['kyc'])->group(function () {
-                Route::get('/', 'kycReport')->name('list');
-                Route::get('/details/{id}', 'kycDetails')->name('details');
-            });
-            Route::prefix("/credit/reports")->name('credit.report.')->group(function () {
-                Route::get('/', 'creditReport')->name('list');
-            });
-            Route::prefix("/transaction/reports")->name('transaction.report.')->group(function () {
-                Route::get('/', 'transactionReport')->name('list');
-            });
-
-            Route::prefix("/webhook/reports")->name('webhook.report.')->group(function () {
-                Route::get('/', 'webhookReport')->name('list');
-            });
-        });
-
-
         #attendance route
         Route::controller(AttendanceController::class)->name('attendance.')->group(function () {
 
             Route::get('/clock_in', 'clockIn')->name('clock_in');
             Route::get('/clocl_out', 'clockOut')->name('clock_out');
+            Route::get('attendance/sheet', 'index')->name('index');
+        });
+
+        #Leave route
+        Route::controller(AttendanceController::class)->prefix('leave/')->name('leave.')->group(function () {
+
+            Route::get('index', 'index')->name('index');
+            Route::get('request', 'request')->name('request');
 
         });
 
+        #Leave route
+        Route::controller(PayslipController::class)->prefix('payslip/')->name('payslip.')->group(function () {
 
+            Route::get('index', 'index')->name('index');
+            Route::get('request', 'request')->name('request');
 
-    });
-
-
-    #Coummunication route
-    Route::controller(CommunicationsController::class)->group(function () {
-
-        Route::any('/subscribe', 'subscribe')->name('subscribe');
-        Route::get('/contact', 'contact')->name('contact');
-        Route::post('/contact/store', 'store')->name('contact.store');
-        Route::get('/feedback', 'feedback')->name('feedback');
-        Route::post('/feedback/store', 'feedbackStore')->name('feedback.store');
+        });
     });
 
     #CORE CONTROLER

@@ -91,10 +91,25 @@
                                         <td  data-label='{{translate("Amount")}}'>
 
                                             <div class="form-inner mb-0">
-                                                <div class="input-group">
-                                                    <input placeholder="{{translate('Enter Amount')}}" required type="number" min="0" name="custom_inputs[{{$loop->index}}][amount]" value="{{$input['amount']}}" class="form-control">
-                                                    <span class="input-group-text"> {{(base_currency()->code)}} </span>
-                                                </div>
+                                                @if($input['default'] == App\Enums\StatusEnum::true->status())
+                                                    <div class="input-group">
+                                                        <input placeholder="{{translate('Enter Amount')}}" required type="number" min="0" name="custom_inputs[{{$loop->index}}][amount]" value="{{$input['amount']}}" class="form-control">
+                                                        <span class="input-group-text"> {{(base_currency()->code)}} </span>
+                                                    </div>
+                                                @else
+                                                    <div class="input-group">
+
+                                                        <input placeholder="{{translate('Enter Amount')}}"  type="number" step="0.01" min="0" name="custom_inputs[{{$loop->index}}][amount]" value="{{$input['amount']}}" class="form-control" required>
+                                                        <span class="input-group-text">
+                                                            <select name="custom_inputs[{{$loop->index}}][is_percentage]" class="input-group-text" >
+                                                                <option {{$input['is_percentage'] == App\Enums\StatusEnum::false->status() ? 'selected' : ''}}  value={{App\Enums\StatusEnum::false->status()}}>{{(base_currency()->code)}}</option>
+                                                                <option {{$input['is_percentage'] == App\Enums\StatusEnum::true->status() ? 'selected' : ''}}  value={{App\Enums\StatusEnum::true->status()}}>%</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                @endif
+
+
                                                 <input   type="hidden" name="custom_inputs[{{$loop->index}}][default]"  value="{{$input['default']}}">
                                             </div>
 
@@ -158,7 +173,7 @@
                                         <input placeholder="{{translate('Enter Amount')}}"  type="number" min="0" name="custom_inputs[${count}][amount]" class="form-control" required>
                                         <span class="input-group-text">
                                             <select name="custom_inputs[${count}][is_percentage]" class="input-group-text">
-                                                <option value={{App\Enums\StatusEnum::false->status()}}>USD</option>
+                                                <option value={{App\Enums\StatusEnum::false->status()}}>{{(base_currency()->code)}}</option>
                                                 <option value={{App\Enums\StatusEnum::true->status()}}>%</option>
                                             </select>
                                         </span>

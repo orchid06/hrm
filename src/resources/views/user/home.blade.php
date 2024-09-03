@@ -117,7 +117,7 @@ $currency = session()->get('currency');
                         <div class="card-info">
                             <h3>{{(Arr::get($data,"total_late",0))}} </h3>
                             <h5 class="title">{{translate('Total late')}}</h5>
-                            <a href="{{route('admin.category.list')}}"
+                            <a href=""
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">

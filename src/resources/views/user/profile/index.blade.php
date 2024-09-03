@@ -31,7 +31,7 @@
 
                         <li><span>{{ translate('Name') }} :</span> {{ @$user->name }}</li>
                         <li><span>{{ translate('Employee ID') }} :</span> {{ @$user->employee_id }}</li>
-                        <li><span>{{ translate('Username') }} :</span> {{ @$user->user_name ?? 'N/A' }}</li>
+                        <li><span>{{ translate('Username') }} :</span> {{ @$user->username ?? 'N/A' }}</li>
                         <li><span>{{ translate('Phone') }} :</span> {{ @$user->phone }}</li>
                         <li><span>{{ translate('Email') }} :</span> {{ @$user->email }}</li>
                         <li><span>{{ translate('Country') }} :</span> {{ @$user->country->name  }}</li>
@@ -58,7 +58,7 @@
                                     "total"  => @num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
-                                    "url"    => route('admin.subscription.report.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                                 [
                                     "title"  => translate("Total Work Hour"),
@@ -66,7 +66,7 @@
                                     "total"  => @$card_data['total_work_hours'] ?? translate("N/A"),
                                     "icon"   => '<i class="las la-clock"></i>',
                                     "bg"     => 'info',
-                                    "url"    => route('admin.ticket.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                                 [
                                     "title"  => translate("Total Salary Received"),
@@ -74,7 +74,7 @@
                                     "total"  => $user->transactions->count(),
                                     "icon"   => '<i class="las la-wallet"></i>',
                                     "bg"     => 'danger',
-                                    "url"    => route('admin.transaction.report.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                                 [
                                     "title"  => translate("Total Attendence"),
@@ -82,7 +82,7 @@
                                     "total"  => @$card_data['total_attendance'] ?? translate("N/A"),
                                     "icon"   => '<i class="las la-calendar"></i>',
                                     "bg"     => 'success',
-                                    "url"    => route('admin.deposit.report.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                                 [
                                     "title"  => translate("Total Late"),
@@ -90,7 +90,7 @@
                                     "total"  => @$card_data['total_late'] ?? translate("N/A"),
                                     "icon"   => '<i class="las la-running"></i>',
                                     "bg"     => 'warning',
-                                    "url"    => route('admin.withdraw.report.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                                 [
                                     "title"  => translate("Total Leave"),
@@ -98,7 +98,7 @@
                                     "total"  => @$card_data['total_leave'] ?? translate("N/A"),
                                     "icon"   => '<i class="las la-calendar-times"></i>',
                                     "bg"     => 'danger',
-                                    "url"    => route('admin.credit.report.list',['user' => $user->username])
+                                    "url"    => ''
                                 ],
                             ];
                 @endphp

@@ -32,7 +32,7 @@
                                 </div>
                             @endif
                             @if(check_permission('create_payroll'))
-                                
+
                             @endif
                         </div>
                     @endif
@@ -109,18 +109,18 @@
                                 </td>
                                 <td data-label="{{translate('Name')}}">
                                     <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"  src='{{imageURL($payroll->user->file,"profile,user",true) }}' alt="{{@$payroll->user->file->name}}">
+                                        <img class="rounded-circle avatar-sm"  src='{{imageURL(@$payroll->user->file,"profile,user",true) }}' alt="{{@$payroll->user->file->name}}">
                                         <p>	{{ $payroll->user->name ?? translate("N/A")}}</p>
 
                                     </div>
                                 </td>
 
                                 <td  data-label="{{translate('Employee ID')}}">
-                                    {{$payroll->user->employee_id}}
+                                    {{@$payroll->user->employee_id}}
                                 </td>
                                 <td data-label='{{translate("Payslip type")}}'>
                                     <div class="d-block">
-                                        <span class="i-badge info">{{ ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) }}</span>
+                                        <span class="i-badge info">{{ @ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) }}</span>
                                     </div>
                                 </td>
                                 <td data-label="{{translate('Basic salary')}}">

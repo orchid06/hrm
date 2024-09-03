@@ -11,7 +11,7 @@
             @if(check_permission('view_dashboard'))
             <li class="sidebar-menu-title"> {{trans('default.home')}}</li>
             <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link {{sidebar_awake('admin.home')}}" data-anim="ripple"
+                <a class="sidebar-menu-link {{sidebar_awake('user.home')}}" data-anim="ripple"
                     href='{{route("user.home")}}' aria-expanded="false">
                     <span><i class="las la-chalkboard"></i></span>
                     <p> {{translate("Dashboard")}}</p>
@@ -36,14 +36,14 @@
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*'],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['user.attendance.*' ,'user.leave.*' ],'drop_down')}} "
                     id="attendanceManagement">
                     <ul class="sub-menu">
 
                         @if(check_permission('view_office_hour'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.office.hour.view' ,'admin.office.hour.store' ])}}"
-                                href="{{route('admin.office.hour.view')}}">
+                            <a class="sidebar-menu-link {{sidebar_awake(['user.leave.index' ,'user.leave.request' ])}}"
+                                href="{{route('user.leave.index')}}">
                                 <span></span>
                                 <p>
                                     {{translate('Take Leave')}}
@@ -54,8 +54,8 @@
 
                         @if(check_permission('view_attendance'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.list' ,'admin.attendance.edit' ])}}"
-                                href="{{route('admin.attendance.list')}}">
+                            <a class="sidebar-menu-link {{sidebar_awake(['user.attendance.index' ])}}"
+                                href="{{route('user.attendance.index')}}">
                                 <span></span>
                                 <p>
                                     {{translate('Attendance sheet')}}
@@ -70,8 +70,8 @@
             @if(check_permission('view_settings'))
 
             <li class="sidebar-menu-item">
-                <a class='sidebar-menu-link {{sidebar_awake("admin.setting.server.info")}}'
-                    href='{{route("admin.setting.server.info")}}'>
+                <a class='sidebar-menu-link {{sidebar_awake("user.payslip.*")}}'
+                    href='{{route("user.payslip.index")}}'>
                     <span><i class="las la-money-check-alt"></i></span>
                     <p>
                         {{translate('Payslips')}}
@@ -79,72 +79,6 @@
                 </a>
             </li>
             @endif
-
-
-
-            @if(check_permission('view_Security'))
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link" data-bs-toggle="collapse" href="#securitySetting" role="button"
-                    aria-expanded="false" aria-controls="securitySetting">
-                    <span><i class="las la-shield-alt"></i></span>
-                    <p>
-                        {{translate('Security Settings')}}
-
-                    </p>
-                    <small>
-                        <i class="las la-angle-down"></i>
-                    </small>
-                </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.security.*'],'drop_down')}} "
-                    id="securitySetting">
-                    <ul class="sub-menu">
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.security.country.list")}}'
-                                href='{{route("admin.security.country.list")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Countires')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.security.ip.list")}}'
-                                href='{{route("admin.security.ip.list")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('IP List')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.security.dos")}}'
-                                href='{{route("admin.security.dos")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Dos Security')}}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            @endif
-
-            {{-- disabled for later user --}}
-            @if(check_permission('view_currency'))
-            <li class="sidebar-menu-item">
-                <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' data-anim="ripple"
-                    href="{{route('admin.currency.list')}}" aria-expanded="false">
-                    <span><i class="las la-euro-sign"></i></span>
-                    <p>{{translate('Currencies')}}</p>
-                </a>
-            </li>
-            @endif
-
-
-
-
-
 
             @if(check_permission('view_settings'))
             <li class="sidebar-menu-title">
@@ -159,11 +93,6 @@
                     </p>
                 </a>
             </li>
-
-
-
-
-
             @endif
 
         </ul>

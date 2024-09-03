@@ -45,17 +45,7 @@
                     <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                <div class="form-inner">
-                                    <select name="country" id="filter_country" class="filter-country">
-                                        <option value="">
-                                            {{translate('Select Country')}}
-                                        </option>
-                                        @foreach($countries as $country)
-                                           <option  {{$country->name ==   request()->input('country') ? 'selected' :""}} value="{{$country->name}}"> {{$country->name}}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                
                                 <div class="form-inner  ">
                                       <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
                                 </div>

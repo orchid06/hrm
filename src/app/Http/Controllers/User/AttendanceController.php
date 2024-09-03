@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\AttendanceService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -20,7 +21,7 @@ class AttendanceController extends Controller
         });
     }
 
-    public function clockIn()
+    public function clockIn():RedirectResponse
     {
         try {
             $this->attendanceService->clockIn();
@@ -30,7 +31,7 @@ class AttendanceController extends Controller
         }
     }
 
-    public function clockOut()
+    public function clockOut(): RedirectResponse
     {
         try {
             $this->attendanceService->clockOut();
@@ -38,6 +39,14 @@ class AttendanceController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', translate($e->getMessage()));
         }
+    }
+
+    public function index()
+    {
+        return view('user.attendance_sheet' , [
+            'breadcrumbs'           => ['Home' => 'user.home', 'Attendance' => null],
+            'title'                 => translate('Attendance Sheet'),
+        ]);
     }
 
 }

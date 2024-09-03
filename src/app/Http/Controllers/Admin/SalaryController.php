@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Enums\SalaryTypeEnum;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Department;
@@ -78,28 +79,49 @@ class SalaryController extends Controller
 
         $total_allowance    = 0;
         $total_deduction    = 0;
+        $baseSalary = 0;
+
         $custom_inputs      = $request->input('custom_inputs');
 
         $salaryDetails = [];
 
         foreach ($custom_inputs as $input) {
             if (is_array($input) && isset($input['labels'])) {
+                if (($input['default']) === StatusEnum::true->status()) {
+                    $baseSalary = $input['amount'];
+                    break;
+                }
+            }
+        }
+
+
+
+        foreach ($custom_inputs as $input) {
+            if (is_array($input) && isset($input['labels'])) {
                 $key = t2k($input['labels']);
+
+                $is_percentage = $input['is_percentage'] ?? StatusEnum::false->status();
+
                 $salaryDetails[$key] = [
-                    'labels'  => $input['labels'],
-                    'type'    => $input['type'],
-                    'amount'  => $input['amount'],
-                    'default' => $input['default'],
+                    'labels'        => $input['labels'],
+                    'type'          => $input['type'],
+                    'amount'        => $input['amount'],
+                    'default'       => $input['default'],
+                    'is_percentage' => $is_percentage
                 ];
 
-                $input['type'] == "1"
-                    ? $total_allowance += (float)$input['amount']
-                    : $total_deduction += (float)$input['amount'];
+                $is_percentage == StatusEnum::true->status()
+                ? $amount = $baseSalary*($input['amount']/100)
+                : $amount = $input['amount'];
+
+                $input['type'] == SalaryTypeEnum::allowance->status()
+                ? $total_allowance += $amount
+                : $total_deduction += $amount;
+
             } else {
                 $salaryDetails[$input] = $input;
             }
         }
-
         $net_salary = $total_allowance - $total_deduction;
 
         $user       = User::whereUid($request->input('uid'))->first();

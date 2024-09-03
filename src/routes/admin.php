@@ -96,19 +96,6 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/read-notification', 'readNotification')->name('read.notification');
         });
 
-        #withdraw section
-        Route::controller(WithdrawController::class)->prefix("/withdraw-method")->name('withdraw.')->group(function () {
-
-            Route::get('/list', 'list')->name('list');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
-            Route::post('configuration', 'configuration')->name('configuration');
-        });
 
         #currency section refactored
         Route::controller(CurrencyController::class)->prefix("/currency")->name('currency.')->group(function () {
@@ -265,19 +252,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/affiliate/configurations', 'affiliate')->name('affiliate');
         });
 
-        #Category section refactored
-        Route::controller(CategoryController::class)->prefix("/category")->name('category.')->group(function () {
 
-            Route::get('/list', 'list')->name('list');
-            Route::get('/sub-categories', 'list')->name('subcategories');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update', 'update')->name('update');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
-        });
 
         #Department section
         Route::controller(DepartmentController::class)->prefix('/department')->name('department.')->group(function () {
@@ -440,70 +415,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
 
 
-        #log section refcatored
-        Route::controller(ActivityHistoryController::class)->group(function () {
-
-            #word usage history and report
-            Route::prefix("/template-usages/reports")->name('template.report.')->group(function () {
-                Route::get('/', 'templateReport')->name('list');
-                Route::get('/destroy/{id}', 'templateReportdestroy')->name('destroy');
-            });
-
-            #credit reports
-            Route::prefix("/credit/reports")->name('credit.report.')->group(function () {
-                Route::get('/', 'creditReport')->name('list');
-                Route::get('/destroy/{id}', 'creditReportdestroy')->name('destroy');
-                Route::post('/bulk/action', 'creditReportBulk')->name('bulk');
-            });
-
-            #transaction report
-            Route::prefix("/transaction/reports")->name('transaction.report.')->group(function () {
-
-                Route::get('/', 'transactionReport')->name('list');
-                Route::post('/bulk/action', 'transactionBulk')->name('bulk');
-                Route::get('/destroy/{id}', 'destroyTransaction')->name('destroy');
-            });
-
-            #subscriptioon report
-            Route::prefix("/subscription/reports")->name('subscription.report.')->group(function () {
-                Route::get('/', 'subscriptionReport')->name('list');
-                Route::post('/update', 'updateSubscription')->name('update');
-            });
-
-            #deposit report
-            Route::prefix("/deposit/reports")->name('deposit.report.')->group(function () {
-
-                Route::get('/', 'depositReport')->name('list');
-                Route::get('/details/{id}', 'depositDetails')->name('details');
-                Route::post('/update', 'updateDeposit')->name('update');
-            });
-
-            #withdraw reports
-            Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function () {
-                Route::get('/', 'withdrawReport')->name('list');
-                Route::get('/details/{id}', 'withdrawDetails')->name('details');
-                Route::post('/update', 'withdrawUpdate')->name('update');
-            });
-
-            #affiliate reports
-            Route::prefix("/affiliate/reports")->name('affiliate.report.')->group(function () {
-                Route::get('/', 'affiliateReport')->name('list');
-            });
-
-
-            #kyc reports
-            Route::prefix("/kyc/reports")->name('kyc.report.')->group(function () {
-                Route::get('/', 'kycReport')->name('list');
-                Route::get('/details/{id}', 'kycDetails')->name('details');
-                Route::post('/update', 'kycUpdate')->name('update');
-            });
-
-            #kyc reports
-            Route::prefix("/webhook/reports")->name('webhook.report.')->group(function () {
-                Route::get('/', 'webhookReport')->name('list');
-                Route::get('/destroy/{id}', 'destroyWebhook')->name('destroy');
-            });
-        });
+        
 
         #support route
         Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {

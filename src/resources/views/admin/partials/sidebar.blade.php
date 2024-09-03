@@ -255,84 +255,6 @@
             </li>
 
 
-            {{-- @if(check_permission('view_user'))
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#users" role="button"
-                    aria-expanded="false" aria-controls="users">
-                    <span><i class="las la-users-cog"></i></span>
-                    <p>
-                        {{translate('Manage User')}}
-                    </p>
-                    <small>
-                        <i class="las la-angle-down"></i>
-                    </small>
-                </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.user.*'],'drop_down')}} " id="users">
-                    <ul class="sub-menu">
-
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake(["admin.user.statistics"])}}'
-                                href='{{route("admin.user.statistics")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Statistics')}}
-                                </p>
-                            </a>
-                        </li>
-
-
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake(["admin.user.list","admin.user.show"])}}'
-                                href='{{route("admin.user.list")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('All Users')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.user.active")}}'
-                                href='{{route("admin.user.active")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Active Users')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.user.banned")}}'
-                                href='{{route("admin.user.banned")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Banned Users')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.verfied")}}'
-                                href='{{route("admin.user.kyc.verfied")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('KYC Verified')}}
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.user.kyc.banned")}}'
-                                href='{{route("admin.user.kyc.banned")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('KYC Banned')}}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            @endif --}}
-
             {{-- @if(check_permission('view_ticket'))
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.ticket.*")}}' data-anim="ripple"
@@ -527,42 +449,7 @@
                         </li>
                         @endif
 
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.openAi")}}'
-                                href='{{route("admin.setting.openAi")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('AI Configuration')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.webhook")}}'
-                                href='{{route("admin.setting.webhook")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Webhook Configuration')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.affiliate")}}'
-                                href='{{route("admin.setting.affiliate")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('Affiliate Configuration')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="sub-menu-item">
-                            <a class='sidebar-menu-link {{sidebar_awake("admin.setting.kyc")}}'
-                                href='{{route("admin.setting.kyc")}}'>
-                                <span></span>
-                                <p>
-                                    {{translate('KYC Configuration')}}
-                                </p>
-                            </a>
-                        </li>
+                       
                     </ul>
                 </div>
             </li>
@@ -616,7 +503,7 @@
             </li>
             @endif
 
-            {{-- disabled for later user --}}
+
             @if(check_permission('view_currency'))
             <li class="sidebar-menu-item">
                 <a class='sidebar-menu-link {{sidebar_awake("admin.currency.list")}}' data-anim="ripple"
@@ -658,15 +545,6 @@
             </li>
             @endif
 
-            @if(check_permission('view_withdraw'))
-            <li class="sidebar-menu-item">
-                <a class='sidebar-menu-link {{sidebar_awake(["admin.withdraw.list","admin.withdraw.edit","admin.withdraw.create"])}}'
-                    data-anim="ripple" href="{{route('admin.withdraw.list')}}" aria-expanded="false">
-                    <span><i class="las la-dolly-flatbed"></i></span>
-                    <p>{{translate('Withdraw Method')}}</p>
-                </a>
-            </li>
-            @endif
 
             @if(check_permission('view_template'))
             <li class="sidebar-menu-item">

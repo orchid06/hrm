@@ -48,11 +48,6 @@ class HomeController extends Controller
         $this->middleware(function ($request, $next) {
             $this->user = auth_user('web');
             $this->userService            = new UserService();
-            $this->subscription           = $this->user->runningSubscription;
-            $this->accessPlatforms        = (array) ($this->subscription ? @$this->subscription->package->social_access->platform_access : []);
-            $this->webhookAccess          = @optional($this->subscription->package->social_access)
-                ->webhook_access;
-
             return $next($request);
         });
     }
@@ -126,7 +121,7 @@ class HomeController extends Controller
         $user           = Auth::user();
         $userDetails    = $this->userService->getUserDetails($user->uid);
 
-        return view('user.profile', [
+        return view('user.profile.index', [
             'breadcrumbs'           => ['Home'=>'user.home' ,'Profile' => null],
             'title'                 => translate('Profile'),
             'user'                  => $userDetails['user'],
@@ -140,7 +135,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        return view('user.profile_edit' ,[
+        return view('user.profile.edit' ,[
             'breadcrumbs'   => ['Home'=> 'user.home', 'Profile'=> 'user.profile', 'Profile Edit'=> null],
             'title'         => translate('Edit Employee'),
             'user'          => User::whereUid($user->uid)->first(),

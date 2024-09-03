@@ -106,7 +106,7 @@
             <div class="card-info">
               <h3>{{num_format(Arr::get($data,"total_payroll_processed",0) , $currency)}} </h3>
               <h5 class="title">{{translate('Total Payroll Processed')}}</h5>
-              <a href="{{route('admin.category.list')}}" class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
+              <a href="{{route('admin.payroll.list')}}" class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
 
