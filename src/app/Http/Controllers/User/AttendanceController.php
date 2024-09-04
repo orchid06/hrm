@@ -4,8 +4,10 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\AttendanceService;
+use App\Models\Attendance;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -43,9 +45,17 @@ class AttendanceController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+
+        $attendances = Attendance::where('user_id', $user->id)
+        ->orderBy('date', 'desc')
+        ->paginate(paginateNumber());
+
+
         return view('user.attendance_sheet' , [
             'breadcrumbs'           => ['Home' => 'user.home', 'Attendance' => null],
             'title'                 => translate('Attendance Sheet'),
+            'attendances'           => $attendances
         ]);
     }
 

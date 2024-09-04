@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\user\LeaveController;
 use App\Http\Controllers\User\SocialPostController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CommunicationsController;
@@ -164,18 +165,19 @@ Route::middleware($globalMiddleware)->group(function () {
         });
 
         #Leave route
-        Route::controller(AttendanceController::class)->prefix('leave/')->name('leave.')->group(function () {
+        Route::controller(LeaveController::class)->prefix('leave/')->name('leave.')->group(function () {
 
             Route::get('index', 'index')->name('index');
             Route::get('request', 'request')->name('request');
 
         });
 
-        #Leave route
+        #Payslip route
         Route::controller(PayslipController::class)->prefix('payslip/')->name('payslip.')->group(function () {
 
             Route::get('index', 'index')->name('index');
-            Route::get('request', 'request')->name('request');
+            Route::get('print/{userId}/{month}', 'printPayslip')->name('print');
+            Route::get('downlload/{userId}/{month}', 'downloadPayslip')->name('download');
 
         });
     });

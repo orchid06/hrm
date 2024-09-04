@@ -99,10 +99,11 @@ class ExpenseController extends Controller
             'cardData'              =>  $cardData,
             'graphData'             =>  $graphData,
             'expense_categories'    => ExpenseCategory::latest()->get(),
-            'expenses'              => Expense::latest()
-                ->search(['name'])
-                ->paginate(paginateNumber())
-                ->appends(request()->all())
+            'expenses'              => Expense::with('category')
+                                                ->latest()
+                                                ->search(['category:name'])
+                                                ->paginate(paginateNumber())
+                                                ->appends(request()->all())
         ]);
     }
 

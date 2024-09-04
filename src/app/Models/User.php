@@ -191,24 +191,7 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class,'user_id')->latest();
     }
 
-    /**
-     * Get all subscriptions
-     *
-     * @return HasMany
-     */
-    public function subscriptions():HasMany {
-        return $this->hasMany(Subscription::class,'user_id')->latest();
-    }
 
-
-    /**
-     * Get running subscription
-     *
-     * @return HasOne
-     */
-    public function runningSubscription(): HasOne{
-        return $this->hasOne(Subscription::class,'user_id')->running();
-    }
 
     /**
      * Get all transactions
@@ -292,16 +275,6 @@ class User extends Authenticatable
     }
 
 
-    /**
-     * Get all of the templates for the User
-     *
-     * @return HasMany
-     */
-    public function templates(): HasMany{
-        return $this->hasMany(AiTemplate::class, 'user_id', 'id');
-    }
-
-
 
     /**
      * Get all of the template usages for the AiTemplate
@@ -322,37 +295,6 @@ class User extends Authenticatable
         return $this->hasMany(KycLog::class, 'user_id');
     }
 
-    /**
-     * Get all of credit logs
-     *
-     * @return HasMany
-     */
-    public function creditLogs(): HasMany{
-        return $this->hasMany(CreditLog::class, 'user_id');
-    }
-
-
-
-    /**
-     * Get all of social accounts
-     *
-     * @return HasMany
-     */
-    public function accounts(): HasMany{
-        return $this->hasMany(SocialAccount::class, 'user_id');
-    }
-
-
-
-    /**
-     * Get all of social post
-     *
-     * @return HasMany
-     */
-    public function posts(): HasMany{
-        return $this->hasMany(SocialPost::class, 'user_id');
-    }
-
 
 
     /**
@@ -362,25 +304,6 @@ class User extends Authenticatable
      */
     public function webhookLogs(): HasMany{
         return $this->hasMany(PostWebhookLog::class, 'user_id');
-    }
-
-    /**
-     * Get all of credit logs
-     *
-     * @return HasMany
-     */
-    public function affiliates(): HasMany{
-        return $this->hasMany(AffiliateLog::class, 'user_id');
-    }
-
-
-    /**
-     * Get all of credit logs
-     *
-     * @return HasMany
-     */
-    public function affiliateLogs(): HasMany{
-        return $this->hasMany(AffiliateLog::class, 'referred_to');
     }
 
 
