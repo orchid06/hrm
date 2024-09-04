@@ -33,8 +33,13 @@ class AttendanceController extends Controller
 
     public function list(Request $request): View
     {
+
+
         $attendances = Attendance::with('user')
         ->orderBy('date', 'desc')
+        ->year()
+        ->month()
+        ->date()
         ->search(['user:name' , 'user:email'])
         ->paginate(paginateNumber())
         ->appends(request()->all());

@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 trait Filterable
 {
-  
+
     /**
      * Get Only Recycled Data
      *
@@ -30,7 +30,7 @@ trait Filterable
         $search = request()->input("search");
         if (!$search) return $query;
         $search = $like ? "%$search%" : $search;
-        
+
         return $query->where(function(Builder $q) use ($params, $search) {
                return collect($params)->map(function(string $param) use($q,$search)  {
                     return $q->when((strpos($param, ':') !== false),
@@ -51,10 +51,10 @@ trait Filterable
         $filters   = array_keys(request()->all());
         collect($params)->map(function(string $param) use($query,$filters) : Builder{
             return $query->when((strpos($param, ':') !== false),
-                        fn(Builder $q): Builder => 
+                        fn(Builder $q): Builder =>
                               $this->filterRelationalData($query, $param, $filters),
                                     fn(Builder $query): Builder =>
-                                        $query->when(in_array($param, $filters) && request()->input($param) !== null , 
+                                        $query->when(in_array($param, $filters) && request()->input($param) !== null ,
                                             fn(Builder $query): Builder => $query->when(gettype(request()->input($param)) === 'array',
                                                 fn(Builder $query) : Builder => $query->whereIn($param,  request()->input($param)),
                                                    fn(Builder $query) : Builder =>  $query->where($param, request()->input($param)))));
@@ -81,12 +81,12 @@ trait Filterable
                 $dateRangeString             = request()->input('date');
                 $start_date                  = $dateRangeString;
                 $end_date                    = $dateRangeString;
-                if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString); 
-        
+                if (strpos($dateRangeString, ' - ') !== false) list($start_date, $end_date) = explode(" - ", $dateRangeString);
+
                 $start_date = Carbon::createFromFormat('m/d/Y', $start_date)->format('Y-m-d');
                 $end_date   = Carbon::createFromFormat('m/d/Y', $end_date)->format('Y-m-d');
-        
-                return $query->where(fn (Builder $query): Builder =>  
+
+                return $query->where(fn (Builder $query): Builder =>
                                 $query->whereBetween($column , [$start_date, $end_date])
                                         ->orWhereDate($column , $start_date)
                                         ->orWhereDate($column , $end_date));
@@ -109,8 +109,8 @@ trait Filterable
      */
     private function searchRelationalData(Builder $query,string $relations, string $search): Builder{
 
-        list($relation, $keys) = explode(":", $relations); 
-        collect(explode(',',$keys))->map(fn(string $column): Builder => 
+        list($relation, $keys) = explode(":", $relations);
+        collect(explode(',',$keys))->map(fn(string $column): Builder =>
             $query->orWhereHas( $relation , fn (Builder $q)  : Builder =>  $q->where($column,'like',$search))
         );
 
@@ -127,12 +127,39 @@ trait Filterable
      * @return Builder
      */
     private function filterRelationalData(Builder $query,string $relations,array $filters): Builder{
-        list($relation, $keys) = explode(":", $relations); 
+        list($relation, $keys) = explode(":", $relations);
         collect(explode(',', $keys))->map( fn(string $column): Builder =>
                 $query->when(in_array($relation, $filters) && request()->input($relation) != null ,
                          fn(Builder $query) :Builder => $query->whereHas($relation,
                                  fn(Builder $q) :Builder => $q->where($column,request()->input($relation)))));
         return $query;
+    }
+
+
+    public function scopeYear(Builder $query, string $column = 'created_at') : Builder {
+        try {
+            if (!request()->input('year'))   return $query;
+
+            $year            = request()->input('year');
+            return $query->whereYear($column, $year);
+
+        } catch (\Throwable $th) {
+            return $query;
+        }
+
+    }
+
+    public function scopeMonth(Builder $query, string $column = 'created_at') : Builder {
+        try {
+            if (!request()->input('month'))   return $query;
+
+            $month            = request()->input('month');
+            return $query->whereMonth($column, $month);
+
+        } catch (\Throwable $th) {
+            return $query;
+        }
+
     }
 
 }

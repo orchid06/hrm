@@ -4,7 +4,7 @@
 @endpush
 @section('content')
 @php
-    $currency = session()->get('currency');
+
 @endphp
     <div class="i-card-md">
         <div class="card-header">
@@ -13,33 +13,35 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
-
-                    @if(check_permission('view_attendance') || check_permission('update_attendance') )
-                        <div class="col-md-5 d-flex justify-content-start">
-                            @if(check_permission('update_menu'))
-                                <div class="i-dropdown bulk-action d-none">
-                                    <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="las la-cogs fs-15"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        @if(check_permission('update_menu'))
-                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                                <li>
-                                                    <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                </div>
-                            @endif
-
-                        </div>
-                    @endif
-                    <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
+                    <div class="col-md-12 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
 
 
                             <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                                <div class="form-inner">
+                                    <select name="month" class="form-select">
+                                        <option value="">{{translate('Month')}}</option>
+                                        @foreach(range(1, 12) as $month)
+                                            <option value="{{ $month }}" {{ request()->input('month') == $month ? 'selected' : '' }}>
+                                                {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-inner">
+                                    <select name="year" class="form-select">
+                                        <option value="">{{translate('Year')}}</option>
+                                        @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                            <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
 
                                 <div class="date-search">
                                     <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate('Filter by date')}}">

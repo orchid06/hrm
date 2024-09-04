@@ -56,6 +56,7 @@ class HomeController extends Controller
     public function home(Request $request): View
     {
 
+
         return view('admin.home', [
             'title' => translate("Dashboard"),
             'data'  => $this->getDashboardData()
@@ -79,29 +80,30 @@ class HomeController extends Controller
         $data = [];
 
 
-        $data['total_employees'] = User::count();
+        $data['total_employees'] = User::date()->count();
 
 
-        $data['active_employees'] = User::where('status', StatusEnum::true->status())->count();
+        $data['active_employees'] = User::where('status', StatusEnum::true->status())->date()->count();
 
 
-        $data['inactive_employees'] = User::where('status', StatusEnum::false->status())->count();
+        $data['inactive_employees'] = User::where('status', StatusEnum::false->status())->date()->count();
 
 
         $data['total_payroll_processed'] = Payroll::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
+            ->date()
             ->sum('net_pay');
 
 
-        $data['pending_payroll'] = Payroll::where('status', StatusEnum::false->status())->count();
+        $data['pending_payroll'] = Payroll::where('status', StatusEnum::false->status())->date()->count();
 
 
         $data['designation_changes'] = UserDesignation::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
             ->count();
 
-        $totalOfficeExpenses = Expense::whereMonth('created_at', $currentMonth)
-            ->whereYear('created_at', $currentYear)
+        $totalOfficeExpenses = Expense::whereYear('created_at', $currentYear)
+            ->date()
             ->sum('amount');
 
 

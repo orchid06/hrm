@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 @php
-    $currency = session()->get('currency');
+  
 @endphp
     <div class="i-card-md">
         <div class="card-header">
@@ -32,7 +32,7 @@
 
                         </div>
                     @endif
-                    
+
                 </div>
             </div>
             <div class="table-container position-relative">
