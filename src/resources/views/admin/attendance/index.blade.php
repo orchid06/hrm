@@ -155,17 +155,19 @@
 
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-                                        @if(check_permission('update_user') ||  check_permission('delete_user'))
-                                            @if(check_permission('update_user'))
 
-                                                <button  data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="{{translate('Manage')}}" class="icon-btn info">
-                                                    <i class="las la-eye"></i>
-                                                </button>
+                                        @if(check_permission('update_attendance'))
 
-                                            @endif
-                                        @else
-                                          {{translate('N/A')}}
+                                            <button  data-bs-toggle="tooltip" data-bs-placement="top" attendance="{{@$attendance}}" data-bs-title="{{translate('Edit')}}" class="edit icon-btn warning">
+                                                <i class="las la-pen"></i>
+                                            </button>
+
+                                            <button  data-bs-toggle="tooltip" data-bs-placement="top" attendance="{{@$attendance}}" data-bs-title="{{translate('Note')}}" class="note icon-btn info">
+                                                <i class="las la-sticky-note"></i>
+                                            </button>
+
                                         @endif
+
                                     </div>
                                 </td>
                             </tr>
@@ -188,6 +190,74 @@
 
 @section('modal')
     @include('modal.delete_modal')
+
+    <div class="modal fade modal-md" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" >
+                          {{translate('Add Note')}}
+                      </h5>
+                      <button class="close-btn" data-bs-dismiss="modal">
+                          <i class="las la-times"></i>
+                      </button>
+                  </div>
+                  <form action="{{route('admin.attendance.note')}}" method="post" class="add-listing-form">
+                      @csrf
+                      <div class="modal-body">
+                          <input type="hidden" name="attendance_id" >
+
+                          <div class="form-inner">
+                              <label for="note">{{translate('Note')}}</label>
+                              <textarea name="note" id="note" cols="30" rows="10"> </textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                              {{translate("Close")}}
+                          </button>
+                          <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                              {{translate("Submit")}}
+                          </button>
+                      </div>
+                  </form>
+              </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-md" id="updateAttendanceModal" tabindex="-1" aria-labelledby="updateAttendanceModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" >
+                          {{translate('Update Attendance')}}
+                      </h5>
+                      <button class="close-btn" data-bs-dismiss="modal">
+                          <i class="las la-times"></i>
+                      </button>
+                  </div>
+                  <form action="{{route('admin.attendance.update')}}" method="post" class="add-listing-form">
+                      @csrf
+                      <div class="modal-body">
+                          <input type="hidden" name="attendance_id" >
+
+                          <div class="form-inner">
+                              <label for="note">{{translate('Note')}}</label>
+                              <textarea name="note" id="note" cols="30" rows="10"> </textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                              {{translate("Close")}}
+                          </button>
+                          <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                              {{translate("Submit")}}
+                          </button>
+                      </div>
+                  </form>
+              </div>
+        </div>
+    </div>
 @endsection
 @push('script-include')
 
@@ -197,6 +267,25 @@
 @endpush
 @push('script-push')
 <script>
+    "use strict"
+
+    $('.note').on('click', function() {
+        var attendance = JSON.parse($(this).attr("attendance"));
+        var modal = $('#noteModal')
+
+        modal.find('input[name="attendance_id"]').val(attendance.id)
+        modal.find('textarea[name="note"]').val(attendance.note)
+        modal.modal('show');
+    });
+
+    $('.edit').on('click', function() {
+        var attendance = JSON.parse($(this).attr("attendance"));
+        var modal = $('#updateAttendanceModal')
+
+        modal.find('input[name="attendance_id"]').val(attendance.id)
+        modal.find('textarea[name="note"]').val(attendance.note)
+        modal.modal('show');
+    });
 
 </script>
 @endpush

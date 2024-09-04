@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AttendanceController extends Controller
@@ -33,8 +34,6 @@ class AttendanceController extends Controller
 
     public function list(Request $request): View
     {
-
-
         $attendances = Attendance::with('user')
         ->orderBy('date', 'desc')
         ->year()
@@ -49,5 +48,14 @@ class AttendanceController extends Controller
             'title'             =>  translate('Attendance'),
             'attendances'    => $attendances
         ]);
+    }
+
+    public function note(Request $request):RedirectResponse
+    {
+        Attendance::where('id' , $request->input('attendance_id'))->update([
+            'note' => $request->input('note')
+        ]);
+
+        return back()->with(response_status('Note submitted successfully'));
     }
 }

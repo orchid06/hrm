@@ -360,8 +360,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         Route::controller(AttendanceController::class)->prefix('/attendance')->name('attendance.')->group(function () {
 
             Route::get('/view', 'list')->name('list');
+            Route::post('/note', 'note')->name('note');
+
             Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
             Route::get('/edit/{uid}', 'edit')->name('edit');
             Route::post('/bulk/action', 'bulk')->name('bulk');
             Route::post('/update/', 'update')->name('update');
@@ -415,7 +416,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
 
 
-        
+
 
         #support route
         Route::controller(TicketController::class)->name('ticket.')->prefix('ticket/')->group(function () {

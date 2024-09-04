@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('late_time')->nullable(); // Calculated in minutes
             $table->integer('over_time')->nullable(); // Calculated in minutes
             $table->integer('work_hour')->nullable(); // Calculated in minutes
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
