@@ -78,7 +78,7 @@
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*' ],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.department.*' , 'admin.designation.*' , 'admin.user.*'  , 'admin.kyc.report.*' ],'drop_down')}} "
                     id="TeamManagement">
                     <ul class="sub-menu">
 
@@ -113,6 +113,24 @@
                                 <span></span>
                                 <p>
                                     {{translate('Employees')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_report'))
+                        <li class="sub-menu-item">
+                            <a class='sidebar-menu-link {{sidebar_awake("admin.kyc.report.*")}}'
+                                href='{{route("admin.kyc.report.list")}}'>
+                                <span></span>
+                                <p>
+                                    {{translate('Employee Verification')}}
+
+                                    @if($pending_kycs > 0 )
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Pending KYC logs')}}"
+                                        class="i-badge danger">{{$pending_kycs}}</span>
+                                    @endif
                                 </p>
                             </a>
                         </li>
@@ -202,9 +220,6 @@
                             </a>
                         </li>
                         @endif
-
-
-
                     </ul>
                 </div>
             </li>
@@ -449,7 +464,7 @@
                         </li>
                         @endif
 
-                       
+
                     </ul>
                 </div>
             </li>

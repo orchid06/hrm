@@ -11,7 +11,7 @@
             <div class="i-card-md">
                 <div class="card--header text-end">
                     <h4 class="card-title">
-                         {{ translate('KYC Statistics (Current Year)')}}
+                         {{ translate('Verification Statistics (Current Year)')}}
                     </h4>
                </div>
                 <div class="card-body">
@@ -155,7 +155,7 @@
 	(function($){
 
         "use strict";
-        
+
         $(".user").select2({});
         $(".status").select2({});
 
@@ -177,8 +177,8 @@
               name: "{{ translate('Rejected Log') }}",
               data: @json(array_column($graph_data , 'rejected')),
             },
-         
-          
+
+
           ],
           chart: {
           type: 'bar',
@@ -205,8 +205,8 @@
           bar: {
             horizontal: false,
             borderRadius: 10,
-            borderRadiusApplication: 'end', 
-            borderRadiusWhenStacked: 'last', 
+            borderRadiusApplication: 'end',
+            borderRadiusWhenStacked: 'last',
             dataLabels: {
               total: {
                 enabled: true,

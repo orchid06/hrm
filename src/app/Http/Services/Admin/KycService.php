@@ -30,7 +30,7 @@ class KycService
         KycLog::date()
             ->filter(["user:username"])
             ->whereYear('created_at',  date('Y'))
-            ->selectRaw("MONTH(created_at) as month, 
+            ->selectRaw("MONTH(created_at) as month,
                             MONTHNAME(created_at) as months,
                             COUNT(*) as total,
                             COUNT(CASE WHEN status   ='3'  THEN id END) AS pending,
@@ -52,41 +52,41 @@ class KycService
             });
 
            return  [
-                    'breadcrumbs'     =>  ['Home'=>'admin.home','KYC Reports'=> null],
-                    'title'           => 'KYC Reports',
+                    'breadcrumbs'     =>  ['Home'=>'admin.home','Employee verification'=> null],
+                    'title'           => translate('Employee verification'),
                     "reports"         =>  KycLog::with(['user'])
                                                 ->search(['notes'])
                                                 ->filter(["user:username","status"])
-                                                ->date()               
+                                                ->date()
                                                 ->latest()
                                                 ->paginate(paginateNumber())
                                                 ->appends(request()->all()),
-                    
+
                     'graph_data'       => sortByMonth($graphData->collapse()->all(),true,
                                             [
                                                 'total'     => 0,
                                                 'pending'   => 0,
                                                 'approved'  => 0,
                                                 'rejected'  => 0,
-        
-                                            ]), 
-    
+
+                                            ]),
+
                     'summaries'       => [
-    
+
                                             'total'          => KycLog::filter(["user:username"])
                                                                         ->date()
-                                                                        ->count(),   
+                                                                        ->count(),
                                             'pending'        => KycLog::pending()
                                                                         ->filter(["user:username"])
                                                                         ->date()
                                                                         ->count(),
-                                                                                                
-                                            
+
+
                                             'approved'       => KycLog::approved()
                                                                         ->filter(["user:username"])
                                                                         ->date()
                                                                         ->count(),
-                            
+
                                             'rejected'        => KycLog::rejected()
                                                                         ->filter(["user:username"])
                                                                         ->date()
@@ -94,7 +94,7 @@ class KycService
 
                                             ],
                 ];
-    
+
     }
 
 
@@ -112,7 +112,7 @@ class KycService
         return  KycLog::with(['user','file'])
                                   ->when($status , fn(Builder $q): Builder => $q->where("status",(string)$status->value))
                                   ->findOrfail($id);
-    } 
+    }
 
 
 
@@ -145,13 +145,13 @@ class KycService
         $notifications = [
 
             'database_notifications' => [
-                
+
                 'action' => [SendNotification::class, 'database_notifications'],
                 'params' => [
                    [ $log->user, 'KYC_UPDATE', $code, $route ]
                 ],
             ],
-          
+
             'email_notifications' => [
 
                 'action' => [SendMailJob::class, 'dispatch'],
