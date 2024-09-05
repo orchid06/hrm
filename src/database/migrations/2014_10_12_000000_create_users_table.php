@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('employee_id', 100)->unique()->nullable();
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_joining')->nullable();
+            $table->enum('is_kyc_verified',[array_values(StatusEnum::toArray())])->index()->default(StatusEnum::false->status())->comment('Yes: 1, No: 0');
             $table->rememberToken();
             $table->timestamps();
         });

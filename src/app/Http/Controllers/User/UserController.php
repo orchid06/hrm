@@ -246,7 +246,8 @@ class UserController extends Controller
 
         if($this->user->is_kyc_verified   == StatusEnum::true->status()) return redirect()->route('user.home');
         return view('user.kyc_form',[
-            'meta_data' => $this->metaData(['title'=> translate("KYC Application form")]),
+            
+            'title'  => translate('Employee Application Form')
         ]);
 
     }
