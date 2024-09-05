@@ -49,6 +49,9 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::where('user_id', $user->id)
         ->orderBy('date', 'desc')
+        ->date()
+        ->year()
+        ->month()
         ->paginate(paginateNumber());
 
 

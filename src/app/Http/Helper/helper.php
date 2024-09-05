@@ -1170,17 +1170,17 @@ use Illuminate\Database\Eloquent\Collection;
    }
 
 
-   if (!function_exists('get_content')){
-      function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
+//    if (!function_exists('get_content')){
+//       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
 
-         $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')
-                                                                                          ->active()
-                                                                                          ->latest()
-                                                                                          ->get());
+//          $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')
+//                                                                                           ->active()
+//                                                                                           ->latest()
+//                                                                                           ->get());
 
-         return ($frontends->where("key", $key));
-      }
-   }
+//          return ($frontends->where("key", $key));
+//       }
+//    }
 
 
 

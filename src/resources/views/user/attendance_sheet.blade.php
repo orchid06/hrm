@@ -1,7 +1,10 @@
 @extends('layouts.master')
+@push('style-include')
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
 @php
-  
+
 @endphp
     <div class="i-card-md">
         <div class="card-header">
@@ -10,29 +13,54 @@
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
+                    <div class="col-md-12 d-flex justify-content-md-end justify-content-start">
+                        <div class="search-area">
 
-                    @if(check_permission('view_attendance') || check_permission('update_attendance') )
-                        <div class="col-md-5 d-flex justify-content-start">
-                            @if(check_permission('update_menu'))
-                                <div class="i-dropdown bulk-action d-none">
-                                    <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="las la-cogs fs-15"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        @if(check_permission('update_menu'))
-                                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                                                <li>
-                                                    <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
+
+                            <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                                <div class="form-inner">
+                                    <select name="month" class="form-select">
+                                        <option value="">{{translate('Month')}}</option>
+                                        @foreach(range(1, 12) as $month)
+                                            <option value="{{ $month }}" {{ request()->input('month') == $month ? 'selected' : '' }}>
+                                                {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            @endif
 
+                                <div class="form-inner">
+                                    <select name="year" class="form-select">
+                                        <option value="">{{translate('Year')}}</option>
+                                        @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                            <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+
+                                <div class="date-search">
+                                    <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder="{{translate('Filter by date')}}">
+                                    <button type="submit" class="me-2"><i class="bi bi-search"></i></button>
+
+                                </div>
+
+                                <div class="form-inner  ">
+                                      <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
+                                </div>
+                                <button class="i-btn btn--sm info">
+                                    <i class="las la-sliders-h"></i>
+                                </button>
+                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                    <i class="las la-sync"></i>
+                                </a>
+                            </form>
                         </div>
-                    @endif
-
+                    </div>
                 </div>
             </div>
             <div class="table-container position-relative">
@@ -40,6 +68,7 @@
                 <table>
                     <thead>
                         <tr>
+
                             <th scope="col">
                                 {{translate('Date')}}
                             </th>
@@ -68,12 +97,18 @@
                                 {{translate('Over Time')}}
                             </th>
 
+                            <th scope="col">
+                                {{translate('Action')}}
+                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($attendances  as $attendance)
 
                             <tr>
+
+                                
 
                                 <td data-label="{{translate('Date')}}">
                                     {{ \Carbon\Carbon::parse($attendance->date)->format('j M, Y')  }}
@@ -109,6 +144,20 @@
                                     {{ $attendance->over_time ? $attendance->over_time . ' minutes' : 'N/A' }}
                                 </td>
 
+
+                                <td data-label="{{translate('Options')}}">
+                                    <div class="table-action">
+
+                                        @if(check_permission('update_attendance'))
+
+                                            <button  data-bs-toggle="tooltip" data-bs-placement="top" attendance="{{@$attendance}}" data-bs-title="{{translate('Note')}}" class="note icon-btn info">
+                                                <i class="las la-sticky-note"></i>
+                                            </button>
+
+                                        @endif
+
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -129,25 +178,94 @@
 
 @section('modal')
     @include('modal.delete_modal')
-@endsection
 
+    <div class="modal fade modal-md" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" >
+                          {{translate('Add Note')}}
+                      </h5>
+                      <button class="close-btn" data-bs-dismiss="modal">
+                          <i class="las la-times"></i>
+                      </button>
+                  </div>
+                  <form action="{{route('admin.attendance.note')}}" method="post" class="add-listing-form">
+                      @csrf
+                      <div class="modal-body">
+                          <input type="hidden" name="attendance_id" >
+
+                          <div class="form-inner">
+                              <label for="note">{{translate('Note')}}</label>
+                              <textarea disabled name="note" id="note" cols="30" rows="10"> </textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                              {{translate("Close")}}
+                          </button>
+                          <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                              {{translate("Submit")}}
+                          </button>
+                      </div>
+                  </form>
+              </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-md" id="updateAttendanceModal" tabindex="-1" aria-labelledby="updateAttendanceModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" >
+                          {{translate('Update Attendance')}}
+                      </h5>
+                      <button class="close-btn" data-bs-dismiss="modal">
+                          <i class="las la-times"></i>
+                      </button>
+                  </div>
+                  <form action="{{route('admin.attendance.update')}}" method="post" class="add-listing-form">
+                      @csrf
+                      <div class="modal-body">
+                          <input type="hidden" name="attendance_id" >
+
+                          <div class="form-inner">
+                              <label for="note">{{translate('Note')}}</label>
+                              <textarea name="note" id="note" cols="30" rows="10"> </textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                              {{translate("Close")}}
+                          </button>
+                          <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                              {{translate("Submit")}}
+                          </button>
+                      </div>
+                  </form>
+              </div>
+        </div>
+    </div>
+@endsection
+@push('script-include')
+
+  <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+  <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
+@endpush
 @push('script-push')
 <script>
-	(function($){
-       	"use strict";
-        $(".select2").select2({
-			placeholder:"{{translate('Select Status')}}",
-			dropdownParent: $("#addUser"),
-		})
-        $("#country").select2({
-			placeholder:"{{translate('Select Country')}}",
-			dropdownParent: $("#addUser"),
-		})
-        $(".filter-country").select2({
-			placeholder:"{{translate('Select Country')}}",
+    "use strict"
 
-		})
-	})(jQuery);
+    $('.note').on('click', function() {
+        var attendance = JSON.parse($(this).attr("attendance"));
+        var modal = $('#noteModal')
+
+        modal.find('input[name="attendance_id"]').val(attendance.id)
+        modal.find('textarea[name="note"]').val(attendance.note)
+        modal.modal('show');
+    });
+
 </script>
 @endpush
 
