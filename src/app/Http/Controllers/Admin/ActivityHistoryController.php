@@ -102,8 +102,8 @@ class ActivityHistoryController extends Controller
      public function kycDetails(int|string $id): View{
 
         return view('admin.report.kyc_details',[
-            'breadcrumbs'     => ['Home'=>'admin.home','KYC Logs'=> "admin.kyc.report.list" ,'Details' => null],
-            'title'           => 'KYC Details',
+            'breadcrumbs'     => ['Home'=>'admin.home','Verification Logs'=> "admin.kyc.report.list" ,'Details' => null],
+            'title'           => 'Details',
             "report"          => $this->kycService->getSpecificReport($id)
         ]);
     }

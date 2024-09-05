@@ -12,12 +12,12 @@
             <div
               class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
                   <h4>
-                      {{translate(Arr::get($meta_data,'title'))}}
+
                   </h4>
 
               <div>
                 <button
-                  class="icon-btn icon-btn-lg solid-info circle"
+                  class="icon-btn icon-btn-lg solid-info"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#tableFilter"
@@ -83,7 +83,7 @@
                                           <div class="row align-items-center w-100 gy-4 gx-sm-3 gx-0">
                                               <div class="col-lg-6 col-sm-4 col-12">
                                                   <div class="table-accordion-header transfer-by">
-                                                      <span class="icon-btn icon-btn-sm primary circle">
+                                                      <span class="icon-btn icon-btn-sm primary">
                                                           <i class="bi bi-file-text"></i>
                                                       </span>
                                                       <div>
@@ -130,7 +130,7 @@
                                                             <img src='{{imageURL($file,"kyc",true)}}'
                                                             alt="{{ @$file->name }}">
                                                         </a>
-                                    
+
                                                       </div>
                                                   </li>
                                               @endforeach

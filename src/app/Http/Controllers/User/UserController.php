@@ -246,7 +246,7 @@ class UserController extends Controller
 
         if($this->user->is_kyc_verified   == StatusEnum::true->status()) return redirect()->route('user.home');
         return view('user.kyc_form',[
-            
+
             'title'  => translate('Employee Application Form')
         ]);
 
@@ -336,7 +336,7 @@ class UserController extends Controller
                     });
 
 
-        return redirect()->route("user.kyc.report.list")->with(response_status('KYC application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
+        return redirect()->route("user.kyc.report.list")->with(response_status('Application submitted! Verification in progress. We will notify you upon completion. Thank you for your patience'));
 
     }
 
