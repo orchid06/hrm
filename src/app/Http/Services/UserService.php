@@ -14,6 +14,7 @@ use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Admin\PaymentMethod;
+use App\Models\Admin\Payroll;
 use App\Models\Admin\Withdraw;
 use App\Models\AffiliateLog;
 use App\Models\Attendance;
@@ -258,11 +259,15 @@ class UserService
                 return array_key_exists($currentMonth, $item);
             });
 
+            $totalSalary = Payroll::where('user_id', $user->id)
+                        ->sum('net_pay');
+
             $cardData = [
-                'total_attendance' => $currentMonthData[$currentMonth]['attendance'] ?? 0,
-                'total_late' => $currentMonthData[$currentMonth]['late'] ?? 0,
-                'total_work_minutes' => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
-                'total_work_hours' => $currentMonthData[$currentMonth]['work_hour'] ?? 0
+                'total_attendance'      => $currentMonthData[$currentMonth]['attendance'] ?? 0,
+                'total_late'            => $currentMonthData[$currentMonth]['late'] ?? 0,
+                'total_work_minutes'    => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
+                'total_work_hours'      => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
+                'total_salary_received' => $totalSalary
             ];
 
         return [
@@ -274,9 +279,9 @@ class UserService
                 @$graphData->collapse()->all() ?? [],
                 true,
                 [
-                    'attendance'    => 0,
+                    'attendance'        => 0,
                     'work_hour'         => 0,
-                    'late'          => 0,
+                    'late'              => 0,
                 ]
             )
 

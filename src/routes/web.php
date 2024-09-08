@@ -196,8 +196,8 @@ Route::middleware($globalMiddleware)->group(function () {
         #attendance route
         Route::controller(AttendanceController::class)->name('attendance.')->group(function () {
 
-            Route::get('/clock_in', 'clockIn')->name('clock_in');
-            Route::get('/clocl_out', 'clockOut')->name('clock_out');
+            Route::get('/clock_in/reuquest', 'clockInRequest')->name('clock_in.request');
+            Route::get('/clocl_out/request', 'clockOutRequest')->name('clock_out.request');
             Route::get('attendance/sheet', 'index')->name('index');
         });
 

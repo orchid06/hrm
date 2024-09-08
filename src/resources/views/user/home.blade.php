@@ -5,6 +5,7 @@
 @section('content')
 @php
 $currency = session()->get('currency');
+$user     = Auth::user();
 @endphp
 
 <div class="container-fluid ps-lg-0">
@@ -15,40 +16,29 @@ $currency = session()->get('currency');
                 <h4 class="page-title">
                     {{translate($title)}}
                 </h4>
-                <div class="page-title-right d-flex justify-content-end align-items-center flex-wrap gap-2">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item">
-                            @php
-                            $userAttendance = App\Models\Attendance::where('user_id', Auth::user()->id)->first();
-                            $formattedClockIn = \Carbon\Carbon::parse(@$userAttendance->clock_in)->format('h:i A');
-                            $formattedClockOut = \Carbon\Carbon::parse(@$userAttendance->clock_out)->format('h:i A');
-                            @endphp
-                            <div class="cron">
-                                {{translate("Clocked In")}} : {{$userAttendance ? $formattedClockIn :
-                                translate("N/A") }}
-                            </div>
-                        </li>
-                    </ol>
-                    @if(!$userAttendance)
-                    <a href="{{route('user.attendance.clock_in')}}"> <button type="button"
-                            class="i-btn btn--sm success">
-                            <i class="las la-user-clock me-2"></i> {{translate('Clock In')}}
-                        </button></a>
-                    @elseif(!$userAttendance->clock_out)
-                        <a href="{{route('user.attendance.clock_out')}}"> <button type="button"
-                            class="i-btn btn--sm danger">
-                            <i class="las la-user-clock me-2"></i> {{translate('Clock Out')}}
-                        </button></a>
-                    @else
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item">
-                                <div class="cron">
-                                    {{translate("Clocked Out")}} : {{$userAttendance ? $formattedClockOut :
-                                    translate("N/A") }}
-                                </div>
-                            </li>
-                        </ol>
-                    @endif
+                <div class="clock-actions">
+                    <!-- Clock In Button -->
+                    <form action="{{route('user.attendance.clock_in.request')}}" method="GET" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-primary" {{ @$clockInButtonDisabled ? 'disabled' : '' }}>
+                            {{ @$clockInButtonDisabled ? 'Clocked In' : 'Request Clock In' }}
+                        </button>
+                    </form>
+
+                    <!-- Clock Out Button -->
+                    <form action="{{route('user.attendance.clock_out.request')}}" method="GET" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary" {{ @$clockOutButtonDisabled ? 'disabled' : '' }}>
+                            {{ @$clockOutButtonDisabled ? 'Clocked Out' : 'Request Clock Out' }}
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="d-flex align-items-center gap-4 mb-4">
+
+                <div class="page-title-content d-lg-block d-none">
+                    <h4>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h4>
                 </div>
             </div>
             <div class="row g-3 mb-3">

@@ -110,16 +110,24 @@ class PayrollController extends Controller
         $monthNumber = date('m', strtotime($month));
 
 
+
+
         $payrolls = Payroll::whereYear('created_at', $year)
                             ->whereMonth('created_at', $monthNumber)
                             ->with('user')
+                            ->search(['user:name'])
                             ->paginate(paginateNumber());
+
+        $cardData['totalEmployees']     = $payrolls->unique('user_id')->count();
+        $cardData['totalPayrollAmount'] = $payrolls->sum('net_pay');
 
 
         return view('admin.payroll.show', [
-            'breadcrumbs'   => $breadcrumbs,
-            'title'         => $title,
-            'payrolls'      => $payrolls
+            'breadcrumbs'           => $breadcrumbs,
+            'title'                 => $title,
+            'formattedMonth'        => $formattedMonth,
+            'payrolls'              => $payrolls,
+            'cardData'              => $cardData
         ]);
     }
 }

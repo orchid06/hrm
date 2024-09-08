@@ -3,7 +3,41 @@
 @php
     $currency = session()->get('currency');
 @endphp
+    <div class="col-xl-12">
+        <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 g-3 mb-4">
+
+            @php
+                $cards =  [
+                            [
+                                "title"  => translate("This month Employee"),
+                                "class"  => 'col',
+                                "total"  =>  $cardData['totalEmployees'] ?? 'N/A',
+                                "icon"   => '<i class="las la-users"></i>',
+                                "bg"     => 'info',
+
+                            ],
+                            [
+                                "title"  => translate("Monthly Payroll"),
+                                "class"  => 'col',
+                                "total"  => num_format($cardData['totalPayrollAmount'] , $currency) ?? 'N/A',
+                                "icon"   => '<i class="las la-money-check-alt"></i>',
+                                "bg"     => 'danger',
+
+                            ],
+                        ];
+            @endphp
+
+            @include("admin.partials.report_card")
+
+
+        </div>
+    </div>
     <div class="i-card-md">
+        <div class="card--header">
+            <h4 class="card-title">
+                {{@$formattedMonth}}
+            </h4>
+        </div>
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
@@ -81,6 +115,9 @@
                                 {{translate('Employee ID')}}
                             </th>
                             <th scope="col"  >
+                                {{translate('Designation')}}
+                            </th>
+                            <th scope="col"  >
                                 {{translate('Payslip type')}}
                             </th>
                             <th scope="col">
@@ -118,9 +155,16 @@
                                 <td  data-label="{{translate('Employee ID')}}">
                                     {{@$payroll->user->employee_id}}
                                 </td>
+
+                                <td data-label="{{translate('Designation')}}">
+                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="">
+                                        {{@$payroll->user->userDesignation->designation->name?? translate("N/A")}}
+                                    </span>
+                                </td>
+
                                 <td data-label='{{translate("Payslip type")}}'>
                                     <div class="d-block">
-                                        <span class="i-badge info">{{ @ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) }}</span>
+                                        <span class="i-badge info">{{$payroll->user->userDesignation? @ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) : "N/A"}}</span>
                                     </div>
                                 </td>
                                 <td data-label="{{translate('Basic salary')}}">

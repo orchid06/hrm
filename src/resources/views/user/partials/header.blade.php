@@ -86,7 +86,7 @@
                   </div>
                     @if($notifications->count() >0)
                       <div class="dropdown-menu-footer">
-                          <a href='{{route("admin.notifications")}}'>
+                          <a href='{{route("user.notifications")}}'>
                              {{translate("View All")}}
                           </a>
                       </div>

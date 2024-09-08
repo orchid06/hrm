@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    protected $attendanceService , $user;
+    protected $attendanceService, $user;
 
-    public function __construct(){
+    public function __construct()
+    {
 
         $this->attendanceService = new AttendanceService();
 
@@ -23,43 +24,50 @@ class AttendanceController extends Controller
         });
     }
 
-    public function clockIn():RedirectResponse
+    public function clockInRequest(): RedirectResponse
     {
         try {
-            $this->attendanceService->clockIn();
-            return redirect()->back()->with('success', translate('You have successfully clocked in.'));
+
+            $this->attendanceService->requestClockIn();
+            return redirect()->back()->with('success', translate('Your clock-in request has been sent.'));
         } catch (\Exception $e) {
+
             return redirect()->back()->with('error', translate($e->getMessage()));
         }
     }
 
-    public function clockOut(): RedirectResponse
+
+    public function clockOutRequest(): RedirectResponse
     {
         try {
-            $this->attendanceService->clockOut();
-            return redirect()->back()->with('success', translate('You have successfully clocked out.'));
+            
+            $this->attendanceService->requestClockOut();
+
+
+            return redirect()->back()->with('success', translate('Your clock-out request has been sent.'));
         } catch (\Exception $e) {
+
             return redirect()->back()->with('error', translate($e->getMessage()));
         }
     }
+
 
     public function index()
     {
         $user = Auth::user();
 
         $attendances = Attendance::where('user_id', $user->id)
-        ->orderBy('date', 'desc')
-        ->date()
-        ->year()
-        ->month()
-        ->paginate(paginateNumber());
+            ->orderBy('date', 'desc')
+            ->date()
+            ->year()
+            ->month()
+            ->paginate(paginateNumber());
 
 
-        return view('user.attendance_sheet' , [
+        return view('user.attendance_sheet', [
             'breadcrumbs'           => ['Home' => 'user.home', 'Attendance' => null],
             'title'                 => translate('Attendance Sheet'),
             'attendances'           => $attendances
         ]);
     }
-
 }

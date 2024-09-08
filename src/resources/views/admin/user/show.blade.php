@@ -71,7 +71,7 @@
                                 [
                                     "title"  => translate("Total Salary Received"),
                                     "class"  => 'col',
-                                    "total"  => $user->transactions->count(),
+                                    "total"  => @num_format($card_data['total_salary_received'], $currency),
                                     "icon"   => '<i class="las la-wallet"></i>',
                                     "bg"     => 'danger',
                                     "url"    => ''

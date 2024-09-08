@@ -361,11 +361,11 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
             Route::get('/view', 'list')->name('list');
             Route::post('/note', 'note')->name('note');
+            Route::post('/update/', 'update')->name('update');
 
             Route::get('/create', 'create')->name('create');
             Route::get('/edit/{uid}', 'edit')->name('edit');
             Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update/', 'update')->name('update');
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
