@@ -21,15 +21,15 @@ $user     = Auth::user();
                     <form action="{{route('user.attendance.clock_in.request')}}" method="GET" style="display:inline;">
                         @csrf
                         <button type="submit" class="btn btn-primary" {{ @$clockInButtonDisabled ? 'disabled' : '' }}>
-                            {{ @$clockInButtonDisabled ? 'Clocked In' : 'Request Clock In' }}
+                            {{ @$clockInButtonDisabled ? 'Clocked In' : 'Clock In' }}
                         </button>
                     </form>
 
                     <!-- Clock Out Button -->
                     <form action="{{route('user.attendance.clock_out.request')}}" method="GET" style="display:inline;">
                         @csrf
-                        <button type="submit" class="btn btn-secondary" {{ @$clockOutButtonDisabled ? 'disabled' : '' }}>
-                            {{ @$clockOutButtonDisabled ? 'Clocked Out' : 'Request Clock Out' }}
+                        <button type="submit" class="btn btn-danger" {{ @$clockOutButtonDisabled ? 'disabled' : '' }}>
+                            {{ @$clockOutButtonDisabled ? 'Clocked Out' : 'Clock Out' }}
                         </button>
                     </form>
                 </div>

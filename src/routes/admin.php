@@ -359,9 +359,10 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         #Attendance section
         Route::controller(AttendanceController::class)->prefix('/attendance')->name('attendance.')->group(function () {
 
-            Route::get('/view', 'list')->name('list');
+            Route::get('/list', 'list')->name('list');
             Route::post('/note', 'note')->name('note');
             Route::post('/update/', 'update')->name('update');
+            Route::get('/view/details', 'viewDetails')->name('view.details');
 
             Route::get('/create', 'create')->name('create');
             Route::get('/edit/{uid}', 'edit')->name('edit');

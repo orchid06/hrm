@@ -162,4 +162,17 @@ trait Filterable
 
     }
 
+    public function scopeDay(Builder $query, string $column = 'created_at') : Builder {
+        try {
+            if (!request()->input('day'))   return $query;
+
+            $day            = request()->input('day');
+            return $query->whereRaw('DAYOFWEEK(created_at) = ?', [$day]);
+
+        } catch (\Throwable $th) {
+            return $query;
+        }
+
+    }
+
 }
