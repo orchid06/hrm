@@ -40,7 +40,7 @@ class AttendanceController extends Controller
     public function clockOutRequest(): RedirectResponse
     {
         try {
-            
+
             $this->attendanceService->requestClockOut();
 
 
@@ -61,6 +61,7 @@ class AttendanceController extends Controller
             ->date()
             ->year()
             ->month()
+            ->day()
             ->paginate(paginateNumber());
 
 

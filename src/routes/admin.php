@@ -362,7 +362,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/list', 'list')->name('list');
             Route::post('/note', 'note')->name('note');
             Route::post('/update/', 'update')->name('update');
-            Route::get('/view/details', 'viewDetails')->name('view.details');
+            Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
 
             Route::get('/create', 'create')->name('create');
             Route::get('/edit/{uid}', 'edit')->name('edit');
@@ -423,50 +423,6 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
                  Route::get('/','templateReport')->name('list');
                  Route::get('/destroy/{id}','templateReportdestroy')->name('destroy');
             });
-
-            #credit reports
-            Route::prefix("/credit/reports")->name('credit.report.')->group(function(){
-                 Route::get('/','creditReport')->name('list');
-                 Route::get('/destroy/{id}','creditReportdestroy')->name('destroy');
-                 Route::post('/bulk/action','creditReportBulk')->name('bulk');
-            });
-
-            #transaction report
-            Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
-
-                 Route::get('/','transactionReport')->name('list');
-                 Route::post('/bulk/action','transactionBulk')->name('bulk');
-                 Route::get('/destroy/{id}','destroyTransaction')->name('destroy');
-
-            });
-
-            #subscriptioon report
-            Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
-                 Route::get('/','subscriptionReport')->name('list');
-                 Route::post('/update','updateSubscription')->name('update');
-
-            });
-
-            #deposit report
-            Route::prefix("/deposit/reports")->name('deposit.report.')->group(function(){
-
-                 Route::get('/','depositReport')->name('list');
-                 Route::get('/details/{id}','depositDetails')->name('details');
-                 Route::post('/update','updateDeposit')->name('update');
-            });
-
-            #withdraw reports
-            Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function(){
-                 Route::get('/','withdrawReport')->name('list');
-                 Route::get('/details/{id}','withdrawDetails')->name('details');
-                 Route::post('/update','withdrawUpdate')->name('update');
-            });
-
-            #affiliate reports
-            Route::prefix("/affiliate/reports")->name('affiliate.report.')->group(function(){
-                 Route::get('/','affiliateReport')->name('list');
-            });
-
 
             #kyc reports
             Route::prefix("/kyc/reports")->name('kyc.report.')->group(function(){

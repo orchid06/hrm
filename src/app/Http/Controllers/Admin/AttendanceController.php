@@ -106,8 +106,11 @@ class AttendanceController extends Controller
 
     }
 
-    public function viewDetails(): View
+    public function viewDetails($attendance_id): View
     {
-        return view('admin.attendance.details');
+        return view('admin.attendance.details' , [
+            'title'         => translate('Attendance Details'),
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance report' => 'admin.attendance.list' , 'Attendance Details'=> null],
+        ]);
     }
 }

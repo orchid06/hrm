@@ -109,7 +109,7 @@ class UserController extends Controller
             'user'                  => $userDetails['user'],
             'countries'             => $userDetails['countries'],
             'graph_data'            => $userDetails['graph_data'],
-            'card_data'            => $userDetails['card_data'],
+            'card_data'             => $userDetails['card_data'],
         ]);
     }
 

@@ -44,7 +44,13 @@
                             {{translate("Update Profile")}}
                     </a>
                 </div>
+
             </div>
+            @if($user->is_kyc_verified == \App\Enums\StatusEnum::true->status())
+                <a href="{{route('admin.kyc.report.details',$user->uid)}}" class="i-btn btn--sm btn--primary update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
+                    {{translate("View verification log")}}
+                </a>
+            @endif
         </div>
 
         <div class="col-xl-9">
