@@ -16,14 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-use App\Models\Core\File;
-use App\Models\CreditLog;
-use App\Models\MediaPlatform;
 use App\Models\Notification;
-use App\Models\SocialAccount;
-use App\Models\SocialPost;
-use App\Models\Subscription;
-use App\Models\Transaction;
 use App\Models\User;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\RedirectResponse;
@@ -182,10 +175,14 @@ class HomeController extends Controller
         $user->employee_id          = $request->input('employee_id');
         $user->date_of_birth        = $request->input('date_of_birth');
         $user->date_of_joining      = $request->input('date_of_joining');
-        $user->designation_id       = $request->input('designation_id');
         $user->date_of_birth        = $request->input('date_of_birth');
 
         $user->save();
+
+        UserDesignation::where('user_id', $user->id)->update([
+            'designation_id' => $request->input('designation_id')
+        ]);
+
 
         if ($request->hasFile('image')) {
 
@@ -301,56 +298,5 @@ class HomeController extends Controller
                 ->latest()
                 ->paginate(paginateNumber())
         ]);
-    }
-
-
-
-    /**
-     * Affiliate Config Update
-     *
-     * @return RedirectResponse
-     */
-    public function affiliateUpdate(Request $request): RedirectResponse
-    {
-
-        $response = response_status('Affiliate System Is Currently Disabled');
-        if (site_settings("affiliate_system") == StatusEnum::true->status()) {
-            $response = response_status('Referral Code Updated');
-            $request->validate([
-                'referral_code'      => ['required', 'unique:users,referral_code,' . $this->user->id, 'max:155'],
-            ]);
-
-            $user                       =  $this->user;
-            $user->referral_code        =  $request->input('referral_code');
-            $user->save();
-        }
-
-        return back()->with($response);
-    }
-
-
-
-
-    /**
-     * Webhook Config Update
-     *
-     * @return RedirectResponse
-     */
-    public function webhookUpdate(Request $request): RedirectResponse
-    {
-
-        $response = response_status('You current plan doesnot have webhook access');
-        if ($this->webhookAccess == StatusEnum::true->status()) {
-            $response = response_status('Webhook Api Key Updated');
-            $request->validate([
-                'webhook_api_key'      => ['required', 'unique:users,webhook_api_key,' . $this->user->id],
-            ]);
-
-            $user                       =  $this->user;
-            $user->webhook_api_key      =  $request->input('webhook_api_key');
-            $user->save();
-        }
-
-        return back()->with($response);
     }
 }

@@ -38,18 +38,7 @@
                                     <div class="form-inner">
                                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                     </div>
-                                    <div class="form-inner">
-                                        <select name="status" id="status" class="status">
-                                            <option value="">
-                                                {{translate('Select status')}}
-                                            </option>
-                                            @foreach(App\Enums\WithdrawStatus::toArray() as $k => $v)
-                                                <option  {{$v ==   request()->input('status') ? 'selected' :""}} value="{{$v}}">
-                                                    {{ucfirst(t2k($k))}}
-                                               </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    
                                     <div class="form-inner">
                                         <select name="user" id="user" class="user">
                                             <option value="">

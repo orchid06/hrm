@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\BalanceUpdateRequest;
 use App\Http\Requests\Admin\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\Package;
@@ -31,7 +30,7 @@ class UserController extends Controller
     {
         $this->middleware(['permissions:view_user'])->only('list', 'show', 'selectSearch');
         $this->middleware(['permissions:create_user'])->only(['store', 'create']);
-        $this->middleware(['permissions:update_user'])->only(['updateStatus', 'update', 'login', 'subscription', 'balance']);
+        $this->middleware(['permissions:update_user'])->only(['updateStatus', 'update', 'login', 'balance']);
         $this->middleware(['permissions:delete_user'])->only(['destroy']);
     }
 
@@ -195,33 +194,6 @@ class UserController extends Controller
         Auth::guard('web')->loginUsingId($user->id);
         return redirect()->route('user.home')
             ->with(response_status('Successfully logged In As a User'));
-    }
-
-
-    /**
-     * Update subscription
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function subscription(Request $request): RedirectResponse
-    {
-
-        $request->validate([
-            'id'              => 'required|exists:users,id',
-            'package_id'      => 'required|exists:packages,id',
-            'remarks'         => 'required|string'
-        ]);
-
-        $package =  Package::where('id', $request->input("package_id"))
-            ->firstOrfail();
-        $user    =  User::with(['referral', 'runningSubscription'])
-            ->where('id', $request->input('id'))
-            ->first();
-
-        $response = $this->userService->createSubscription($user, $package, $request->input("remarks"));
-
-        return  back()->with(response_status(Arr::get($response, "message", "Subscription Updated"), Arr::get($response, "status", true) ? "success" : "error"));
     }
 
 

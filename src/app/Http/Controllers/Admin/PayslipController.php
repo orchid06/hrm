@@ -6,17 +6,9 @@ use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Utility\SendMail;
 use App\Models\Admin\Payroll;
-use App\Models\User;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
-use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use App\Mail\PayslipMail;
 use App\Models\Admin\MailGateway;
-use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\PDF;
 
 class PayslipController extends Controller

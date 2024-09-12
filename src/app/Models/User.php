@@ -6,9 +6,7 @@ namespace App\Models;
 use App\Enums\StatusEnum;
 use App\Models\Admin;
 use App\Models\Admin\BankAccount;
-use App\Models\Admin\Designation;
 use App\Models\Admin\Payroll;
-use App\Models\Admin\Template;
 use App\Models\Admin\UserDesignation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -140,29 +138,6 @@ class User extends Authenticatable
         return $this->morphOne(File::class, 'fileable');
     }
 
-
-
-    /**
-     * Get referral user
-     *
-     * @return BelongsTo
-     */
-    public function referral():BelongsTo {
-        return  $this->belongsTo(User::class,"referral_id",'id');
-    }
-
-
-
-    /**
-     * Get all affiliate users
-     *
-     * @return HasMany
-     */
-    public function affilateUser():HasMany {
-        return  $this->hasMany(User::class,"referral_id",'id');
-    }
-
-
     /**
      * Get user OTP
      *
@@ -203,33 +178,6 @@ class User extends Authenticatable
     }
 
 
-    /**
-     * Get all payment logs
-     *
-     * @return HasMany
-     */
-    public function paymentLogs(): HasMany{
-        return $this->hasMany(PaymentLog::class,'user_id')->latest();
-    }
-
-
-    /**
-     * Get withdraw logs
-     *
-     * @return HasMany
-     */
-    public function withdraws(): HasMany{
-        return $this->hasMany(WithdrawLog::class,'user_id')->latest();
-    }
-
-    /**
-     * Get pending withdraws
-     *
-     * @return HasMany
-     */
-    public function pendingWithdraws(): HasMany{
-        return $this->withdraws()->pending();
-    }
 
     /**
      * Get active users
@@ -293,17 +241,6 @@ class User extends Authenticatable
      */
     public function kycLogs(): HasMany{
         return $this->hasMany(KycLog::class, 'user_id');
-    }
-
-
-
-    /**
-     * Get all of social wevhook logs
-     *
-     * @return HasMany
-     */
-    public function webhookLogs(): HasMany{
-        return $this->hasMany(PostWebhookLog::class, 'user_id');
     }
 
 

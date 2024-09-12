@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Payroll;
 use App\Models\User;
@@ -71,6 +70,11 @@ class PayrollController extends Controller
 
     public function create(Request $request): RedirectResponse
     {
+        $request->validate([
+            'month'         => 'required',
+            'user_ids.*'    => 'required|exists:users,id'
+        ]);
+
         $month = $request->input('month');
         $userIds = $request->input('user_ids');
 

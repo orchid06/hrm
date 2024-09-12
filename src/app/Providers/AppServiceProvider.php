@@ -50,9 +50,7 @@ class AppServiceProvider extends ServiceProvider
             view()->composer('admin.partials.sidebar', function ($view)  {
 
                 $view->with([
-                    'pending_deposits'      => PaymentLog::pending()->count(),
                     'pending_tickets'       => Ticket::pending()->count(),
-                    'pending_withdraws'     => WithdrawLog::pending()->count(),
                     'pending_kycs'          => KycLog::pending()->count(),
                 ]);
             });

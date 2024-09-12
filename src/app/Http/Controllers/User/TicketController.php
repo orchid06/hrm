@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketRequest;
 use App\Http\Services\TicketService;
 use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
-use App\Models\Admin;
 use App\Models\Core\File;
-use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +36,7 @@ class TicketController extends Controller
             return $next($request);
         });
     }
-    
+
     /**
      * Support Ticket View
      *
@@ -83,7 +80,7 @@ class TicketController extends Controller
      */
     public function store(TicketRequest $request) :RedirectResponse{
 
-        
+
         try {
             $ticket =  $this->ticketService->store($request->except('_token') ,$this->user->id);
             return redirect()->route('user.ticket.show',$ticket->ticket_number)
@@ -94,7 +91,7 @@ class TicketController extends Controller
         }
         return back()->with($response);
 
-       
+
     }
 
 
@@ -118,7 +115,7 @@ class TicketController extends Controller
     }
 
 
-    
+
     /**
      * Reply Ticket
      *
@@ -131,7 +128,7 @@ class TicketController extends Controller
             "message" => 'required|string'
         ]);
 
-    
+
         $ticket              = Ticket::with(['user'])
                                         ->where('user_id',$this->user->id)
                                         ->where('id',$request->input('id'))->firstOrFail();
@@ -143,7 +140,7 @@ class TicketController extends Controller
         if($message){
 
             $code = [
-                "link"          => route("admin.ticket.show",$ticket->ticket_number), 
+                "link"          => route("admin.ticket.show",$ticket->ticket_number),
                 "name"          => $this->user->name,
                 "ticket_number" => $ticket->ticket_number
             ];
@@ -156,7 +153,7 @@ class TicketController extends Controller
                         [ $admin, 'TICKET_REPLY', $code, Arr::get( $code , "link", null) ],
                     ],
                 ],
-               
+
                 'email_notifications' => [
                     'action' => [SendMailJob::class, 'dispatch'],
                     'params' => [
@@ -173,7 +170,7 @@ class TicketController extends Controller
             ];
 
             $this->notify($notifications);
-            
+
         }
 
         return back()->with(response_status('Replied Successfully'));
@@ -181,7 +178,7 @@ class TicketController extends Controller
 
 
     /**
-     * download a file 
+     * download a file
      */
     public function download(Request $request) :mixed {
 

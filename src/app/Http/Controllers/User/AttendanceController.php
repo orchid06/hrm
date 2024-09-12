@@ -57,11 +57,11 @@ class AttendanceController extends Controller
         $user = Auth::user();
 
         $attendances = Attendance::where('user_id', $user->id)
-            ->orderBy('date', 'desc')
             ->date()
             ->year()
             ->month()
             ->day()
+            ->orderBy('date', 'desc')
             ->paginate(paginateNumber());
 
 

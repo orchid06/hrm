@@ -1,23 +1,18 @@
 <?php
 
 use App\Http\Controllers\user\LeaveController;
-use App\Http\Controllers\User\SocialPostController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\CommunicationsController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\User\AiController;
 use App\Http\Controllers\user\AttendanceController;
 use App\Http\Controllers\User\Auth\AuthorizationController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Auth\SocialAuthController;
-use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\user\PayslipController;
 use App\Http\Controllers\User\ReportController;
-use App\Http\Controllers\User\SocialAccountController;
 use App\Http\Controllers\User\TicketController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -147,32 +142,10 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::prefix("/template/reports")->name('template.report.')->group(function(){
                 Route::get('/','templateReport')->name('list');
             });
-            Route::prefix("/withdraw/reports")->name('withdraw.report.')->group(function(){
-                Route::get('/','withdrawReport')->name('list');
-                Route::get('/details/{id}','withdrawDetails')->name('details');
-            });
-            Route::prefix("/deposit/reports")->name('deposit.report.')->group(function(){
-                Route::get('/','depositReport')->name('list');
-                Route::get('/details/{id}','depositDetails')->name('details');
-            });
-            Route::prefix("/subscription/reports")->name('subscription.report.')->group(function(){
-                Route::get('/','subscriptionReport')->name('list');
-            });
 
-
-            Route::prefix("/affiliate")->name('affiliate.')->group(function(){
-                Route::get('/user/reports','affiliateUsers')->name('user.list');
-                Route::get('/reports','affiliateReport')->name('report.list');
-            });
             Route::prefix("/kyc/reports")->name('kyc.report.')->withoutMiddleware(['kyc'])->group(function(){
                 Route::get('/','kycReport')->name('list');
                 Route::get('/details/{id}','kycDetails')->name('details');
-            });
-            Route::prefix("/credit/reports")->name('credit.report.')->group(function(){
-                Route::get('/','creditReport')->name('list');
-            });
-            Route::prefix("/transaction/reports")->name('transaction.report.')->group(function(){
-                Route::get('/','transactionReport')->name('list');
             });
 
             Route::prefix("/webhook/reports")->name('webhook.report.')->group(function(){

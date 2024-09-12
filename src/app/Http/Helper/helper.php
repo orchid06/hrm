@@ -1,33 +1,19 @@
 <?php
 
-use App\Enums\AccountType;
-use App\Enums\ConnectionType;
-use App\Enums\DepositStatus;
+
 use App\Enums\KYCStatus;
-use App\Enums\PlanDuration;
-use App\Enums\PostStatus;
-use App\Enums\PostType;
 use App\Enums\PriorityStatus;
 use App\Enums\StatusEnum;
-use App\Enums\SubscriptionStatus;
 use App\Enums\TicketStatus;
-use App\Enums\WithdrawStatus;
 use App\Models\Admin;
 use App\Models\Admin\Currency;
-use App\Models\Admin\Frontend;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
-use App\Models\Admin\Template;
-use App\Models\AiTemplate;
-use App\Models\Blog;
 use App\Models\Core\Language;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\Core\Setting;
 use App\Models\Core\Translation;
 use App\Models\Country;
-use App\Models\MediaPlatform;
-use App\Models\Package;
-use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
@@ -136,29 +122,6 @@ if (!function_exists('format_rand_keys')) {
     }
 }
 
-
-
-if (!function_exists('openai_key')) {
-    function openai_key(): string
-    {
-
-        $key =  site_settings("open_ai_secret");
-
-        if (!site_settings("ai_key_usage") == StatusEnum::true->status()) {
-            $activeKeys = [];
-            foreach (format_rand_keys() as $api_key => $status) {
-                if ($status == StatusEnum::true->status()) {
-                    $activeKeys[] =  $api_key;
-                }
-            }
-            if (0 < count($activeKeys)) {
-                $key = Arr::random($activeKeys);
-            }
-        }
-
-        return $key;
-    }
-}
 
 
 if (!function_exists('site_currencies')) {
@@ -503,32 +466,6 @@ if (!function_exists('generateOTP')) {
     function generateOTP(int $min = 100000, int $max = 999999): int
     {
         return rand($min, $max);
-    }
-}
-
-
-
-
-
-
-
-if (!function_exists('show_ratings')) {
-    function show_ratings(int $ratings): string
-    {
-
-        $str       = "";
-        $ratings   = $ratings > 5 ? 5 : $ratings;
-
-        for ($i = 0; $i < 5; $i++) {
-
-            if ($i < $ratings) {
-                $str .= "<li><i class=\"bi bi-star-fill\"></i></li>";
-            } else {
-                $str .= "<li><i class=\"bi bi-star\"></i></li>";
-            }
-        }
-
-        return $str;
     }
 }
 
@@ -933,48 +870,6 @@ if (!function_exists('priority_status')) {
 }
 
 
-
-
-if (!function_exists('payment_status')) {
-    function payment_status(mixed  $status): string
-    {
-
-        $badges  = [
-
-            DepositStatus::INITIATE->value     => "info",
-            DepositStatus::PENDING->value      => "danger",
-            DepositStatus::PAID->value         => "success",
-            DepositStatus::FAILED->value       => "danger",
-            DepositStatus::REJECTED->value     => "danger",
-            DepositStatus::CANCEL->value       => "warning",
-        ];
-
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = ucfirst(t2k(Arr::get(array_flip(DepositStatus::toArray()), $status, 'Pending')));
-        return "<span class=\"i-badge $class\">$status</span>";
-    }
-}
-
-
-if (!function_exists('withdraw_status')) {
-    function withdraw_status(mixed  $status): string
-    {
-
-        $badges  = [
-
-            WithdrawStatus::PENDING->value      => "warning",
-            WithdrawStatus::APPROVED->value     => "success",
-            WithdrawStatus::REJECTED->value     => "danger",
-
-        ];
-
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = ucfirst(t2k(Arr::get(array_flip(WithdrawStatus::toArray()), $status, 'Pending')));
-        return "<span class=\"i-badge $class\">$status</span>";
-    }
-}
-
-
 if (!function_exists('kyc_status')) {
     function kyc_status(mixed  $status): string
     {
@@ -994,87 +889,11 @@ if (!function_exists('kyc_status')) {
 }
 
 
-if (!function_exists('post_status')) {
-    function post_status(mixed  $status): string
-    {
 
-        $badges  = [
-
-            PostStatus::SCHEDULE->value       => "warning",
-            PostStatus::FAILED->value         => "danger",
-            PostStatus::SUCCESS->value        => "success",
-            PostStatus::PENDING->value        => "info",
-
-        ];
-
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = ucfirst(t2k(Arr::get(array_flip(PostStatus::toArray()), $status, 'Pending')));
-        return "<span class=\"i-badge $class\">$status</span>";
-    }
-}
-
-
-if (!function_exists('post_type')) {
-    function post_type(mixed  $status): string
-    {
-
-        $badges  = [
-            PostType::FEED->value         => "info",
-            PostType::REELS->value        => "danger",
-            PostType::STORY->value        => "success",
-        ];
-
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = ucfirst(t2k(Arr::get(array_flip(PostType::toArray()), $status, 'Pending')));
-        return "<span class=\"i-badge $class\">$status</span>";
-    }
-}
 if (!function_exists('get')) {
     function get($name, $default = null)
     {
         return request()->input($name, $default);
-    }
-}
-
-
-
-
-if (!function_exists('account_connection_status')) {
-    function account_connection_status(mixed  $status = null): string
-    {
-
-
-        $badges  = [
-            StatusEnum::true->status()         => "info",
-            StatusEnum::false->status()        => "danger",
-        ];
-        $statusText  = [
-            StatusEnum::true->status()         => "Connected",
-            StatusEnum::false->status()        => "Disconnected",
-        ];
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = Arr::get($statusText, $status, 'info');
-        return "<span class=\"i-badge $class\">$status</span>";
-    }
-}
-
-
-if (!function_exists('intrgration_status')) {
-    function intrgration_status(mixed  $status = null): string
-    {
-
-        $badges  = [
-            StatusEnum::true->status()         => "info",
-            StatusEnum::false->status()        => "danger",
-        ];
-        $statusText  = [
-            StatusEnum::true->status()         => "Yes",
-            StatusEnum::false->status()        => "No",
-        ];
-
-        $class    = Arr::get($badges, $status, 'info');
-        $status   = Arr::get($statusText, $status, 'info');
-        return "<span class=\"i-badge $class\">$status</span>";
     }
 }
 
@@ -1086,22 +905,6 @@ if (!function_exists('get_default_img')) {
         return asset('assets/images/default/default.jpg');
     }
 }
-
-
-//    if (!function_exists('get_content')){
-//       function get_content(string $key, bool $first  = true ) : Frontend | Collection | null{
-
-//          $frontends = Cache::remember('frontend_content',24 * 60, fn():Collection => Frontend::with('file')
-//                                                                                           ->active()
-//                                                                                           ->latest()
-//                                                                                           ->get());
-
-//          return ($frontends->where("key", $key));
-//       }
-//    }
-
-
-
 
 if (!function_exists('is_demo')) {
     function is_demo(): bool
@@ -1292,48 +1095,7 @@ if (!function_exists('getCachedPages')) {
 
 
 
-if (!function_exists('get_feature_blogs')) {
 
-
-    /**
-     * Summary of get_feature_blogs
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    function get_feature_blogs(): Collection
-    {
-        return  Cache::remember(
-            'feature_blogs',
-            24 * 60,
-            fn(): Collection =>
-            Blog::active()->feature()->get()
-        );
-    }
-}
-
-
-
-
-if (!function_exists('get_feature_templates')) {
-
-
-    /**
-     * Summary of get_feature_templates
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    function get_feature_templates(): Collection
-    {
-        return  Cache::remember(
-            'feature_templates',
-            24 * 60,
-            fn(): Collection =>
-            AiTemplate::with(['category'])
-                ->active()
-                ->default()
-                ->inRandomOrder()
-                ->get()
-        );
-    }
-}
 
 
 if (!function_exists('generateOperatingTimes')) {

@@ -1,13 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\AiTemplateController;
+
 use App\Http\Controllers\admin\AttendanceController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
-use App\Http\Controllers\Admin\CannedContentController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CommunicationsController;
-use App\Http\Controllers\Admin\FrontendManageController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ActivityHistoryController;
@@ -16,8 +12,6 @@ use App\Http\Controllers\Admin\MailGatewayController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\admin\DepartmentController;
 
-use App\Http\Controllers\Admin\PackageController;
-use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\admin\SalaryController;
@@ -27,7 +21,6 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\WithdrawController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\admin\DesignationController;
 use App\Http\Controllers\admin\ExpenseCategoryController;
