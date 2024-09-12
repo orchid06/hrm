@@ -68,7 +68,7 @@
                 {{Arr::get($data,"active_employees",0)}}
               </h3>
               <h5 class="title">
-                {{translate("Active Employees")}}
+                {{translate("Present Today")}}
               </h5>
               <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                 {{translate("View All")}}
@@ -88,7 +88,27 @@
                     {{(Arr::get($data,"inactive_employees",0))}}
                   </h3>
                   <h5 class="title">
-                      {{translate('Inactive Employees')}}
+                      {{translate('Absent Today')}}
+                  </h5>
+                  <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
+                        {{translate("View All")}}
+                  </a>
+                </div>
+                <div class="d-flex flex-column align-items-end gap-4">
+                  <div class="icon">
+                    <i class="las la-user-friends"></i>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="i-card-sm style-2 info">
+                <div class="card-info">
+                  <h3>
+                    {{(Arr::get($data,"inactive_employees",0))}}
+                  </h3>
+                  <h5 class="title">
+                      {{translate('Late Today')}}
                   </h5>
                   <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                         {{translate("View All")}}
