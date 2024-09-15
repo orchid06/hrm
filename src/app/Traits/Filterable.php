@@ -183,7 +183,7 @@ trait Filterable
 
             $paymentStatus            = request()->input('payment_status');
             $month          = now()->format('Y-m');
-            $year           = now()->format)
+            $year           = now()->format('Y');
 
             if($paymentStatus == PaymentStatus::paid->status()){
 
