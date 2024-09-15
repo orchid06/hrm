@@ -22,6 +22,9 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         @if(check_permission('update_menu'))
+                                            <li>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#payment_modal" class="dropdown-item" > {{translate('Pay Current Month')}}</button>
+                                            </li>
                                             @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
                                                 <li>
                                                     <button type="button" name="bulk_status" data-type ="status" value="{{$v}}" class="dropdown-item bulk-action-btn" > {{translate($k)}}</button>
@@ -45,7 +48,40 @@
                     <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
                         <div class="search-area">
                             <form action="{{route(Route::currentRouteName())}}" method="get">
-                                
+
+                                <div class="form-inner">
+                                    <select name="payment_status" class="filter-payment-status" id="payment_status" placeholder="{{translate('Select status')}}">
+                                        <option value="">{{translate('Select Status')}}</option>
+                                        @foreach(\App\Enums\PaymentStatus::toArray() as $key => $value)
+                                        <option value="{{ $value }}" {{ request()->input('payment_status') == $value ? 'selected' :'' }}>
+                                            {{ $key }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-inner">
+                                    <select name="department_id" class="filter-department" id="department_id" placeholder="{{translate('Select a Department')}}">
+                                        <option value="">{{translate('Select Department')}}</option>
+                                        @foreach($departments as $department)
+                                        <option value="{{ $department->id }}" {{ request()->input('department_id') == $department->id ? 'selected' :'' }}>
+                                            {{ $department->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-inner">
+                                    <select name="designation_id" class="filter-designation" id="designation_id" placeholder="{{translate('Select a Designatoin')}}">
+                                        <option value="">{{translate('Select Designation')}}</option>
+                                        @foreach($designations as $designation)
+                                        <option value="{{ $designation->id }}" {{ request()->input('designation_id') == $designation->id ? 'selected' :'' }}>
+                                            {{ $designation->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-inner  ">
                                       <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
                                 </div>
@@ -80,10 +116,7 @@
                                 {{translate('Contact')}}
                             </th>
                             <th scope="col">
-                                {{translate('Department')}}
-                            </th>
-                            <th scope="col">
-                                {{translate('Designation')}}
+                                {{translate('Department')}} - {{translate('Designation')}}
                             </th>
                             <th scope="col">
                                 {{translate('Status')}}
@@ -107,12 +140,18 @@
                                     <div class="user-meta-info d-flex align-items-center gap-2">
                                         <img class="rounded-circle avatar-sm"  src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                         <p>	{{ $user->name ?? translate("N/A")}}</p>
+                                        @if($user->payrolls->isNotEmpty())
+                                            <span class="i-badge capsuled success">{{translate('Paid')}}</span>
+                                        @else
+                                            <span class="i-badge capsuled danger">{{translate('Unpaid')}}</span>
+                                        @endif
 
                                     </div>
                                 </td>
 
                                 <td  data-label="{{translate('Employee ID')}}">
                                     {{$user->employee_id ?? translate("N/A")}}
+
                                 </td>
                                 <td data-label='{{translate("Contact")}}'>
                                     <div class="d-block">
@@ -121,14 +160,14 @@
                                     {{translate('Phone')}} : <a href="tel:{{ $user->phone }}" class="i-badge info">{{ $user->phone }}</a>
                                 </td>
                                 <td data-label="{{translate('Department')}}">
-
-                                    <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name?? translate("N/A")}}</span>
-                                </td>
-                                <td data-label="{{translate('Designation')}}">
+                                    <div class="d-block">
+                                        <span class="i-badge capsuled info" >{{@$user->userDesignation->designation->department->name?? translate("N/A")}}</span>
+                                    </div>
                                     <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="">
                                         {{@$user->userDesignation->designation->name?? translate("N/A")}}
                                     </span>
                                 </td>
+
                                 <td data-label="{{translate('Status')}}">
                                     <div class="form-check form-switch switch-center">
                                         <input {{!check_permission('update_user') ? "disabled" :"" }} type="checkbox" class="status-update form-check-input"
@@ -184,24 +223,63 @@
 
 @section('modal')
     @include('modal.delete_modal')
+
+    <div class="modal fade" id="payment_modal" tabindex="-1" aria-labelledby="payment_modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="payment_modalLabel">{{translate(' Pay Current Month')}}</h5>
+                    <button class="close-btn" data-bs-dismiss="modal">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <textarea disabled name="note" id="" cols="30" rows="10">
+                            Pay selected users for this month : {{\Carbon\Carbon::now()->format('F Y')}}
+                        </textarea>
+
+                        <div class="modal-footer">
+                            <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                                {{translate("Close")}}
+                            </button>
+                            <div class="bulk-action">
+                                <button type="button" name="bulk_status" data-type ="pay" class="i-btn btn--md btn--primary bulk-action-btn" > {{translate('Pay')}}</button>
+                            </div>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script-push')
 <script>
 	(function($){
        	"use strict";
-        $(".select2").select2({
-			placeholder:"{{translate('Select Status')}}",
-			dropdownParent: $("#addUser"),
+
+        $(".filter-department").select2({
+        placeholder:"{{translate('Select Department')}}",
+
 		})
+
+        $(".filter-designation").select2({
+			placeholder:"{{translate('Select Designation')}}",
+
+		})
+
+        $(".filter-payment-status").select2({
+			placeholder:"{{translate('Select Status')}}",
+
+		})
+
         $("#country").select2({
 			placeholder:"{{translate('Select Country')}}",
 			dropdownParent: $("#addUser"),
 		})
-        $(".filter-country").select2({
-			placeholder:"{{translate('Select Country')}}",
 
-		})
 	})(jQuery);
 </script>
 @endpush

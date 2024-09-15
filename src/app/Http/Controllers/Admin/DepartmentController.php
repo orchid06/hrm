@@ -38,11 +38,16 @@ class DepartmentController extends Controller
 
             'breadcrumbs'   => ['Home' => 'admin.home', 'Departments' => null],
             'title'         =>  translate('Manage Departments'),
-            'departments'   =>  Department::latest()
-                ->search(['name'])
-                ->paginate(paginateNumber())
-                ->appends(request()->all())
-        ]);
+            'departments'   =>  Department::withCount([
+                                    'designations as employee_count' => function ($query) {
+                                        $query->join('user_designations', 'user_designations.designation_id', '=', 'designations.id');
+                                    }
+                                ])->with(['designations.users' => function ($query) {
+                                    $query->select('users.id', 'users.name');
+                                }])->search(['name'])
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all())
+            ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -51,7 +56,7 @@ class DepartmentController extends Controller
         $request->validate(
             [
                 'name'      => 'required|unique:departments,name',
-                'status'    => ['required',Rule::in(StatusEnum::toArray())],
+                'status'    => ['required', Rule::in(StatusEnum::toArray())],
             ],
             [
                 'name.unique' => translate('Department already exists')
@@ -72,8 +77,8 @@ class DepartmentController extends Controller
 
         $request->validate([
             'uid'       => 'required|exists:departments,uid',
-            'name'      => ['required',Rule::unique('departments', 'name')->ignore($request->uid, 'uid')],
-            'status'    => ['required',Rule::in(StatusEnum::toArray())],
+            'name'      => ['required', Rule::unique('departments', 'name')->ignore($request->uid, 'uid')],
+            'status'    => ['required', Rule::in(StatusEnum::toArray())],
         ]);
 
 

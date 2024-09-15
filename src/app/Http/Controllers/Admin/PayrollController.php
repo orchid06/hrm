@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Admin\PayrollService;
 use App\Models\Admin\Payroll;
 use App\Models\User;
 use App\Traits\Fileable;
@@ -17,13 +18,16 @@ class PayrollController extends Controller
 {
     use ModelAction, Fileable;
 
-    public function __construct()
+
+
+    public function __construct(protected PayrollService $payrollService)
     {
         //check permissions middleware
         $this->middleware(['permissions:view_payroll'])->only(['list']);
         $this->middleware(['permissions:create_payroll'])->only(['store', 'create']);
         $this->middleware(['permissions:update_payroll'])->only(['updateStatus', 'update', 'edit', 'bulk']);
         $this->middleware(['permissions:delete_payroll'])->only(['destroy', 'bulk']);
+        $this->payrollService  = $payrollService;
     }
 
     public function list(): View
@@ -75,27 +79,13 @@ class PayrollController extends Controller
             'user_ids.*'    => 'required|exists:users,id'
         ]);
 
-        $month = $request->input('month');
-        $userIds = $request->input('user_ids');
+        $month      = $request->input('month');
+        $userIds    = $request->input('user_ids');
 
+        $results = $this->payrollService->createPayrolls($userIds, $month);
 
-        $users = User::Active()
-            ->whereIn('id', $userIds)
-            ->whereDoesntHave('payrolls', function ($query) use ($month) {
-                $query->whereYear('created_at', substr($month, 0, 4))
-                    ->whereMonth('created_at', substr($month, 5, 2));
-            })
-            ->get();
-
-
-        foreach ($users as $user) {
-            Payroll::create([
-                'user_id'    => $user->id,
-                'salary'     => json_decode($user->userDesignation->salary)->basic_salary->amount,
-                'net_pay'    => $user->userDesignation->net_salary,
-                'details'    => $user->userDesignation->salary,
-                'pay_period' => $month
-            ]);
+        if (!empty($results['errors'])) {
+            return back()->with('error', implode(', ', $results['errors']));
         }
 
         return back()->with('success', trans('Payslip generated successfully'));

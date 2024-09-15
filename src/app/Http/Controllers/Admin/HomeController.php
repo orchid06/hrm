@@ -9,6 +9,7 @@ use App\Models\admin\Expense;
 use App\Models\admin\ExpenseCategory;
 use App\Models\Admin\Payroll;
 use App\Models\Admin\UserDesignation;
+use App\Models\Attendance;
 use App\Models\Core\File;
 use App\Models\Notification;
 use App\Models\User;
@@ -18,6 +19,7 @@ use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\Fileable;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -59,34 +61,81 @@ class HomeController extends Controller
         $data = [];
 
 
-        $data['total_employees'] = User::date()->count();
+        $data['total_employees'] = User::count();
 
 
-        $data['active_employees'] = User::where('status', StatusEnum::true->status())->date()->count();
+        $data['present_employees'] = Attendance::where('clock_in_status', StatusEnum::true->status())->when(request()->has('date'), function ($query) {
+            $query->date();
+        }, function ($query) {
+
+            $query->whereDate('date', now());
+        })->count();
 
 
-        $data['inactive_employees'] = User::where('status', StatusEnum::false->status())->date()->count();
+        $data['absent_employees'] = User::whereDoesntHave('attendances', function ($query) {
+            $query->when(request()->has('date'), function ($q) {
+                $q->date();
+            }, function ($q) {
+                $q->whereDate('date', now());
+            });
+        })->count();
+
+        $data['late_employees'] = Attendance::whereNotNull('late_time')
+            ->where('late_time', '>', 0)
+            ->when(request()->has('date'), function ($query) {
+                $query->date();
+            }, function ($query) {
+                $query->whereDate('date', now());
+            })->count();
 
 
-        $data['total_payroll_processed'] = Payroll::whereMonth('created_at', $currentMonth)
-            ->whereYear('created_at', $currentYear)
-            ->date()
-            ->sum('net_pay');
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
+        // Determine if a custom date range spans multiple months
+        $isCustomDateRange = $startDate && $endDate && Carbon::parse($startDate)->month != Carbon::parse($endDate)->month;
 
 
-        $data['pending_payroll'] = Payroll::where('status', StatusEnum::false->status())->date()->count();
+
+        $data['total_payroll_processed'] = Payroll::when($isCustomDateRange, function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }, function ($query) {
+            $query->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        })->sum('net_pay');
+
+
+
+        $data['pending_payroll'] = User::whereDoesntHave('payrolls', function ($query) use ($startDate, $endDate, $isCustomDateRange) {
+            if ($isCustomDateRange) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            } else {
+                $query->whereMonth('created_at', now()->month)
+                    ->whereYear('created_at', now()->year);
+            }
+        })->count();
 
 
         $data['designation_changes'] = UserDesignation::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
             ->count();
 
-        $totalOfficeExpenses = Expense::whereYear('created_at', $currentYear)
-            ->date()
-            ->sum('amount');
+        $totalOfficeExpenses = Expense::when(request()->has('date'), function ($query) {
+
+            $query->date();
+        }, function ($query) {
+
+            $query->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        })->sum('amount');
 
 
         $data['net_expense'] = $data['total_payroll_processed'] + $totalOfficeExpenses;
+
+        $formattedDate = now()->format('m/d/Y');
+        $todaysDateRange = "{$formattedDate} - {$formattedDate}";
+
+        $data['date'] = request()->input('date') ?? $todaysDateRange;
 
 
         $yearlyCategoryExpenses = ExpenseCategory::with(['expenses' => function ($query) use ($currentYear) {

@@ -35,9 +35,6 @@
                   </a>
               </div>
             </form>
-            <button type="button" class="right-menu-btn layout-rightsidebar-btn waves ripple-light">
-              <i class="las la-wave-square"></i>
-            </button>
           </div>
         </div>
       <div class="row g-3 mb-3">
@@ -65,14 +62,19 @@
           <div class="i-card-sm style-2 success">
             <div class="card-info">
               <h3>
-                {{Arr::get($data,"active_employees",0)}}
+                {{Arr::get($data,"present_employees",0)}}
               </h3>
               <h5 class="title">
-                {{translate("Present Today")}}
+                {{translate("Present")}}
               </h5>
-              <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
-                {{translate("View All")}}
-              </a>
+              <form action="{{route('admin.attendance.list')}}" method="GET">
+                @csrf
+                <input type="hidden" name="date" value="{{$data['date']}}">
+                <button type="submit" class="i-btn btn--sm btn--primary-outline">
+                    {{translate("View All")}}
+                  </button>
+              </form>
+
             </div>
             <div class="d-flex flex-column align-items-end gap-4">
               <div class="icon">
@@ -85,10 +87,10 @@
             <div class="i-card-sm style-2 info">
                 <div class="card-info">
                   <h3>
-                    {{(Arr::get($data,"inactive_employees",0))}}
+                    {{(Arr::get($data,"absent_employees",0))}}
                   </h3>
                   <h5 class="title">
-                      {{translate('Absent Today')}}
+                      {{translate('Absent')}}
                   </h5>
                   <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                         {{translate("View All")}}
@@ -105,10 +107,10 @@
             <div class="i-card-sm style-2 info">
                 <div class="card-info">
                   <h3>
-                    {{(Arr::get($data,"inactive_employees",0))}}
+                    {{(Arr::get($data,"late_employees",0))}}
                   </h3>
                   <h5 class="title">
-                      {{translate('Late Today')}}
+                      {{translate('Late')}}
                   </h5>
                   <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
                         {{translate("View All")}}

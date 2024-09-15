@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
+use App\Http\Services\Admin\PayrollService;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\User;
@@ -26,7 +27,7 @@ class UserController extends Controller
     use ModelAction;
 
 
-    public function __construct(protected UserService $userService)
+    public function __construct(protected UserService $userService , protected PayrollService $payrollService)
     {
         $this->middleware(['permissions:view_user'])->only('list', 'show', 'selectSearch');
         $this->middleware(['permissions:create_user'])->only(['store', 'create']);
@@ -41,8 +42,9 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function list(): View
+    public function list(Request $request): View
     {
+
         return view('admin.user.list', $this->userService->getList());
     }
 
@@ -205,6 +207,26 @@ class UserController extends Controller
      */
     public function bulk(Request $request): RedirectResponse
     {
+        $request->validate([
+            'bulk_id' => 'required|string',
+            'type' => 'required|string',
+        ]);
+
+        if ($request->input('type') === 'pay'){
+
+            $userIds    = json_decode($request->input('bulk_id'), true);
+            $month      = now()->format('Y-m');
+
+            $results = $this->payrollService->createPayrolls($userIds, $month);
+
+            if (!empty($results['errors'])) {
+                return back()->with('error', implode(', ', $results['errors']));
+            }
+
+            return back()->with('success', trans('Payslip generated successfully'));
+        }
+
+
 
         try {
             $response =  $this->bulkAction($request, ["model" => new User()]);
@@ -213,4 +235,6 @@ class UserController extends Controller
         }
         return  back()->with($response);
     }
+
+
 }

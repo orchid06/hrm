@@ -13,6 +13,8 @@ use App\Http\Requests\Admin\BalanceUpdateRequest;
 use App\Http\Utility\SendNotification;
 use App\Jobs\SendMailJob;
 use App\Jobs\SendSmsJob;
+use App\Models\Admin\Department;
+use App\Models\Admin\Designation;
 use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Payroll;
 use App\Models\Admin\Withdraw;
@@ -63,24 +65,39 @@ class UserService
     public function getList(): array
     {
 
+        $departmentId   = request()->input('department_id');
+        $designationId  = request()->input('designation_id');
+        $payment_status = request()->input('payment_status');
+        $currentMonth   = now()->month;
+        $currentYear    = now()->year;
+
         return [
 
             'breadcrumbs'  =>  ['Home' => 'admin.home', 'Employee' => null],
             'title'        => 'Manage Employees',
 
-            'users'        =>  User::with([
-                'file',
-                'createdBy',
-                'country',
-            ])
-                ->routefilter()
-                ->search(['name', 'email', "phone"])
-                ->filter(['country:name'])
-                ->latest()
-                ->paginate(paginateNumber())
-                ->appends(request()->all()),
+            'users'        =>  User::whereHas('designations.designation', function ($query) use ($departmentId, $designationId) {
+                                if ($departmentId) {
+                                    $query->where('department_id', $departmentId);
+                                }
+                                if ($designationId) {
+                                    $query->where('id', $designationId);
+                                }
+                            })
+                            ->with(['file' , 'payrolls' => function ($query) use ($currentMonth, $currentYear) {
+                                        $query->whereMonth('created_at', $currentMonth)
+                                            ->whereYear('created_at', $currentYear);
+                                }])
+                                ->routefilter()
+                                ->search(['name', 'email', "phone"])
+                                ->filter(['country:name'])
+                                ->latest()
+                                ->paginate(paginateNumber())
+                                ->appends(request()->all()),
 
             "countries"    => get_countries(),
+            'departments'  => Department::all(),
+            'designations' => Designation::all()
 
         ];
     }

@@ -274,7 +274,7 @@ class User extends Authenticatable
      */
     public function designations(): HasMany
     {
-        return $this->hasMany(UserDesignation::class, "user_id");
+        return $this->hasMany(UserDesignation::class);
     }
 
     public function userDesignation():HasOne

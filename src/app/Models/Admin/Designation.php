@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Enums\StatusEnum;
+use App\Models\User;
 use App\Traits\Filterable;
 use App\Traits\ModelAction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,19 +15,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Designation extends Model
 {
-    use HasFactory , Filterable ,ModelAction ;
+    use HasFactory, Filterable, ModelAction;
 
     protected $guarded = [];
 
-    protected static function booted(){
+    protected static function booted()
+    {
 
         static::creating(function (Model $model) {
             $model->uid        = Str::uuid();
         });
     }
 
-    public function scopeActive(Builder $q) :Builder{
-        return $q->where("status",StatusEnum::true->status());
+    public function scopeActive(Builder $q): Builder
+    {
+        return $q->where("status", StatusEnum::true->status());
     }
 
     /**
@@ -34,7 +37,7 @@ class Designation extends Model
      *
      * @return BelongsTo
      */
-    public function department() : BelongsTo
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, "department_id");
     }
@@ -45,8 +48,13 @@ class Designation extends Model
      *
      * @return HasMany
      */
-    public function userDesignations() : HasMany
+    public function userDesignations(): HasMany
     {
-        return $this->hasMany(UserDesignation::class,"designation_id");
+        return $this->hasMany(UserDesignation::class, "designation_id");
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, UserDesignation::class, 'designation_id', 'id', 'id', 'user_id');
     }
 }

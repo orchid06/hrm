@@ -32,7 +32,10 @@ class DesignationController extends Controller
      *
      * @return View
      */
-    public function list() :View{
+    public function list(Request $request) :View{
+
+        $departmentId = $request->input('department_id');
+
 
         return view('admin.designation.list',[
 
@@ -40,10 +43,14 @@ class DesignationController extends Controller
             'breadcrumbs'    =>   ['Home'=>'admin.home','Designations'=> null],
             'departments'    =>  Department::latest()->get(),
             'designations'   =>  Designation::with('department')
-                                ->latest()
-                                ->search(['name' , 'department:name'])
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all())
+                                    ->withCount(['users'])
+                                    ->when($departmentId, function ($query, $departmentId) {
+                                        $query->where('department_id', $departmentId);
+                                    })
+                                    ->latest()
+                                    ->search(['name', 'department:name'])
+                                    ->paginate(paginateNumber())
+                                    ->appends(request()->all())
         ]);
     }
 

@@ -49,6 +49,18 @@
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="search-area">
                         <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                            <div class="form-inner">
+                                <select name="department_id" class="filter_select2" id="department_id" placeholder="{{translate('Select a Department')}}">
+                                    <option value="">{{translate('Select Department')}}</option>
+                                    @foreach($departments as $department)
+                                    <option value="{{ $department->id }}" {{ request()->input('department_id') == $department->id ? 'selected' :'' }}>
+                                        {{ $department->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-inner">
                                 <input name="search" value="{{request()->input('search')}}" type="search"
                                     placeholder="{{translate('Search by name or department')}}">
@@ -77,6 +89,10 @@
                         </th>
                         <th scope="col">
                             {{translate('Name')}}
+                        </th>
+
+                        <th scope="col">
+                            {{translate('Total Employees')}}
                         </th>
 
                         <th scope="col">
@@ -109,6 +125,15 @@
                                 <i class="@php echo @$designation->icon  @endphp"></i>
                                 <p>
                                     {{($designation->name)}}
+                                </p>
+                            </div>
+                        </td>
+
+                        <td data-label='{{translate("Total Employees")}}'>
+                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                <i class="@php echo @$designation->icon  @endphp"></i>
+                                <p>
+                                    {{($designation->users_count)}}
                                 </p>
                             </div>
                         </td>
@@ -303,6 +328,10 @@
 <script>
     (function ($) {
         "use strict";
+
+        $(".filter_select2").select2({
+                placeholder: "{{translate('Select a Department')}}",
+        })
 
         $('#addDesignation').on('shown.bs.modal', function () {
             $(".select2").select2({

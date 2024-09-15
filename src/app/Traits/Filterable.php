@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Enums\PaymentStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 trait Filterable
@@ -167,6 +168,31 @@ trait Filterable
             if (!request()->input('day'))   return $query;
 
             $day            = request()->input('day');
+            return $query->whereRaw('DAYOFWEEK(created_at) = ?', [$day]);
+
+        } catch (\Throwable $th) {
+            return $query;
+        }
+
+    }
+
+    public function scopePaymentStatus(Builder $query, string $column = 'created_at'){
+
+        try {
+            if (!request()->input('payment_status'))   return $query;
+
+            $paymentStatus            = request()->input('payment_status');
+            $month          = now()->format('Y-m');
+            $year           = now()->format)
+
+            if($paymentStatus == PaymentStatus::paid->status()){
+
+                return $query->whereHas('payrolls', function ($query) use ($month, $year) {
+                    $query->whereMonth('created_at', $month)
+                          ->whereYear('created_at', $year)
+                          ->where('status', PaymentStatus::paid->status());
+                });
+            }
             return $query->whereRaw('DAYOFWEEK(created_at) = ?', [$day]);
 
         } catch (\Throwable $th) {

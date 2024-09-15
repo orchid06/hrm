@@ -80,6 +80,10 @@
                         </th>
 
                         <th scope="col">
+                            {{translate('Total Employees')}}
+                        </th>
+
+                        <th scope="col">
                             {{translate('Designations')}}
                         </th>
                         {{-- @if(!request()->routeIs("admin.department.subcategories"))
@@ -126,14 +130,24 @@
                             </div>
                         </td>
 
-
+                        <td data-label='{{translate("Total Employees")}}'>
+                            <div class="user-meta-info d-flex align-items-center gap-2">
+                                <p>
+                                    {{$department->employee_count }}
+                                </p>
+                            </div>
+                        </td>
 
 
                         <td data-label='{{translate("Designations")}}'>
                             <div class="user-meta-info d-flex align-items-center gap-2">
-                                <a href="{{route('admin.designation.list',['search' => $department->name])}}" class="i-badge capsuled success">
-                                    {{translate('Designations : ')}} ({{$department->designations->count()}})
-                                </a>
+                                <form action="{{route('admin.designation.list')}}" method="GET">
+                                    <input type="hidden" name="department_id" value="{{$department->id}}">
+                                    <button type="submit" class="i-badge capsuled success">
+                                        {{translate('Designations : ')}} ({{$department->designations->count()}})
+                                    </button>
+                                </form>
+
                             </div>
                         </td>
 
