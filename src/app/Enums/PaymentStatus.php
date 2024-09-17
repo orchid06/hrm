@@ -15,7 +15,7 @@ enum PaymentStatus {
         return match($this)
         {
             PaymentStatus::paid => '1',
-            PaymentStatus::unpaid => '0',
+            PaymentStatus::unpaid => '2',
         };
     }
 

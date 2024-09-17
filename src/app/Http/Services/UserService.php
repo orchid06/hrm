@@ -71,6 +71,7 @@ class UserService
         $currentMonth   = now()->month;
         $currentYear    = now()->year;
 
+
         return [
 
             'breadcrumbs'  =>  ['Home' => 'admin.home', 'Employee' => null],
@@ -91,6 +92,7 @@ class UserService
                                 ->routefilter()
                                 ->search(['name', 'email', "phone"])
                                 ->filter(['country:name'])
+                                ->PaymentStatus()
                                 ->latest()
                                 ->paginate(paginateNumber())
                                 ->appends(request()->all()),

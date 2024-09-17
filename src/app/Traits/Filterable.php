@@ -182,19 +182,26 @@ trait Filterable
             if (!request()->input('payment_status'))   return $query;
 
             $paymentStatus            = request()->input('payment_status');
-            $month          = now()->format('Y-m');
-            $year           = now()->format('Y');
+            $month                    = now()->month;
+            $year                     = now()->year;
 
             if($paymentStatus == PaymentStatus::paid->status()){
 
+
+
                 return $query->whereHas('payrolls', function ($query) use ($month, $year) {
                     $query->whereMonth('created_at', $month)
-                          ->whereYear('created_at', $year)
-                          ->where('status', PaymentStatus::paid->status());
+                          ->whereYear('created_at', $year);
                 });
             }
-            return $query->whereRaw('DAYOFWEEK(created_at) = ?', [$day]);
+            elseif($paymentStatus == PaymentStatus::unpaid->status()){
 
+                return $query->whereDoesntHave('payrolls', function ($query) use ($month, $year) {
+                    $query->whereMonth('created_at', $month)
+                          ->whereYear('created_at', $year);
+                });
+            }
+            
         } catch (\Throwable $th) {
             return $query;
         }
