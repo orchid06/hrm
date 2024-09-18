@@ -40,9 +40,7 @@ try {
 Route::middleware($globalMiddleware)->group(function () {
 
     #Frontend Controller
-    Route::controller(FrontendController::class)->group(function () {
-        Route::get('page/{slug}', 'page')->name('page');
-    });
+
 
     #guest user route
     Route::middleware(['guest:web'])->name('auth.')->group(function () {
@@ -118,18 +116,6 @@ Route::middleware($globalMiddleware)->group(function () {
         #basic user route
         Route::controller(UserController::class)->group(function () {
 
-            Route::get('purchase/{slug}', 'planPurchase')->name('plan.purchase');
-
-            # withdraw route
-            Route::prefix("/withdraw")->name('withdraw.')->group(function () {
-                Route::get('/request', 'withdrawCreate')->name('create');
-                Route::post('/request/process', 'withdrawProcess')->name('request.process');
-                Route::get('/preview/{trx}', 'withdrawPreview')->name('preview');
-                Route::post('/request/submit', 'withdrawRequest')->name('request.submit');
-            });
-
-            Route::get('/plans', 'plan')->name('plan');
-
             #kyc route
             Route::prefix("/kyc")->name('kyc.')->withoutMiddleware(['kyc'])->group(function () {
                 Route::get('form', 'kycForm')->name('form');
@@ -146,10 +132,6 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::prefix("/kyc/reports")->name('kyc.report.')->withoutMiddleware(['kyc'])->group(function(){
                 Route::get('/','kycReport')->name('list');
                 Route::get('/details/{id}','kycDetails')->name('details');
-            });
-
-            Route::prefix("/webhook/reports")->name('webhook.report.')->group(function(){
-                Route::get('/','webhookReport')->name('list');
             });
 
         });
@@ -178,7 +160,7 @@ Route::middleware($globalMiddleware)->group(function () {
         Route::controller(LeaveController::class)->prefix('leave/')->name('leave.')->group(function () {
 
             Route::get('index', 'index')->name('index');
-            Route::get('request', 'request')->name('request');
+            Route::post('request', 'store')->name('request');
 
         });
 

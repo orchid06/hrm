@@ -9,9 +9,10 @@ use App\Http\Services\UserService;
 use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
 use App\Models\Attendance;
-use App\Models\Admin\Leave;
+use App\Models\Leave;
 use App\Models\Admin\Payroll;
 use App\Models\Admin\UserDesignation;
+use App\Models\Leave as ModelsLeave;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;

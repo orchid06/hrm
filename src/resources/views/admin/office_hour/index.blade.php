@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="table-container position-relative">
+        <div class="attendance-table-container position-relative">
             <form data-route="{{route('admin.office.hour.store')}}" class="settingsForm" method="POST">
                 @csrf
                 <div class="row g-4">

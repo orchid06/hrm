@@ -56,6 +56,7 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
+
         $attendances = Attendance::where('user_id', $user->id)
             ->date()
             ->year()

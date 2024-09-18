@@ -139,7 +139,7 @@ trait Filterable
 
     public function scopeYear(Builder $query, string $column = 'created_at') : Builder {
         try {
-            if (!request()->input('year'))   return $query;
+            if(!request()->input('year')) return $query;
 
             $year            = request()->input('year');
             return $query->whereYear($column, $year);
@@ -152,7 +152,7 @@ trait Filterable
 
     public function scopeMonth(Builder $query, string $column = 'created_at') : Builder {
         try {
-            if (!request()->input('month'))   return $query;
+            if(!request()->input('month')) return $query;
 
             $month            = request()->input('month');
             return $query->whereMonth($column, $month);
@@ -165,7 +165,7 @@ trait Filterable
 
     public function scopeDay(Builder $query, string $column = 'created_at') : Builder {
         try {
-            if (!request()->input('day'))   return $query;
+            if(!request()->input('day')) return $query;
 
             $day            = request()->input('day');
             return $query->whereRaw('DAYOFWEEK(created_at) = ?', [$day]);
@@ -187,8 +187,6 @@ trait Filterable
 
             if($paymentStatus == PaymentStatus::paid->status()){
 
-
-
                 return $query->whereHas('payrolls', function ($query) use ($month, $year) {
                     $query->whereMonth('created_at', $month)
                           ->whereYear('created_at', $year);
@@ -201,7 +199,7 @@ trait Filterable
                           ->whereYear('created_at', $year);
                 });
             }
-            
+
         } catch (\Throwable $th) {
             return $query;
         }

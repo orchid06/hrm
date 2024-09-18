@@ -90,9 +90,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col">
-                                {{translate('Emplpoyee')}}
-                            </th>
 
                             <th scope="col">
                                 {{translate('Date')}}
@@ -132,17 +129,6 @@
                         @forelse($attendances as $attendance)
 
                         <tr>
-
-                            <td data-label="{{translate('Employee')}}">
-                                <a href="{{route('admin.user.show' , $attendance->user->uid )}}">
-                                    <div class="user-meta-info d-flex align-items-center gap-2">
-                                        <img class="rounded-circle avatar-sm"
-                                            src='{{imageURL(@$attendance->user->file,"profile,user",true) }}'
-                                            alt="{{@$attendance->user->file->name}}">
-                                        <p> {{ @$attendance->user->name ?? translate("N/A")}}</p>
-                                    </div>
-                                </a>
-                            </td>
 
                             <td data-label="{{translate('Date')}}">
                                 {{ \Carbon\Carbon::parse($attendance->date)->format('j M, Y') }} --

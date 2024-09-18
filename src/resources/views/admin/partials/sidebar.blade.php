@@ -151,7 +151,7 @@
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*'],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*' , 'admin.holiday.*' , 'admin.leave.*', 'admin.leave_type.*'],'drop_down')}} "
                     id="attendanceManagement">
                     <ul class="sub-menu">
 
@@ -174,6 +174,30 @@
                                 <span></span>
                                 <p>
                                     {{translate('Attendance sheet')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_holiday'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.holiday.list' ,'admin.holiday.edit' ])}}"
+                                href="{{route('admin.holiday.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Manage Holidays')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_leave'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.leave.list' ,'admin.leave.edit' , 'admin.leave_type.*' ])}}"
+                                href="{{route('admin.leave.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Manage Leaves')}}
                                 </p>
                             </a>
                         </li>
@@ -253,7 +277,7 @@
 
                         @if(check_permission('view_expense'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.payroll.list' ,'admin.payroll.edit' ])}}"
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.expense.list' ,'admin.expense.edit' ])}}"
                                 href="{{route('admin.expense.list')}}">
                                 <span></span>
                                 <p>

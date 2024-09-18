@@ -4,7 +4,9 @@
 @endpush
 @section('content')
 @php
-
+    $selectedDay    = request()->input('day');
+    $selectedMonth  = request()->input('month');
+    $selectedYear   = request()->input('year');
 @endphp
 <div class="i-card-md">
     <div class="card-header">
@@ -35,7 +37,7 @@
                                 <select name="day" class="select2" id="day" placeholder="{{translate('Select a day')}}">
                                     <option value="">{{translate('Select a Day')}}</option>
                                     @foreach($days as $key=>$day)
-                                        <option value="{{ $key }}" {{ request()->input('day') == $key ? 'selected' : ''}}>
+                                        <option value="{{ $key }}" {{ $selectedDay == $key ? 'selected' : ''}}>
                                             {{ $day }}
                                         </option>
                                     @endforeach
@@ -46,7 +48,7 @@
                                 <select name="month" class="select2" id="month" placeholder="{{translate('Select a month')}}">
                                     <option value="">{{translate('Month')}}</option>
                                     @foreach(range(1, 12) as $month)
-                                    <option value="{{ $month }}" {{ request()->input('month') == $month ? 'selected' :'' }}>
+                                    <option value="{{ $month }}" {{ $selectedMonth == $month ? 'selected' :'' }}>
                                         {{ \Carbon\Carbon::create()->month($month)->format('F') }}
                                     </option>
                                     @endforeach
@@ -57,7 +59,7 @@
                                 <select name="year" class="select2" id="year" placeholder="{{translate('Select a year')}}">
                                     <option value="">{{translate('Select a Year')}}</option>
                                     @foreach(range(date('Y') - 5, date('Y')) as $year)
-                                    <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' : ''}}>
+                                    <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : ''}}>
                                         {{ $year }}
                                     </option>
                                     @endforeach
@@ -161,7 +163,7 @@
                             @if ($attendance->clock_in )
                             <span class="i-badge capsuled success">{{translate('Present')}}</span>
                             @else
-                            <span class="i-badge capsuled success">{{translate('Absent')}}</span>
+                            <span class="i-badge capsuled danger">{{translate('Absent')}}</span>
                             @endif
                         </td>
 

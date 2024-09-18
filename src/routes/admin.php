@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ActivityHistoryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\admin\LeaveCategoryController;
+use App\Http\Controllers\admin\LeaveTypeController;
 use App\Http\Controllers\Admin\MailGatewayController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\admin\DepartmentController;
@@ -25,6 +27,8 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\admin\DesignationController;
 use App\Http\Controllers\admin\ExpenseCategoryController;
 use App\Http\Controllers\admin\ExpenseController;
+use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\admin\OfficeHourController;
 use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\admin\PayslipController;
@@ -362,6 +366,49 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/bulk/action', 'bulk')->name('bulk');
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
+
+        #Holiday section
+        Route::controller(HolidayController::class)->prefix('/holiday')->name('holiday.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::post('/update/', 'update')->name('update');
+            Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
+
+            Route::get('/create', 'create')->name('create');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
+        #Holiday section
+        Route::controller(LeaveController::class)->prefix('/leave')->name('leave.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::post('/update/', 'update')->name('update');
+            Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
+
+            Route::get('/create', 'create')->name('create');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+        });
+
+        #Holiday section
+        Route::controller(LeaveTypeController::class)->prefix('/leave_type')->name('leave_type.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{uid}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+
         });
 
 

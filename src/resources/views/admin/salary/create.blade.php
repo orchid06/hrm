@@ -12,13 +12,36 @@
 <form action="{{route('admin.salary.store')}}"  method="POST" enctype="multipart/form-data">
     @csrf
 
+    <div class="col-xl-12">
+        <div class="i-card-md h-440 mb-4">
 
+            <div class="card-body">
+
+                <div class="d-flex flex-column align-items-center justify-content-start border--bottom mb-4 gap-2 bg--light rounded-3 gap-3 p-3">
+                    <div class="user-profile-image bg--light">
+                        <img src="{{ imageURL($user->file,'profile,user',true) }}" alt="profile.jpg">
+                    </div>
+                    <div class="text-center">
+                        <h6 class="mb-1">
+
+                            <a   href="{{route('admin.user.show', $user->uid)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('View profile')}}" class="icon-btn warning">
+                                {{$user->name}}</i>
+                            </a>
+                        </h6>
+                        <span class="i-badge capsuled info">{{(@$user->userDesignation->designation->name)}}</span>
+                        <span class="i-badge capsuled success">{{(@$user->userDesignation->designation->department->name)}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="i-card-md">
         <div class="card--header">
             <div class="action">
                 <button id="add-salary-option" class="i-btn btn--sm success">
                     <i class="las la-plus me-1"></i>   {{translate('Add More')}}
                 </button>
+
             </div>
 
             <div class="col-md-3">

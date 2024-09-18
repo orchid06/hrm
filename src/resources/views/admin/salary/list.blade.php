@@ -2,9 +2,30 @@
 @section('content')
 <div class="row g-4 mb-4">
 
-    @if(request()->routeIs("admin.salary.list"))
+    <div class="w-100 d-flex justify-content-end">
+        <form class="d-flex justify-content-end align-items-center gap-3" action="{{route(Route::currentRouteName())}}" method="get">
+            <select name="user_id" id="user_id" class="select2" placeholder="{{translate('Select a User')}}">
+                <option value="">{{translate('Select a User')}}</option>
+                @foreach ($users as $user)
+                <option value="{{$user->id}}" {{request()->input('user_id')== $user->id ?'selected' : ''}}>
+                    {{$user->name}}
+                </option>
+                @endforeach
+            </select>
+
+            <button class="i-btn btn--sm info">
+                <i class="las la-sliders-h"></i>
+            </button>
+            <a href="{{route(Route::currentRouteName())}}" class="i-btn btn--sm danger">
+                <i class="las la-sync"></i>
+            </a>
+        </form>
+
+    </div>
+
+
      @forelse($users as $user)
-        <div class="col-xl-3">
+        <div class="col-xl-4">
             <div class="i-card-md h-440 mb-4">
 
                 <div class="card-body">
@@ -34,7 +55,7 @@
         @empty
             @include('admin.partials.not_found',['custom_message' => "No Employee found!!"])
         @endforelse
-    @endif
+
 
 </div>
 
@@ -50,5 +71,17 @@
 @endpush
 
 @push('script-push')
+<script>
+    (function ($) {
+        "use strict"
+
+        $(".select2").select2({
+                placeholder: "{{translate('Select a User')}}",
+        })
+
+    })(jQuery);
+
+</script>
+
 
 @endpush

@@ -41,12 +41,17 @@ class SalaryController extends Controller
             'breadcrumbs'    =>  ['Home' => 'admin.home', 'salaries' => null],
             'title'          =>  translate('Set Salary'),
             'users'           =>  User::with('file')
-                ->latest()->get(),
+                                ->when(request()->input('user_id'), function ($query) {
+                                    return $query->where('id', request()->input('user_id'));
+                                })
+                                ->latest()
+                                ->get(),
+                                
             'designations'   =>  Designation::with('department')
-                ->latest()
-                ->search(['name', 'department:name'])
-                ->paginate(paginateNumber())
-                ->appends(request()->all())
+                                ->latest()
+                                ->search(['name', 'department:name'])
+                                ->paginate(paginateNumber())
+                                ->appends(request()->all())
         ]);
     }
 

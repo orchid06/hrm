@@ -59,9 +59,9 @@
                 @php
                     $cards =  [
                                 [
-                                    "title"  => translate("Salary"),
+                                    "title"  => translate("Basic Salary"),
                                     "class"  => 'col',
-                                    "total"  => @num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
+                                    "total"  => @$user->userDesignation->salary ? num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency) : translate("N/A"),
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
                                     "url"    => ''
@@ -77,7 +77,7 @@
                                 [
                                     "title"  => translate("Total Salary Received"),
                                     "class"  => 'col',
-                                    "total"  => @num_format($card_data['total_salary_received'], $currency),
+                                    "total"  => @$card_data['total_salary_received']? num_format($card_data['total_salary_received'], $currency): translate("N/A"),
                                     "icon"   => '<i class="las la-wallet"></i>',
                                     "bg"     => 'danger',
                                     "url"    => ''

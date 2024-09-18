@@ -149,6 +149,18 @@ return [
             "update_attendance",
             "delete_attendance"
         ],
+        "holiday" => [
+            "view_holiday",
+            "create_holiday",
+            "update_holiday",
+            "delete_holiday"
+        ],
+        "leave" => [
+            "view_leave",
+            "create_leave",
+            "update_leave",
+            "delete_leave"
+        ],
         "page" => [
             "view_page",
             "create_page",

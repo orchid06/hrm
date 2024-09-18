@@ -31,6 +31,7 @@ class AttendanceController extends Controller
 
     public function list(Request $request): View
     {
+
         $attendances = Attendance::with('user')
         ->orderBy('date', 'desc')
         ->year()
@@ -42,9 +43,11 @@ class AttendanceController extends Controller
         ->appends(request()->all());
 
 
+
+
         return view('admin.attendance.index' , [
             'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance report' => null],
-            'title'             =>  translate('Attendance'),
+            'title'             =>  translate('Attendance '),
             'attendances'       => $attendances,
             'users'             => User::all()
         ]);
