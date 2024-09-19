@@ -366,7 +366,7 @@ $statusClasses = [
             <div class="modal-body">
 
                 <div class="form-inner">
-                    <label for="note">{{translate('Note')}}</label>
+                    
                     <textarea disabled name="note" id="note" cols="30" rows="10"> </textarea>
                 </div>
             </div>
@@ -418,14 +418,11 @@ $statusClasses = [
     });
 
     $('.note').on('click', function () {
-        var attendance = JSON.parse($(this).attr("leave"));
+        var leave = JSON.parse($(this).attr("leave"));
         var modal = $('#noteModal')
 
-        modal.find('input[name="attendance_id"]').val(leave.id)
         modal.find('textarea[name="note"]').val(leave.note)
         modal.modal('show');
-
-
     });
 </script>
 @endpush
