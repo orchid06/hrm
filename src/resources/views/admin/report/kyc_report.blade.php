@@ -6,25 +6,7 @@
 
 @section('content')
 
-    <div class="row mb-4">
-        <div class="col-lg-12">
-            <div class="i-card-md">
-                <div class="card--header text-end">
-                    <h4 class="card-title">
-                         {{ translate('Verification Statistics (Current Year)')}}
-                    </h4>
-               </div>
-                <div class="card-body">
-                    <div class="row g-2 text-center mb-5">
-                        @include('admin.partials.summary',['style' => 'card','col' => 3])
-                    </div>
-                    <div id="kyc-report"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="i-card-md">
+    <div class="i-card-md mb-4">
         <div class="card-body">
             <div class="search-action-area">
                 <div class="row g-3">
@@ -38,7 +20,7 @@
                                     <div class="form-inner">
                                         <input type="text" id="datePicker" name="date" value="{{request()->input('date')}}"  placeholder='{{translate("Filter by date")}}'>
                                     </div>
-                                    
+
                                     <div class="form-inner">
                                         <select name="user" id="user" class="user">
                                             <option value="">
@@ -125,6 +107,24 @@
             </div>
             <div class="Paginations">
                 {{ $reports->links() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="i-card-md">
+                <div class="card--header text-end">
+                    <h4 class="card-title">
+                         {{ translate('Verification Statistics (Current Year)')}}
+                    </h4>
+               </div>
+                <div class="card-body">
+                    <div class="row g-2 text-center mb-5">
+                        @include('admin.partials.summary',['style' => 'card','col' => 3])
+                    </div>
+                    <div id="kyc-report"></div>
+                </div>
             </div>
         </div>
     </div>

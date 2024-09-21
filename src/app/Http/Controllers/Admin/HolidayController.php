@@ -44,7 +44,11 @@ class HolidayController extends Controller
 
             'breadcrumbs'           =>  ['Home' => 'admin.home', 'Holidays' => null],
             'title'                 =>  translate('Manage Holidays'),
-
         ]);
+    }
+
+    public function store (Request $request)
+    {
+        dd($request);
     }
 }

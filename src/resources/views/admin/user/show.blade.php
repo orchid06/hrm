@@ -46,14 +46,31 @@
                 </div>
 
             </div>
-            @if($user->is_kyc_verified == \App\Enums\StatusEnum::true->status())
-                <a href="{{route('admin.kyc.report.details',$user->uid)}}" class="i-btn btn--sm btn--primary update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
-                    {{translate("View verification log")}}
-                </a>
-            @endif
+
         </div>
 
         <div class="col-xl-9">
+
+            <div class="row mb-4">
+                <div class="col-lg-3">
+                    @if($user->is_kyc_verified == \App\Enums\StatusEnum::true->status())
+                    <a href="{{route('admin.kyc.report.list', ['date' => '', 'user' => $user->username])}}" class="i-btn btn--sm btn--primary update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
+                        {{translate("View verification log")}}
+                    </a>
+                    @endif
+                </div>
+
+                <div class="col-lg-2">
+
+                    <a href="{{route('admin.kyc.report.list', ['date' => '', 'user' => $user->username])}}" class="i-btn btn--sm btn success" ><i class="las la-hryvnia"></i>
+                        {{translate("Pay")}}
+                    </a>
+
+                </div>
+
+            </div>
+
+
             <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 g-3 mb-4">
 
                 @php
@@ -120,7 +137,7 @@
                     <div class="i-card-md mb-4">
                         <div class="card--header text-end">
                             <h4 class="card-title">
-                                 {{ translate('Employee attendence (Current Year)')}}
+                                 {{ translate('Employee attendence (Yearly)')}}
                             </h4>
                        </div>
                         <div class="card-body">
