@@ -388,6 +388,8 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
 
             Route::get('/list', 'list')->name('list');
             Route::post('/update/', 'update')->name('update');
+            Route::post('/status/', 'status')->name('status');
+
             Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
 
             Route::get('/create', 'create')->name('create');

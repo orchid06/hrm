@@ -191,19 +191,19 @@ $statusClasses = [
                         </td>
 
                         <td data-label="{{translate('Reason')}}">
-                            {{$leave->reason}}
+                            {{$leave->reason ?? "N/A"}}
                         </td>
 
                         <td data-label="{{translate('Start Date')}}">
-                            {{ \Carbon\Carbon::parse($leave->start_date)->format('j M, Y') }}
+                            {{ \Carbon\Carbon::parse($leave->start_date ?? $leave->date)->format('j M, Y')}}
                         </td>
 
                         <td data-label="{{translate('End Date')}}">
-                            {{ \Carbon\Carbon::parse($leave->end_date)->format('j M, Y') }}
+                            {{ \Carbon\Carbon::parse($leave->end_date ?? $leave->date)->format('j M, Y') }}
                         </td>
 
                         <td data-label="{{translate('Total Days')}}">
-                            {{$leave->total_days}}
+                            {{$leave->total_days== '1' ? $leave->leave_duration_type : $leave->total_days}}
                         </td>
 
                         <td data-label="{{translate('Status')}}">
@@ -218,6 +218,11 @@ $statusClasses = [
 
                         <td data-label="{{translate('Note')}}">
                             <div class="table-action">
+
+                                <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
+                                    data-bs-title="{{translate('View note')}}" class="edit icon-btn info">
+                                    <i class="las la-edit"></i>
+                                </button>
 
                                 <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
                                     data-bs-title="{{translate('View note')}}" class="note icon-btn info">
@@ -267,14 +272,16 @@ $statusClasses = [
 
                         <div class="col-12">
                             <div class="form-inner">
-                                <label for="leave_type_id">{{translate('Leave Type')}} <small class="text-danger">*</small></label>
+                                <label for="leave_type_id">{{translate('Leave Type')}} <small
+                                        class="text-danger">*</small></label>
                                 <select name="leave_type_id" id="leave_type_id" class=".select2" required>
                                     <option value="">{{translate('Select Leave Type')}}</option>
                                     @foreach($leaveTypes as $leaveType);
 
                                     <option value="{{ $leaveType->id }}">
                                         {{ $leaveType->name }}
-                                        ({{ $leaveType->is_paid == \App\Enums\StatusEnum::true->status() ? translate('Paid') : translate('Unpaid') }})
+                                        ({{ $leaveType->is_paid == \App\Enums\StatusEnum::true->status() ?
+                                        translate('Paid') : translate('Unpaid') }})
                                     </option>
                                     @endforeach
                                 </select>
@@ -284,11 +291,12 @@ $statusClasses = [
 
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="leave_duration">{{translate('Leave Duration Type')}} <small class="text-danger">*</small></label>
-                            <select class="select2" id="leave_duration" name="leave_duration_type" required>
+                            <label for="leave_duration_type">{{translate('Leave Duration Type')}} <small
+                                    class="text-danger">*</small></label>
+                            <select class="select2" id="leave_duration_type" name="leave_duration_type" required>
                                 <option></option>
                                 @foreach(\App\Enums\LeaveDurationType::toArray() as $duration)
-                                    <option value="{{ $duration }}">{{ $duration }}</option>
+                                <option value="{{ $duration }}">{{ $duration }}</option>
                                 @endforeach
                             </select>
 
@@ -300,7 +308,8 @@ $statusClasses = [
                             <div class="col-12">
                                 <div class="form-inner">
                                     <label for="date">{{translate('Date')}} </label>
-                                    <input type="date" name="date" id="date" class="form-control" placeholder="{{translate('Select Date')}}">
+                                    <input type="date" name="date" id="date" class="form-control"
+                                        placeholder="{{translate('Select Date')}}">
                                 </div>
                             </div>
                         </div>
@@ -311,14 +320,16 @@ $statusClasses = [
                             <div class="col-6">
                                 <div class="form-inner">
                                     <label for="start_date">{{translate('Start Date')}}</label>
-                                    <input type="date" name="start_date" id="start_date" class="form-control" placeholder="{{translate('Start Date')}}">
+                                    <input type="date" name="start_date" id="start_date" class="form-control"
+                                        placeholder="{{translate('Start Date')}}">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-inner">
                                     <label for="end_date">{{translate('End Date')}}</label>
-                                    <input type="date" name="end_date" id="end_date" class="form-control" placeholder="{{translate('End Date')}}">
+                                    <input type="date" name="end_date" id="end_date" class="form-control"
+                                        placeholder="{{translate('End Date')}}">
                                 </div>
                             </div>
                         </div>
@@ -366,7 +377,7 @@ $statusClasses = [
             <div class="modal-body">
 
                 <div class="form-inner">
-                    
+
                     <textarea disabled name="note" id="note" cols="30" rows="10"> </textarea>
                 </div>
             </div>
@@ -398,14 +409,14 @@ $statusClasses = [
         });
 
 
-        $("#leave_duration").select2({
+        $("#leave_duration_type").select2({
             placeholder: "{{ translate('Select leave duration') }}",
             dropdownParent: $("#leaveRequestModal")
         });
 
     });
 
-    $('#leave_duration').on('change', function () {
+    $('#leave_duration_type').on('change', function () {
         if ($(this).val() === 'Range') {
 
             $('#single_date_picker').addClass('d-none');
@@ -416,6 +427,7 @@ $statusClasses = [
             $('#range_date_picker').addClass('d-none');
         }
     });
+
 
     $('.note').on('click', function () {
         var leave = JSON.parse($(this).attr("leave"));

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\LeaveDurationType;
+use App\Enums\LeaveStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Services\LeaveService;
 use Illuminate\Http\Request;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
@@ -13,14 +16,17 @@ use App\Enums\StatusEnum;
 use App\Models\admin\Expense;
 use App\Models\admin\ExpenseCategory;
 use App\Models\Leave;
+use App\Models\LeaveType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class LeaveController extends Controller
 {
     use ModelAction, Fileable;
 
-    public function __construct()
+    public function __construct(protected LeaveService $leaveService)
     {
         //check permissions middleware
         $this->middleware(['permissions:view_leave'])->only(['list']);
@@ -47,21 +53,52 @@ class LeaveController extends Controller
                                         ->month()
                                         ->date()
                                         ->day()
+                                        ->user()
                                         ->paginate(paginateNumber())
-                                        ->appends(request()->all())
+                                        ->appends(request()->all()),
+            'users'                 => User::all(),
+            'leaveTypes'            => LeaveType::all()
         ]);
     }
 
-
-    public function approve(Leave $leave): RedirectResponse
+    public function update(Request $request)
     {
-        $leave->update(['status' => 'approved']);
-        return redirect()->route('admin.leaves.index')->with('success', translate('Leave approved.'));
+
+        $this->leaveService->validateRequest($request);
+
+        $userId  = $request->input('user_id');
+        $leaveId = $request->input('leave_id');
+
+        if ($this->leaveService->checkOverlappingLeave(userId: $userId, request: $request, leaveId: $leaveId)) {
+            throw ValidationException::withMessages([
+                'date' => 'You already have a leave request on or within the selected date range.'
+            ]);
+        }
+
+        $leaveData = $this->leaveService->prepareLeaveData($request, $userId);
+
+        Leave::findOrFail($leaveId)->update($leaveData);
+
+        return back()->with('success', translate('Leave request updated successfully .'));
     }
 
-    public function decline(Leave $leave): RedirectResponse
+
+    public function status(Request $request): RedirectResponse
     {
-        $leave->update(['status' => 'declined']);
-        return redirect()->route('admin.leaves.index')->with('success', translate('Leave Declined.'));
+        $request->validate([
+            'leave_id' => 'required|integer|exists:leaves,id',
+            'leave_status' => 'required|string|max:255',
+            'note' => 'nullable|string|max:500',
+        ]);
+
+        $status = $request->input('leave_status');
+
+        Leave::findOrFail($request->input('leave_id'))->update([
+            'status' => $request->input('leave_status'),
+            'note'   => $request->input('note')
+        ]);
+
+
+        return back()->with('success', translate('Leave Status Updated'));
     }
 }
