@@ -1,8 +1,9 @@
 @extends('admin.layouts.master')
+@push('style-include')
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
-@php
-$holidays = site_settings('holidays') ?? [];
-@endphp
+
 <div class="i-card-md">
     <div class="card-header">
 
@@ -80,11 +81,11 @@ $holidays = site_settings('holidays') ?? [];
                     <tr>
 
                         <th scope="col">
-                            {{translate('Type')}}
+                            {{translate('Title')}}
                         </th>
 
                         <th scope="col">
-                            {{translate('Reason')}}
+                            {{translate('Duration Type')}}
                         </th>
 
                         <th scope="col">
@@ -100,26 +101,26 @@ $holidays = site_settings('holidays') ?? [];
                         </th>
 
                         <th scope="col">
-                            {{translate('Status')}}
+                            {{translate('Description')}}
                         </th>
 
                         <th scope="col">
-                            {{translate('Note')}}
+                            {{translate('Action')}}
                         </th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($holidays as $holiday)
+                    @forelse($holidays as $key => $holiday)
 
                     <tr>
 
-                        <td data-label="{{translate('Type')}}">
-                            {{$holiday->holidayType->name}}
+                        <td data-label="{{translate('Title')}}">
+                            {{$holiday->title}}
                         </td>
 
-                        <td data-label="{{translate('Reason')}}">
-                            {{$holiday->reason ?? "N/A"}}
+                        <td data-label="{{translate('Duration Type')}}">
+                            {{$holiday->holiday_duration_type}}
                         </td>
 
                         <td data-label="{{translate('Start Date')}}">
@@ -131,31 +132,27 @@ $holidays = site_settings('holidays') ?? [];
                         </td>
 
                         <td data-label="{{translate('Total Days')}}">
-                            {{$holiday->total_days== '1' ? $holiday->holiday_duration_type : $holiday->total_days}}
-                        </td>
-
-                        <td data-label="{{translate('Status')}}">
-                            @php
-                            $status = $statusClasses[$holiday->status] ?? ['class' => 'secondary', 'text' =>
-                            translate('Unknown')];
-                            @endphp
-
-                            <span class="i-badge capsuled {{ $status['class'] }}">{{ $status['text'] }}</span>
+                            {{@$holiday->total_days}}
                         </td>
 
 
-                        <td data-label="{{translate('Note')}}">
+                        <td data-label="{{translate('Desctiption')}}">
+                            {{@$holiday->description}}
+                        </td>
+
+                        <td data-label="{{translate('Action')}}">
                             <div class="table-action">
+                                @if(check_permission('delete_holiday'))
+                                    <button data-bs-toggle="tooltip" data-bs-placement="top" holiday_key={{$key}} holiday="{{json_encode($holiday)}}"
+                                        data-bs-title="{{translate('Edit')}}" class="edit icon-btn info">
+                                        <i class="las la-edit"></i>
+                                    </button>
+                                @endif
 
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" holiday="{{$holiday}}"
-                                    data-bs-title="{{translate('View note')}}" class="edit icon-btn info">
-                                    <i class="las la-edit"></i>
-                                </button>
-
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" holiday="{{$holiday}}"
-                                    data-bs-title="{{translate('View note')}}" class="note icon-btn info">
-                                    <i class="las la-eye"></i>
-                                </button>
+                                @if(check_permission('delete_holiday'))
+                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Delete')}}" data-href="{{route('admin.holiday.destroy',$key)}}" class="delete-item icon-btn danger">
+                                    <i class="las la-trash-alt"></i></a>
+                                @endif
 
                             </div>
                         </td>
@@ -186,19 +183,29 @@ $holidays = site_settings('holidays') ?? [];
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    {{translate('Leave Request')}}
+                    {{translate('Set Holiday')}}
                 </h5>
                 <button class="close-btn" data-bs-dismiss="modal">
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{route('user.leave.request')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('admin.holiday.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
 
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="holiday_duration_type">{{translate('Leave Duration Type')}} <small
+                            <div class="form-inner">
+                                <label for="title">{{translate('Title')}} </label>
+                                <input type="text" name="title" id="title" class="form-control"
+                                    placeholder="{{translate('Set a holiday title')}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="holiday_duration_type">{{translate('Holiday Duration Type')}} <small
                                     class="text-danger">*</small></label>
                             <select class="select2" id="holiday_duration_type" name="holiday_duration_type" required>
                                 <option></option>
@@ -245,13 +252,8 @@ $holidays = site_settings('holidays') ?? [];
 
 
                     <div class="form-inner">
-                        <label for="reason">{{translate('Reason')}}</label>
-                        <textarea name="reason" id="reason" cols="30" rows="10"> </textarea>
-                    </div>
-
-                    <div class="form-inner">
-                        <label for="attachments">{{translate('Attachments')}}</label>
-                        <input type="file" name="attachments[]" id="attachments" class="form-control" multiple>
+                        <label for="description">{{translate('Description')}}</label>
+                        <textarea name="description" id="description" cols="30" rows="10"> </textarea>
                     </div>
 
                 </div>
@@ -269,13 +271,110 @@ $holidays = site_settings('holidays') ?? [];
     </div>
 </div>
 
+<div class="modal fade modal-md" id="editHoliday" tabindex="-1" aria-labelledby="editHoliday"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{translate('Update Holiday')}}
+                </h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <form action="{{route('admin.holiday.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="holiday_key">
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="form-inner">
+                                <label for="edit_title">{{translate('Title')}} </label>
+                                <input type="text" name="title" id="edit_title" class="form-control"
+                                    placeholder="{{translate('Set a holiday title')}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="edit_holiday_duration_type">{{translate('Holiday Duration Type')}} <small
+                                    class="text-danger">*</small></label>
+                            <select class="select2" id="edit_holiday_duration_type" name="holiday_duration_type" required>
+                                <option></option>
+                                @foreach(\App\Enums\LeaveDurationType::toArray() as $duration)
+                                <option value="{{ $duration }}">{{ $duration }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div id="edit_single_date_picker">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-inner">
+                                    <label for="edit_date">{{translate('Date')}} </label>
+                                    <input type="date" name="date" id="edit_date" class="form-control"
+                                        placeholder="{{translate('Select Date')}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit_range_date_picker" class="d-none">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-inner">
+                                    <label for="edit_start_date">{{translate('Start Date')}}</label>
+                                    <input type="date" name="start_date" id="edit_start_date" class="form-control"
+                                        placeholder="{{translate('Start Date')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-inner">
+                                    <label for="edit_end_date">{{translate('End Date')}}</label>
+                                    <input type="date" name="end_date" id="edit_end_date" class="form-control"
+                                        placeholder="{{translate('End Date')}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-inner">
+                        <label for="edit_description">{{translate('Description')}}</label>
+                        <textarea name="description" id="edit_description" cols="30" rows="10"> </textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        {{translate("Update")}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @include('modal.delete_modal')
 @include('modal.bulk_modal')
 @endsection
 
 @push('script-include')
-
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -292,21 +391,62 @@ $holidays = site_settings('holidays') ?? [];
 
 
         $("#holiday_duration_type").select2({
-            placeholder: "{{ translate('Select leave duration') }}",
+            placeholder: "{{ translate('Select holiday duration') }}",
             dropdownParent: $("#addHoliday")
         });
 
     });
 
+
     $('#holiday_duration_type').on('change', function () {
         if ($(this).val() === 'Range') {
-
+            $('#date').val('');
             $('#single_date_picker').addClass('d-none');
             $('#range_date_picker').removeClass('d-none');
-        } else {
 
+        } else {
+            $('#start_date').val('');
+            $('#end_date').val('');
             $('#single_date_picker').removeClass('d-none');
             $('#range_date_picker').addClass('d-none');
+        }
+    });
+
+    $('.edit').on('click', function () {
+
+        var holiday     = JSON.parse($(this).attr("holiday"));
+        var holidayKey  = $(this).attr("holiday_key");
+
+        var modal = $('#editHoliday')
+
+        modal.find('input[name="holiday_key"]').val(holidayKey)
+        modal.find('#edit_title').val(holiday.title);
+        modal.find('#edit_holiday_duration_type').val(holiday.holiday_duration_type).trigger('change');
+        modal.find('#edit_date').val(holiday.date);
+        modal.find('#edit_start_date').val(holiday.start_date);
+        modal.find('#edit_end_date').val(holiday.end_date);
+        modal.find('#edit_description').val(holiday.description);
+
+
+        modal.find('#edit_holiday_duration_type').select2({
+            placeholder: "{{translate('Select Type')}}",
+            dropdownParent: modal,
+        });
+
+        modal.modal('show');
+    });
+
+    $('#edit_holiday_duration_type').on('change', function () {
+        if ($(this).val() === 'Range') {
+            $('#edit_date').val('');
+            $('#edit_single_date_picker').addClass('d-none');
+            $('#edit_range_date_picker').removeClass('d-none');
+
+        } else {
+            $('#edit_start_date').val('');
+            $('#edit_end_date').val('');
+            $('#edit_single_date_picker').removeClass('d-none');
+            $('#edit_range_date_picker').addClass('d-none');
         }
     });
 

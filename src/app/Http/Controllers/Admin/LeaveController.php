@@ -86,9 +86,9 @@ class LeaveController extends Controller
     public function status(Request $request): RedirectResponse
     {
         $request->validate([
-            'leave_id' => 'required|integer|exists:leaves,id',
-            'leave_status' => 'required|string|max:255',
-            'note' => 'nullable|string|max:500',
+            'leave_id'      => 'required|integer|exists:leaves,id',
+            'leave_status'  => 'required|string|max:255',
+            'note'          => 'nullable|string|max:500',
         ]);
 
         $status = $request->input('leave_status');

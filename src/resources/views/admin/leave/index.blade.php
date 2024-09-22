@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@push('style-include')
+    <link href="{{asset('assets/global/css/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
 @php
 $statusClasses = [
@@ -103,10 +106,6 @@ $statusClasses = [
                         </th>
 
                         <th scope="col">
-                            {{translate('Reason')}}
-                        </th>
-
-                        <th scope="col">
                             {{translate('Start Date')}}
                         </th>
 
@@ -115,7 +114,7 @@ $statusClasses = [
                         </th>
 
                         <th scope="col">
-                            {{translate('Days')}}
+                            {{translate('Duration')}}
                         </th>
 
                         <th scope="col">
@@ -145,10 +144,6 @@ $statusClasses = [
 
                         <td data-label="{{translate('Type')}}">
                             {{$leave->leaveType->name}}
-                        </td>
-
-                        <td data-label="{{translate('Reason')}}">
-                            {{$leave->reason ?? "N/A"}}
                         </td>
 
                         <td data-label="{{translate('Start Date')}}">
@@ -347,7 +342,7 @@ $statusClasses = [
                     <div class="col-12">
                         <div class="form-inner">
                             <label for="leave_status">{{translate('Status')}}</label>
-                            <select name="leave_status" id="leave_status" class=".select2">
+                            <select name="leave_status" id="leave_status" class="select2">
                                 <option value="">{{translate('Select Status')}}</option>
                                 @foreach(\App\Enums\LeaveStatus::toArray() as $key=>$leaveStatus);
 
@@ -356,6 +351,11 @@ $statusClasses = [
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="view_reason">{{translate('Reason :')}}</label>
+                        <textarea name="reason" id="view_reason" cols="30" rows="10"> </textarea>
                     </div>
 
                     <div class="form-inner">
@@ -384,7 +384,9 @@ $statusClasses = [
 @endsection
 
 @push('script-include')
-
+    <script src="{{asset('assets/global/js/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/daterangepicker.min.js')}}"></script>
+    <script src="{{asset('assets/global/js/datepicker/init.js')}}"></script>
 @endpush
 
 @push('script-push')
@@ -413,8 +415,8 @@ $statusClasses = [
 
         modal.find('input[name="leave_id"]').val(leave.id);
         modal.find('input[name="user_id"]').val(leave.user_id);
-        modal.find('#leave_type_id').val(leave.leave_type_id).trigger('change');
-        modal.find('#leave_duration_type').val(leave.leave_duration_type).trigger('change');
+        modal.find('select[name="leave_type_id"]').val(leave.leave_type_id).trigger('change');
+        modal.find('select[name="leave_duration_type"]').val(leave.leave_duration_type).trigger('change');
         modal.find('input[name="date"]').val(leave.date);
         modal.find('input[name="start_date"]').val(leave.start_date);
         modal.find('input[name="end_date"]').val(leave.end_date);
@@ -445,6 +447,9 @@ $statusClasses = [
             dropdownParent: modal,
         });
         modal.find('input[name="leave_id"]').val(leave.id);
+        modal.find('select[name="leave_status"]').val(leave.status).trigger('change');
+        modal.find('textarea[name="reason"]').val(leave.reason);
+        modal.find('textarea[name="note"]').val(leave.note);
         modal.modal('show');
     });
 

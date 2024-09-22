@@ -93,7 +93,7 @@ class LeaveService
             'date'                  => $request->input('date'),
             'start_date'            => $request->input('start_date'),
             'end_date'              => $request->input('end_date'),
-            'reason'                => $request->input('note'),
+            'reason'                => $request->input('reason'),
             'status'                => LeaveStatus::pending->status(),
         ];
     }

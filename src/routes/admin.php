@@ -373,14 +373,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
         Route::controller(HolidayController::class)->prefix('/holiday')->name('holiday.')->group(function () {
 
             Route::get('/list', 'list')->name('list');
-            Route::post('/update/', 'update')->name('update');
-            Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
+            Route::post('/store/', 'store')->name('store');
+            Route::get('/destroy/{key}', 'destroy')->name('destroy');
 
-            Route::get('/create', 'create')->name('create');
-            Route::get('/edit/{uid}', 'edit')->name('edit');
-            Route::post('/bulk/action', 'bulk')->name('bulk');
-            Route::post('/update/status', 'updateStatus')->name('update.status');
-            Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
 
         #Holiday section
