@@ -47,7 +47,7 @@ class HolidayController extends Controller
         // Pass these to your filter function to filter the holidays based on the input
         $holidays = $this->filterHolidays($month, $year, $dateRange);
 
-        
+
 
 
         return view('admin.holiday.index', [
@@ -64,8 +64,10 @@ class HolidayController extends Controller
     public function filterHolidays($month = null, $year = null, $dateRange = null): Collection
     {
         // Fetch holiday settings
-        $settings = Setting::where('key', 'holidays')->first();
-        $holidays = collect(json_decode($settings->value, true) ?? []);
+        // $settings = Setting::where('key', 'holidays')->first();
+        // $holidays = collect(json_decode($settings->value, true) ?? []);
+
+        $holidays = json_decode(site_settings('holidays'));
 
         // Filter by month and year
         if ($month || $year) {
