@@ -49,7 +49,8 @@ class User extends Authenticatable
         'settings',
         'address',
         "muted_admin",
-        "last_login"
+        "last_login",
+        "custom_office_hour"
     ];
 
     /**

@@ -144,6 +144,8 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/balance', 'balance')->name('balance');
             Route::post('/subscription', 'subscription')->name('subscription');
             Route::get('/select/search', 'selectSearch')->name('selectSearch');
+            Route::get('/{id}/office_hour' , 'getCustomOfficeHour')->name('custom_office_hour');
+            Route::post('/store/office_hour' , 'storeCustomOfficeHour')->name('store.custom_office_hour');
         });
 
         #Role section refactored

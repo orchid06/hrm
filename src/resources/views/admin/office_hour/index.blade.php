@@ -5,7 +5,13 @@
         <div class="search-action-area">
             <div class="row g-3">
 
-
+                <div class="col-md-4 d-flex justify-content-start">
+                    <div class="action">
+                        <a href="{{route('admin.holiday.list')}}" type="button" class="i-btn btn--sm primary">
+                            <i class="las la-cogs fs-15"></i> {{translate('Add Holidays')}}
+                        </a>
+                    </div>
+                </div>
 
             </div>
         </div>

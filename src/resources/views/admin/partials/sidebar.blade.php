@@ -167,18 +167,6 @@
                         </li>
                         @endif
 
-                        @if(check_permission('view_attendance'))
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.list' ,'admin.attendance.edit' ])}}"
-                                href="{{route('admin.attendance.list')}}">
-                                <span></span>
-                                <p>
-                                    {{translate('Attendance sheet')}}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
-
                         @if(check_permission('view_holiday'))
                         <li class="sub-menu-item">
                             <a class="sidebar-menu-link {{sidebar_awake(['admin.holiday.list' ,'admin.holiday.edit' ])}}"
@@ -186,6 +174,18 @@
                                 <span></span>
                                 <p>
                                     {{translate('Manage Holidays')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_attendance'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.list' ,'admin.attendance.edit' ])}}"
+                                href="{{route('admin.attendance.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Attendance sheet')}}
                                 </p>
                             </a>
                         </li>

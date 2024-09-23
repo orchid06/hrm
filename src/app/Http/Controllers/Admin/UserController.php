@@ -20,6 +20,7 @@ use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
 use App\Models\Admin\UserDesignation;
 use App\Traits\ModelAction;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
     use ModelAction;
 
 
-    public function __construct(protected UserService $userService , protected PayrollService $payrollService)
+    public function __construct(protected UserService $userService, protected PayrollService $payrollService)
     {
         $this->middleware(['permissions:view_user'])->only('list', 'show', 'selectSearch');
         $this->middleware(['permissions:create_user'])->only(['store', 'create']);
@@ -212,7 +213,7 @@ class UserController extends Controller
             'type' => 'required|string',
         ]);
 
-        if ($request->input('type') === 'pay'){
+        if ($request->input('type') === 'pay') {
 
             $userIds    = json_decode($request->input('bulk_id'), true);
             $month      = now()->format('Y-m');
@@ -236,5 +237,69 @@ class UserController extends Controller
         return  back()->with($response);
     }
 
+    public function getCustomOfficeHour($userId): JsonResponse
+    {
 
+        $user = User::find($userId);
+
+        $customOfficeHour = $user->custom_office_hour ? json_decode($user->custom_office_hour, true): [];
+
+        $html = view('admin.user.custom_office_hour', ['custom_office_hour' => $customOfficeHour])->render();
+
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
+
+    public function storeCustomOfficeHour(Request $request)
+    {
+        $days =  [
+            'Monday'    =>  'Monday',
+            'Tuesday'   =>  'Tuesday',
+            'Wednesday' =>  'Wednesday',
+            'Thursday'  =>  'Thursday',
+            'Friday'    =>  'Friday',
+            'Saturday'  =>  'Saturday',
+            'Sunday'    =>  'Sunday',
+        ];
+
+        $request->validate([
+            
+            'operating_day'   => ['nullable', 'array'],
+            'operating_day.*' => ['nullable', Rule::in(array_keys($days))],
+            'start_time'      => ['required', 'array'],
+            'end_time'        => ['required', 'array'],
+
+        ], [
+            'end_time.*.required'   => translate('Please select end time'),
+            'start_time.*.required' => translate('Please select start time'),
+        ]);
+
+
+        $customOfficeHour = collect($days)->map(function (string $day, string $key) use ($request) {
+
+            return
+            [t2k($key)=>[
+
+                'is_on'     =>  in_array($key, $request->input('operating_day', [])),
+                'clock_in' =>  Arr::get($request->input('start_time', []), $key),
+                'clock_out'   =>  Arr::get($request->input('end_time', []), $key),
+            ]];
+
+        })->collapse()->all();
+
+        User::find($request->input('user_id'))->update([
+            'custom_office_hour' => $customOfficeHour
+        ]);
+
+
+
+        optimize_clear();
+
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Office Hour has been updated')
+        ]);
+    }
 }
