@@ -102,7 +102,7 @@ class UserController extends Controller
      */
     public function show(string $uid): View
     {
-
+       
         $userDetails = $this->userService->getUserDetails($uid);
 
         return view('admin.user.show', [
@@ -265,7 +265,7 @@ class UserController extends Controller
         ];
 
         $request->validate([
-            
+
             'operating_day'   => ['nullable', 'array'],
             'operating_day.*' => ['nullable', Rule::in(array_keys($days))],
             'start_time'      => ['required', 'array'],

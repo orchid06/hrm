@@ -2,36 +2,19 @@
 
 namespace App\Http\Services;
 
-use App\Enums\BalanceTransferType;
-use App\Enums\DepositStatus;
+
 use App\Enums\FileKey;
-use App\Enums\PlanDuration;
-use App\Enums\StatusEnum;
-use App\Enums\SubscriptionStatus;
-use App\Enums\WithdrawStatus;
-use App\Http\Requests\Admin\BalanceUpdateRequest;
-use App\Http\Utility\SendNotification;
-use App\Jobs\SendMailJob;
-use App\Jobs\SendSmsJob;
+use App\Enums\LeaveStatus;
 use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
-use App\Models\Admin\PaymentMethod;
 use App\Models\Admin\Payroll;
-use App\Models\Admin\Withdraw;
-use App\Models\AffiliateLog;
 use App\Models\Attendance;
 use App\Models\User;
 use App\Models\Core\File;
 use App\Models\Country;
-use App\Models\CreditLog;
 use App\Models\KycLog;
-use App\Models\Package;
-use App\Models\PaymentLog;
-use App\Models\SocialAccount;
-use App\Models\SocialPost;
-use App\Models\Subscription;
+use App\Models\Leave;
 use App\Models\Ticket;
-use App\Models\Transaction;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -40,9 +23,10 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use App\Traits\Notifyable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Collection as SupportCollection;
 
 class UserService
 {
@@ -78,24 +62,24 @@ class UserService
             'title'        => 'Manage Employees',
 
             'users'        =>  User::whereHas('designations.designation', function ($query) use ($departmentId, $designationId) {
-                                if ($departmentId) {
-                                    $query->where('department_id', $departmentId);
-                                }
-                                if ($designationId) {
-                                    $query->where('id', $designationId);
-                                }
-                            })
-                            ->with(['file' , 'payrolls' => function ($query) use ($currentMonth, $currentYear) {
-                                        $query->whereMonth('created_at', $currentMonth)
-                                            ->whereYear('created_at', $currentYear);
-                                }])
-                                ->routefilter()
-                                ->search(['name', 'email', "phone"])
-                                ->filter(['country:name'])
-                                ->PaymentStatus()
-                                ->latest()
-                                ->paginate(paginateNumber())
-                                ->appends(request()->all()),
+                if ($departmentId) {
+                    $query->where('department_id', $departmentId);
+                }
+                if ($designationId) {
+                    $query->where('id', $designationId);
+                }
+            })
+                ->with(['file', 'payrolls' => function ($query) use ($currentMonth, $currentYear) {
+                    $query->whereMonth('created_at', $currentMonth)
+                        ->whereYear('created_at', $currentYear);
+                }])
+                ->routefilter()
+                ->search(['name', 'email', "phone"])
+                ->filter(['country:name'])
+                ->PaymentStatus()
+                ->latest()
+                ->paginate(paginateNumber())
+                ->appends(request()->all()),
 
             "countries"    => get_countries(),
             'departments'  => Department::all(),
@@ -112,10 +96,10 @@ class UserService
      * @param Request $request
      * @return User
      */
-    public function save(Request $request): User
+    public function save(Request $request): mixed
     {
 
-        return  DB::transaction(function () use ($request): User | null {
+        return  DB::transaction(function () use ($request): Builder|Model {
 
 
 
@@ -220,42 +204,51 @@ class UserService
 
 
 
-
-
-
-    /**
-     * Get a specific user details
-     *
-     * @param string $uid
-     * @return array
-     */
     public function getUserDetails(string $uid): array
     {
-        $currentMonth = Carbon::now()->format('F');
+        $user               = $this->getUserWithRelations($uid);
+        $graphData          = $this->getGraphData($user->id);
+        $currentMonthData   = $this->getCurrentMonthData($user->id);
+        $totalSalary        = Payroll::where('user_id', $user->id)->sum('net_pay');
+        $totalLeave         = Leave::where('user_id', $user->id)->where('status', LeaveStatus::approved->status())->sum('total_days');
 
+        $cardData           = $this->prepareCardData($currentMonthData, $totalSalary , $totalLeave);
 
+        return [
+            'user'        => $user,
+            'countries'   => get_countries(),
+            'card_data'   => $cardData,
+            'graph_data'  => $this->formatGraphData($graphData)
+        ];
+    }
 
-        $user  = User::with([
+    private function getUserWithRelations(string $uid): Builder|Model
+    {
+        return User::with([
             'file',
             'kycLogs',
             'transactions',
             'tickets',
             'userDesignation',
-            'attendances'
-        ])->where('uid', $uid)
-            ->firstOrFail();
+            'attendances',
 
+        ])->where('uid', $uid)->firstOrFail();
+    }
 
+    private function getGraphData(int $userId): SupportCollection
+    {
         $graphData = new Collection();
 
-        Attendance::whereYear('date', date('Y'))
-                            ->where('user_id', $user->id)
-                            ->selectRaw("
+        $year = request()->input('year') ?? date('Y');
+
+        Attendance::whereYear('date', $year)
+            ->where('user_id', $userId)
+            ->selectRaw("
                         MONTH(date) as month,
                         MONTHNAME(date) as months,
-                        COUNT(CASE WHEN clock_in IS NOT NULL THEN 1 END) AS attendance,
-                        SUM(CASE WHEN late_time > 0 THEN 1 END) AS late,
-                        SUM(work_hour) AS total_work_minutes
+                        SUM(CASE WHEN over_time > 0 THEN over_time ELSE 0 END) AS total_over_time_minutes,
+                        SUM(CASE WHEN late_time > 0 THEN late_time ELSE 0 END) AS total_late_minutes,
+                        SUM(CASE WHEN work_hour > 0 THEN work_hour ELSE 0 END) AS total_work_minutes
                     ")
             ->groupBy('month', 'months')
             ->orderBy('month')
@@ -264,46 +257,70 @@ class UserService
                     fn($log): array =>
                     [
                         $log->months => [
-                            'attendance' => $log->attendance ?? 0,
-                            'late' => $log->late ?? 0,
-                            'work_hour' => intdiv($log->total_work_minutes ?? 0, 60)
+
+                            'over_time' => round(intdiv($log->total_over_time_minutes ?? 0, 60), 2),
+                            'late_hour' => round(intdiv($log->total_late_minutes ?? 0, 60), 2),
+                            'work_hour' => round(intdiv($log->total_work_minutes ?? 0, 60), 2)
+
                         ]
                     ]
                 );
             });
 
-            $currentMonthData = $graphData->firstWhere(function ($item) use ($currentMonth) {
-                return array_key_exists($currentMonth, $item);
-            });
+        return $graphData;
+    }
 
-            $totalSalary = Payroll::where('user_id', $user->id)
-                        ->sum('net_pay');
+    private function formatGraphData($graphData): array
+    {
+        $formattedGraphData         = sortByMonth(
+                                        @$graphData->collapse()->all() ?? [],
+                                        true,
+                                        [
+                                            'over_time'         => 0,
+                                            'work_hour'         => 0,
+                                            'late_hour'         => 0,
+                                        ]
+                                    );
+        return $formattedGraphData;
+    }
 
-            $cardData = [
-                'total_attendance'      => $currentMonthData[$currentMonth]['attendance'] ?? 0,
-                'total_late'            => $currentMonthData[$currentMonth]['late'] ?? 0,
-                'total_work_minutes'    => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
-                'total_work_hours'      => $currentMonthData[$currentMonth]['work_hour'] ?? 0,
-                'total_salary_received' => $totalSalary
+
+
+    private function getCurrentMonthData(int $userId): object
+    {
+        $currentMonth = Carbon::now()->format('m');
+
+        return Attendance::whereYear('date', date('Y'))
+            ->whereMonth('date', $currentMonth)
+            ->where('user_id', $userId)
+            ->selectRaw("
+            COUNT(CASE WHEN clock_in IS NOT NULL THEN 1 END) AS attendance,
+            SUM(CASE WHEN late_time > 0 THEN 1 END) AS late,
+            SUM(work_hour) AS total_work_minutes
+            ")
+            ->first() ?? (object)[
+                'attendance'         => 0,
+                'late'               => 0,
+                'total_work_minutes' => 0,
             ];
+    }
 
+
+
+    private function prepareCardData(object $currentMonthData, float $totalSalary, $totalLeave): array
+    {
         return [
-
-            'user'                 => $user,
-            "countries"            => get_countries(),
-            "card_data"            => $cardData,
-            "graph_data"           => sortByMonth(
-                @$graphData->collapse()->all() ?? [],
-                true,
-                [
-                    'attendance'        => 0,
-                    'work_hour'         => 0,
-                    'late'              => 0,
-                ]
-            )
-
+            'total_attendance'      => $currentMonthData->attendance ?? 0,
+            'total_late'            => $currentMonthData->late ?? 0,
+            'total_work_minutes'    => $currentMonthData->total_work_minutes ?? 0,
+            'total_work_hours'      => intdiv($currentMonthData->total_work_minutes ?? 0, 60),
+            'total_salary_received' => $totalSalary,
+            'total_leave'           => $totalLeave
         ];
     }
+
+
+
 
 
 

@@ -52,7 +52,15 @@
         <div class="col-xl-9">
 
             <div class="row mb-4">
-                <div class="col-lg-3">
+
+                <div class="col-md-1">
+                    <a href="{{route('admin.kyc.report.list', ['date' => '', 'user' => $user->username])}}" class="i-btn btn--sm btn success" ><i class="las la-hryvnia"></i>
+                        {{translate("Pay")}}
+                    </a>
+
+                </div>
+
+                <div class="col-md-3">
                     @if($user->is_kyc_verified == \App\Enums\StatusEnum::true->status())
                     <a href="{{route('admin.kyc.report.list', ['date' => '', 'user' => $user->username])}}" class="i-btn btn--sm btn--primary update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
                         {{translate("View verification log")}}
@@ -60,13 +68,7 @@
                     @endif
                 </div>
 
-                <div class="col-lg-2">
 
-                    <a href="{{route('admin.kyc.report.list', ['date' => '', 'user' => $user->username])}}" class="i-btn btn--sm btn success" ><i class="las la-hryvnia"></i>
-                        {{translate("Pay")}}
-                    </a>
-
-                </div>
 
             </div>
 
@@ -86,7 +88,7 @@
                                 [
                                     "title"  => translate("Total Work Hour"),
                                     "class"  => 'col',
-                                    "total"  => @$card_data['total_work_hours'] ?? translate("N/A"),
+                                    "total"  => @$card_data['total_work_hours'].' '.translate('Hours') ?? translate("N/A"),
                                     "icon"   => '<i class="las la-clock"></i>',
                                     "bg"     => 'info',
                                     "url"    => ''
@@ -102,7 +104,7 @@
                                 [
                                     "title"  => translate("Total Attendence"),
                                     "class"  => 'col',
-                                    "total"  => @$card_data['total_attendance'] ?? translate("N/A"),
+                                    "total"  => @$card_data['total_attendance'].' '.translate('Days') ?? translate("N/A"),
                                     "icon"   => '<i class="las la-calendar"></i>',
                                     "bg"     => 'success',
                                     "url"    => ''
@@ -110,7 +112,7 @@
                                 [
                                     "title"  => translate("Total Late"),
                                     "class"  => 'col',
-                                    "total"  => @$card_data['total_late'] ?? translate("N/A"),
+                                    "total"  => @$card_data['total_late'].' '.translate('Days') ?? translate("N/A"),
                                     "icon"   => '<i class="las la-running"></i>',
                                     "bg"     => 'warning',
                                     "url"    => ''
@@ -118,7 +120,7 @@
                                 [
                                     "title"  => translate("Total Leave"),
                                     "class"  => 'col',
-                                    "total"  => @$card_data['total_leave'] ?? translate("N/A"),
+                                    "total"  => @$card_data['total_leave'].' '.translate('Days') ?? translate("N/A"),
                                     "icon"   => '<i class="las la-calendar-times"></i>',
                                     "bg"     => 'danger',
                                     "url"    => ''
@@ -136,9 +138,41 @@
                 <div class="col-lg-12">
                     <div class="i-card-md mb-4">
                         <div class="card--header text-end">
-                            <h4 class="card-title">
-                                 {{ translate('Employee attendence (Yearly)')}}
-                            </h4>
+
+                            <div class="row g-4 ">
+                                <div class="col-lg-auto d-flex justify-content-start">
+                                    <h4 class="card-title">
+                                        {{ translate('Work Statistics') }}
+                                    </h4>
+                                </div>
+
+                                <form action="{{route(Route::currentRouteName() ,  ['uid' => $user->uid])}}" method="get">
+                                    <div class="col-lg-auto ms-auto d-flex justify-content-end">
+                                        <div class="search-area">
+                                            <div class="form-inner">
+                                                <select name="year" class="select2" id="year" placeholder="{{ translate('Select a year') }}">
+                                                    <option value="">{{ translate('Select a Year') }}</option>
+                                                    @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                                    <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' : '' }}>
+                                                        {{ $year }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <button class="i-btn btn--sm info">
+                                                <i class="las la-sliders-h"></i>
+                                            </button>
+                                            <a href="{{route(Route::currentRouteName() ,  ['uid' => $user->uid])}}" class="i-btn btn--sm danger">
+                                                <i class="las la-sync"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+
                        </div>
                         <div class="card-body">
                             <div id="postReport"></div>
@@ -186,12 +220,12 @@
           colors: ['var(--color-info)','var(--color-primary)','var(--color-success)' ,"var(--color-danger)"],
           series: [
             {
-              name: "{{ translate('Attendance') }}",
-              data: @json(array_column($graph_data , 'attendance')),
+              name: "{{ translate('Over Time') }}",
+              data: @json(array_column($graph_data , 'over_time')),
             },
             {
               name: "{{ translate('Late to work') }}",
-              data: @json(array_column($graph_data , 'late')),
+              data: @json(array_column($graph_data , 'late_hour')),
             },
             {
               name: "{{ translate('Work Hour') }}",
@@ -202,10 +236,23 @@
           xaxis: {
             categories: @json(array_keys($graph_data)),
           },
+          yaxis: {
+                labels: {
+                    formatter: function(value) {
+                        return value + (value === 1 ? ' Hour' : ' Hours');
+                    }
+                }
+            },
 
           tooltip: {
                 shared: false,
                 intersect: true,
+
+                        y: {
+                    formatter: function(value) {
+                        return value + (value === 1 ? ' Hour' : ' Hours'); // Tooltip formatting
+                    }
+                }
 
             },
           markers: {
