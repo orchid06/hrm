@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Enums\ClockStatusEnum;
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\AttendanceService;
 use App\Models\Attendance;
+use App\Models\Core\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\Fileable;
@@ -23,7 +25,7 @@ class AttendanceController extends Controller
         //check permissions middleware
         $this->middleware(['permissions:view_attendance'])->only(['list']);
         $this->middleware(['permissions:create_attendance'])->only(['store', 'create']);
-        $this->middleware(['permissions:update_attendance'])->only(['updateStatus', 'update', 'edit', 'bulk']);
+        $this->middleware(['permissions:update_attendance'])->only(['updateStatus', 'update', 'edit', 'bulk', 'setting']);
         $this->middleware(['permissions:delete_attendance'])->only(['destroy', 'bulk']);
     }
 
@@ -109,5 +111,37 @@ class AttendanceController extends Controller
             'title'         => translate('Attendance Details'),
             'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance report' => 'admin.attendance.list' , 'Attendance Details'=> null],
         ]);
+    }
+
+    public function setting()
+    {
+        return view('admin.attendance.setting' , [
+            'title' => translate('Attendance Settings'),
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance Settings' => null],
+        ]);
+    }
+
+    public function settingStore(Request $request)
+    {
+        $data = $request->validate([
+
+            'ip_whitelist_status'   => [Rule::in(CLockStatusEnum::toArray())],
+            'ip_start_range'        => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(),'ip'],
+            'ip_end_range'          => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(),'ip'],
+            'clock_in_status'       => [Rule::in(CLockStatusEnum::toArray())]
+        ]);
+
+        Setting::updateOrInsert(
+            ['key'    => 'ip_white_list'],
+            ['value'      => json_encode($data)]
+        );
+
+        optimize_clear();
+
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Attendance Settings has been updated')
+        ]);
+
     }
 }

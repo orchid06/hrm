@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\user\LeaveController;
+use App\Http\Controllers\User\LeaveController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\user\AttendanceController;
+use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\Auth\AuthorizationController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\NewPasswordController;

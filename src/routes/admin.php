@@ -1,22 +1,21 @@
 <?php
 
 
-use App\Http\Controllers\admin\AttendanceController;
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ActivityHistoryController;
 use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\admin\LeaveCategoryController;
-use App\Http\Controllers\admin\LeaveTypeController;
+use App\Http\Controllers\Admin\LeaveCategoryController;
+use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Admin\MailGatewayController;
 use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\admin\DepartmentController;
-
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\admin\SalaryController;
+use App\Http\Controllers\Admin\SalaryController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SmsGatewayController as AdminSmsGatewayController;
 use App\Http\Controllers\Admin\StaffController;
@@ -24,14 +23,14 @@ use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CurrencyController;
-use App\Http\Controllers\admin\DesignationController;
-use App\Http\Controllers\admin\ExpenseCategoryController;
-use App\Http\Controllers\admin\ExpenseController;
+use App\Http\Controllers\Admin\DesignationController;
+use App\Http\Controllers\Admin\ExpenseCategoryController;
+use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\LeaveController;
-use App\Http\Controllers\admin\OfficeHourController;
-use App\Http\Controllers\admin\PayrollController;
-use App\Http\Controllers\admin\PayslipController;
+use App\Http\Controllers\Admin\OfficeHourController;
+use App\Http\Controllers\Admin\PayrollController;
+use App\Http\Controllers\Admin\PayslipController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\SocialAccountController;
@@ -362,6 +361,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/note', 'note')->name('note');
             Route::post('/update/', 'update')->name('update');
             Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
+            Route::get('/settings' , 'setting')->name('settings');
+            Route::post('/settings/store' , 'settingStore')->name('settings.store');
+
 
             Route::get('/create', 'create')->name('create');
             Route::get('/edit/{uid}', 'edit')->name('edit');

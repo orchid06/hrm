@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\ExpenseCategory;
+use App\Models\Admin\ExpenseCategory;
 use Illuminate\Http\Request;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;

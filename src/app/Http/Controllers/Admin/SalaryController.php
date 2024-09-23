@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Enums\SalaryTypeEnum;
 use App\Enums\StatusEnum;
@@ -46,7 +46,7 @@ class SalaryController extends Controller
                                 })
                                 ->latest()
                                 ->get(),
-                                
+
             'designations'   =>  Designation::with('department')
                                 ->latest()
                                 ->search(['name', 'department:name'])

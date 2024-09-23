@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\admin;
+namespace App\Models\Admin;
 
 use App\Enums\StatusEnum;
 use App\Traits\Filterable;

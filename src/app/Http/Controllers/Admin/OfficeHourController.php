@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Core\Setting;
@@ -67,7 +67,7 @@ class OfficeHourController extends Controller
 
         })->collapse()->all();
 
-        
+
 
         Setting::updateOrInsert(
             ['key'    => 'office_hour'],
