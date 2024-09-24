@@ -3,10 +3,11 @@
 namespace App\Http\Services;
 
 use App\Enums\ClockStatusEnum;
+use App\Enums\LeaveStatus;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class AttendanceService
 {
@@ -49,8 +50,8 @@ class AttendanceService
 
 
         $lateMinutes = $clockInTime->greaterThan($officeStartTime)
-                        ? $clockInTime->diffInMinutes($officeStartTime)
-                        : 0;
+            ? $clockInTime->diffInMinutes($officeStartTime)
+            : 0;
         return $lateMinutes;
     }
 
@@ -70,7 +71,7 @@ class AttendanceService
         $clockOutTime   = Carbon::now();
         $dayOfWeek      = t2k(Carbon::today()->format('l'));
 
-        $data           = $this->processCLockOut($dayOfWeek , $clockInTime, $clockOutTime);
+        $data           = $this->processCLockOut($dayOfWeek, $clockInTime, $clockOutTime);
 
         Attendance::updateOrCreate(
             ['user_id' => $userId, 'date' => $today],
@@ -83,7 +84,7 @@ class AttendanceService
         );
     }
 
-    public function processCLockOut( $dayOfWeek, $clockInTime , $clockOutTime)
+    public function processCLockOut($dayOfWeek, $clockInTime, $clockOutTime)
     {
 
         $officeHours        = json_decode(site_settings('office_hour'), true);
@@ -96,5 +97,15 @@ class AttendanceService
         $data['over_time']              = max(0, $data['work_hour'] - $officeWorkDuration);
 
         return $data;
+    }
+
+
+
+
+    public function generateAttendance($year, $month)
+    {
+
+       
+        return $attendanceData;
     }
 }

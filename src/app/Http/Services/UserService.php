@@ -212,13 +212,14 @@ class UserService
         $totalSalary        = Payroll::where('user_id', $user->id)->sum('net_pay');
         $totalLeave         = Leave::where('user_id', $user->id)->where('status', LeaveStatus::approved->status())->sum('total_days');
 
-        $cardData           = $this->prepareCardData($currentMonthData, $totalSalary , $totalLeave);
-
+        $cardData           = $this->prepareCardData($currentMonthData, $totalSalary, $totalLeave, $user->id);
+        
         return [
-            'user'        => $user,
-            'countries'   => get_countries(),
-            'card_data'   => $cardData,
-            'graph_data'  => $this->formatGraphData($graphData)
+            'user'                  => $user,
+            'countries'             => get_countries(),
+            'card_data'             => $cardData,
+            'graph_data'            => $this->formatGraphData($graphData),
+            'attendance_graph_data' => $this->getMonthlyAttendanceData($user->id)
         ];
     }
 
@@ -273,17 +274,53 @@ class UserService
     private function formatGraphData($graphData): array
     {
         $formattedGraphData         = sortByMonth(
-                                        @$graphData->collapse()->all() ?? [],
-                                        true,
-                                        [
-                                            'over_time'         => 0,
-                                            'work_hour'         => 0,
-                                            'late_hour'         => 0,
-                                        ]
-                                    );
+            @$graphData->collapse()->all() ?? [],
+            true,
+            [
+                'over_time'         => 0,
+                'work_hour'         => 0,
+                'late_hour'         => 0,
+            ]
+        );
+
+
         return $formattedGraphData;
     }
 
+    public function getMonthlyAttendanceData(string $userId)
+    {
+        $month = request()->input('month') ?? now()->month;
+        $year  = request()->input('year') ?? now()->year;
+
+        // Fetch attendance data for the specified month and year
+        $attendanceData = Attendance::selectRaw("
+            DATE(date) as date,
+            COUNT(CASE WHEN clock_in IS NOT NULL THEN 1 END) AS present_days,
+            COUNT(CASE WHEN clock_in IS NULL THEN 1 END) AS absent_days,
+            COUNT(CASE WHEN late_time > 0 THEN 1 END) AS late_days
+            ")
+            ->where('user_id', $userId)
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        // Prepare data for the attendance graph
+        $monthlyAttendanceGraphData = $attendanceData->mapWithKeys(function ($attendance) {
+            return [
+                $attendance->date => [
+                    'present' => $attendance->present_days,
+                    'absent' => $attendance->absent_days,
+                    'late' => $attendance->late_days,
+                ]
+            ];
+        })->toArray();
+
+        return $monthlyAttendanceGraphData;
+
+
+    }
 
 
     private function getCurrentMonthData(int $userId): object
@@ -307,7 +344,7 @@ class UserService
 
 
 
-    private function prepareCardData(object $currentMonthData, float $totalSalary, $totalLeave): array
+    private function prepareCardData(object $currentMonthData, float $totalSalary, $totalLeave, $userId): array
     {
         return [
             'total_attendance'      => $currentMonthData->attendance ?? 0,
@@ -315,12 +352,13 @@ class UserService
             'total_work_minutes'    => $currentMonthData->total_work_minutes ?? 0,
             'total_work_hours'      => intdiv($currentMonthData->total_work_minutes ?? 0, 60),
             'total_salary_received' => $totalSalary,
-            'total_leave'           => $totalLeave
+            'total_leave'           => $totalLeave,
+            'kyc_request'           =>  KycLog::where('user_id', $userId)->count()
         ];
     }
 
 
-    
+
 
 
 

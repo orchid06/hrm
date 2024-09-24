@@ -44,12 +44,11 @@ class AttendanceController extends Controller
         ->paginate(paginateNumber())
         ->appends(request()->all());
 
-
-
+        
 
         return view('admin.attendance.index' , [
-            'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance report' => null],
-            'title'             =>  translate('Attendance '),
+            'breadcrumbs'       => ['Home' => 'admin.home', 'Clocl In Request' => null],
+            'title'             =>  translate('Clock In Request '),
             'attendances'       => $attendances,
             'users'             => User::all()
         ]);
@@ -143,5 +142,17 @@ class AttendanceController extends Controller
             'message' => translate('Attendance Settings has been updated')
         ]);
 
+    }
+
+    public function sheet()
+    {
+        $attendanceData  = $this->attendanceService->generateAttendance(2024 , 8);
+
+        return view('admin.attendance.sheet' , [
+            'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance report' => null],
+            'title'             =>  translate('Attendance Sheet'),
+            'attendanceData'       => $attendanceData ,
+            'users'             => User::all()
+        ]);
     }
 }

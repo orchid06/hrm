@@ -102,8 +102,14 @@ class UserController extends Controller
      */
     public function show(string $uid): View
     {
-       
+
         $userDetails = $this->userService->getUserDetails($uid);
+
+        $months        = collect(range(1, 12))->mapWithKeys(function ($month) {
+            return [
+                Carbon::createFromDate(null, $month, 1)->format('Y-m') => Carbon::createFromDate(null, $month, 1)->format('F')
+            ];
+        });
 
         return view('admin.user.show', [
             'breadcrumbs'           => ['Home' => 'admin.home', 'Employee list' => 'admin.user.list', 'Profile' => null],
@@ -112,6 +118,8 @@ class UserController extends Controller
             'countries'             => $userDetails['countries'],
             'graph_data'            => $userDetails['graph_data'],
             'card_data'             => $userDetails['card_data'],
+            'attendance_graph_data' => $userDetails['attendance_graph_data'],
+            'months'                => $months
         ]);
     }
 

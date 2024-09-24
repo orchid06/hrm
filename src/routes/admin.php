@@ -363,6 +363,8 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/view/details/{attendance_id}', 'viewDetails')->name('view.details');
             Route::get('/settings' , 'setting')->name('settings');
             Route::post('/settings/store' , 'settingStore')->name('settings.store');
+            Route::get('/sheet', 'sheet')->name('sheet');
+
 
 
             Route::get('/create', 'create')->name('create');

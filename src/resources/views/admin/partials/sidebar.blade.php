@@ -161,7 +161,7 @@
                                 href="{{route('admin.attendance.list')}}">
                                 <span></span>
                                 <p>
-                                    {{translate('Attendance sheet')}}
+                                    {{translate('Clock In Requests')}}
                                 </p>
                             </a>
                         </li>
@@ -174,6 +174,18 @@
                                 <span></span>
                                 <p>
                                     {{translate('Attendance settings')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('view_attendance'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.sheet'])}}"
+                                href="{{route('admin.attendance.sheet')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Attendance sheet')}}
                                 </p>
                             </a>
                         </li>

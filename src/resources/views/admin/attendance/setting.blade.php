@@ -28,7 +28,7 @@
                                        placeholder="e.g. 192.168.1.1"
                                        type="text"
                                        class="form-control"
-                                       value="{{$attendanceSettings->ip_start_range}}"
+                                       value="{{@$attendanceSettings->ip_start_range}}"
                                        required>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                        placeholder="e.g. 192.168.1.255"
                                        type="text"
                                        class="form-control"
-                                       value="{{$attendanceSettings->ip_end_range}}"
+                                       value="{{@$attendanceSettings->ip_end_range}}"
                                        required>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                 </label>
                                 <select class="form-select" name="ip_whitelist_status" id="ip_whitelist_status">
                                     @foreach(App\Enums\StatusEnum::toArray() as $key => $value)
-                                        <option value="{{$value}}" {{$value == $attendanceSettings->ip_whitelist_status ? 'selected' : ''}}>{{ $key}}</option>
+                                        <option value="{{$value}}" {{$value == @$attendanceSettings->ip_whitelist_status ? 'selected' : ''}}>{{ $key}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -71,7 +71,7 @@
                                 </label>
                                 <select class="form-select" name="clock_in_status" id="clock_in_status">
                                     @foreach(App\Enums\ClockStatusEnum::toArray() as $key => $value)
-                                    <option value="{{$value}}" {{$value == $attendanceSettings->clock_in_status ? 'selected' : ''}}>{{ $key}}</option>
+                                    <option value="{{$value}}" {{$value == @$attendanceSettings->clock_in_status ? 'selected' : ''}}>{{ $key}}</option>
                                     @endforeach
                                 </select>
                             </div>
