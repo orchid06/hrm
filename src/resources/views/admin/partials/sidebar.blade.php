@@ -179,7 +179,7 @@
                         </li>
                         @endif
 
-                        @if(check_permission('view_attendance'))
+                        {{-- @if(check_permission('view_attendance'))
                         <li class="sub-menu-item">
                             <a class="sidebar-menu-link {{sidebar_awake(['admin.attendance.sheet'])}}"
                                 href="{{route('admin.attendance.sheet')}}">
@@ -189,7 +189,7 @@
                                 </p>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                     </ul>
                 </div>

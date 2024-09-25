@@ -312,7 +312,7 @@
                     <input hidden type="text" name="uid">
                     <div class="form-inner">
                         <label for="category_id"> {{translate('Category')}} </label>
-                        <select class="select2" name="category_id" id="category_id" required>
+                        <select class="select2" name="category_id" id="edit_category_id" required>
                             <option value="">{{translate('Select Category')}}</option>
                             @foreach (@$expense_categories as $category)
                             <option value="{{@$category->id}}" >

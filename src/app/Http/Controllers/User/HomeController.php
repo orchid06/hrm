@@ -110,7 +110,12 @@ class HomeController extends Controller
 
         $data['last_payslip'] = $latestPayslip? ($latestPayslip->created_at)->format('d M, Y') : null;
 
+        $attendance = Attendance::where('user_id', $user->id)
+                        ->whereDate('date', today())
+                        ->first();
 
+        $data['clock_in_status']  = $attendance ? $attendance->clock_in_status : null;
+        $data['clock_out_status'] = $attendance ? $attendance->clock_out_status : null;
 
 
 
@@ -236,7 +241,7 @@ class HomeController extends Controller
      */
     public function passwordUpdate(Request $request): RedirectResponse
     {
-        
+
 
         $rules   = [
             'current_password' => 'required|max:100',

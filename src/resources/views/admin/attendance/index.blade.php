@@ -222,12 +222,12 @@
                                         <i class="las la-pen"></i>
                                     </button>
 
-                                    <a href="{{route('admin.attendance.view.details' , $attendance->id)}}">
+                                    {{-- <a href="{{route('admin.attendance.view.details' , $attendance->id)}}">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-title="{{translate('View details')}}" class="note icon-btn info">
                                         <i class="las la-eye"></i>
                                         </button>
-                                    </a>
+                                    </a> --}}
 
 
                                 @endif

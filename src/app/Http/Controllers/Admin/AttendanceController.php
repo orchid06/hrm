@@ -44,7 +44,7 @@ class AttendanceController extends Controller
         ->paginate(paginateNumber())
         ->appends(request()->all());
 
-        
+
 
         return view('admin.attendance.index' , [
             'breadcrumbs'       => ['Home' => 'admin.home', 'Clocl In Request' => null],
@@ -61,9 +61,9 @@ class AttendanceController extends Controller
         $validatedData = $request->validate([
             'attendance_id'         => 'required|exists:attendances,id',
             'clock_in'              => 'nullable|string',
-            'clock_in_status'       => [Rule::in(ClockStatusEnum::toArray())],
+            'clock_in_status'       => [Rule::in(ClockStatusEnum::toArray()) ,'nullable'],
             'clock_out'             => 'nullable|string',
-            'clock_out_status'      => [Rule::in(CLockStatusEnum::toArray())],
+            'clock_out_status'      => [Rule::in(CLockStatusEnum::toArray()), 'nullable'],
             'note'                  => 'nullable|string',
         ]);
 

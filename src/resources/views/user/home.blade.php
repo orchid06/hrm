@@ -16,31 +16,33 @@ $user     = Auth::user();
                 <h4 class="page-title">
                     {{translate($title)}}
                 </h4>
-                <div class="clock-actions">
+
+            </div>
+            <div class="d-flex justify-content-between align-items-center gap-4 mb-4 p-3 i-card-sm style-2">
+                <div class="page-title-content">
+                    <h4>{{ translate("Welcome") }}, <span class="text--primary">{{ $user->name }}</span></h4>
+                </div>
+
+                <div class="clock-actions d-inline-flex">
                     <!-- Clock In Button -->
-                    <form action="{{route('user.attendance.clock_in.request')}}" method="GET" style="display:inline;">
+                    <form action="{{ route('user.attendance.clock_in.request') }}" method="GET" class="me-4">
                         @csrf
-                        <button type="submit" class="btn btn-primary" {{ @$clockInButtonDisabled ? 'disabled' : '' }}>
-                            {{ @$clockInButtonDisabled ? 'Clocked In' : 'Clock In' }}
+                        <button type="submit" class="btn btn-sm btn-primary" {{ is_null($data['clock_in_status']) ? '' : 'disabled' }}>
+                            {{is_null($data['clock_in_status'])?'Clock In' : 'Clocked In' }}
                         </button>
                     </form>
 
                     <!-- Clock Out Button -->
-                    <form action="{{route('user.attendance.clock_out.request')}}" method="GET" style="display:inline;">
+                    <form action="{{ route('user.attendance.clock_out.request') }}" method="GET">
                         @csrf
-                        <button type="submit" class="btn btn-danger" {{ @$clockOutButtonDisabled ? 'disabled' : '' }}>
-                            {{ @$clockOutButtonDisabled ? 'Clocked Out' : 'Clock Out' }}
+                        <button type="submit" class="btn btn-sm btn-danger" {{ (is_null($data['clock_in_status']) || !is_null($data['clock_out_status'])) ? 'disabled' : '' }}>
+                            {{ is_null($data['clock_out_status']) ? 'Clock Out' : 'Clocked Out' }}
                         </button>
                     </form>
                 </div>
 
             </div>
-            <div class="d-flex align-items-center gap-4 mb-4">
 
-                <div class="page-title-content d-lg-block d-none">
-                    <h4>{{translate("Welcome")}}, <span class="text--primary">{{$user->name }}</span></h4>
-                </div>
-            </div>
             <div class="row g-3 mb-3">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                     <div class="i-card-sm style-2 primary">

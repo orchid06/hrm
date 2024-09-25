@@ -63,9 +63,10 @@ class AttendanceService
         $attendance = Attendance::where('user_id', $userId)->where('date', $today)->first();
 
 
-        if (!$attendance || $attendance->clock_in_status !== ClockStatusEnum::approved->status() || $attendance->clock_out_status === ClockStatusEnum::approved->status()) {
-            throw new \Exception('You must clock in first or you have already clocked out today.');
-        }
+        if (!$attendance) throw new \Exception('You must clock in first.');
+        if ($attendance->clock_in_status !== ClockStatusEnum::approved->status()) throw new \Exception('Clock-in has not approved yet.');
+        if ($attendance->clock_out_status === ClockStatusEnum::approved->status()) throw new \Exception('Already clocked out.');
+
 
         $clockInTime    = Carbon::parse($attendance->clock_in);
         $clockOutTime   = Carbon::now();
@@ -105,7 +106,7 @@ class AttendanceService
     public function generateAttendance($year, $month)
     {
 
-       
+
         return $attendanceData;
     }
 }
