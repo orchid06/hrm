@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col-12">
         <div class="i-card-md">
-                <div class="card-header">
+                <div class="card--header">
                     <h4 class="card-title">
-                        
+                        {{translate('Verification form')}}
                     </h4>
                 </div>
 

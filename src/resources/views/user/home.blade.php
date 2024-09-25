@@ -51,7 +51,7 @@ $user     = Auth::user();
                             <h5 class="title">
                                 {{translate("Salary")}}
                             </h5>
-                            <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
+                            <a href="{{route('user.payslip.index')}}" class="i-btn btn--sm btn--primary-outline">
                                 {{translate("View All")}}
                             </a>
                         </div>
@@ -71,7 +71,7 @@ $user     = Auth::user();
                             <h5 class="title">
                                 {{translate("Total work hour")}}
                             </h5>
-                            <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
+                            <a href="{{route('user.attendance.index')}}" class="i-btn btn--sm btn--primary-outline">
                                 {{translate("View All")}}
                             </a>
                         </div>
@@ -91,7 +91,7 @@ $user     = Auth::user();
                             <h5 class="title">
                                 {{translate('Total Attendance')}}
                             </h5>
-                            <a href="{{route('admin.user.list')}}" class="i-btn btn--sm btn--primary-outline">
+                            <a href="{{route('user.attendance.index')}}" class="i-btn btn--sm btn--primary-outline">
                                 {{translate("View All")}}
                             </a>
                         </div>
@@ -107,7 +107,7 @@ $user     = Auth::user();
                         <div class="card-info">
                             <h3>{{(Arr::get($data,"total_late",0))}} </h3>
                             <h5 class="title">{{translate('Total late')}}</h5>
-                            <a href=""
+                            <a href="{{route('user.attendance.index')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
@@ -127,7 +127,7 @@ $user     = Auth::user();
                             <h5 class="title">
                                 {{translate("Total Leave")}}
                             </h5>
-                            <a href="{{route('admin.payroll.list')}}"
+                            <a href="{{route('user.leave.index')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">
@@ -141,12 +141,12 @@ $user     = Auth::user();
                     <div class="i-card-sm style-2 warning">
                         <div class="card-info">
                             <h3>
-                                0
+                                {{Arr::get($data,"last_payslip","--")}}
                             </h3>
                             <h5 class="title">
                                 {{translate("Last Pay slip")}}
                             </h5>
-                            <a href="{{route('admin.expense.list')}}"
+                            <a href="{{route('user.payslip.index')}}"
                                 class="i-btn btn--sm btn--primary-outline">{{translate("View All")}}</a>
                         </div>
                         <div class="d-flex flex-column align-items-end gap-4">

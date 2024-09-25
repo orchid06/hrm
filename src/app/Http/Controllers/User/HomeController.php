@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\ClockStatusEnum;
 use App\Enums\FileKey;
+use App\Enums\LeaveStatus;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\UserService;
@@ -76,29 +78,39 @@ class HomeController extends Controller
 
         $data['total_attendance'] = Attendance::where('user_id', $user->id)
             ->whereNotNull('clock_in')
+            ->where('clock_in_status' , ClockStatusEnum::approved->status())
             ->count();
 
 
         $data['total_late'] = Attendance::where('user_id', $user->id)
-            ->whereNull('late_time')
+            ->where('late_time', '>', 0)
             ->count();
 
 
+
         $data['total_leave'] = Leave::where('user_id', $user->id)
-            ->where('status', 'approved')
+            ->where('status', LeaveStatus::approved->status())
             ->count();
 
         $designation = UserDesignation::where('user_id' , $user->id)
                 ->where('status' , StatusEnum::true->status())
                 ->first();
 
-        $data['salary'] = @json_decode($designation->salary)->basic_salary->amount;
+        $data['salary'] = @json_decode($designation->salary)->basic_salary->amount ?? 0;
 
         $data['total_work_hours'] = round(
             Attendance::where('user_id', $user->id)
                 ->sum('work_hour') / 60,
             2
         );
+
+        $latestPayslip = Payroll::where('user_id', $user->id)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first();
+
+        $data['last_payslip'] = $latestPayslip? ($latestPayslip->created_at)->format('d M, Y') : null;
+
+
 
 
 
@@ -137,6 +149,7 @@ class HomeController extends Controller
             'designations'  => Designation::latest()->get(),
         ]);
     }
+
 
 
 
@@ -206,6 +219,15 @@ class HomeController extends Controller
     }
 
 
+    public function passwordEdit():View
+    {
+        return view('user.profile.password' , [
+            'breadcrumbs'   => ['Home'=> 'user.home', 'Profile'=> 'user.profile', 'Password'=> null],
+            'title'         => translate('Password Update'),
+        ]);
+    }
+
+
     /**
      * update password
      *
@@ -214,7 +236,7 @@ class HomeController extends Controller
      */
     public function passwordUpdate(Request $request): RedirectResponse
     {
-
+        
 
         $rules   = [
             'current_password' => 'required|max:100',

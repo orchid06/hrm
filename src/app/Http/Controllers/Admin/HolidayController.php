@@ -106,7 +106,7 @@ class HolidayController extends Controller
         }
 
 
-        return $holidays->map(function ($holiday) {
+        return collect($holidays)->map(function ($holiday) {
             return (object) $holiday;
         });
     }

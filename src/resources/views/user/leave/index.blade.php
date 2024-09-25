@@ -33,41 +33,7 @@ $statusClasses = [
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                <div class="i-card-sm style-2 success">
-                    <div class="card-info">
-                        <h3>
-                            {{Arr::get($data,"total_paid_leave",0)}}
-                        </h3>
-                        <h5 class="title">
-                            {{translate("Total Paid Leave")}}
-                        </h5>
 
-                    </div>
-                    <div class="d-flex flex-column align-items-end gap-4">
-                        <div class="icon">
-                            <i class="las la-clock"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                <div class="i-card-sm style-2 info">
-                    <div class="card-info">
-                        <h3>
-                            {{(Arr::get($data,"remaining_paid_leave",0))}}
-                        </h3>
-                        <h5 class="title">
-                            {{translate('Remaining Paid Leave')}}
-                        </h5>
-                    </div>
-                    <div class="d-flex flex-column align-items-end gap-4">
-                        <div class="icon">
-                            <i class="las la-calendar"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>

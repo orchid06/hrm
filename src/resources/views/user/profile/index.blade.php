@@ -40,9 +40,19 @@
 
                     </ul>
 
-                    <a href="{{route('user.profile.edit')}}" class="i-btn btn--md btn--primary w-100 update-profile" ><i class="bi bi-person-gear fs-18 me-3"></i>
-                            {{translate("Update Profile")}}
-                    </a>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ route('user.profile.edit') }}" class="i-btn btn--sm btn--primary flex-grow-1 text-center update-profile">
+                            <i class="bi bi-person-gear fs-18 me-3"></i>
+                            {{ translate("Update Profile") }}
+                        </a>
+
+                        <a href="{{ route('user.profile.password') }}" class="i-btn btn--sm btn--danger flex-grow-1 text-center update-profile">
+                            <i class="bi bi-person-gear fs-18 me-3"></i>
+                            {{ translate("Update Password") }}
+                        </a>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -55,7 +65,7 @@
                                 [
                                     "title"  => translate("Salary"),
                                     "class"  => 'col',
-                                    "total"  => @num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency),
+                                    "total"  => @$card_data['net_salary'] ?num_format($card_data['net_salary'], @$currency) :"--",
                                     "icon"   => '<i class="las la-hryvnia"></i>',
                                     "bg"     => 'primary',
                                     "url"    => ''
@@ -69,9 +79,9 @@
                                     "url"    => ''
                                 ],
                                 [
-                                    "title"  => translate("Total Salary Received"),
+                                    "title"  => translate("Total Payslip Received"),
                                     "class"  => 'col',
-                                    "total"  => $user->transactions->count(),
+                                    "total"  => @$card_data['total_payslip_received'] ,
                                     "icon"   => '<i class="las la-wallet"></i>',
                                     "bg"     => 'danger',
                                     "url"    => ''
@@ -113,12 +123,46 @@
                 <div class="col-lg-12">
                     <div class="i-card-md mb-4">
                         <div class="card--header text-end">
+
+
                             <h4 class="card-title">
-                                 {{ translate('Employee attendence (Current Year)')}}
+                                {{ translate('Work Statistics') }}
                             </h4>
-                       </div>
+
+
+                                <form action="{{route(Route::currentRouteName() ,  ['uid' => $user->uid])}}" method="get">
+                                    <div class="col-lg-auto ms-auto d-flex justify-content-end">
+                                        <div class="search-area">
+                                            <div class="form-inner">
+                                                <select name="year" class="select2" id="year"
+                                                    placeholder="{{ translate('Select a year') }}">
+                                                    <option value="">{{ translate('Select a Year') }}</option>
+                                                    @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                                    <option value="{{ $year }}" {{ request()->input('year') == $year ?
+                                                        'selected' : '' }}>
+                                                        {{ $year }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <button class="i-btn btn--sm info">
+                                                <i class="las la-sliders-h"></i>
+                                            </button>
+                                            <a href="{{route(Route::currentRouteName() ,  ['uid' => $user->uid])}}"
+                                                class="i-btn btn--sm danger">
+                                                <i class="las la-sync"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+
+                        </div>
                         <div class="card-body">
-                            <div id="postReport"></div>
+                            <div id="workReport"></div>
                         </div>
                     </div>
                 </div>
@@ -148,56 +192,69 @@
 
 
 
-        $("#country").select2({
-            placeholder:"{{translate('Select Country')}}",
+        $("#year").select2({
+            placeholder:"{{translate('Select year')}}",
         })
 
         var options = {
             chart: {
-              height: 300,
-              type: "line",
+                height: 300,
+                type: "line",
             },
-          dataLabels: {
-            enabled: false,
-          },
-          colors: ['var(--color-info)','var(--color-primary)','var(--color-success)' ,"var(--color-danger)"],
-          series: [
-            {
-              name: "{{ translate('Total Attendance') }}",
-              data: @json(array_column($graph_data , 'attendance')),
+            dataLabels: {
+                enabled: false,
             },
-            {
-              name: "{{ translate('Late to work') }}",
-              data: @json(array_column($graph_data , 'late')),
+            colors: ['var(--color-info)', 'var(--color-primary)', 'var(--color-success)', "var(--color-danger)"],
+            series: [
+                {
+                    name: "{{ translate('Over Time') }}",
+                    data: @json(array_column($graph_data, 'over_time')),
+                },
+                {
+                    name: "{{ translate('Late to work') }}",
+                    data: @json(array_column($graph_data, 'late_hour')),
+                },
+                {
+                    name: "{{ translate('Work Hour') }}",
+                    data: @json(array_column($graph_data, 'work_hour')),
+                },
+
+            ],
+            xaxis: {
+                categories: @json(array_keys($graph_data)),
             },
-            {
-              name: "{{ translate('Total work hour') }}",
-              data: @json(array_column($graph_data , 'work_hour')),
+            yaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return value + (value === 1 ? ' Hour' : ' Hours');
+                    }
+                }
             },
 
-          ],
-          xaxis: {
-            categories: @json(array_keys($graph_data)),
-          },
-
-          tooltip: {
+            tooltip: {
                 shared: false,
                 intersect: true,
 
+                y: {
+                    formatter: function (value) {
+                        return value + (value === 1 ? ' Hour' : ' Hours'); // Tooltip formatting
+                    }
+                }
+
             },
-          markers: {
-            size: 6,
-          },
-          stroke: {
-            width: [4, 4],
-          },
-          legend: {
-            horizontalAlign: "left",
-            offsetX: 40,
-          },
+            markers: {
+                size: 6,
+            },
+            stroke: {
+                width: [4, 4],
+            },
+            legend: {
+                horizontalAlign: "left",
+                offsetX: 40,
+            },
         };
 
-        var chart = new ApexCharts(document.querySelector("#postReport"), options);
+        var chart = new ApexCharts(document.querySelector("#workReport"), options);
         chart.render();
 
 

@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class LeaveController extends Controller
 {
@@ -27,7 +28,7 @@ class LeaveController extends Controller
         });
     }
 
-    public function index()
+    public function index(): View
     {
 
         $leaves                         = Leave::where('user_id', Auth::id())
@@ -39,7 +40,7 @@ class LeaveController extends Controller
             ->paginate(paginateNumber())
             ->appends(request()->all());
 
-        $data['leave_taken']            = $leaves->count();
+        $data['leave_taken']            = $leaves->where('status', LeaveStatus::approved->status())->sum('total_days');
         $data['total_paid_leave']       = site_settings('total_paid_leave');
         $data['remaining_paid_leave']   = max(0, $data['total_paid_leave'] - $data['leave_taken']);
 

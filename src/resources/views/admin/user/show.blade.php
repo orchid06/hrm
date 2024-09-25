@@ -83,11 +83,9 @@ $currentMonth   = now()->month;
             @php
             $cards = [
             [
-            "title" => translate("Basic Salary"),
+            "title" => translate("Salary"),
             "class" => 'col',
-            "total" => @$user->userDesignation->salary ?
-            num_format(json_decode(@$user->userDesignation->salary)->basic_salary->amount, @$currency) :
-            translate("N/A"),
+            "total" => @$card_data['net_salary'] ?num_format($card_data['net_salary'], @$currency) :"--",
             "icon" => '<i class="las la-hryvnia"></i>',
             "bg" => 'primary',
             "url" => ''
@@ -103,7 +101,7 @@ $currentMonth   = now()->month;
             [
             "title" => translate("Total Salary Received"),
             "class" => 'col',
-            "total" => @$card_data['total_salary_received']? num_format($card_data['total_salary_received'], $currency):
+            "total" => @$card_data['total_payslip_received'] ?? 0,
             translate("N/A"),
             "icon" => '<i class="las la-wallet"></i>',
             "bg" => 'danger',

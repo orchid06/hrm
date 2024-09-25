@@ -209,11 +209,13 @@ class UserService
         $user               = $this->getUserWithRelations($uid);
         $graphData          = $this->getGraphData($user->id);
         $currentMonthData   = $this->getCurrentMonthData($user->id);
-        $totalSalary        = Payroll::where('user_id', $user->id)->sum('net_pay');
+        $totalPayslip        = Payroll::where('user_id', $user->id)->count();
         $totalLeave         = Leave::where('user_id', $user->id)->where('status', LeaveStatus::approved->status())->sum('total_days');
+        $userSalary         = $user->userDesignation->net_salary;
 
-        $cardData           = $this->prepareCardData($currentMonthData, $totalSalary, $totalLeave, $user->id);
-        
+
+        $cardData           = $this->prepareCardData(currentMonthData: $currentMonthData, totalPayslip: $totalPayslip, totalLeave: $totalLeave, userId: $user->id , userSalary: $userSalary);
+
         return [
             'user'                  => $user,
             'countries'             => get_countries(),
@@ -344,14 +346,15 @@ class UserService
 
 
 
-    private function prepareCardData(object $currentMonthData, float $totalSalary, $totalLeave, $userId): array
+    private function prepareCardData(object $currentMonthData, float $totalPayslip, $totalLeave, $userId, $userSalary ): array
     {
         return [
+            'net_salary'            => $userSalary,
             'total_attendance'      => $currentMonthData->attendance ?? 0,
             'total_late'            => $currentMonthData->late ?? 0,
             'total_work_minutes'    => $currentMonthData->total_work_minutes ?? 0,
             'total_work_hours'      => intdiv($currentMonthData->total_work_minutes ?? 0, 60),
-            'total_salary_received' => $totalSalary,
+            'total_payslip_received' => $totalPayslip,
             'total_leave'           => $totalLeave,
             'kyc_request'           =>  KycLog::where('user_id', $userId)->count()
         ];

@@ -104,7 +104,8 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::get('profile', 'profile')->name('profile');
             Route::get('profile/edit', 'profileEdit')->name('profile.edit');
             Route::post('profile/update', 'profileUpdate')->name('profile.update');
-            Route::post('/update', 'passwordUpdate')->name('password.update');
+            Route::get('password/', 'passwordEdit')->name('profile.password');
+            Route::post('password/update', 'passwordUpdate')->name('password.update');
             Route::post('/affiliate/update', 'affiliateUpdate')->name('affiliate.update');
             Route::post('/webhook/update', 'webhookUpdate')->name('webhook.update');
             Route::get('/notifications', 'notification')->name('notifications');
