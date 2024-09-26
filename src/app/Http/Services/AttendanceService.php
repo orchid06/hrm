@@ -4,8 +4,13 @@ namespace App\Http\Services;
 
 use App\Enums\ClockStatusEnum;
 use App\Enums\LeaveStatus;
+use App\Enums\StatusEnum;
 use App\Models\Attendance;
+use App\Models\User;
 use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -105,8 +110,37 @@ class AttendanceService
 
     public function generateAttendance($year, $month)
     {
+        $users = User::where('status' , StatusEnum::true->status())->get();
 
+        $datesOfSpecifiedMonth = $this->getDatesOfMonth(12, 1997);
+        $officeHolidays = $this->getOfficeHolidays();
 
-        return $attendanceData;
+        dd($officeHolidays , $datesOfSpecifiedMonth);
+
+        return $users;
     }
+
+    public function getDatesOfMonth($month, $year) {
+
+        $start = new DateTime("$year-$month-01");
+
+        $end = clone $start;
+        $end->modify('last day of this month');
+
+
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end->modify('+1 day'));
+
+        $dates = [];
+        foreach ($period as $date) {
+            $dates[] =(object)[
+                'parse_date' => $date->format('d'),
+                'original_format' => $date
+            ];
+
+        }
+
+        return $dates;
+    }
+
+
 }
