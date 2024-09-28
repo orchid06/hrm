@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('leave_type_id')->constrained('leave_types')->onDelete('cascade');
             $table->enum('leave_duration_type' , array_values(LeaveDurationType::toArray()))->nullable();
-            $table->date('date')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('total_days');

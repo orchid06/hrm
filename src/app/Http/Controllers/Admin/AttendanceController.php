@@ -47,86 +47,105 @@ class AttendanceController extends Controller
         // ->paginate(paginateNumber())
         // ->appends(request()->all());
 
-        $dates = $this->attendanceService->getDatesOfMonth(9 , 2024);
+        $dates = $this->attendanceService->getDatesOfMonth(9, 2024);
 
+        $currentDate = Carbon::today();
 
 
         $officeHolidays      = collect(json_decode(site_settings('holidays')));
         $officeSchedules     = json_decode(site_settings('office_hour'), true);
 
 
-        $users = User::with(['attendances' => function($query) {
-            return $query->month()->year();
-        }])->get()->map(function (User $user) use($officeHolidays , $officeSchedules, $dates)  {
+        $users = User::with([
+            'attendances' => function ($query) {
+                return $query->month()->year();
+            },
+            'leaves' => function ($query) {
+                return $query->month()->year();
+            }
+        ])->get()->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates , $currentDate) {
 
-            $attendance = [];
-            $userAttendances = $user->attendances->map(function($attendance){
-                $date = $attendance->date;
 
-                return (object)['parse_date_key' =>(Carbon::parse($date)->format('d')), 'date_key'=>Carbon::parse($date)];
 
+            $userAttendances = $user->attendances->map(function ($attendance) {
+                $attendanceDate = $attendance->date;
+
+                return (object)['parse_date_key' => (Carbon::parse($attendanceDate)->format('d')), 'date_key' => Carbon::parse($attendanceDate)];
             });
 
-            foreach($dates as $date){
-
-               $attendenceExist =  $userAttendances->values()->where('parse_date_key' , $date->parse_date)->first();
 
 
-                if($attendenceExist){
-                    $enumValue = AttendanceStatus::PRESENT->value;
+            foreach ($dates as $date) {
 
-                }else{
+                $enumValue = null;
+
+                if ($date->original_format <= $currentDate) {
+
+                    $attendenceExist =  $userAttendances->values()->where('parse_date_key', $date->parse_date)->first();
+
+
+                    if ($attendenceExist) {
+                        $enumValue = AttendanceStatus::PRESENT->value;
+                    } else {
                         $enumValue = AttendanceStatus::ABSENT->value;
 
 
                         $day = t2k($date->original_format->format('l'));
 
 
-                        $custom_office_hour = $user->custom_office_hour ? @json_decode($user->custom_office_hour , true): null;
+                        $custom_office_hour = $user->custom_office_hour ? @json_decode($user->custom_office_hour, true) : null;
 
-                        #check default off day
-                        
+                        #check office holiday
+                        $officeSchedule = Arr::get($officeSchedules, $day, null);
+                        $is_open        = Arr::get($officeSchedule, 'is_on');
 
+                        $enumValue = $is_open == true ? AttendanceStatus::ABSENT->value  : AttendanceStatus::HOLIDAY->value;
 
                         #chek custom holiday
-                        if($custom_office_hour) {
+                        if ($custom_office_hour) {
 
-                            $customCurrentDaySchedule = Arr::get($custom_office_hour, $day , null);
 
-                            $is_custom_open = Arr::get($customCurrentDaySchedule , 'is_on' , false) ;
-                            $enumValue = AttendanceStatus::HOLIDAY->value;
+                            $customCurrentDaySchedule = Arr::get($custom_office_hour, $day, null);
 
-                            $enumValue = $is_custom_open? AttendanceStatus::HOLIDAY->value : AttendanceStatus::ABSENT->value ;
+                            $is_custom_open = Arr::get($customCurrentDaySchedule, 'is_on');
+
+
+
+                            $enumValue = $is_custom_open == true ? AttendanceStatus::ABSENT->value : AttendanceStatus::EMPLOYEE_HOLIDAY->value;
                         }
 
+                        $carbonDate         = Carbon::instance($date->original_format);
 
-                            #todo check holidays
+                        #check holidays
+                        foreach ($officeHolidays as $officeHoliday) {
 
-
-
-                        dd($officeHolidays);
-
-
-
-
-                        dd($dayOff);
+                            $startDate          = Carbon::parse($officeHoliday->start_date);
+                            $endDate            = Carbon::parse($officeHoliday->end_date);
 
 
-                    dd($day , $officeSchedules);
-                    $attendance [$date] = AttendanceStatus::DAYOFF->value;
+                            $is_holiday = $carbonDate->between($startDate, $endDate);
+
+                            if ($is_holiday) $enumValue = AttendanceStatus::HOLIDAY->value;
+                        }
+
+                        #chek employee Leave
+                        $employeeLeaves = $user->leaves ?? [];
+
+                        foreach ($employeeLeaves as $leave) {
+
+                            $startDate          = Carbon::parse($leave->start_date);
+                            $endDate            = Carbon::parse($leave->end_date);
 
 
+                            $is_on_leave         = $carbonDate->between($startDate, $endDate);
 
-
-
-                    // $officeHolidays->map(function ($holiday){
-                    //     $date = $holiday->date ??
-                    // });
-
-
-                    $attendance [$date->parse_date] = $enumValue;
+                            if ($is_on_leave) $enumValue = AttendanceStatus::DAYOFF->value;
+                        }
+                    }
                 }
 
+
+                $attendance[$date->parse_date] = $enumValue;
             }
 
             $user->attendanceData = $attendance;
@@ -135,17 +154,10 @@ class AttendanceController extends Controller
         });
 
 
-
-
-
-
-
-
-        return view('admin.attendance.index' , [
+        return view('admin.attendance.index', [
             'breadcrumbs'       => ['Home' => 'admin.home', 'Clocl In Request' => null],
             'title'             =>  translate('Clock In Request '),
             'users'             => $users,
-            // 'employeAttendance' => $employeAttendance
         ]);
     }
 
@@ -156,7 +168,7 @@ class AttendanceController extends Controller
         $validatedData = $request->validate([
             'attendance_id'         => 'required|exists:attendances,id',
             'clock_in'              => 'nullable|string',
-            'clock_in_status'       => [Rule::in(ClockStatusEnum::toArray()) ,'nullable'],
+            'clock_in_status'       => [Rule::in(ClockStatusEnum::toArray()), 'nullable'],
             'clock_out'             => 'nullable|string',
             'clock_out_status'      => [Rule::in(CLockStatusEnum::toArray()), 'nullable'],
             'note'                  => 'nullable|string',
@@ -169,15 +181,15 @@ class AttendanceController extends Controller
         $clockInTime    = $validatedData['clock_in'];
         $clockOutTime   = $validatedData['clock_out'];
 
-        if($validatedData['clock_in']){
+        if ($validatedData['clock_in']) {
             $clockInTimestamp   = Carbon::createFromFormat('Y-m-d H:i:s', "$date $clockInTime:00");
             $lateTime           = $this->attendanceService->processClockIn($clockInTimestamp);
         }
-        if($validatedData['clock_out']){
+        if ($validatedData['clock_out']) {
             $clockIn            = Carbon::parse($attendance->clock_in ?? $clockInTimestamp);
             $clockOutTimestamp  = Carbon::createFromFormat('Y-m-d H:i:s', "$date $clockOutTime:00");
 
-            $data               = $this->attendanceService->processCLockOut( $dayOfWeek , $clockIn , $clockOutTimestamp);
+            $data               = $this->attendanceService->processCLockOut($dayOfWeek, $clockIn, $clockOutTimestamp);
         }
 
 
@@ -189,27 +201,26 @@ class AttendanceController extends Controller
         $attendance->clock_out          = $clockOutTimestamp ?? $attendance->clock_out;
         $attendance->clock_out_status   = $validatedData['clock_out_status'] ?? $attendance->clock_out_status;
         $attendance->over_time          = $data['over_time'] ?? $attendance->over_time;
-        $attendance->work_hour          = $data['work_hour']?? $attendance->work_hour;
+        $attendance->work_hour          = $data['work_hour'] ?? $attendance->work_hour;
         $attendance->note               = $request->input('note') ?? null;
 
         $attendance->save();
 
 
         return redirect()->back()->with('success', translate('Attendance updated successfully.'));
-
     }
 
     public function viewDetails($attendance_id): View
     {
-        return view('admin.attendance.details' , [
+        return view('admin.attendance.details', [
             'title'         => translate('Attendance Details'),
-            'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance report' => 'admin.attendance.list' , 'Attendance Details'=> null],
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance report' => 'admin.attendance.list', 'Attendance Details' => null],
         ]);
     }
 
     public function setting()
     {
-        return view('admin.attendance.setting' , [
+        return view('admin.attendance.setting', [
             'title' => translate('Attendance Settings'),
             'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance Settings' => null],
         ]);
@@ -220,8 +231,8 @@ class AttendanceController extends Controller
         $data = $request->validate([
 
             'ip_whitelist_status'   => [Rule::in(CLockStatusEnum::toArray())],
-            'ip_start_range'        => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(),'ip'],
-            'ip_end_range'          => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(),'ip'],
+            'ip_start_range'        => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(), 'ip'],
+            'ip_end_range'          => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(), 'ip'],
             'clock_in_status'       => [Rule::in(CLockStatusEnum::toArray())]
         ]);
 
@@ -236,17 +247,16 @@ class AttendanceController extends Controller
             'status'  =>  true,
             'message' => translate('Attendance Settings has been updated')
         ]);
-
     }
 
     public function sheet()
     {
 
 
-        return view('admin.attendance.sheet' , [
+        return view('admin.attendance.sheet', [
             'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance report' => null],
             'title'             =>  translate('Attendance Sheet'),
-            'employeAttendance'       => $employeAttendance ,
+            'employeAttendance'       => $employeAttendance,
         ]);
     }
 }

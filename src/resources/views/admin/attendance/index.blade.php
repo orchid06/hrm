@@ -6,13 +6,17 @@
             background-color: #f1f1f1;
         }
         .date-header {
-            font-size: 13px;
+            font-size: 11px;
         }
         .date-header span {
-            font-size: 20px;
+            font-size: 15px;
             display: block;
             font-weight: bold;
             margin-top: 5px;
+            max-width: 20px; /* Adjust this as per your layout */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .current-date {
             background-color: #ff0800;
@@ -76,26 +80,20 @@
                 </thead>
                 <tbody>
                     <!-- List of employees and their attendance data -->
-                    <tr>
-                        <td class="employee-name">John Doe</td>
-                        <td>Present</td>
-                        <td>Absent</td>
-                        <td>Present</td>
-                        <td>Present</td>
-                        <td>Present</td>
-                        <td>Absent</td>
-                        <td>Present</td>
-                    </tr>
-                    <tr>
-                        <td class="employee-name">Jane Smith</td>
-                        <td>Present</td>
-                        <td>Present</td>
-                        <td>Absent</td>
-                        <td>Present</td>
-                        <td>Present</td>
-                        <td>Absent</td>
-                        <td>Present</td>
-                    </tr>
+                    @foreach ($users as $user )
+                        <tr>
+                            <td class="employee-name">{{$user->name}}</td>
+
+                            {{-- Attendance data --}}
+                            @foreach ($user->attendanceData as $date => $status )
+                                
+                                <td>{{App\Enums\AttendanceStatus::from($status)->statusLabel() }}</td>
+
+
+                            @endforeach
+                        </tr>
+                    @endforeach
+
                     <!-- Add more rows for employees -->
                 </tbody>
             </table>

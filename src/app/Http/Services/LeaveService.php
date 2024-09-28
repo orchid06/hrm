@@ -90,9 +90,8 @@ class LeaveService
             'user_id'               => $userId,
             'leave_type_id'         => $request->input('leave_type_id'),
             'leave_duration_type'   => $request->input('leave_duration_type'),
-            'date'                  => $request->input('date'),
-            'start_date'            => $request->input('start_date'),
-            'end_date'              => $request->input('end_date'),
+            'start_date'            => $request->input('start_date') ??  $request->input('date'),
+            'end_date'              => $request->input('end_date') ?? $request->input('date'),
             'reason'                => $request->input('reason'),
             'status'                => LeaveStatus::pending->status(),
         ];

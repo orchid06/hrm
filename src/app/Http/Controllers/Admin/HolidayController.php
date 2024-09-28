@@ -64,8 +64,6 @@ class HolidayController extends Controller
     public function filterHolidays($month = null, $year = null, $dateRange = null): Collection
     {
         // Fetch holiday settings
-        // $settings = Setting::where('key', 'holidays')->first();
-        // $holidays = collect(json_decode($settings->value, true) ?? []);
 
         $holidays = json_decode(site_settings('holidays'));
 
@@ -134,8 +132,14 @@ class HolidayController extends Controller
 
         $newHoliday['total_days'] = $this->calculateTotalDays($request->input('holiday_duration_type'), $request);
 
+        if($newHoliday['date'] ){
+            $newHoliday['start_date'] = $newHoliday['date'];
+            $newHoliday['end_date']   = $newHoliday['date'];
+        }
+
+        unset($newHoliday['date']);
+
         if ($key) {
-            unset($newHoliday['holiday_key']);
             $holidays[$key]         = $newHoliday;
         } else {
             $newKey                 = t2k($request->input('title'));
