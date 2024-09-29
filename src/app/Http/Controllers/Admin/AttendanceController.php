@@ -38,135 +38,24 @@ class AttendanceController extends Controller
     public function list(Request $request): View
     {
 
-        $month = request('month', now()->month);
-        $year  = request('year', now()->year);
-
-
-        $dates          = $this->attendanceService->getDatesOfMonth($month, $year);
+        $month          = request('month', now()->month);
+        $year           = request('year', now()->year);
         $currentDate    = Carbon::today();
 
+        $dates          = $this->attendanceService->getDatesOfMonth($month, $year);
 
-        $officeHolidays      = collect(json_decode(site_settings('holidays')));
-        $officeSchedules     = json_decode(site_settings('office_hour'), true);
-
-
-        $users = User::with([
-            'attendances' => function ($query) {
-                return $query->month()->year();
-            },
-            'leaves' => function ($query) {
-                return $query->month()->year();
-            }
-        ])->userOnUser()
-        ->get()->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates , $currentDate) {
+        $users          = $this->attendanceService->getAttendance( $dates, $currentDate);
 
 
-
-            $userAttendances = $user->attendances->map(function ($attendance) {
-
-                $userAttendance = $attendance;
-                $attendanceDate = $attendance->date;
-
-                return (object)['userAttendance' => $userAttendance , 'parse_date_key' => (Carbon::parse($attendanceDate)->format('d')), 'date_key' => Carbon::parse($attendanceDate)];
-            });
-
-
-
-            foreach ($dates as $date) {
-
-                $enumValue = AttendanceStatus::INVALID->value;
-
-                if ($date->original_format <= $currentDate) {
-
-
-
-                    $attendenceExist =  $userAttendances->values()->where('parse_date_key', $date->parse_date)->first();
-
-
-
-                    if ($attendenceExist) {
-                        $enumValue = AttendanceStatus::PRESENT->value;
-
-                        $clockIn        = $attendenceExist->userAttendance->clock_in;
-                        $clockOut       = $attendenceExist->userAttendance->clock_out;
-                        $clockInStatus  = $attendenceExist->userAttendance->clock_in_status;
-
-                        $late     = $attendenceExist->userAttendance->late_time;
-                        if($late > 0)  $enumValue= AttendanceStatus::LATE->value;
-
-                        if( $clockInStatus != ClockStatusEnum::approved) $enumValue = AttendanceStatus::CLOCKED_IN->value;
-
-                    } else {
-                        $enumValue = AttendanceStatus::ABSENT->value;
-
-
-                        $day = t2k($date->original_format->format('l'));
-
-
-                        $custom_office_hour = $user->custom_office_hour ? @json_decode($user->custom_office_hour, true) : null;
-
-                        #check office holiday
-                        $officeSchedule = Arr::get($officeSchedules, $day, null);
-                        $is_open        = Arr::get($officeSchedule, 'is_on');
-
-                        if($is_open == false) $enumValue = AttendanceStatus::OFFICE_HOLIDAY->value;
-
-                        #chek custom holiday
-                        if ($custom_office_hour) {
-
-
-                            $customCurrentDaySchedule = Arr::get($custom_office_hour, $day, null);
-
-                            $is_custom_open = Arr::get($customCurrentDaySchedule, 'is_on');
-
-                            if($is_custom_open == false) $enumValue = AttendanceStatus::EMPLOYEE_HOLIDAY->value;
-                        }
-
-                        $carbonDate         = $date->original_format;
-
-                        #check holidays
-                        foreach ($officeHolidays as $officeHoliday) {
-
-                            $startDate          = Carbon::parse($officeHoliday->start_date);
-                            $endDate            = Carbon::parse($officeHoliday->end_date);
-
-
-                            $is_holiday = $carbonDate->between($startDate, $endDate);
-
-                            if ($is_holiday) $enumValue = AttendanceStatus::PUBLIC_HOLIDAY->value;
-                        }
-
-                        #chek employee Leave
-                        $employeeLeaves = $user->leaves->where('status' , LeaveStatus::approved->status()) ?? [];
-
-                        foreach ($employeeLeaves as $leave) {
-
-                            $startDate          = Carbon::parse($leave->start_date);
-                            $endDate            = Carbon::parse($leave->end_date);
-                            $is_on_leave         = $carbonDate->between($startDate, $endDate);
-
-                            if ($is_on_leave) $enumValue = AttendanceStatus::ON_LEAVE->value;
-                        }
-                    }
-                }
-
-
-                $attendance[$date->parse_date] = $enumValue;
-            }
-
-            $user->attendanceStatus = $attendance;
-
-            return $user;
-        });
 
         return view('admin.attendance.index', [
-            'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance Sheet' => null],
-            'title'             =>  translate('Attendance Sheet'),
-            'users'             => $users,
-            'dates'             => $dates,
-            'currentDate'       => $currentDate,
-            'month'             => $month,
-            'year'              => $year
+            'breadcrumbs'               => ['Home' => 'admin.home', 'Attendance Sheet' => null],
+            'title'                     =>  translate('Attendance Sheet'),
+            'users'                     => $users,
+            'dates'                     => $dates,
+            'currentDate'               => $currentDate,
+            'selectedMonth'             => $month,
+            'selectedYear'              => $year
         ]);
     }
 

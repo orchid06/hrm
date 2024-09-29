@@ -49,7 +49,7 @@
 
 <div class="i-card-md">
     <div class="card--header">
-        <h4>{{ \Carbon\Carbon::create()->month($month)->format('F') }} ,  {{$year}}</h4>
+        <h4>{{ \Carbon\Carbon::create()->month($selectedMonth)->format('F') }} -  {{$selectedYear}}</h4>
 
         <div class="d-flex flex-wrap align-items-center mt-3">
 
@@ -95,7 +95,7 @@
                                     placeholder="{{translate('Select a month')}}">
                                     <option value="">{{translate('Month')}}</option>
                                     @foreach(range(1, 12) as $month)
-                                    <option value="{{ $month }}" {{ request()->input('month') == $month ? 'selected' :''
+                                    <option value="{{ $month }}" {{ $selectedMonth == $month ? 'selected' :''
                                         }}>
                                         {{ \Carbon\Carbon::create()->month($month)->format('F') }}
                                     </option>
@@ -108,7 +108,7 @@
                                     placeholder="{{translate('Select a year')}}">
                                     <option value="">{{translate('Select a Year')}}</option>
                                     @foreach(range(date('Y') - 5, date('Y')) as $year)
-                                    <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' :
+                                    <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' :
                                         ''}}>
                                         {{ $year }}
                                     </option>
@@ -138,6 +138,8 @@
                             <th class="date-header {{$date->original_format == $currentDate ? 'current-date' : ''}}"><div>{{$date->original_format->format('D')}}<span>{{$date->original_format->format('d')}}</span></div></th>
                         @endforeach
 
+                        <th><h5>{{translate('Total')}}</h5></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -160,6 +162,14 @@
                                 </td>
 
                             @endforeach
+
+                            <td>
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total working days"> {{$user->attendanceTotal->working_days}} </span> |
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total present days"> {{$user->attendanceTotal->present_count}} </span> |
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total absent days"> {{$user->attendanceTotal->absent_count}} </span> |
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total days on leave"> {{$user->attendanceTotal->leave_count}} </span>
+                            </td>
+
                         </tr>
                     @endforeach
 
@@ -204,8 +214,8 @@
             data: {
                 date: date,
                 userId: userId,
-                month: month,
-                year: year,
+                month: selectedMonth,
+                year: selectedYear,
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
