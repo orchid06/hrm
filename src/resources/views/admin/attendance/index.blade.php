@@ -13,7 +13,7 @@
             display: block;
             font-weight: bold;
             margin-top: 5px;
-            max-width: 20px; /* Adjust this as per your layout */
+            max-width: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -45,35 +45,97 @@
 </style>
 @endpush
 @section('content')
-@php
-    $start = new DateTime('first day of this month');
-    $end = new DateTime('last day of this month');
-    $end->setTime(23, 59, 59);
-
-
-    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-
-    $dates = [];
-    foreach ($period as $date) {
-        $dates[] = $date;
-    }
-
-    $currentDate = date('Y-m-d');
-@endphp
 
 
 <div class="i-card-md">
     <div class="card--header">
-        <h4>september 24</h4>
+        <h4>{{ \Carbon\Carbon::create()->month($month)->format('F') }} ,  {{$year}}</h4>
+
+        <div class="d-flex flex-wrap align-items-center mt-3">
+
+            @foreach (App\Enums\AttendanceStatus::toArray() as $status )
+
+                <span class="me-3 text-{{App\Enums\AttendanceStatus::from($status)->badgeClass()}}">
+                    <i class="{{ App\Enums\AttendanceStatus::from($status)->getIcon() }}"></i>
+                    {{translate(App\Enums\AttendanceStatus::from($status)->statusLabel())}}
+                </span>
+
+            @endforeach
+
+        </div>
+
     </div>
     <div class="card-body">
+        <div class="search-action-area">
+            <div class="row g-3">
+
+                <div class="col-md-12 d-flex justify-content-md-end justify-content-start">
+
+                    <div class="search-area">
+
+
+
+                        <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                            <div class="form-inner">
+                                <select name="user_id" class="select2" id="user_id"
+                                    placeholder="{{translate('Select a User')}}">
+                                    <option value="">{{translate('User')}}</option>
+                                    @foreach(App\Models\User::all() as $user)
+                                    <option value="{{ $user->id }}" {{ request()->input('user_id') == $user->id ?
+                                        'selected' :'' }}>
+                                        {{ $user->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-inner">
+                                <select name="month" class="select2" id="month"
+                                    placeholder="{{translate('Select a month')}}">
+                                    <option value="">{{translate('Month')}}</option>
+                                    @foreach(range(1, 12) as $month)
+                                    <option value="{{ $month }}" {{ request()->input('month') == $month ? 'selected' :''
+                                        }}>
+                                        {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-inner">
+                                <select name="year" class="select2" id="year"
+                                    placeholder="{{translate('Select a year')}}">
+                                    <option value="">{{translate('Select a Year')}}</option>
+                                    @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                    <option value="{{ $year }}" {{ request()->input('year') == $year ? 'selected' :
+                                        ''}}>
+                                        {{ $year }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            <button class="i-btn btn--sm info">
+                                <i class="las la-sliders-h"></i>
+                            </button>
+                            <a href="{{route(Route::currentRouteName())}}" class="i-btn btn--sm danger">
+                                <i class="las la-sync"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 	     <div class="table-container position-relative">
             <table>
                 <thead>
                     <tr>
                         <th>{{translate('Employee')}}</th>
                         @foreach ($dates as $date )
-                            <th class="date-header {{$date->format('Y-m-d') == $currentDate ? 'current-date' : ''}}"><div>{{$date->format('D')}}<span>{{$date->format('d')}}</span></div></th>
+
+                            <th class="date-header {{$date->original_format == $currentDate ? 'current-date' : ''}}"><div>{{$date->original_format->format('D')}}<span>{{$date->original_format->format('d')}}</span></div></th>
                         @endforeach
 
                     </tr>
@@ -84,11 +146,18 @@
                         <tr>
                             <td class="employee-name">{{$user->name}}</td>
 
-                            {{-- Attendance data --}}
-                            @foreach ($user->attendanceData as $date => $status )
-                                
-                                <td>{{App\Enums\AttendanceStatus::from($status)->statusLabel() }}</td>
+                            {{-- Attendance Status --}}
 
+                            @foreach ($user->attendanceStatus as $date => $status )
+
+                                <td>
+
+
+                                            <i date="{{$date}}" userId="{{$user->id}}" @if($status != App\Enums\AttendanceStatus::INVALID->status()) data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ App\Enums\AttendanceStatus::from($status)->statusLabel()}}" @endif class="details text-{{App\Enums\AttendanceStatus::from($status)->badgeClass()}} {{  App\Enums\AttendanceStatus::from($status)->getIcon() }}"></i>
+
+
+
+                                </td>
 
                             @endforeach
                         </tr>
@@ -113,4 +182,46 @@
 @endpush
 
 @push('script-push')
+<script>
+    "use strict"
+    $('.select2').each(function () {
+        $(this).select2({
+            placeholder: $(this).attr('placeholder')
+        });
+    });
+
+    $('.details').on('click' , function(){
+        var date   = $(this).attr('date');
+        var userId = $(this).attr('userId');
+        var month = @json($month);
+        var year  = @json($year);
+
+
+
+        $.ajax({
+            url: "{{ route('admin.attendance.view.details') }}",
+            type: 'POST',
+            data: {
+                date: date,
+                userId: userId,
+                month: month,
+                year: year,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+
+                console.log(response);
+
+            },
+            error: function(xhr, status, error) {
+
+                alert('An error occurred: ' + error);
+            }
+        });
+
+
+
+    })
+
+</script>
 @endpush

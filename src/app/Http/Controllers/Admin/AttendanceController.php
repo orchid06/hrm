@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\AttendanceStatus;
 use App\Enums\ClockStatusEnum;
+use App\Enums\LeaveStatus;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\AttendanceService;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -35,21 +37,13 @@ class AttendanceController extends Controller
 
     public function list(Request $request): View
     {
-        // $employeAttendance  = $this->attendanceService->generateAttendance(2024 , 8);
 
-        // $attendances = Attendance::with('user')
-        // ->orderBy('date', 'desc')
-        // ->year()
-        // ->month()
-        // ->date()
-        // ->day()
-        // ->search(['user:username' , 'user:email'])
-        // ->paginate(paginateNumber())
-        // ->appends(request()->all());
+        $month = request('month', now()->month);
+        $year  = request('year', now()->year);
 
-        $dates = $this->attendanceService->getDatesOfMonth(9, 2024);
 
-        $currentDate = Carbon::today();
+        $dates          = $this->attendanceService->getDatesOfMonth($month, $year);
+        $currentDate    = Carbon::today();
 
 
         $officeHolidays      = collect(json_decode(site_settings('holidays')));
@@ -63,29 +57,45 @@ class AttendanceController extends Controller
             'leaves' => function ($query) {
                 return $query->month()->year();
             }
-        ])->get()->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates , $currentDate) {
+        ])->userOnUser()
+        ->get()->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates , $currentDate) {
 
 
 
             $userAttendances = $user->attendances->map(function ($attendance) {
+
+                $userAttendance = $attendance;
                 $attendanceDate = $attendance->date;
 
-                return (object)['parse_date_key' => (Carbon::parse($attendanceDate)->format('d')), 'date_key' => Carbon::parse($attendanceDate)];
+                return (object)['userAttendance' => $userAttendance , 'parse_date_key' => (Carbon::parse($attendanceDate)->format('d')), 'date_key' => Carbon::parse($attendanceDate)];
             });
 
 
 
             foreach ($dates as $date) {
 
-                $enumValue = null;
+                $enumValue = AttendanceStatus::INVALID->value;
 
                 if ($date->original_format <= $currentDate) {
+
+
 
                     $attendenceExist =  $userAttendances->values()->where('parse_date_key', $date->parse_date)->first();
 
 
+
                     if ($attendenceExist) {
                         $enumValue = AttendanceStatus::PRESENT->value;
+
+                        $clockIn        = $attendenceExist->userAttendance->clock_in;
+                        $clockOut       = $attendenceExist->userAttendance->clock_out;
+                        $clockInStatus  = $attendenceExist->userAttendance->clock_in_status;
+
+                        $late     = $attendenceExist->userAttendance->late_time;
+                        if($late > 0)  $enumValue= AttendanceStatus::LATE->value;
+
+                        if( $clockInStatus != ClockStatusEnum::approved) $enumValue = AttendanceStatus::CLOCKED_IN->value;
+
                     } else {
                         $enumValue = AttendanceStatus::ABSENT->value;
 
@@ -99,7 +109,7 @@ class AttendanceController extends Controller
                         $officeSchedule = Arr::get($officeSchedules, $day, null);
                         $is_open        = Arr::get($officeSchedule, 'is_on');
 
-                        $enumValue = $is_open == true ? AttendanceStatus::ABSENT->value  : AttendanceStatus::HOLIDAY->value;
+                        if($is_open == false) $enumValue = AttendanceStatus::OFFICE_HOLIDAY->value;
 
                         #chek custom holiday
                         if ($custom_office_hour) {
@@ -109,12 +119,10 @@ class AttendanceController extends Controller
 
                             $is_custom_open = Arr::get($customCurrentDaySchedule, 'is_on');
 
-
-
-                            $enumValue = $is_custom_open == true ? AttendanceStatus::ABSENT->value : AttendanceStatus::EMPLOYEE_HOLIDAY->value;
+                            if($is_custom_open == false) $enumValue = AttendanceStatus::EMPLOYEE_HOLIDAY->value;
                         }
 
-                        $carbonDate         = Carbon::instance($date->original_format);
+                        $carbonDate         = $date->original_format;
 
                         #check holidays
                         foreach ($officeHolidays as $officeHoliday) {
@@ -125,21 +133,19 @@ class AttendanceController extends Controller
 
                             $is_holiday = $carbonDate->between($startDate, $endDate);
 
-                            if ($is_holiday) $enumValue = AttendanceStatus::HOLIDAY->value;
+                            if ($is_holiday) $enumValue = AttendanceStatus::PUBLIC_HOLIDAY->value;
                         }
 
                         #chek employee Leave
-                        $employeeLeaves = $user->leaves ?? [];
+                        $employeeLeaves = $user->leaves->where('status' , LeaveStatus::approved->status()) ?? [];
 
                         foreach ($employeeLeaves as $leave) {
 
                             $startDate          = Carbon::parse($leave->start_date);
                             $endDate            = Carbon::parse($leave->end_date);
-
-
                             $is_on_leave         = $carbonDate->between($startDate, $endDate);
 
-                            if ($is_on_leave) $enumValue = AttendanceStatus::DAYOFF->value;
+                            if ($is_on_leave) $enumValue = AttendanceStatus::ON_LEAVE->value;
                         }
                     }
                 }
@@ -148,16 +154,19 @@ class AttendanceController extends Controller
                 $attendance[$date->parse_date] = $enumValue;
             }
 
-            $user->attendanceData = $attendance;
+            $user->attendanceStatus = $attendance;
 
             return $user;
         });
 
-
         return view('admin.attendance.index', [
-            'breadcrumbs'       => ['Home' => 'admin.home', 'Clocl In Request' => null],
-            'title'             =>  translate('Clock In Request '),
+            'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance Sheet' => null],
+            'title'             =>  translate('Attendance Sheet'),
             'users'             => $users,
+            'dates'             => $dates,
+            'currentDate'       => $currentDate,
+            'month'             => $month,
+            'year'              => $year
         ]);
     }
 
@@ -210,12 +219,18 @@ class AttendanceController extends Controller
         return redirect()->back()->with('success', translate('Attendance updated successfully.'));
     }
 
-    public function viewDetails($attendance_id): View
+    public function viewDetails(Request $request): JsonResponse
     {
-        return view('admin.attendance.details', [
-            'title'         => translate('Attendance Details'),
-            'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance report' => 'admin.attendance.list', 'Attendance Details' => null],
-        ]);
+        $attendanceDate = Carbon::create($request->year, $request->month, $request->date);
+
+        $attendance = Attendance::where('user_id', $request->userId)
+                                ->whereDate('date', $attendanceDate)
+                                ->first();
+
+        return $attendance
+            ? response()->json(['success' => true, 'attendance' => $attendance])
+            : response()->json(['success' => false, 'message' => 'No attendance record found.']);
+
     }
 
     public function setting()
@@ -246,17 +261,6 @@ class AttendanceController extends Controller
         return json_encode([
             'status'  =>  true,
             'message' => translate('Attendance Settings has been updated')
-        ]);
-    }
-
-    public function sheet()
-    {
-
-
-        return view('admin.attendance.sheet', [
-            'breadcrumbs'       => ['Home' => 'admin.home', 'Attendance report' => null],
-            'title'             =>  translate('Attendance Sheet'),
-            'employeAttendance'       => $employeAttendance,
         ]);
     }
 }

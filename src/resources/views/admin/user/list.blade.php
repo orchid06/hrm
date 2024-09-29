@@ -253,7 +253,7 @@ $currency = session()->get('currency');
 
 @section('modal')
 @include('modal.delete_modal')
-
+{{-- payment modal --}}
 <div class="modal fade" id="payment_modal" tabindex="-1" aria-labelledby="payment_modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -284,7 +284,7 @@ $currency = session()->get('currency');
         </div>
     </div>
 </div>
-
+{{-- office hour modal --}}
 <div class="modal fade" id="officeHourModal" tabindex="-1" aria-labelledby="officeHourModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -350,15 +350,15 @@ $currency = session()->get('currency');
                 method: 'GET',
                 success: function (response) {
                     $('#officeHourModal .modal-body').html(response.html);
-
+                    $(".select2").select2({
+                        placeholder: "{{translate('Select a Time')}}",
+                        dropdownParent: $("#officeHourModal")
+                    })
                     modal.modal('show');
                 }
             });
 
-            $(".select2").select2({
-                placeholder: "{{translate('Select a Time')}}",
-                dropdownParent: $("#officeHourModal")
-            })
+
         });
 
 

@@ -386,8 +386,6 @@ class UserService
                         'tickets',
                         'tickets.messages',
                         'tickets.file',
-                        'templates',
-                        'templateUsages',
                         'kycLogs',
                         'kycLogs.file',
                         'bank_accounts',
@@ -424,13 +422,6 @@ class UserService
 
                 #DELETE ATTENDENCES
                 $user->attendances()->delete();
-
-
-                #DELERE TEMPLATE REPORTS
-                $user->templates()->delete();
-
-                #DELETE TEMPLATE REPORT
-                $user->templateUsages()->delete();
 
                 #DELETE TICKET LOGS
                 $user->tickets?->map(function (Ticket $ticket): bool {

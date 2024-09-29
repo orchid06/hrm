@@ -134,7 +134,8 @@ class AttendanceService
         foreach ($period as $date) {
             $dates[] =(object)[
                 'parse_date' => $date->format('d'),
-                'original_format' => $date
+                'original_format' => Carbon::instance($date),
+
             ];
 
         }

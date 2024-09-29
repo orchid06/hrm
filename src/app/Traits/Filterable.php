@@ -219,4 +219,17 @@ trait Filterable
 
     }
 
+    public function scopeUserOnUser(Builder $query, string $column = 'id') : Builder {
+        try {
+            if(!request()->input('user_id')) return $query;
+
+            $userId            = request()->input('user_id');
+            return $query->where($column, $userId);
+
+        } catch (\Throwable $th) {
+            return $query;
+        }
+
+    }
+
 }
