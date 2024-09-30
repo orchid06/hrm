@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
+use App\Enums\ClockStatusEnum;
 use App\Enums\MenuVisibilty;
 
 
 use App\Models\Admin\Menu;
 use App\Models\Admin\Page;
-
+use App\Models\Attendance;
 use App\Models\Core\Language;
 
 use App\Models\KycLog;
@@ -49,9 +50,15 @@ class AppServiceProvider extends ServiceProvider
 
             view()->composer('admin.partials.sidebar', function ($view)  {
 
+               $pending_clock_in =  Attendance::where('clock_in_status' , ClockStatusEnum::PENDING->status())->count();
+               $pending_clock_out =  Attendance::where('clock_out_status' , ClockStatusEnum::PENDING->status())->count();
+
+                $pending_attendance = $pending_clock_in + $pending_clock_out;
+
                 $view->with([
                     'pending_tickets'       => Ticket::pending()->count(),
                     'pending_kycs'          => KycLog::pending()->count(),
+                    'pending_attendance'   => $pending_attendance
                 ]);
             });
 

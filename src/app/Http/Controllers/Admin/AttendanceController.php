@@ -64,7 +64,8 @@ class AttendanceController extends Controller
     {
 
         $validatedData = $request->validate([
-            'attendance_id'         => 'required|exists:attendances,id',
+            'user_id'               => 'required|exists:users,id',
+            'date'                  => 'required|date',
             'clock_in'              => 'nullable|string',
             'clock_in_status'       => [Rule::in(ClockStatusEnum::toArray()), 'nullable'],
             'clock_out'             => 'nullable|string',
@@ -72,58 +73,85 @@ class AttendanceController extends Controller
             'note'                  => 'nullable|string',
         ]);
 
-        $attendance = Attendance::findOrFail($validatedData['attendance_id']);
-
-        $date           = $attendance->date;
-        $dayOfWeek      = t2k(Carbon::parse($date)->format('l'));
+        $date           = $validatedData['date'];
         $clockInTime    = $validatedData['clock_in'];
         $clockOutTime   = $validatedData['clock_out'];
+        $dateOnly       = substr($date, 0, 10);
+
+
 
         if ($validatedData['clock_in']) {
-            $clockInTimestamp   = Carbon::createFromFormat('Y-m-d H:i:s', "$date $clockInTime:00");
+            $clockInTimestamp   = Carbon::createFromFormat('Y-m-d H:i:s', "{$dateOnly} {$clockInTime}:00");
             $lateTime           = $this->attendanceService->processClockIn($clockInTimestamp);
         }
-        if ($validatedData['clock_out']) {
-            $clockIn            = Carbon::parse($attendance->clock_in ?? $clockInTimestamp);
-            $clockOutTimestamp  = Carbon::createFromFormat('Y-m-d H:i:s', "$date $clockOutTime:00");
+        if ($clockOutTime) {
 
-            $data               = $this->attendanceService->processCLockOut($dayOfWeek, $clockIn, $clockOutTimestamp);
+            $existedClockIn     = Carbon::parse($attendance->clock_in ?? $clockInTimestamp);
+            $clockOutTimestamp  = Carbon::createFromFormat('Y-m-d H:i:s', "{$dateOnly} {$clockOutTime}:00");
+
+            $data               = $this->attendanceService->processClockOut( $existedClockIn, $clockOutTimestamp);
         }
 
 
+        $attendance = Attendance::where('user_id', $validatedData['user_id'])
+        ->whereDate('clock_in', $clockInTimestamp)
+        ->first();
 
-        $attendance->clock_in           = $clockInTimestamp ?? $attendance->clock_in;
-        $attendance->late_time          = $lateTime ?? $attendance->late_time;
-        $attendance->clock_in_status    = $validatedData['clock_in_status'] ?? $attendance->clock_in_status;
+        if($attendance){
 
-        $attendance->clock_out          = $clockOutTimestamp ?? $attendance->clock_out;
-        $attendance->clock_out_status   = $validatedData['clock_out_status'] ?? $attendance->clock_out_status;
-        $attendance->over_time          = $data['over_time'] ?? $attendance->over_time;
-        $attendance->work_hour          = $data['work_hour'] ?? $attendance->work_hour;
-        $attendance->note               = $request->input('note') ?? null;
+            $attendance->clock_in           = $clockInTimestamp ?? $attendance->clock_in;
+            $attendance->late_time          = $lateTime ?? $attendance->late_time;
+            $attendance->clock_in_status    = $validatedData['clock_in_status'] ?? $attendance->clock_in_status;
 
-        $attendance->save();
+            $attendance->clock_out          = $clockOutTimestamp ?? $attendance->clock_out;
+            $attendance->clock_out_status   = $validatedData['clock_out_status'] ?? $attendance->clock_out_status;
+            $attendance->over_time          = $data['over_time'] ?? $attendance->over_time;
+            $attendance->work_hour          = $data['work_hour'] ?? $attendance->work_hour;
+            $attendance->note               = $request->input('note') ?? null;
 
+            $attendance->save();
+        }
+        else{
+            Attendance::create([
+                'user_id'           => $validatedData['user_id'],
+                'clock_in'          => $clockInTimestamp ?? null,
+                'late_time'         => $lateTime ?? 0,
+                'date'              => $dateOnly??null,
+                'clock_in_status'   => $validatedData['clock_in_status'],
+                'clock_out'         => $clockOutTimestamp ?? null,
+                'clock_out_status'  => $validatedData['clock_out_status'],
+                'over_time'         => $data['over_time'] ?? 0,
+                'work_hour'         => $data['work_hour'] ??0,
+                'note'              => $validatedData['note']??null,
+            ]);
+        }
 
         return redirect()->back()->with('success', translate('Attendance updated successfully.'));
     }
 
     public function viewDetails(Request $request): JsonResponse
     {
-        $attendanceDate = Carbon::create($request->year, $request->month, $request->date);
+        $date = Carbon::create($request->year, $request->month, $request->date);
 
         $attendance = Attendance::where('user_id', $request->userId)
-                                ->whereDate('date', $attendanceDate)
+                                ->whereDate('clock_in', $date)
                                 ->first();
 
-        return $attendance
-            ? response()->json(['success' => true, 'attendance' => $attendance])
-            : response()->json(['success' => false, 'message' => 'No attendance record found.']);
+        $status = $attendance ?  'success' :  'fail';
+
+        $html = view('admin.attendance.details', ['attendance' => $attendance , 'date'   => $date,])->render();
+
+        return response()->json([
+            'status' => $status,
+            'html'   => $html,
+
+        ]);
 
     }
 
     public function setting()
     {
+
         return view('admin.attendance.setting', [
             'title' => translate('Attendance Settings'),
             'breadcrumbs'   => ['Home' => 'admin.home', 'Attendance Settings' => null],
@@ -132,16 +160,15 @@ class AttendanceController extends Controller
 
     public function settingStore(Request $request)
     {
+
         $data = $request->validate([
 
-            'ip_whitelist_status'   => [Rule::in(CLockStatusEnum::toArray())],
-            'ip_start_range'        => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(), 'ip'],
-            'ip_end_range'          => ['required_if:ip_whitelist_status,' . StatusEnum::true->status(), 'ip'],
-            'clock_in_status'       => [Rule::in(CLockStatusEnum::toArray())]
+            'clock_in_status'       => [Rule::in(CLockStatusEnum::toArray())],
+            'grace_time'            => 'string|nullable'
         ]);
 
         Setting::updateOrInsert(
-            ['key'    => 'ip_white_list'],
+            ['key'    => 'attendance_settings'],
             ['value'      => json_encode($data)]
         );
 

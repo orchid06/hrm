@@ -17,6 +17,8 @@ enum AttendanceStatus : string
 
     case CLOCKED_IN     = '9';
 
+    case CLOCKED_OUT     = '10';
+
     // Returns the numeric status value
     public function status(): string
     {
@@ -32,7 +34,8 @@ enum AttendanceStatus : string
             self::EMPLOYEE_HOLIDAY => '7',
             self::PUBLIC_HOLIDAY   => '8',
             self::INVALID          => '-1',
-            self::CLOCKED_IN       => '9'
+            self::CLOCKED_IN       => '9',
+            self::CLOCKED_OUT      => '10'
         };
     }
 
@@ -51,7 +54,8 @@ enum AttendanceStatus : string
             self::EMPLOYEE_HOLIDAY => 'Employee Holiday',
             self::PUBLIC_HOLIDAY   => 'Public Holiday',
             self::INVALID          => 'Invalid',
-            self::CLOCKED_IN       => 'Clocked In'
+            self::CLOCKED_IN       => 'Clocked In',
+            self::CLOCKED_OUT      => 'Clocked Out'
         };
     }
 
@@ -69,7 +73,8 @@ enum AttendanceStatus : string
             self::EMPLOYEE_HOLIDAY => 'bi bi-star-fill',
             self::PUBLIC_HOLIDAY   => 'bi bi-calendar4-range',
             self::INVALID          => 'bi bi-dash',
-            self::CLOCKED_IN       => 'bi bi-clock'
+            self::CLOCKED_IN       => 'bi bi-clock',
+            self::CLOCKED_OUT      => 'bi bi-clock'
         };
     }
 
@@ -88,7 +93,8 @@ enum AttendanceStatus : string
             self::EMPLOYEE_HOLIDAY => 'info',
             self::PUBLIC_HOLIDAY   => 'success',
             self::INVALID          => 'secondary',
-            self::CLOCKED_IN       => 'warning'
+            self::CLOCKED_IN       => 'warning',
+            self::CLOCKED_OUT      => 'warning'
         };
     }
 
@@ -106,7 +112,8 @@ enum AttendanceStatus : string
             'Employee Holiday' => self::EMPLOYEE_HOLIDAY->status(),
             'Public Holiday'   => self::PUBLIC_HOLIDAY->status(),
             'Invalid Status'   => self::INVALID->status(),
-            'Clocked In'       => self::CLOCKED_IN->status()
+            'Clocked In'       => self::CLOCKED_IN->status(),
+            'Clocked Out'      => self::CLOCKED_OUT->status()
         ];
     }
 }

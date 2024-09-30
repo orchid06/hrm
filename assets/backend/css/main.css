@@ -6420,6 +6420,7 @@ ul.inbox-list li .col-mail-2 .date {
 input[type="date"]::after{
     content: unset !important;
 }
+
 .custom-info-list{
     display: flex;
     flex-direction: column;

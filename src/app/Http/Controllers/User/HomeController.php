@@ -78,7 +78,7 @@ class HomeController extends Controller
 
         $data['total_attendance'] = Attendance::where('user_id', $user->id)
             ->whereNotNull('clock_in')
-            ->where('clock_in_status' , ClockStatusEnum::approved->status())
+            ->where('clock_in_status' , ClockStatusEnum::APPROVED->status())
             ->count();
 
 

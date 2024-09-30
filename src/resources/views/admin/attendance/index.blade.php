@@ -154,10 +154,21 @@
 
                                 <td>
 
+                                    @php
+                                        $attendanceStatus = App\Enums\AttendanceStatus::from($status);
+                                    @endphp
 
-                                            <i date="{{$date}}" userId="{{$user->id}}" @if($status != App\Enums\AttendanceStatus::INVALID->status()) data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ App\Enums\AttendanceStatus::from($status)->statusLabel()}}" @endif class="details text-{{App\Enums\AttendanceStatus::from($status)->badgeClass()}} {{  App\Enums\AttendanceStatus::from($status)->getIcon() }}"></i>
-
-
+                                    <i date="{{ $date }}" userId="{{ $user->id }}"
+                                        @if ($status != App\Enums\AttendanceStatus::INVALID->status())
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title="{{ $attendanceStatus->statusLabel() }}"
+                                        @endif
+                                        class="details text-{{ $attendanceStatus->badgeClass() }} {{ $attendanceStatus->getIcon() }}">
+                                    </i>
+                                    @if($status == App\Enums\AttendanceStatus::CLOCKED_IN->status() || $status == App\Enums\AttendanceStatus::CLOCKED_OUT->status() )
+                                        <i class="bi bi-exclamation"></i>
+                                    @endif
 
                                 </td>
 
@@ -185,6 +196,40 @@
 @section('modal')
 @include('modal.delete_modal')
 @include('modal.bulk_modal')
+
+<div class="modal fade modal-md" id="attendanceDetails" tabindex="-1" aria-labelledby="attendanceDetails" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" >
+                      {{translate('Attendance Details')}}
+                  </h5>
+                  <button class="close-btn" data-bs-dismiss="modal">
+                      <i class="las la-times"></i>
+                  </button>
+              </div>
+              <form action="{{route('admin.attendance.update')}}" method="post" class="add-listing-form">
+                @csrf
+                    <input type="hidden" name="user_id" >
+                  <div class="modal-body">
+
+
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        {{translate("Submit")}}
+                    </button>
+                </div>
+              </form>
+          </div>
+    </div>
+</div>
+
 @endsection
 
 @push('script-include')
@@ -203,10 +248,11 @@
     $('.details').on('click' , function(){
         var date   = $(this).attr('date');
         var userId = $(this).attr('userId');
-        var month = @json($month);
-        var year  = @json($year);
-
-
+        var selectedMonth = @json($selectedMonth);
+        var selectedYear  = @json($selectedYear);
+        var modal = $('#attendanceDetails');
+        modal.find('input[name="user_id"]').val(userId);
+        modal.modal('show');
 
         $.ajax({
             url: "{{ route('admin.attendance.view.details') }}",
@@ -214,13 +260,26 @@
             data: {
                 date: date,
                 userId: userId,
-                month: selectedMonth,
-                year: selectedYear,
+                month:  selectedMonth,
+                year:   selectedYear,
                 _token: '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+
+                modal.find('.modal-body').html(`
+                    <div class="d-flex justify-content-center my-3">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden"></span>
+                        </div>
+                    </div>
+                `);
             },
             success: function(response) {
 
                 console.log(response);
+
+
+                modal.find('.modal-body').html(response.html);
 
             },
             error: function(xhr, status, error) {
@@ -230,8 +289,7 @@
         });
 
 
-
-    })
+    });
 
 </script>
 @endpush

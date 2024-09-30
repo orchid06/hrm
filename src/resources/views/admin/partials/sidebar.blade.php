@@ -162,6 +162,12 @@
                                 <span></span>
                                 <p>
                                     {{translate('Attendance Sheet')}}
+
+                                    @if($pending_attendance > 0 )
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Pending requests')}}"
+                                        class="i-badge danger">{{$pending_attendance}}</span>
+                                    @endif
                                 </p>
                             </a>
                         </li>

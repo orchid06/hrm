@@ -1,55 +1,66 @@
 @extends('admin.layouts.master')
 @section('content')
 @php
-    $attendanceSettings = json_decode(site_settings('ip_white_list'))?? [];
+    $attendanceSettings = json_decode(site_settings('attendance_settings'))?? [];
 @endphp
-<form data-route="{{route('admin.attendance.settings.store')}}"  class="settingsForm" method="POST" enctype="multipart/form-data">
-    @csrf
+
     <div class="i-card-md mb-4">
         <div class="card--header">
             <h4 class="card-title">
                 {{ translate('Attendance Settings') }}
             </h4>
         </div>
-        <div class="card-body">
-            <div class="mb-5">
-                <div class="mt-10">
-                    <div class="row">
 
-                        <!-- Default Clock-in Status Dropdown -->
-                        <div class="col-xl-6">
-                            <div class="form-inner mt-4">
-                                <label for="clock_in_status">
-                                    {{ translate('Default Clock-in Status') }} <small class="text-danger">*</small>
-                                </label>
-                                <select class="form-select" name="clock_in_status" id="clock_in_status">
-                                    @foreach(App\Enums\ClockStatusEnum::toArray() as $key => $value)
-                                    <option value="{{$value}}" {{$value == @$attendanceSettings->clock_in_status ? 'selected' : ''}}>{{ $key}}</option>
-                                    @endforeach
-                                </select>
+            <div class="card-body">
+                <form data-route="{{route('admin.attendance.settings.store')}}"  class="settingsForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-5">
+                        <div class="mt-10">
+                            <div class="row">
+
+                                <!-- Default Clock-in Status Dropdown -->
+                                <div class="col-xl-6">
+                                    <div class="form-inner mt-4">
+                                        <label for="clock_in_status">
+                                            {{ translate('Default Clock-in Status') }} <small class="text-danger">*</small>
+                                        </label>
+                                        <select class="form-select" name="clock_in_status" id="clock_in_status">
+                                            @foreach(App\Enums\ClockStatusEnum::toArray() as $key => $value)
+                                            <option value="{{$value}}" {{$value == @$attendanceSettings->clock_in_status ? 'selected' : ''}}>{{ $key}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6">
+                                    <div class="form-inner mt-4">
+                                        <label for="grace_time">
+                                            {{ translate('Grace Time') }} <small class="text-danger">*</small>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="grace_time" id="grace_time"
+                                                value="{{ @$attendanceSettings->grace_time }}" required min="0">
+
+                                                <span class="input-group-text">minutes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
-                            <div class="form-inner mt-4">
-                                <label for="grace_time">
-                                    {{ translate('Grace time') }} <small class="text-danger">*</small>
-                                </label>
-                                <input type="time" class="form-control" name="grace_time" id="grace_time"
-                                       value="{{ old('grace_time', @$attendanceSettings->grace_time) }}" required>
-                            </div>
+                         <!-- Submit Button -->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
+                                {{ translate('Submit') }}
+                            </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Submit Button -->
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="i-btn ai-btn btn--md btn--primary" data-anim="ripple">
-                    {{ translate('Submit') }}
-                </button>
+
+                </form>
             </div>
-        </div>
 
     </div>
 
@@ -116,7 +127,6 @@
 
 
 
-</form>
 @endsection
 
 @section('modal')

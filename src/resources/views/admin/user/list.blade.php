@@ -344,17 +344,28 @@ $currency = session()->get('currency');
             var userId = $(this).attr('userId');
             var modal = $('#officeHourModal');
             modal.find('input[name="user_id"]').val(userId);
-
+            modal.modal('show');
+            
             $.ajax({
                 url: '{{ route("admin.user.custom_office_hour", ":userId") }}'.replace(':userId', userId),
                 method: 'GET',
+                beforeSend: function() {
+
+                    modal.find('.modal-body').html(`
+                        <div class="d-flex justify-content-center my-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div>
+                    `);
+                },
                 success: function (response) {
-                    $('#officeHourModal .modal-body').html(response.html);
+                    modal.find('.modal-body').html(response.html);
                     $(".select2").select2({
                         placeholder: "{{translate('Select a Time')}}",
                         dropdownParent: $("#officeHourModal")
                     })
-                    modal.modal('show');
+
                 }
             });
 

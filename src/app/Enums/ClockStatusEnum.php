@@ -4,17 +4,17 @@ namespace App\Enums;
 
 enum ClockStatusEnum: string
 {
-    case pending = '0';
-    case approved = '1';
-    case declined = '2';
+    case PENDING = '0';
+    case APPROVED = '1';
+    case DECLINED = '2';
 
     public function status(): string
     {
         return match($this)
         {
-            self::pending    => '0',
-            self::approved   => '1',
-            self::declined   => '2'
+            self::PENDING    => '0',
+            self::APPROVED   => '1',
+            self::DECLINED   => '2'
         };
     }
 
@@ -22,9 +22,9 @@ enum ClockStatusEnum: string
     {
         return match($this)
         {
-            self::pending    => 'Pending',
-            self::approved   => 'Approved',
-            self::declined   => 'Decline'
+            self::PENDING    => 'Pending',
+            self::APPROVED   => 'Approved',
+            self::DECLINED   => 'Decline'
         };
     }
 
@@ -32,18 +32,18 @@ enum ClockStatusEnum: string
     {
         return match($this)
         {
-            self::pending    => 'warning',
-            self::approved   => 'success',
-            self::declined   => 'danger'
+            self::PENDING    => 'warning',
+            self::APPROVED   => 'success',
+            self::DECLINED   => 'danger'
         };
     }
 
     public static function toArray(): array
     {
         return [
-            'Pending'  => self::pending->status(),
-            'Approved' => self::approved->status(),
-            'Declined' => self::declined->status(),
+            'Pending'  => self::PENDING->status(),
+            'Approved' => self::APPROVED->status(),
+            'Declined' => self::DECLINED->status(),
         ];
     }
 }
