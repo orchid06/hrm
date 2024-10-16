@@ -71,7 +71,7 @@ class UserService
             })
                 ->with(['file', 'payrolls' => function ($query) use ($currentMonth, $currentYear) {
                     $query->whereMonth('created_at', $currentMonth)
-                        ->whereYear('created_at', $currentYear);
+                          ->whereYear('created_at', $currentYear);
                 }])
                 ->routefilter()
                 ->search(['name', 'email', "phone"])

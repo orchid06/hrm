@@ -63,7 +63,7 @@ class AttendanceService
         $clockOutTime   = Carbon::now();
         $dayOfWeek      = t2k(Carbon::today()->format('l'));
 
-        $data           = $this->processCLockOut($dayOfWeek, $clockInTime, $clockOutTime);
+        $data           = $this->processCLockOut( clockInTime: $clockInTime, clockOutTime: $clockOutTime);
 
         Attendance::updateOrCreate(
             ['user_id' => $userId, 'date' => $today],
@@ -146,20 +146,23 @@ class AttendanceService
         $officeHolidays      = collect(json_decode(site_settings('holidays')));
         $officeSchedules     = json_decode(site_settings('office_hour'), true);
 
+        $requestedMonth = request()->input('month', now()->month);
+        $requestedYear  = request()->input('year', now()->year);
+
 
 
         $users = User::with([
-            'attendances' => function ($query) {
-                return $query->month()->year();
-            },
-            'leaves' => function ($query) {
-                return $query->month()->year();
-            }
-        ])
-            ->userOnUser()
-            ->get()->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates, $currentDate) {
-
-
+                    'attendances' => function ($query) use ($requestedMonth, $requestedYear){
+                        return $query->whereMonth('created_at', $requestedMonth)
+                                     ->whereYear('created_at', $requestedYear);
+                    },
+                    'leaves' => function ($query)use ($requestedMonth, $requestedYear) {
+                        return $query->whereMonth('created_at', $requestedMonth)
+                                     ->whereYear('created_at', $requestedYear);
+                    }
+            ])->userOnUser()
+                ->get()
+                ->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates, $currentDate) {
 
                 $userAttendances = $user->attendances->map(function ($attendance) {
 

@@ -50,8 +50,15 @@ class AppServiceProvider extends ServiceProvider
 
             view()->composer('admin.partials.sidebar', function ($view)  {
 
-               $pending_clock_in =  Attendance::where('clock_in_status' , ClockStatusEnum::PENDING->status())->count();
-               $pending_clock_out =  Attendance::where('clock_out_status' , ClockStatusEnum::PENDING->status())->count();
+               $currentMonth     = now()->month;
+
+               $pending_clock_in  =  Attendance::where('clock_in_status' , ClockStatusEnum::PENDING->status())
+                                                ->whereMonth('created_at', $currentMonth)
+                                                ->count();
+                                                
+               $pending_clock_out =  Attendance::where('clock_out_status' , ClockStatusEnum::PENDING->status())
+                                                ->whereMonth('created_at', $currentMonth)
+                                                ->count();
 
                 $pending_attendance = $pending_clock_in + $pending_clock_out;
 

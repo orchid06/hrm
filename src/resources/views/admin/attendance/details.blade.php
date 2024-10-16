@@ -1,14 +1,26 @@
 
 @php
 
-    $clockInTime    = $attendance ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : null;
-    $clockOutTime   = $attendance ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : null;
+    $clockInTime    = $attendance && $attendance->clock_in? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : null;
+    $clockOutTime   = $attendance && $attendance->clock_out? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : null;
     $clockInStatus  = $attendance ?$attendance->clock_in_status : null;
-    $clockOutStatus = $attendance ?$attendance->clock_out_status : null;
+    $clockOutStatus = $attendance ?$attendance->clock_out_status: null;
+
+    $lateTimeInMinutes = $attendance->late_time ?? 0;
+    $hours = floor($lateTimeInMinutes / 60);
+    $minutes = $lateTimeInMinutes % 60;
+
+    $lateTimeFormatted = ($hours > 0 ? $hours . ' ' . translate('hour' . ($hours > 1 ? 's' : '')) . ' ' : '') .
+                         ($minutes > 0 ? $minutes . ' ' . translate('minute' . ($minutes > 1 ? 's' : '')) : '');
 
 @endphp
 
 <input type="hidden" name="date" value="{{$date}}" >
+@if (@$attendance->late_time > 0)
+<div class="alert alert-danger p-2">
+    {{ translate($lateTimeFormatted . ' late') }}
+</div>
+@endif
 <div class="row">
     <div class="col-6">
         <div class="form-inner">

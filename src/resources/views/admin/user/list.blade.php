@@ -153,10 +153,15 @@ $currency = session()->get('currency');
                                     src='{{imageURL($user->file,"profile,user",true) }}' alt="{{@$user->file->name}}">
                                 <p> {{ $user->name ?? translate("N/A")}}</p>
                                 @if($user->payrolls->isNotEmpty())
-                                <span class="i-badge capsuled success">{{translate('Paid')}}</span>
+                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ now()->format('F Y') }}">
+                                        {{ translate('Paid') }}
+                                    </span>
                                 @else
-                                <span class="i-badge capsuled danger">{{translate('Unpaid')}}</span>
+                                    <span class="i-badge capsuled danger" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ now()->format('F Y') }}">
+                                        {{ translate('Unpaid') }}
+                                    </span>
                                 @endif
+
 
                             </div>
                         </td>
@@ -345,7 +350,7 @@ $currency = session()->get('currency');
             var modal = $('#officeHourModal');
             modal.find('input[name="user_id"]').val(userId);
             modal.modal('show');
-            
+
             $.ajax({
                 url: '{{ route("admin.user.custom_office_hour", ":userId") }}'.replace(':userId', userId),
                 method: 'GET',

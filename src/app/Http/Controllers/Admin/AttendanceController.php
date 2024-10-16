@@ -47,7 +47,6 @@ class AttendanceController extends Controller
         $users          = $this->attendanceService->getAttendance( $dates, $currentDate);
 
 
-
         return view('admin.attendance.index', [
             'breadcrumbs'               => ['Home' => 'admin.home', 'Attendance Sheet' => null],
             'title'                     =>  translate('Attendance Sheet'),
