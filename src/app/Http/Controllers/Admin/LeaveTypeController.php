@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
+use App\Http\Requests\Admin\LeaveTypeRequest;
 use App\Models\admin\Expense;
 use App\Models\Leave;
 
@@ -45,20 +46,12 @@ class LeaveTypeController extends Controller
         ]);
     }
 
-    public function store(Request $request) :RedirectResponse
+    public function store(LeaveTypeRequest $request) :RedirectResponse
     {
-
-        $request->validate([
-            'name'      => 'required|unique:leave_types,name|string|max:191',
-            'is_paid'    => ['required',Rule::in(StatusEnum::toArray())],
-            'status'    => ['required',Rule::in(StatusEnum::toArray())],
-        ],
-        [
-            'name.unique' => translate('The Type already exists')
-        ]);
 
         LeaveType::create([
             'name'      => $request->input('name'),
+            'days'      => $request->input('days'),
             'is_paid'   => $request->input('is_paid'),
             'status'    => $request->input('status'),
         ]);
@@ -66,27 +59,18 @@ class LeaveTypeController extends Controller
         return back()->with(response_status('Leave Type created successfully'));
     }
 
-    public function update(Request $request) : RedirectResponse
+    public function update(LeaveTypeRequest $request) : RedirectResponse
     {
-
-        $request->validate([
-            'id'        => 'required|exists:leave_types,id',
-            'name'      => ['required','string','max:191',Rule::unique('leave_types', 'name')->ignore($request->id, 'id')],
-            'is_paid'   => ['required',Rule::in(StatusEnum::toArray())],
-            'status'    => ['required',Rule::in(StatusEnum::toArray())],
-        ]);
-
 
         $leave = LeaveType::whereid($request->input('id'))->first();
 
         $leave->name       = $request->input('name');
+        $leave->Days       = $request->input('days');
         $leave->status     = $request->input('status');
         $leave->is_paid    = $request->input('is_paid');
         $leave->update();
 
         return back()->with(response_status('Leave Type updated successfully '));
-
-
 
     }
 

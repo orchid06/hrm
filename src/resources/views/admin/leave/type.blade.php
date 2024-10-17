@@ -80,6 +80,10 @@
                         </th>
 
                         <th scope="col">
+                            {{translate('Days (Yearly)')}}
+                        </th>
+
+                        <th scope="col">
                             {{translate('Paid/Unpaid')}}
                         </th>
 
@@ -109,6 +113,15 @@
 
                                 <p>
                                     {{($leave_type->name)}}
+                                </p>
+                            </div>
+                        </td>
+
+                        <td data-label='{{translate("Name")}}'>
+                            <div class="user-meta-info d-flex align-items-center gap-2">
+
+                                <p>
+                                    {{($leave_type->days ?? 'N/A')}}
                                 </p>
                             </div>
                         </td>
@@ -201,6 +214,12 @@
                     </div>
 
                     <div class="form-inner">
+                        <label for="days">{{translate('Allowed Days')}} </label>
+                        <i class="las la-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('These are yearly allowed leave days.')}}"></i>
+                        <input type="number" name="days" id="days" value="{{old('days')}}">
+                    </div>
+
+                    <div class="form-inner">
                         <label for="is_paid_add">{{translate('Paid/Unpaid')}}<small
                                 class="text-danger">*</small></label>
                         <select class="select2" name="is_paid" id="is_paid_add" placeholder="{{translate('Select Type')}}" required>
@@ -257,6 +276,12 @@
                     <div class="form-inner">
                         <label for="name_update">{{translate('Name')}} <small class="text-danger">*</small></label>
                         <input type="text" name="name" id="name_update" required>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="days_update">{{translate('Allowed Days')}} </label>
+                        <i class="las la-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('These are yearly allowed leave days.')}}"></i>
+                        <input type="number" name="days" id="days_update">
                     </div>
 
                     <div class="form-inner">
@@ -320,6 +345,7 @@
             var modal = $('#updateLeave_type')
             modal.find('input[name="id"]').val(leave_type.id)
             modal.find('input[name="name"]').val(leave_type.name)
+            modal.find('input[name="days"]').val(leave_type.days)
             modal.find('select[name="is_paid"]').val(leave_type.is_paid).trigger('change')
             modal.find('select[name="status"]').val(leave_type.status).trigger('change')
 
