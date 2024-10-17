@@ -50,10 +50,12 @@ $statusClasses = [
             <div class="row g-3">
                 <div class="col-md-4 d-flex justify-content-start">
                     <div class="action">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#leaveRequestModal"
-                            class="i-btn btn--sm success">
-                            <i class="las la-plus me-1"></i> {{translate('Request Leave')}}
-                        </button>
+                        <a href="{{route('user.leave.request')}}">
+                            <button  class="i-btn btn--sm success">
+                                <i class="las la-plus me-1"></i> {{translate('Request Leave')}}
+                            </button>
+                        </a>
+
                     </div>
                 </div>
 
@@ -451,21 +453,6 @@ $statusClasses = [
         $(this).select2({
             placeholder: $(this).attr('placeholder')
         });
-    });
-
-    $('#leaveRequestModal').on('shown.bs.modal', function () {
-
-        $("#leave_type_id").select2({
-            placeholder: "{{ translate('Select leave type') }}",
-            dropdownParent: $("#leaveRequestModal")
-        });
-
-
-        $("#leave_duration_type").select2({
-            placeholder: "{{ translate('Select leave duration') }}",
-            dropdownParent: $("#leaveRequestModal")
-        });
-
     });
 
     $('#leave_duration_type').on('change', function () {

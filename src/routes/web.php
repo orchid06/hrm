@@ -161,7 +161,7 @@ Route::middleware($globalMiddleware)->group(function () {
         Route::controller(LeaveController::class)->prefix('leave/')->name('leave.')->group(function () {
 
             Route::get('index', 'index')->name('index');
-            Route::post('request', 'store')->name('request');
+            Route::get('request', 'requestLeave')->name('request');
 
         });
 

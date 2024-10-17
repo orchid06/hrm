@@ -54,6 +54,15 @@ class LeaveController extends Controller
         ]);
     }
 
+    public function requestLeave()
+    {
+        return view('user.leave.requestLeave', [
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => null],
+            'title'                 => translate('Request Leave'),
+            'leaveTypes'            => LeaveType::all(),
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
 
