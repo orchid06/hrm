@@ -14,6 +14,7 @@ use App\Enums\StatusEnum;
 use App\Http\Requests\Admin\LeaveTypeRequest;
 use App\Models\admin\Expense;
 use App\Models\Leave;
+use Illuminate\Http\JsonResponse;
 
 class LeaveTypeController extends Controller
 {
@@ -35,7 +36,7 @@ class LeaveTypeController extends Controller
      */
     public function list() :View{
 
-        return view('admin.leave.type',[
+        return view('admin.leave_type.index',[
 
             'title'                 =>  translate('Manage Leave Types'),
             'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave types' =>null],
@@ -46,31 +47,58 @@ class LeaveTypeController extends Controller
         ]);
     }
 
-    public function store(LeaveTypeRequest $request) :RedirectResponse
+    public function create()
     {
-
-        LeaveType::create([
-            'name'      => $request->input('name'),
-            'days'      => $request->input('days'),
-            'is_paid'   => $request->input('is_paid'),
-            'status'    => $request->input('status'),
+        return view('admin.leave_type.create' ,[
+            'title'                 =>  translate('create Leave Types'),
+            'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave types' =>'admin.leave_type.list', 'Create Leave Types' => null],
         ]);
-
-        return back()->with(response_status('Leave Type created successfully'));
     }
 
-    public function update(LeaveTypeRequest $request) : RedirectResponse
+    public function store(LeaveTypeRequest $request)
+    {
+
+
+        LeaveType::create([
+            'name'              => $request->input('name'),
+            'days'              => $request->input('days'),
+            'is_paid'           => $request->input('is_paid'),
+            'status'            => $request->input('status'),
+            'custom_inputs'     => json_encode($request->input('custom_inputs'))
+        ]);
+
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Leave type created successfully')
+        ]);
+
+    }
+
+    public function edit($id)
+    {
+        return view('admin.leave_type.edit' ,[
+            'title'                 =>  translate('Edit Leave Types'),
+            'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave types' =>'admin.leave_type.list', 'Edit Leave Types' => null],
+            'leave_type'            =>  LeaveType::findOrFail($id)
+        ]);
+    }
+
+    public function update(LeaveTypeRequest $request)
     {
 
         $leave = LeaveType::whereid($request->input('id'))->first();
 
-        $leave->name       = $request->input('name');
-        $leave->Days       = $request->input('days');
-        $leave->status     = $request->input('status');
-        $leave->is_paid    = $request->input('is_paid');
+        $leave->name                = $request->input('name');
+        $leave->Days                = $request->input('days');
+        $leave->status              = $request->input('status');
+        $leave->is_paid             = $request->input('is_paid');
+        $leave->custom_inputs       = json_encode($request->input('custom_inputs'));
         $leave->update();
 
-        return back()->with(response_status('Leave Type updated successfully '));
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Leave type updated successfully')
+        ]);
 
     }
 

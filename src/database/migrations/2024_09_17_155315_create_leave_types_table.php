@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('is_paid' ,array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Paid: 1, Unpaid: 0');
             $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::true->status())->comment('Active: 1, Inactive: 0');
             $table->string('description')->nullable();
+            $table->longText('custom_inputs')->nullable();
             $table->timestamps();
         });
     }

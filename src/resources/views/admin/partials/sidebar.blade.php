@@ -346,8 +346,8 @@
                 </a>
             </li>
             @endif --}}
-
-            {{-- @if(check_permission('view_report'))
+{{-- 
+            @if(check_permission('view_report'))
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#report" role="button"
                     aria-expanded="false" aria-controls="report">

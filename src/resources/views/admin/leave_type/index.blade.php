@@ -36,10 +36,12 @@
                     @if(check_permission('create_leave'))
 
                     <div class="action">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#addLeave_type"
-                            class="add i-btn btn--sm success">
-                            <i class="las la-plus me-1"></i> {{translate('Add New')}}
-                        </button>
+
+                        <a href="{{route('admin.leave_type.create')}}">
+                            <button type="button" class="add i-btn btn--sm success">
+                                <i class="las la-plus me-1"></i> {{translate('Add New')}}
+                            </button>
+                        </a>
                     </div>
 
                     @endif
@@ -153,9 +155,8 @@
 
                                 @if(check_permission('update_leave') )
                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="{{translate('Update')}}" href="javascript:void(0);"
-                                    data-leave_type="{{$leave_type}}" class="update icon-btn warning"><i
-                                        class="las la-pen"></i>
+                                    data-bs-title="{{translate('Update')}}" href="{{route('admin.leave_type.edit' , $leave_type->id)}}"
+                                    class="icon-btn warning"> <i class="las la-pen"></i>
                                 </a>
                                 @endif
 
@@ -193,69 +194,6 @@
 @endsection
 
 @section('modal')
-
-<div class="modal fade modal-md" id="addLeave_type" tabindex="-1" aria-labelledby="addLeave_type" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    {{translate('Add New Leave_type')}}
-                </h5>
-                <button class="close-btn" data-bs-dismiss="modal">
-                    <i class="las la-times"></i>
-                </button>
-            </div>
-            <form action="{{route('admin.leave_type.store')}}" method="post" class="add-listing-form">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-inner">
-                        <label for="name">{{translate('Name')}} <small class="text-danger">*</small></label>
-                        <input type="text" name="name" id="name" value="{{old('name')}}" required>
-                    </div>
-
-                    <div class="form-inner">
-                        <label for="days">{{translate('Allowed Days')}} </label>
-                        <i class="las la-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('These are yearly allowed leave days.')}}"></i>
-                        <input type="number" name="days" id="days" value="{{old('days')}}">
-                    </div>
-
-                    <div class="form-inner">
-                        <label for="is_paid_add">{{translate('Paid/Unpaid')}}<small
-                                class="text-danger">*</small></label>
-                        <select class="select2" name="is_paid" id="is_paid_add" placeholder="{{translate('Select Type')}}" required>
-                            <option value="">{{translate('Select a type')}}</option>
-                            @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
-                            <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
-                                {{$value == App\Enums\StatusEnum::true->status()? 'Paid' : 'Unpaid'}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-inner">
-                        <label for="status_add">{{translate('Status')}}<small class="text-danger">*</small></label>
-                        <select class="select2" name="status" id="status_add" placeholder="{{translate('Select Status')}}" required>
-
-                            @foreach(App\Enums\StatusEnum::toArray() as $status=>$value)
-                            <option {{old('status')==$value ? "selected" :"" }} value="{{$value}}">
-                                {{$status}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
-                        {{translate("Close")}}
-                    </button>
-                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-                        {{translate("Submit")}}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade modal-md" id="updateLeave_type" tabindex="-1" aria-labelledby="updateLeave_type"
     aria-hidden="true">

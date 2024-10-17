@@ -8,6 +8,9 @@
 
     <div class="i-card-md mb-4">
         <div class="card-body">
+            <a href="{{route('admin.setting.kyc')}}" type="button" class="i-btn btn--sm primary">
+                <i class="las la-cogs fs-15"></i> {{translate('Configure Input Field')}}
+            </a>
             <div class="search-action-area">
                 <div class="row g-3">
                     <div class="col-md-12 d-flex justify-content-end">

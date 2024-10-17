@@ -9,22 +9,21 @@
 <div class="row">
     <div class="col-lg-12 mx-auto">
         <div>
-            <div
-              class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
+            <div class="w-100 d-flex align-items-center justify-content-between gap-lg-5 gap-3 flex-md-nowrap flex-wrap mb-4">
                   <h4>
-
+                    
                   </h4>
 
-              <div>
-                <button
-                  class="icon-btn icon-btn-lg solid-info"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#tableFilter"
-                  aria-expanded="false"
-                  aria-controls="tableFilter">
-                  <i class="bi bi-sliders"></i>
-                </button>
+                <div>
+                    <button
+                    class="icon-btn icon-btn-lg solid-info"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#tableFilter"
+                    aria-expanded="false"
+                    aria-controls="tableFilter">
+                    <i class="bi bi-sliders"></i>
+                    </button>
               </div>
             </div>
 
