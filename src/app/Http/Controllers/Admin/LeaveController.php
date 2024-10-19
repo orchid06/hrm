@@ -48,7 +48,7 @@ class LeaveController extends Controller
             'breadcrumbs'           =>  ['Home' => 'admin.home', 'Leaves requests' => null],
             'title'                 =>  translate('Leaves Requests'),
             'leaves'                => Leave::with('user', 'leaveType')
-                                        ->orderBy('date', 'desc')
+                                        ->orderBy('created_at', 'desc')
                                         ->year()
                                         ->month()
                                         ->date()
@@ -58,6 +58,15 @@ class LeaveController extends Controller
                                         ->appends(request()->all()),
             'users'                 => User::all(),
             'leaveTypes'            => LeaveType::all()
+        ]);
+    }
+
+    public function edit($id)
+    {
+        return view('admin.leave.edit' ,[
+            'title'                 =>  translate('Leave Request Details'),
+            'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave request details' => null],
+            'leaveRequest'            =>  Leave::findOrFail($id)
         ]);
     }
 

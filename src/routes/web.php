@@ -162,6 +162,11 @@ Route::middleware($globalMiddleware)->group(function () {
 
             Route::get('index', 'index')->name('index');
             Route::get('request', 'requestLeave')->name('request');
+            Route::get('request/edit/{id}', 'edit')->name('request.edit');
+            Route::post('request/store', 'storeOrUpdate')->name('request.store');
+            Route::post('request/update', 'storeOrUpdate')->name('request.update');
+            Route::get('request/custom-input/{id}', 'cusotmInputForm')->name('request.customInput');
+            Route::post('request/custom-input/store', 'cusotmInputStore')->name('request.customInput.store');
 
         });
 

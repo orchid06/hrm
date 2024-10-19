@@ -6,17 +6,21 @@ use App\Enums\LeaveStatus;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\LeaveService;
+use App\Models\Core\File;
 use App\Models\Leave;
 use App\Models\LeaveType;
-use Carbon\Carbon;
+use App\Traits\Fileable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class LeaveController extends Controller
 {
+    use Fileable;
     protected $user;
 
     public function __construct(protected LeaveService $leaveService)
@@ -32,7 +36,7 @@ class LeaveController extends Controller
     {
 
         $leaves                         = Leave::where('user_id', Auth::id())
-            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->year()
             ->month()
             ->date()
@@ -56,6 +60,7 @@ class LeaveController extends Controller
 
     public function requestLeave()
     {
+
         return view('user.leave.requestLeave', [
             'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => null],
             'title'                 => translate('Request Leave'),
@@ -63,14 +68,16 @@ class LeaveController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function storeOrUpdate(Request $request): RedirectResponse
     {
+
+        $leaveId = $request->input('id') ?? null;
 
         $this->leaveService->validateRequest(request: $request);
 
         $userId = Auth::id();
 
-        if ($this->leaveService->checkOverlappingLeave(userId: $userId, request: $request)) {
+        if ($this->leaveService->checkOverlappingLeave(userId: $userId, request: $request , leaveId: $leaveId)) {
             throw ValidationException::withMessages(messages: [
                 'date' => 'You already have a leave request on or within the selected date range.'
             ]);
@@ -81,8 +88,100 @@ class LeaveController extends Controller
 
         $leaveData['total_days'] = $this->leaveService->calculateTotalDays($request->input('leave_duration_type'), $request);
 
-        Leave::create($leaveData);
+        $leaveType = LeaveType::findOrFail($request->input('leave_type_id'));
+
+        if ($leaveId = $request->input('id')) {
+            // Update the existing leave record
+            $leave = Leave::findOrFail($leaveId);
+            $leave->update($leaveData);
+        } else {
+            // Create a new leave record
+            $leave = Leave::create($leaveData);
+
+        }
+
+        if ($leaveType->custom_inputs) {
+
+            return redirect()->route('user.leave.request.customInput',  $leave->id);
+        } else {
+
+
+            return redirect()->route('user.leave.index')->with('success', translate('Leave request submitted.'));
+        }
+
+    }
+
+    public function cusotmInputForm($id)
+    {
+
+        $leave = Leave::findOrFail($id);
+
+
+
+        return view('user.leave.custom_input', [
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => 'user.leave.request' , 'Custom Inputs'=> null],
+            'title'                 => translate('Custom Inputs'),
+            'leave'                 => $leave
+        ]);
+
+    }
+
+    public function cusotmInputStore(Request $request)
+    {
+        $leaveRequestData = $request->input('leave_request_data');
+
+        dd($leaveRequestData);
+        
+        $rules = [
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|max:255',
+            'date' => 'sometimes|date',
+            'textarea' => 'sometimes|string',
+            'file' => 'sometimes|file|mimes:jpg,png,pdf|max:2048',
+        ];
+
+        $validatedData = Validator::make($leaveRequestData, $rules)->validate();
+
+        $leave = Leave::findOrFail($request->input('id'));
+
+        $leave->update([
+            'leave_request_data' => json_encode($validatedData)
+        ]);
+
+        if (isset($leaveRequestData['files'])) {
+            foreach ($leaveRequestData['files'] as $key => $file) {
+                $response = $this->storeFile(
+                    file     : $file,
+                    location : config("settings")['file_path']['leave_request_data']['path'],
+                );
+
+                if (isset($response['status'])) {
+                    $fileRecord = new File([
+                        'name'      => Arr::get($response, 'name', '#'),
+                        'disk'      => Arr::get($response, 'disk', 'local'),
+                        'type'      => $key,
+                        'size'      => Arr::get($response, 'size', ''),
+                        'extension' => Arr::get($response, 'extension', ''),
+                    ]);
+
+
+                    $leave->file()->save($fileRecord);
+                }
+            }
+        }
 
         return redirect()->route('user.leave.index')->with('success', translate('Leave request submitted.'));
+
     }
+
+    public function edit($id)
+    {
+        return view('user.leave.editRequest', [
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => null],
+            'title'                 => translate('Request Leave'),
+            'leaveTypes'            => LeaveType::all(),
+            'leave'                 => Leave::findOrFail($id)
+        ]);
+    }
+
 }

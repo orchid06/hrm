@@ -57,6 +57,20 @@ class LeaveTypeController extends Controller
 
     public function store(LeaveTypeRequest $request)
     {
+        $customInputs = $request->input('custom_inputs');
+
+        if($customInputs){
+            $promptInputs       = [];
+            foreach ($request->input('custom_inputs') as $index => $field) {
+                $newField = $field;
+                if (is_null($field['name'])) {
+                    $newField['name'] = t2k($newField['labels']);
+                }
+                $promptInputs[$index] = $newField;
+            }
+        }
+
+
 
 
         LeaveType::create([
@@ -64,7 +78,7 @@ class LeaveTypeController extends Controller
             'days'              => $request->input('days'),
             'is_paid'           => $request->input('is_paid'),
             'status'            => $request->input('status'),
-            'custom_inputs'     => json_encode($request->input('custom_inputs'))
+            'custom_inputs'     => $customInputs ? json_encode($promptInputs) : null
         ]);
 
         return json_encode([
@@ -76,6 +90,7 @@ class LeaveTypeController extends Controller
 
     public function edit($id)
     {
+
         return view('admin.leave_type.edit' ,[
             'title'                 =>  translate('Edit Leave Types'),
             'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave types' =>'admin.leave_type.list', 'Edit Leave Types' => null],
@@ -86,13 +101,28 @@ class LeaveTypeController extends Controller
     public function update(LeaveTypeRequest $request)
     {
 
+        $customInputs = $request->input('custom_inputs');
+
+        if($customInputs){
+            $promptInputs       = [];
+            foreach ($request->input('custom_inputs') as $index => $field) {
+                $newField = $field;
+                if (is_null($field['name'])) {
+                    $newField['name'] = t2k($newField['labels']);
+                }
+                $promptInputs[$index] = $newField;
+            }
+        }
+
         $leave = LeaveType::whereid($request->input('id'))->first();
+
+
 
         $leave->name                = $request->input('name');
         $leave->Days                = $request->input('days');
         $leave->status              = $request->input('status');
         $leave->is_paid             = $request->input('is_paid');
-        $leave->custom_inputs       = json_encode($request->input('custom_inputs'));
+        $leave->custom_inputs       = $customInputs ? json_encode($promptInputs) : null;
         $leave->update();
 
         return json_encode([

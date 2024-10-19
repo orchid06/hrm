@@ -10,9 +10,9 @@
 
     </div>
     <div class="card-body">
-        <form action="{{route('user.leave.request.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('user.leave.request.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
-
+                <input type="hidden" name="id" value="{{$leave->id}}">
                 <div class="row">
                     <div class="col-12">
                         <div class="form-inner">
@@ -22,7 +22,7 @@
                                 <option value="">{{translate('Select Leave Type')}}</option>
                                 @foreach($leaveTypes as $leaveType);
 
-                                <option value="{{ $leaveType->id }}">
+                                <option value="{{ $leaveType->id }}" {{$leave->leave_type_id == $leaveType->id ? 'selected' : ''}}>
                                     {{ $leaveType->name }}
                                     ({{ $leaveType->is_paid == \App\Enums\StatusEnum::true->status() ?
                                     translate('Paid') : translate('Unpaid') }})
@@ -40,7 +40,7 @@
                         <select class="select2" id="leave_duration_type" name="leave_duration_type" required>
                             <option value="">{{translate('Select Duration Type')}}</option>
                             @foreach(\App\Enums\LeaveDurationType::toArray() as $duration)
-                            <option value="{{ $duration }}">{{ $duration }}</option>
+                            <option value="{{ $duration }}" {{$leave->leave_duration_type == $duration ? 'selected' : ''}}>{{ $duration }}</option>
                             @endforeach
                         </select>
 
@@ -52,7 +52,7 @@
                         <div class="col-12">
                             <div class="form-inner">
                                 <label for="date">{{translate('Date')}} </label>
-                                <input type="date" name="date" id="date" class="form-control"
+                                <input type="date" name="date" id="date" class="form-control" value="{{$leave->start_date}}"
                                     placeholder="{{translate('Select Date')}}">
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         <div class="col-6">
                             <div class="form-inner">
                                 <label for="start_date">{{translate('Start Date')}}</label>
-                                <input type="date" name="start_date" id="start_date" class="form-control"
+                                <input type="date" name="start_date" id="start_date" class="form-control" value="{{$leave->start_date}}"
                                     placeholder="{{translate('Start Date')}}">
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div class="col-6">
                             <div class="form-inner">
                                 <label for="end_date">{{translate('End Date')}}</label>
-                                <input type="date" name="end_date" id="end_date" class="form-control"
+                                <input type="date" name="end_date" id="end_date" class="form-control" value="{{$leave->end_date}}"
                                     placeholder="{{translate('End Date')}}">
                             </div>
                         </div>
@@ -80,9 +80,21 @@
                 </div>
 
 
+
+                <div class="form-inner">
+                    <label for="reason">{{translate('Reason')}}</label>
+                    <textarea name="reason" id="reason" cols="30" rows="10"> {{$leave->reason}} </textarea>
+                </div>
+
+                <div class="form-inner">
+                    <label for="attachments">{{translate('Attachments')}}</label>
+                    <input type="file" name="attachments[]" id="attachments" class="form-control" multiple>
+                </div>
+
+
                 <div class="d-flex justify-content-end mt-3">
                     <button type="submit" class="i-btn btn--md btn--primary" id="submit-button" data-anim="ripple">
-                        {{translate("Submit")}}
+                        {{translate("Next")}}
                     </button>
                 </div>
         </form>
@@ -130,49 +142,5 @@
             }
         }
     });
-
-    // function generateCustomInputs(customInputs) {
-
-    // var container = $('#custom-inputs-container');
-
-    // // Clear existing inputs (if any)
-    // container.empty();
-
-    // // Iterate over each custom input field
-    // customInputs.forEach(function(input, index) {
-    //     var fieldHtml = ''; // Initialize the HTML for the input field
-
-    //     // Check if the input has a 'name' and other required properties
-    //     if (input.name) {
-    //         var field_name = input.name;
-    //         var required = input.required == '1' ? 'required' : '';
-    //         var placeholder = input.placeholder || '';
-    //         var label = input.labels || 'Field ' + (index + 1);
-    //         var isRequiredStar = input.required == '1' ? '*' : '';
-
-    //         // Create label HTML
-    //         fieldHtml += '<div class="form-inner">';
-    //         fieldHtml += `<label for="${index}" class="form-label">${label} ${isRequiredStar ? '<span class="text-danger">*</span>' : ''}</label>`;
-
-    //         // Check field type and generate appropriate input field
-    //         if (input.type == 'textarea') {
-    //             fieldHtml += `<textarea id="${index}" ${required} class="summernote" name="kyc_data[${field_name}]" cols="30" rows="10" placeholder="${placeholder}"></textarea>`;
-    //         } else if (input.type == 'file') {
-    //             fieldHtml += `<input id="${index}" ${required} type="file" name="kyc_data[files][${field_name}]">`;
-    //         } else {
-    //             fieldHtml += `<input id="${index}" ${required} type="${input.type}" name="kyc_data[${field_name}]" placeholder="${placeholder}">`;
-    //         }
-
-    //         // Close the form-inner div
-    //         fieldHtml += '</div>';
-    //     }
-
-    //     // Append the generated HTML to the container
-    //     container.append(fieldHtml);
-    //     });
-    // }
-
-
-
 </script>
 @endpush

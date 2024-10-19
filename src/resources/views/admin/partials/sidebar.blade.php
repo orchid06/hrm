@@ -235,6 +235,12 @@
                                 <span></span>
                                 <p>
                                     {{translate('Manage Leaves')}}
+
+                                    @if($pending_leave > 0 )
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Pending requests')}}"
+                                        class="i-badge danger">{{$pending_leave}}</span>
+                                    @endif
                                 </p>
                             </a>
                         </li>
@@ -346,7 +352,7 @@
                 </a>
             </li>
             @endif --}}
-{{-- 
+{{--
             @if(check_permission('view_report'))
             <li class="sidebar-menu-item">
                 <a class="sidebar-menu-link " data-bs-toggle="collapse" href="#report" role="button"

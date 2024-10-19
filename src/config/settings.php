@@ -337,6 +337,12 @@ return [
         'kyc' => [
             'path' => 'assets/files/global/kyc',
         ],
+        'leave_request'=> [
+            'path' => 'assets/files/global/leave_request'
+        ],
+        'leave_request_data'=> [
+            'path' => 'assets/files/global/leave_request/custom_data'
+        ],
     ],
 
 

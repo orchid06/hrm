@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('status',array_values(LeaveStatus::toArray()))->default(LeaveStatus::pending->status())->comment('Pending: 0, Approved: 1 , Declined:2');
             $table->text('reason')->nullable();
             $table->text('note')->nullable();
+            $table->longText('leave_request_data')->nullable();
             $table->timestamps();
         });
     }

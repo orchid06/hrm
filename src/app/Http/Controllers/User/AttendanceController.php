@@ -26,6 +26,7 @@ class AttendanceController extends Controller
 
     public function clockInRequest(): RedirectResponse
     {
+        
         try {
 
             $this->attendanceService->requestClockIn();

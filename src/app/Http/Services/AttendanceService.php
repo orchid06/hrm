@@ -79,14 +79,11 @@ class AttendanceService
     public function processClockIn($clockInTime)
     {
         $officeHours                = json_decode(site_settings('office_hour'), true);
-        $day                        = strtolower($clockInTime->format('l'));
+        $day                        = t2k($clockInTime->format('l'));
         $referenceDate              = $clockInTime->format('Y-m-d');
         $ClockInTimeString          = $clockInTime->format('h:i A');
         $todaySchedule              = $officeHours[$day] ?? null;
         $attendanceSettings         = json_decode(site_settings('attendance_settings'));
-
-
-
 
 
         if (!$todaySchedule || !$todaySchedule['is_on']) {
@@ -103,7 +100,8 @@ class AttendanceService
             ? $actualClockInTime->diffInMinutes($officeStartTime)
             : 0;
 
-        if ($attendanceSettings?->grace_time && $lateMinutes <= $attendanceSettings->grace_time) {
+
+        if (!empty($attendanceSettings) && !empty($attendanceSettings->grace_time) && $lateMinutes <= $attendanceSettings->grace_time) {
             $lateMinutes = 0;
         }
 

@@ -178,10 +178,12 @@ $statusClasses = [
                                     <i class="las la-check-circle"></i>
                                 </button>
 
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
+                                <a href="{{route('admin.leave.edit' , $leave->id)}}">
+                                    <button data-bs-toggle="tooltip" data-bs-placement="top"
                                     data-bs-title="{{translate('Edit')}}" class="edit icon-btn info">
                                     <i class="las la-edit"></i>
-                                </button>
+                                    </button>
+                                </a>
 
                                 @endif
 

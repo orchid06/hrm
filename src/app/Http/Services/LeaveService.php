@@ -26,8 +26,8 @@ class LeaveService
     public function checkOverlappingLeave($userId, $request, $leaveId = null): bool
     {
         return $request->input('leave_duration_type') === 'Range'
-            ? $this->checkRangeOverlap($userId, $request->start_date, $request->end_date, $leaveId)
-            : $this->checkSingleDayOverlap($userId, $request->date, $leaveId);
+            ? $this->checkRangeOverlap(userId: $userId, startDate: $request->start_date, endDate: $request->end_date, leaveId: $leaveId)
+            : $this->checkSingleDayOverlap(userId: $userId, date: $request->date, leaveId: $leaveId);
     }
 
     private function checkRangeOverlap($userId, $startDate, $endDate, $leaveId = null): bool
@@ -50,7 +50,6 @@ class LeaveService
                             ->where('end_date', '>=', $endDate);
                     });
             })
-            ->orWhereBetween('date', [$startDate, $endDate])
             ->exists();
     }
 
@@ -66,11 +65,8 @@ class LeaveService
                 $query->where('id', '!=', $leaveId);
             })
             ->where(function ($query) use ($date) {
-                $query->where('date', $date)
-                    ->orWhere(function ($query) use ($date) {
-                        $query->where('start_date', '<=', $date)
-                            ->where('end_date', '>=', $date);
-                    });
+                $query->where('start_date', '<=', $date)
+                      ->where('end_date', '>=', $date);
             })
             ->exists();
     }
