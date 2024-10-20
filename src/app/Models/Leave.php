@@ -15,6 +15,10 @@ class Leave extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'leave_request_data' => 'object',
+    ];
+
     public function file(): MorphMany{
         return $this->morphMany(File::class, 'fileable');
     }

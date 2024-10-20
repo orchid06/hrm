@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Enums\LeaveStatus;
 use App\Models\Leave;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -66,7 +67,7 @@ class LeaveService
             })
             ->where(function ($query) use ($date) {
                 $query->where('start_date', '<=', $date)
-                      ->where('end_date', '>=', $date);
+                    ->where('end_date', '>=', $date);
             })
             ->exists();
     }
@@ -89,7 +90,15 @@ class LeaveService
             'start_date'            => $request->input('start_date') ??  $request->input('date'),
             'end_date'              => $request->input('end_date') ?? $request->input('date'),
             'reason'                => $request->input('reason'),
-            'status'                => LeaveStatus::pending->status(),
+            'status'                => LeaveStatus::PENDING->status(),
         ];
+    }
+
+    public function getSpecificLeaveRequest(int|string $id, ?LeaveStatus $status = null): ?Leave
+    {
+        return Leave::with(['user', 'leaveType', 'file'])
+            ->when($status, fn(Builder $query): Builder =>
+            $query->where('status', (string) $status->value))
+            ->findOrFail($id);
     }
 }

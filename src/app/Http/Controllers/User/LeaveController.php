@@ -44,7 +44,7 @@ class LeaveController extends Controller
             ->paginate(paginateNumber())
             ->appends(request()->all());
 
-        $data['leave_taken']            = $leaves->where('status', LeaveStatus::approved->status())->sum('total_days');
+        $data['leave_taken']            = $leaves->where('status', LeaveStatus::APPROVED->status())->sum('total_days');
         $data['total_paid_leave']       = site_settings('total_paid_leave');
         $data['remaining_paid_leave']   = max(0, $data['total_paid_leave'] - $data['leave_taken']);
 
@@ -130,22 +130,10 @@ class LeaveController extends Controller
     {
         $leaveRequestData = $request->input('leave_request_data');
 
-        dd($leaveRequestData);
-        
-        $rules = [
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|max:255',
-            'date' => 'sometimes|date',
-            'textarea' => 'sometimes|string',
-            'file' => 'sometimes|file|mimes:jpg,png,pdf|max:2048',
-        ];
-
-        $validatedData = Validator::make($leaveRequestData, $rules)->validate();
-
         $leave = Leave::findOrFail($request->input('id'));
 
         $leave->update([
-            'leave_request_data' => json_encode($validatedData)
+            'leave_request_data' => (Arr::except($leaveRequestData,['files']))
         ]);
 
         if (isset($leaveRequestData['files'])) {

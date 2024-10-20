@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="i-card-md">
-    <div class="card-header">
+    <div class="card--header">
         <h4 class="card-title">
             {{translate("All Notifications")}}
         </h4>
@@ -37,16 +37,16 @@
                         </a>
                     @endif
                 @endforeach
-                   
+
             </div>
 
-            
+
         @else
            <div>
                @include('admin.partials.not_found')
            </div>
         @endif
-        
+
     </div>
 </div>
 <div class="Paginations">

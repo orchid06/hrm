@@ -35,6 +35,7 @@ enum NotificationTemplateEnum :string {
     case SUBSCRIPTION_EXPIRED           = 'SUBSCRIPTION_EXPIRED';
     case CONTACT_REPLY                  = 'CONTACT_REPLY';
     case PAYSLIP_MAIL                   = 'PAYSLIP_MAIL';
+    case LEAVE_UPDATE                   = 'LEAVE_UPDATE';
 
 
 
@@ -378,6 +379,22 @@ enum NotificationTemplateEnum :string {
                                 'company_name'  => "company_name",
                                 'month'         => "month"
                             ]
+                        ],
+
+                        self::LEAVE_UPDATE->value => [
+                            "name"      => k2t(self::LEAVE_UPDATE->value),
+                            "subject"   => "Leave Status Updated",
+                            "body"      => "We're here to inform you that there has been an update to your Leave request.
+                                            Leave request Information:
+                                                Applied By : {{name}}
+                                                status     : {{status}}",
+
+                            "sms_body"  => "We're here to inform you that there has been an update to your Leave request.
+                                            Leave request Information:Applied By : {{name}} status : {{status}}",
+                            "template_key" => ([
+                                'name'       => "User name",
+                                'status'     => "Verification status"
+                            ])
                         ],
 
 

@@ -146,12 +146,18 @@
                     <span><i class="las la-calendar"></i></span>
                     <p>
                         {{translate('Attendance')}}
+                        @if($pending_attendance > 0 )
+                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="{{translate('Pending requests')}}" class="i-badge danger">
+                            <i class="las la-info"></i>
+                        </span>
+                        @endif
                     </p>
                     <small>
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*' , 'admin.holiday.*' , 'admin.leave.*', 'admin.leave_type.*'],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*'],'drop_down')}} "
                     id="attendanceManagement">
                     <ul class="sub-menu">
 
@@ -195,12 +201,18 @@
                     <span><i class="las la-calendar"></i></span>
                     <p>
                         {{translate('Holiday & leaves')}}
+                        @if($pending_leave > 0 )
+                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="{{translate('Pending requests')}}" class="i-badge danger">
+                            <i class="las la-info"></i>
+                        </span>
+                        @endif
                     </p>
                     <small>
                         <i class="las la-angle-down"></i>
                     </small>
                 </a>
-                <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.attendance.*' , 'admin.office.hour.*' , 'admin.holiday.*' , 'admin.leave.*', 'admin.leave_type.*'],'drop_down')}} "
+                <div class="side-menu-dropdown collapse {{sidebar_awake([ 'admin.office.hour.*' , 'admin.holiday.*' , 'admin.leave.*', 'admin.leave_type.*'],'drop_down')}} "
                     id="holidayManagement">
                     <ul class="sub-menu">
 
@@ -230,7 +242,7 @@
 
                         @if(check_permission('view_leave'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.leave.list' ,'admin.leave.edit' , 'admin.leave_type.*' ])}}"
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.leave.list' ,'admin.leave.edit' ])}}"
                                 href="{{route('admin.leave.list')}}">
                                 <span></span>
                                 <p>
@@ -241,6 +253,19 @@
                                         data-bs-title="{{translate('Pending requests')}}"
                                         class="i-badge danger">{{$pending_leave}}</span>
                                     @endif
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('create_leave'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.leave_type.*' ])}}"
+                                href="{{route('admin.leave_type.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Configure Leave Type')}}
+
                                 </p>
                             </a>
                         </li>

@@ -4,9 +4,9 @@
 @endpush
 @php
 $statusClasses = [
-\App\Enums\LeaveStatus::pending->status() => ['class' => 'warning', 'text' => translate('Pending')],
-\App\Enums\LeaveStatus::approved->status() => ['class' => 'success', 'text' => translate('Approved')],
-\App\Enums\LeaveStatus::declined->status() => ['class' => 'danger', 'text' => translate('Declined')],
+\App\Enums\LeaveStatus::PENDING->status() => ['class' => 'warning', 'text' => translate('Pending')],
+\App\Enums\LeaveStatus::APPROVED->status() => ['class' => 'success', 'text' => translate('Approved')],
+\App\Enums\LeaveStatus::DECLINED->status() => ['class' => 'danger', 'text' => translate('Declined')],
 ];
 @endphp
 @section('content')

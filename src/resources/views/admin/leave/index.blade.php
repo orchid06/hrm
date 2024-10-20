@@ -4,11 +4,11 @@
 @endpush
 @section('content')
 @php
-$statusClasses = [
-\App\Enums\LeaveStatus::pending->status() => ['class' => 'warning', 'text' => translate('Pending')],
-\App\Enums\LeaveStatus::approved->status() => ['class' => 'success', 'text' => translate('Approved')],
-\App\Enums\LeaveStatus::declined->status() => ['class' => 'danger', 'text' => translate('Declined')],
-];
+        $statusClasses = [
+                        \App\Enums\LeaveStatus::PENDING->status() => ['class' => 'warning', 'text' => translate('Pending')],
+                        \App\Enums\LeaveStatus::APPROVED->status() => ['class' => 'success', 'text' => translate('Approved')],
+                        \App\Enums\LeaveStatus::DECLINED->status() => ['class' => 'danger', 'text' => translate('Declined')],
+                    ];
 @endphp
 <div class="i-card-md">
     <div class="card-header">
@@ -173,10 +173,10 @@ $statusClasses = [
 
                                 @if(check_permission('update_leave'))
 
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
+                                {{-- <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
                                     data-bs-title="{{translate('Approve/Decline')}}" class="approve icon-btn info">
                                     <i class="las la-check-circle"></i>
-                                </button>
+                                </button> --}}
 
                                 <a href="{{route('admin.leave.edit' , $leave->id)}}">
                                     <button data-bs-toggle="tooltip" data-bs-placement="top"

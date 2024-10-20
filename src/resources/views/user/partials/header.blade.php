@@ -52,37 +52,42 @@
                     <span class="i-badge success">{{$notifications->count()}} {{translate("New")}}   </span>
                   </div>
                   <div class="notification-items" data-simplebar>
-                      <div class="notification-item">
-                          <ul>
+                    <div class="notification-item">
+
+                        <ul>
                             @forelse($notifications as $notification)
-                                <li>
-                                  <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
-                                    <div class="notify-icon">
-                                      <img class="rounded-circle"
-                                        src='{{imageURL(auth_user()->file,"profile,admin",true) }}'
-                                        alt="profile.jpg" />
-                                    </div>
-                                    <div class="notification-item-content">
-                                      <h5> {{auth_user()->name}} <small>
-                                          {{diff_for_humans($notification->created_at)}}
-                                        </small></h5>
-                                      <p>
-                                          {{
-                                            limit_words(strip_tags($notification->message),50)
-                                          }}
-                                      </p>
-                                    </div>
-                                  </a>
-                                </li>
-                            @empty
-                                <li class="text-center mx-auto mb-2 no-notification-item">
-                                    <p>
-                                      {{translate("Nothing Found !!")}}
-                                    </p>
-                                </li>
-                            @endforelse
-                          </ul>
-                      </div>
+                                    <li>
+                                        <a href="javascript:void(0)" class="read-notification" data-id="{{$notification->id}}" data-href="{{$notification->url}}">
+                                            <div class="notify-icon">
+                                            <img src="{{imageURL(@$user->file,'profile,user',true) }}" alt="{{@$user->file->name ?? 'profile.jpg'}}"/>
+
+                                            </div>
+
+                                            <div class="notification-item-content">
+                                            <h5> {{$user->name}}
+                                                <small>
+                                                {{diff_for_humans($notification->created_at)}}
+                                            </small>
+                                        </h5>
+                                            <p>
+                                                {{
+                                                limit_words(strip_tags($notification->message),50)
+                                                }}
+                                            </p>
+                                            </div>
+                                            <span><i class="las la-times"></i></span>
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li class="text-center mx-auto my-3">
+                                        <p class="text-danger fw-bold fs-18">
+                                            {{translate("Nothing Found !!")}}
+                                        </p>
+                                    </li>
+                                @endforelse
+
+                        </ul>
+                    </div>
                   </div>
                     @if($notifications->count() >0)
                       <div class="dropdown-menu-footer">

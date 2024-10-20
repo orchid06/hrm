@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
 
                 $pending_attendance = $pending_clock_in + $pending_clock_out;
 
-                $pending_leave_requests = Leave::where('status' , LeaveStatus::pending->status())
+                $pending_leave_requests = Leave::where('status' , LeaveStatus::PENDING->status())
                                                 ->whereMonth('created_at', $currentMonth)
                                                 ->count();
 

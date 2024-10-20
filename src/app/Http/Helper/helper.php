@@ -2,6 +2,7 @@
 
 
 use App\Enums\KYCStatus;
+use App\Enums\LeaveStatus;
 use App\Enums\PriorityStatus;
 use App\Enums\StatusEnum;
 use App\Enums\TicketStatus;
@@ -884,6 +885,24 @@ if (!function_exists('kyc_status')) {
 
         $class    = Arr::get($badges, $status, 'info');
         $status   = ucfirst(t2k(Arr::get(array_flip(KYCStatus::toArray()), $status, 'Requested')));
+        return "<span class=\"i-badge $class\">$status</span>";
+    }
+}
+
+if (!function_exists('leave_status')) {
+    function leave_status(mixed  $status): string
+    {
+
+        $badges  = [
+
+            LeaveStatus::PENDING->value      => "warning",
+            LeaveStatus::APPROVED->value     => "success",
+            LeaveStatus::DECLINED->value     => "danger",
+
+        ];
+
+        $class    = Arr::get($badges, $status, 'info');
+        $status   = ucfirst(t2k(Arr::get(array_flip(LeaveStatus::toArray()), $status, 'Pending')));
         return "<span class=\"i-badge $class\">$status</span>";
     }
 }

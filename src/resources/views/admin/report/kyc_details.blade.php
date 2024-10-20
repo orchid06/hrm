@@ -21,13 +21,13 @@
                 <div class="card-body">
                     @php
                         $lists  =  [
-                                        
+
                                     [
                                                     "title"  =>  translate('User'),
                                                     "href"   =>  route("admin.user.show",$report->user?->uid),
                                                     "value"  =>  $report->user?->name,
                                     ],
-        
+
                                     [
                                                     "title"   =>  translate('Date'),
                                                     "value"   =>  diff_for_humans($report->created_at)
@@ -41,7 +41,7 @@
                                                     "title"     =>  translate('Note'),
                                                     "value"     =>  $report->notes ?? translate('N/A')
                                     ],
-                                        
+
                         ];
 
                     @endphp
@@ -64,17 +64,17 @@
 
                             @foreach ($report->kyc_data as $k => $v)
                                 <li>
-                                    <span>{{  translate(k2t($k)) }}:</span> 
+                                    <span>{{  translate(k2t($k)) }}:</span>
                                     <span>
                                         {{ $v }}
                                     </span>
-                                 
+
                                 </li>
                             @endforeach
 
                             @foreach ($report->file as $file)
                                 <li>
-                                    <span>{{ translate(k2t($file->type)) }} :</span> 
+                                    <span>{{ translate(k2t($file->type)) }} :</span>
                                     <div class="custom-profile">
                                         <a href="{{imageURL($file,'kyc',true)}}" class="image-v-preview">
                                                 <img class="image-v-preview" src='{{imageURL($file,"kyc",true)}}'
@@ -88,7 +88,7 @@
 
 
                         @if(App\Enums\KYCStatus::value("REQUESTED",true) == $report->status)
-                        
+
                             <div class="d-flex justify-content-center p-4 gap-2">
                                 <div class="action">
                                     <a href="javascript:void(0)" data-status = '{{App\Enums\KYCStatus::value("APPROVED")}}';    class="i-btn btn--sm success update ">

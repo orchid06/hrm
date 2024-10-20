@@ -14,13 +14,13 @@ use Illuminate\Validation\Rules\Enum;
 class SendNotification
 {
 
-       
+
 
        /**
         * send database notifications
         */
        public static function  database_notifications(mixed $sendTo , string $template ,array $tmpCodes ,mixed $route) :void{
-        
+
             $template     = Template::where('slug', $template)->first();
 
             $messages     = notificationMessage($tmpCodes ,$template->sms_body,$sendTo);
@@ -33,7 +33,7 @@ class SendNotification
 
             $sendTo->notifications()->save($notification);
 
-    
+
        }
 
        public static function slack_notifications(mixed $sendTo , string $template , array $tmpCodes ,mixed $route ) :array{
@@ -76,7 +76,7 @@ class SendNotification
                         "text" => array(
                             "type" => "mrkdwn",
                             "text" => $messages
-                    
+
                         ),
                         "accessory" => array(
                             "type" => "button",
@@ -89,9 +89,9 @@ class SendNotification
                             "style" => "primary",
                         )
                     ),
-                
+
                 )
-         
+
             ];
 
             if(site_settings("slack_channel")){
@@ -108,7 +108,7 @@ class SendNotification
                  $status = false;
                  $message = $e->getMessage();
             }
-    
+
 
             return [
                 'status' =>  $status ,

@@ -274,7 +274,7 @@ class AttendanceService
                             }
 
                             #check employee Leave
-                            $employeeLeaves = $user->leaves->where('status', LeaveStatus::approved->status()) ?? [];
+                            $employeeLeaves = $user->leaves->where('status', LeaveStatus::APPROVED->status()) ?? [];
 
                             foreach ($employeeLeaves as $leave) {
 

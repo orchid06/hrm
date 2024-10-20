@@ -149,6 +149,7 @@
         $(document).on('click','.read-notification',function(e){
             var href = $(this).attr('data-href')
             var id = $(this).attr('data-id')
+
             readNotification(href,id)
             e.preventDefault()
         })
@@ -158,7 +159,7 @@
 
             $.ajax({
                 method:'post',
-                url: "{{route('admin.read.notification')}}",
+                url: "{{route('user.read.notification')}}",
                 data:{
                     "_token": "{{ csrf_token()}}",
                     'id':id

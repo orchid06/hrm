@@ -13,18 +13,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
+use App\Http\Utility\SendNotification;
+use App\Jobs\SendMailJob;
+use App\Jobs\SendSmsJob;
 use App\Models\admin\Expense;
 use App\Models\admin\ExpenseCategory;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Models\User;
+use App\Traits\Notifyable;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class LeaveController extends Controller
 {
-    use ModelAction, Fileable;
+    use ModelAction, Fileable, Notifyable;
 
     public function __construct(protected LeaveService $leaveService)
     {
@@ -63,10 +68,12 @@ class LeaveController extends Controller
 
     public function edit($id)
     {
+
+
         return view('admin.leave.edit' ,[
             'title'                 =>  translate('Leave Request Details'),
             'breadcrumbs'           =>  ['Home'=>'admin.home','Leave'=> 'admin.leave.list' , 'Leave request details' => null],
-            'leaveRequest'            =>  Leave::findOrFail($id)
+            'leave'                 =>  $this->leaveService->getSpecificLeaveRequest($id)
         ]);
     }
 
@@ -109,5 +116,58 @@ class LeaveController extends Controller
 
 
         return back()->with('success', translate('Leave Status Updated'));
+    }
+
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            "id"        => ['required',"exists:leaves,id"],
+            "status"    => ['required',Rule::in([LeaveStatus::APPROVED->value,LeaveStatus::DECLINED->value])],
+            "notes"     => ['required',"string",'max:255'],
+        ]);
+
+        $leave   = $this->leaveService->getSpecificLeaveRequest($request->input("id"),LeaveStatus::PENDING);
+
+        $leave->status = $request->input('status');
+        $leave->note  = $request->input('notes');
+        $leave->save();
+
+        $code = [
+            "name"            => $leave->user->name,
+            "status"          => Arr::get(array_flip(LeaveStatus::toArray()),$leave->status ,"Pending")
+        ];
+
+        $route      =  route("user.leave.index");
+
+        $notifications = [
+
+            'database_notifications' => [
+
+                'action' => [SendNotification::class, 'database_notifications'],
+                'params' => [
+                   [ $leave->user, 'LEAVE_UPDATE', $code, $route ]
+                ],
+            ],
+
+            'email_notifications' => [
+
+                'action' => [SendMailJob::class, 'dispatch'],
+                'params' => [
+                   [$leave->user, 'LEAVE_UPDATE', $code],
+                ],
+            ],
+            'sms_notifications' => [
+
+                'action' => [SendSmsJob::class, 'dispatch'],
+                'params' => [
+                    [$leave->user, 'LEAVE_UPDATE', $code],
+                ],
+            ],
+        ];
+
+        $this->notify($notifications);
+
+        return back()->with(response_status("Updated successfully"));
     }
 }
