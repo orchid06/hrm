@@ -42,7 +42,7 @@
 
                         @if(check_permission('view_office_hour'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['user.leave.index' ,'user.leave.request' ])}}"
+                            <a class="sidebar-menu-link {{sidebar_awake(['user.leave.*' ])}}"
                                 href="{{route('user.leave.index')}}">
                                 <span></span>
                                 <p>

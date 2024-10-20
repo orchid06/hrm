@@ -62,7 +62,7 @@ class LeaveController extends Controller
     {
 
         return view('user.leave.requestLeave', [
-            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => null],
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index', 'Request Leave' => null],
             'title'                 => translate('Request Leave'),
             'leaveTypes'            => LeaveType::all(),
         ]);
@@ -77,7 +77,7 @@ class LeaveController extends Controller
 
         $userId = Auth::id();
 
-        if ($this->leaveService->checkOverlappingLeave(userId: $userId, request: $request , leaveId: $leaveId)) {
+        if ($this->leaveService->checkOverlappingLeave(userId: $userId, request: $request, leaveId: $leaveId)) {
             throw ValidationException::withMessages(messages: [
                 'date' => 'You already have a leave request on or within the selected date range.'
             ]);
@@ -97,7 +97,6 @@ class LeaveController extends Controller
         } else {
             // Create a new leave record
             $leave = Leave::create($leaveData);
-
         }
 
         if ($leaveType->custom_inputs) {
@@ -108,7 +107,6 @@ class LeaveController extends Controller
 
             return redirect()->route('user.leave.index')->with('success', translate('Leave request submitted.'));
         }
-
     }
 
     public function cusotmInputForm($id)
@@ -119,11 +117,10 @@ class LeaveController extends Controller
 
 
         return view('user.leave.custom_input', [
-            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => 'user.leave.request' , 'Custom Inputs'=> null],
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index', 'Request Leave' => 'user.leave.request', 'Custom Inputs' => null],
             'title'                 => translate('Custom Inputs'),
             'leave'                 => $leave
         ]);
-
     }
 
     public function cusotmInputStore(Request $request)
@@ -133,14 +130,14 @@ class LeaveController extends Controller
         $leave = Leave::findOrFail($request->input('id'));
 
         $leave->update([
-            'leave_request_data' => (Arr::except($leaveRequestData,['files']))
+            'leave_request_data' => (Arr::except($leaveRequestData, ['files']))
         ]);
 
         if (isset($leaveRequestData['files'])) {
             foreach ($leaveRequestData['files'] as $key => $file) {
                 $response = $this->storeFile(
-                    file     : $file,
-                    location : config("settings")['file_path']['leave_request_data']['path'],
+                    file: $file,
+                    location: config("settings")['file_path']['leave_request_data']['path'],
                 );
 
                 if (isset($response['status'])) {
@@ -159,17 +156,39 @@ class LeaveController extends Controller
         }
 
         return redirect()->route('user.leave.index')->with('success', translate('Leave request submitted.'));
-
     }
 
     public function edit($id)
     {
         return view('user.leave.editRequest', [
-            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index' , 'Request Leave' => null],
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index', 'Request Leave' => null],
             'title'                 => translate('Request Leave'),
             'leaveTypes'            => LeaveType::all(),
             'leave'                 => Leave::findOrFail($id)
         ]);
     }
 
+    public function details($id)
+    {
+        return view('user.leave.details', [
+            'breadcrumbs'           => ['Home' => 'user.home', 'Leaves' => 'user.leave.index', 'Request Details' => null],
+            'title'                 => translate('Leave Request Details '),
+            'leaveTypes'            => LeaveType::all(),
+            'leave'                 => Leave::findOrFail($id)
+        ]);
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        $leave = Leave::findOrFail($id);
+
+
+        if ($leave->status === LeaveStatus::APPROVED->status()) {
+            return back()->withErrors(['error' => 'You cannot delete an approved leave request.']);
+        }
+
+        $leave->delete();
+
+        return back()->with(response_status('Leave request deleted successfully'));
+    }
 }

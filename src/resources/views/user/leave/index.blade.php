@@ -139,7 +139,7 @@ $statusClasses = [
                         </th>
 
                         <th scope="col">
-                            {{translate('Note')}}
+                            {{translate('Action')}}
                         </th>
 
                     </tr>
@@ -183,14 +183,22 @@ $statusClasses = [
                         </td>
 
 
-                        <td data-label="{{translate('Note')}}">
+                        <td data-label="{{translate('Action')}}">
                             <div class="table-action">
-
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" leave="{{$leave}}"
-                                    data-bs-title="{{translate('View details')}}" class="viewDetails icon-btn info">
-                                    <i class="las la-eye"></i>
-                                </button>
-
+                                <a href="{{route('user.leave.details' , $leave->id)}}">
+                                    <button data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('View details')}}" class="icon-btn info">
+                                        <i class="las la-eye"></i>
+                                    </button>
+                                </a>
+                                @if($leave->status != \App\Enums\LeaveStatus::APPROVED->status())
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Delete')}}"
+                                        data-href="{{route('user.leave.destroy',$leave->id)}}"
+                                        class="pointer delete-item icon-btn danger">
+                                        <i class="las la-trash-alt"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>

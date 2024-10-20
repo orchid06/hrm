@@ -168,6 +168,9 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::get('request/custom-input/{id}', 'cusotmInputForm')->name('request.customInput');
             Route::post('request/custom-input/store', 'cusotmInputStore')->name('request.customInput.store');
 
+            Route::get('details/{id}', 'details')->name('details');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+
         });
 
         #Payslip route

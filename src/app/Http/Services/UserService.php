@@ -210,7 +210,7 @@ class UserService
         $graphData          = $this->getGraphData($user->id);
         $currentMonthData   = $this->getCurrentMonthData($user->id);
         $totalPayslip        = Payroll::where('user_id', $user->id)->count();
-        $totalLeave         = Leave::where('user_id', $user->id)->where('status', LeaveStatus::approved->status())->sum('total_days');
+        $totalLeave         = Leave::where('user_id', $user->id)->where('status', LeaveStatus::APPROVED->status())->sum('total_days');
         $userSalary         = $user->userDesignation->net_salary;
 
 
