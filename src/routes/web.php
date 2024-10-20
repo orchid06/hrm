@@ -155,6 +155,7 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::get('/clock_in/reuquest', 'clockInRequest')->name('clock_in.request');
             Route::get('/clock_out/request', 'clockOutRequest')->name('clock_out.request');
             Route::get('attendance/sheet', 'index')->name('index');
+            Route::post('/view/details/', 'viewDetails')->name('view.details');
         });
 
         #Leave route

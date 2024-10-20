@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Services\AttendanceService;
 use App\Models\Attendance;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +28,7 @@ class AttendanceController extends Controller
 
     public function clockInRequest(): RedirectResponse
     {
-        
+
         try {
 
             $this->attendanceService->requestClockIn();
@@ -58,19 +60,45 @@ class AttendanceController extends Controller
         $user = Auth::user();
 
 
-        $attendances = Attendance::where('user_id', $user->id)
-            ->date()
-            ->year()
-            ->month()
-            ->day()
-            ->orderBy('date', 'desc')
-            ->paginate(paginateNumber());
+        $month          = request('month', now()->month);
+        $year           = request('year', now()->year);
+        $currentDate    = Carbon::today();
+
+        $dates          = $this->attendanceService->getDatesOfMonth($month, $year);
+
+        $users          = $this->attendanceService->getAttendance( dates: $dates, currentDate: $currentDate , userId: $user->id);
 
 
-        return view('user.attendance_sheet', [
-            'breadcrumbs'           => ['Home' => 'user.home', 'Attendance' => null],
-            'title'                 => translate('Attendance Sheet'),
-            'attendances'           => $attendances
+        return view('user.attendance.index', [
+            'breadcrumbs'               => ['Home' => 'admin.home', 'Attendance Sheet' => null],
+            'title'                     =>  translate('Attendance Sheet'),
+            'users'                     => $users,
+            'dates'                     => $dates,
+            'currentDate'               => $currentDate,
+            'selectedMonth'             => $month,
+            'selectedYear'              => $year
         ]);
+    }
+
+    public function viewDetails(Request $request): JsonResponse
+    {
+        $user = Auth::user();
+
+        $date = Carbon::create($request->year, $request->month, $request->date);
+
+        $attendance = Attendance::where('user_id', $user->id)
+                                ->whereDate('clock_in', $date)
+                                ->first();
+
+        $status = $attendance ?  'success' :  'fail';
+
+        $html = view('user.attendance.details', ['attendance' => $attendance , 'date'   => $date,])->render();
+
+        return response()->json([
+            'status' => $status,
+            'html'   => $html,
+
+        ]);
+
     }
 }

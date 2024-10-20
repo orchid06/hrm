@@ -137,7 +137,7 @@ class AttendanceService
 
 
 
-    public function getAttendance($dates, $currentDate)
+    public function getAttendance($dates, $currentDate , $userId = null)
     {
 
 
@@ -159,6 +159,9 @@ class AttendanceService
                                      ->whereYear('created_at', $requestedYear);
                     }
             ])->userOnUser()
+                ->when(!empty($userId), function ($query) use ($userId) {
+                    return $query->where('id', $userId); // Filter by userId if it's available
+                })
                 ->get()
                 ->map(function (User $user) use ($officeHolidays, $officeSchedules, $dates, $currentDate) {
 

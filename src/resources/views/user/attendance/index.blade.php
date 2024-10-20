@@ -1,52 +1,50 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 @push('style-include')
 <style>
 
-        tr:nth-child(even) td {
-            background-color: #f1f1f1;
-        }
-        .date-header {
-            font-size: 11px;
-        }
-        .date-header span {
-            font-size: 15px;
-            display: block;
-            font-weight: bold;
-            margin-top: 5px;
-            max-width: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .current-date {
-            background-color: #ff0800;
-            color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-        .employee-name {
-            text-align: left;
-            font-weight: bold;
-            color: #333;
-            background-color: #f1f1f1;
-        }
-        .employee-name:hover {
-            background-color: #eaeaea;
-        }
-        /* Hover effect for attendance data */
-        td:hover {
-            background-color: #f5f5f5;
-            cursor: pointer;
-        }
-        table thead th {
-            position: sticky;
-            top: 0;
-        }
+    tr:nth-child(even) td {
+        background-color: #f1f1f1;
+    }
+    .date-header {
+        font-size: 11px;
+    }
+    .date-header span {
+        font-size: 15px;
+        display: block;
+        font-weight: bold;
+        margin-top: 5px;
+        max-width: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .current-date {
+        background-color: #ff0800;
+        color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .employee-name {
+        text-align: left;
+        font-weight: bold;
+        color: #333;
+        background-color: #f1f1f1;
+    }
+    .employee-name:hover {
+        background-color: #eaeaea;
+    }
+    /* Hover effect for attendance data */
+    td:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+    table thead th {
+        position: sticky;
+        top: 0;
+    }
 </style>
 @endpush
 @section('content')
-
-
 <div class="i-card-md">
     <div class="card--header">
         <h4>{{ \Carbon\Carbon::create()->month($selectedMonth)->format('F') }} -  {{$selectedYear}}</h4>
@@ -76,19 +74,6 @@
 
 
                         <form action="{{route(Route::currentRouteName())}}" method="get">
-
-                            <div class="form-inner">
-                                <select name="user_id" class="select2" id="user_id"
-                                    placeholder="{{translate('Select a User')}}">
-                                    <option value="">{{translate('User')}}</option>
-                                    @foreach(App\Models\User::all() as $user)
-                                    <option value="{{ $user->id }}" {{ request()->input('user_id') == $user->id ?
-                                        'selected' :'' }}>
-                                        {{ $user->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
 
                             <div class="form-inner">
                                 <select name="month" class="select2" id="month"
@@ -190,11 +175,9 @@
 	     </div>
 	   </div>
 </div>
-
 @endsection
 
 @section('modal')
-
 <div class="modal fade modal-md" id="attendanceDetails" tabindex="-1" aria-labelledby="attendanceDetails" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
@@ -219,21 +202,17 @@
                     <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
                         {{translate("Close")}}
                     </button>
-                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
-                        {{translate("Submit")}}
-                    </button>
                 </div>
               </form>
           </div>
     </div>
 </div>
 
-@endsection
 
+@endsection
 @push('script-include')
 
 @endpush
-
 @push('script-push')
 <script>
     "use strict"
@@ -253,7 +232,7 @@
         modal.modal('show');
 
         $.ajax({
-            url: "{{ route('admin.attendance.view.details') }}",
+            url: "{{ route('user.attendance.view.details') }}",
             type: 'POST',
             data: {
                 date: date,
@@ -291,3 +270,9 @@
 
 </script>
 @endpush
+
+
+
+
+
+

@@ -89,7 +89,7 @@ class HomeController extends Controller
 
 
         $data['total_leave'] = Leave::where('user_id', $user->id)
-            ->where('status', LeaveStatus::approved->status())
+            ->where('status', LeaveStatus::APPROVED->status())
             ->count();
 
         $designation = UserDesignation::where('user_id' , $user->id)
