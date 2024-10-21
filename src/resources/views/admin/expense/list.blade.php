@@ -191,8 +191,14 @@
 
                         <td data-label='{{translate("Options")}}'>
                             <div class="table-action">
-                                @if(check_permission('update_expense') || check_permission('delete_expense') )
+                                @if(check_permission('update_expense') || check_permission('delete_expense') || check_permission('view_expense'))
 
+                                @if(check_permission('view_expense') )
+                                    <a href="{{route('admin.expense.details', $expense->uid)}}" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" data-bs-title="{{translate('View details')}}" class="icon-btn info">
+                                        <i class="las la-eye"></i>
+                                    </a>
+                                @endif
                                 @if(check_permission('update_expense') )
                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
                                     data-bs-title="{{translate('Update')}}" href="javascript:void(0);"

@@ -10,8 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
-use App\Models\admin\Expense;
-use App\Models\admin\ExpenseCategory;
+use App\Models\Admin\Expense;
+use App\Models\Admin\ExpenseCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -130,6 +130,8 @@ class ExpenseController extends Controller
             'description'               => $request->input('description'),
         ]);
 
+        
+
         return back()->with(response_status('Expense addedd successfully'));
     }
 
@@ -165,5 +167,17 @@ class ExpenseController extends Controller
         $expense = Expense::whereUid($uid)->first();
         $expense->delete();
         return back()->with(response_status('Expense deleted successfully'));
+    }
+
+    public function details($uid)
+    {
+
+        return view('admin.expense.details', [
+
+            'breadcrumbs'           =>  ['Home' => 'admin.home', 'Expense' => 'admin.expense.list' , 'Expense details' => null ],
+            'title'                 =>  translate('Expense details'),
+            'expenses'              =>  Expense::with('category')
+                                                ->whereUid($uid)->first()
+        ]);
     }
 }

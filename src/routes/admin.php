@@ -335,6 +335,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
 
+
         });
 
         #Office expense section
@@ -348,6 +349,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/', 'update')->name('update');
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
+            Route::get('/details/{uid}', 'details')->name('details');
         });
 
         #Office hours
