@@ -155,6 +155,7 @@ class SalaryController extends Controller
                                                         ->month()
                                                         ->year()
                                                         ->user()
+                                                        ->orderBy('created_at', 'desc')
                                                         ->paginate(paginateNumber())
                                                         ->appends(request()->all()),
             'selectedMonth'             => $month,
@@ -169,7 +170,7 @@ class SalaryController extends Controller
 
 
         $request->validate([
-            'userId'  => 'required|exists:users,id',
+            'user_id'  => 'required|exists:users,id',
             'for_month' => ['required','integer', "min:$currentMonth",'max:12'],
             'amount'    => 'required|numeric|min:1',
             'note'      => 'nullable|string|max:250',
@@ -178,15 +179,44 @@ class SalaryController extends Controller
         ]);
 
         AdvanceSalary::create([
-            'user_id'   => $request->input('userId'),
+            'user_id'   => $request->input('user_id'),
             'for_month' => Carbon::create(now()->year, $request->input('for_month'), now()->day, now()->hour, now()->minute, now()->second),
             'amount'    => $request->input('amount'),
             'note'      => $request->input('note')
         ]);
 
-        return back()->with(response_status('Advance salary created successfully'));
+        return back()->with(response_status('Advance salary record created successfully'));
 
     }
 
-    
+    public function advanceSalaryUpdate(Request $request)
+    {
+        $currentMonth  = Carbon::now()->month;
+
+        $request->validate([
+            'id'        => 'required|integer|exists:advance_salaries,id',
+            'user_id'   => 'required|integer|exists:users,id',
+            'for_month' => ['required','integer', "min:$currentMonth",'max:12'],
+            'amount'    => 'required|numeric|min:1',
+            'note'      => 'nullable|string|max:255',
+        ]);
+
+        AdvanceSalary::findOrFail($request->input('id'))->update([
+           'user_id'    => $request->input('id'),
+           'for_month'  => Carbon::create(now()->year, $request->input('for_month'), now()->day, now()->hour, now()->minute, now()->second),
+           'amount'     => $request->input('amount'),
+           'note'       => $request->input('note')
+        ]);
+
+        return back()->with(response_status('Advance salary record updated successfully'));
+    }
+
+    public function advanceSalaryDestroy($id)
+    {
+        AdvanceSalary::findOrFail($id)->delete();
+
+        return back()->with(response_status('Advanced salary record deleted successfully'));
+    }
+
+
 }

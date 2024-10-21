@@ -123,7 +123,30 @@
                             </td>
 
                             <td data-label="{{translate('Options')}}">
+                                <div class="table-action">
+                                    @if(check_permission('update_salary') || check_permission('delete_salary') )
 
+                                    @if(check_permission('update_salary') )
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Update')}}" href="javascript:void(0);"
+                                        data-salary="{{$advanceSalary}}" class="update icon-btn warning"><i
+                                            class="las la-pen"></i>
+                                    </a>
+                                    @endif
+
+                                    @if(check_permission('delete_salary'))
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Delete')}}"
+                                        data-href="{{route('admin.salary.advance.destroy',$advanceSalary->id)}}"
+                                        class="pointer delete-item icon-btn danger">
+                                        <i class="las la-trash-alt"></i>
+                                    </a>
+                                    @endif
+                                    @else
+                                    {{translate('N/A')}}
+                                    @endif
+
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -161,7 +184,7 @@
 
                     <div class="form-inner">
                         <label for="userId">{{translate('Employee')}} <small class="text-danger">*</small></label>
-                        <select name="userId" class="select2" id="userId" placeholder="{{translate('Select a Employee')}}">
+                        <select name="user_id" class="select2" id="userId" placeholder="{{translate('Select a Employee')}}">
                             <option value="">{{translate('Select an Employe')}}</option>
                             @foreach($users as $user)
                             <option value="{{ $user->id }}" >
@@ -207,8 +230,73 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modal-md" id="updateAdvanceSalary" tabindex="-1" aria-labelledby="updateAdvanceSalary" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{translate('Update Advance Salary')}}
+                </h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <form action="{{route('admin.salary.advance.update')}}" method="post" class="add-listing-form">
+                @csrf
+                <input type="hidden" name="id">
+
+                <div class="modal-body">
+
+                    <div class="form-inner">
+                        <label for="edit-userId">{{translate('Employee')}} <small class="text-danger">*</small></label>
+                        <select name="user_id" class="select2" id="edit-userId" placeholder="{{translate('Select a Employee')}}">
+                            <option value="">{{translate('Select an Employe')}}</option>
+                            @foreach($users as $user)
+                            <option value="{{ $user->id }}" >
+                                {{ $user->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="edit-for_month">{{translate('For Month')}} <small class="text-danger">*</small></label>
+                        <select name="for_month" class="select2" id="edit-for_month"
+                            placeholder="{{translate('Select a month')}}">
+                            <option value="">{{translate('Select a month')}}</option>
+                            @foreach(range(\Carbon\Carbon::now()->month, 12) as $month)
+                            <option value="{{ $month }}" >
+                                {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="edit-amount">{{translate('Amount')}}<small class="text-danger">*</small></label>
+                        <input type="number" name="amount" id="edit-amount" required>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="edit-note">{{ translate('Note') }}</label>
+                        <textarea name="note" id="edit-note" required></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        {{translate("Submit")}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @include('modal.delete_modal')
-@include('modal.bulk_modal')
 @endsection
 
 @push('script-include')
@@ -229,6 +317,29 @@
                 placeholder: $(this).attr('placeholder'),
                 dropdownParent: $("#createAdvanceSalary"),
             })
-        });
+    });
+
+    $(document).on('click', '.update', function (e) {
+
+        var advanceSalry = JSON.parse($(this).attr("data-salary"))
+        var modal = $('#updateAdvanceSalary')
+
+        var date = new Date(advanceSalry.for_month);
+        var month = date.getMonth() + 1;
+
+        modal.find('input[name="id"]').val(advanceSalry.id)
+        modal.find('select[name="user_id"]').val(advanceSalry.user_id).trigger('change')
+        modal.find('select[name="for_month"]').val(month).trigger('change')
+        modal.find('input[name="amount"]').val(advanceSalry.amount)
+        modal.find('textarea[name="note"]').val(advanceSalry.note)
+
+        modal.modal('show')
+
+        $(".select2").select2({
+                placeholder: $(this).attr('placeholder'),
+                dropdownParent: $("#updateAdvanceSalary"),
+        })
+
+    })
 </script>
 @endpush

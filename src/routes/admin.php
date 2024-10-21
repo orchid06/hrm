@@ -291,6 +291,8 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
             Route::get('/advance-salary', 'advanceSalary')->name('advance.list');
             Route::post('/advance-salary/store', 'advanceSalaryStore')->name('advance.store');
+            Route::post('/advance-salary/update', 'advanceSalaryUpdate')->name('advance.update');
+            Route::get('/advance-salary/destroy/{id}', 'advanceSalaryDestroy')->name('advance.destroy');
         });
 
         #Payroll section
