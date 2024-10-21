@@ -83,12 +83,7 @@
                         <th scope="col">
                             {{translate('Name')}}
                         </th>
-                        <th scope="col"  >
-                            {{translate('Employee ID')}}
-                        </th>
-                        <th scope="col"  >
-                            {{translate('Designation')}}
-                        </th>
+
                         <th scope="col"  >
                             {{translate('For Month')}}
                         </th>
@@ -114,17 +109,6 @@
 
                                 </div>
                             </td>
-
-                            <td  data-label="{{translate('Employee ID')}}">
-                                {{@$advanceSalary->user->employee_id}}
-                            </td>
-
-                            <td data-label="{{translate('Designation')}}">
-                                <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="">
-                                    {{@$advanceSalary->user->userDesignation->designation->name?? translate("N/A")}}
-                                </span>
-                            </td>
-
                             <td data-label='{{translate("For Month")}}'>
                                 <div class="d-block">
                                     <span class="i-badge info">{{\Carbon\Carbon::parse($advanceSalary->for_month)->format('F') }}</span>
@@ -139,7 +123,7 @@
                             </td>
 
                             <td data-label="{{translate('Options')}}">
-                                
+
                             </td>
                         </tr>
                     @empty
