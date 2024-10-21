@@ -327,8 +327,8 @@
 
                         @if(check_permission('create_salary'))
                         <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
-                                href="{{route('admin.salary.list')}}">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.advance.*' ])}}"
+                                href="{{route('admin.salary.advance.list')}}">
                                 <span></span>
                                 <p>
                                     {{translate('Advance salary')}}

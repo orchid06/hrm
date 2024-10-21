@@ -82,8 +82,6 @@ class ExpenseCategoryController extends Controller
 
         return back()->with(response_status('Category updated successfully '));
 
-
-
     }
 
     public function updateStatus(Request $request) {

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Enums\StatusEnum;
 use App\Models\Admin;
+use App\Models\Admin\AdvanceSalary;
 use App\Models\Admin\BankAccount;
 use App\Models\Admin\Payroll;
 use App\Models\Admin\UserDesignation;
@@ -302,6 +303,11 @@ class User extends Authenticatable
     public function leaves(): HasMany
     {
         return $this->hasMany(Leave::class , 'user_id');
+    }
+
+    public function advanceSalaries(): HasMany
+    {
+        return $this->hasMany(AdvanceSalary::class , 'user_id');
     }
 
 

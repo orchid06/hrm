@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\SalaryTypeEnum;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AdvanceSalary;
 use App\Models\Admin\Designation;
 use App\Models\Admin\UserDesignation;
 use App\Models\User;
+use App\Rules\Admin\FutureOrCurrentMonth;
 use App\Traits\Fileable;
 use App\Traits\ModelAction;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -137,4 +140,53 @@ class SalaryController extends Controller
 
         return back()->with('success', trans('Salary setting stored successfully'));
     }
+
+    public function advanceSalary()
+    {
+        $month          = request('month', now()->month);
+        $year           = request('year', now()->year);
+
+
+
+        return view('admin.advance_salary.list', [
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Advance salaries' => 'admin.salary.advance.list' ],
+            'title'         => translate('Advance Salary '),
+            'advanceSalaries'           => AdvanceSalary::with('user')
+                                                        ->month()
+                                                        ->year()
+                                                        ->user()
+                                                        ->paginate(paginateNumber())
+                                                        ->appends(request()->all()),
+            'selectedMonth'             => $month,
+            'selectedYear'              => $year,
+            'users'                     => User::all()
+        ]);
+    }
+
+    public function advanceSalaryStore(Request $request)
+    {
+        $currentMonth  = Carbon::now()->month;
+
+
+        $request->validate([
+            'userId'  => 'required|exists:users,id',
+            'for_month' => ['required','integer', "min:$currentMonth",'max:12'],
+            'amount'    => 'required|numeric|min:1',
+            'note'      => 'nullable|string|max:250',
+        ],[
+            'for_month' => translate('The selected month must be the current or a future month.')
+        ]);
+
+        AdvanceSalary::create([
+            'user_id'   => $request->input('userId'),
+            'for_month' => Carbon::create(now()->year, $request->input('for_month'), now()->day, now()->hour, now()->minute, now()->second),
+            'amount'    => $request->input('amount'),
+            'note'      => $request->input('note')
+        ]);
+
+        return back()->with(response_status('Advance salary created successfully'));
+
+    }
+
+    
 }
