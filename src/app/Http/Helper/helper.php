@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\LazyCollection;
 
 use App\Traits\Fileable;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 
 class HelperClass
@@ -1143,5 +1144,16 @@ if (!function_exists('formatTime')) {
             $remainingMinutes = $minutes % 60;
             return $hours . ' hours ' . ($remainingMinutes > 0 ? $remainingMinutes . ' minutes' : '');
         }
+    }
+}
+
+if(!function_exists('getDates')){
+     function getDates($month, $year)
+    {
+        return collect(CarbonPeriod::create("$year-$month-01", '1 day', Carbon::create($year, $month)->endOfMonth()))
+            ->map(fn($date) => (object)[
+                'parse_date' => $date->format('d'),
+                'original_format' => $date
+            ])->all();
     }
 }

@@ -40,7 +40,7 @@ class UserRequest extends FormRequest
             'email_verified'     => ['nullable', Rule::in(StatusEnum::toArray())],
 
             'date_of_birth'      => ['required','date', 'before:today'],
-            'employee_id'        => ['required', "string" , "max:100"],
+            'employee_id'        => ['required', 'string' , 'max:100' , 'unique:users,employee_id'],
             'date_of_joining'    => ['required','date', ],
             'designation_id'     => ['required','exists:designations,id'],
 

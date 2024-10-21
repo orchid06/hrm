@@ -35,7 +35,7 @@ class LeaveService
     {
         if (!$startDate || !$endDate) return false;
 
-        $startDate = Carbon::parse($startDate);
+        $startDate = Carbon::parse(time: $startDate);
         $endDate = Carbon::parse($endDate);
 
         return Leave::where('user_id', $userId)

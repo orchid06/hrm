@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Enums\StatusEnum;
+use App\Http\Services\SettingService;
 use App\Models\admin\Expense;
 use App\Models\admin\ExpenseCategory;
 use App\Models\Core\Setting;
@@ -148,14 +149,11 @@ class HolidayController extends Controller
 
         $status = translate('Holiday has been updated');
 
-        try {
-            Setting::updateOrCreate(
-                ['key' => 'holidays'],
-                ['value'   => json_encode($holidays)]
-            );
-        } catch (Exception $e) {
-            $status = $e->getMessage();
-        }
+        $data = [
+            'holidays' => $holidays
+        ];
+
+        (new SettingService())->updateSettings($data);
 
 
         optimize_clear();

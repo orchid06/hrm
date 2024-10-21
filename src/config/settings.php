@@ -354,7 +354,11 @@ return [
         "google_recaptcha",
         "login_with",
         'site_meta_keywords',
-        'rand_api_key'
+        'rand_api_key',
+        'holidays',
+        'attendance_settings',
+        'office_hour',
+        'allowance',
     ],
 
 

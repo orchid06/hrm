@@ -1,6 +1,8 @@
+@if($attendance)
+
 @php
-$formattedClockIn  = \Carbon\Carbon::parse($attendance->clock_in)->format('h:i A');
-$formattedClockOut = \Carbon\Carbon::parse($attendance->clock_out)->format('h:i A');
+$formattedClockIn  = $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('h:i A') : '--';
+$formattedClockOut = $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('h:i A'): '--';
 $hours = floor($attendance->late_time / 60);
 $minutes = $attendance->late_time % 60;
 $formattedLateTime = ($hours > 0 ? $hours . ' hour ' : '') . ($minutes > 0 ? $minutes . ' mins' : '');
@@ -8,7 +10,7 @@ $formattedLateTime = ($hours > 0 ? $hours . ' hour ' : '') . ($minutes > 0 ? $mi
 $hours = floor($attendance->work_hour / 60);
 $minutes = $attendance->work_hour % 60;
 
-$formattedWorkHour = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $minutes . ' mins' : '');
+$formattedWorkHour = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $minutes . ' mins' : '') ?? '--';
 
 
 
@@ -66,3 +68,6 @@ $lists  =  [
 
     @endforeach
 </ul>
+@else
+    @include('admin.partials.not_found',['custom_message' => "No attendance record found!!"])
+@endif

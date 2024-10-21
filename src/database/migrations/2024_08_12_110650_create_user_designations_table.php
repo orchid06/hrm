@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('uid', 100)->index()->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('designation_id');
+            $table->decimal('basic_salary');
             $table->longText('salary')->nullable();
             $table->decimal('net_salary')->nullable();
             $table->enum('payslip_cycle', [array_values(PayslipCycle::toArray())])->index()->default(PayslipCycle::MONTHLY)->comment('Weekly : 1, Bi_weekly : 2, Monthly : 3');

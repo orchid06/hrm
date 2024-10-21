@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\PayrollService;
+use App\Http\Services\SettingService;
 use App\Models\Admin\Payroll;
 use App\Models\User;
 use App\Traits\Fileable;
@@ -12,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class PayrollController extends Controller
@@ -122,6 +125,57 @@ class PayrollController extends Controller
             'formattedMonth'        => $formattedMonth,
             'payrolls'              => $payrolls,
             'cardData'              => $cardData
+        ]);
+    }
+
+    public function allowance()
+    {
+        return view('admin.payroll.allowance', [
+            'breadcrumbs'           => ['Home' => 'admin.home', 'Allowance & Bonus' => null],
+            'title'                 => translate('Allowance & Bonus'),
+        ]);
+    }
+
+    public function allowanceStore(Request $request)
+    {
+        $request->validate([
+            'labels.*'          => 'required',
+            'type.*'            => 'required',
+            'amount.*'          => 'required|numeric|gt:0',
+            'is_percentage.*'   => ['required',Rule::in(StatusEnum::toArray())],
+        ]);
+
+        $custom_inputs      = $request->input('custom_inputs');
+
+        foreach ($custom_inputs as $input) {
+            if (is_array($input) && isset($input['labels'])) {
+                $key = t2k($input['labels']);
+
+                $is_percentage = $input['is_percentage'] ?? StatusEnum::false->status();
+
+                $allowance[] = [
+                    'labels'        => $input['labels'],
+                    'type'          => $input['type'],
+                    'amount'        => $input['amount'],
+                    'default'       => $input['default'],
+                    'is_percentage' => $is_percentage,
+                    'key'           => $key
+                ];
+
+            }
+        }
+
+        $data =[
+            'allowance' => $allowance
+        ];
+
+        (new SettingService())->updateSettings($data);
+
+        optimize_clear();
+
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Allowance has been updated')
         ]);
     }
 }

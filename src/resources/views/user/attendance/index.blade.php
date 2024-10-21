@@ -252,10 +252,7 @@
                 `);
             },
             success: function(response) {
-
-                console.log(response);
-
-
+                
                 modal.find('.modal-body').html(response.html);
 
             },

@@ -303,6 +303,8 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/', 'update')->name('update');
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
+            Route::get('/allowance-bonus', 'allowance')->name('allowance');
+            Route::post('/allowance-bonus/store', 'allowanceStore')->name('allowance.store');
         });
 
         #payslip Controller

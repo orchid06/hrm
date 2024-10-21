@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\SettingService;
 use App\Models\Core\Setting;
 use Illuminate\Http\Request;
 use App\Traits\Fileable;
@@ -67,12 +68,13 @@ class OfficeHourController extends Controller
 
         })->collapse()->all();
 
+        $data = [
+            'office_hour' => $officeHour
+        ];
 
+        (new SettingService())->updateSettings($data);
 
-        Setting::updateOrInsert(
-            ['key'    => 'office_hour'],
-            ['value'  => json_encode($officeHour)]
-        );
+        
 
         optimize_clear();
 

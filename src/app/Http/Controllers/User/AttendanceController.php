@@ -64,7 +64,7 @@ class AttendanceController extends Controller
         $year           = request('year', now()->year);
         $currentDate    = Carbon::today();
 
-        $dates          = $this->attendanceService->getDatesOfMonth($month, $year);
+        $dates          = getDates($month, $year);
 
         $users          = $this->attendanceService->getAttendance( dates: $dates, currentDate: $currentDate , userId: $user->id);
 
@@ -90,14 +90,10 @@ class AttendanceController extends Controller
                                 ->whereDate('clock_in', $date)
                                 ->first();
 
-        $status = $attendance ?  'success' :  'fail';
-
-        $html = view('user.attendance.details', ['attendance' => $attendance , 'date'   => $date,])->render();
 
         return response()->json([
-            'status' => $status,
-            'html'   => $html,
-
+            'status' => $attendance ?  true : false,
+            'html'   => view('user.attendance.details', ['attendance' => $attendance , 'date'   => $date,])->render(),
         ]);
 
     }

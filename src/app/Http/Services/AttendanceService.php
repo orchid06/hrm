@@ -51,7 +51,7 @@ class AttendanceService
         $userId     = Auth::id();
         $today      = Carbon::today()->toDateString();
 
-        $attendance = Attendance::where('user_id', $userId)->where('date', $today)->first();
+        $attendance = Attendance::where('user_id', operator: $userId)->where('date', $today)->first();
 
 
         if (!$attendance) throw new \Exception('You must clock in first.');
@@ -76,10 +76,10 @@ class AttendanceService
         );
     }
 
-    public function processClockIn($clockInTime)
+    public function processClockIn($clockInTime): int
     {
         $officeHours                = json_decode(site_settings('office_hour'), true);
-        $day                        = t2k($clockInTime->format('l'));
+        $day                        = t2k(text: $clockInTime->format('l'));
         $referenceDate              = $clockInTime->format('Y-m-d');
         $ClockInTimeString          = $clockInTime->format('h:i A');
         $todaySchedule              = $officeHours[$day] ?? null;
@@ -315,17 +315,5 @@ class AttendanceService
             });
 
         return $users;
-    }
-
-
-
-    public function getDatesOfMonth($month, $year)
-    {
-
-        return collect(CarbonPeriod::create("$year-$month-01", '1 day', Carbon::create($year, $month)->endOfMonth()))
-            ->map(fn($date) => (object)[
-                'parse_date' => $date->format('d'),
-                'original_format' => $date
-            ])->all();
     }
 }

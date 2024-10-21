@@ -289,6 +289,18 @@
                     id="Payroll">
                     <ul class="sub-menu">
 
+                        @if(check_permission('create_payroll'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.payroll.allowance' ,'admin.payroll.allowance.*' ])}}"
+                                href="{{route('admin.payroll.allowance')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Allowance and Bonus')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
                         @if(check_permission('view_salary'))
                         <li class="sub-menu-item">
                             <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
@@ -307,7 +319,19 @@
                                 href="{{route('admin.payroll.list')}}">
                                 <span></span>
                                 <p>
-                                    {{translate('Payroll')}}
+                                    {{translate('Generate Payroll')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(check_permission('create_salary'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
+                                href="{{route('admin.salary.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Advance salary')}}
                                 </p>
                             </a>
                         </li>
