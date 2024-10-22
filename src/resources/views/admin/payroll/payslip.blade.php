@@ -145,16 +145,27 @@
 
                                 </tr>
                                 @php
-                                    $basic_salary = @json_decode($payroll->details)->basic_salary->amount;
+                                    $basic_salary = $payroll->basic_salary;
                                 @endphp
+
+                                <tr style="border: 1px solid #dddddd; border-style:solid !important;">
+                                    <td style="text-align: left; padding: 8px"> {{translate('Basic Salary')}} </td>
+                                    <td style="text-align: center; padding: 8px"> {{$payroll->basic_salary}} </td>
+                                </tr>
 
                                 @foreach(json_decode($payroll->details) as $detail)
                                 <tr style="border: 1px solid #dddddd; border-style:solid !important;">
                                     <td style="text-align: left; padding: 8px"> {{@$detail->labels}} {{@$detail->is_percentage ? "($detail->amount %)" :""}} </td>
                                     <td style="text-align: center; padding: 8px"> {{@$detail->is_percentage ? @$basic_salary*($detail->amount/100) :@$detail->amount}} </td>
-
                                 </tr>
                                 @endforeach
+
+                                @if($payroll->user->advanceSalaries)
+                                    <tr style="border: 1px solid #dddddd; border-style:solid !important;">
+                                        <td style="text-align: left; padding: 8px"> {{translate('Advance Salary')}} </td>
+                                        <td style="text-align: center; padding: 8px"> - {{$payroll->user->advanceSalaries->sum('amount')}} </td>
+                                    </tr>
+                                @endif
 
                                 <tr style="border: 1px solid #dddddd; border-style:solid !important;">
                                     <td style="
@@ -319,9 +330,6 @@
                         </div>
                     </div>
 
-
-
-
                     <div style="padding: 30px 30px 0">
                         <h1 style=" font-size: 16px;font-weight: 600;text-align: center;margin: 0;">
                             {{translate('Salary Information')}}
@@ -352,16 +360,27 @@
 
                                 </tr>
                                 @php
-                                    $basic_salary = @json_decode($payroll->details)->basic_salary->amount;
+                                    $basic_salary = $payroll->basic_salary;
                                 @endphp
+
+                                <tr style="border: 1px solid #dddddd; border-style:solid !important;">
+                                    <td style="text-align: left; padding: 8px"> {{translate('Basic Salary')}} </td>
+                                    <td style="text-align: center; padding: 8px"> {{$payroll->basic_salary}} </td>
+                                </tr>
 
                                 @foreach(json_decode($payroll->details) as $detail)
                                 <tr style="border: 1px solid #dddddd; border-style:solid !important;">
                                     <td style="text-align: left; padding: 8px"> {{@$detail->labels}} {{@$detail->is_percentage ? "($detail->amount %)" :""}} </td>
                                     <td style="text-align: center; padding: 8px"> {{@$detail->is_percentage ? @$basic_salary*($detail->amount/100) :@$detail->amount}} </td>
-
                                 </tr>
                                 @endforeach
+
+                                @if($payroll->user->advanceSalaries)
+                                    <tr style="border: 1px solid #dddddd; border-style:solid !important;">
+                                        <td style="text-align: left; padding: 8px"> {{translate('Advance Salary')}} </td>
+                                        <td style="text-align: center; padding: 8px"> - {{$payroll->user->advanceSalaries->sum('amount')}} </td>
+                                    </tr>
+                                @endif
 
                                 <tr style="border: 1px solid #dddddd; border-style:solid !important;">
                                     <td style="

@@ -319,7 +319,7 @@
                                 href="{{route('admin.payroll.list')}}">
                                 <span></span>
                                 <p>
-                                    {{translate('Generate Payroll')}}
+                                    {{translate('Manage Payslip')}}
                                 </p>
                             </a>
                         </li>

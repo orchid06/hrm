@@ -190,7 +190,7 @@ return [
         [
             'labels'      => 'Basic salary',
             'name'        => 'Basic Salary',
-            'type'        => SalaryTypeEnum::allowance->status(),
+            'type'        => SalaryTypeEnum::ALLOWANCE->status(),
             'default'     => StatusEnum::true->status(),
             'amount'      => ''
         ]

@@ -117,9 +117,7 @@
                             <th scope="col"  >
                                 {{translate('Designation')}}
                             </th>
-                            <th scope="col"  >
-                                {{translate('Payslip type')}}
-                            </th>
+
                             <th scope="col">
                                 {{translate('Basic Salary')}}
                             </th>
@@ -162,35 +160,51 @@
                                     </span>
                                 </td>
 
-                                <td data-label='{{translate("Payslip type")}}'>
+                                {{-- <td data-label='{{translate("Payslip type")}}'>
                                     <div class="d-block">
                                         <span class="i-badge info">{{$payroll->user->userDesignation? @ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) : "N/A"}}</span>
                                     </div>
-                                </td>
+                                </td> --}}
                                 <td data-label="{{translate('Basic salary')}}">
 
-                                    <span class="i-badge capsuled warning" >{{num_format(@json_decode($payroll->user->userDesignation->salary)->basic_salary->amount , $currency)}}</span>
+                                    <span class="i-badge capsuled warning" >{{num_format(@json_decode($payroll->basic_salary) , $currency)}}</span>
                                 </td>
                                 <td data-label="{{translate('Net Salary')}}">
                                     <span class="i-badge capsuled success" >
-                                        {{num_format(@$payroll->user->userDesignation->net_salary , $currency)}}
+                                        {{num_format(@$payroll->net_pay , $currency)}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Status')}}">
-                                    <span class="i-badge capsuled {{@$payroll->user->payslip ?'success' : 'danger'}}" >
-                                        {{@$payroll->user->payslip ? 'Paid' : 'Unpaid'}}
+                                    <span class="i-badge capsuled {{@$payroll->status == \App\Enums\StatusEnum::true->status() ?'success' : 'danger'}}" >
+                                        {{@$payroll->status == \App\Enums\StatusEnum::true->status() ? 'Paid' : 'Unpaid'}}
                                     </span>
                                 </td>
                                 <td data-label="{{translate('Options')}}">
-                                   <a href="{{route('admin.payslip.print' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Print'}}">
-                                        <i class="las la-print icon-large"></i>
+                                    @if(check_permission('view_payroll') )
+                                    <a href="{{route('admin.payslip.print' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details')}}">
+                                        <i class="las la-eye"></i>
                                     </a>
-                                    <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Download Pdf'}}">
-                                        <i class="las la-file-pdf icon-large"></i>
-                                    </a>
-                                    <a href="{{route('admin.payslip.send'  , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="fs-18 link-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{'Send Mail'}}">
-                                        <i class="las la-paper-plane icon-large"></i>
-                                    </a>
+                                    @endif
+
+                                    @if(check_permission('update_payroll') )
+                                        <a href="{{route('admin.payroll.edit'  , $payroll->uid)}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-title="{{translate('Update')}}"
+                                            class="update icon-btn warning">
+                                            <i class="las la-pen"></i>
+                                        </a>
+                                    @endif
+
+                                    @if(check_permission('download_payslip') )
+                                        <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
+                                            <i class="las la-file-pdf"></i>
+                                        </a>
+                                    @endif
+
+                                    @if(check_permission('send_payslip') )
+                                        <a href="{{route('admin.payslip.send'  , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Send Mail')}}">
+                                            <i class="las la-paper-plane"></i>
+                                        </a>
+                                    @endif
 
 
                                 </td>

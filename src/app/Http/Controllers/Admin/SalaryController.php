@@ -120,7 +120,7 @@ class SalaryController extends Controller
                 ? $amount = $baseSalary*($input['amount']/100)
                 : $amount = $input['amount'];
 
-                $input['type'] == SalaryTypeEnum::allowance->status()
+                $input['type'] == SalaryTypeEnum::ALLOWANCE->status()
                 ? $total_allowance += $amount
                 : $total_deduction += $amount;
 

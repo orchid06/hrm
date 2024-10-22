@@ -1,11 +1,12 @@
 @extends('admin.layouts.master')
 @section('content')
 @php
-	$allowanceSettings     = !is_array(site_settings('allowance',[])) ?  json_decode(site_settings('allowance',[]),true) : [];
+	$allowanceSettings     = json_decode($payroll->details ,true);
     $salaryType            = App\Enums\SalaryTypeEnum::toArray();
 @endphp
-<form data-route="{{route('admin.payroll.allowance.store')}}"  class="settingsForm" method="POST">
+<form data-route="{{route('admin.payroll.update')}}"  class="settingsForm" method="POST">
     @csrf
+    <input type="hidden" name="uid" value="{{$payroll->uid}}">
     <div class="i-card-md">
         <div class="card--header">
             <div class="action">
@@ -110,7 +111,6 @@
         </div>
     </div>
 </form>
-
 @endsection
 
 @section('modal')

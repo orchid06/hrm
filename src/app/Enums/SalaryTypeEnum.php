@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum SalaryTypeEnum {
 
-    case allowance;
-    case deduction;
+    case ALLOWANCE;
+    case DEDUCTION;
 
     /**
      * get enum status
@@ -14,16 +14,16 @@ enum SalaryTypeEnum {
     {
         return match($this)
         {
-            SalaryTypeEnum::allowance => '1',
-            SalaryTypeEnum::deduction => '0',
+            SalaryTypeEnum::ALLOWANCE => '1',
+            SalaryTypeEnum::DEDUCTION => '0',
         };
     }
 
 
     public static function toArray() :array{
         return [
-            'Allowance' => (SalaryTypeEnum::allowance)->status(),
-            'Deduction' => (SalaryTypeEnum::deduction)->status()
+            'Allowance' => (SalaryTypeEnum::ALLOWANCE)->status(),
+            'Deduction' => (SalaryTypeEnum::DEDUCTION)->status()
         ];
     }
 

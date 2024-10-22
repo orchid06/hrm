@@ -51,7 +51,7 @@ class PayrollController extends Controller
                 DB::raw('SUM(net_pay) as total_expense')
             )
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), 'asc')
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), 'desc')
             ->get()
             ->map(function ($payroll) {
                 $payroll->month = Carbon::createFromFormat('Y-m', $payroll->month)->format('F Y');
@@ -85,7 +85,7 @@ class PayrollController extends Controller
         $month      = $request->input('month');
         $userIds    = $request->input('user_ids');
 
-        $results = $this->payrollService->createPayrolls($userIds, $month);
+        $results = $this->payrollService->createPayslips($userIds, $month);
 
         if (!empty($results['errors'])) {
             return back()->with('error', implode(', ', $results['errors']));
@@ -177,5 +177,75 @@ class PayrollController extends Controller
             'status'  =>  true,
             'message' => translate('Allowance has been updated')
         ]);
+    }
+
+    public function edit($uid)
+    {
+        return view('admin.payroll.edit', [
+            'breadcrumbs'           => ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list',  'Payslip update' => null],
+            'title'                 => translate('Payslip Update'),
+            'payroll'               =>  Payroll::whereUid($uid)->first()
+
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'labels.*'          => 'required',
+            'type.*'            => 'required',
+            'amount.*'          => 'required|numeric|gt:0',
+            'is_percentage.*'   => ['required',Rule::in(StatusEnum::toArray())],
+        ]);
+
+
+        $custom_inputs      = $request->input('custom_inputs');
+
+        foreach ($custom_inputs as $input) {
+            if (is_array($input) && isset($input['labels'])) {
+                $key = t2k($input['labels']);
+
+                $is_percentage = $input['is_percentage'] ?? StatusEnum::false->status();
+
+                $allowanceDeductions[] = [
+                    'labels'        => $input['labels'],
+                    'type'          => $input['type'],
+                    'amount'        => $input['amount'],
+                    'default'       => $input['default'],
+                    'is_percentage' => $is_percentage,
+                    'key'           => $key
+                ];
+
+            }
+        }
+
+        $payroll        = Payroll::with('user.advanceSalaries')
+                                ->whereUid($request->input('uid'))->first();
+        $basic_salary   = $payroll->basic_salary;
+        $netPay         = $basic_salary;
+
+        foreach ($allowanceDeductions as $item) {
+            // Check if the item is a percentage
+            $item['is_percentage'] == "1" ? $amount = $basic_salary * ($item['amount'] / 100) : $amount = $item['amount'];
+
+            //check if item is allowance of deduction
+            $item['type'] == "1" ? $netPay += $amount :  $netPay -= $amount;
+        }
+
+        if($payroll->user->advanceSalaries){
+            $totalAdvanceSalary = $payroll->user->advanceSalaries->sum('amount');
+            $netPay -= $totalAdvanceSalary;
+        }
+
+        $payroll->details = json_encode($allowanceDeductions);
+        $payroll->net_pay = $netPay;
+        $payroll->save();
+
+
+        return json_encode([
+            'status'  =>  true,
+            'message' => translate('Payslip has been updated')
+        ]);
+
     }
 }

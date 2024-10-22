@@ -26,7 +26,8 @@ class PayslipController extends Controller
     public function printPayslip($userId, $month)
     {
 
-        $payroll = Payroll::where('user_id', $userId)
+        $payroll = Payroll::with('user.advanceSalaries')
+            ->where('user_id', $userId)
             ->whereYear('created_at', substr($month, 0, 4))
             ->whereMonth('created_at', substr($month, 5, 2))
             ->first();
