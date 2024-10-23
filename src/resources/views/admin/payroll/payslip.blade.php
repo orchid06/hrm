@@ -106,7 +106,7 @@
                                 style="font-size: 15px; line-height:1; color: #555; padding-top:8px; font-weight: 500; margin: 0; width:250px; display:flex; align-items:center; justify-content:space-between;">
                                 {{translate('Payment Status')}}:
                                 <span style="font-size: 14px; padding-left: 30px; color: #333"> {{@$payroll->status ==
-                                    App\Enums\StatusEnum::true->status() ? 'Paid' : 'Unpaid'}}</span>
+                                    App\Enums\PaymentStatus::PAID->status() ? 'Paid' : 'Unpaid'}}</span>
 
                             </p>
                         </div>
@@ -324,7 +324,7 @@
                                 style="font-size: 15px; line-height:1; color: #555; padding-top:8px; font-weight: 500; margin: 0; width:250px; display:flex; align-items:center; justify-content:space-between;">
                                 {{translate('Payment Status')}}:
                                 <span style="font-size: 14px; padding-left: 30px; color: #333"> {{@$payroll->status ==
-                                    App\Enums\StatusEnum::true->status() ? 'Paid' : 'Unpaid'}}</span>
+                                    App\Enums\PaymentStatus::PAID->status() ? 'Paid' : 'Unpaid'}}</span>
 
                             </p>
                         </div>

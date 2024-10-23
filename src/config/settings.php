@@ -34,34 +34,11 @@ return [
             "delete_staff",
         ],
 
-        "withdraw_method" => [
-            'view_withdraw',
-            'create_withdraw',
-            'update_withdraw',
-            'delete_withdraw',
-        ],
-
         "currency" => [
             'view_currency',
             'create_currency',
             'update_currency',
             'delete_currency',
-        ],
-
-
-        "social_account" => [
-            'view_account',
-            'create_account',
-            'update_account',
-            'delete_account',
-        ],
-
-
-        "social_post" => [
-            'view_post',
-            'create_post',
-            'update_post',
-            'delete_post',
         ],
 
         "ticket" => [
@@ -84,101 +61,84 @@ return [
             "delete_role",
         ],
 
-
-        "payment_method" => [
-            "view_method",
-            "create_method",
-            "update_method",
-            "delete_method"
-        ],
-
-        "category" => [
-            "view_category",
-            "create_category",
-            "update_category",
-            "delete_category"
-        ],
         "department" => [
             "view_department",
             "create_department",
             "update_department",
             "delete_department"
         ],
+
         "designation" => [
             "view_designation",
             "create_designation",
             "update_designation",
             "delete_designation"
         ],
+
         "salary" => [
             "view_salary",
             "create_salary",
             "update_salary",
             "delete_salary"
         ],
+
         "payroll" => [
             "view_payroll",
             "create_payroll",
             "update_payroll",
             "delete_payroll"
         ],
+
         "expense" => [
             "view_expense",
             "create_expense",
             "update_expense",
             "delete_expense"
         ],
+
         "expense_category" => [
             "view_expense_category",
             "create_expense_category",
             "update_expense_category",
             "delete_expense_category"
         ],
+
         "payslip" => [
+            "view_payslip",
             "print_payslip",
             "download_payslip",
             "send_payslip",
+            "delete_payslip"
         ],
+
+        "payment" => [
+            "make_payslip",
+        ],
+
         "office_hour" => [
             "view_office_hour",
             "create_office_hour",
         ],
+
         "attendance" => [
             "view_attendance",
             "create_attendance",
             "update_attendance",
             "delete_attendance"
         ],
+
         "holiday" => [
             "view_holiday",
             "create_holiday",
             "update_holiday",
             "delete_holiday"
         ],
+
         "leave" => [
             "view_leave",
             "create_leave",
             "update_leave",
             "delete_leave"
-        ],
-        "page" => [
-            "view_page",
-            "create_page",
-            "update_page",
-            "delete_page"
-        ],
-        "ai_template" => [
-            "view_ai_template",
-            "create_ai_template",
-            "update_ai_template",
-            "delete_ai_template"
-        ],
-
-        "package" => [
-            "view_package",
-            "create_package",
-            "update_package",
-            "delete_package"
         ],
 
         "menu" => [
@@ -186,26 +146,6 @@ return [
             "create_menu",
             "update_menu",
             "delete_menu"
-        ],
-
-        "frontend" => [
-            "view_frontend",
-            "update_frontend",
-        ],
-
-        "blog" => [
-            "view_blog",
-            "create_blog",
-            "update_blog",
-            "delete_blog"
-        ],
-
-
-        "content" => [
-            "view_content",
-            "create_content",
-            "update_content",
-            "delete_content"
         ],
 
         "security_settings" => [

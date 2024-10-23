@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\PaymentStatus;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\PayrollService;
@@ -39,31 +40,42 @@ class PayrollController extends Controller
         $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => null];
         $months        = collect(range(1, 12))->mapWithKeys(function ($month) {
             return [
-                Carbon::createFromDate(null, $month, 1)->format('Y-m') => Carbon::createFromDate(null, $month, 1)->format('F')
+                Carbon::createFromDate(null, $month, 1)->format('F') =>  Carbon::create(now()->year, $month, now()->day, now()->hour, now()->minute, now()->second)
             ];
         });
 
         $payrolls = DB::table('payrolls')
             ->select(
-                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+                DB::raw('DATE_FORMAT(pay_period, "%Y-%m") as month'),
                 DB::raw('COUNT(user_id) as total_employees'),
-                DB::raw('MIN(created_at) as created_at'),
-                DB::raw('SUM(net_pay) as total_expense')
+                DB::raw('MIN(pay_period) as pay_period'),
+                DB::raw('SUM(net_pay) as total_expense'),
+                DB::raw('SUM(CASE WHEN status = "' . PaymentStatus::UNPAID->status() . '" THEN 1 ELSE 0 END) as unpaid_count')
             )
-            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), 'desc')
+            ->groupBy(DB::raw('DATE_FORMAT(pay_period, "%Y-%m")'))
+            ->orderBy(DB::raw('DATE_FORMAT(pay_period, "%Y-%m")'), 'desc')
             ->get()
             ->map(function ($payroll) {
                 $payroll->month = Carbon::createFromFormat('Y-m', $payroll->month)->format('F Y');
+
+                if ($payroll->unpaid_count > 0) {
+                    $payroll->text = "{$payroll->unpaid_count} Unpaid";
+                    $payroll->badge = "i-badge capsuled danger";
+                    $payroll->status = PaymentStatus::UNPAID->status();
+
+                } else {
+                    $payroll->text = 'All Paid';
+                    $payroll->badge = "i-badge capsuled success";
+                    $payroll->status = PaymentStatus::PAID->status();
+                }
+
                 return $payroll;
             });
 
         $currentMonth = now()->format('Y-m');
 
-        $users        = User::Active()
-            ->paginate(paginateNumber());
-
-
+        $users        = User::Active()->paginate(paginateNumber());
+        
 
         return view('admin.payroll.list', [
             'breadcrumbs'   => $breadcrumbs,
@@ -79,11 +91,15 @@ class PayrollController extends Controller
     {
         $request->validate([
             'month'         => 'required',
-            'user_ids.*'    => 'required|exists:users,id'
+            'user_ids.*'    => 'nullable|exists:users,id'
         ]);
 
         $month      = $request->input('month');
         $userIds    = $request->input('user_ids');
+
+        if (!$userIds) {
+            $userIds = User::active()->pluck('id')->toArray();
+        }
 
         $results = $this->payrollService->createPayslips($userIds, $month);
 
@@ -98,21 +114,19 @@ class PayrollController extends Controller
 
     public function show($month): View
     {
+
+
         $title         =  translate('Payslip log');
-        $formattedMonth = Carbon::parse($month . '-01')->format('F Y');
+        $carbonMonth   = Carbon::parse($month);
+        $formattedMonth = $carbonMonth->format('F Y');
 
         $breadcrumbs   =  ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list',  $formattedMonth => null];
 
-        $year = date('Y', strtotime($month));
-        $monthNumber = date('m', strtotime($month));
-
-
-
-
-        $payrolls = Payroll::whereYear('created_at', $year)
-                            ->whereMonth('created_at', $monthNumber)
+        $payrolls = Payroll::whereYear('pay_period', $carbonMonth->year)
+                            ->whereMonth('pay_period', $carbonMonth->month)
                             ->with('user')
                             ->search(['user:name'])
+                            ->paymentStatus()
                             ->paginate(paginateNumber());
 
         $cardData['totalEmployees']     = $payrolls->unique('user_id')->count();
@@ -124,7 +138,8 @@ class PayrollController extends Controller
             'title'                 => $title,
             'formattedMonth'        => $formattedMonth,
             'payrolls'              => $payrolls,
-            'cardData'              => $cardData
+            'cardData'              => $cardData,
+            'month'                 => $month
         ]);
     }
 
@@ -181,11 +196,13 @@ class PayrollController extends Controller
 
     public function edit($uid)
     {
-        return view('admin.payroll.edit', [
-            'breadcrumbs'           => ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list',  'Payslip update' => null],
-            'title'                 => translate('Payslip Update'),
-            'payroll'               =>  Payroll::whereUid($uid)->first()
+        $payroll        = Payroll::whereUid($uid)->first();
+        $formattedMonth = Carbon::parse($payroll->pay_period)->format('F Y');
 
+        return view('admin.payroll.edit', [
+            'breadcrumbs'           => ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list', $formattedMonth => route('admin.payroll.show' , $payroll->pay_period) , 'Payslip update' => null],
+            'title'                 => translate('Payslip Update'),
+            'payroll'               =>  $payroll
         ]);
     }
 
@@ -247,5 +264,36 @@ class PayrollController extends Controller
             'message' => translate('Payslip has been updated')
         ]);
 
+    }
+
+
+    public function makePayment(Request $request)
+    {
+        $request->validate([
+            'month'         => 'required',
+            'user_ids.*'    => 'nullable|exists:users,id'
+        ]);
+
+        $month      = $request->input('month');
+        $userIds    = $request->input('user_ids');
+
+        if (!$userIds) {
+            $userIds = User::active()->pluck('id')->toArray();
+        }
+
+        $results = $this->payrollService->makePayment($userIds, $month);
+
+        if (!empty($results['errors'])) {
+            return back()->with('error', implode(', ', $results['errors']));
+        }
+
+        return back()->with('success', trans('Payment successfully'));
+    }
+
+    public function destroy($uid) : RedirectResponse
+    {
+        Payroll::whereUid($uid)->first()->delete();
+
+        return back()->with(response_status('Payslip deleted successfully'));
     }
 }

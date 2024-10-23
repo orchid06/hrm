@@ -176,29 +176,14 @@ trait Filterable
 
     }
 
-    public function scopePaymentStatus(Builder $query, string $column = 'created_at'){
+    public function scopePaymentStatus(Builder $query, string $column = 'pay_period'){
 
         try {
-            if (!request()->input('payment_status'))   return $query;
 
+            if (!request()->has('payment_status'))   return $query;
             $paymentStatus            = request()->input('payment_status');
-            $month                    = now()->month;
-            $year                     = now()->year;
 
-            if($paymentStatus == PaymentStatus::paid->status()){
-
-                return $query->whereHas('payrolls', function ($query) use ($month, $year) {
-                    $query->whereMonth('created_at', $month)
-                          ->whereYear('created_at', $year);
-                });
-            }
-            elseif($paymentStatus == PaymentStatus::unpaid->status()){
-
-                return $query->whereDoesntHave('payrolls', function ($query) use ($month, $year) {
-                    $query->whereMonth('created_at', $month)
-                          ->whereYear('created_at', $year);
-                });
-            }
+            return $query->where('status' , $paymentStatus );
 
         } catch (\Throwable $th) {
             return $query;

@@ -309,6 +309,7 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
             Route::get('/allowance-bonus', 'allowance')->name('allowance');
             Route::post('/allowance-bonus/store', 'allowanceStore')->name('allowance.store');
+            Route::post('/make-payment', 'makePayment')->name('make_payment');
 
         });
 

@@ -173,12 +173,12 @@
                                 @endif
 
                                 @if(check_permission('delete_designation'))
-                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="{{translate('Delete')}}"
-                                    data-href="{{route('admin.designation.destroy',$designation->uid)}}"
-                                    class="pointer delete-item icon-btn danger">
-                                    <i class="las la-trash-alt"></i>
-                                </a>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="{{translate('Delete')}}"
+                                        data-href="{{route('admin.designation.destroy',$designation->uid)}}"
+                                        class="pointer delete-item icon-btn danger">
+                                        <i class="las la-trash-alt"></i>
+                                    </a>
                                 @endif
                                 @else
                                 {{translate('N/A')}}

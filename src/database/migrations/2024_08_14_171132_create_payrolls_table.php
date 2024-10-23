@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('basic_salary',10,2);
             $table->decimal('net_pay',10,2);
             $table->longText('details')->nullable();
-            $table->string('pay_period')->nullable();
+            $table->timestamp('pay_period')->nullable();
             $table->date('payment_date')->nullable();
             $table->date('note')->nullable();
             $table->enum('status',array_values(StatusEnum::toArray()))->default(StatusEnum::false->status())->comment('Paid: 1, Unpaid: 0');

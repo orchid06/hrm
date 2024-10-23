@@ -10,6 +10,7 @@ use App\Traits\Fileable;
 use App\Traits\ModelAction;
 use App\Models\Admin\MailGateway;
 use Barryvdh\DomPDF\PDF;
+use Carbon\Carbon;
 
 class PayslipController extends Controller
 {
@@ -25,17 +26,18 @@ class PayslipController extends Controller
 
     public function printPayslip($userId, $month)
     {
+        $monthCarbon = Carbon::parse($month);
+        $formattedMonth = $monthCarbon->format('F Y');
 
         $payroll = Payroll::with('user.advanceSalaries')
             ->where('user_id', $userId)
-            ->whereYear('created_at', substr($month, 0, 4))
-            ->whereMonth('created_at', substr($month, 5, 2))
+            ->whereYear('pay_period', $monthCarbon->year)
+            ->whereMonth('pay_period',$monthCarbon->month)
             ->first();
 
 
-
         return view('admin.payroll.payslip', [
-            'breadcrumbs'   => ['Home' => 'admin.home', 'Payrolls' => 'admin.payroll.list', 'Print' => null],
+            'breadcrumbs'   => ['Home' => 'admin.home', 'Payslip log' => 'admin.payroll.list', $formattedMonth => route('admin.payroll.show' , $payroll->pay_period) , 'Print' => null],
             'title'         => translate('Payslip Print'),
             'payroll'       => $payroll,
         ]);
@@ -45,10 +47,13 @@ class PayslipController extends Controller
     public function downloadPayslip($userId, $month)
     {
 
-        $payroll = Payroll::where('user_id', $userId)
-            ->whereYear('created_at', substr($month, 0, 4))
-            ->whereMonth('created_at', substr($month, 5, 2))
-            ->first();
+        $monthCarbon = Carbon::parse($month);
+
+        $payroll = Payroll::with('user.advanceSalaries')
+                            ->where('user_id', $userId)
+                            ->whereYear('pay_period', $monthCarbon->year)
+                            ->whereMonth('pay_period',$monthCarbon->month)
+                            ->first();
 
         if (!$payroll)  return redirect()->back()->with('error', 'Payslip not found.');
 
@@ -63,7 +68,13 @@ class PayslipController extends Controller
     public function sendPayslip($userId, $month)
     {
 
-        $payroll = Payroll::with('user')->where('user_id', $userId)->where('created_at', $month)->first();
+        $monthCarbon = Carbon::parse($month);
+
+        $payroll = Payroll::with('user.advanceSalaries')
+                            ->where('user_id', $userId)
+                            ->whereYear('pay_period', $monthCarbon->year)
+                            ->whereMonth('pay_period',$monthCarbon->month)
+                            ->first();
 
 
         $gateway = MailGateway::where('default', StatusEnum::true->status())->firstOrFail();

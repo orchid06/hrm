@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Services\Admin;
 
+use App\Enums\PaymentStatus;
 use App\Enums\SalaryTypeEnum;
 use App\Enums\StatusEnum;
 use App\Models\Admin\Payroll;
 use App\Models\User;
+use Carbon\Carbon;
 
 class PayrollService
 {
@@ -24,18 +26,21 @@ class PayrollService
             'errors' => []
         ];
 
+        $monthCarbon = Carbon::parse($month);
 
-        $users = User::with(['advanceSalaries' => function ($query) use ($month) {
-                $query->whereYear('for_month', substr($month, 0, 4))
-                    ->whereMonth('for_month', substr($month, 5, 2));
+        $users = User::with(['advanceSalaries' => function ($query) use ($monthCarbon) {
+            $query->whereYear('for_month', $monthCarbon->year)
+                    ->whereMonth('for_month', $monthCarbon->month);
             }])
             ->active()
             ->whereIn('id', $userIds)
-            ->whereDoesntHave('payrolls', function ($query) use ($month) {
-                $query->whereYear('created_at', substr($month, 0, 4))
-                      ->whereMonth('created_at', substr($month, 5, 2));
+            ->whereDoesntHave('payrolls', function ($query) use ($monthCarbon) {
+                $query->whereYear('created_at', $monthCarbon->year)
+                    ->whereMonth('created_at', $monthCarbon->month);
             })
             ->get();
+
+
 
         $allowanceDeductions = json_decode(site_settings('allowance') , true);
 
@@ -83,5 +88,40 @@ class PayrollService
         }
 
         return $results;
+    }
+
+    public function makePayment($userIds , $month)
+    {
+        $results = [
+            'success' => [],
+            'errors' => []
+        ];
+
+        $monthCarbon = Carbon::parse($month);
+        $now = Carbon::now();
+        $status = PaymentStatus::PAID->status();
+
+        $payrolls = Payroll::whereIn('user_id', $userIds)
+                    ->whereYear('pay_period', $monthCarbon->year)
+                    ->whereMonth('pay_period', $monthCarbon->month)
+                    ->where('status' , PaymentStatus::UNPAID->status())
+                    ->get();
+
+        $payrolls->each(function ($payroll) use ($status, $now) {
+            $payroll->status = $status;
+            $payroll->payment_date = $now;
+        });
+
+        try{
+
+            $payrolls->each->save();
+        }catch(\Exception $e){
+
+            $results['errors'][] = trans("Failed to make payment");
+
+        }
+
+        return $results;
+
     }
 }

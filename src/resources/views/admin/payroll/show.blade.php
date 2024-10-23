@@ -70,33 +70,41 @@
                             @endif
                         </div>
                     @endif
-                    {{-- <div class="col-md-7 d-flex justify-content-md-end justify-content-start">
+
+
+                    <div class="col-md-12 d-flex justify-content-md-end justify-content-start">
+
                         <div class="search-area">
-                            <form action="{{route(Route::currentRouteName())}}" method="get">
+
+                            <form action="{{route(Route::currentRouteName() , $month)}}" method="get">
+
                                 <div class="form-inner">
-                                    <select name="month" id="filter_month" class="filter-month">
-                                        <option value="">
-                                            {{translate('Select Month')}}
+                                    <select name="payment_status" class="filter-payment-status" id="payment_status"
+                                        placeholder="{{translate('Select status')}}">
+                                        <option value="">{{translate('Select Status')}}</option>
+                                        @foreach(\App\Enums\PaymentStatus::toArray() as $key => $value)
+                                        <option value="{{ $value }}" {{ request()->input('payment_status') == $value ?
+                                            'selected' :'' }}>
+                                            {{ $key }}
                                         </option>
-                                        @foreach($months as $value => $name)
-                                           <option {{$currentMonth == $value ? 'selected' : ''}} value="{{$value}}"> {{$name}}
-                                          </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-inner  ">
-                                      <input name="search" value="{{request()->search}}" type="search" placeholder="{{translate('Search by name,email,phone')}}">
-                                </div>
+
+
                                 <button class="i-btn btn--sm info">
                                     <i class="las la-sliders-h"></i>
                                 </button>
-                                <a href="{{route(Route::currentRouteName())}}"  class="i-btn btn--sm danger">
+                                <a href="{{route(Route::currentRouteName() , $month)}}" class="i-btn btn--sm danger">
                                     <i class="las la-sync"></i>
                                 </a>
                             </form>
                         </div>
-                    </div> --}}
+                    </div>
+
                 </div>
+
+
             </div>
             <div class="table-container position-relative">
                 @include('admin.partials.loader')
@@ -155,16 +163,11 @@
                                 </td>
 
                                 <td data-label="{{translate('Designation')}}">
-                                    <span class="i-badge capsuled success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="">
+                                    <span class="i-badge capsuled success">
                                         {{@$payroll->user->userDesignation->designation->name?? translate("N/A")}}
                                     </span>
                                 </td>
 
-                                {{-- <td data-label='{{translate("Payslip type")}}'>
-                                    <div class="d-block">
-                                        <span class="i-badge info">{{$payroll->user->userDesignation? @ucfirst(strtolower(str_replace("_"," ", \App\Enums\PayslipCycle::from($payroll->user->userDesignation->payslip_cycle)->name))) : "N/A"}}</span>
-                                    </div>
-                                </td> --}}
                                 <td data-label="{{translate('Basic salary')}}">
 
                                     <span class="i-badge capsuled warning" >{{num_format(@json_decode($payroll->basic_salary) , $currency)}}</span>
@@ -178,34 +181,57 @@
                                     <span class="i-badge capsuled {{@$payroll->status == \App\Enums\StatusEnum::true->status() ?'success' : 'danger'}}" >
                                         {{@$payroll->status == \App\Enums\StatusEnum::true->status() ? 'Paid' : 'Unpaid'}}
                                     </span>
+                                    @if(@$payroll->status == \App\Enums\StatusEnum::false->status())
+                                        @if(check_permission('make_payment') )
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Pay Current month')}}" href="javascript:void(0);"
+                                                data-payroll="{{$payroll}}" class="payNow i-badge capsuled info">
+                                                {{translate('Pay now')}}
+                                            </a>
+                                        @endif
+                                    @endif
+
                                 </td>
                                 <td data-label="{{translate('Options')}}">
-                                    @if(check_permission('view_payroll') )
-                                    <a href="{{route('admin.payslip.print' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details')}}">
+                                    @if(check_permission('view_payslip') )
+                                    <a href="{{route('admin.payslip.print' , ['userId' => $payroll->user->id, 'month' => $payroll->pay_period])}}" class="icon-btn info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('View Details')}}">
                                         <i class="las la-eye"></i>
                                     </a>
                                     @endif
 
-                                    @if(check_permission('update_payroll') )
-                                        <a href="{{route('admin.payroll.edit'  , $payroll->uid)}}" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            data-bs-title="{{translate('Update')}}"
-                                            class="update icon-btn warning">
-                                            <i class="las la-pen"></i>
-                                        </a>
+                                    @if(@$payroll->status == \App\Enums\StatusEnum::false->status())
+                                        @if(check_permission('update_payroll') )
+                                            <a href="{{route('admin.payroll.edit'  , $payroll->uid)}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="{{translate('Update')}}"
+                                                class="update icon-btn warning">
+                                                <i class="las la-pen"></i>
+                                            </a>
+                                        @endif
                                     @endif
 
                                     @if(check_permission('download_payslip') )
-                                        <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
+                                        <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
                                             <i class="las la-file-pdf"></i>
                                         </a>
                                     @endif
 
                                     @if(check_permission('send_payslip') )
-                                        <a href="{{route('admin.payslip.send'  , ['userId' => $payroll->user->id, 'month' => $payroll->created_at])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Send Mail')}}">
+                                        <a href="{{route('admin.payslip.send'  , ['userId' => $payroll->user->id, 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Send Mail')}}">
                                             <i class="las la-paper-plane"></i>
                                         </a>
                                     @endif
 
+                                    @if(@$payroll->status == \App\Enums\StatusEnum::false->status())
+
+                                        @if(check_permission('delete_payslip') )
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-title="{{translate('Delete')}}"
+                                            data-href="{{route('admin.payroll.destroy',$payroll->uid)}}"
+                                            class="pointer delete-item icon-btn danger">
+                                            <i class="las la-trash-alt"></i>
+                                        </a>
+                                        @endif
+
+                                    @endif
 
                                 </td>
                             </tr>
@@ -227,6 +253,43 @@
 @endsection
 
 @section('modal')
+
+<div class="modal fade" id="payNow" tabindex="-1" aria-labelledby="payNow" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="payNow">{{translate('Make Payment')}}</h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="payNow" method="POST" action="{{ route('admin.payroll.make_payment') }}">
+                    @csrf
+                    <input type="hidden" name="user_ids[]" >
+                    <input type="hidden" name="month" value="{{$month}}">
+                    <div class="form-inner">
+                        <label for="month" class="form-label">{{translate('Month')}}</label>
+                        <input type="text" disabled name="month_name" value="{{$formattedMonth}}">
+                    </div>
+                    <div class="form-inner">
+                        <label for="selectUser" class="form-label">{{translate('Employee')}}</label>
+                        <input type="text" disabled name="user_name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Pay now")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     @include('modal.delete_modal')
 
 
@@ -240,14 +303,37 @@
 			placeholder:"{{translate('Select Status')}}",
 			dropdownParent: $("#addUser"),
 		})
-        $("#country").select2({
-			placeholder:"{{translate('Select Country')}}",
-			dropdownParent: $("#addUser"),
-		})
-        $(".filter-month").select2({
+
+        $(".filter-payment-status").select2({
+            placeholder: "{{translate('Select Status')}}",
+
+        })
+
+        $(".month").select2({
 			placeholder:"{{translate('Select Month')}}",
+            dropdownParent: $("#payNow"),
 
 		})
+
+        $('.select2-multiple').select2({
+            placeholder:"{{translate('Select Employees')}}",
+            dropdownParent: $('#payNow'),
+            allowClear: true
+        })
+
+
+
+        $(document).on('click', '.payNow', function (e) {
+
+            var payroll = JSON.parse($(this).attr("data-payroll"))
+            var modal = $('#payNow')
+
+            modal.find('input[name="user_name"]').val(payroll.user.name)
+            modal.find('input[name="user_ids[]"]').val(payroll.user.id)
+
+            modal.modal('show')
+
+        })
 	})(jQuery);
 </script>
 @endpush

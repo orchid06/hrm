@@ -65,11 +65,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>
-                                @if(check_permission('update_user'))
-                                   <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
-                                @endif#
-                            </th>
                             <th scope="col">
                                 {{translate('Month')}}
                             </th>
@@ -84,6 +79,10 @@
                             </th>
 
                             <th scope="col">
+                                {{translate('Status')}}
+                            </th>
+
+                            <th scope="col">
                                 {{translate('Option')}}
                             </th>
                         </tr>
@@ -92,12 +91,7 @@
                         @forelse($payrolls  as $payroll)
 
                             <tr>
-                                <td data-label="#">
-                                    @if( check_permission('update_payroll') )
-                                        <input type="checkbox" value="" name="ids[]" class="data-checkbox form-check-input" id="" />
-                                    @endif
-                                    {{$loop->iteration}}
-                                </td>
+
                                 <td data-label="{{translate('Month')}}">
                                     <span class="i-badge capsuled info" >
                                         {{@$payroll->month}}
@@ -117,20 +111,43 @@
                                     <span class="i-badge capsuled warning" >{{ num_format(@$payroll->total_expense , $currency)}}</span>
                                 </td>
 
+                                <td data-label="{{translate('Status')}}">
+
+                                    <form action="{{route('admin.payroll.show' , $payroll->pay_period)}}" method="GET">
+                                        <input type="hidden" name="payment_status" value="{{$payroll->status}}">
+                                        <button type="submit" class="{{$payroll->badge}}">
+                                            {{$payroll->text}}
+                                        </button>
+                                    </form>
+
+                                </td>
+
                                 <td data-label="{{translate('Options')}}">
                                     <div class="table-action">
-                                        @if(check_permission('view_payroll') ||  check_permission('delete_payroll'))
+
+
+                                            @if(check_permission('make_payment') )
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Pay all employee')}}" href="javascript:void(0);"
+                                                    data-pay-period="{{$payroll->pay_period}}" data-month="{{$payroll->month}}" class="payNow i-badge capsuled info">
+                                                    {{translate('Pay now')}}
+                                                </a>
+                                            @endif
+
                                             @if(check_permission('view_payroll'))
 
-                                                <a   href="{{route('admin.payroll.show', $payroll->created_at)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
+                                                <a   href="{{route('admin.payroll.show', $payroll->pay_period)}}"   data-bs-toggle="tooltip" data-bs-placement="top"    data-bs-title="{{translate('Show')}}" class="icon-btn info">
                                                     <i class="las la-eye"></i>
                                                 </a>
 
                                             @endif
 
-                                        @else
-                                          {{translate('N/A')}}
-                                        @endif
+                                            @if(check_permission('download_payslip') )
+                                                <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
+                                                    <i class="las la-file-pdf"></i>
+                                                </a>
+                                            @endif
+
+                                       
                                     </div>
                                 </td>
                             </tr>
@@ -172,15 +189,16 @@
                             <option value="">
                                 {{translate('Select Month')}}
                             </option>
-                            @foreach($months as $value => $name)
-                               <option {{$currentMonth == $value ? 'selected' : ''}} value="{{$value}}"> {{$name}}
+
+                            @foreach($months as $key => $value)
+                               <option {{$currentMonth == $value->format('Y-m') ? 'selected' : ''}} value="{{$value}}"> {{$key}}
                               </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-inner">
                         <label for="selectUser" class="form-label">{{translate('Select Employee')}}</label>
-                        <select class="form-select select2-multiple" id="selectUser" name="user_ids[]" multiple="multiple" required>
+                        <select class="form-select select2-multiple" id="selectUser" name="user_ids[]" multiple="multiple" >
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
@@ -200,7 +218,44 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="payNow" tabindex="-1" aria-labelledby="payNow" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="payNow">{{translate('Make Payment')}}</h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="payNow" method="POST" action="{{ route('admin.payroll.make_payment') }}">
+                    @csrf
+                    <input type="hidden" name="month" >
+                    <div class="form-inner">
+                        <label for="month" class="form-label">{{translate('Month')}}</label>
+                        <input type="text" disabled name="month_name">
+                    </div>
+                    <div class="form-inner">
+                        <label for="payUser" class="form-label">{{translate('Select Employee')}}</label>
+                        <select class="form-select select2-multiple" id="payUser" name="user_ids[]" multiple="multiple" >
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                            {{translate("Close")}}
+                        </button>
+                        <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                            {{translate("Pay now")}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('script-push')
@@ -214,10 +269,33 @@
 
 		})
 
-        $('.select2-multiple').select2({
-            placeholder:"{{translate('Select Employees')}}",
-            dropdownParent: $('#generatePayslipModal'),
-            allowClear: true
+
+        $('#generatePayslipModal').on('shown.bs.modal', function () {
+            $('.select2-multiple').select2({
+                placeholder: "{{translate('Select Employees')}}",
+                dropdownParent: $('#generatePayslipModal'),
+                allowClear: true
+            });
+        });
+
+
+        $(document).on('click', '.payNow', function (e) {
+
+            var payPeriod = $(this).attr("data-pay-period")
+            var monthName = $(this).attr("data-month")
+            var modal = $('#payNow')
+
+            modal.find('input[name="month"]').val(payPeriod)
+            modal.find('input[name="month_name"]').val(monthName)
+
+            $('.select2-multiple').select2({
+                placeholder:"{{translate('Select Employees')}}",
+                dropdownParent: modal,
+                allowClear: true
+            })
+
+            modal.modal('show')
+
         })
 
 	})(jQuery);

@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum PaymentStatus {
 
-    case paid;
-    case unpaid;
+    case PAID;
+    case UNPAID;
 
     /**
      * get enum status
@@ -14,16 +14,16 @@ enum PaymentStatus {
     {
         return match($this)
         {
-            PaymentStatus::paid => '1',
-            PaymentStatus::unpaid => '2',
+            PaymentStatus::PAID => '1',
+            PaymentStatus::UNPAID => '0',
         };
     }
 
 
     public static function toArray() :array{
         return [
-            'Paid'      => (PaymentStatus::paid)->status(),
-            'Unpaid'    => (PaymentStatus::unpaid)->status()
+            'Paid'      => (PaymentStatus::PAID)->status(),
+            'Unpaid'    => (PaymentStatus::UNPAID)->status()
         ];
     }
 }
