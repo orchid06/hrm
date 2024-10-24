@@ -77,7 +77,7 @@ class SettingController extends Controller
                             'value' => (StatusEnum::false)->status()
                         ]
                     );
-     
+
                 }
             }
         }catch (\Exception $exception) {
@@ -90,13 +90,13 @@ class SettingController extends Controller
             'status'  => $status,
             'message' => $message
         ]);
-         
+
     }
 
-   
-  
- 
-  
+
+
+
+
      /**
       * update logo settings
       *
@@ -106,7 +106,7 @@ class SettingController extends Controller
     public function logoSetting(LogoSettingRequest $request) :string{
 
         $this->settingService->logoSettings($request->except('_token'));
-       
+
         return json_encode([
             'status'=> true,
             'message'=> translate('Updated Successfully')
@@ -134,13 +134,13 @@ class SettingController extends Controller
                     file_put_contents($timeLocationFile, $time);
                 }
                 $this->settingService->updateSettings($request->site_settings);
-              
+
             } catch (\Exception $exception) {
                $status = false;
                $message = $exception->getMessage();
             }
         }
-    
+
 
         return json_encode([
             'status' => $status,
@@ -169,7 +169,7 @@ class SettingController extends Controller
     }
 
 
-  
+
     /**
      * clear cache
      * @return RedirectResponse
@@ -197,7 +197,7 @@ class SettingController extends Controller
         ]);
     }
 
-   
+
 
     /**
      * update setting status
@@ -226,7 +226,7 @@ class SettingController extends Controller
 
     /**
      * get webhook settings
-     * 
+     *
      * @return View
      */
     public function webhook() :View
@@ -243,7 +243,7 @@ class SettingController extends Controller
 
     /**
      * get affiliate settings
-     * 
+     *
      * @return View
      */
     public function affiliate() :View
@@ -260,7 +260,7 @@ class SettingController extends Controller
 
     /**
      * get kyc settings
-     * 
+     *
      * @return View
      */
     public function kycConfig() :View
@@ -289,5 +289,5 @@ class SettingController extends Controller
 
     }
 
-   
+
 }

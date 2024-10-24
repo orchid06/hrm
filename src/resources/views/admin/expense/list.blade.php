@@ -10,7 +10,7 @@
             $currentYear    = Carbon\Carbon::now()->year;
             $cards =  [
                         [
-                            "title"  => translate("Total Expense"),
+                            "title"  => translate("On Hand Cash"),
                             "class"  => 'col',
                             "total"  => num_format($cardData['totalExpense'], $currency),
                             "icon"   => '<i class="las la-hryvnia"></i>',
@@ -18,9 +18,9 @@
 
                         ],
                         [
-                            "title"  => translate("Highest Expense :").' '.$cardData['categoryWithHighestExpense']['name'],
+                            "title"  => translate("Expense :"),
                             "class"  => 'col',
-                            "total"  => num_format($cardData['categoryWithHighestExpense']['total_amount'] , $currency) ?? 'N/A',
+                            "total"  =>  'N/A',
                             "icon"   => '<i class="las la-hryvnia"></i>',
                             "bg"     => 'danger',
 
@@ -42,63 +42,28 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="i-card-md mb-4">
-                <div class="card--header text-end">
-                    <h4 class="card-title">
-                         {{ translate('Expenses : ').$currentYear}}
-                    </h4>
-               </div>
-                <div class="card-body">
-                    <div id="postReport"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 <div class="i-card-md">
     <div class="card--header">
         <h4 class="card-title">{{translate('Recent Expenses')}}</h4>
+
     </div>
     <div class="card-body">
         <div class="search-action-area">
             <div class="row g-3">
-                <form hidden id="bulkActionForm" action='{{route("admin.expense.bulk")}}' method="post">
-                    @csrf
-                    <input type="hidden" name="bulk_id" id="bulkid">
-                    <input type="hidden" name="value" id="value">
-                    <input type="hidden" name="type" id="type">
-                </form>
+
                 @if(check_permission('create_expense') || check_permission('update_expense') ||
                 check_permission('delete_expense'))
                 <div class="col-md-6 d-flex justify-content-start">
-                    @if(check_permission('update_expense') || check_permission('delete_expense'))
-                    <div class="i-dropdown bulk-action d-none">
-                        <button class="dropdown-toggle bulk-danger" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="las la-cogs fs-15"></i>
-                        </button>
-                        <ul class="dropdown-menu">
 
-                            @if(check_permission('update_expense'))
-                            @foreach(App\Enums\StatusEnum::toArray() as $k => $v)
-                            <li>
-                                <button type="button" name="bulk_status" data-type="status" value="{{$v}}"
-                                    class="dropdown-item bulk-action-btn"> {{translate($k)}}</button>
-                            </li>
-                            @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    @endif
 
                     @if(check_permission('create_expense'))
 
                     <div class="action">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#addExpense"
                             class="add i-btn btn--sm success">
-                            <i class="las la-plus me-1"></i> {{translate('Add New')}}
+                            <i class="las la-plus me-1"></i> {{translate('Add New expense')}}
                         </button>
                     </div>
 
@@ -108,11 +73,37 @@
                 @endif
                 <div class="col-md-6 d-flex justify-content-end">
                     <div class="search-area">
+
+
+
                         <form action="{{route(Route::currentRouteName())}}" method="get">
+
                             <div class="form-inner">
-                                <input name="search" value="{{request()->input('search')}}" type="search"
-                                    placeholder="{{translate('Search by name')}}">
+                                <select name="month" class="select2" id="month"
+                                    placeholder="{{translate('Select a month')}}">
+                                    <option value="">{{translate('Month')}}</option>
+                                    @foreach(range(1, 12) as $month)
+                                    <option value="{{ $month }}" {{ $selectedMonth == $month ? 'selected' :''
+                                        }}>
+                                        {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                    </option>
+                                    @endforeach
+                                </select>
                             </div>
+
+                            <div class="form-inner">
+                                <select name="year" class="select2" id="year"
+                                    placeholder="{{translate('Select a year')}}">
+                                    <option value="">{{translate('Select a Year')}}</option>
+                                    @foreach(range(date('Y') - 5, date('Y')) as $year)
+                                    <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' :''}}>
+                                        {{ $year }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
                             <button class="i-btn btn--sm info">
                                 <i class="las la-sliders-h"></i>
                             </button>
@@ -130,11 +121,11 @@
             <table>
                 <thead>
                     <tr>
+
                         <th scope="col">
-                            @if(check_permission('update_expense') || check_permission('delete_expense'))
-                            <input class="check-all  form-check-input me-1" id="checkAll" type="checkbox">
-                            @endif#
+                            {{translate('Date')}}
                         </th>
+
                         <th scope="col">
                             {{translate('Category')}}
                         </th>
@@ -144,7 +135,7 @@
                         </th>
 
                         <th scope="col">
-                            {{translate('Details')}}
+                            {{translate('Post Balance')}}
                         </th>
 
                         <th scope="col">
@@ -156,14 +147,12 @@
 
                     @forelse($expenses as $expense)
                     <tr>
-                        <td data-label="#">
-                            @if(check_permission('create_expense') || check_permission('update_expense') ||
-                            check_permission('delete_expense'))
-                            <input type="checkbox" value="{{$expense->id}}" name="ids[]"
-                                class="data-checkbox form-check-input" id="{{$expense->id}}" />
-                            @endif
-                            {{$loop->iteration}}
+                        <td data-label='{{translate("Category")}}'>
+                            <p>
+                                {{@$expense->created_at->format('d F Y')}}
+                            </p>
                         </td>
+
                         <td data-label='{{translate("Category")}}'>
                             <div class="user-meta-info d-flex align-items-center gap-2">
                                 <i class="@php echo @$expense->icon  @endphp"></i>
@@ -176,7 +165,7 @@
                         <td data-label='{{translate("Amount")}}'>
                             <div class="user-meta-info d-flex align-items-center gap-2">
                                 <p>
-                                    {{($expense->amount)}}
+                                    {{num_format($expense->amount, $currency)}}
                                 </p>
                             </div>
                         </td>
@@ -242,6 +231,58 @@
 
 @section('modal')
 
+<div class="modal fade modal-md" id="addCash" tabindex="-1" aria-labelledby="addCash" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{translate('Add Cash')}}
+                </h5>
+                <button class="close-btn" data-bs-dismiss="modal">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <form action="{{route('admin.expense.cash.store')}}" method="POST" class="add-listing-form" >
+                @csrf
+                <div class="modal-body">
+
+                    <div class="form-inner">
+                        <label for="cashIn-amount">{{translate('Amount')}} <small class="text-danger">*</small></label>
+                        <input type="number" name="amount" id="cashIn-amount" value="{{old('amount')}}" required>
+                    </div>
+
+                    <div class="form-inner">
+                        <label for="cashIn-month"> {{translate('Month')}} <small class="text-danger">*</small></label>
+                        <select name="month" class="select2" id="cashIn-month"
+                            placeholder="{{translate('Select a month')}}" required>
+                            <option value="">{{translate('Month')}}</option>
+                            @foreach(range(1, 12) as $month)
+                            <option value="{{ $month }}" {{ $selectedMonth == $month ? 'selected' :''
+                                }}>
+                                {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="i-btn btn--md ripple-dark" data-anim="ripple" data-bs-dismiss="modal">
+                        {{translate("Close")}}
+                    </button>
+                    <button type="submit" class="i-btn btn--md btn--primary" data-anim="ripple">
+                        {{translate("Submit")}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade modal-md" id="addExpense" tabindex="-1" aria-labelledby="addExpense" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -253,14 +294,26 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{route('admin.expense.store')}}" method="post" class="add-listing-form">
+            <form action="{{route('admin.expense.store')}}" method="POST" class="add-listing-form" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
 
                     <div class="form-inner">
+                        <label for="account_id"> {{translate('Account')}} </label>
+                        <select class="select2" name="account_id" id="account_id" required>
+                            <option value="">{{translate('Select an Account')}}</option>
+                            @foreach (@$accounts as $account)
+                            <option value="{{@$account->id}}" >
+                                {{@$account->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-inner">
                         <label for="category_id"> {{translate('Category')}} </label>
                         <select class="select2" name="category_id" id="category_id" required>
-                            <option value="">{{translate('Select Category')}}</option>
+                            <option value="">{{translate('Select a Category')}}</option>
                             @foreach (@$expense_categories as $category)
                             <option value="{{@$category->id}}" >
                                 {{@$category->name}}
@@ -280,8 +333,8 @@
                     </div>
 
                     <div class="form-inner">
-                        <label for="attachment" {{ translate('Attachment') }}</label>
-                        <input type="file" name="attachment" id="attachment">
+                        <label for="file" {{ translate('Attachment') }}</label>
+                        <input type="file" name="files[]" id="file" multiple>
                     </div>
                 </div>
 
@@ -312,7 +365,7 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{route('admin.expense.update')}}" method="post" class="add-listing-form">
+            <form action="{{route('admin.expense.update')}}" method="post" class="add-listing-form" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <input hidden type="text" name="uid">
@@ -339,8 +392,8 @@
                     </div>
 
                     <div class="form-inner">
-                        <label for="attachment" {{ translate('Attachment') }}</label>
-                        <input type="file" name="attachment" id="attachment">
+                        <label for="files" {{ translate('Attachment') }}</label>
+                        <input type="file" name="files[]" id="files" multiple>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -369,9 +422,24 @@
     (function ($) {
         "use strict";
 
+        $('#month').select2({
+
+        });
+
+        $('#year').select2({
+
+        });
+
+        $('#addCash').on('shown.bs.modal', function () {
+            $(".select2").select2({
+                placeholder: "{{translate('Select month')}}",
+                dropdownParent: $("#addCash"),
+            })
+        });
+
         $('#addExpense').on('shown.bs.modal', function () {
             $(".select2").select2({
-                placeholder: "{{translate('Select a Category')}}",
+
                 dropdownParent: $("#addExpense"),
             })
         });
@@ -389,41 +457,11 @@
 
             $(".select2").select2({
                 placeholder: "{{translate('Select a Category')}}",
-                dropdownParent: $("#updateExpense"),
+                dropdownParent: modal,
             })
         })
 
-        var options = {
-            chart: {
-                height: 300,
-                type: 'line',
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            series: @json($graphData),
-            xaxis: {
-                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            },
-            colors: ['var(--color-info)', 'var(--color-primary)', 'var(--color-success)', 'var(--color-danger)'],
-            markers: {
-                size: 6,
-            },
-            stroke: {
-                width: 2,
-            },
-            tooltip: {
-                shared: false,
-                intersect: true,
-            },
-            legend: {
-                horizontalAlign: 'left',
-                offsetX: 40,
-            },
-        };
 
-        var chart = new ApexCharts(document.querySelector("#postReport"), options);
-        chart.render();
 
 
     })(jQuery);

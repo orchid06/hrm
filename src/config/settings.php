@@ -89,7 +89,15 @@ return [
             "delete_payroll"
         ],
 
+        "account" => [
+            "view_account",
+            "create_account",
+            "update_account",
+            "delete_account"
+        ],
+
         "expense" => [
+            "create_cashIn",
             "view_expense",
             "create_expense",
             "update_expense",
@@ -283,6 +291,14 @@ return [
         'leave_request_data'=> [
             'path' => 'assets/files/global/leave_request/custom_data'
         ],
+        'expense_data'=> [
+            'path' => 'assets/files/global/expense'
+        ],
+
+        'account'=> [
+            'path' => 'assets/files/global/account'
+        ],
+
     ],
 
 
@@ -299,6 +315,7 @@ return [
         'attendance_settings',
         'office_hour',
         'allowance',
+        'cashIn',
     ],
 
 

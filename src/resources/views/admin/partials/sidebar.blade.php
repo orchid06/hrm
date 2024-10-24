@@ -301,17 +301,6 @@
                         </li>
                         @endif
 
-                        @if(check_permission('view_salary'))
-                        <li class="sub-menu-item">
-                            <a class="sidebar-menu-link {{sidebar_awake(['admin.salary.list' ,'admin.salary.edit' ])}}"
-                                href="{{route('admin.salary.list')}}">
-                                <span></span>
-                                <p>
-                                    {{translate('Set salary')}}
-                                </p>
-                            </a>
-                        </li>
-                        @endif
 
                         @if(check_permission('view_payroll'))
                         <li class="sub-menu-item">
@@ -354,6 +343,18 @@
                 <div class="side-menu-dropdown collapse {{sidebar_awake(['admin.expense_category.*' , 'admin.expense.*'  ],'drop_down')}} "
                     id="Expense">
                     <ul class="sub-menu">
+
+                        @if(check_permission('view_account'))
+                        <li class="sub-menu-item">
+                            <a class="sidebar-menu-link {{sidebar_awake(['admin.account.list' ,'admin.account.edit' ])}}"
+                                href="{{route('admin.account.list')}}">
+                                <span></span>
+                                <p>
+                                    {{translate('Accounts')}}
+                                </p>
+                            </a>
+                        </li>
+                        @endif
 
                         @if(check_permission('view_expense_category'))
                         <li class="sub-menu-item">

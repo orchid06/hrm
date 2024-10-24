@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
@@ -320,6 +321,9 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::get('/download/{userId}/{month}', 'downloadPayslip')->name('download');
             Route::get('/send/{userId}/{month}', 'sendPayslip')->name('send');
 
+            Route::get('/download/{month}', 'bulkDownloadPayslip')->name('bulk.download');
+            Route::get('/send/{month}', 'bulkSendPayslip')->name('bulk.send');
+
         });
 
 
@@ -351,6 +355,25 @@ Route::middleware(['sanitizer', 'https', "throttle:$hitLimit,1", 'demo'])->prefi
             Route::post('/update/status', 'updateStatus')->name('update.status');
             Route::get('/destroy/{id}', 'destroy')->name('destroy');
             Route::get('/details/{uid}', 'details')->name('details');
+
+            Route::post('cash/store', 'cashIn')->name('cash.store');
+        });
+
+        #Office account section
+        Route::controller(AccountController::class)->prefix('/account')->name('account.')->group(function () {
+
+            Route::get('/list', 'list')->name('list');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/bulk/action', 'bulk')->name('bulk');
+            Route::post('/update/', 'update')->name('update');
+            Route::post('/update/status', 'updateStatus')->name('update.status');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
+            Route::get('/details/{uid}', 'details')->name('details');
+
+            Route::post('/balance/add', 'addBalance')->name('balance.add');
+
         });
 
         #Office hours

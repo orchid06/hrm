@@ -2,13 +2,14 @@
 
 namespace App\Models\Admin;
 
-use App\Enums\StatusEnum;
+
+use App\Models\Core\File;
 use App\Traits\Filterable;
 use App\Traits\ModelAction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
 class Expense extends Model
@@ -31,5 +32,9 @@ class Expense extends Model
     public function category() : BelongsTo
     {
         return $this->belongsTo(ExpenseCategory::class, "expense_category_id");
+    }
+
+    public function file(): MorphMany{
+        return $this->morphMany(File::class, 'fileable');
     }
 }

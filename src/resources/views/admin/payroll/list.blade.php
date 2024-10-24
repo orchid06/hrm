@@ -142,12 +142,18 @@
                                             @endif
 
                                             @if(check_permission('download_payslip') )
-                                                <a href="{{route('admin.payslip.download' , ['userId' => $payroll->user->id, 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
+                                                <a href="{{route('admin.payslip.bulk.download' , [ 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Download Pdf')}}">
                                                     <i class="las la-file-pdf"></i>
                                                 </a>
                                             @endif
 
-                                       
+                                            @if(check_permission('send_payslip') )
+                                                <a href="{{route('admin.payslip.bulk.send'  , [ 'month' => $payroll->pay_period])}}" class="icon-btn success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{translate('Send Mail')}}">
+                                                    <i class="las la-paper-plane"></i>
+                                                </a>
+                                            @endif
+
+
                                     </div>
                                 </td>
                             </tr>

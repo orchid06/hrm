@@ -373,7 +373,7 @@ enum NotificationTemplateEnum :string {
                         self::PAYSLIP_MAIL->value => [
                             "name"      => k2t(self::PAYSLIP_MAIL->value),
                             "subject"   => "Your Payslip for {{month}}",
-                            "body"      => "Please find attached your payslip for {{month}}. If you have any questions, feel free to reach out.<br>Best regards,<br>{{company_name}}",
+                            "body"      => "Please find your payslip for {{month}} attached. If you have any questions, feel free to reach out.<br>Best regards,<br>{{company_name}}",
                             "sms_body"  => "your payslip for {{month}} has been sent to your email. Please check your inbox.",
                             "template_key" => [
                                 'company_name'  => "company_name",
